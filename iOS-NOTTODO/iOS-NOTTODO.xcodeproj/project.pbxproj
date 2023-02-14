@@ -9,21 +9,35 @@
 /* Begin PBXBuildFile section */
 		3B027A78299C31B500BEB65C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B027A77299C31B500BEB65C /* AppDelegate.swift */; };
 		3B027A7A299C31B500BEB65C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B027A79299C31B500BEB65C /* SceneDelegate.swift */; };
-		3B027A7C299C31B500BEB65C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B027A7B299C31B500BEB65C /* ViewController.swift */; };
-		3B027A7F299C31B500BEB65C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3B027A7D299C31B500BEB65C /* Main.storyboard */; };
+		3B027A7C299C31B500BEB65C /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B027A7B299C31B500BEB65C /* AuthViewController.swift */; };
 		3B027A81299C31B600BEB65C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3B027A80299C31B600BEB65C /* Assets.xcassets */; };
 		3B027A84299C31B600BEB65C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3B027A82299C31B600BEB65C /* LaunchScreen.storyboard */; };
+		3B027A92299C33FE00BEB65C /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B027A91299C33FE00BEB65C /* UIColor+.swift */; };
+		3B027A94299C340600BEB65C /* UIFont+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B027A93299C340600BEB65C /* UIFont+.swift */; };
+		3B027A96299C340C00BEB65C /* UIImage+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B027A95299C340C00BEB65C /* UIImage+.swift */; };
+		3B027A9E299C34DA00BEB65C /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B027A9D299C34DA00BEB65C /* HomeViewController.swift */; };
+		3B027AA0299C353700BEB65C /* AddMissionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B027A9F299C353700BEB65C /* AddMissionViewController.swift */; };
+		3B027AA2299C355800BEB65C /* AchievementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B027AA1299C355800BEB65C /* AchievementViewController.swift */; };
+		3B027AA4299C357000BEB65C /* MyInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B027AA3299C357000BEB65C /* MyInfoViewController.swift */; };
+		3B027AAC299C35E500BEB65C /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3B027AAB299C35E500BEB65C /* Colors.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		3B027A74299C31B500BEB65C /* iOS-NOTTODO.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "iOS-NOTTODO.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B027A77299C31B500BEB65C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3B027A79299C31B500BEB65C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		3B027A7B299C31B500BEB65C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		3B027A7E299C31B500BEB65C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		3B027A7B299C31B500BEB65C /* AuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
 		3B027A80299C31B600BEB65C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3B027A83299C31B600BEB65C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3B027A85299C31B600BEB65C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3B027A91299C33FE00BEB65C /* UIColor+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+.swift"; sourceTree = "<group>"; };
+		3B027A93299C340600BEB65C /* UIFont+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+.swift"; sourceTree = "<group>"; };
+		3B027A95299C340C00BEB65C /* UIImage+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+.swift"; sourceTree = "<group>"; };
+		3B027A9D299C34DA00BEB65C /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		3B027A9F299C353700BEB65C /* AddMissionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMissionViewController.swift; sourceTree = "<group>"; };
+		3B027AA1299C355800BEB65C /* AchievementViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementViewController.swift; sourceTree = "<group>"; };
+		3B027AA3299C357000BEB65C /* MyInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInfoViewController.swift; sourceTree = "<group>"; };
+		3B027AAB299C35E500BEB65C /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,15 +70,166 @@
 		3B027A76299C31B500BEB65C /* iOS-NOTTODO */ = {
 			isa = PBXGroup;
 			children = (
-				3B027A77299C31B500BEB65C /* AppDelegate.swift */,
-				3B027A79299C31B500BEB65C /* SceneDelegate.swift */,
-				3B027A7B299C31B500BEB65C /* ViewController.swift */,
-				3B027A7D299C31B500BEB65C /* Main.storyboard */,
-				3B027A80299C31B600BEB65C /* Assets.xcassets */,
-				3B027A82299C31B600BEB65C /* LaunchScreen.storyboard */,
-				3B027A85299C31B600BEB65C /* Info.plist */,
+				3B027A8B299C335E00BEB65C /* Application */,
+				3B027A8C299C337900BEB65C /* Global */,
+				3B027A90299C33CA00BEB65C /* Network */,
+				3B027A97299C343D00BEB65C /* Presentation */,
+				3B027AA6299C359900BEB65C /* Resource */,
 			);
 			path = "iOS-NOTTODO";
+			sourceTree = "<group>";
+		};
+		3B027A8B299C335E00BEB65C /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				3B027A77299C31B500BEB65C /* AppDelegate.swift */,
+				3B027A79299C31B500BEB65C /* SceneDelegate.swift */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
+		3B027A8C299C337900BEB65C /* Global */ = {
+			isa = PBXGroup;
+			children = (
+				3B027A8D299C339300BEB65C /* Literals */,
+				3B027A8E299C339B00BEB65C /* Extensions */,
+			);
+			path = Global;
+			sourceTree = "<group>";
+		};
+		3B027A8D299C339300BEB65C /* Literals */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Literals;
+			sourceTree = "<group>";
+		};
+		3B027A8E299C339B00BEB65C /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				3B027A8F299C33B100BEB65C /* UI */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		3B027A8F299C33B100BEB65C /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				3B027A91299C33FE00BEB65C /* UIColor+.swift */,
+				3B027A93299C340600BEB65C /* UIFont+.swift */,
+				3B027A95299C340C00BEB65C /* UIImage+.swift */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		3B027A90299C33CA00BEB65C /* Network */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		3B027A97299C343D00BEB65C /* Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				3B027AA5299C358300BEB65C /* TabBar */,
+				3B027A98299C347400BEB65C /* Auth */,
+				3B027A99299C347A00BEB65C /* Home */,
+				3B027A9C299C349A00BEB65C /* AddMission */,
+				3B027A9B299C348800BEB65C /* Achievement */,
+				3B027A9A299C348200BEB65C /* MyInfo */,
+			);
+			path = Presentation;
+			sourceTree = "<group>";
+		};
+		3B027A98299C347400BEB65C /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				3B027A7B299C31B500BEB65C /* AuthViewController.swift */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
+		3B027A99299C347A00BEB65C /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				3B027A9D299C34DA00BEB65C /* HomeViewController.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		3B027A9A299C348200BEB65C /* MyInfo */ = {
+			isa = PBXGroup;
+			children = (
+				3B027AA3299C357000BEB65C /* MyInfoViewController.swift */,
+			);
+			path = MyInfo;
+			sourceTree = "<group>";
+		};
+		3B027A9B299C348800BEB65C /* Achievement */ = {
+			isa = PBXGroup;
+			children = (
+				3B027AA1299C355800BEB65C /* AchievementViewController.swift */,
+			);
+			path = Achievement;
+			sourceTree = "<group>";
+		};
+		3B027A9C299C349A00BEB65C /* AddMission */ = {
+			isa = PBXGroup;
+			children = (
+				3B027A9F299C353700BEB65C /* AddMissionViewController.swift */,
+			);
+			path = AddMission;
+			sourceTree = "<group>";
+		};
+		3B027AA5299C358300BEB65C /* TabBar */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = TabBar;
+			sourceTree = "<group>";
+		};
+		3B027AA6299C359900BEB65C /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				3B027A85299C31B600BEB65C /* Info.plist */,
+				3B027AAA299C35D000BEB65C /* Assets */,
+				3B027AA9299C35CB00BEB65C /* Colors */,
+				3B027AA8299C35C500BEB65C /* Fonts */,
+				3B027AA7299C35B300BEB65C /* Storyboard */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
+		3B027AA7299C35B300BEB65C /* Storyboard */ = {
+			isa = PBXGroup;
+			children = (
+				3B027A82299C31B600BEB65C /* LaunchScreen.storyboard */,
+			);
+			path = Storyboard;
+			sourceTree = "<group>";
+		};
+		3B027AA8299C35C500BEB65C /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
+		3B027AA9299C35CB00BEB65C /* Colors */ = {
+			isa = PBXGroup;
+			children = (
+				3B027AAB299C35E500BEB65C /* Colors.xcassets */,
+			);
+			path = Colors;
+			sourceTree = "<group>";
+		};
+		3B027AAA299C35D000BEB65C /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				3B027A80299C31B600BEB65C /* Assets.xcassets */,
+			);
+			path = Assets;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -125,9 +290,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3B027AAC299C35E500BEB65C /* Colors.xcassets in Resources */,
 				3B027A84299C31B600BEB65C /* LaunchScreen.storyboard in Resources */,
 				3B027A81299C31B600BEB65C /* Assets.xcassets in Resources */,
-				3B027A7F299C31B500BEB65C /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -138,23 +303,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3B027A7C299C31B500BEB65C /* ViewController.swift in Sources */,
+				3B027A7C299C31B500BEB65C /* AuthViewController.swift in Sources */,
+				3B027A92299C33FE00BEB65C /* UIColor+.swift in Sources */,
+				3B027AA4299C357000BEB65C /* MyInfoViewController.swift in Sources */,
+				3B027A94299C340600BEB65C /* UIFont+.swift in Sources */,
+				3B027AA0299C353700BEB65C /* AddMissionViewController.swift in Sources */,
+				3B027A96299C340C00BEB65C /* UIImage+.swift in Sources */,
 				3B027A78299C31B500BEB65C /* AppDelegate.swift in Sources */,
+				3B027A9E299C34DA00BEB65C /* HomeViewController.swift in Sources */,
 				3B027A7A299C31B500BEB65C /* SceneDelegate.swift in Sources */,
+				3B027AA2299C355800BEB65C /* AchievementViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		3B027A7D299C31B500BEB65C /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				3B027A7E299C31B500BEB65C /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		3B027A82299C31B600BEB65C /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -289,10 +453,9 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = CQJ9UKUU35;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "iOS-NOTTODO/Info.plist";
+				INFOPLIST_FILE = "iOS-NOTTODO/Resource/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -317,10 +480,9 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = CQJ9UKUU35;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "iOS-NOTTODO/Info.plist";
+				INFOPLIST_FILE = "iOS-NOTTODO/Resource/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
