@@ -6,3 +6,19 @@
 //
 
 import UIKit
+
+extension UIFont {
+    
+    // MARK: - Pretendard Font
+    
+    public enum PretendardType: String {
+        case semiBold = "SemiBold"
+        case regular = "Regular"
+        case light = "Light"
+        case medium = "Medium"
+    }
+    
+    static func Pretandard(_ type: PretendardType, size: CGFloat) -> UIFont {
+        return UIFont(name: "Pretendard-\(type.rawValue)", size: size)!
+    }
+}
