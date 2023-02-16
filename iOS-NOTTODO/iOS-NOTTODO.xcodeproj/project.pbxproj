@@ -20,6 +20,13 @@
 		3B027AA2299C355800BEB65C /* AchievementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B027AA1299C355800BEB65C /* AchievementViewController.swift */; };
 		3B027AA4299C357000BEB65C /* MyInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B027AA3299C357000BEB65C /* MyInfoViewController.swift */; };
 		3B027AAC299C35E500BEB65C /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3B027AAB299C35E500BEB65C /* Colors.xcassets */; };
+		3B146D98299D077800B17B62 /* Pretendard-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3B146D97299D077800B17B62 /* Pretendard-Medium.otf */; };
+		3B146D9A299D079D00B17B62 /* Pretendard-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3B146D99299D079D00B17B62 /* Pretendard-Light.otf */; };
+		3B146D9C299D07D500B17B62 /* Pretendard-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3B146D9B299D07D500B17B62 /* Pretendard-Regular.otf */; };
+		3B146D9E299D081400B17B62 /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3B146D9D299D081400B17B62 /* Pretendard-SemiBold.otf */; };
+		3B146DA1299D0A7A00B17B62 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 3B146DA0299D0A7A00B17B62 /* SnapKit */; };
+		3B146DA4299D0A8600B17B62 /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = 3B146DA3299D0A8600B17B62 /* Then */; };
+		3B146DA7299D0AA300B17B62 /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = 3B146DA6299D0AA300B17B62 /* Moya */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +45,10 @@
 		3B027AA1299C355800BEB65C /* AchievementViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementViewController.swift; sourceTree = "<group>"; };
 		3B027AA3299C357000BEB65C /* MyInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInfoViewController.swift; sourceTree = "<group>"; };
 		3B027AAB299C35E500BEB65C /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
+		3B146D97299D077800B17B62 /* Pretendard-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Medium.otf"; sourceTree = "<group>"; };
+		3B146D99299D079D00B17B62 /* Pretendard-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Light.otf"; sourceTree = "<group>"; };
+		3B146D9B299D07D500B17B62 /* Pretendard-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Regular.otf"; sourceTree = "<group>"; };
+		3B146D9D299D081400B17B62 /* Pretendard-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-SemiBold.otf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -45,6 +56,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3B146DA1299D0A7A00B17B62 /* SnapKit in Frameworks */,
+				3B146DA4299D0A8600B17B62 /* Then in Frameworks */,
+				3B146DA7299D0AA300B17B62 /* Moya in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -212,6 +226,10 @@
 		3B027AA8299C35C500BEB65C /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
+				3B146D9D299D081400B17B62 /* Pretendard-SemiBold.otf */,
+				3B146D9B299D07D500B17B62 /* Pretendard-Regular.otf */,
+				3B146D99299D079D00B17B62 /* Pretendard-Light.otf */,
+				3B146D97299D077800B17B62 /* Pretendard-Medium.otf */,
 			);
 			path = Fonts;
 			sourceTree = "<group>";
@@ -248,6 +266,11 @@
 			dependencies = (
 			);
 			name = "iOS-NOTTODO";
+			packageProductDependencies = (
+				3B146DA0299D0A7A00B17B62 /* SnapKit */,
+				3B146DA3299D0A8600B17B62 /* Then */,
+				3B146DA6299D0AA300B17B62 /* Moya */,
+			);
 			productName = "iOS-NOTTODO";
 			productReference = 3B027A74299C31B500BEB65C /* iOS-NOTTODO.app */;
 			productType = "com.apple.product-type.application";
@@ -276,6 +299,11 @@
 				Base,
 			);
 			mainGroup = 3B027A6B299C31B500BEB65C;
+			packageReferences = (
+				3B146D9F299D0A7A00B17B62 /* XCRemoteSwiftPackageReference "SnapKit" */,
+				3B146DA2299D0A8600B17B62 /* XCRemoteSwiftPackageReference "Then" */,
+				3B146DA5299D0AA300B17B62 /* XCRemoteSwiftPackageReference "Moya" */,
+			);
 			productRefGroup = 3B027A75299C31B500BEB65C /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -291,8 +319,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				3B027AAC299C35E500BEB65C /* Colors.xcassets in Resources */,
+				3B146D9C299D07D500B17B62 /* Pretendard-Regular.otf in Resources */,
+				3B146D9E299D081400B17B62 /* Pretendard-SemiBold.otf in Resources */,
 				3B027A84299C31B600BEB65C /* LaunchScreen.storyboard in Resources */,
 				3B027A81299C31B600BEB65C /* Assets.xcassets in Resources */,
+				3B146D9A299D079D00B17B62 /* Pretendard-Light.otf in Resources */,
+				3B146D98299D077800B17B62 /* Pretendard-Medium.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -520,6 +552,51 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		3B146D9F299D0A7A00B17B62 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit";
+			requirement = {
+				branch = develop;
+				kind = branch;
+			};
+		};
+		3B146DA2299D0A8600B17B62 /* XCRemoteSwiftPackageReference "Then" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/devxoul/Then";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+		3B146DA5299D0AA300B17B62 /* XCRemoteSwiftPackageReference "Moya" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Moya/Moya";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		3B146DA0299D0A7A00B17B62 /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3B146D9F299D0A7A00B17B62 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+		3B146DA3299D0A8600B17B62 /* Then */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3B146DA2299D0A8600B17B62 /* XCRemoteSwiftPackageReference "Then" */;
+			productName = Then;
+		};
+		3B146DA6299D0AA300B17B62 /* Moya */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3B146DA5299D0AA300B17B62 /* XCRemoteSwiftPackageReference "Moya" */;
+			productName = Moya;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 3B027A6C299C31B500BEB65C /* Project object */;
 }
