@@ -49,6 +49,7 @@
 		3B146D99299D079D00B17B62 /* Pretendard-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Light.otf"; sourceTree = "<group>"; };
 		3B146D9B299D07D500B17B62 /* Pretendard-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Regular.otf"; sourceTree = "<group>"; };
 		3B146D9D299D081400B17B62 /* Pretendard-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-SemiBold.otf"; sourceTree = "<group>"; };
+		3BDE6157299EDD02001CCEA9 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +69,7 @@
 		3B027A6B299C31B500BEB65C = {
 			isa = PBXGroup;
 			children = (
+				3BDE6157299EDD02001CCEA9 /* .swiftlint.yml */,
 				3B027A76299C31B500BEB65C /* iOS-NOTTODO */,
 				3B027A75299C31B500BEB65C /* Products */,
 			);
@@ -257,6 +259,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3B027A88299C31B600BEB65C /* Build configuration list for PBXNativeTarget "iOS-NOTTODO" */;
 			buildPhases = (
+				3BDE6159299EDDC5001CCEA9 /* SwiftLint Script */,
 				3B027A70299C31B500BEB65C /* Sources */,
 				3B027A71299C31B500BEB65C /* Frameworks */,
 				3B027A72299C31B500BEB65C /* Resources */,
@@ -329,6 +332,28 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		3BDE6159299EDDC5001CCEA9 /* SwiftLint Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "SwiftLint Script";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export PATH=\"$PATH:/opt/homebrew/bin\"\nif which swiftlint > /dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		3B027A70299C31B500BEB65C /* Sources */ = {
