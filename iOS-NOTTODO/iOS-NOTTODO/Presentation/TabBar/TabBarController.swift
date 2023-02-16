@@ -7,23 +7,61 @@
 
 import UIKit
 
-class TabBarController: UITabBarController {
+final class TabBarController: UITabBarController {
+    
+    // MARK: - Properties
+    
+    private var tabs: [UIViewController] = []
+    private lazy var defaultTabBarHeight = { tabBar.frame.size.height }()
 
+    // MARK: - Life Cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        setTabBarItems()
+        setTabBarUI()
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        setTabBarHeight()
     }
-    */
+}
 
+private extension TabBarController {
+    func setTabBarItems() {
+        tabs = [HomeViewController(),
+                AchievementViewController(),
+                MyInfoViewController()
+        ]
+        
+        TabBarItemType.allCases.forEach {
+            tabs[$0.rawValue].tabBarItem = $0.setTabBarItem()
+            tabs[$0.rawValue].tabBarItem.tag = $0.rawValue
+            tabs[$0.rawValue].tabBarItem.imageInsets = UIEdgeInsets.init(
+                top: convertByHeightRatio(16),
+                left: 0,
+                bottom: convertByHeightRatio(-16),
+                right: 0
+            )
+        }
+        
+        setViewControllers(tabs, animated: false)
+    }
+    
+    func setTabBarUI() {
+        tabBar.backgroundColor = .gray1
+        tabBar.layer.cornerRadius = convertByHeightRatio(15)
+        tabBar.itemPositioning = .centered
+    }
+    
+    func setTabBarHeight() {
+        let newTabBarHeight = defaultTabBarHeight + convertByHeightRatio(7)
+        
+        var newFrame = tabBar.frame
+        newFrame.size.height = newTabBarHeight
+        newFrame.origin.y = view.frame.size.height - newTabBarHeight
+
+        tabBar.frame = newFrame
+    }
 }

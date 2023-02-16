@@ -27,6 +27,10 @@
 		3B146DA1299D0A7A00B17B62 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 3B146DA0299D0A7A00B17B62 /* SnapKit */; };
 		3B146DA4299D0A8600B17B62 /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = 3B146DA3299D0A8600B17B62 /* Then */; };
 		3B146DA7299D0AA300B17B62 /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = 3B146DA6299D0AA300B17B62 /* Moya */; };
+		3B482FA3299EA9CB00BCF424 /* TabBarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B482FA2299EA9CB00BCF424 /* TabBarItem.swift */; };
+		3B482FA5299EAB8800BCF424 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B482FA4299EAB8800BCF424 /* TabBarController.swift */; };
+		3B482FA7299EB8FD00BCF424 /* UIViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B482FA6299EB8FD00BCF424 /* UIViewController+.swift */; };
+		3B482FA9299EB95400BCF424 /* UIScreen+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B482FA8299EB95400BCF424 /* UIScreen+.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -49,6 +53,10 @@
 		3B146D99299D079D00B17B62 /* Pretendard-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Light.otf"; sourceTree = "<group>"; };
 		3B146D9B299D07D500B17B62 /* Pretendard-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Regular.otf"; sourceTree = "<group>"; };
 		3B146D9D299D081400B17B62 /* Pretendard-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-SemiBold.otf"; sourceTree = "<group>"; };
+		3B482FA2299EA9CB00BCF424 /* TabBarItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarItem.swift; sourceTree = "<group>"; };
+		3B482FA4299EAB8800BCF424 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		3B482FA6299EB8FD00BCF424 /* UIViewController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+.swift"; sourceTree = "<group>"; };
+		3B482FA8299EB95400BCF424 /* UIScreen+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScreen+.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,6 +130,8 @@
 			isa = PBXGroup;
 			children = (
 				3B027A8F299C33B100BEB65C /* UI */,
+				3B482FA6299EB8FD00BCF424 /* UIViewController+.swift */,
+				3B482FA8299EB95400BCF424 /* UIScreen+.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -199,6 +209,8 @@
 		3B027AA5299C358300BEB65C /* TabBar */ = {
 			isa = PBXGroup;
 			children = (
+				3B482FA2299EA9CB00BCF424 /* TabBarItem.swift */,
+				3B482FA4299EAB8800BCF424 /* TabBarController.swift */,
 			);
 			path = TabBar;
 			sourceTree = "<group>";
@@ -339,10 +351,14 @@
 				3B027A92299C33FE00BEB65C /* UIColor+.swift in Sources */,
 				3B027AA4299C357000BEB65C /* MyInfoViewController.swift in Sources */,
 				3B027A94299C340600BEB65C /* UIFont+.swift in Sources */,
+				3B482FA3299EA9CB00BCF424 /* TabBarItem.swift in Sources */,
 				3B027AA0299C353700BEB65C /* AddMissionViewController.swift in Sources */,
 				3B027A96299C340C00BEB65C /* UIImage+.swift in Sources */,
 				3B027A78299C31B500BEB65C /* AppDelegate.swift in Sources */,
 				3B027A9E299C34DA00BEB65C /* HomeViewController.swift in Sources */,
+				3B482FA9299EB95400BCF424 /* UIScreen+.swift in Sources */,
+				3B482FA7299EB8FD00BCF424 /* UIViewController+.swift in Sources */,
+				3B482FA5299EAB8800BCF424 /* TabBarController.swift in Sources */,
 				3B027A7A299C31B500BEB65C /* SceneDelegate.swift in Sources */,
 				3B027AA2299C355800BEB65C /* AchievementViewController.swift in Sources */,
 			);
