@@ -13,5 +13,12 @@ final class AchievementViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setUI()
+    }
+}
+
+extension AchievementViewController {
+    private func setUI() {
+        view.backgroundColor = .white
     }
 }

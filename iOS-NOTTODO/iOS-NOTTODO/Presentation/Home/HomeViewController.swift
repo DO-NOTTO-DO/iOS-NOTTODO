@@ -7,11 +7,18 @@
 
 import UIKit
 
-final class HomeViewController: UIViewController {
+class HomeViewController: UIViewController {
     
     // MARK: - Life Cycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        setUI()
+    }
+}
+
+extension HomeViewController {
+    private func setUI() {
+        view.backgroundColor = .white
     }
 }
