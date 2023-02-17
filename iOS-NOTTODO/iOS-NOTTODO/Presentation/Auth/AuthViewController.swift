@@ -13,5 +13,12 @@ final class AuthViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        setUI()
+    }
+}
+
+extension AuthViewController {
+    private func setUI() {
+        view.backgroundColor = .ntdBlack
     }
 }
