@@ -20,6 +20,7 @@ final class AuthViewController: UIViewController {
     // private var kakaoLoginButton = UIButton(configuration: .plain())
     private var kakaoLoginButton = UIButton()
     private var appleLoginButton = UIButton()
+    lazy var kakaoAuthModel: KakaoAuthModel = { KakaoAuthModel() }()
     
     // MARK: - Life Cycle
     
@@ -62,7 +63,11 @@ extension AuthViewController {
 //            $0.configuration?.contentInsets = NSDirectionalEdgeInsets.init(top: 0, leading: 0, bottom: 0, trailing: 0)
 //        }
         
-        kakaoLoginButton.setBackgroundImage(UIImage(named: "btn_login_forkakao"), for: .normal)
+        kakaoLoginButton.do {
+            $0.setBackgroundImage(UIImage(named: "btn_login_forkakao"), for: .normal)
+            $0.addTarget(self, action: #selector(kakaoLoginButtonClicked), for: .touchUpInside)
+        }
+        
         appleLoginButton.setBackgroundImage(UIImage(named: "btn_login_forapple"), for: .normal)
         
     }
@@ -104,5 +109,12 @@ extension AuthViewController {
             $0.height.equalTo(37)
         }
         
+    }
+    
+    // MARK: - @objc Methods
+    
+    @objc func kakaoLoginButtonClicked() {
+        print("kakao login button clicked")
+        kakaoAuthModel.KakaoLogin()
     }
 }
