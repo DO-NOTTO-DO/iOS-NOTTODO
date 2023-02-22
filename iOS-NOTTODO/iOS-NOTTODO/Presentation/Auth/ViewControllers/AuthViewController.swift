@@ -205,6 +205,8 @@ extension AuthViewController: ASAuthorizationControllerDelegate, ASAuthorization
             print("User Email : \(email ?? "")")
             print("User Name : \((fullName?.givenName ?? "") + (fullName?.familyName ?? ""))")
             
+            self.presentToHomeViewController()
+            
         default:
             break
         }
