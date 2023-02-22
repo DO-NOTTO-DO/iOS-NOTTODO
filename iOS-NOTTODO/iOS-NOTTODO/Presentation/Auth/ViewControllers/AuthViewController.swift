@@ -39,14 +39,14 @@ extension AuthViewController {
     private func setUI() {
         view.backgroundColor = .ntdBlack
         loginMainLabel.do {
-            $0.font = .Pretandard(.semiBold, size: 24)
+            $0.font = .Pretendard(.semiBold, size: 24)
             $0.textColor = .white
             $0.text = "나만을 위한 추천과 \n안전한 데이터 보관의 시작!" // I18N.login
             $0.numberOfLines = 2
         }
         
         loginSubLabel.do {
-            $0.font = .Pretandard(.medium, size: 16)
+            $0.font = .Pretendard(.medium, size: 16)
             $0.textColor = .gray4
             $0.text = "계정을 연동하면 언제 어디서든 \n낫투두 기록을 관리할 수 있어요." // I18N.agreeLogin
             $0.numberOfLines = 2

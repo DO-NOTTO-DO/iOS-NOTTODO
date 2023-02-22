@@ -18,7 +18,7 @@ extension UIFont {
         case medium = "Medium"
     }
     
-    static func Pretandard(_ type: PretendardType, size: CGFloat) -> UIFont {
+    static func Pretendard(_ type: PretendardType, size: CGFloat) -> UIFont {
         return UIFont(name: "Pretendard-\(type.rawValue)", size: size)!
     }
 }
