@@ -41,18 +41,18 @@ extension AuthViewController {
         loginMainLabel.do {
             $0.font = .Pretendard(.semiBold, size: 24)
             $0.textColor = .white
-            $0.text = "나만을 위한 추천과 \n안전한 데이터 보관의 시작!" // I18N.login
+            $0.text = I18N.loginMain
             $0.numberOfLines = 2
         }
         
         loginSubLabel.do {
             $0.font = .Pretendard(.medium, size: 16)
             $0.textColor = .gray4
-            $0.text = "계정을 연동하면 언제 어디서든 \n낫투두 기록을 관리할 수 있어요." // I18N.agreeLogin
+            $0.text = I18N.loginSub
             $0.numberOfLines = 2
         }
         
-        kakaoLoginImageView.image = UIImage(named: "label_login_kakao") // .label_login_kakao
+        kakaoLoginImageView.image = .kakaoLoginLabel
         
         //        kakaoLoginButton.do {
         //            $0.configuration?.title = "카카오 로그인"
@@ -67,21 +67,19 @@ extension AuthViewController {
         //        }
         
         kakaoLoginButton.do {
-            $0.setBackgroundImage(UIImage(named: "btn_login_forkakao"), for: .normal)
+            $0.setBackgroundImage(.kakaoLogin, for: .normal)
             $0.addTarget(self, action: #selector(kakaoLoginButtonClicked), for: .touchUpInside)
         }
         
         appleLoginButton.do {
-            $0.setBackgroundImage(UIImage(named: "btn_login_forapple"), for: .normal)
+            $0.setBackgroundImage(.appleLogin, for: .normal)
             $0.addTarget(self, action: #selector(appleLoginButtonClicked), for: .touchUpInside)
         }
     }
     
     private func setLayout() {
         
-        [loginMainLabel, loginSubLabel, kakaoLoginImageView, kakaoLoginButton, appleLoginButton].forEach {
-            view.addSubview($0)
-        }
+        view.addSubviews(loginMainLabel, loginSubLabel, kakaoLoginImageView, kakaoLoginButton, appleLoginButton)
         
         loginMainLabel.snp.makeConstraints {
             $0.top.equalToSuperview().offset(155)

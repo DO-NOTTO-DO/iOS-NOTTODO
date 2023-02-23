@@ -17,7 +17,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             let window = UIWindow(windowScene: windowScene)
             window.overrideUserInterfaceStyle = UIUserInterfaceStyle.light
             
-            let rootViewController = TabBarController() // AuthViewController() 
+            let rootViewController = TabBarController()
             let navigationController = UINavigationController(rootViewController: rootViewController)
             navigationController.isNavigationBarHidden = true
             window.rootViewController = navigationController
@@ -28,7 +28,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
             if let url = URLContexts.first?.url {
-                if (AuthApi.isKakaoTalkLoginUrl(url)) {
+                if AuthApi.isKakaoTalkLoginUrl(url) {
                     _ = AuthController.handleOpenUrl(url: url)
                 }
             }
