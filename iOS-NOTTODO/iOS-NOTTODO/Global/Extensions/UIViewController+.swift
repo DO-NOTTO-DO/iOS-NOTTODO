@@ -32,4 +32,9 @@ extension UIViewController {
     func convertByHeightRatio(_ convert: CGFloat) -> CGFloat {
         return (convert / 812) * getDeviceHeight()
     }
+    
+    /// 화면 터치시 작성 종료하는 메서드
+    open override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
 }
