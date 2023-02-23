@@ -56,6 +56,7 @@
 		6CF4707029A73A15008D145C /* RecommendActionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CF4706F29A73A15008D145C /* RecommendActionViewController.swift */; };
 		6CF4707429A73D4C008D145C /* RecommendCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CF4707329A73D4C008D145C /* RecommendCollectionViewCell.swift */; };
 		6CF4707629A73D62008D145C /* RecommendModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CF4707529A73D62008D145C /* RecommendModel.swift */; };
+		6CF4707A29A7AAFF008D145C /* PaddingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CF4707929A7AAFF008D145C /* PaddingLabel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -100,6 +101,7 @@
 		6CF4706F29A73A15008D145C /* RecommendActionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendActionViewController.swift; sourceTree = "<group>"; };
 		6CF4707329A73D4C008D145C /* RecommendCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendCollectionViewCell.swift; sourceTree = "<group>"; };
 		6CF4707529A73D62008D145C /* RecommendModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendModel.swift; sourceTree = "<group>"; };
+		6CF4707929A7AAFF008D145C /* PaddingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddingLabel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -209,6 +211,7 @@
 		3B027A97299C343D00BEB65C /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				6CF4707729A7AAD1008D145C /* Common */,
 				6CF4706B29A737E8008D145C /* Recommend */,
 				3B027AA5299C358300BEB65C /* TabBar */,
 				3B027A98299C347400BEB65C /* Auth */,
@@ -380,6 +383,22 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
+		6CF4707729A7AAD1008D145C /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				6CF4707829A7AADB008D145C /* PaddingLabel */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		6CF4707829A7AADB008D145C /* PaddingLabel */ = {
+			isa = PBXGroup;
+			children = (
+				6CF4707929A7AAFF008D145C /* PaddingLabel.swift */,
+			);
+			path = PaddingLabel;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -506,6 +525,7 @@
 				3B482FA3299EA9CB00BCF424 /* TabBarItem.swift in Sources */,
 				3B027AA0299C353700BEB65C /* AddMissionViewController.swift in Sources */,
 				3B027A96299C340C00BEB65C /* UIImage+.swift in Sources */,
+				6CF4707A29A7AAFF008D145C /* PaddingLabel.swift in Sources */,
 				3B027A78299C31B500BEB65C /* AppDelegate.swift in Sources */,
 				3B14A14329A6FEE400F92897 /* UITextField+.swift in Sources */,
 				6CF4707629A73D62008D145C /* RecommendModel.swift in Sources */,

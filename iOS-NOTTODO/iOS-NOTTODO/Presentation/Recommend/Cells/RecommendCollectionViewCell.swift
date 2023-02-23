@@ -18,7 +18,7 @@ class RecommendCollectionViewCell: UICollectionViewCell {
 
     // MARK: - UI Components
     
-    let tagLabel = UIButton()
+    let tagLabel = PaddingLabel(padding: UIEdgeInsets(top: 4, left: 17, bottom: 4, right: 17))
     let titleLabel = UILabel()
     let bodyLabel = UILabel()
     let bodyImage = UIImageView()
@@ -48,10 +48,10 @@ extension RecommendCollectionViewCell {
         contentView.layer.cornerRadius = 12
         
         tagLabel.do {
-            $0.setTitleColor(.white, for: .normal)
-            $0.titleLabel?.font = .Pretendard(.medium, size: 14)
+            $0.font = .Pretendard(.medium, size: 14)
+            $0.textColor = .white
             $0.backgroundColor = .gray2
-            $0.contentEdgeInsets = UIEdgeInsets(top: 4, left: 17, bottom: 4, right: 17)
+            $0.layer.masksToBounds = true
             $0.layer.cornerRadius = 50
         }
         
@@ -95,7 +95,7 @@ extension RecommendCollectionViewCell {
     }
     
     func configure(model: RecommendModel) {
-        tagLabel.setTitle(model.tag, for: .normal)
+        tagLabel.text = model.tag
         titleLabel.text = model.title
         bodyLabel.text = model.body
         bodyImage.image = UIImage(named: model.image)
