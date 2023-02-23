@@ -16,7 +16,7 @@ struct NetworkBase {
         print(decodedData)
         switch statusCode {
         case 200:
-            return .success(decodedData.data)
+            return .success(decodedData.data as Any)
         case 201..<300:
             return .success(decodedData.status)
         case 400..<500:

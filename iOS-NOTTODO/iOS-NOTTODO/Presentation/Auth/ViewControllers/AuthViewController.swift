@@ -148,7 +148,7 @@ extension AuthViewController {
             } else {
                 print("loginWithKakaoTalk() success.")
                 
-                UserApi.shared.me {(user, error) in
+                UserApi.shared.me {(_, error) in
                     if let error = error {
                         print(error)
                     } else {
@@ -166,7 +166,7 @@ extension AuthViewController {
             } else {
                 print("loginWithKakaoAccount() success.")
                 
-                UserApi.shared.me {(user, error) in
+                UserApi.shared.me {(_, error) in
                     if let error = error {
                         print(error)
                     } else {
