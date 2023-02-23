@@ -21,7 +21,7 @@ class RecommendCollectionViewCell: UICollectionViewCell {
     let tagLabel = UIButton()
     let titleLabel = UILabel()
     let bodyLabel = UILabel()
-    let bodyImage = UIImage()
+    let bodyImage = UIImageView()
     
     // MARK: - View Life Cycle
     
@@ -43,23 +43,25 @@ class RecommendCollectionViewCell: UICollectionViewCell {
 extension RecommendCollectionViewCell {
     
     private func setUI() {
-        backgroundColor = .gray1
+        contentView.backgroundColor = .gray1
+        contentView.layer.masksToBounds = true
+        contentView.layer.cornerRadius = 12
         
         tagLabel.do {
             $0.setTitleColor(.white, for: .normal)
-            $0.titleLabel?.font = .Pretendard(medium, size: 14)
+            $0.titleLabel?.font = .Pretendard(.medium, size: 14)
             $0.backgroundColor = .gray2
-            $0.contentEdgeInsets = UIEdgeInsets(top: 4, left: 17, bottom: 17, right: 4)
+            $0.contentEdgeInsets = UIEdgeInsets(top: 4, left: 17, bottom: 4, right: 17)
             $0.layer.cornerRadius = 50
         }
         
         titleLabel.do {
-            $0.font = .Pretendard(semibold, size: 18)
+            $0.font = .Pretendard(.semiBold, size: 18)
             $0.textColor = .white
         }
         
         bodyLabel.do {
-            $0.font = .Pretendard(light, size: 14)
+            $0.font = .Pretendard(.light, size: 14)
             $0.textColor = .gray4
             $0.numberOfLines = 0
         }
@@ -67,11 +69,11 @@ extension RecommendCollectionViewCell {
     }
     
     private func setLayout() {
-        contentView.addSubviews(tageLabel, titleLabel, bodyLabel, bodyImage)
+        contentView.addSubviews(tagLabel, titleLabel, bodyLabel, bodyImage)
         
         tagLabel.snp.makeConstraints {
             $0.top.equalToSuperview().offset(21)
-            $0.leading.equalToSuperview.offset(15)
+            $0.leading.equalToSuperview().offset(15)
         }
         
         titleLabel.snp.makeConstraints {
@@ -93,10 +95,10 @@ extension RecommendCollectionViewCell {
     }
     
     func configure(model: RecommendModel) {
-        tagLabel.text = model.tag
+        tagLabel.setTitle(model.tag, for: .normal)
         titleLabel.text = model.title
         bodyLabel.text = model.body
-        bodyImage.image = model.image
+        bodyImage.image = UIImage(named: model.image)
     }
     
 }
