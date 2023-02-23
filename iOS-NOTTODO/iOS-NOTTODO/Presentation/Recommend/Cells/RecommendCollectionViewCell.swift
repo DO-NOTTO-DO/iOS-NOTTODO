@@ -81,16 +81,16 @@ extension RecommendCollectionViewCell {
             $0.leading.equalTo(tagLabel.snp.trailing).offset(8)
         }
         
-        bodyLabel.snp.makeConstraints {
-            $0.top.equalTo(tagLabel.snp.bottom).offset(12)
-            $0.leading.equalTo(tagLabel.snp.leading)
-            $0.trailing.equalToSuperview().offset(-101)
-        }
-        
         bodyImage.snp.makeConstraints {
             $0.width.height.equalTo(70)
             $0.trailing.equalToSuperview().offset(-15)
             $0.bottom.equalToSuperview().offset(-12)
+        }
+        
+        bodyLabel.snp.makeConstraints {
+            $0.centerY.equalTo(bodyImage.snp.centerY)
+            $0.leading.equalTo(tagLabel.snp.leading)
+            $0.trailing.equalToSuperview().offset(-101)
         }
     }
     
