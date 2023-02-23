@@ -38,7 +38,8 @@ class RecommendViewController: UIViewController {
 
 extension RecommendViewController {
     private func setUI() {
-        view.backgroundColor = .black
+        view.backgroundColor = .ntdBlack
+        recommendCollectionView.backgroundColor = .clear
     }
     
     private func setLayout() {

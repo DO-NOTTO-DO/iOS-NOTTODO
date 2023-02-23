@@ -52,7 +52,7 @@ extension RecommendCollectionViewCell {
             $0.textColor = .white
             $0.backgroundColor = .gray2
             $0.layer.masksToBounds = true
-            $0.layer.cornerRadius = 50
+            $0.layer.cornerRadius = 25 / 2
         }
         
         titleLabel.do {
