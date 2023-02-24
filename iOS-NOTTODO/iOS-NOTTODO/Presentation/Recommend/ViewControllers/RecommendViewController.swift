@@ -52,10 +52,10 @@ extension RecommendViewController {
         seperateView.backgroundColor = .gray2
         recommendCollectionView.backgroundColor = .clear
         
-//        dismissButton.do {
-//            $0.setBackgroundImage(.icDelete, for: .normal)
-//            // $0.addTarget(self, action: #selector(self.dismissViewController), for: .touchUpInside)
-//        }
+        dismissButton.do {
+            $0.setBackgroundImage(.delete, for: .normal)
+            // $0.addTarget(self, action: #selector(self.dismissViewController), for: .touchUpInside)
+        }
         
         navigationTitle.do {
             $0.font = .Pretendard(.semiBold, size: 18)
@@ -83,8 +83,8 @@ extension RecommendViewController {
         }
         
         dismissButton.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(16)
-            $0.leading.equalToSuperview().inset(15)
+            $0.centerY.equalToSuperview()
+            $0.leading.equalToSuperview().offset(15)
         }
         
         navigationTitle.snp.makeConstraints {
@@ -96,17 +96,17 @@ extension RecommendViewController {
             $0.directionalHorizontalEdges.equalToSuperview()
             $0.height.equalTo(0.7)
         }
-
-        recommendCollectionView.snp.makeConstraints {
-            $0.top.equalTo(seperateView.snp.bottom).offset(16) // 수정하기
-            $0.leading.trailing.equalToSuperview()
-            $0.bottom.equalTo(self.view.safeAreaLayoutGuide)
-        }
         
         addActionButton.snp.makeConstraints {
             $0.height.equalTo(50)
             $0.leading.trailing.equalToSuperview().inset(15)
             $0.bottom.equalToSuperview().offset(-45)
+        }
+
+        recommendCollectionView.snp.makeConstraints {
+            $0.top.equalTo(seperateView.snp.bottom).offset(16)
+            $0.leading.trailing.equalToSuperview()
+            $0.bottom.equalTo(addActionButton.snp.top).offset(-9)
         }
     }
     
