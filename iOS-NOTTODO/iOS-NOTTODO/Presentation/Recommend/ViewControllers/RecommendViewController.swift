@@ -14,6 +14,12 @@ class RecommendViewController: UIViewController {
     private lazy var recommendCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout())
     let recommendInset: UIEdgeInsets = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 15)
     let cellHeight: CGFloat = 137
+    
+    private let navigationView = UIView()
+    private let dismissButton = UIButton()
+    private let navigationTitle = UILabel()
+    private let seperateView = UIView()
+    
     private var addActionButton = UIButton()
     
     // test
@@ -43,7 +49,19 @@ class RecommendViewController: UIViewController {
 extension RecommendViewController {
     private func setUI() {
         view.backgroundColor = .ntdBlack
+        seperateView.backgroundColor = .gray2
         recommendCollectionView.backgroundColor = .clear
+        
+//        dismissButton.do {
+//            $0.setBackgroundImage(.icDelete, for: .normal)
+//            // $0.addTarget(self, action: #selector(self.dismissViewController), for: .touchUpInside)
+//        }
+        
+        navigationTitle.do {
+            $0.font = .Pretendard(.semiBold, size: 18)
+            $0.textColor = .white
+            $0.text = I18N.recommendNavTitle
+        }
         
         addActionButton.do {
             $0.setTitle(I18N.addAction, for: .normal)
@@ -55,10 +73,32 @@ extension RecommendViewController {
     }
     
     private func setLayout() {
-        view.addSubviews(recommendCollectionView, addActionButton)
+        view.addSubviews(navigationView, seperateView, recommendCollectionView, addActionButton)
+        navigationView.addSubviews(dismissButton, navigationTitle)
         
+        navigationView.snp.makeConstraints {
+            $0.top.equalTo(view.safeAreaLayoutGuide)
+            $0.directionalHorizontalEdges.equalToSuperview()
+            $0.height.equalTo(58)
+        }
+        
+        dismissButton.snp.makeConstraints {
+            $0.top.equalToSuperview().inset(16)
+            $0.leading.equalToSuperview().inset(15)
+        }
+        
+        navigationTitle.snp.makeConstraints {
+            $0.center.equalToSuperview()
+        }
+        
+        seperateView.snp.makeConstraints {
+            $0.top.equalTo(navigationView.snp.bottom)
+            $0.directionalHorizontalEdges.equalToSuperview()
+            $0.height.equalTo(0.7)
+        }
+
         recommendCollectionView.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(127) // 수정하기
+            $0.top.equalTo(seperateView.snp.bottom).offset(16) // 수정하기
             $0.leading.trailing.equalToSuperview()
             $0.bottom.equalTo(self.view.safeAreaLayoutGuide)
         }
