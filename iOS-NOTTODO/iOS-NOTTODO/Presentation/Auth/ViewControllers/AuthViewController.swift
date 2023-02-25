@@ -55,29 +55,29 @@ extension AuthViewController {
         
         kakaoLoginButton.do {
             $0.configuration?.title = I18N.kakaoLogin
+            $0.contentHorizontalAlignment = .leading
             $0.configuration?.image = .kakaoLogo
             $0.configuration?.imagePadding = 90
             $0.configuration?.imagePlacement = NSDirectionalRectEdge.leading
             $0.titleLabel?.font = .Pretendard(.medium, size: 16)
             $0.configuration?.baseForegroundColor = .systemBlack
             $0.configuration?.baseBackgroundColor = .kakaoYellow
-            $0.configuration?.cornerStyle = .medium
             $0.layer.cornerRadius = 5
-            $0.configuration?.contentInsets = NSDirectionalEdgeInsets.init(top: 0, leading: 14, bottom: 0, trailing: 128)
+            $0.configuration?.contentInsets = NSDirectionalEdgeInsets.init(top: 0, leading: 14, bottom: 0, trailing: 0)
             $0.addTarget(self, action: #selector(kakaoLoginButtonClicked), for: .touchUpInside)
         }
         
         appleLoginButton.do {
             $0.configuration?.title = I18N.appleLogin
+            $0.contentHorizontalAlignment = .leading
             $0.configuration?.image = .appleLogo
             $0.configuration?.imagePadding = 81
             $0.configuration?.imagePlacement = NSDirectionalRectEdge.leading
             $0.titleLabel?.font = .Pretendard(.medium, size: 16)
             $0.configuration?.baseForegroundColor = .systemBlack
             $0.configuration?.baseBackgroundColor = .white
-            $0.configuration?.cornerStyle = .medium
             $0.layer.cornerRadius = 5
-            $0.configuration?.contentInsets = NSDirectionalEdgeInsets.init(top: 0, leading: 12, bottom: 0, trailing: 120)
+            $0.configuration?.contentInsets = NSDirectionalEdgeInsets.init(top: 0, leading: 12, bottom: 0, trailing: 0)
             $0.addTarget(self, action: #selector(kakaoLoginButtonClicked), for: .touchUpInside)
         }
     }
