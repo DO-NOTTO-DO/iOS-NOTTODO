@@ -49,6 +49,7 @@
 		6CD4F8BC29AA494300CCC740 /* RecommendActionFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CD4F8BB29AA494300CCC740 /* RecommendActionFooterView.swift */; };
 		6CD4F8BE29AA495900CCC740 /* RecommendActionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CD4F8BD29AA495900CCC740 /* RecommendActionCollectionViewCell.swift */; };
 		6CD4F8C029AA497A00CCC740 /* RecommendActionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CD4F8BF29AA497A00CCC740 /* RecommendActionModel.swift */; };
+		6CD4F8C229AA5AF200CCC740 /* UIButton+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CD4F8C129AA5AF200CCC740 /* UIButton+.swift */; };
 		6CF4705B29A68EA9008D145C /* URLConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CF4705A29A68EA9008D145C /* URLConstant.swift */; };
 		6CF4705D29A68F5C008D145C /* NetworkLoggerPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CF4705C29A68F5C008D145C /* NetworkLoggerPlugin.swift */; };
 		6CF4705F29A69025008D145C /* GeneralResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CF4705E29A69025008D145C /* GeneralResponse.swift */; };
@@ -97,6 +98,7 @@
 		6CD4F8BB29AA494300CCC740 /* RecommendActionFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendActionFooterView.swift; sourceTree = "<group>"; };
 		6CD4F8BD29AA495900CCC740 /* RecommendActionCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendActionCollectionViewCell.swift; sourceTree = "<group>"; };
 		6CD4F8BF29AA497A00CCC740 /* RecommendActionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendActionModel.swift; sourceTree = "<group>"; };
+		6CD4F8C129AA5AF200CCC740 /* UIButton+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+.swift"; sourceTree = "<group>"; };
 		6CF4705829A60A79008D145C /* iOS-NOTTODO.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "iOS-NOTTODO.entitlements"; sourceTree = "<group>"; };
 		6CF4705A29A68EA9008D145C /* URLConstant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLConstant.swift; sourceTree = "<group>"; };
 		6CF4705C29A68F5C008D145C /* NetworkLoggerPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkLoggerPlugin.swift; sourceTree = "<group>"; };
@@ -194,6 +196,7 @@
 				3B14A13E29A6FCB300F92897 /* UIStackView+.swift */,
 				3B14A14029A6FDA900F92897 /* UILabel+.swift */,
 				3B14A14229A6FEE400F92897 /* UITextField+.swift */,
+				6CD4F8C129AA5AF200CCC740 /* UIButton+.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -592,6 +595,7 @@
 				6CF4706A29A71D71008D145C /* Strings.swift in Sources */,
 				6CF4705F29A69025008D145C /* GeneralResponse.swift in Sources */,
 				6CF4706129A69096008D145C /* NetworkConstant.swift in Sources */,
+				6CD4F8C229AA5AF200CCC740 /* UIButton+.swift in Sources */,
 				6CF4706529A690E5008D145C /* NetworkBase.swift in Sources */,
 				6CF4707029A73A15008D145C /* RecommendActionViewController.swift in Sources */,
 				3B027AA2299C355800BEB65C /* AchievementViewController.swift in Sources */,

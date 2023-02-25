@@ -71,6 +71,11 @@ extension UIImage {
     static var delete: UIImage { UIImage(named: "ic_delete_recommend")! } // 추후 삭제 필요
     static var back: UIImage { UIImage(named: "ic_back_recommend")! } // 추후 삭제 필요
     
+    // recommendAction
+    
+    static var icArrow: UIImage { UIImage(named: "ic_arrow")! }
+    static var icInfo: UIImage { UIImage(named: "ic_info")! }
+    
     // tabbar
     
     static var calendarOff: UIImage { UIImage(named: "ic_callendar_off")! }

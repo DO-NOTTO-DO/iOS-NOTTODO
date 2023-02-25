@@ -22,4 +22,8 @@ struct I18N {
     
     static let recommendNavTitle = "낫투두 생성"
     static let addAction = "직접 입력하러 가기"
+    
+    // RecommendAction
+    
+    static let more = "필요 없어요 or 직접 입력할게요!"
 }

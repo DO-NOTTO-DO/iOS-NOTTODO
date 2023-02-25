@@ -18,10 +18,10 @@ class RecommendCollectionViewCell: UICollectionViewCell {
 
     // MARK: - UI Components
     
-    let tagLabel = PaddingLabel(padding: UIEdgeInsets(top: 4, left: 17, bottom: 4, right: 17))
-    let titleLabel = UILabel()
-    let bodyLabel = UILabel()
-    let bodyImage = UIImageView()
+    private let tagLabel = PaddingLabel(padding: UIEdgeInsets(top: 4, left: 17, bottom: 4, right: 17))
+    private let titleLabel = UILabel()
+    private let bodyLabel = UILabel()
+    private let bodyImage = UIImageView()
     
     // MARK: - View Life Cycle
     
