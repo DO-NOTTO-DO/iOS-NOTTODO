@@ -68,6 +68,7 @@ extension UIImage {
     static var sports: UIImage { UIImage(named: "img_sports")! }
     static var wine: UIImage { UIImage(named: "img_wine")! }
     static var youtube: UIImage { UIImage(named: "img_youtube")! }
+    static var delete: UIImage { UIImage(named: "ic_delete_recommend")! }
     
     // tabbar
     

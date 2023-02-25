@@ -18,4 +18,8 @@ struct I18N {
                         낫투두 기록을 관리할 수 있어요.
                         """
     
+    // Recommend
+    
+    static let recommendNavTitle = "낫투두 생성"
+    static let addAction = "직접 입력하러 가기"
 }
