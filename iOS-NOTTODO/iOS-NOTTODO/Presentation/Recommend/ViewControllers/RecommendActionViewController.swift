@@ -8,21 +8,58 @@
 import UIKit
 
 class RecommendActionViewController: UIViewController {
-
+    
+    // MARK: - UI Components
+    
+    private let navigationView = UIView()
+    private let backButton = UIButton()
+    private let navigationTitle = UILabel()
+    
+    // MARK: - View Life Cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        setUI()
+        setLayout()
+    }
+}
+    
+    // MARK: - Methods
+    
+private extension RecommendActionViewController {
+    func setUI() {
+        view.backgroundColor = .ntdBlack
+        // recommendCollectionView.backgroundColor = .clear
+        
+        backButton.do {
+            $0.setBackgroundImage(.back, for: .normal)
+            // $0.addTarget(self, action: #selector(self.popViewController), for: .touchUpInside)
+        }
+        
+        navigationTitle.do {
+            $0.font = .Pretendard(.semiBold, size: 18)
+            $0.textColor = .white
+            $0.text = I18N.recommendNavTitle
+        }
     }
     
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    func setLayout() {
+        view.addSubviews(navigationView)
+        navigationView.addSubviews(backButton, navigationTitle)
+        
+        navigationView.snp.makeConstraints {
+            $0.top.equalTo(view.safeAreaLayoutGuide)
+            $0.directionalHorizontalEdges.equalToSuperview()
+            $0.height.equalTo(58)
+        }
+        
+        backButton.snp.makeConstraints {
+            $0.centerY.equalToSuperview()
+            $0.leading.equalToSuperview().offset(15)
+        }
+        
+        navigationTitle.snp.makeConstraints {
+            $0.center.equalToSuperview()
+        }
     }
-    */
-
 }
