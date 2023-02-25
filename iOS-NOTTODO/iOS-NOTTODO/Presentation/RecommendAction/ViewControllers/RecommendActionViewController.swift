@@ -14,6 +14,7 @@ class RecommendActionViewController: UIViewController {
     private let navigationView = UIView()
     private let backButton = UIButton()
     private let navigationTitle = UILabel()
+    let nextButton = UIButton()
     
     // MARK: - View Life Cycle
     
@@ -41,10 +42,17 @@ private extension RecommendActionViewController {
             $0.textColor = .white
             $0.text = I18N.recommendNavTitle
         }
+        
+        nextButton.do {
+            $0.setTitle(I18N.next, for: .normal)
+            $0.setTitleColor(.gray1, for: .normal)
+            $0.titleLabel?.font = .Pretendard(.semiBold, size: 17.18) // 수정 필요
+            $0.backgroundColor = .white
+        }
     }
     
     func setLayout() {
-        view.addSubviews(navigationView)
+        view.addSubviews(navigationView, nextButton)
         navigationView.addSubviews(backButton, navigationTitle)
         
         navigationView.snp.makeConstraints {
@@ -60,6 +68,11 @@ private extension RecommendActionViewController {
         
         navigationTitle.snp.makeConstraints {
             $0.center.equalToSuperview()
+        }
+        
+        nextButton.snp.makeConstraints {
+            $0.leading.trailing.bottom.equalToSuperview()
+            $0.height.equalTo(76)
         }
     }
 }
