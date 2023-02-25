@@ -64,6 +64,12 @@ extension RecommendActionHeaderView {
         bodyImage.image = .food // 추후 데이터 연결 필요
         arrowIcon.image = .icArrow
         infoIcon.image = .icInfo
+        
+        recommendLabel.do {
+            $0.text = I18N.recommendAction
+            $0.font = .Pretendard(.semiBold, size: 18)
+            $0.textColor = .white
+        }
     }
     
     private func setLayout() {
@@ -82,7 +88,7 @@ extension RecommendActionHeaderView {
         
         titleLabel.snp.makeConstraints {
             $0.top.equalTo(tagLabel.snp.bottom).offset(6)
-            $0.leading.equalTo(tagLabel.snp.trailing).offset(32)
+            $0.leading.equalToSuperview().offset(32)
         }
         
         bodyImage.snp.makeConstraints {

@@ -19,7 +19,7 @@ class RecommendActionCollectionViewCell: UICollectionViewCell {
     // MARK: - UI Components
     
     private let titleLabel = UILabel()
-    private let bodyLabel = UILabel()
+    let bodyLabel = UILabel()
     
     // MARK: - View Life Cycle
     
@@ -38,7 +38,7 @@ class RecommendActionCollectionViewCell: UICollectionViewCell {
 // MARK: - Methods
 
 extension RecommendActionCollectionViewCell {
-    
+
     private func setUI() {
         contentView.backgroundColor = .gray1
         contentView.layer.masksToBounds = true
@@ -54,7 +54,6 @@ extension RecommendActionCollectionViewCell {
             $0.textColor = .gray4
             $0.numberOfLines = 0
         }
-        
     }
     
     private func setLayout() {

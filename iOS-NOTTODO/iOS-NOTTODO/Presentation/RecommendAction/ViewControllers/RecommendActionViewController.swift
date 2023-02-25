@@ -14,8 +14,10 @@ class RecommendActionViewController: UIViewController {
     private let navigationView = UIView()
     private let backButton = UIButton()
     private let navigationTitle = UILabel()
-    let nextButton = UIButton()
+    private let nextButton = UIButton()
+    
     private lazy var recommendActionCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout())
+    private let recommendActionInset: UIEdgeInsets = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 15)
     
     // test
     
@@ -23,7 +25,8 @@ class RecommendActionViewController: UIViewController {
         RecommendActionModel(title: "배고플 때마다 양치하기", body: "치약 성분은 식욕감을 떨어뜨리는데 도움을 줘요."),
         RecommendActionModel(title: "삶은 게란으로 대신하기", body: "삶은 계란은 멜라토닌 생성을 도와\n숙면을 유도한다는 사실을 알고 계셨나요?"),
         RecommendActionModel(title: "배고플 때마다 양치하기", body: "치약 성분은 식욕감을 떨어뜨리는데 도움을 줘요."),
-        RecommendActionModel(title: "배고플 때마다 양치하기", body: "치약 성분은 식욕감을 떨어뜨리는데 도움을 줘요.")
+        RecommendActionModel(title: "배고플 때마다 양치하기", body: "치약 성분은 식욕감을 떨어뜨리는데 도움을 줘요."),
+        RecommendActionModel(title: "삶은 게란으로 대신하기", body: "삶은 계란은 멜라토닌 생성을 도와\n숙면을 유도한다는 사실을 알고 계셨나요?")
     ]
     
     // MARK: - View Life Cycle
@@ -40,6 +43,7 @@ class RecommendActionViewController: UIViewController {
 // MARK: - Methods
 
 private extension RecommendActionViewController {
+    
     func setUI() {
         view.backgroundColor = .ntdBlack
         recommendActionCollectionView.backgroundColor = .clear
@@ -85,7 +89,7 @@ private extension RecommendActionViewController {
         recommendActionCollectionView.snp.makeConstraints {
             $0.top.equalTo(navigationView.snp.bottom)
             $0.leading.trailing.equalToSuperview()
-            $0.bottom.equalTo(nextButton.snp.top).offset(-9)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide).offset(-60)
         }
         
         nextButton.snp.makeConstraints {
@@ -94,19 +98,10 @@ private extension RecommendActionViewController {
         }
     }
     
-    private func layout() -> UICollectionViewCompositionalLayout {
-        let spacing: CGFloat = 15
-        let itemLayout = NSCollectionLayoutItem(layoutSize: .init(widthDimension: .absolute(345), heightDimension: .estimated(70)))
-        let groupLayout = NSCollectionLayoutGroup.vertical(layoutSize: .init(widthDimension: .absolute(345), heightDimension: .fractionalHeight(1)), subitem: itemLayout, count: 4)
-        groupLayout.interItemSpacing = .fixed(spacing)
-        let section = NSCollectionLayoutSection(group: groupLayout)
-        section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 20)
-        section.interGroupSpacing = spacing
-        section.boundarySupplementaryItems = [
-            NSCollectionLayoutBoundarySupplementaryItem(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .absolute(217)), elementKind: UICollectionView.elementKindSectionHeader, alignment: .top),
-            NSCollectionLayoutBoundarySupplementaryItem(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .absolute(53)), elementKind: UICollectionView.elementKindSectionFooter, alignment: .bottom)
-        ]
-        return UICollectionViewCompositionalLayout(section: section)
+    private func layout() -> UICollectionViewFlowLayout {
+        let layout = UICollectionViewFlowLayout()
+        layout.minimumLineSpacing = 11
+        return layout
     }
     
     private func register() {
@@ -122,7 +117,38 @@ private extension RecommendActionViewController {
     }
     
     func setDelegate() {
+        recommendActionCollectionView.delegate = self
         recommendActionCollectionView.dataSource = self
+    }
+}
+
+extension RecommendActionViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        guard let cell = recommendActionCollectionView.dequeueReusableCell(withReuseIdentifier: RecommendActionCollectionViewCell.identifier, for: indexPath) as? RecommendActionCollectionViewCell else {
+            return .zero
+        }
+        cell.bodyLabel.text = recommendActionList[indexPath.row].body
+        cell.bodyLabel.sizeToFit()
+        
+        let cellHeight = cell.bodyLabel.frame.height + 56
+        
+        return CGSize(width: collectionView.bounds.width - 30, height: cellHeight)
+    }
+    
+    func collectionView(_collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout,
+                        insetForSectionAt section: Int) -> UIEdgeInsets {
+        return recommendActionInset
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout,
+                        referenceSizeForHeaderInSection section: Int) -> CGSize {
+        let width = collectionView.frame.width
+        return CGSize(width: width, height: 217)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
+        let width = collectionView.frame.width
+        return CGSize(width: width, height: 68)
     }
 }
 
@@ -138,5 +164,15 @@ extension RecommendActionViewController: UICollectionViewDataSource {
                 as? RecommendActionCollectionViewCell else { return UICollectionViewCell() }
         cell.configure(model: recommendActionList[indexPath.row])
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        if kind == UICollectionView.elementKindSectionHeader {
+            guard let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: RecommendActionHeaderView.identifier, for: indexPath) as? RecommendActionHeaderView else { return UICollectionReusableView() }
+            return headerView
+        } else {
+            guard let footerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: RecommendActionFooterView.identifier, for: indexPath) as? RecommendActionFooterView else { return UICollectionReusableView() }
+            return footerView
+        }
     }
 }

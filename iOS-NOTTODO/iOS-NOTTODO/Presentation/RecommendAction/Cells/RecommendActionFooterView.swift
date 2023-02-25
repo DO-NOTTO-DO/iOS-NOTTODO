@@ -38,14 +38,12 @@ class RecommendActionFooterView: UICollectionReusableView {
 extension RecommendActionFooterView {
     
     private func setUI() {
-        
         moreButton.do {
             $0.setTitle(I18N.more, for: .normal)
             $0.setTitleColor(.gray4, for: .normal)
             $0.titleLabel?.font = .Pretendard(.medium, size: 14)
             $0.setUnderline()
         }
-        
     }
     
     private func setLayout() {
@@ -55,6 +53,5 @@ extension RecommendActionFooterView {
             $0.top.equalToSuperview().offset(34)
             $0.centerX.equalToSuperview()
         }
-        
     }
 }
