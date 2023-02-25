@@ -22,8 +22,8 @@ class AuthViewController: UIViewController {
     private var loginMainLabel = UILabel()
     private var loginSubLabel = UILabel()
     private var kakaoLoginImageView = UIImageView()
-    // private var kakaoLoginButton = UIButton(configuration: .plain())
-    private var kakaoLoginButton = UIButton()
+    private var kakaoLoginButton = UIButton(configuration: .filled())
+    // private var kakaoLoginButton = UIButton()
     private var appleLoginButton = UIButton()
     
     // MARK: - Life Cycle
@@ -54,20 +54,17 @@ extension AuthViewController {
         
         kakaoLoginImageView.image = .kakaoLoginLabel
         
-        //        kakaoLoginButton.do {
-        //            $0.configuration?.title = "카카오 로그인"
-        //            $0.configuration?.image = icon ?? nil
-        //            $0.configuration?.titleAlignment = .leading
-        //            $0.titleLabel?.font = .PretendardMedium(size: 16)
-        //            $0.configuration?.baseForegroundColor = .systemBlack
-        //            $0.configuration?.imagePlacement = NSDirectionalRectEdge.trailing
-        //            $0.configuration?.buttonSize = .small
-        //            $0.configuration?.baseBackgroundColor = .yellow
-        //            $0.configuration?.contentInsets = NSDirectionalEdgeInsets.init(top: 0, leading: 0, bottom: 0, trailing: 0)
-        //        }
-        
         kakaoLoginButton.do {
-            $0.setBackgroundImage(.kakaoLogin, for: .normal)
+            $0.configuration?.title = "카카오 로그인"
+            $0.configuration?.image = .kakaoLogo
+            $0.configuration?.imagePadding = 90
+            $0.configuration?.imagePlacement = NSDirectionalRectEdge.leading
+            $0.titleLabel?.font = .Pretendard(.medium, size: 16)
+            $0.configuration?.baseForegroundColor = .systemBlack
+            $0.configuration?.baseBackgroundColor = .kakaoYellow
+            $0.configuration?.cornerStyle = .medium
+            $0.layer.cornerRadius = 5
+            $0.configuration?.contentInsets = NSDirectionalEdgeInsets.init(top: 0, leading: 14, bottom: 0, trailing: 128)
             $0.addTarget(self, action: #selector(kakaoLoginButtonClicked), for: .touchUpInside)
         }
         
@@ -100,8 +97,7 @@ extension AuthViewController {
         
         kakaoLoginButton.snp.makeConstraints {
             $0.bottom.equalTo(appleLoginButton.snp.top).offset(-12)
-            $0.centerX.equalToSuperview()
-            $0.width.equalTo(appleLoginButton.snp.width)
+            $0.leading.trailing.equalToSuperview().inset(17)
             $0.height.equalTo(appleLoginButton.snp.height)
         }
         
