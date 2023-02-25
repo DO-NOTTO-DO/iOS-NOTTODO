@@ -52,9 +52,9 @@ extension RecommendActionFooterView {
         addSubview(moreButton)
         
         moreButton.snp.makeConstraints {
+            $0.top.equalToSuperview().offset(34)
             $0.centerX.equalToSuperview()
         }
         
     }
 }
-

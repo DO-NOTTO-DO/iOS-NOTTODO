@@ -11,15 +11,15 @@ class RecommendViewController: UIViewController {
 
     // MARK: - UI Components
     
-    private lazy var recommendCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout())
-    let recommendInset: UIEdgeInsets = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 15)
-    let cellHeight: CGFloat = 137
-    
     private let navigationView = UIView()
     private let dismissButton = UIButton()
     private let navigationTitle = UILabel()
     private let seperateView = UIView()
     private var addActionButton = UIButton()
+    
+    private lazy var recommendCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout())
+    let recommendInset: UIEdgeInsets = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 15)
+    let cellHeight: CGFloat = 137
     
     // test
     
