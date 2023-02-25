@@ -23,8 +23,7 @@ class AuthViewController: UIViewController {
     private var loginSubLabel = UILabel()
     private var kakaoLoginImageView = UIImageView()
     private var kakaoLoginButton = UIButton(configuration: .filled())
-    // private var kakaoLoginButton = UIButton()
-    private var appleLoginButton = UIButton()
+    private var appleLoginButton = UIButton(configuration: .filled())
     
     // MARK: - Life Cycle
     
@@ -55,7 +54,7 @@ extension AuthViewController {
         kakaoLoginImageView.image = .kakaoLoginLabel
         
         kakaoLoginButton.do {
-            $0.configuration?.title = "카카오 로그인"
+            $0.configuration?.title = I18N.kakaoLogin
             $0.configuration?.image = .kakaoLogo
             $0.configuration?.imagePadding = 90
             $0.configuration?.imagePlacement = NSDirectionalRectEdge.leading
@@ -69,8 +68,17 @@ extension AuthViewController {
         }
         
         appleLoginButton.do {
-            $0.setBackgroundImage(.appleLogin, for: .normal)
-            $0.addTarget(self, action: #selector(appleLoginButtonClicked), for: .touchUpInside)
+            $0.configuration?.title = I18N.appleLogin
+            $0.configuration?.image = .appleLogo
+            $0.configuration?.imagePadding = 81
+            $0.configuration?.imagePlacement = NSDirectionalRectEdge.leading
+            $0.titleLabel?.font = .Pretendard(.medium, size: 16)
+            $0.configuration?.baseForegroundColor = .systemBlack
+            $0.configuration?.baseBackgroundColor = .white
+            $0.configuration?.cornerStyle = .medium
+            $0.layer.cornerRadius = 5
+            $0.configuration?.contentInsets = NSDirectionalEdgeInsets.init(top: 0, leading: 12, bottom: 0, trailing: 120)
+            $0.addTarget(self, action: #selector(kakaoLoginButtonClicked), for: .touchUpInside)
         }
     }
     
@@ -90,8 +98,7 @@ extension AuthViewController {
         
         appleLoginButton.snp.makeConstraints {
             $0.bottom.equalToSuperview().offset(-91)
-            $0.centerX.equalToSuperview()
-            $0.width.equalTo(342)
+            $0.leading.trailing.equalToSuperview().inset(17)
             $0.height.equalTo(53)
         }
         
