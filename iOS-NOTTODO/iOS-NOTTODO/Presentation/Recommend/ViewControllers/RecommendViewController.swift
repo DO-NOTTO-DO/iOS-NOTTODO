@@ -19,7 +19,6 @@ class RecommendViewController: UIViewController {
     private let dismissButton = UIButton()
     private let navigationTitle = UILabel()
     private let seperateView = UIView()
-    
     private var addActionButton = UIButton()
     
     // test
@@ -46,8 +45,8 @@ class RecommendViewController: UIViewController {
 
 // MARK: - Methods
 
-extension RecommendViewController {
-    private func setUI() {
+private extension RecommendViewController {
+    func setUI() {
         view.backgroundColor = .ntdBlack
         seperateView.backgroundColor = .gray2
         recommendCollectionView.backgroundColor = .clear
@@ -72,7 +71,7 @@ extension RecommendViewController {
         }
     }
     
-    private func setLayout() {
+    func setLayout() {
         view.addSubviews(navigationView, seperateView, recommendCollectionView, addActionButton)
         navigationView.addSubviews(dismissButton, navigationTitle)
         
@@ -110,23 +109,23 @@ extension RecommendViewController {
         }
     }
     
-    private func layout() -> UICollectionViewFlowLayout {
+    func layout() -> UICollectionViewFlowLayout {
         let layout = UICollectionViewFlowLayout()
         layout.minimumLineSpacing = 11
         return layout
     }
     
-    private func calculateCellHeight() -> CGFloat {
+    func calculateCellHeight() -> CGFloat {
         let count = CGFloat(recommendList.count)
         return count * self.cellHeight + (count-1) * self.recommendInset.top + self.recommendInset.bottom
     }
     
-    private func register() {
+    func register() {
         recommendCollectionView.register(RecommendCollectionViewCell.self,
                                               forCellWithReuseIdentifier: RecommendCollectionViewCell.identifier)
     }
     
-    private func setDelegate() {
+    func setDelegate() {
         recommendCollectionView.delegate = self
         recommendCollectionView.dataSource = self
     }
