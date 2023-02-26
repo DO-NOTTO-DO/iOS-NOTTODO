@@ -19,7 +19,7 @@ class RecommendActionHeaderView: UICollectionReusableView {
     // MARK: - UI Components
     
     private let topView = UIView()
-    private let tagLabel = PaddingLabel(padding: UIEdgeInsets(top: 4, left: 17, bottom: 4, right: 17))
+    private let tagLabel = PaddingLabel()
     private let titleLabel = UILabel()
     private let bodyImage = UIImageView()
     private let arrowIcon = UIImageView()
