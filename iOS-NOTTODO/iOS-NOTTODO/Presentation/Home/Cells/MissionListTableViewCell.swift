@@ -132,5 +132,4 @@ extension MissionListTableViewCell {
             $0.centerY.equalToSuperview()
         }
     }
-    
 }
