@@ -11,15 +11,15 @@ class RecommendViewController: UIViewController {
 
     // MARK: - UI Components
     
-    private lazy var recommendCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout())
-    let recommendInset: UIEdgeInsets = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 15)
-    let cellHeight: CGFloat = 137
-    
     private let navigationView = UIView()
     private let dismissButton = UIButton()
     private let navigationTitle = UILabel()
     private let seperateView = UIView()
     private var addActionButton = UIButton()
+    
+    private lazy var recommendCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout())
+    private let recommendInset: UIEdgeInsets = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 15)
+    private let cellHeight: CGFloat = 137
     
     // test
     
@@ -109,18 +109,13 @@ private extension RecommendViewController {
         }
     }
     
-    func layout() -> UICollectionViewFlowLayout {
+    private func layout() -> UICollectionViewFlowLayout {
         let layout = UICollectionViewFlowLayout()
         layout.minimumLineSpacing = 11
         return layout
     }
     
-    func calculateCellHeight() -> CGFloat {
-        let count = CGFloat(recommendList.count)
-        return count * self.cellHeight + (count-1) * self.recommendInset.top + self.recommendInset.bottom
-    }
-    
-    func register() {
+    private func register() {
         recommendCollectionView.register(RecommendCollectionViewCell.self,
                                               forCellWithReuseIdentifier: RecommendCollectionViewCell.identifier)
     }
