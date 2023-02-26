@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct MissionListModel {
+struct MissionListModel: Hashable {
     var tag: String
     var missiontitle: String
 }

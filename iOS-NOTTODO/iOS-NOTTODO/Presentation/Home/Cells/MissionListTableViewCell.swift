@@ -15,11 +15,12 @@ class MissionListTableViewCell: UITableViewCell {
     // MARK: - Properties
     
     static let identifier = "MissionListTableViewCell"
+    var isTappedClosure: ((_ result: Bool) -> Void)?
+    var isTapped: Bool = false
     
     // MARK: - UI Components
     
     private let checkButton = UIButton()
-    private let verticalStackView = UIStackView()
     private let tagLabel = PaddingLabel(padding: UIEdgeInsets(top: 4, left: 12, bottom: 4, right: 12))
     private let missionLabel = PaddingLabel(padding: UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8))
     private let lineView = UIView()
@@ -32,6 +33,10 @@ class MissionListTableViewCell: UITableViewCell {
         setLayout()
     }
     
+    override func layoutSubviews() {
+      super.layoutSubviews()
+      contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 9, left: 0, bottom: 9, right: 0))
+    }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -41,77 +46,43 @@ class MissionListTableViewCell: UITableViewCell {
 
 extension MissionListTableViewCell {
     
-    private func setUI() {
-        contentView.backgroundColor = .white
-        contentView.layer.cornerRadius = 10
-        
-        checkButton.do {
-            $0.backgroundColor = .white
-            $0.layer.cornerRadius = 6
-            $0.layer.borderWidth = 0.5
-            $0.layer.borderColor = UIColor.gray4?.cgColor
-        }
-        
-        tagLabel.do {
-            $0.backgroundColor = .bg
-            $0.layer.cornerRadius = 50
-            $0.textColor = .gray1
-            $0.font = .Pretendard(.medium, size: 14)
-        }
-        
-        missionLabel.do {
-            $0.textColor = .gray2
-            $0.font = .Pretendard(.semiBold, size: 16)
-        }
-        
-        lineView.do {
-            $0.isHidden = true
-        }
-        
-        verticalStackView.do {
-            $0.addArrangedSubviews(tagLabel, missionLabel)
-            $0.axis = .vertical
-            $0.spacing = 8
-        }
-    }
-    
-    func updateUI() {
-        contentView.backgroundColor = .clear
-        contentView.layer.cornerRadius = 10
+    func setUI() {
+        backgroundColor = .clear
+        contentView.backgroundColor = isTapped ? .clear : .white
         contentView.layer.borderWidth = 1
-        contentView.layer.borderColor = UIColor.gray5?.cgColor
+        contentView.layer.borderColor = isTapped ? UIColor.gray5?.cgColor : UIColor.clear.cgColor
+        contentView.layer.cornerRadius = 10
         
         checkButton.do {
-            $0.backgroundColor = .clear
+            $0.backgroundColor = isTapped ? .clear : .white
             $0.layer.cornerRadius = 6
-            $0.setImage(.checkboxFill, for: .selected)
+            $0.layer.borderWidth = isTapped ? 0 : 0.5
+            $0.layer.borderColor = isTapped ? UIColor.clear.cgColor : UIColor.gray4?.cgColor
+            $0.setImage(isTapped ? UIImage.checkboxFill : nil, for: .normal)
+            $0.addTarget(self, action: #selector(checkBoxButton), for: .touchUpInside)
         }
         
         tagLabel.do {
-            $0.backgroundColor = .gray6
-            $0.layer.cornerRadius = 50
-            $0.textColor = .gray4
+            $0.backgroundColor = isTapped ? .gray6 : .bg
+            $0.clipsToBounds = true
+            $0.layer.cornerRadius = 12
+            $0.textColor = isTapped ? .gray4 : .gray1
             $0.font = .Pretendard(.medium, size: 14)
         }
         
         missionLabel.do {
-            $0.textColor = .gray4
+            $0.textColor = isTapped ? .gray4 : .gray2
             $0.font = .Pretendard(.semiBold, size: 16)
         }
         
         lineView.do {
             $0.backgroundColor = .gray4
-            $0.isHidden = false
-        }
-        verticalStackView.do {
-            $0.addArrangedSubviews(tagLabel, missionLabel)
-            $0.axis = .vertical
-            $0.spacing = 8
+            $0.isHidden = isTapped ? false : true
         }
     }
     
     private func setLayout() {
-        contentView.addSubviews(checkButton, verticalStackView)
+        contentView.addSubviews(checkButton, tagLabel, missionLabel)
         missionLabel.addSubview(lineView)
         
         checkButton.snp.makeConstraints {
@@ -120,16 +91,30 @@ extension MissionListTableViewCell {
             $0.size.equalTo(CGSize(width: 21, height: 21))
         }
         
-        verticalStackView.snp.makeConstraints {
+        tagLabel.snp.makeConstraints {
             $0.top.equalToSuperview().offset(18)
             $0.leading.equalTo(checkButton.snp.trailing).offset(18)
-            $0.centerY.equalToSuperview()
-            $0.bottom.equalToSuperview().offset(-20)
+        }
+        
+        missionLabel.snp.makeConstraints {
+            $0.top.equalTo(tagLabel.snp.bottom).offset(8)
+            $0.leading.equalTo(tagLabel.snp.leading).offset(-5)
         }
         
         lineView.snp.makeConstraints {
             $0.height.equalTo(1)
             $0.centerY.equalToSuperview()
+            $0.directionalHorizontalEdges.equalToSuperview()
         }
+    }
+    
+    func configure(model: MissionListModel) {
+        tagLabel.text = model.tag
+        missionLabel.text = model.missiontitle
+    }
+    
+    @objc
+    func checkBoxButton(sender: UIButton) {
+        isTappedClosure?(true)
     }
 }
