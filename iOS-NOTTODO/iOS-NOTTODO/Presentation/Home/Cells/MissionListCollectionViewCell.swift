@@ -1,5 +1,5 @@
 //
-//  MissionListTableViewCell.swift
+//  MissionListCollectionViewCell.swift
 //  iOS-NOTTODO
 //
 //  Created by JEONGEUN KIM on 2023/02/26.
@@ -10,11 +10,12 @@ import UIKit
 import SnapKit
 import Then
 
-class MissionListTableViewCell: UITableViewCell {
+class MissionListCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Properties
     
-    static let identifier = "MissionListTableViewCell"
+    static let identifier = "MissionListCollectionViewCell"
+    
     var isTappedClosure: ((_ result: Bool) -> Void)?
     var isTapped: Bool = false
     
@@ -27,16 +28,12 @@ class MissionListTableViewCell: UITableViewCell {
     
     // MARK: - View Life Cycle
     
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
+    override init(frame: CGRect) {
+        super.init(frame: .zero)
         setUI()
         setLayout()
     }
-    
-    override func layoutSubviews() {
-      super.layoutSubviews()
-      contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 9, left: 0, bottom: 9, right: 0))
-    }
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -44,7 +41,7 @@ class MissionListTableViewCell: UITableViewCell {
 
 // MARK: - Methods
 
-extension MissionListTableViewCell {
+extension MissionListCollectionViewCell {
     
     func setUI() {
         backgroundColor = .clear
@@ -99,6 +96,7 @@ extension MissionListTableViewCell {
         missionLabel.snp.makeConstraints {
             $0.top.equalTo(tagLabel.snp.bottom).offset(8)
             $0.leading.equalTo(tagLabel.snp.leading).offset(-5)
+            $0.bottom.equalToSuperview().offset(-20)
         }
         
         lineView.snp.makeConstraints {
