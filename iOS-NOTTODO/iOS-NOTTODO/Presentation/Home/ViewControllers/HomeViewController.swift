@@ -96,7 +96,7 @@ extension HomeViewController {
             var config = UICollectionLayoutListConfiguration(appearance: .insetGrouped)
             config.showsSeparators = false
             config.trailingSwipeActionsConfigurationProvider = self.makeSwipeActions
-            
+        
             let layoutSection = NSCollectionLayoutSection.list(using: config, layoutEnvironment: layoutEnvirnment)
             layoutSection.orthogonalScrollingBehavior = .none
             layoutSection.interGroupSpacing = 18
@@ -121,6 +121,8 @@ extension HomeViewController {
         
         deleteAction.backgroundColor = .ntdBlue
         modifyAction.backgroundColor = .ntdRed
+        deleteAction.image = .checkboxFill
+        modifyAction.image = .checkboxFill
         
         let swipeConfiguration = UISwipeActionsConfiguration(actions: [modifyAction, deleteAction])
         swipeConfiguration.performsFirstActionWithFullSwipe = false
