@@ -9,17 +9,20 @@ import UIKit
 
 class HomeViewController: UIViewController {
     
+    // MARK: - Properties
+    
     private let missionList: [MissionListModel] = MissionListModel.items
-    
-    private lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
-    
+    private lazy var safeArea = self.view.safeAreaLayoutGuide
+
     enum Section: Int, Hashable {
         case mission
     }
-    
     var dataSource: UICollectionViewDiffableDataSource<Section, MissionListModel>! = nil
-    private lazy var safeArea = self.view.safeAreaLayoutGuide
     
+    // MARK: - UI Components
+    
+    private lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout())
+        
     // MARK: - Life Cycle
     
     override func viewDidLoad() {
@@ -32,6 +35,8 @@ class HomeViewController: UIViewController {
     }
 }
 
+// MARK: - Methods
+
 extension HomeViewController {
     
     private func register() {
@@ -43,6 +48,7 @@ extension HomeViewController {
         
         collectionView.do {
             $0.backgroundColor = .clear
+            $0.bounces = false
             $0.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         }
     }
@@ -57,6 +63,9 @@ extension HomeViewController {
             $0.bottom.equalTo(safeArea)
         }
     }
+    
+    // MARK: - Data
+    
     private func setupDataSource() {
         dataSource = UICollectionViewDiffableDataSource<Section, MissionListModel>(collectionView: collectionView, cellProvider: { collectionView, indexPath, item in
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MissionListCollectionViewCell.identifier, for: indexPath) as? MissionListCollectionViewCell else { return UICollectionViewCell() }
@@ -80,36 +89,42 @@ extension HomeViewController {
         snapShot.appendItems(missionList, toSection: .mission)
     }
     
-    private func createLayout() -> UICollectionViewLayout {
+    // MARK: - Layout
+    
+    private func layout() -> UICollectionViewLayout {
         let layout = UICollectionViewCompositionalLayout { _, layoutEnvirnment  in
             var config = UICollectionLayoutListConfiguration(appearance: .insetGrouped)
             config.showsSeparators = false
             config.trailingSwipeActionsConfigurationProvider = self.makeSwipeActions
+            
             let layoutSection = NSCollectionLayoutSection.list(using: config, layoutEnvironment: layoutEnvirnment)
+            layoutSection.orthogonalScrollingBehavior = .none
             layoutSection.interGroupSpacing = 18
+            layoutSection.contentInsets = .zero
+            
             return layoutSection
         }
         return layout
     }
     
-     private func makeSwipeActions(for indexPath: IndexPath?) -> UISwipeActionsConfiguration? {
-         
-         let deleteAction = UIContextualAction(style: .normal, title: "") { _, _, completion in
-             print("delete")
-             completion(true)
-         }
-                  
-         let modifyAction = UIContextualAction(style: .normal, title: "") { _, _, completionHandler in
-             print("modify")
-             completionHandler(true)
-         }
-         
-         deleteAction.backgroundColor = .ntdBlue
-         modifyAction.backgroundColor = .ntdRed
-         
-         let swipeConfiguration = UISwipeActionsConfiguration(actions: [modifyAction, deleteAction])
-         
-         swipeConfiguration.performsFirstActionWithFullSwipe = false
-         return swipeConfiguration
-     }
+    private func makeSwipeActions(for indexPath: IndexPath?) -> UISwipeActionsConfiguration? {
+        
+        let deleteAction = UIContextualAction(style: .normal, title: "") { _, _, completion in
+            print("delete")
+            completion(true)
+        }
+        
+        let modifyAction = UIContextualAction(style: .normal, title: "") { _, _, completionHandler in
+            print("modify")
+            completionHandler(true)
+        }
+        
+        deleteAction.backgroundColor = .ntdBlue
+        modifyAction.backgroundColor = .ntdRed
+        
+        let swipeConfiguration = UISwipeActionsConfiguration(actions: [modifyAction, deleteAction])
+        swipeConfiguration.performsFirstActionWithFullSwipe = false
+        
+        return swipeConfiguration
+    }
 }
