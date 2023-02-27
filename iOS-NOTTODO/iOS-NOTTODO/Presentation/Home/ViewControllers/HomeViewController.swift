@@ -21,7 +21,7 @@ class HomeViewController: UIViewController {
     
     // MARK: - UI Components
     
-    private lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout())
+    private lazy var missionCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout())
         
     // MARK: - Life Cycle
     
@@ -40,13 +40,13 @@ class HomeViewController: UIViewController {
 extension HomeViewController {
     
     private func register() {
-        collectionView.register(MissionListCollectionViewCell.self, forCellWithReuseIdentifier: MissionListCollectionViewCell.identifier)
+        missionCollectionView.register(MissionListCollectionViewCell.self, forCellWithReuseIdentifier: MissionListCollectionViewCell.identifier)
     }
     
     private func setUI() {
         view.backgroundColor = .bg
         
-        collectionView.do {
+        missionCollectionView.do {
             $0.backgroundColor = .clear
             $0.bounces = false
             $0.autoresizingMask = [.flexibleWidth, .flexibleHeight]
@@ -54,9 +54,9 @@ extension HomeViewController {
     }
     
     private func setLayout() {
-        view.addSubview(collectionView)
+        view.addSubview(missionCollectionView)
         
-        collectionView.snp.makeConstraints {
+        missionCollectionView.snp.makeConstraints {
             $0.top.equalTo(safeArea).offset(162)
             $0.trailing.equalTo(safeArea).inset(18)
             $0.leading.equalTo(safeArea)
@@ -67,7 +67,7 @@ extension HomeViewController {
     // MARK: - Data
     
     private func setupDataSource() {
-        dataSource = UICollectionViewDiffableDataSource<Section, MissionListModel>(collectionView: collectionView, cellProvider: { collectionView, indexPath, item in
+        dataSource = UICollectionViewDiffableDataSource<Section, MissionListModel>(collectionView: missionCollectionView, cellProvider: { collectionView, indexPath, item in
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MissionListCollectionViewCell.identifier, for: indexPath) as? MissionListCollectionViewCell else { return UICollectionViewCell() }
             cell.configure(model: item)
             cell.isTappedClosure = { result in
@@ -121,9 +121,14 @@ extension HomeViewController {
         
         deleteAction.backgroundColor = .ntdBlue
         modifyAction.backgroundColor = .ntdRed
+                
+//        deleteAction.image = UIGraphicsImageRenderer(size: CGSize(width: view.frame.width, height: view.frame.height)).image { _ in
+//                UIImage.checkboxFill.draw(in: CGRect(x: 40, y: 40 , width:view.frame.width / 3, height: view.frame.width / 3))
+//            }
+    
         deleteAction.image = .checkboxFill
         modifyAction.image = .checkboxFill
-        
+
         let swipeConfiguration = UISwipeActionsConfiguration(actions: [modifyAction, deleteAction])
         swipeConfiguration.performsFirstActionWithFullSwipe = false
         
