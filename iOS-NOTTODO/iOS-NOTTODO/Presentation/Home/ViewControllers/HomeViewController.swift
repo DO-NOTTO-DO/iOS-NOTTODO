@@ -12,17 +12,20 @@ class HomeViewController: UIViewController {
     // MARK: - Properties
     
     private let missionList: [MissionListModel] = MissionListModel.items
+    
     private lazy var safeArea = self.view.safeAreaLayoutGuide
 
     enum Section: Int, Hashable {
         case mission
     }
-    var dataSource: UICollectionViewDiffableDataSource<Section, MissionListModel>! = nil
-    
+ //   var dataSource: UICollectionViewDiffableDataSource<Section, MissionListModel>! = nil
+    var dataSource: CollectionViewDiffableDataSource<Section, MissionListModel>! = nil
     // MARK: - UI Components
     
     private lazy var missionCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout())
-        
+    private lazy var emptyView: EmptyView? = nil
+ //   private let emptyView:
+    
     // MARK: - Life Cycle
     
     override func viewDidLoad() {
@@ -67,7 +70,18 @@ extension HomeViewController {
     // MARK: - Data
     
     private func setupDataSource() {
-        dataSource = UICollectionViewDiffableDataSource<Section, MissionListModel>(collectionView: missionCollectionView, cellProvider: { collectionView, indexPath, item in
+//        dataSource = UICollectionViewDiffableDataSource<Section, MissionListModel>(collectionView: missionCollectionView, cellProvider: { collectionView, indexPath, item in
+//            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MissionListCollectionViewCell.identifier, for: indexPath) as? MissionListCollectionViewCell else { return UICollectionViewCell() }
+//            cell.configure(model: item)
+//            cell.isTappedClosure = { result in
+//                if result {
+//                    cell.isTapped.toggle()
+//                    cell.setUI()
+//                }
+//            }
+//            return cell
+//        })
+        dataSource = CollectionViewDiffableDataSource<Section, MissionListModel>(collectionView: missionCollectionView, cellProvider: { collectionView, indexPath, item in
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MissionListCollectionViewCell.identifier, for: indexPath) as? MissionListCollectionViewCell else { return UICollectionViewCell() }
             cell.configure(model: item)
             cell.isTappedClosure = { result in
@@ -77,7 +91,7 @@ extension HomeViewController {
                 }
             }
             return cell
-        })
+        }, emptyView: self.emptyView)
     }
     
     private func reloadData() {
