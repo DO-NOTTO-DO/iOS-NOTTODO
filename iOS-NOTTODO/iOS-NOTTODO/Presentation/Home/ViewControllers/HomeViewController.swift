@@ -16,10 +16,10 @@ class HomeViewController: UIViewController {
     private lazy var safeArea = self.view.safeAreaLayoutGuide
     
     enum Section: Int, Hashable {
-        case mission
+        case mission, empty
     }
-    //   var dataSource: UICollectionViewDiffableDataSource<Section, MissionListModel>! = nil
-    var dataSource: CollectionViewDiffableDataSource<Section, MissionListModel>! = nil
+       var dataSource: UICollectionViewDiffableDataSource<Section, AnyHashable>! = nil
+//    var dataSource: CollectionViewDiffableDataSource<Section, MissionListModel>! = nil
     // MARK: - UI Components
     
     private lazy var missionCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout())
@@ -47,6 +47,7 @@ extension HomeViewController {
     
     private func register() {
         missionCollectionView.register(MissionListCollectionViewCell.self, forCellWithReuseIdentifier: MissionListCollectionViewCell.identifier)
+        missionCollectionView.register(HomeEmptyCollectionViewCell.self, forCellWithReuseIdentifier: HomeEmptyCollectionViewCell.identifier)
     }
     
     private func setUI() {
@@ -73,57 +74,70 @@ extension HomeViewController {
     // MARK: - Data
     
     private func setupDataSource() {
-        //        dataSource = UICollectionViewDiffableDataSource<Section, MissionListModel>(collectionView: missionCollectionView, cellProvider: { collectionView, indexPath, item in
-        //            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MissionListCollectionViewCell.identifier, for: indexPath) as? MissionListCollectionViewCell else { return UICollectionViewCell() }
-        //            cell.configure(model: item)
-        //            cell.isTappedClosure = { result in
-        //                if result {
-        //                    cell.isTapped.toggle()
-        //                    cell.setUI()
-        //                }
-        //            }
-        //            return cell
-        //        })
-        dataSource = CollectionViewDiffableDataSource<Section, MissionListModel>(collectionView: missionCollectionView, cellProvider: { collectionView, indexPath, item in
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MissionListCollectionViewCell.identifier, for: indexPath) as? MissionListCollectionViewCell else { return UICollectionViewCell() }
-            cell.configure(model: item)
-            cell.isTappedClosure = { result in
-                if result {
-                    cell.isTapped.toggle()
-                    cell.setUI()
+        dataSource = UICollectionViewDiffableDataSource<Section, AnyHashable>(collectionView: missionCollectionView, cellProvider: { collectionView, indexPath, item in
+            let section = self.dataSource.snapshot().sectionIdentifiers[indexPath.section]
+            switch section {
+            case .mission:
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MissionListCollectionViewCell.identifier, for: indexPath) as! MissionListCollectionViewCell
+                cell.configure(model: item as! MissionListModel )
+                cell.isTappedClosure = { result in
+                    if result {
+                        cell.isTapped.toggle()
+                        cell.setUI()
+                    }
                 }
+                return cell
+                
+            case .empty:
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeEmptyCollectionViewCell.identifier, for: indexPath) as! HomeEmptyCollectionViewCell
+                return cell
             }
-            return cell
-        }, emptyView: emptyView)
+        })
     }
-    
+                                                                    
     private func reloadData() {
-        var snapShot = NSDiffableDataSourceSnapshot<Section, MissionListModel>()
+        var snapShot = NSDiffableDataSourceSnapshot<Section, AnyHashable>()
         defer {
             dataSource.apply(snapShot, animatingDifferences: false)
         }
-        snapShot.appendSections([.mission])
-        snapShot.appendItems(missionList, toSection: .mission)
+        snapShot.appendSections([.empty])
+        snapShot.appendItems(Array(0..<1), toSection: .empty)
     }
     
     // MARK: - Layout
     
     private func layout() -> UICollectionViewLayout {
-        let layout = UICollectionViewCompositionalLayout { _, layoutEnvirnment  in
-            var config = UICollectionLayoutListConfiguration(appearance: .insetGrouped)
-            config.backgroundColor = .clear
-            config.showsSeparators = false
-            config.trailingSwipeActionsConfigurationProvider = self.makeSwipeActions
-            
-            let layoutSection = NSCollectionLayoutSection.list(using: config, layoutEnvironment: layoutEnvirnment)
-            layoutSection.orthogonalScrollingBehavior = .none
-            layoutSection.interGroupSpacing = 18
-            layoutSection.contentInsets = .zero
+        let layout = UICollectionViewCompositionalLayout { sectionIndex , layoutEnvirnment  in
+            let section = self.dataSource.snapshot().sectionIdentifiers[sectionIndex]
+            switch section {
+            case .mission:
+                var config = UICollectionLayoutListConfiguration(appearance: .insetGrouped)
+                config.backgroundColor = .clear
+                config.showsSeparators = false
+                config.trailingSwipeActionsConfigurationProvider = self.makeSwipeActions
+                
+                let layoutSection = NSCollectionLayoutSection.list(using: config, layoutEnvironment: layoutEnvirnment)
+                layoutSection.orthogonalScrollingBehavior = .none
+                layoutSection.interGroupSpacing = 18
+                layoutSection.contentInsets = .zero
 
-            return layoutSection
+                return layoutSection
+                
+            case .empty:
+                return self.EmptySection()
+            }
         }
         return layout
     }
+    
+    private func EmptySection() -> NSCollectionLayoutSection {
+        let item = NSCollectionLayoutItem(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .absolute(200)))
+        let group = NSCollectionLayoutGroup.vertical(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .absolute(200)), subitem : item ,count: 1)
+        let section = NSCollectionLayoutSection(group: group)
+        section.supplementariesFollowContentInsets = false
+        return section
+    }
+    
     
     private func makeSwipeActions(for indexPath: IndexPath?) -> UISwipeActionsConfiguration? {
         let deleteAction = UIContextualAction(style: .normal, title: "") { _, _, completion in

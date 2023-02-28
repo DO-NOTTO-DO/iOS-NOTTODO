@@ -25,10 +25,7 @@ class CollectionViewDiffableDataSource<S, T>: UICollectionViewDiffableDataSource
         
         guard let emptyView = emptyView else { return }
         if snapshot.itemIdentifiers.isEmpty {
-            
             collectionView?.addSubview(emptyView)
-            collectionView?.isScrollEnabled = false
-            collectionView?.bounces = false
 
             emptyView.snp.makeConstraints {
                 $0.edges.equalToSuperview()
