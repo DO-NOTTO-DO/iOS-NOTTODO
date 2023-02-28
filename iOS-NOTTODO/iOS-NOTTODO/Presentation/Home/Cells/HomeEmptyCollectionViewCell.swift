@@ -54,13 +54,13 @@ extension HomeEmptyCollectionViewCell {
         logoImage.snp.makeConstraints {
             $0.centerX.equalToSuperview()
             $0.centerY.equalToSuperview().inset(113)
-            $0.size.equalTo(CGSize(width: 106, height: 70))
+            $0.size.equalTo(CGSize(width: 192, height: 200))
         }
         
         emptyLabel.snp.makeConstraints {
-            $0.top.equalTo(logoImage.snp.bottom).offset(33)
+            $0.top.equalTo(logoImage.snp.bottom)
+            $0.directionalHorizontalEdges.equalToSuperview().inset(95)
             $0.centerX.equalToSuperview()
         }
     }
 }
-

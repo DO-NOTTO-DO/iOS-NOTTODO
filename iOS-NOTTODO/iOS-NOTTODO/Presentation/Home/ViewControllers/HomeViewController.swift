@@ -29,13 +29,11 @@ class HomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        Utils.setUpUITabBar()
         setUI()
         register()
         setLayout()
         setupDataSource()
         reloadData()
-        
     }
 }
 
@@ -89,7 +87,6 @@ extension HomeViewController {
                     }
                 }
                 return cell
-                
             case .empty:
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeEmptyCollectionViewCell.identifier, for: indexPath) as! HomeEmptyCollectionViewCell
                 return cell
@@ -169,6 +166,4 @@ extension HomeViewController {
         
         return swipeConfiguration
     }
-    
-    
 }
