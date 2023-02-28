@@ -20,23 +20,22 @@ class HomeViewController: UIViewController {
     }
     var dataSource: UICollectionViewDiffableDataSource<Sections, AnyHashable>! = nil
     private lazy var safeArea = self.view.safeAreaLayoutGuide
-
+    
     // MARK: - UI Components
     
     private lazy var missionCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout())
-    private lazy var emptyView = UIView().then {
-        $0.backgroundColor = .red
-    }
     
     // MARK: - Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        Utils.setUpUITabBar()
         setUI()
         register()
         setLayout()
         setupDataSource()
         reloadData()
+        
     }
 }
 
@@ -51,6 +50,7 @@ extension HomeViewController {
     
     private func setUI() {
         view.backgroundColor = .bg
+        
         missionCollectionView.do {
             $0.backgroundColor = .clear
             $0.bounces = false
@@ -63,11 +63,14 @@ extension HomeViewController {
         
         missionCollectionView.snp.makeConstraints {
             $0.top.equalTo(safeArea).offset(162)
-            $0.trailing.equalTo(safeArea).inset(18)
-            $0.leading.equalTo(safeArea)
+            if missionList.isEmpty {
+                $0.directionalHorizontalEdges.equalToSuperview()
+            } else {
+                $0.trailing.equalTo(safeArea).inset(18)
+                $0.leading.equalTo(safeArea)
+            }
             $0.bottom.equalTo(safeArea)
         }
-        
     }
     
     // MARK: - Data
@@ -137,9 +140,10 @@ extension HomeViewController {
     
     private func EmptySection() -> NSCollectionLayoutSection {
         let item = NSCollectionLayoutItem(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1)))
-        let group = NSCollectionLayoutGroup.vertical(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1)), subitem : item ,count: 1)
+        let group = NSCollectionLayoutGroup.vertical(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1)), subitem: item, count: 1)
         let section = NSCollectionLayoutSection(group: group)
         section.supplementariesFollowContentInsets = false
+        
         return section
     }
     
@@ -165,4 +169,6 @@ extension HomeViewController {
         
         return swipeConfiguration
     }
+    
+    
 }

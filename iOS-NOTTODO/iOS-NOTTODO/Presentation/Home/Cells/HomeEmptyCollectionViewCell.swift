@@ -17,7 +17,6 @@ class HomeEmptyCollectionViewCell: UICollectionViewCell {
     
     private let logoImage = UIImageView()
     private let emptyLabel = UILabel()
-    private let verticalStackView = UIStackView()
 
     override init(frame: CGRect) {
         super.init(frame: .zero)
@@ -34,7 +33,7 @@ class HomeEmptyCollectionViewCell: UICollectionViewCell {
 
 extension HomeEmptyCollectionViewCell {
     private func setUI() {
-        backgroundColor = .black
+        backgroundColor = .clear
         
         logoImage.do {
             $0.image = .emptyLogo
@@ -47,27 +46,21 @@ extension HomeEmptyCollectionViewCell {
             $0.textColor = .gray4
             $0.font = .Pretendard(.semiBold, size: 16)
         }
-        
-        verticalStackView.do {
-            $0.axis = .vertical
-            $0.spacing = 33
-            $0.distribution = .equalCentering
-            $0.addArrangedSubviews(logoImage, emptyLabel)
-        }
     }
     
     private func setLayout() {
-        addSubviews(verticalStackView)
+        addSubviews(logoImage, emptyLabel)
         
         logoImage.snp.makeConstraints {
+            $0.centerX.equalToSuperview()
+            $0.centerY.equalToSuperview().inset(113)
             $0.size.equalTo(CGSize(width: 106, height: 70))
-            $0.centerX.centerY.equalToSuperview()
         }
         
-        verticalStackView.snp.makeConstraints {
-            $0.centerX.centerY.equalToSuperview()
-            $0.directionalHorizontalEdges.equalToSuperview().inset(90)
-            $0.directionalVerticalEdges.equalToSuperview()
+        emptyLabel.snp.makeConstraints {
+            $0.top.equalTo(logoImage.snp.bottom).offset(33)
+            $0.centerX.equalToSuperview()
         }
     }
 }
+
