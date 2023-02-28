@@ -34,7 +34,7 @@ class HomeEmptyCollectionViewCell: UICollectionViewCell {
 
 extension HomeEmptyCollectionViewCell {
     private func setUI() {
-        backgroundColor = .clear
+        backgroundColor = .black
         
         logoImage.do {
             $0.image = .emptyLogo
@@ -61,12 +61,13 @@ extension HomeEmptyCollectionViewCell {
         
         logoImage.snp.makeConstraints {
             $0.size.equalTo(CGSize(width: 106, height: 70))
+            $0.centerX.centerY.equalToSuperview()
         }
         
         verticalStackView.snp.makeConstraints {
             $0.centerX.centerY.equalToSuperview()
             $0.directionalHorizontalEdges.equalToSuperview().inset(90)
-            $0.directionalVerticalEdges.equalToSuperview().inset(112)
+            $0.directionalVerticalEdges.equalToSuperview()
         }
     }
 }

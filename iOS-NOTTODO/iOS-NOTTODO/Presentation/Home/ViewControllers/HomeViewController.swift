@@ -7,26 +7,26 @@
 
 import UIKit
 
+import Then
+import SnapKit
+
 class HomeViewController: UIViewController {
     
     // MARK: - Properties
     
     private let missionList: [MissionListModel] = MissionListModel.items
-    
-    private lazy var safeArea = self.view.safeAreaLayoutGuide
-    
-    enum Section: Int, Hashable {
+    enum Sections: Int, Hashable {
         case mission, empty
     }
-       var dataSource: UICollectionViewDiffableDataSource<Section, AnyHashable>! = nil
-//    var dataSource: CollectionViewDiffableDataSource<Section, MissionListModel>! = nil
+    var dataSource: UICollectionViewDiffableDataSource<Sections, AnyHashable>! = nil
+    private lazy var safeArea = self.view.safeAreaLayoutGuide
+
     // MARK: - UI Components
     
     private lazy var missionCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout())
     private lazy var emptyView = UIView().then {
         $0.backgroundColor = .red
     }
-    //   private let emptyView:
     
     // MARK: - Life Cycle
     
@@ -37,7 +37,6 @@ class HomeViewController: UIViewController {
         setLayout()
         setupDataSource()
         reloadData()
-        
     }
 }
 
@@ -52,7 +51,6 @@ extension HomeViewController {
     
     private func setUI() {
         view.backgroundColor = .bg
-        
         missionCollectionView.do {
             $0.backgroundColor = .clear
             $0.bounces = false
@@ -69,12 +67,13 @@ extension HomeViewController {
             $0.leading.equalTo(safeArea)
             $0.bottom.equalTo(safeArea)
         }
+        
     }
     
     // MARK: - Data
     
     private func setupDataSource() {
-        dataSource = UICollectionViewDiffableDataSource<Section, AnyHashable>(collectionView: missionCollectionView, cellProvider: { collectionView, indexPath, item in
+        dataSource = UICollectionViewDiffableDataSource<Sections, AnyHashable>(collectionView: missionCollectionView, cellProvider: { collectionView, indexPath, item in
             let section = self.dataSource.snapshot().sectionIdentifiers[indexPath.section]
             switch section {
             case .mission:
@@ -94,20 +93,26 @@ extension HomeViewController {
             }
         })
     }
-                                                                    
+    
     private func reloadData() {
-        var snapShot = NSDiffableDataSourceSnapshot<Section, AnyHashable>()
+        var snapShot = NSDiffableDataSourceSnapshot<Sections, AnyHashable>()
         defer {
             dataSource.apply(snapShot, animatingDifferences: false)
         }
-        snapShot.appendSections([.empty])
-        snapShot.appendItems(Array(0..<1), toSection: .empty)
+        
+        if missionList.isEmpty {
+            snapShot.appendSections([.empty])
+            snapShot.appendItems([0], toSection: .empty)
+        } else {
+            snapShot.appendSections([.mission])
+            snapShot.appendItems(missionList, toSection: .mission)
+        }
     }
     
     // MARK: - Layout
     
     private func layout() -> UICollectionViewLayout {
-        let layout = UICollectionViewCompositionalLayout { sectionIndex , layoutEnvirnment  in
+        let layout = UICollectionViewCompositionalLayout { sectionIndex, layoutEnvirnment  in
             let section = self.dataSource.snapshot().sectionIdentifiers[sectionIndex]
             switch section {
             case .mission:
@@ -120,7 +125,7 @@ extension HomeViewController {
                 layoutSection.orthogonalScrollingBehavior = .none
                 layoutSection.interGroupSpacing = 18
                 layoutSection.contentInsets = .zero
-
+                
                 return layoutSection
                 
             case .empty:
@@ -131,13 +136,12 @@ extension HomeViewController {
     }
     
     private func EmptySection() -> NSCollectionLayoutSection {
-        let item = NSCollectionLayoutItem(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .absolute(200)))
-        let group = NSCollectionLayoutGroup.vertical(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .absolute(200)), subitem : item ,count: 1)
+        let item = NSCollectionLayoutItem(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1)))
+        let group = NSCollectionLayoutGroup.vertical(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1)), subitem : item ,count: 1)
         let section = NSCollectionLayoutSection(group: group)
         section.supplementariesFollowContentInsets = false
         return section
     }
-    
     
     private func makeSwipeActions(for indexPath: IndexPath?) -> UISwipeActionsConfiguration? {
         let deleteAction = UIContextualAction(style: .normal, title: "") { _, _, completion in

@@ -54,7 +54,6 @@ class MissionListCollectionViewCell: UICollectionViewCell {
 extension MissionListCollectionViewCell {
     
     func setUI() {
-        
         backgroundColor = .clear
         contentView.backgroundColor = isTapped ? .clear : .white
         contentView.layer.borderWidth = 1
