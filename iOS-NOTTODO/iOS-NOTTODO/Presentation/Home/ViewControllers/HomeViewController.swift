@@ -14,17 +14,19 @@ class HomeViewController: UIViewController {
     private let missionList: [MissionListModel] = MissionListModel.items
     
     private lazy var safeArea = self.view.safeAreaLayoutGuide
-
+    
     enum Section: Int, Hashable {
         case mission
     }
- //   var dataSource: UICollectionViewDiffableDataSource<Section, MissionListModel>! = nil
+    //   var dataSource: UICollectionViewDiffableDataSource<Section, MissionListModel>! = nil
     var dataSource: CollectionViewDiffableDataSource<Section, MissionListModel>! = nil
     // MARK: - UI Components
     
     private lazy var missionCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout())
-    private lazy var emptyView: EmptyView? = nil
- //   private let emptyView:
+    private lazy var emptyView = UIView().then {
+        $0.backgroundColor = .red
+    }
+    //   private let emptyView:
     
     // MARK: - Life Cycle
     
@@ -35,6 +37,7 @@ class HomeViewController: UIViewController {
         setLayout()
         setupDataSource()
         reloadData()
+        
     }
 }
 
@@ -70,17 +73,17 @@ extension HomeViewController {
     // MARK: - Data
     
     private func setupDataSource() {
-//        dataSource = UICollectionViewDiffableDataSource<Section, MissionListModel>(collectionView: missionCollectionView, cellProvider: { collectionView, indexPath, item in
-//            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MissionListCollectionViewCell.identifier, for: indexPath) as? MissionListCollectionViewCell else { return UICollectionViewCell() }
-//            cell.configure(model: item)
-//            cell.isTappedClosure = { result in
-//                if result {
-//                    cell.isTapped.toggle()
-//                    cell.setUI()
-//                }
-//            }
-//            return cell
-//        })
+        //        dataSource = UICollectionViewDiffableDataSource<Section, MissionListModel>(collectionView: missionCollectionView, cellProvider: { collectionView, indexPath, item in
+        //            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MissionListCollectionViewCell.identifier, for: indexPath) as? MissionListCollectionViewCell else { return UICollectionViewCell() }
+        //            cell.configure(model: item)
+        //            cell.isTappedClosure = { result in
+        //                if result {
+        //                    cell.isTapped.toggle()
+        //                    cell.setUI()
+        //                }
+        //            }
+        //            return cell
+        //        })
         dataSource = CollectionViewDiffableDataSource<Section, MissionListModel>(collectionView: missionCollectionView, cellProvider: { collectionView, indexPath, item in
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MissionListCollectionViewCell.identifier, for: indexPath) as? MissionListCollectionViewCell else { return UICollectionViewCell() }
             cell.configure(model: item)
@@ -91,7 +94,7 @@ extension HomeViewController {
                 }
             }
             return cell
-        }, emptyView: self.emptyView)
+        }, emptyView: emptyView)
     }
     
     private func reloadData() {
@@ -108,21 +111,21 @@ extension HomeViewController {
     private func layout() -> UICollectionViewLayout {
         let layout = UICollectionViewCompositionalLayout { _, layoutEnvirnment  in
             var config = UICollectionLayoutListConfiguration(appearance: .insetGrouped)
+            config.backgroundColor = .clear
             config.showsSeparators = false
             config.trailingSwipeActionsConfigurationProvider = self.makeSwipeActions
-        
+            
             let layoutSection = NSCollectionLayoutSection.list(using: config, layoutEnvironment: layoutEnvirnment)
             layoutSection.orthogonalScrollingBehavior = .none
             layoutSection.interGroupSpacing = 18
             layoutSection.contentInsets = .zero
-            
+
             return layoutSection
         }
         return layout
     }
     
     private func makeSwipeActions(for indexPath: IndexPath?) -> UISwipeActionsConfiguration? {
-        
         let deleteAction = UIContextualAction(style: .normal, title: "") { _, _, completion in
             print("delete")
             completion(true)
@@ -135,14 +138,10 @@ extension HomeViewController {
         
         deleteAction.backgroundColor = .ntdBlue
         modifyAction.backgroundColor = .ntdRed
-                
-//        deleteAction.image = UIGraphicsImageRenderer(size: CGSize(width: view.frame.width, height: view.frame.height)).image { _ in
-//                UIImage.checkboxFill.draw(in: CGRect(x: 40, y: 40 , width:view.frame.width / 3, height: view.frame.width / 3))
-//            }
-    
+        
         deleteAction.image = .checkboxFill
         modifyAction.image = .checkboxFill
-
+        
         let swipeConfiguration = UISwipeActionsConfiguration(actions: [modifyAction, deleteAction])
         swipeConfiguration.performsFirstActionWithFullSwipe = false
         

@@ -28,15 +28,20 @@ class MissionListCollectionViewCell: UICollectionViewCell {
     
     // MARK: - View Life Cycle
     
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        contentView.layer.cornerRadius = 10
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: .zero)
         setUI()
         setLayout()
     }
-
+    
     override func layoutSubviews() {
         super.layoutSubviews()
-        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 0, left: 18, bottom: 0, right: -9))
+        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 0, left: 18, bottom: 0, right: 0))
     }
     
     required init?(coder: NSCoder) {
@@ -49,10 +54,12 @@ class MissionListCollectionViewCell: UICollectionViewCell {
 extension MissionListCollectionViewCell {
     
     func setUI() {
+        
         backgroundColor = .clear
         contentView.backgroundColor = isTapped ? .clear : .white
         contentView.layer.borderWidth = 1
         contentView.layer.borderColor = isTapped ? UIColor.gray5?.cgColor : UIColor.clear.cgColor
+        contentView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMinXMaxYCorner]
         contentView.layer.cornerRadius = 10
         
         checkButton.do {

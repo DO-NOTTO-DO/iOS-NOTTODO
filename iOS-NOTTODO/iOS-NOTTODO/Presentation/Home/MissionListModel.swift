@@ -16,4 +16,5 @@ extension MissionListModel {
                                              MissionListModel(tag: "아침", missiontitle: "공복에 커피 마시지 않기"),
                                              MissionListModel(tag: "출근 시간", missiontitle: "아침 거르지 않기")
     ]
+//    static let items: [MissionListModel] = []
 }
