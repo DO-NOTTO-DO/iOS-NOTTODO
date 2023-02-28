@@ -37,11 +37,10 @@ extension HomeEmptyCollectionViewCell {
         
         logoImage.do {
             $0.image = .emptyLogo
-            $0.backgroundColor = .black
         }
         
         emptyLabel.do {
-            $0.text = "새로운 낫투두를 추가하고\n오늘 하루를 더 잘 살아보세요!"
+            $0.text = I18N.emptyTitle
             $0.textAlignment = .center
             $0.numberOfLines = 0
             $0.textColor = .gray4

@@ -28,4 +28,8 @@ struct I18N {
     static let recommendAction = "실천행동 추천"
     static let more = "필요 없어요 or 직접 입력할게요!"
     static let next = "계속하기"
+    
+    /// Home Empty
+    
+    static let emptyTitle = "새로운 낫투두를 추가하고\n오늘 하루를 더 잘 살아보세요!"
 }
