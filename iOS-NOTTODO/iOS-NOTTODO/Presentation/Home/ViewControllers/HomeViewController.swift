@@ -74,17 +74,12 @@ extension HomeViewController {
         weekCalendar.snp.makeConstraints {
             $0.top.equalTo(safeArea)
             $0.directionalHorizontalEdges.equalTo(safeArea)
-            $0.height.equalTo(162)
+            $0.height.equalTo(172)
         }
         
         missionCollectionView.snp.makeConstraints {
-            $0.top.equalTo(weekCalendar.snp.bottom).offset(18)
-            if missionList.isEmpty {
-                $0.directionalHorizontalEdges.equalToSuperview()
-            } else {
-                $0.trailing.equalTo(safeArea).inset(18)
-                $0.leading.equalTo(safeArea)
-            }
+            $0.top.equalTo(weekCalendar.snp.bottom)
+            $0.directionalHorizontalEdges.equalTo(safeArea)
             $0.bottom.equalToSuperview()
         }
     }
@@ -142,7 +137,7 @@ extension HomeViewController {
                 let layoutSection = NSCollectionLayoutSection.list(using: config, layoutEnvironment: layoutEnvirnment)
                 layoutSection.orthogonalScrollingBehavior = .none
                 layoutSection.interGroupSpacing = 18
-                layoutSection.contentInsets = .zero
+                layoutSection.contentInsets = NSDirectionalEdgeInsets(top: 32, leading: 0, bottom: 0, trailing: 18)
                 
                 return layoutSection
                 
