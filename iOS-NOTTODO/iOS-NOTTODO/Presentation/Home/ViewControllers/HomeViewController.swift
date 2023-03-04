@@ -210,9 +210,13 @@ extension HomeViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalend
         weekCalendar.yearMonthLabel.text = Utils.DateFormatter(format: "YYYY년 MM월", date: calendar.currentPage)
     }
     
-    func calendar(_ calendar: FSCalendar, titleFor date: Date) -> String? {
-        Utils.DateFormatter(format: "dd", date: date)
-    }
+    func  calendar(_ calendar: FSCalendar, titleFor date: Date) -> String? {
+            Utils.DateFormatter(format: "EEEEEE", date: date)
+        }
+        
+        func calendar(_ calendar: FSCalendar, subtitleFor date: Date) -> String? {
+            Utils.DateFormatter(format: "dd", date: date)
+        }
     
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         weekCalendar.yearMonthLabel.text = Utils.DateFormatter(format: "yyyy년 MM월", date: date)
