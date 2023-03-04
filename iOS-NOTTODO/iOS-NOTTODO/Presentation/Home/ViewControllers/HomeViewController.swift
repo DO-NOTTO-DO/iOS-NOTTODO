@@ -24,6 +24,7 @@ class HomeViewController: UIViewController {
     private lazy var today: Date = { return Date() }()
     
     // MARK: - UI Components
+    
     private lazy var missionCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout())
     private let weekCalendar = CalendarView(calendarScope: .week, scrollDirection: .horizontal)
     

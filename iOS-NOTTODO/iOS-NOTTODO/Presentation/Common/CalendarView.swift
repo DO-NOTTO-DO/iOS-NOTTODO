@@ -11,8 +11,10 @@ import FSCalendar
 import Then
 import SnapKit
 
-class CalendarView: UIView {
+final class CalendarView: UIView {
     
+    // MARK: - UI Components
+
     let yearMonthLabel = UILabel()
     let todayButton = UIButton()
     let horizonStackView = UIStackView()
@@ -20,16 +22,22 @@ class CalendarView: UIView {
     let rightButton = UIButton()
     var calendar = WeekMonthFSCalendar()
     
+    // MARK: - Life Cycle
+
     init(calendarScope: FSCalendarScope, scrollDirection: FSCalendarScrollDirection) {
         super.init(frame: .zero)
         setCalendar(scope: calendarScope, scrollDirection: scrollDirection)
         setUI()
         setLayout(scope: calendarScope)
     }
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 }
+
+// MARK: - Methods
+
 extension CalendarView {
     
     private func setCalendar(scope: FSCalendarScope, scrollDirection: FSCalendarScrollDirection) {
@@ -61,6 +69,7 @@ extension CalendarView {
             $0.setImage(.calendarRight, for: .normal)
         }
     }
+    
     private func setLayout(scope: FSCalendarScope) {
         switch scope {
         case .week:

@@ -11,6 +11,8 @@ import FSCalendar
 
 final class WeekMonthFSCalendar: FSCalendar {
     
+    // MARK: - Life Cycle
+
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
@@ -26,17 +28,19 @@ final class WeekMonthFSCalendar: FSCalendar {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+}
+
+// MARK: - Methods
+
+extension WeekMonthFSCalendar {
     func configure(scope: FSCalendarScope) {
         calendarHeaderView.isHidden = true
         headerHeight = 0
         backgroundColor = .clear
         
-        // title
         appearance.titleDefaultColor = .white
         appearance.titleFont = .Pretendard(.medium, size: 14)
         
-        // subtitle
         appearance.subtitleSelectionColor = .white
         appearance.subtitleDefaultColor = .white
         appearance.subtitleFont = .Pretendard(.medium, size: 14)
