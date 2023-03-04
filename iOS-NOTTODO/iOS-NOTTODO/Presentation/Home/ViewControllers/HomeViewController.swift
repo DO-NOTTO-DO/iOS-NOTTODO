@@ -191,16 +191,16 @@ extension HomeViewController {
 // MARK: - action
 
 extension HomeViewController {
-    @objc func todayBtnTapped(_sender : UIButton){
+    @objc func todayBtnTapped(_sender: UIButton) {
         weekCalendar.calendar.select(today)
         weekCalendar.yearMonthLabel.text = self.dateFormatter.string(from: today)
     }
-    @objc func prevBtnTapped(_sender : UIButton){
+    @objc func prevBtnTapped(_sender: UIButton) {
         print("preTapped")
-        Utils.scrollCurrentPage(calendar: weekCalendar.calendar , isPrev: true)
+        Utils.scrollCurrentPage(calendar: weekCalendar.calendar, isPrev: true)
     }
-    @objc func nextBtnTapped(_sender : UIButton){
+    @objc func nextBtnTapped(_sender: UIButton) {
         print("nextTapped")
-        Utils.scrollCurrentPage(calendar: weekCalendar.calendar , isPrev: false)
+        Utils.scrollCurrentPage(calendar: weekCalendar.calendar, isPrev: false)
     }
 }

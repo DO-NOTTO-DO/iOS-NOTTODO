@@ -15,7 +15,7 @@ final class WeekMonthCalendar: FSCalendar {
         super.init(frame: frame)
     }
     
-    init(calendarScope : FSCalendarScope, scrollDirection : FSCalendarScrollDirection){
+    init(calendarScope: FSCalendarScope, scrollDirection: FSCalendarScrollDirection){
         super.init(frame: .zero)
         self.scope =  calendarScope
         self.scrollDirection =  scrollDirection
@@ -34,19 +34,20 @@ final class WeekMonthCalendar: FSCalendar {
         
         // title
         appearance.titleDefaultColor = .white
-        appearance.titleSelectionColor = .white //선택한 날짜 글자 색상
+        appearance.titleSelectionColor = .white
         
         // subtitle
         appearance.subtitleSelectionColor = .white
         appearance.subtitleDefaultColor = .white
 
         appearance.todayColor = .clear
-        appearance.selectionColor = .clear //선택한 날짜 동그라미 색상
+        appearance.selectionColor = .clear
         appearance.borderDefaultColor = .clear
         
         switch scope {
         case .week:
             calendarWeekdayView.removeFromSuperview()
+            calendarHeaderView.removeFromSuperview()
             appearance.borderSelectionColor = .white
             appearance.subtitleOffset = CGPoint(x: 0, y: 10)
         case .month:

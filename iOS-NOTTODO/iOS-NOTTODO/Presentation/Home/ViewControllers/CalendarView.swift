@@ -20,7 +20,7 @@ class CalendarView: UIView {
     let rightButton = UIButton()
     var calendar = WeekMonthCalendar()
     
-    init(calendarScope : FSCalendarScope, scrollDirection: FSCalendarScrollDirection) {
+    init(calendarScope: FSCalendarScope, scrollDirection: FSCalendarScrollDirection) {
         super.init(frame: .zero)
         setCalendar(scope: calendarScope, scrollDirection: scrollDirection)
         setUI()
@@ -40,7 +40,7 @@ extension CalendarView {
         backgroundColor = .black
         
         yearMonthLabel.do {
-            $0.font = UIFont.systemFont(ofSize: 16)
+            $0.font = .Pretendard(.medium, size: 18)
             $0.textColor = .white
         }
         todayButton.do {
@@ -63,7 +63,7 @@ extension CalendarView {
     private func setLayout(scope: FSCalendarScope) {
         switch scope {
         case .week:
-            addSubviews(yearMonthLabel,todayButton,calendar)
+            addSubviews(yearMonthLabel, todayButton, calendar)
             
             yearMonthLabel.snp.makeConstraints {
                 $0.top.equalToSuperview().offset(23)
@@ -77,13 +77,14 @@ extension CalendarView {
             }
             
             calendar.snp.makeConstraints {
-                $0.top.equalTo(yearMonthLabel.snp.bottom).offset(26)
+                $0.top.equalTo(todayButton.snp.bottom).offset(5)
                 $0.centerX.equalToSuperview()
                 $0.directionalHorizontalEdges.equalToSuperview()
                 $0.bottom.equalToSuperview()
             }
         case .month:
-            addSubviews(yearMonthLabel,horizonStackView)
+            addSubviews(yearMonthLabel, horizonStackView)
+            
             horizonStackView.addArrangedSubviews(leftButton, yearMonthLabel, rightButton)
             
             leftButton.snp.makeConstraints {
