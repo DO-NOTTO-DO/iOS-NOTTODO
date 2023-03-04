@@ -11,14 +11,13 @@ import FSCalendar
 import Then
 import SnapKit
 
-class CustomCalendarView: UIView {
+class CalendarView: UIView {
     
     let yearMonthLabel = UILabel()
     let todayButton = UIButton()
     let horizonStackView = UIStackView()
     let leftButton = UIButton()
     let rightButton = UIButton()
-    let dateFormatter = DateFormatter()
     var calendar = WeekMonthCalendar()
     
     init(calendarScope : FSCalendarScope, scrollDirection: FSCalendarScrollDirection) {
@@ -31,7 +30,7 @@ class CustomCalendarView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 }
-extension CustomCalendarView {
+extension CalendarView {
     
     private func setCalendar(scope: FSCalendarScope, scrollDirection: FSCalendarScrollDirection) {
         calendar = WeekMonthCalendar(calendarScope: scope, scrollDirection: scrollDirection)
@@ -40,19 +39,15 @@ extension CustomCalendarView {
     private func setUI() {
         backgroundColor = .black
         
-        dateFormatter.do {
-            $0.locale = Locale(identifier: "ko_KR")
-            $0.dateFormat = "YYYY년 MM월"
-            $0.timeZone = TimeZone(identifier: "KST")
-        }
         yearMonthLabel.do {
             $0.font = UIFont.systemFont(ofSize: 16)
             $0.textColor = .white
         }
         todayButton.do {
             $0.setTitle("TODAY", for: .normal)
-            $0.setTitleColor(.white, for: .normal)
-            $0.titleLabel?.font = .systemFont(ofSize: 16)
+            $0.layer.backgroundColor = UIColor.gray2?.cgColor
+            $0.setTitleColor(.gray5, for: .normal)
+            $0.titleLabel?.font = .Pretendard(.regular, size: 14)
         }
         horizonStackView.do {
             $0.axis = .horizontal
@@ -90,7 +85,7 @@ extension CustomCalendarView {
         case .month:
             addSubviews(yearMonthLabel,horizonStackView)
             horizonStackView.addArrangedSubviews(leftButton, yearMonthLabel, rightButton)
-                        
+            
             leftButton.snp.makeConstraints {
                 $0.size.equalTo(CGSize(width: 25, height: 25))
             }
@@ -101,9 +96,11 @@ extension CustomCalendarView {
             
             horizonStackView.snp.makeConstraints {
                 $0.top.equalToSuperview().offset(25)
+                $0.directionalHorizontalEdges.equalToSuperview().inset(82)
                 $0.centerX.equalToSuperview()
+                $0.height.equalTo(25)
             }
-
+            
             calendar.snp.makeConstraints {
                 $0.top.equalTo(leftButton.snp.bottom).offset(20)
                 $0.centerX.equalToSuperview()

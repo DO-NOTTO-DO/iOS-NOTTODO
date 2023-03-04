@@ -21,9 +21,12 @@ class HomeViewController: UIViewController {
     }
     var dataSource: UICollectionViewDiffableDataSource<Sections, AnyHashable>! = nil
     private lazy var safeArea = self.view.safeAreaLayoutGuide
+    private lazy var today: Date = { return Date() }()
     
     // MARK: - UI Components
     private lazy var missionCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout())
+    private let weekCalendar = CalendarView(calendarScope: .week, scrollDirection: .horizontal)
+    private let dateFormatter = DateFormatter()
     
     // MARK: - Life Cycle
     
@@ -49,16 +52,33 @@ extension HomeViewController {
     private func setUI() {
         view.backgroundColor = .bg
         
+        dateFormatter.do {
+            $0.locale = Locale(identifier: "ko_KR")
+            $0.dateFormat = "YYYY년 MM월"
+            $0.timeZone = TimeZone(identifier: "KST")
+        }
+        
+        weekCalendar.do {
+            $0.todayButton.addTarget(self, action: #selector(todayBtnTapped), for: .touchUpInside)
+            $0.leftButton.addTarget(self, action: #selector(prevBtnTapped), for: .touchUpInside)
+            $0.rightButton.addTarget(self, action: #selector(nextBtnTapped), for: .touchUpInside)
+        }
+        
         missionCollectionView.do {
             $0.backgroundColor = .clear
             $0.bounces = false
             $0.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         }
-        
     }
     
     private func setLayout() {
-        view.addSubview(missionCollectionView)
+        view.addSubviews(weekCalendar, missionCollectionView)
+        
+        weekCalendar.snp.makeConstraints {
+            $0.top.equalTo(safeArea)
+            $0.directionalHorizontalEdges.equalTo(safeArea)
+            $0.height.equalTo(162)
+        }
         
         missionCollectionView.snp.makeConstraints {
             $0.top.equalTo(safeArea).offset(162)
@@ -166,5 +186,21 @@ extension HomeViewController {
         swipeConfiguration.performsFirstActionWithFullSwipe = false
         
         return swipeConfiguration
+    }
+}
+// MARK: - action
+
+extension HomeViewController {
+    @objc func todayBtnTapped(_sender : UIButton){
+        weekCalendar.calendar.select(today)
+        weekCalendar.yearMonthLabel.text = self.dateFormatter.string(from: today)
+    }
+    @objc func prevBtnTapped(_sender : UIButton){
+        print("preTapped")
+        Utils.scrollCurrentPage(calendar: weekCalendar.calendar , isPrev: true)
+    }
+    @objc func nextBtnTapped(_sender : UIButton){
+        print("nextTapped")
+        Utils.scrollCurrentPage(calendar: weekCalendar.calendar , isPrev: false)
     }
 }
