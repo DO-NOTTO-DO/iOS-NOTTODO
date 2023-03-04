@@ -12,7 +12,7 @@ import FSCalendar
 final class WeekMonthFSCalendar: FSCalendar {
     
     // MARK: - Life Cycle
-
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
@@ -44,7 +44,7 @@ extension WeekMonthFSCalendar {
         appearance.subtitleSelectionColor = .white
         appearance.subtitleDefaultColor = .white
         appearance.subtitleFont = .Pretendard(.medium, size: 14)
-
+        
         appearance.todayColor = .clear
         appearance.selectionColor = .clear
         appearance.borderDefaultColor = .clear
@@ -54,7 +54,6 @@ extension WeekMonthFSCalendar {
             calendarWeekdayView.removeFromSuperview()
             appearance.borderSelectionColor = .white
             appearance.titleSelectionColor = .white
-            appearance.subtitleOffset = CGPoint(x: 0, y: 20)
         case .month:
             allowsMultipleSelection = true
             appearance.borderSelectionColor = .clear

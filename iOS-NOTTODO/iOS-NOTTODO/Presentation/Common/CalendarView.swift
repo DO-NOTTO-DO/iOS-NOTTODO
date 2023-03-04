@@ -14,7 +14,7 @@ import SnapKit
 final class CalendarView: UIView {
     
     // MARK: - UI Components
-
+    
     let yearMonthLabel = UILabel()
     let todayButton = UIButton(configuration: .filled())
     let horizonStackView = UIStackView()
@@ -23,7 +23,7 @@ final class CalendarView: UIView {
     var calendar = WeekMonthFSCalendar()
     
     // MARK: - Life Cycle
-
+    
     init(calendarScope: FSCalendarScope, scrollDirection: FSCalendarScrollDirection) {
         super.init(frame: .zero)
         setCalendar(scope: calendarScope, scrollDirection: scrollDirection)
@@ -95,7 +95,7 @@ extension CalendarView {
                 $0.directionalHorizontalEdges.equalToSuperview().inset(11)
                 $0.bottom.equalToSuperview().inset(20)
             }
-
+            
         case .month:
             addSubviews(yearMonthLabel, horizonStackView)
             
