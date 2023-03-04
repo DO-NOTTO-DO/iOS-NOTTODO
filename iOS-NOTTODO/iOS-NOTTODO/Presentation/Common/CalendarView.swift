@@ -18,7 +18,7 @@ class CalendarView: UIView {
     let horizonStackView = UIStackView()
     let leftButton = UIButton()
     let rightButton = UIButton()
-    var calendar = WeekMonthCalendar()
+    var calendar = WeekMonthFSCalendar()
     
     init(calendarScope: FSCalendarScope, scrollDirection: FSCalendarScrollDirection) {
         super.init(frame: .zero)
@@ -33,7 +33,7 @@ class CalendarView: UIView {
 extension CalendarView {
     
     private func setCalendar(scope: FSCalendarScope, scrollDirection: FSCalendarScrollDirection) {
-        calendar = WeekMonthCalendar(calendarScope: scope, scrollDirection: scrollDirection)
+        calendar = WeekMonthFSCalendar(calendarScope: scope, scrollDirection: scrollDirection)
     }
     
     private func setUI() {
@@ -42,6 +42,7 @@ extension CalendarView {
         yearMonthLabel.do {
             $0.font = .Pretendard(.medium, size: 18)
             $0.textColor = .white
+            $0.text = Utils.DateFormatter(format: "YYYY년 MM월", date: Date())
         }
         todayButton.do {
             $0.setTitle("TODAY", for: .normal)

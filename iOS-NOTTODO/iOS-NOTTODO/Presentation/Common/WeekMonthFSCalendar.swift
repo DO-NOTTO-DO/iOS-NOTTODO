@@ -9,13 +9,13 @@ import UIKit
 
 import FSCalendar
 
-final class WeekMonthCalendar: FSCalendar {
+final class WeekMonthFSCalendar: FSCalendar {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
     
-    init(calendarScope: FSCalendarScope, scrollDirection: FSCalendarScrollDirection){
+    init(calendarScope: FSCalendarScope, scrollDirection: FSCalendarScrollDirection) {
         super.init(frame: .zero)
         self.scope =  calendarScope
         self.scrollDirection =  scrollDirection
