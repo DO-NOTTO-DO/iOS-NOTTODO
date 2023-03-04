@@ -13,6 +13,7 @@
 		099CFA1A29AB8D710003E5D5 /* MissionListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 099CFA1929AB8D710003E5D5 /* MissionListModel.swift */; };
 		099FC97B29B305F0005B37E6 /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = 099FC97A29B305F0005B37E6 /* FSCalendar */; };
 		099FC98129B3094F005B37E6 /* WeekMonthCalendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 099FC98029B3094F005B37E6 /* WeekMonthCalendar.swift */; };
+		099FC98329B30A2E005B37E6 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 099FC98229B30A2E005B37E6 /* Utils.swift */; };
 		3B027A78299C31B500BEB65C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B027A77299C31B500BEB65C /* AppDelegate.swift */; };
 		3B027A7A299C31B500BEB65C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B027A79299C31B500BEB65C /* SceneDelegate.swift */; };
 		3B027A7C299C31B500BEB65C /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B027A7B299C31B500BEB65C /* AuthViewController.swift */; };
@@ -76,6 +77,7 @@
 		0982DE5729AE40FB00D933D2 /* UITabBar+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITabBar+.swift"; sourceTree = "<group>"; };
 		099CFA1929AB8D710003E5D5 /* MissionListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionListModel.swift; sourceTree = "<group>"; };
 		099FC98029B3094F005B37E6 /* WeekMonthCalendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekMonthCalendar.swift; sourceTree = "<group>"; };
+		099FC98229B30A2E005B37E6 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		3B027A74299C31B500BEB65C /* iOS-NOTTODO.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "iOS-NOTTODO.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B027A77299C31B500BEB65C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3B027A79299C31B500BEB65C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -467,6 +469,7 @@
 			isa = PBXGroup;
 			children = (
 				6CF4707829A7AADB008D145C /* PaddingLabel */,
+				099FC98229B30A2E005B37E6 /* Utils.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -616,6 +619,7 @@
 				6CF4706D29A739D9008D145C /* RecommendViewController.swift in Sources */,
 				3B027A9E299C34DA00BEB65C /* HomeViewController.swift in Sources */,
 				3B482FA9299EB95400BCF424 /* UIScreen+.swift in Sources */,
+				099FC98329B30A2E005B37E6 /* Utils.swift in Sources */,
 				3B14A13B29A694C000F92897 /* UITextView+.swift in Sources */,
 				3B482FA7299EB8FD00BCF424 /* UIViewController+.swift in Sources */,
 				3B14A13D29A6FBD300F92897 /* UIView+.swift in Sources */,
