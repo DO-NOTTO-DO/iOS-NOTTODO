@@ -97,8 +97,7 @@ extension CalendarView {
             }
             
         case .month:
-            addSubviews(yearMonthLabel, horizonStackView)
-            
+            addSubviews(horizonStackView, calendar)
             horizonStackView.addArrangedSubviews(leftButton, yearMonthLabel, rightButton)
             
             leftButton.snp.makeConstraints {
@@ -111,16 +110,14 @@ extension CalendarView {
             
             horizonStackView.snp.makeConstraints {
                 $0.top.equalToSuperview().offset(25)
-                $0.directionalHorizontalEdges.equalToSuperview().inset(82)
                 $0.centerX.equalToSuperview()
                 $0.height.equalTo(25)
             }
             
             calendar.snp.makeConstraints {
-                $0.top.equalTo(leftButton.snp.bottom).offset(20)
-                $0.centerX.equalToSuperview()
-                $0.directionalHorizontalEdges.equalToSuperview()
-                $0.bottom.equalToSuperview()
+                $0.top.equalTo(horizonStackView.snp.bottom).offset(20)
+                $0.directionalHorizontalEdges.equalToSuperview().inset(15)
+                $0.bottom.equalToSuperview().inset(25)
             }
         @unknown default:
             return

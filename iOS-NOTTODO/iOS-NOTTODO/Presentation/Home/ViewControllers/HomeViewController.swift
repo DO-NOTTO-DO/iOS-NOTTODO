@@ -54,8 +54,6 @@ extension HomeViewController {
         
         weekCalendar.do {
             $0.todayButton.addTarget(self, action: #selector(todayBtnTapped), for: .touchUpInside)
-            $0.leftButton.addTarget(self, action: #selector(prevBtnTapped), for: .touchUpInside)
-            $0.rightButton.addTarget(self, action: #selector(nextBtnTapped), for: .touchUpInside)
             $0.calendar.delegate = self
             $0.calendar.dataSource = self
         }
@@ -186,14 +184,6 @@ extension HomeViewController {
     @objc func todayBtnTapped(_sender: UIButton) {
         weekCalendar.calendar.select(today)
         weekCalendar.yearMonthLabel.text = Utils.DateFormatter(format: "YYYY년 MM월", date: today)
-    }
-    @objc func prevBtnTapped(_sender: UIButton) {
-        print("preTapped")
-        Utils.scrollCurrentPage(calendar: weekCalendar.calendar, isPrev: true)
-    }
-    @objc func nextBtnTapped(_sender: UIButton) {
-        print("nextTapped")
-        Utils.scrollCurrentPage(calendar: weekCalendar.calendar, isPrev: false)
     }
 }
 extension HomeViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalendarDelegateAppearance {
