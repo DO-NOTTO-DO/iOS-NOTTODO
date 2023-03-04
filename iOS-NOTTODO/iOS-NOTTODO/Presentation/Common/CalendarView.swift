@@ -16,7 +16,7 @@ final class CalendarView: UIView {
     // MARK: - UI Components
 
     let yearMonthLabel = UILabel()
-    let todayButton = UIButton()
+    let todayButton = UIButton(configuration: .filled())
     let horizonStackView = UIStackView()
     let leftButton = UIButton()
     let rightButton = UIButton()
@@ -53,10 +53,14 @@ extension CalendarView {
             $0.text = Utils.DateFormatter(format: "YYYY년 MM월", date: Date())
         }
         todayButton.do {
-            $0.setTitle("TODAY", for: .normal)
-            $0.layer.backgroundColor = UIColor.gray2?.cgColor
-            $0.setTitleColor(.gray5, for: .normal)
-            $0.titleLabel?.font = .Pretendard(.regular, size: 14)
+            $0.configuration?.image = UIImage(systemName: "return.right")
+            $0.configuration?.title = "오늘"
+            $0.configuration?.imagePadding = 2
+            $0.configuration?.contentInsets = NSDirectionalEdgeInsets.init(top: 3, leading: 6, bottom: 2, trailing: 7)
+            $0.configuration?.baseBackgroundColor = .gray2
+            $0.configuration?.cornerStyle = .capsule
+            $0.configuration?.attributedTitle?.font = .Pretendard(.regular, size: 14)
+            $0.configuration?.baseForegroundColor = .gray5
         }
         horizonStackView.do {
             $0.axis = .horizontal
@@ -81,9 +85,9 @@ extension CalendarView {
             }
             
             todayButton.snp.makeConstraints {
-                $0.top.equalTo(yearMonthLabel.snp.top).offset(1)
+                $0.top.equalTo(yearMonthLabel.snp.top)
                 $0.trailing.equalToSuperview().inset(18)
-                $0.size.equalTo(CGSize(width: 60, height: 22))
+                $0.size.equalTo(CGSize(width: 75, height: 30))
             }
             
             calendar.snp.makeConstraints {
