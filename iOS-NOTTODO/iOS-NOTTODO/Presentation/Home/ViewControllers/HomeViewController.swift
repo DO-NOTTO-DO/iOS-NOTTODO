@@ -49,7 +49,7 @@ extension HomeViewController {
     }
     
     private func setUI() {
-        view.backgroundColor = .bg
+        view.backgroundColor = .ntdBlack
         
         weekCalendar.do {
             $0.todayButton.addTarget(self, action: #selector(todayBtnTapped), for: .touchUpInside)
@@ -60,7 +60,7 @@ extension HomeViewController {
         }
         
         missionCollectionView.do {
-            $0.backgroundColor = .clear
+            $0.backgroundColor = .bg
             $0.bounces = false
             $0.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         }
@@ -76,20 +76,15 @@ extension HomeViewController {
             $0.height.equalTo(162)
         }
         
-        weekCalendar.calendar.snp.makeConstraints {
-            $0.top.equalToSuperview()
-            $0.bottom.equalTo(safeArea).inset(20)
-        }
-        
         missionCollectionView.snp.makeConstraints {
-            $0.top.equalTo(weekCalendar.snp.bottom).offset(10)
+            $0.top.equalTo(weekCalendar.snp.bottom).offset(18)
             if missionList.isEmpty {
                 $0.directionalHorizontalEdges.equalToSuperview()
             } else {
                 $0.trailing.equalTo(safeArea).inset(18)
                 $0.leading.equalTo(safeArea)
             }
-            $0.bottom.equalTo(safeArea)
+            $0.bottom.equalToSuperview()
         }
     }
     

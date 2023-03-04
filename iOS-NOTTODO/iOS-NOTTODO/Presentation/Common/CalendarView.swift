@@ -37,7 +37,7 @@ extension CalendarView {
     }
     
     private func setUI() {
-        backgroundColor = .black
+        backgroundColor = .ntdBlack
         
         yearMonthLabel.do {
             $0.font = .Pretendard(.medium, size: 18)
@@ -78,8 +78,9 @@ extension CalendarView {
             }
             
             calendar.snp.makeConstraints {
-                $0.centerX.equalToSuperview()
+                $0.top.equalTo(yearMonthLabel.snp.bottom).offset(8)
                 $0.directionalHorizontalEdges.equalToSuperview().inset(11)
+                $0.bottom.equalToSuperview()
             }
 
         case .month:
