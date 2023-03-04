@@ -35,6 +35,7 @@ final class WeekMonthCalendar: FSCalendar {
         // title
         appearance.titleDefaultColor = .white
         appearance.titleSelectionColor = .white //선택한 날짜 글자 색상
+        
         // subtitle
         appearance.subtitleSelectionColor = .white
         appearance.subtitleDefaultColor = .white
@@ -63,7 +64,6 @@ final class WeekMonthCalendar: FSCalendar {
         case .week:
             return
         case .month:
-
             calendarWeekdayView.weekdayLabels[0].text = "일"
             calendarWeekdayView.weekdayLabels[1].text = "월"
             calendarWeekdayView.weekdayLabels[2].text = "화"

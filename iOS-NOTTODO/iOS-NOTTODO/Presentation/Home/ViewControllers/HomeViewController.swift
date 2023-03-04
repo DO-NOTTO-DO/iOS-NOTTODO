@@ -23,7 +23,6 @@ class HomeViewController: UIViewController {
     private lazy var safeArea = self.view.safeAreaLayoutGuide
     
     // MARK: - UI Components
-    
     private lazy var missionCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout())
     
     // MARK: - Life Cycle
@@ -55,6 +54,7 @@ extension HomeViewController {
             $0.bounces = false
             $0.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         }
+        
     }
     
     private func setLayout() {
