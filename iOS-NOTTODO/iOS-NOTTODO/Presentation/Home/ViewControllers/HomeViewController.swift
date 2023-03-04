@@ -68,6 +68,7 @@ extension HomeViewController {
     
     private func setLayout() {
         view.addSubviews(weekCalendar, missionCollectionView)
+        weekCalendar.calendar.select(today)
         
         weekCalendar.snp.makeConstraints {
             $0.top.equalTo(safeArea)
@@ -77,11 +78,11 @@ extension HomeViewController {
         
         weekCalendar.calendar.snp.makeConstraints {
             $0.top.equalToSuperview()
-            $0.bottom.equalTo(safeArea).inset(10)
+            $0.bottom.equalTo(safeArea).inset(20)
         }
         
         missionCollectionView.snp.makeConstraints {
-            $0.top.equalTo(weekCalendar.snp.bottom)
+            $0.top.equalTo(weekCalendar.snp.bottom).offset(10)
             if missionList.isEmpty {
                 $0.directionalHorizontalEdges.equalToSuperview()
             } else {

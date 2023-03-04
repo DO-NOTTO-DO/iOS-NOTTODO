@@ -34,11 +34,12 @@ final class WeekMonthFSCalendar: FSCalendar {
         
         // title
         appearance.titleDefaultColor = .white
-        appearance.titleSelectionColor = .white
+        appearance.titleFont = .Pretendard(.medium, size: 14)
         
         // subtitle
         appearance.subtitleSelectionColor = .white
         appearance.subtitleDefaultColor = .white
+        appearance.subtitleFont = .Pretendard(.medium, size: 14)
 
         appearance.todayColor = .clear
         appearance.selectionColor = .clear
@@ -47,14 +48,15 @@ final class WeekMonthFSCalendar: FSCalendar {
         switch scope {
         case .week:
             calendarWeekdayView.removeFromSuperview()
-            calendarHeaderView.removeFromSuperview()
             appearance.borderSelectionColor = .white
-            appearance.subtitleOffset = CGPoint(x: 0, y: 10)
+            appearance.titleSelectionColor = .white
+            appearance.subtitleOffset = CGPoint(x: 0, y: 20)
         case .month:
             allowsMultipleSelection = true
             appearance.borderSelectionColor = .clear
             appearance.weekdayTextColor = .white
-            appearance.selectionColor = .lightGray
+            appearance.selectionColor = .white
+            appearance.titleSelectionColor = .ntdBlack
         @unknown default:
             return
         }
