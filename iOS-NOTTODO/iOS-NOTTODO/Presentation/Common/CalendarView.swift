@@ -64,7 +64,7 @@ extension CalendarView {
     private func setLayout(scope: FSCalendarScope) {
         switch scope {
         case .week:
-            addSubviews(yearMonthLabel, todayButton, calendar)
+            addSubviews(calendar, yearMonthLabel, todayButton)
             
             yearMonthLabel.snp.makeConstraints {
                 $0.top.equalToSuperview().offset(23)
@@ -78,11 +78,10 @@ extension CalendarView {
             }
             
             calendar.snp.makeConstraints {
-                $0.top.equalTo(todayButton.snp.bottom).offset(5)
                 $0.centerX.equalToSuperview()
-                $0.directionalHorizontalEdges.equalToSuperview()
-                $0.bottom.equalToSuperview()
+                $0.directionalHorizontalEdges.equalToSuperview().inset(11)
             }
+
         case .month:
             addSubviews(yearMonthLabel, horizonStackView)
             

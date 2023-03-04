@@ -75,8 +75,13 @@ extension HomeViewController {
             $0.height.equalTo(162)
         }
         
+        weekCalendar.calendar.snp.makeConstraints {
+            $0.top.equalToSuperview()
+            $0.bottom.equalTo(safeArea).inset(10)
+        }
+        
         missionCollectionView.snp.makeConstraints {
-            $0.top.equalTo(safeArea).offset(162)
+            $0.top.equalTo(weekCalendar.snp.bottom)
             if missionList.isEmpty {
                 $0.directionalHorizontalEdges.equalToSuperview()
             } else {
