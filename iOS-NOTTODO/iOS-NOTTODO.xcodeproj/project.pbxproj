@@ -12,6 +12,7 @@
 		0982DE5829AE40FB00D933D2 /* UITabBar+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0982DE5729AE40FB00D933D2 /* UITabBar+.swift */; };
 		099CFA1A29AB8D710003E5D5 /* MissionListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 099CFA1929AB8D710003E5D5 /* MissionListModel.swift */; };
 		099FC97B29B305F0005B37E6 /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = 099FC97A29B305F0005B37E6 /* FSCalendar */; };
+		099FC98129B3094F005B37E6 /* WeekMonthCalendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 099FC98029B3094F005B37E6 /* WeekMonthCalendar.swift */; };
 		3B027A78299C31B500BEB65C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B027A77299C31B500BEB65C /* AppDelegate.swift */; };
 		3B027A7A299C31B500BEB65C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B027A79299C31B500BEB65C /* SceneDelegate.swift */; };
 		3B027A7C299C31B500BEB65C /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B027A7B299C31B500BEB65C /* AuthViewController.swift */; };
@@ -74,6 +75,7 @@
 		0982DE5329ADCCE000D933D2 /* HomeEmptyCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeEmptyCollectionViewCell.swift; sourceTree = "<group>"; };
 		0982DE5729AE40FB00D933D2 /* UITabBar+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITabBar+.swift"; sourceTree = "<group>"; };
 		099CFA1929AB8D710003E5D5 /* MissionListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionListModel.swift; sourceTree = "<group>"; };
+		099FC98029B3094F005B37E6 /* WeekMonthCalendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekMonthCalendar.swift; sourceTree = "<group>"; };
 		3B027A74299C31B500BEB65C /* iOS-NOTTODO.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "iOS-NOTTODO.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B027A77299C31B500BEB65C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3B027A79299C31B500BEB65C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -151,6 +153,7 @@
 			isa = PBXGroup;
 			children = (
 				3B027A9D299C34DA00BEB65C /* HomeViewController.swift */,
+				099FC98029B3094F005B37E6 /* WeekMonthCalendar.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -631,6 +634,7 @@
 				6CF4706129A69096008D145C /* NetworkConstant.swift in Sources */,
 				6CD4F8C229AA5AF200CCC740 /* UIButton+.swift in Sources */,
 				6CF4706529A690E5008D145C /* NetworkBase.swift in Sources */,
+				099FC98129B3094F005B37E6 /* WeekMonthCalendar.swift in Sources */,
 				6CF4707029A73A15008D145C /* RecommendActionViewController.swift in Sources */,
 				0982DE5429ADCCE000D933D2 /* HomeEmptyCollectionViewCell.swift in Sources */,
 				3B027AA2299C355800BEB65C /* AchievementViewController.swift in Sources */,
