@@ -11,6 +11,7 @@
 		0982DE5429ADCCE000D933D2 /* HomeEmptyCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0982DE5329ADCCE000D933D2 /* HomeEmptyCollectionViewCell.swift */; };
 		0982DE5829AE40FB00D933D2 /* UITabBar+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0982DE5729AE40FB00D933D2 /* UITabBar+.swift */; };
 		099CFA1A29AB8D710003E5D5 /* MissionListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 099CFA1929AB8D710003E5D5 /* MissionListModel.swift */; };
+		099FC97B29B305F0005B37E6 /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = 099FC97A29B305F0005B37E6 /* FSCalendar */; };
 		3B027A78299C31B500BEB65C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B027A77299C31B500BEB65C /* AppDelegate.swift */; };
 		3B027A7A299C31B500BEB65C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B027A79299C31B500BEB65C /* SceneDelegate.swift */; };
 		3B027A7C299C31B500BEB65C /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B027A7B299C31B500BEB65C /* AuthViewController.swift */; };
@@ -128,6 +129,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3B146DA1299D0A7A00B17B62 /* SnapKit in Frameworks */,
+				099FC97B29B305F0005B37E6 /* FSCalendar in Frameworks */,
 				6C44127929A35A1000313C3F /* KakaoSDKShare in Frameworks */,
 				6C44127B29A35A1000313C3F /* KakaoSDKStory in Frameworks */,
 				6C44127F29A35A1000313C3F /* KakaoSDKTemplate in Frameworks */,
@@ -504,6 +506,7 @@
 				6C44127C29A35A1000313C3F /* KakaoSDKTalk */,
 				6C44127E29A35A1000313C3F /* KakaoSDKTemplate */,
 				6C44128029A35A1000313C3F /* KakaoSDKUser */,
+				099FC97A29B305F0005B37E6 /* FSCalendar */,
 			);
 			productName = "iOS-NOTTODO";
 			productReference = 3B027A74299C31B500BEB65C /* iOS-NOTTODO.app */;
@@ -538,6 +541,7 @@
 				3B146DA2299D0A8600B17B62 /* XCRemoteSwiftPackageReference "Then" */,
 				3B146DA5299D0AA300B17B62 /* XCRemoteSwiftPackageReference "Moya" */,
 				6C44126F29A35A1000313C3F /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */,
+				099FC97929B305F0005B37E6 /* XCRemoteSwiftPackageReference "FSCalendar" */,
 			);
 			productRefGroup = 3B027A75299C31B500BEB65C /* Products */;
 			projectDirPath = "";
@@ -853,6 +857,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		099FC97929B305F0005B37E6 /* XCRemoteSwiftPackageReference "FSCalendar" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/WenchaoD/FSCalendar.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 		3B146D9F299D0A7A00B17B62 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit";
@@ -888,6 +900,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		099FC97A29B305F0005B37E6 /* FSCalendar */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 099FC97929B305F0005B37E6 /* XCRemoteSwiftPackageReference "FSCalendar" */;
+			productName = FSCalendar;
+		};
 		3B146DA0299D0A7A00B17B62 /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 3B146D9F299D0A7A00B17B62 /* XCRemoteSwiftPackageReference "SnapKit" */;
