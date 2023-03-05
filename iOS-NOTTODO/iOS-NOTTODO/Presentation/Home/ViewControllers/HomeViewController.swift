@@ -27,6 +27,7 @@ class HomeViewController: UIViewController {
     
     private lazy var missionCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout())
     private let weekCalendar = CalendarView(calendarScope: .week, scrollDirection: .horizontal)
+    private let addButton = UIButton()
     
     // MARK: - Life Cycle
     
@@ -63,10 +64,15 @@ extension HomeViewController {
             $0.bounces = false
             $0.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         }
+        
+        addButton.do {
+            $0.setImage(.addMission, for: .normal)
+            $0.addTarget(self, action: #selector(addBtnTapped), for: .touchUpInside)
+        }
     }
     
     private func setLayout() {
-        view.addSubviews(weekCalendar, missionCollectionView)
+        view.addSubviews(weekCalendar, missionCollectionView, addButton)
         weekCalendar.calendar.select(today)
         
         weekCalendar.snp.makeConstraints {
@@ -79,6 +85,11 @@ extension HomeViewController {
             $0.top.equalTo(weekCalendar.snp.bottom)
             $0.directionalHorizontalEdges.equalTo(safeArea)
             $0.bottom.equalToSuperview()
+        }
+        addButton.snp.makeConstraints {
+            $0.width.height.equalTo(60)
+            $0.trailing.equalTo(safeArea).inset(18)
+            $0.bottom.equalTo(safeArea).inset(20)
         }
     }
     
@@ -181,9 +192,14 @@ extension HomeViewController {
 // MARK: - Action
 
 extension HomeViewController {
-    @objc func todayBtnTapped(_sender: UIButton) {
+    @objc
+    func todayBtnTapped(_sender: UIButton) {
         weekCalendar.calendar.select(today)
         weekCalendar.yearMonthLabel.text = Utils.DateFormatter(format: "YYYY년 MM월", date: today)
+    }
+    @objc
+    func addBtnTapped(_sender: UIButton) {
+        print("add button Tapped")
     }
 }
 extension HomeViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalendarDelegateAppearance {
@@ -201,7 +217,7 @@ extension HomeViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalend
     }
     
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
-        weekCalendar.yearMonthLabel.text = Utils.DateFormatter(format: "yyyy년 MM월", date: date)
+        weekCalendar.yearMonthLabel.text = Utils.DateFormatter(format: "YYYY년 MM월", date: date)
         print("선택")
     }
 }
