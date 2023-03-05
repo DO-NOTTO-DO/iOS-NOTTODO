@@ -10,6 +10,7 @@
 		097C003629AB8270008CAEF3 /* MissionListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097C003529AB8270008CAEF3 /* MissionListCollectionViewCell.swift */; };
 		0982DE5429ADCCE000D933D2 /* HomeEmptyCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0982DE5329ADCCE000D933D2 /* HomeEmptyCollectionViewCell.swift */; };
 		0982DE5829AE40FB00D933D2 /* UITabBar+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0982DE5729AE40FB00D933D2 /* UITabBar+.swift */; };
+		0982DE5A29AE5E6000D933D2 /* CompositionalLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0982DE5929AE5E6000D933D2 /* CompositionalLayout.swift */; };
 		099CFA1A29AB8D710003E5D5 /* MissionListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 099CFA1929AB8D710003E5D5 /* MissionListModel.swift */; };
 		099FC97B29B305F0005B37E6 /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = 099FC97A29B305F0005B37E6 /* FSCalendar */; };
 		099FC98129B3094F005B37E6 /* WeekMonthFSCalendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 099FC98029B3094F005B37E6 /* WeekMonthFSCalendar.swift */; };
@@ -76,6 +77,7 @@
 		097C003529AB8270008CAEF3 /* MissionListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionListCollectionViewCell.swift; sourceTree = "<group>"; };
 		0982DE5329ADCCE000D933D2 /* HomeEmptyCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeEmptyCollectionViewCell.swift; sourceTree = "<group>"; };
 		0982DE5729AE40FB00D933D2 /* UITabBar+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITabBar+.swift"; sourceTree = "<group>"; };
+		0982DE5929AE5E6000D933D2 /* CompositionalLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositionalLayout.swift; sourceTree = "<group>"; };
 		099CFA1929AB8D710003E5D5 /* MissionListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionListModel.swift; sourceTree = "<group>"; };
 		099FC98029B3094F005B37E6 /* WeekMonthFSCalendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekMonthFSCalendar.swift; sourceTree = "<group>"; };
 		099FC98229B30A2E005B37E6 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
@@ -470,6 +472,7 @@
 			isa = PBXGroup;
 			children = (
 				6CF4707829A7AADB008D145C /* PaddingLabel */,
+				0982DE5929AE5E6000D933D2 /* CompositionalLayout.swift */,
 				099FC98229B30A2E005B37E6 /* Utils.swift */,
 				099FC98029B3094F005B37E6 /* WeekMonthFSCalendar.swift */,
 				099FC98829B3233D005B37E6 /* CalendarView.swift */,
@@ -610,6 +613,7 @@
 				3B027A92299C33FE00BEB65C /* UIColor+.swift in Sources */,
 				3B027AA4299C357000BEB65C /* MyInfoViewController.swift in Sources */,
 				3B027A94299C340600BEB65C /* UIFont+.swift in Sources */,
+				0982DE5A29AE5E6000D933D2 /* CompositionalLayout.swift in Sources */,
 				3B482FA3299EA9CB00BCF424 /* TabBarItem.swift in Sources */,
 				3B027AA0299C353700BEB65C /* AddMissionViewController.swift in Sources */,
 				3B027A96299C340C00BEB65C /* UIImage+.swift in Sources */,

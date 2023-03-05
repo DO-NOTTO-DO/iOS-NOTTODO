@@ -151,19 +151,10 @@ extension HomeViewController {
                 return layoutSection
                 
             case .empty:
-                return self.EmptySection()
+                return CompositionalLayout._vertical(.fractionalWidth(1), .fractionalHeight(1), .fractionalWidth(1), .fractionalHeight(1), count: 1, edge: nil)
             }
         }
         return layout
-    }
-    
-    private func EmptySection() -> NSCollectionLayoutSection {
-        let item = NSCollectionLayoutItem(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1)))
-        let group = NSCollectionLayoutGroup.vertical(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1)), subitem: item, count: 1)
-        let section = NSCollectionLayoutSection(group: group)
-        section.supplementariesFollowContentInsets = false
-        
-        return section
     }
     
     private func makeSwipeActions(for indexPath: IndexPath?) -> UISwipeActionsConfiguration? {
