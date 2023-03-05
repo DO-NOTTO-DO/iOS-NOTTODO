@@ -46,6 +46,7 @@ extension StatisticsView {
             $0.font = .Pretendard(.regular, size: 14)
             $0.textColor = .gray5
             $0.numberOfLines = 0
+            $0.textAlignment = .center
         }
     }
     private func setLayout() {
@@ -57,7 +58,7 @@ extension StatisticsView {
         
         titleLabel.snp.makeConstraints {
             $0.centerX.equalToSuperview()
-            $0.bottom.equalToSuperview().inset(55)
+            $0.centerY.equalToSuperview().offset(20)
         }
     }
 }

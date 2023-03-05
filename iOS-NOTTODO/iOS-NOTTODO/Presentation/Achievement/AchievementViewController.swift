@@ -22,7 +22,7 @@ final class AchievementViewController: UIViewController {
     private let scrollView = UIScrollView()
     private let achievementLabel = UILabel()
     private let monthCalendar = CalendarView(calendarScope: .month, scrollDirection: .horizontal)
-    private let statisticsView = UIView()
+    private let statisticsView = StatisticsView()
     
     // MARK: - Life Cycle
     
@@ -49,11 +49,10 @@ extension AchievementViewController {
             $0.layer.cornerRadius = 12
             $0.layer.borderWidth = 1
             $0.layer.borderColor = UIColor.gray4?.cgColor
-        }
-        statisticsView.do {
-            $0.layer.cornerRadius = 12
-            $0.layer.borderWidth = 1
-            $0.layer.borderColor = UIColor.gray4?.cgColor
+            $0.leftButton.addTarget(self, action: #selector(prevBtnTapped), for: .touchUpInside)
+            $0.rightButton.addTarget(self, action: #selector(nextBtnTapped), for: .touchUpInside)
+            $0.calendar.delegate = self
+            $0.calendar.dataSource = self
         }
     }
     private func setLayout() {
@@ -80,5 +79,29 @@ extension AchievementViewController {
             $0.height.equalTo((getDeviceWidth()-30)*0.6)
             $0.bottom.equalTo(scrollView.snp.bottom).inset(20)
         }
+    }
+}
+
+// MARK: - Action
+
+extension AchievementViewController {
+    @objc func prevBtnTapped(_sender : UIButton){
+        print("preTapped")
+        Utils.scrollCurrentPage(calendar: monthCalendar.calendar , isPrev: true)
+    }
+    @objc func nextBtnTapped(_sender : UIButton){
+        print("nextTapped")
+        Utils.scrollCurrentPage(calendar: monthCalendar.calendar , isPrev: false)
+    }
+}
+
+extension AchievementViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalendarDelegateAppearance {
+    func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
+        monthCalendar.calendar.reloadData()
+        monthCalendar.yearMonthLabel.text = Utils.DateFormatter(format: I18N.yearMonthTitle, date: calendar.currentPage)
+    }
+    
+    func calendar(_ calendar: FSCalendar, titleFor date: Date) -> String? {
+        Utils.DateFormatter(format: "dd", date: date)
     }
 }
