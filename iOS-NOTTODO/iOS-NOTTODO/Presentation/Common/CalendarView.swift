@@ -50,16 +50,16 @@ extension CalendarView {
         yearMonthLabel.do {
             $0.font = .Pretendard(.medium, size: 18)
             $0.textColor = .white
-            $0.text = Utils.DateFormatter(format: "YYYY년 MM월", date: Date())
+            $0.text = Utils.DateFormatter(format: I18N.yearMonthTitle, date: Date())
         }
         todayButton.do {
             $0.configuration?.image = UIImage(systemName: "return.right")
-            $0.configuration?.title = "오늘"
+            $0.configuration?.title = I18N.todayButton
             $0.configuration?.imagePadding = 2
             $0.configuration?.contentInsets = NSDirectionalEdgeInsets.init(top: 3, leading: 6, bottom: 2, trailing: 7)
-            $0.configuration?.baseBackgroundColor = .gray2
             $0.configuration?.cornerStyle = .capsule
             $0.configuration?.attributedTitle?.font = .Pretendard(.regular, size: 14)
+            $0.configuration?.baseBackgroundColor = .gray2
             $0.configuration?.baseForegroundColor = .gray5
         }
         horizonStackView.do {

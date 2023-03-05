@@ -186,7 +186,7 @@ extension HomeViewController {
     @objc
     func todayBtnTapped(_sender: UIButton) {
         weekCalendar.calendar.select(today)
-        weekCalendar.yearMonthLabel.text = Utils.DateFormatter(format: "YYYY년 MM월", date: today)
+        weekCalendar.yearMonthLabel.text = Utils.DateFormatter(format: I18N.yearMonthTitle, date: today)
     }
     @objc
     func addBtnTapped(_sender: UIButton) {
@@ -196,7 +196,7 @@ extension HomeViewController {
 extension HomeViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalendarDelegateAppearance {
     func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
         calendar.reloadData()
-        weekCalendar.yearMonthLabel.text = Utils.DateFormatter(format: "YYYY년 MM월", date: calendar.currentPage)
+        weekCalendar.yearMonthLabel.text = Utils.DateFormatter(format: I18N.yearMonthTitle, date: calendar.currentPage)
     }
     
     func  calendar(_ calendar: FSCalendar, titleFor date: Date) -> String? {
@@ -208,7 +208,7 @@ extension HomeViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalend
     }
     
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
-        weekCalendar.yearMonthLabel.text = Utils.DateFormatter(format: "YYYY년 MM월", date: date)
+        weekCalendar.yearMonthLabel.text = Utils.DateFormatter(format: I18N.yearMonthTitle, date: date)
         print("선택")
     }
 }

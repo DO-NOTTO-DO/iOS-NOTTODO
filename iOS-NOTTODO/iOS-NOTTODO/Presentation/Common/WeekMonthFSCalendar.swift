@@ -70,13 +70,9 @@ extension WeekMonthFSCalendar {
         case .week:
             return
         case .month:
-            calendarWeekdayView.weekdayLabels[0].text = "일"
-            calendarWeekdayView.weekdayLabels[1].text = "월"
-            calendarWeekdayView.weekdayLabels[2].text = "화"
-            calendarWeekdayView.weekdayLabels[3].text = "수"
-            calendarWeekdayView.weekdayLabels[4].text = "목"
-            calendarWeekdayView.weekdayLabels[5].text = "금"
-            calendarWeekdayView.weekdayLabels[6].text = "토"
+            I18N.weekDay.forEach {
+                calendarWeekdayView.weekdayLabels[Int($0) ?? 0].text = $0
+            }
             appearance.headerMinimumDissolvedAlpha = 0
         @unknown default:
             return
