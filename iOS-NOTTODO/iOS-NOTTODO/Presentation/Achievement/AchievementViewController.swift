@@ -50,6 +50,11 @@ extension AchievementViewController {
             $0.layer.borderWidth = 1
             $0.layer.borderColor = UIColor.gray4?.cgColor
         }
+        statisticsView.do {
+            $0.layer.cornerRadius = 12
+            $0.layer.borderWidth = 1
+            $0.layer.borderColor = UIColor.gray4?.cgColor
+        }
     }
     private func setLayout() {
         view.addSubview(scrollView)
@@ -75,6 +80,5 @@ extension AchievementViewController {
             $0.height.equalTo((getDeviceWidth()-30)*0.6)
             $0.bottom.equalTo(scrollView.snp.bottom).inset(20)
         }
-        
     }
 }

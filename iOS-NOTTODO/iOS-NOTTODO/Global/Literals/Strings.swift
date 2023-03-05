@@ -39,4 +39,5 @@ struct I18N {
     /// Achievement
     
     static let achievement = "성취"
+    static let total = "더욱 나은 낫투두를 위해\n노력중에 있어요, 기다려주세요."
 }
