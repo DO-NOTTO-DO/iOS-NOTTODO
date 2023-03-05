@@ -18,6 +18,9 @@ struct I18N {
                         낫투두 기록을 관리할 수 있어요.
                         """
     
+    static let kakaoLogin = "카카오 로그인"
+    static let appleLogin = "Apple로 로그인"
+    
     // Recommend
     
     static let recommendNavTitle = "낫투두 생성"

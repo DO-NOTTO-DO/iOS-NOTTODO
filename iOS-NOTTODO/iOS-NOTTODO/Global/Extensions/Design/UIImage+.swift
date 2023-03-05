@@ -14,6 +14,8 @@ extension UIImage {
     static var appleLogin: UIImage { UIImage(named: "btn_login_forapple")! }
     static var kakaoLogin: UIImage { UIImage(named: "btn_login_forkakao")! }
     static var kakaoLoginLabel: UIImage { UIImage(named: "label_login_kakao")! }
+    static var appleLogo: UIImage { UIImage(named: "ic_apple_logo")! }
+    static var kakaoLogo: UIImage { UIImage(named: "ic_kakao_logo")! }
     
     // button
     
