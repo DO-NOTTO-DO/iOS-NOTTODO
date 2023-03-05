@@ -39,6 +39,11 @@ extension AchievementViewController {
     private func setUI() {
         view.backgroundColor = .ntdBlack
         scrollView.backgroundColor = .clear
+        scrollView.do {
+            $0.backgroundColor = .clear
+        
+            
+        }
         
         achievementLabel.do {
             $0.text = I18N.achievement
@@ -63,7 +68,7 @@ extension AchievementViewController {
             $0.edges.equalTo(safeArea)
         }
         achievementLabel.snp.makeConstraints {
-            $0.top.equalTo(safeArea).offset(23)
+            $0.top.equalToSuperview().offset(23)
             $0.leading.equalTo(safeArea).offset(21)
         }
         
@@ -85,13 +90,13 @@ extension AchievementViewController {
 // MARK: - Action
 
 extension AchievementViewController {
-    @objc func prevBtnTapped(_sender : UIButton){
+    @objc func prevBtnTapped(_sender: UIButton){
         print("preTapped")
-        Utils.scrollCurrentPage(calendar: monthCalendar.calendar , isPrev: true)
+        Utils.scrollCurrentPage(calendar: monthCalendar.calendar, isPrev: true)
     }
-    @objc func nextBtnTapped(_sender : UIButton){
+    @objc func nextBtnTapped(_sender: UIButton){
         print("nextTapped")
-        Utils.scrollCurrentPage(calendar: monthCalendar.calendar , isPrev: false)
+        Utils.scrollCurrentPage(calendar: monthCalendar.calendar, isPrev: false)
     }
 }
 
