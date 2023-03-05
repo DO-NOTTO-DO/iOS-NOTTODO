@@ -78,7 +78,7 @@ extension HomeViewController {
         weekCalendar.snp.makeConstraints {
             $0.top.equalTo(safeArea)
             $0.directionalHorizontalEdges.equalTo(safeArea)
-            $0.height.equalTo(172)
+            $0.height.equalTo(convertByHeightRatio(162))
         }
         
         missionCollectionView.snp.makeConstraints {
@@ -87,7 +87,7 @@ extension HomeViewController {
             $0.bottom.equalToSuperview()
         }
         addButton.snp.makeConstraints {
-            $0.width.height.equalTo(60)
+            $0.width.height.equalTo(convertByHeightRatio(60))
             $0.trailing.equalTo(safeArea).inset(18)
             $0.bottom.equalTo(safeArea).inset(20)
         }
