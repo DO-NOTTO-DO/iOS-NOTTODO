@@ -37,8 +37,19 @@ final class AchievementViewController: UIViewController {
 
 extension AchievementViewController {
     private func setUI() {
-        view.backgroundColor = .white
-        scrollView.backgroundColor = .gray5
+        view.backgroundColor = .ntdBlack
+        scrollView.backgroundColor = .clear
+        
+        achievementLabel.do {
+            $0.text = I18N.achievement
+            $0.font = .Pretendard(.semiBold, size: 18)
+            $0.textColor = .white
+        }
+        monthCalendar.do {
+            $0.layer.cornerRadius = 12
+            $0.layer.borderWidth = 1
+            $0.layer.borderColor = UIColor.gray4?.cgColor
+        }
     }
     private func setLayout() {
         view.addSubview(scrollView)

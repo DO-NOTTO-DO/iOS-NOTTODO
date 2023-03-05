@@ -93,6 +93,7 @@ extension CalendarView {
             calendar.snp.makeConstraints {
                 $0.top.equalTo(yearMonthLabel.snp.bottom).offset(8)
                 $0.directionalHorizontalEdges.equalToSuperview().inset(11)
+                $0.height.equalTo((bounds.size.width-22)*0.8)
                 $0.bottom.equalToSuperview().inset(20)
             }
             
