@@ -39,12 +39,7 @@ extension AchievementViewController {
     private func setUI() {
         view.backgroundColor = .ntdBlack
         scrollView.backgroundColor = .clear
-        scrollView.do {
-            $0.backgroundColor = .clear
-        
-            
-        }
-        
+
         achievementLabel.do {
             $0.text = I18N.achievement
             $0.font = .Pretendard(.semiBold, size: 18)
@@ -90,11 +85,11 @@ extension AchievementViewController {
 // MARK: - Action
 
 extension AchievementViewController {
-    @objc func prevBtnTapped(_sender: UIButton){
+    @objc func prevBtnTapped(_sender: UIButton) {
         print("preTapped")
         Utils.scrollCurrentPage(calendar: monthCalendar.calendar, isPrev: true)
     }
-    @objc func nextBtnTapped(_sender: UIButton){
+    @objc func nextBtnTapped(_sender: UIButton) {
         print("nextTapped")
         Utils.scrollCurrentPage(calendar: monthCalendar.calendar, isPrev: false)
     }
@@ -102,7 +97,6 @@ extension AchievementViewController {
 
 extension AchievementViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalendarDelegateAppearance {
     func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
-        monthCalendar.calendar.reloadData()
         monthCalendar.yearMonthLabel.text = Utils.DateFormatter(format: I18N.yearMonthTitle, date: calendar.currentPage)
     }
     
