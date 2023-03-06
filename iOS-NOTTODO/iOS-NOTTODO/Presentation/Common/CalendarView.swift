@@ -17,7 +17,7 @@ final class CalendarView: UIView {
     
     let yearMonthLabel = UILabel()
     let todayButton = UIButton(configuration: .filled())
-    let horizonStackView = UIStackView()
+    private let horizonStackView = UIStackView()
     let leftButton = UIButton()
     let rightButton = UIButton()
     var calendar = WeekMonthFSCalendar()
@@ -52,6 +52,7 @@ extension CalendarView {
             $0.textColor = .white
             $0.text = Utils.DateFormatter(format: I18N.yearMonthTitle, date: Date())
         }
+        
         todayButton.do {
             $0.configuration?.image = UIImage(systemName: "return.right")
             $0.configuration?.title = I18N.todayButton
@@ -62,13 +63,16 @@ extension CalendarView {
             $0.configuration?.baseBackgroundColor = .gray2
             $0.configuration?.baseForegroundColor = .gray5
         }
+        
         horizonStackView.do {
             $0.axis = .horizontal
             $0.spacing = 16
         }
+        
         leftButton.do {
             $0.setImage(.calendarLeft, for: .normal)
         }
+        
         rightButton.do {
             $0.setImage(.calendarRight, for: .normal)
         }
@@ -95,7 +99,6 @@ extension CalendarView {
                 $0.directionalHorizontalEdges.equalToSuperview().inset(11)
                 $0.bottom.equalToSuperview().inset(20)
             }
-            
         case .month:
             addSubviews(horizonStackView, calendar)
             horizonStackView.addArrangedSubviews(leftButton, yearMonthLabel, rightButton)
