@@ -54,7 +54,6 @@ extension HomeViewController {
         view.backgroundColor = .ntdBlack
         
         weekCalendar.do {
-            $0.todayButton.addTarget(self, action: #selector(todayBtnTapped), for: .touchUpInside)
             $0.calendar.delegate = self
             $0.calendar.dataSource = self
         }
@@ -183,11 +182,6 @@ extension HomeViewController {
 // MARK: - Action
 
 extension HomeViewController {
-    @objc
-    func todayBtnTapped(_sender: UIButton) {
-        weekCalendar.calendar.select(today)
-        weekCalendar.yearMonthLabel.text = Utils.DateFormatter(format: I18N.yearMonthTitle, date: today)
-    }
     @objc
     func addBtnTapped(_sender: UIButton) {
         print("add button Tapped")
