@@ -140,7 +140,7 @@ extension CalendarView {
     }
     
     @objc
-    func nextBtnTapped(_sender: UIButton) ㅡ{
+    func nextBtnTapped(_sender: UIButton) {
         Utils.scrollCurrentPage(calendar: calendar, isPrev: false)
     }
 }
