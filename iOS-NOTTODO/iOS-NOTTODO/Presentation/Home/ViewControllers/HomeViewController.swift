@@ -54,7 +54,6 @@ extension HomeViewController {
         view.backgroundColor = .ntdBlack
         
         weekCalendar.do {
-            $0.todayButton.addTarget(self, action: #selector(todayBtnTapped), for: .touchUpInside)
             $0.calendar.delegate = self
             $0.calendar.dataSource = self
         }
@@ -78,7 +77,7 @@ extension HomeViewController {
         weekCalendar.snp.makeConstraints {
             $0.top.equalTo(safeArea)
             $0.directionalHorizontalEdges.equalTo(safeArea)
-            $0.height.equalTo(172)
+            $0.height.equalTo(convertByHeightRatio(162))
         }
         
         missionCollectionView.snp.makeConstraints {
@@ -87,7 +86,7 @@ extension HomeViewController {
             $0.bottom.equalToSuperview()
         }
         addButton.snp.makeConstraints {
-            $0.width.height.equalTo(60)
+            $0.width.height.equalTo(convertByHeightRatio(60))
             $0.trailing.equalTo(safeArea).inset(18)
             $0.bottom.equalTo(safeArea).inset(20)
         }
@@ -184,18 +183,12 @@ extension HomeViewController {
 
 extension HomeViewController {
     @objc
-    func todayBtnTapped(_sender: UIButton) {
-        weekCalendar.calendar.select(today)
-        weekCalendar.yearMonthLabel.text = Utils.DateFormatter(format: I18N.yearMonthTitle, date: today)
-    }
-    @objc
     func addBtnTapped(_sender: UIButton) {
         print("add button Tapped")
     }
 }
 extension HomeViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalendarDelegateAppearance {
     func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
-        calendar.reloadData()
         weekCalendar.yearMonthLabel.text = Utils.DateFormatter(format: I18N.yearMonthTitle, date: calendar.currentPage)
     }
     

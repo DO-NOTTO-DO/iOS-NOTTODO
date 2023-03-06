@@ -21,7 +21,8 @@ final class CalendarView: UIView {
     let leftButton = UIButton()
     let rightButton = UIButton()
     var calendar = WeekMonthFSCalendar()
-    
+    private lazy var today: Date = { return Date() }()
+
     // MARK: - Life Cycle
     
     init(calendarScope: FSCalendarScope, scrollDirection: FSCalendarScrollDirection) {
@@ -62,6 +63,7 @@ extension CalendarView {
             $0.configuration?.attributedTitle?.font = .Pretendard(.regular, size: 14)
             $0.configuration?.baseBackgroundColor = .gray2
             $0.configuration?.baseForegroundColor = .gray5
+            $0.addTarget(self, action: #selector(todayBtnTapped), for: .touchUpInside)
         }
         
         horizonStackView.do {
@@ -71,10 +73,12 @@ extension CalendarView {
         
         leftButton.do {
             $0.setImage(.calendarLeft, for: .normal)
+            $0.addTarget(self, action: #selector(prevBtnTapped), for: .touchUpInside)
         }
         
         rightButton.do {
             $0.setImage(.calendarRight, for: .normal)
+            $0.addTarget(self, action: #selector(nextBtnTapped), for: .touchUpInside)
         }
     }
     
@@ -126,5 +130,21 @@ extension CalendarView {
         @unknown default:
             return
         }
+    }
+    
+    @objc
+    func todayBtnTapped(_sender: UIButton) {
+        calendar.select(today)
+        yearMonthLabel.text = Utils.DateFormatter(format: I18N.yearMonthTitle, date: today)
+    }
+    
+    @objc
+    func prevBtnTapped(_sender: UIButton) {
+        Utils.scrollCurrentPage(calendar: calendar, isPrev: true)
+    }
+    
+    @objc
+    func nextBtnTapped(_sender: UIButton) {
+        Utils.scrollCurrentPage(calendar: calendar, isPrev: false)
     }
 }
