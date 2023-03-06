@@ -22,7 +22,7 @@ final class CalendarView: UIView {
     let rightButton = UIButton()
     var calendar = WeekMonthFSCalendar()
     private lazy var today: Date = { return Date() }()
-    
+
     // MARK: - Life Cycle
     
     init(calendarScope: FSCalendarScope, scrollDirection: FSCalendarScrollDirection) {
@@ -70,9 +70,11 @@ extension CalendarView {
         }
         leftButton.do {
             $0.setImage(.calendarLeft, for: .normal)
+            $0.addTarget(self, action: #selector(prevBtnTapped), for: .touchUpInside)
         }
         rightButton.do {
             $0.setImage(.calendarRight, for: .normal)
+            $0.addTarget(self, action: #selector(nextBtnTapped), for: .touchUpInside)
         }
     }
     
@@ -132,4 +134,13 @@ extension CalendarView {
         yearMonthLabel.text = Utils.DateFormatter(format: I18N.yearMonthTitle, date: today)
     }
     
+    @objc
+    func prevBtnTapped(_sender: UIButton) {
+        Utils.scrollCurrentPage(calendar: calendar, isPrev: true)
+    }
+    
+    @objc
+    func nextBtnTapped(_sender: UIButton) ㅡ{
+        Utils.scrollCurrentPage(calendar: calendar, isPrev: false)
+    }
 }
