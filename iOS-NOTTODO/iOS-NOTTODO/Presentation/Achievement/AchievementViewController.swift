@@ -49,8 +49,6 @@ extension AchievementViewController {
             $0.layer.cornerRadius = 12
             $0.layer.borderWidth = 1
             $0.layer.borderColor = UIColor.gray4?.cgColor
-            $0.leftButton.addTarget(self, action: #selector(prevBtnTapped), for: .touchUpInside)
-            $0.rightButton.addTarget(self, action: #selector(nextBtnTapped), for: .touchUpInside)
             $0.calendar.delegate = self
             $0.calendar.dataSource = self
         }
@@ -79,19 +77,6 @@ extension AchievementViewController {
             $0.height.equalTo((getDeviceWidth()-30)*0.6)
             $0.bottom.equalTo(scrollView.snp.bottom).inset(20)
         }
-    }
-}
-
-// MARK: - Action
-
-extension AchievementViewController {
-    @objc func prevBtnTapped(_sender: UIButton) {
-        print("preTapped")
-        Utils.scrollCurrentPage(calendar: monthCalendar.calendar, isPrev: true)
-    }
-    @objc func nextBtnTapped(_sender: UIButton) {
-        print("nextTapped")
-        Utils.scrollCurrentPage(calendar: monthCalendar.calendar, isPrev: false)
     }
 }
 
