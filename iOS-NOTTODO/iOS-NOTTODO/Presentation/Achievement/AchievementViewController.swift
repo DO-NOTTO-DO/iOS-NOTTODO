@@ -99,8 +99,12 @@ extension AchievementViewController: FSCalendarDelegate, FSCalendarDataSource, F
     func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
         monthCalendar.yearMonthLabel.text = Utils.DateFormatter(format: I18N.yearMonthTitle, date: calendar.currentPage)
     }
-    
     func calendar(_ calendar: FSCalendar, titleFor date: Date) -> String? {
         Utils.DateFormatter(format: "dd", date: date)
+    }
+    func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
+        calendar.appearance.selectionColor = .clear
+        calendar.appearance.titleSelectionColor = .white
+        print("선택")
     }
 }
