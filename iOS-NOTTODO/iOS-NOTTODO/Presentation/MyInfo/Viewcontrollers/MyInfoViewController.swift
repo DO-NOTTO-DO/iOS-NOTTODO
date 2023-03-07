@@ -14,10 +14,10 @@ final class MyInfoViewController: UIViewController {
     
     // MARK: - Properties
     
-    private let info1: [MyInfoModel1] = MyInfoModel1.item
-    private let info2: [MyInfoModel2] = MyInfoModel2.items
-    private let info3: [MyInfoModel3] = MyInfoModel3.items
-    private let info4: [MyInfoModel4] = MyInfoModel4.item
+    private let infoOne: [InfoModelOne] = InfoModelOne.item
+    private let infoTwo: [InfoModelTwo] = InfoModelTwo.items
+    private let infoThree: [InfoModelThree] = InfoModelThree.items
+    private let infoFour: [InfoModelFour] = InfoModelFour.item
     
     enum Sections: Int, Hashable {
         case one, two, three, four
@@ -78,20 +78,19 @@ extension MyInfoViewController {
             switch section {
             case .one:
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MyProfileCollectionViewCell.identifier, for: indexPath) as! MyProfileCollectionViewCell
-                cell.configure(model: item as! MyInfoModel1 )
-                
+                cell.configure(model: item as! InfoModelOne )
                 return cell
             case .two:
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: InfoCollectionViewCell.identifier, for: indexPath) as! InfoCollectionViewCell
-                cell.configureWithIcon(model: item as! MyInfoModel2 )
+                cell.configureWithIcon(model: item as! InfoModelTwo )
                 return cell
             case .three:
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: InfoCollectionViewCell.identifier, for: indexPath) as! InfoCollectionViewCell
-                cell.configureWithArrow(model: item as! MyInfoModel3)
+                cell.configureWithArrow(model: item as! InfoModelThree)
                 return cell
             case .four:
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: InfoCollectionViewCell.identifier, for: indexPath) as! InfoCollectionViewCell
-                cell.configure(model: item as! MyInfoModel4)
+                cell.configure(model: item as! InfoModelFour)
                 return cell
             }
         })
@@ -103,10 +102,10 @@ extension MyInfoViewController {
             dataSource.apply(snapShot, animatingDifferences: false)
         }
         snapShot.appendSections([.one, .two, .three, .four])
-        snapShot.appendItems(info1, toSection: .one)
-        snapShot.appendItems(info2, toSection: .two)
-        snapShot.appendItems(info3, toSection: .three)
-        snapShot.appendItems(info4, toSection: .four)
+        snapShot.appendItems(infoOne, toSection: .one)
+        snapShot.appendItems(infoTwo, toSection: .two)
+        snapShot.appendItems(infoThree, toSection: .three)
+        snapShot.appendItems(infoFour, toSection: .four)
         
         dataSource.supplementaryViewProvider = { (collectionView, _, indexPath) in
             guard let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: MyInfoHeaderReusableView.identifier, for: indexPath) as? MyInfoHeaderReusableView else { return UICollectionReusableView() }
@@ -125,7 +124,7 @@ extension MyInfoViewController {
             case .two, .three:
                 return CompositionalLayout.setUpSection(layoutEnvironment: env, mode: .none, 18, 0)
             case .four:
-                return CompositionalLayout.setUpSection(layoutEnvironment: env, mode: .none, 18, 50)
+                return CompositionalLayout.setUpSection(layoutEnvironment: env, mode: .none, 18, 60)
             }
         }
         return layout

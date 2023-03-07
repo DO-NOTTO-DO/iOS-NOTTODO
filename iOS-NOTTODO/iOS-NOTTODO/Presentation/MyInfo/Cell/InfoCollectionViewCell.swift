@@ -73,7 +73,7 @@ extension InfoCollectionViewCell {
         }
     }
     
-    func configureWithIcon(model: MyInfoModel2) {
+    func configureWithIcon(model: InfoModelTwo) {
         iconImage.image = UIImage(named: model.image)
         titleLabel.text = model.title
         
@@ -82,12 +82,12 @@ extension InfoCollectionViewCell {
         }        
     }
     
-    func configureWithArrow(model: MyInfoModel3) {
+    func configureWithArrow(model: InfoModelThree) {
         titleLabel.text = model.title
         arrowImage.isHidden = false
     }
     
-    func configure(model: MyInfoModel4) {
+    func configure(model: InfoModelFour) {
         titleLabel.text = model.title
         arrowImage.isHidden = true
     }

@@ -155,6 +155,32 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		098BFD6029B80137008E80F9 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				098BFD5E29B7AECF008E80F9 /* MyInfoHeaderCollectionReusableView.swift */,
+				098BFD5829B7999E008E80F9 /* MyProfileCollectionViewCell.swift */,
+				098BFD5C29B79CE3008E80F9 /* InfoCollectionViewCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		098BFD6129B80149008E80F9 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				098BFD5A29B79B6A008E80F9 /* MyInfoModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		098BFD6229B8015B008E80F9 /* Viewcontrollers */ = {
+			isa = PBXGroup;
+			children = (
+				3B027AA3299C357000BEB65C /* MyInfoViewController.swift */,
+			);
+			path = Viewcontrollers;
+			sourceTree = "<group>";
+		};
 		099CFA1729AB8C260003E5D5 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -292,11 +318,9 @@
 		3B027A9A299C348200BEB65C /* MyInfo */ = {
 			isa = PBXGroup;
 			children = (
-				3B027AA3299C357000BEB65C /* MyInfoViewController.swift */,
-				098BFD5829B7999E008E80F9 /* MyProfileCollectionViewCell.swift */,
-				098BFD5C29B79CE3008E80F9 /* InfoCollectionViewCell.swift */,
-				098BFD5E29B7AECF008E80F9 /* MyInfoHeaderCollectionReusableView.swift */,
-				098BFD5A29B79B6A008E80F9 /* MyInfoModel.swift */,
+				098BFD6229B8015B008E80F9 /* Viewcontrollers */,
+				098BFD6029B80137008E80F9 /* Cell */,
+				098BFD6129B80149008E80F9 /* Model */,
 			);
 			path = MyInfo;
 			sourceTree = "<group>";
