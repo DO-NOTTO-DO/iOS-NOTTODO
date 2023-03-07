@@ -48,6 +48,7 @@ extension InfoCollectionViewCell {
             $0.spacing = 6
         }
         arrowImage.do {
+            $0.isHidden = true
             $0.image = .calendarRight
         }
     }
@@ -71,13 +72,13 @@ extension InfoCollectionViewCell {
         
     }
     
-    func configure(model: MyInfoModel2) {
+    func configureWithIcon(model: MyInfoModel2) {
         iconImage.image = UIImage(named: model.image)
         titleLabel.text = model.title
        
     }
     func configure(model: MyInfoModel3) {
-       
+        titleLabel.text = model.title
     }
 }
 

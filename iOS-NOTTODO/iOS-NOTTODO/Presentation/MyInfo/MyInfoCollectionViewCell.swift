@@ -72,7 +72,7 @@ extension MyInfoCollectionViewCell {
         }
     }
     
-    func configure(model: MyInfoModel) {
+    func configure(model: MyInfoModel1) {
         logoImage.image = UIImage(named: model.email)
         userLabel.text = model.user
         emailLabel.text = model.email
