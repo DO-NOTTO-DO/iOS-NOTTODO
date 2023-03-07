@@ -25,7 +25,7 @@ class InfoCollectionViewCell: UICollectionViewCell {
         setUI()
         setLayout()
     }
-
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -54,31 +54,42 @@ extension InfoCollectionViewCell {
     }
     
     private func setLayout() {
-        contentView.addSubviews(horizontalStackView,arrowImage)
+        contentView.addSubviews(horizontalStackView, arrowImage)
         
         iconImage.snp.makeConstraints {
             $0.size.equalTo(CGSize(width: 30, height: 30))
         }
+        
         arrowImage.snp.makeConstraints {
             $0.size.equalTo(CGSize(width: 24, height: 24))
             $0.centerY.equalToSuperview()
             $0.trailing.equalToSuperview().inset(13)
         }
         horizontalStackView.snp.makeConstraints {
-            $0.leading.equalToSuperview().offset(8)
+            $0.top.equalToSuperview().offset(17)
+            $0.bottom.equalToSuperview().inset(17)
+            $0.leading.equalToSuperview().offset(-18)
             $0.centerY.equalToSuperview()
         }
-        
-        
     }
     
     func configureWithIcon(model: MyInfoModel2) {
         iconImage.image = UIImage(named: model.image)
         titleLabel.text = model.title
-       
+        
+        horizontalStackView.snp.updateConstraints {
+            $0.leading.equalToSuperview().offset(8)
+        }
+        
     }
-    func configure(model: MyInfoModel3) {
+    
+    func configureWithArrow(model: MyInfoModel3) {
         titleLabel.text = model.title
+        arrowImage.isHidden = false
+    }
+    
+    func configure(model: MyInfoModel4) {
+        titleLabel.text = model.title
+        arrowImage.isHidden = true
     }
 }
-

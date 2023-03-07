@@ -62,7 +62,7 @@ extension MyProfileCollectionViewCell {
         logoImage.snp.makeConstraints {
             $0.leading.equalToSuperview().offset(14)
             $0.centerY.equalToSuperview()
-            $0.size.equalTo(CGSize(width: 26, height: 26))
+            $0.size.equalTo(CGSize(width: 65, height: 65))
         }
         
         verticalStackView.snp.makeConstraints {
@@ -74,7 +74,7 @@ extension MyProfileCollectionViewCell {
     }
     
     func configure(model: MyInfoModel1) {
-        logoImage.image = UIImage(named: model.email)
+        logoImage.image = UIImage(named: model.image)
         userLabel.text = model.user
         emailLabel.text = model.email
     }

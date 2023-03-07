@@ -13,7 +13,7 @@ struct MyInfoModel1: Hashable {
     var email: String
 }
 extension MyInfoModel1 {
-    static let item: [MyInfoModel1] = [MyInfoModel1(image: "img_myinfouser" ,user: "내이름은노또", email: "ghdtjgus123@kakao.com")]
+    static let item: [MyInfoModel1] = [MyInfoModel1(image: "img_myinfouser", user: "내이름은노또", email: "ghdtjgus123@kakao.com")]
 }
 
 struct MyInfoModel2: Hashable {
@@ -34,5 +34,12 @@ extension MyInfoModel3 {
                                         MyInfoModel3(title: "문의하기"),
                                         MyInfoModel3(title: "약관 및 정책")
     ]
+}
+
+struct MyInfoModel4: Hashable {
+    var title: String
+}
+extension MyInfoModel4 {
+    static let item: [MyInfoModel4] = [MyInfoModel4(title: "버전 정보 0.0.1")]
 }
 
