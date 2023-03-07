@@ -48,6 +48,7 @@ extension MyInfoViewController {
     private func register() {
         myInfoCollectionView.register(MyProfileCollectionViewCell.self, forCellWithReuseIdentifier: MyProfileCollectionViewCell.identifier)
         myInfoCollectionView.register(InfoCollectionViewCell.self, forCellWithReuseIdentifier: InfoCollectionViewCell.identifier)
+        myInfoCollectionView.register(MyInfoHeaderReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: MyInfoHeaderReusableView.identifier)
     }
     
     private func setUI() {
@@ -105,18 +106,26 @@ extension MyInfoViewController {
         snapShot.appendItems(info2, toSection: .two)
         snapShot.appendItems(info3, toSection: .three)
         snapShot.appendItems(info4, toSection: .four)
+        
+        dataSource.supplementaryViewProvider = { (collectionView, _, indexPath) in
+            guard let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: MyInfoHeaderReusableView.identifier, for: indexPath) as? MyInfoHeaderReusableView else { return UICollectionReusableView() }
+            return header
+        }
     }
     
     // MARK: - Layout
     
-    private func layout() -> UICollectionViewCompositionalLayout {
-        var config = UICollectionLayoutListConfiguration(appearance: .insetGrouped)
-        config.backgroundColor = .clear
-        config.showsSeparators = true
-        config.separatorConfiguration.color = UIColor.gray2!
-        let insets = NSDirectionalEdgeInsets(top: 18, leading: 22, bottom: 0, trailing: 22)
-        config.separatorConfiguration.topSeparatorInsets = insets
-        let layout = UICollectionViewCompositionalLayout.list(using: config)
+    private func layout() -> UICollectionViewLayout {
+        
+        let layout = UICollectionViewCompositionalLayout { sectionIndex, layoutEnvirnment  in
+            let section = self.dataSource.snapshot().sectionIdentifiers[sectionIndex]
+            switch section {
+            case .one:
+                return CompositionalLayout.setUpSection(layoutEnvironment: layoutEnvirnment, mode: .supplementary)
+            case .two, .three, .four:
+                return CompositionalLayout.setUpSection(layoutEnvironment: layoutEnvirnment, mode: .none)
+            }
+        }
         return layout
     }
 }

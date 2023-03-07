@@ -10,11 +10,11 @@ import UIKit
 import Then
 import SnapKit
 
-class MyInfoHeaderCollectionReusableView: UICollectionReusableView {
+class MyInfoHeaderReusableView: UICollectionReusableView {
     
     // MARK: - Properties
     
-    static let identifier = "MyInfoHeaderCollectionReusableView"
+    static let identifier = "MyInfoHeaderReusableView"
     
     // MARK: - UI Components
     
@@ -33,7 +33,7 @@ class MyInfoHeaderCollectionReusableView: UICollectionReusableView {
 
 // MARK: - Methods
 
-extension MyInfoHeaderCollectionReusableView {
+extension MyInfoHeaderReusableView {
     private func setUI() {
         myInfoLabel.do {
             $0.text = I18N.myInfo
@@ -44,10 +44,8 @@ extension MyInfoHeaderCollectionReusableView {
     private func setLayout() {
         addSubview(myInfoLabel)
         
-        myInfoLabel.snp.makeConstraints { make in
-            $0.top.equalToSuperview().offset(23)
+        myInfoLabel.snp.makeConstraints {
             $0.leading.equalToSuperview().offset(21)
         }
-        
     }
 }

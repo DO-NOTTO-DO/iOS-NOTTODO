@@ -79,8 +79,7 @@ extension InfoCollectionViewCell {
         
         horizontalStackView.snp.updateConstraints {
             $0.leading.equalToSuperview().offset(8)
-        }
-        
+        }        
     }
     
     func configureWithArrow(model: MyInfoModel3) {

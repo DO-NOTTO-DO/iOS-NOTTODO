@@ -294,8 +294,8 @@
 			children = (
 				3B027AA3299C357000BEB65C /* MyInfoViewController.swift */,
 				098BFD5829B7999E008E80F9 /* MyProfileCollectionViewCell.swift */,
-				098BFD5E29B7AECF008E80F9 /* MyInfoHeaderCollectionReusableView.swift */,
 				098BFD5C29B79CE3008E80F9 /* InfoCollectionViewCell.swift */,
+				098BFD5E29B7AECF008E80F9 /* MyInfoHeaderCollectionReusableView.swift */,
 				098BFD5A29B79B6A008E80F9 /* MyInfoModel.swift */,
 			);
 			path = MyInfo;
