@@ -13,6 +13,7 @@
 		0982DE5A29AE5E6000D933D2 /* CompositionalLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0982DE5929AE5E6000D933D2 /* CompositionalLayout.swift */; };
 		098BFD5929B7999E008E80F9 /* MyInfoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098BFD5829B7999E008E80F9 /* MyInfoCollectionViewCell.swift */; };
 		098BFD5B29B79B6A008E80F9 /* MyInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098BFD5A29B79B6A008E80F9 /* MyInfoModel.swift */; };
+		098BFD5D29B79CE3008E80F9 /* InfoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098BFD5C29B79CE3008E80F9 /* InfoCollectionViewCell.swift */; };
 		099CFA1A29AB8D710003E5D5 /* MissionListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 099CFA1929AB8D710003E5D5 /* MissionListModel.swift */; };
 		3B027A78299C31B500BEB65C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B027A77299C31B500BEB65C /* AppDelegate.swift */; };
 		3B027A7A299C31B500BEB65C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B027A79299C31B500BEB65C /* SceneDelegate.swift */; };
@@ -78,6 +79,7 @@
 		0982DE5929AE5E6000D933D2 /* CompositionalLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositionalLayout.swift; sourceTree = "<group>"; };
 		098BFD5829B7999E008E80F9 /* MyInfoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInfoCollectionViewCell.swift; sourceTree = "<group>"; };
 		098BFD5A29B79B6A008E80F9 /* MyInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInfoModel.swift; sourceTree = "<group>"; };
+		098BFD5C29B79CE3008E80F9 /* InfoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoCollectionViewCell.swift; sourceTree = "<group>"; };
 		099CFA1929AB8D710003E5D5 /* MissionListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionListModel.swift; sourceTree = "<group>"; };
 		3B027A74299C31B500BEB65C /* iOS-NOTTODO.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "iOS-NOTTODO.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B027A77299C31B500BEB65C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -290,6 +292,7 @@
 			children = (
 				3B027AA3299C357000BEB65C /* MyInfoViewController.swift */,
 				098BFD5829B7999E008E80F9 /* MyInfoCollectionViewCell.swift */,
+				098BFD5C29B79CE3008E80F9 /* InfoCollectionViewCell.swift */,
 				098BFD5A29B79B6A008E80F9 /* MyInfoModel.swift */,
 			);
 			path = MyInfo;
@@ -643,6 +646,7 @@
 				0982DE5429ADCCE000D933D2 /* HomeEmptyCollectionViewCell.swift in Sources */,
 				3B027AA2299C355800BEB65C /* AchievementViewController.swift in Sources */,
 				099CFA1A29AB8D710003E5D5 /* MissionListModel.swift in Sources */,
+				098BFD5D29B79CE3008E80F9 /* InfoCollectionViewCell.swift in Sources */,
 				6CF4706329A690CD008D145C /* NetworkResult.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

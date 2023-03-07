@@ -37,10 +37,6 @@ extension MyInfoCollectionViewCell {
     private func setUI() {
         backgroundColor = .clear
         
-        logoImage.do {
-            $0.image = .emptyLogo
-        }
-        
         userLabel.do {
             $0.textAlignment = .left
             $0.numberOfLines = 1
@@ -74,6 +70,12 @@ extension MyInfoCollectionViewCell {
             $0.centerY.equalToSuperview()
             $0.trailing.equalToSuperview()
         }
+    }
+    
+    func configure(model: MyInfoModel) {
+        logoImage.image = UIImage(named: model.email)
+        userLabel.text = model.user
+        emailLabel.text = model.email
     }
 }
 
