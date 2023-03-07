@@ -21,8 +21,8 @@ struct MyInfoModel2: Hashable {
     var title: String
 }
 extension MyInfoModel2 {
-    static let items: [MyInfoModel2] = [MyInfoModel2(image: <#T##String#>, title: "낫투두 가이드"),
-                                        MyInfoModel2(image: <#T##String#>, title: "자주 묻는 질문")
+    static let items: [MyInfoModel2] = [MyInfoModel2(image: "btn_checkbox_inactive", title: "낫투두 가이드"),
+                                        MyInfoModel2(image: "btn_checkbox_inactive", title: "자주 묻는 질문")
     ]
 }
 
