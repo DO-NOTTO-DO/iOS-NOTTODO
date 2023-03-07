@@ -18,7 +18,7 @@ final class MyInfoViewController: UIViewController {
     private let info2: [MyInfoModel2] = MyInfoModel2.items
     private let info3: [MyInfoModel3] = MyInfoModel3.items
     private let info4: [MyInfoModel4] = MyInfoModel4.item
-
+    
     enum Sections: Int, Hashable {
         case one, two, three, four
     }
@@ -108,15 +108,15 @@ extension MyInfoViewController {
     }
     
     // MARK: - Layout
+    
     private func layout() -> UICollectionViewCompositionalLayout {
-   
         var config = UICollectionLayoutListConfiguration(appearance: .insetGrouped)
-                        config.backgroundColor = .clear
-                        config.showsSeparators = true
-                        config.separatorConfiguration.color = UIColor.gray2!
-        config.separatorConfiguration.bottomSeparatorInsets.top = 18
+        config.backgroundColor = .clear
+        config.showsSeparators = true
+        config.separatorConfiguration.color = UIColor.gray2!
+        let insets = NSDirectionalEdgeInsets(top: 18, leading: 22, bottom: 0, trailing: 22)
+        config.separatorConfiguration.topSeparatorInsets = insets
         let layout = UICollectionViewCompositionalLayout.list(using: config)
         return layout
-  
     }
 }

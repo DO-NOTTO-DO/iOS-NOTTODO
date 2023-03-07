@@ -42,4 +42,3 @@ struct MyInfoModel4: Hashable {
 extension MyInfoModel4 {
     static let item: [MyInfoModel4] = [MyInfoModel4(title: "버전 정보 0.0.1")]
 }
-

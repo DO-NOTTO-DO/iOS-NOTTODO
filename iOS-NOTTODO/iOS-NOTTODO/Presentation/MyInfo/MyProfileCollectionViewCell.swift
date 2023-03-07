@@ -79,4 +79,3 @@ extension MyProfileCollectionViewCell {
         emailLabel.text = model.email
     }
 }
-

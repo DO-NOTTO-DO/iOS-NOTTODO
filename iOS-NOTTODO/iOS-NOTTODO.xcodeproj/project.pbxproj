@@ -14,6 +14,7 @@
 		098BFD5929B7999E008E80F9 /* MyProfileCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098BFD5829B7999E008E80F9 /* MyProfileCollectionViewCell.swift */; };
 		098BFD5B29B79B6A008E80F9 /* MyInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098BFD5A29B79B6A008E80F9 /* MyInfoModel.swift */; };
 		098BFD5D29B79CE3008E80F9 /* InfoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098BFD5C29B79CE3008E80F9 /* InfoCollectionViewCell.swift */; };
+		098BFD5F29B7AECF008E80F9 /* MyInfoHeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098BFD5E29B7AECF008E80F9 /* MyInfoHeaderCollectionReusableView.swift */; };
 		099CFA1A29AB8D710003E5D5 /* MissionListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 099CFA1929AB8D710003E5D5 /* MissionListModel.swift */; };
 		3B027A78299C31B500BEB65C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B027A77299C31B500BEB65C /* AppDelegate.swift */; };
 		3B027A7A299C31B500BEB65C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B027A79299C31B500BEB65C /* SceneDelegate.swift */; };
@@ -80,6 +81,7 @@
 		098BFD5829B7999E008E80F9 /* MyProfileCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileCollectionViewCell.swift; sourceTree = "<group>"; };
 		098BFD5A29B79B6A008E80F9 /* MyInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInfoModel.swift; sourceTree = "<group>"; };
 		098BFD5C29B79CE3008E80F9 /* InfoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoCollectionViewCell.swift; sourceTree = "<group>"; };
+		098BFD5E29B7AECF008E80F9 /* MyInfoHeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInfoHeaderCollectionReusableView.swift; sourceTree = "<group>"; };
 		099CFA1929AB8D710003E5D5 /* MissionListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionListModel.swift; sourceTree = "<group>"; };
 		3B027A74299C31B500BEB65C /* iOS-NOTTODO.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "iOS-NOTTODO.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B027A77299C31B500BEB65C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -292,6 +294,7 @@
 			children = (
 				3B027AA3299C357000BEB65C /* MyInfoViewController.swift */,
 				098BFD5829B7999E008E80F9 /* MyProfileCollectionViewCell.swift */,
+				098BFD5E29B7AECF008E80F9 /* MyInfoHeaderCollectionReusableView.swift */,
 				098BFD5C29B79CE3008E80F9 /* InfoCollectionViewCell.swift */,
 				098BFD5A29B79B6A008E80F9 /* MyInfoModel.swift */,
 			);
@@ -625,6 +628,7 @@
 				3B027A9E299C34DA00BEB65C /* HomeViewController.swift in Sources */,
 				3B482FA9299EB95400BCF424 /* UIScreen+.swift in Sources */,
 				3B14A13B29A694C000F92897 /* UITextView+.swift in Sources */,
+				098BFD5F29B7AECF008E80F9 /* MyInfoHeaderCollectionReusableView.swift in Sources */,
 				3B482FA7299EB8FD00BCF424 /* UIViewController+.swift in Sources */,
 				3B14A13D29A6FBD300F92897 /* UIView+.swift in Sources */,
 				3B482FA5299EAB8800BCF424 /* TabBarController.swift in Sources */,
