@@ -7,18 +7,27 @@
 
 import UIKit
 
-final class MyInfoViewController: UIViewController {
+import Then
+import SnapKit
 
+final class MyInfoViewController: UIViewController {
+    
+    
     // MARK: - Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setUI()
+        setLayout()
     }
 }
 
 extension MyInfoViewController {
     private func setUI() {
-        view.backgroundColor = .white
+        view.backgroundColor = .ntdBlack
+
+    }
+    private func setLayout() {
+
     }
 }
