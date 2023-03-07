@@ -22,7 +22,7 @@ final class CalendarView: UIView {
     let rightButton = UIButton()
     var calendar = WeekMonthFSCalendar()
     private lazy var today: Date = { return Date() }()
-
+    
     // MARK: - Life Cycle
     
     init(calendarScope: FSCalendarScope, scrollDirection: FSCalendarScrollDirection) {
@@ -51,7 +51,7 @@ extension CalendarView {
         yearMonthLabel.do {
             $0.font = .Pretendard(.medium, size: 18)
             $0.textColor = .white
-            $0.text = Utils.DateFormatter(format: I18N.yearMonthTitle, date: Date())
+            $0.text = Utils.DateFormatterString(format: I18N.yearMonthTitle, date: Date())
         }
         
         todayButton.do {
@@ -135,7 +135,7 @@ extension CalendarView {
     @objc
     func todayBtnTapped(_sender: UIButton) {
         calendar.select(today)
-        yearMonthLabel.text = Utils.DateFormatter(format: I18N.yearMonthTitle, date: today)
+        yearMonthLabel.text = Utils.DateFormatterString(format: I18N.yearMonthTitle, date: today)
     }
     
     @objc
@@ -148,3 +148,22 @@ extension CalendarView {
         Utils.scrollCurrentPage(calendar: calendar, isPrev: false)
     }
 }
+
+//오늘부터 일주일 날짜 선택
+//func calendar(_ calendar: FSCalendar, shouldSelect date: Date, at monthPosition: FSCalendarMonthPosition) -> Bool {
+//    switch Calendar.current.compare(today, to: date, toGranularity: .day) {
+//    case .orderedSame:
+//        print("\(date) is the same as \(today)")
+//        return true
+//    case .orderedDescending:
+//        print("\(date) is before \(today)")
+//        return false
+//    case .orderedAscending:
+//        print("\(date) is after \(today)")
+//        let sevenDays = Calendar.current.date(byAdding: .day, value: +6, to: Date())!
+//        if date < sevenDays {
+//            return true
+//        }
+//        return false
+//    }
+//}

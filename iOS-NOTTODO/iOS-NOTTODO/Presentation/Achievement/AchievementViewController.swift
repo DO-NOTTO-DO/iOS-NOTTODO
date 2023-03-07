@@ -16,6 +16,7 @@ final class AchievementViewController: UIViewController {
     // MARK: - Properties
     
     private lazy var safeArea = self.view.safeAreaLayoutGuide
+    private lazy var today: Date = { return Date() }()
     
     // MARK: - UI Components
     
@@ -39,7 +40,7 @@ extension AchievementViewController {
     private func setUI() {
         view.backgroundColor = .ntdBlack
         scrollView.backgroundColor = .clear
-
+        
         achievementLabel.do {
             $0.text = I18N.achievement
             $0.font = .Pretendard(.semiBold, size: 18)
@@ -82,11 +83,13 @@ extension AchievementViewController {
 
 extension AchievementViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalendarDelegateAppearance {
     func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
-        monthCalendar.yearMonthLabel.text = Utils.DateFormatter(format: I18N.yearMonthTitle, date: calendar.currentPage)
+        monthCalendar.yearMonthLabel.text = Utils.DateFormatterString(format: I18N.yearMonthTitle, date: calendar.currentPage)
     }
+    
     func calendar(_ calendar: FSCalendar, titleFor date: Date) -> String? {
-        Utils.DateFormatter(format: "dd", date: date)
+        Utils.DateFormatterString(format: "dd", date: date)
     }
+    
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         calendar.appearance.selectionColor = .clear
         calendar.appearance.titleSelectionColor = .white

@@ -11,7 +11,7 @@ import FSCalendar
 
 final class Utils {
     
-    class func DateFormatter(format: String, date: Date) -> String? {
+    class func DateFormatterString(format: String, date: Date) -> String? {
         let formatter = Foundation.DateFormatter()
         formatter.dateFormat = format
         formatter.locale = Locale(identifier: "ko_KR")
@@ -20,7 +20,7 @@ final class Utils {
     }
     
     class  func scrollCurrentPage(calendar: WeekMonthFSCalendar, isPrev: Bool) {
-         let gregorian = Calendar(identifier: .gregorian)
+        let gregorian = Calendar(identifier: .gregorian)
         calendar.setCurrentPage( gregorian.date(byAdding: calendar.scope == .week ? .weekOfMonth : .month, value: isPrev ? -1 : 1, to: calendar.currentPage)!, animated: true)
     }
 }
