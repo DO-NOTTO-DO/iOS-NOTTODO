@@ -125,7 +125,7 @@ extension MyInfoViewController {
             case .two, .three:
                 return CompositionalLayout.setUpSection(layoutEnvironment: env, mode: .none, 18, 0)
             case .four:
-                return CompositionalLayout.setUpSection(layoutEnvironment: env, mode: .none, 18, 149)
+                return CompositionalLayout.setUpSection(layoutEnvironment: env, mode: .none, 18, 50)
             }
         }
         return layout
