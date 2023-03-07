@@ -45,7 +45,7 @@ extension MyInfoHeaderReusableView {
         addSubview(myInfoLabel)
         
         myInfoLabel.snp.makeConstraints {
-            $0.leading.equalToSuperview().offset(21)
+            $0.leading.equalToSuperview()
         }
     }
 }

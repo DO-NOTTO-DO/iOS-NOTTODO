@@ -26,6 +26,7 @@ final class CompositionalLayout {
         config.headerMode = mode
         config.showsSeparators = true
         config.separatorConfiguration.color = UIColor.gray2!
+        config.backgroundColor = .clear
         let layoutSection = NSCollectionLayoutSection.list(using: config, layoutEnvironment: layoutEnvironment)
         layoutSection.contentInsets = NSDirectionalEdgeInsets(top: 18, leading: 22, bottom: 0, trailing: 22)
         return layoutSection
