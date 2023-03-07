@@ -44,7 +44,6 @@ final class MyInfoViewController: UIViewController {
 // MARK: - Methods
 
 extension MyInfoViewController {
-    
     private func register() {
         myInfoCollectionView.register(MyProfileCollectionViewCell.self, forCellWithReuseIdentifier: MyProfileCollectionViewCell.identifier)
         myInfoCollectionView.register(InfoCollectionViewCell.self, forCellWithReuseIdentifier: InfoCollectionViewCell.identifier)
@@ -58,6 +57,7 @@ extension MyInfoViewController {
             $0.backgroundColor = .clear
             $0.bounces = false
             $0.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+            $0.showsVerticalScrollIndicator = false
         }
     }
     
@@ -65,7 +65,8 @@ extension MyInfoViewController {
         view.addSubview(myInfoCollectionView)
         
         myInfoCollectionView.snp.makeConstraints {
-            $0.edges.equalTo(safeArea)
+            $0.directionalHorizontalEdges.equalTo(safeArea).inset(22)
+            $0.directionalVerticalEdges.equalTo(safeArea)
         }
     }
     
@@ -116,14 +117,15 @@ extension MyInfoViewController {
     // MARK: - Layout
     
     private func layout() -> UICollectionViewLayout {
-        
-        let layout = UICollectionViewCompositionalLayout { sectionIndex, layoutEnvirnment  in
+        let layout = UICollectionViewCompositionalLayout { sectionIndex, env  in
             let section = self.dataSource.snapshot().sectionIdentifiers[sectionIndex]
             switch section {
             case .one:
-                return CompositionalLayout.setUpSection(layoutEnvironment: layoutEnvirnment, mode: .supplementary)
-            case .two, .three, .four:
-                return CompositionalLayout.setUpSection(layoutEnvironment: layoutEnvirnment, mode: .none)
+                return CompositionalLayout.setUpSection(layoutEnvironment: env, mode: .supplementary, 24, 0)
+            case .two, .three:
+                return CompositionalLayout.setUpSection(layoutEnvironment: env, mode: .none, 18, 0)
+            case .four:
+                return CompositionalLayout.setUpSection(layoutEnvironment: env, mode: .none, 18, 149)
             }
         }
         return layout
