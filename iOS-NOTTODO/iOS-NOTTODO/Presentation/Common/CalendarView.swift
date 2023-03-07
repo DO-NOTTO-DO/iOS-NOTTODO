@@ -149,8 +149,8 @@ extension CalendarView {
     }
 }
 
-//오늘부터 일주일 날짜 선택
-//func calendar(_ calendar: FSCalendar, shouldSelect date: Date, at monthPosition: FSCalendarMonthPosition) -> Bool {
+// 오늘부터 일주일 날짜 선택
+// func calendar(_ calendar: FSCalendar, shouldSelect date: Date, at monthPosition: FSCalendarMonthPosition) -> Bool {
 //    switch Calendar.current.compare(today, to: date, toGranularity: .day) {
 //    case .orderedSame:
 //        print("\(date) is the same as \(today)")
@@ -166,4 +166,4 @@ extension CalendarView {
 //        }
 //        return false
 //    }
-//}
+// }
