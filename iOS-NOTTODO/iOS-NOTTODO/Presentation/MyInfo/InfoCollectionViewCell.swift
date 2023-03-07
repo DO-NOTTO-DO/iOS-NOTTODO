@@ -35,7 +35,7 @@ class InfoCollectionViewCell: UICollectionViewCell {
 
 extension InfoCollectionViewCell {
     private func setUI() {
-        backgroundColor = .clear
+        backgroundColor = .gray1
         
         titleLabel.do {
             $0.textColor = .white

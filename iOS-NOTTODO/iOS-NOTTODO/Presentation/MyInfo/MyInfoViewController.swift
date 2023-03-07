@@ -45,7 +45,7 @@ final class MyInfoViewController: UIViewController {
 extension MyInfoViewController {
     
     private func register() {
-        myInfoCollectionView.register(MyInfoCollectionViewCell.self, forCellWithReuseIdentifier: MyInfoCollectionViewCell.identifier)
+        myInfoCollectionView.register(MyProfileCollectionViewCell.self, forCellWithReuseIdentifier: MyProfileCollectionViewCell.identifier)
         myInfoCollectionView.register(InfoCollectionViewCell.self, forCellWithReuseIdentifier: InfoCollectionViewCell.identifier)
     }
     
@@ -63,7 +63,8 @@ extension MyInfoViewController {
         view.addSubview(myInfoCollectionView)
         
         myInfoCollectionView.snp.makeConstraints {
-            $0.edges.equalTo(safeArea)
+            $0.top.leading.trailing.equalTo(safeArea)
+            $0.bottom.equalTo(safeArea).inset(149)
         }
     }
     
@@ -74,7 +75,7 @@ extension MyInfoViewController {
             let section = self.dataSource.snapshot().sectionIdentifiers[indexPath.section]
             switch section {
             case .one:
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MyInfoCollectionViewCell.identifier, for: indexPath) as! MyInfoCollectionViewCell
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MyProfileCollectionViewCell.identifier, for: indexPath) as! MyProfileCollectionViewCell
                 cell.configure(model: item as! MyInfoModel1 )
                 
                 return cell
@@ -96,7 +97,7 @@ extension MyInfoViewController {
             dataSource.apply(snapShot, animatingDifferences: false)
         }
         
-        snapShot.appendSections([.one,.two,.three])
+        snapShot.appendSections([.one, .two, .three])
         snapShot.appendItems(info1, toSection: .one)
         snapShot.appendItems(info2, toSection: .two)
         snapShot.appendItems(info3, toSection: .three)
@@ -112,11 +113,11 @@ extension MyInfoViewController {
                 var config = UICollectionLayoutListConfiguration(appearance: .insetGrouped)
                 config.backgroundColor = .clear
                 config.showsSeparators = true
+                config.separatorConfiguration.color = UIColor.gray2!
                 
                 let layoutSection = NSCollectionLayoutSection.list(using: config, layoutEnvironment: layoutEnvirnment)
                 layoutSection.orthogonalScrollingBehavior = .none
-                layoutSection.interGroupSpacing = 18
-                layoutSection.contentInsets = .zero
+                layoutSection.contentInsets = NSDirectionalEdgeInsets(top: 18, leading: 22, bottom: 0, trailing: 22)
                 
                 return layoutSection
             }

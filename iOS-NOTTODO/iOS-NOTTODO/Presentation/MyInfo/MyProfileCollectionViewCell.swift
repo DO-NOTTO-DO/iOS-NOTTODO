@@ -7,11 +7,11 @@
 
 import UIKit
 
-class MyInfoCollectionViewCell: UICollectionViewCell {
+class MyProfileCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Properties
 
-    static let identifier = "MyInfoCollectionViewCell"
+    static let identifier = "MyProfileCollectionViewCell"
 
     // MARK: - UI Components
     
@@ -25,7 +25,7 @@ class MyInfoCollectionViewCell: UICollectionViewCell {
         setUI()
         setLayout()
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -33,9 +33,9 @@ class MyInfoCollectionViewCell: UICollectionViewCell {
 
 // MARK: - Methods
 
-extension MyInfoCollectionViewCell {
+extension MyProfileCollectionViewCell {
     private func setUI() {
-        backgroundColor = .clear
+        backgroundColor = .gray1
         
         userLabel.do {
             $0.textAlignment = .left
@@ -66,9 +66,10 @@ extension MyInfoCollectionViewCell {
         }
         
         verticalStackView.snp.makeConstraints {
+            $0.top.equalToSuperview().offset(26)
             $0.leading.equalTo(logoImage.snp.trailing).offset(15)
             $0.centerY.equalToSuperview()
-            $0.trailing.equalToSuperview()
+            $0.bottom.equalToSuperview().inset(25)
         }
     }
     
