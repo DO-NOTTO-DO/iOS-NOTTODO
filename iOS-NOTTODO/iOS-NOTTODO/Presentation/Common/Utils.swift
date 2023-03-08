@@ -32,7 +32,6 @@ final class Utils {
         case .orderedDescending:
             print("\(date) is before \(today)")
             return  .gray3
-            
         case .orderedAscending:
             print("\(date) is after \(today)")
             let sevenDays = Calendar.current.date(byAdding: .day, value: +6, to: Date())!
