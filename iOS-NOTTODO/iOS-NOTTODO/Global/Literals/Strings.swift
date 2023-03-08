@@ -32,4 +32,8 @@ struct I18N {
     /// Home Empty
     
     static let emptyTitle = "새로운 낫투두를 추가하고\n오늘 하루를 더 잘 살아보세요!"
+    
+    // AddMission
+    
+    static let add = "추가"
 }
