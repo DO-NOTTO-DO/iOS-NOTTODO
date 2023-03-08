@@ -90,35 +90,9 @@ extension AchievementViewController: FSCalendarDelegate, FSCalendarDataSource, F
         Utils.DateFormatterString(format: "dd", date: date)
     }
     
-    func calendar(_ calendar: FSCalendar, shouldSelect date: Date, at monthPosition: FSCalendarMonthPosition) -> Bool {
-        switch Calendar.current.compare(today, to: date, toGranularity: .day) {
-        case .orderedSame:
-            print("\(date) is the same as \(today)")
-            return true
-        case .orderedDescending:
-            print("\(date) is before \(today)")
-            return false
-        case .orderedAscending:
-            print("\(date) is after \(today)")
-            let sevenDays = Calendar.current.date(byAdding: .day, value: +6, to: Date())!
-            if date < sevenDays {
-                return true
-            }
-
-            return false
-        }
-    }
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
-        //        calendar.appearance.selectionColor = .clear
-        //        calendar.appearance.titleSelectionColor = .white
+        calendar.appearance.selectionColor = .clear
+        calendar.appearance.titleSelectionColor = .white
         print("선택")
-    }
-    func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleSelectionColorFor date: Date) -> UIColor? {
-        Utils.calendarTitleColor(today: today, date: date, selected: true)
-    }
-    
-    func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleDefaultColorFor date: Date) -> UIColor? {
-        Utils.calendarTitleColor(today: today, date: date, selected: false)
-
     }
 }
