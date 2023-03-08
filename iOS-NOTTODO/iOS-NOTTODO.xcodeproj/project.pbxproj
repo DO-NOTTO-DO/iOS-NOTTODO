@@ -41,6 +41,7 @@
 		3B482FA5299EAB8800BCF424 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B482FA4299EAB8800BCF424 /* TabBarController.swift */; };
 		3B482FA7299EB8FD00BCF424 /* UIViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B482FA6299EB8FD00BCF424 /* UIViewController+.swift */; };
 		3B482FA9299EB95400BCF424 /* UIScreen+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B482FA8299EB95400BCF424 /* UIScreen+.swift */; };
+		3BD3B5C829B8F82C00D3575B /* AddMissionTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD3B5C729B8F82C00D3575B /* AddMissionTextFieldView.swift */; };
 		6C44127129A35A1000313C3F /* KakaoSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 6C44127029A35A1000313C3F /* KakaoSDK */; };
 		6C44127329A35A1000313C3F /* KakaoSDKAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 6C44127229A35A1000313C3F /* KakaoSDKAuth */; };
 		6C44127529A35A1000313C3F /* KakaoSDKCommon in Frameworks */ = {isa = PBXBuildFile; productRef = 6C44127429A35A1000313C3F /* KakaoSDKCommon */; };
@@ -103,6 +104,7 @@
 		3B482FA4299EAB8800BCF424 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		3B482FA6299EB8FD00BCF424 /* UIViewController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+.swift"; sourceTree = "<group>"; };
 		3B482FA8299EB95400BCF424 /* UIScreen+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScreen+.swift"; sourceTree = "<group>"; };
+		3BD3B5C729B8F82C00D3575B /* AddMissionTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMissionTextFieldView.swift; sourceTree = "<group>"; };
 		3BDE6157299EDD02001CCEA9 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		6CD4F8B929AA493600CCC740 /* RecommendActionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendActionHeaderView.swift; sourceTree = "<group>"; };
 		6CD4F8BB29AA494300CCC740 /* RecommendActionFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendActionFooterView.swift; sourceTree = "<group>"; };
@@ -361,6 +363,14 @@
 			path = Assets;
 			sourceTree = "<group>";
 		};
+		3BD3B5C629B8F80C00D3575B /* AddMissionTextFieldView */ = {
+			isa = PBXGroup;
+			children = (
+				3BD3B5C729B8F82C00D3575B /* AddMissionTextFieldView.swift */,
+			);
+			path = AddMissionTextFieldView;
+			sourceTree = "<group>";
+		};
 		6C44126C29A357F600313C3F /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -463,6 +473,7 @@
 		6CF4707729A7AAD1008D145C /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				3BD3B5C629B8F80C00D3575B /* AddMissionTextFieldView */,
 				6CF4707829A7AADB008D145C /* PaddingLabel */,
 				0982DE5929AE5E6000D933D2 /* CompositionalLayout.swift */,
 			);
@@ -610,6 +621,7 @@
 				6CF4707629A73D62008D145C /* RecommendModel.swift in Sources */,
 				6CD4F8C029AA497A00CCC740 /* RecommendActionModel.swift in Sources */,
 				6CF4705B29A68EA9008D145C /* URLConstant.swift in Sources */,
+				3BD3B5C829B8F82C00D3575B /* AddMissionTextFieldView.swift in Sources */,
 				6CF4706D29A739D9008D145C /* RecommendViewController.swift in Sources */,
 				3B027A9E299C34DA00BEB65C /* HomeViewController.swift in Sources */,
 				3B482FA9299EB95400BCF424 /* UIScreen+.swift in Sources */,
