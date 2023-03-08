@@ -24,6 +24,7 @@ class HomeViewController: UIViewController {
     // MARK: - UI Components
     
     private lazy var missionCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout())
+    private let popupView = PopUpView()
     
     // MARK: - Life Cycle
     

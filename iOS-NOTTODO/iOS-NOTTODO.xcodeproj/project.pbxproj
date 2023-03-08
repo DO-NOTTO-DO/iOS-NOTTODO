@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		092E04AC29B81CCF008A5892 /* PopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092E04AB29B81CCF008A5892 /* PopupView.swift */; };
 		0930DE6229B80550007958DE /* MissionDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0930DE6129B80550007958DE /* MissionDetailViewController.swift */; };
 		097C003629AB8270008CAEF3 /* MissionListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097C003529AB8270008CAEF3 /* MissionListCollectionViewCell.swift */; };
 		0982DE5429ADCCE000D933D2 /* HomeEmptyCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0982DE5329ADCCE000D933D2 /* HomeEmptyCollectionViewCell.swift */; };
@@ -71,6 +72,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		092E04AB29B81CCF008A5892 /* PopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupView.swift; sourceTree = "<group>"; };
 		0930DE6129B80550007958DE /* MissionDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionDetailViewController.swift; sourceTree = "<group>"; };
 		097C003529AB8270008CAEF3 /* MissionListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionListCollectionViewCell.swift; sourceTree = "<group>"; };
 		0982DE5329ADCCE000D933D2 /* HomeEmptyCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeEmptyCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -468,6 +470,7 @@
 			children = (
 				6CF4707829A7AADB008D145C /* PaddingLabel */,
 				0982DE5929AE5E6000D933D2 /* CompositionalLayout.swift */,
+				092E04AB29B81CCF008A5892 /* PopupView.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -600,6 +603,7 @@
 			files = (
 				3B14A14129A6FDA900F92897 /* UILabel+.swift in Sources */,
 				3B027A7C299C31B500BEB65C /* AuthViewController.swift in Sources */,
+				092E04AC29B81CCF008A5892 /* PopupView.swift in Sources */,
 				3B027A92299C33FE00BEB65C /* UIColor+.swift in Sources */,
 				3B027AA4299C357000BEB65C /* MyInfoViewController.swift in Sources */,
 				3B027A94299C340600BEB65C /* UIFont+.swift in Sources */,

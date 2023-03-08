@@ -20,6 +20,7 @@ class MissionDetailViewController: UIViewController {
     private let horizontalStackview = UIStackView()
     private let cancelButton = UIButton()
     private let editButton = UIButton()
+    private let popupView = PopUpView()
     
     // MARK: - Life Cycle
 
@@ -27,6 +28,7 @@ class MissionDetailViewController: UIViewController {
         super.viewDidLoad()
         setUI()
         setLayout()
+        popupView.appearPopUpView(subView: cancelButton, width: 50, height: 50)
     }
 }
 
@@ -35,13 +37,11 @@ class MissionDetailViewController: UIViewController {
 extension MissionDetailViewController {
     private func setUI() {
         view.backgroundColor = .black.withAlphaComponent(0.6)
-        
+        popupView.addSubview(cancelButton)
         cancelButton.do {
+            $0.backgroundColor = .systemBlue
             $0.setImage(.delete, for: .normal)
         }
-        
-        
-        
     }
     private func setLayout() {
         
