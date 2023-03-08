@@ -79,20 +79,16 @@ extension AddMissionTextFieldView: UITextFieldDelegate {
         self.addMissionTextField.delegate = self
     }
     
-//    func textFieldDidBeginEditing(_ textField: UITextField) {
-//        textFieldUnderLineView.backgroundColor = .white
-//    }
+    func textFieldDidChangeSelection(_ textField: UITextField) {
+            guard let text = addMissionTextField.text else { return }
+            textCountLabel.text = "\(text.count)/20"
+        }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         let currentText = textField.text ?? ""
         guard let stringRange = Range(range, in: currentText) else { return false }
-        print(stringRange, "ㅇㄹㄴㅇㄹㅁㅇㄹ")
         let changeText = currentText.replacingCharacters(in: stringRange, with: string)
-        print(string, "???")
-        print(changeText, "❤️")
-        
         textFieldUnderLineView.backgroundColor = changeText.count == 0 ? .gray3 : .white
-        textCountLabel.text = "\(changeText.count)/20"
-        return changeText.count < 20
+        return changeText.count < 20 + 1
     }
 }

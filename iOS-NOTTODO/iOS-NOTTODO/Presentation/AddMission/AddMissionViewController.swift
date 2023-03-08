@@ -31,6 +31,7 @@ final class AddMissionViewController: UIViewController {
     private let addButton = UIButton()
     private let separateView = UIView()
     private lazy var addMissionCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout())
+    private let textFieldView = AddMissionTextFieldView(frame: .zero)
 
     // MARK: - Life Cycle
     
@@ -69,7 +70,7 @@ private extension AddMissionViewController {
     func setLayout() {
         navigationView.addSubviews(dismissButton, navigationTitle, addButton)
         
-        view.addSubviews(navigationView, separateView, addMissionCollectionView)
+        view.addSubviews(navigationView, separateView, addMissionCollectionView, textFieldView)
         
         dismissButton.snp.makeConstraints {
             $0.top.equalToSuperview().inset(16)
@@ -99,6 +100,12 @@ private extension AddMissionViewController {
         
         addMissionCollectionView.snp.makeConstraints {
             $0.top.equalTo(separateView.snp.bottom).offset(12)
+            $0.directionalHorizontalEdges.equalToSuperview()
+        }
+        
+        textFieldView.snp.makeConstraints {
+            $0.height.equalTo(175)
+            $0.center.equalToSuperview()
             $0.directionalHorizontalEdges.equalToSuperview()
         }
     }
