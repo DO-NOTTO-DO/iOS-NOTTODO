@@ -68,7 +68,7 @@ extension InfoCollectionViewCell {
         horizontalStackView.snp.makeConstraints {
             $0.top.equalToSuperview().offset(17)
             $0.bottom.equalToSuperview().inset(17)
-            $0.leading.equalToSuperview().offset(-18)
+            $0.leading.equalToSuperview().offset(20)
             $0.centerY.equalToSuperview()
         }
     }
@@ -76,18 +76,18 @@ extension InfoCollectionViewCell {
     func configureWithIcon(model: InfoModelTwo) {
         iconImage.image = UIImage(named: model.image)
         titleLabel.text = model.title
-        
-        horizontalStackView.snp.updateConstraints {
-            $0.leading.equalToSuperview().offset(8)
-        }        
     }
     
     func configureWithArrow(model: InfoModelThree) {
+        horizontalStackView.removeArrangedSubview(iconImage)
+        iconImage.removeFromSuperview()
         titleLabel.text = model.title
         arrowImage.isHidden = false
     }
     
     func configure(model: InfoModelFour) {
+        horizontalStackView.removeArrangedSubview(iconImage)
+        iconImage.removeFromSuperview()
         titleLabel.text = model.title
         arrowImage.isHidden = true
     }
