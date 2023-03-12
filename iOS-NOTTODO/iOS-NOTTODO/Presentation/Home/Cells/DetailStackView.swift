@@ -32,6 +32,7 @@ extension DetailStackView {
         verticalStackView.do {
             $0.addArrangedSubviews(tagLabel, titleLabel)
             $0.axis = .vertical
+            $0.spacing = 10
         }
         
         tagLabel.do {
@@ -42,6 +43,7 @@ extension DetailStackView {
         titleLabel.do {
             $0.textColor = .black
             $0.font = .Pretendard(.medium, size: 16)
+            $0.numberOfLines = 0
         }
         
     }

@@ -47,17 +47,18 @@ extension DetailActionGoalCollectionViewCell {
     }
     
     private func setLayout() {
+        contentView.addSubview(verticalStackView)
+    
         verticalStackView.snp.makeConstraints {
             $0.top.equalToSuperview().offset(25)
             $0.leading.equalToSuperview().offset(29)
+            $0.trailing.equalToSuperview()
             $0.bottom.equalToSuperview().inset(35)
         }
     }
     
     func configure(model: MissionDetailModel) {
-        action.titleLabel.text = "model.action?.joined(separator: ',')\n"
-//        goal.titleLabel.text = model.goal?.joined(separator: ",")
-        goal.titleLabel.text = "model.goal?.joined(separator: ',')\n"
-
+        action.titleLabel.text = model.action?.joined(separator: "\n")
+        goal.titleLabel.text = model.goal?.joined(separator: "\n")
     }
 }

@@ -16,15 +16,16 @@ class MissionDetailViewController: UIViewController {
     
     private lazy var safeArea = self.view.safeAreaLayoutGuide
     enum Section {
-        case main
+        case mission
     }
     typealias Item = AnyHashable
-    private var dataSource:  UICollectionViewDiffableDataSource<Section, Item>
+    var dataSource: UICollectionViewDiffableDataSource<Section, Item>! = nil
     private let detailModel: [MissionDetailModel] = MissionDetailModel.items
     
     // MARK: - UI Components
     private let containerView = UIView()
     private let horizontalStackview = UIStackView()
+    private let emptyView = UIView()
     private let cancelButton = UIButton()
     private let editButton = UIButton()
     private lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout())
@@ -36,6 +37,8 @@ class MissionDetailViewController: UIViewController {
         register()
         setUI()
         setLayout()
+        setupDataSource()
+        reloadData()
     }
 }
 
@@ -47,14 +50,16 @@ extension MissionDetailViewController {
         collectionView.register(DetailActionGoalCollectionViewCell.self, forCellWithReuseIdentifier: DetailActionGoalCollectionViewCell.identifier)
     }
     private func setUI() {
-        view.backgroundColor = .black.withAlphaComponent(0.6)
+        view.backgroundColor = .clear
         containerView.do {
+            $0.backgroundColor = .white
             $0.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
             $0.layer.cornerRadius = 10
         }
         cancelButton.do {
-            $0.backgroundColor = .systemBlue
-            $0.setImage(.delete, for: .normal)
+            $0.backgroundColor = .clear
+            $0.setImage(.icCancel, for: .normal)
+            $0.addTarget(self, action: #selector(cancelButtonTapped), for: .touchUpInside)
         }
         editButton.do {
             $0.setTitle("편집", for: .normal)
@@ -62,31 +67,41 @@ extension MissionDetailViewController {
             $0.titleLabel?.font = .Pretendard(.medium, size: 16)
         }
         horizontalStackview.do {
-            $0.addArrangedSubviews(cancelButton, editButton)
+            $0.addArrangedSubviews(cancelButton, emptyView, editButton)
             $0.axis = .horizontal
+        }
+        collectionView.do {
+            $0.delegate = self
         }
     }
     
     private func setLayout() {
         view.addSubview(containerView)
-        containerView.addSubview(horizontalStackview)
+        containerView.addSubviews(horizontalStackview, collectionView)
         
+        containerView.snp.makeConstraints {
+            $0.top.equalTo(safeArea).offset(60)
+            $0.directionalHorizontalEdges.equalTo(safeArea)
+            $0.bottom.equalTo(safeArea)
+        }
         cancelButton.snp.makeConstraints {
+            $0.centerY.equalToSuperview()
             $0.size.equalTo(CGSize(width: 24, height: 24))
-            $0.leading.equalTo(safeArea).offset(24)
+            $0.leading.equalToSuperview().offset(7)
         }
         editButton.snp.makeConstraints {
+            $0.centerY.equalToSuperview()
             $0.size.equalTo(CGSize(width: 44, height: 35))
-            $0.trailing.equalTo(safeArea).inset(17)
         }
         horizontalStackview.snp.makeConstraints {
-            $0.directionalVerticalEdges.equalTo(safeArea)
-            $0.top.equalToSuperview().offset(20)
+            $0.directionalHorizontalEdges.equalToSuperview().inset(17)
+            $0.top.equalToSuperview().offset(25)
+            $0.height.equalTo(35)
         }
         collectionView.snp.makeConstraints {
             $0.top.equalTo(horizontalStackview.snp.bottom)
-            $0.directionalHorizontalEdges.equalTo(safeArea)
-            $0.bottom.equalTo(safeArea)
+            $0.trailing.equalToSuperview().inset(19)
+            $0.leading.bottom.equalToSuperview()
         }
     }
     
@@ -94,12 +109,18 @@ extension MissionDetailViewController {
     
     private func setupDataSource() {
         dataSource = UICollectionViewDiffableDataSource<Section, Item>(collectionView: collectionView, cellProvider: { collectionView, indexPath, item in
-            switch indexPath {
+            switch indexPath.section {
             case 0:
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DetailMissionCollectionViewCell.identifier, for: indexPath) as! DetailMissionCollectionViewCell
+                cell.configure(model: item as! MissionDetailModel)
                 return cell
-            case 1:
+            case 1 :
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DetailActionGoalCollectionViewCell.identifier, for: indexPath) as! DetailActionGoalCollectionViewCell
+                cell.configure(model: item as! MissionDetailModel)
+                return cell
+            default:
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DetailActionGoalCollectionViewCell.identifier, for: indexPath) as! DetailActionGoalCollectionViewCell
+                cell.configure(model: item as! MissionDetailModel)
                 return cell
             }
         })
@@ -111,7 +132,23 @@ extension MissionDetailViewController {
             dataSource.apply(snapShot, animatingDifferences: false)
         }
         
-        snapShot.appendSections([.main])
-        snapShot.appendItems(detailModel)
+        snapShot.appendSections([.mission])
+        snapShot.appendItems(detailModel, toSection: .mission)
+    }
+    
+    private func layout() -> UICollectionViewCompositionalLayout {
+        let config = UICollectionLayoutListConfiguration(appearance: .plain)
+        return UICollectionViewCompositionalLayout.list(using: config)
+    }
+}
+extension MissionDetailViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print(indexPath)
+    }
+}
+extension MissionDetailViewController {
+    @objc
+    func cancelButtonTapped() {
+        self.dismiss(animated: true)
     }
 }

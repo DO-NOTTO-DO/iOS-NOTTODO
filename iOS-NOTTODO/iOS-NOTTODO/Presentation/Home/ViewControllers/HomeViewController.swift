@@ -54,6 +54,7 @@ extension HomeViewController {
             $0.backgroundColor = .clear
             $0.bounces = false
             $0.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+            $0.delegate = self
         }
     }
     
@@ -157,5 +158,11 @@ extension HomeViewController {
         swipeConfiguration.performsFirstActionWithFullSwipe = false
         
         return swipeConfiguration
+    }
+}
+extension HomeViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let detailViewController = MissionDetailViewController()
+        present(detailViewController, animated: true)
     }
 }
