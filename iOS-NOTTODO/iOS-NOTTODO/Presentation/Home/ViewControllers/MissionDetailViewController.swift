@@ -15,13 +15,12 @@ class MissionDetailViewController: UIViewController {
     // MARK: - Properties
     
     private lazy var safeArea = self.view.safeAreaLayoutGuide
-    
+
     // MARK: - UI Components
     private let containerView = UIView()
     private let horizontalStackview = UIStackView()
     private let cancelButton = UIButton()
     private let editButton = UIButton()
-    
     
     // MARK: - Life Cycle
     
@@ -37,16 +36,14 @@ class MissionDetailViewController: UIViewController {
 extension MissionDetailViewController {
     private func setUI() {
         view.backgroundColor = .black.withAlphaComponent(0.6)
-        
         containerView.do {
             $0.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
-            $0.layer.cornerRadius = 10
+            $0.layer.cornerRadius = 10 
         }
         cancelButton.do {
             $0.backgroundColor = .systemBlue
             $0.setImage(.delete, for: .normal)
         }
-        
         editButton.do {
             $0.setTitle("편집", for: .normal)
             $0.setTitleColor(.gray4, for: .normal)
