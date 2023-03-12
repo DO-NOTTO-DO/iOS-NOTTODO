@@ -28,6 +28,10 @@ class MissionDetailViewController: UIViewController {
     private let deleteButton = UIButton(configuration: .filled())
     private lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout())
     
+    private let dimmedView = PopUpView()
+    private let subView = UIView()
+    private let completeButton = UIButton()
+    
     // MARK: - Life Cycle
     
     override func viewDidLoad() {
@@ -66,10 +70,20 @@ extension MissionDetailViewController {
             $0.bounces = false
             $0.isScrollEnabled = false
         }
+        
+        subView.do {
+            $0.backgroundColor = .gray1
+        }
+        completeButton.do {
+            $0.setTitle(I18N.detailComplete, for: .normal)
+            $0.setTitleColor(.gray4, for: .normal)
+            $0.titleLabel?.font = .Pretendard(.medium, size: 16)
+        }
     }
     
     private func setLayout() {
         view.addSubviews(collectionView, deleteButton)
+        subView.addSubview(completeButton)
         
         collectionView.snp.makeConstraints {
             $0.top.equalTo(safeArea).offset(85)
@@ -104,14 +118,18 @@ extension MissionDetailViewController {
         dataSource.supplementaryViewProvider = { (collectionView, kind, indexPath) in
             if kind == UICollectionView.elementKindSectionHeader {
                 guard let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: DetailHeaderReusableView.identifier, for: indexPath) as? DetailHeaderReusableView else {return UICollectionReusableView()}
-                header.headerClosure = {
+                header.cancelClosure = {
                     self.view.alpha = 0
                     self.dismiss(animated: true)
+                }
+                header.editClosure = {
+                    print("edit")
                 }
                 return header
             } else {
                 guard let footer = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: DetailFooterReusableView.identifier, for: indexPath) as? DetailFooterReusableView else { return UICollectionReusableView() }
                 footer.footerClosure = {
+                    self.dimmedView.appearPopUpView(subView: self.subView, width: 345, height: 424)
                     print("tapped")
                 }
                 return footer

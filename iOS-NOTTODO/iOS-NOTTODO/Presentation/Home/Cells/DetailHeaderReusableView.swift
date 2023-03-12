@@ -12,7 +12,8 @@ class DetailHeaderReusableView: UICollectionReusableView {
     // MARK: - Properties
     
     static let identifier = "DetailHeaderReusableView"
-    var headerClosure: (() -> Void)?
+    var cancelClosure: (() -> Void)?
+    var editClosure: (() -> Void)?
     
     // MARK: - UI Components
     
@@ -47,6 +48,7 @@ extension DetailHeaderReusableView {
             $0.setTitle(I18N.detailEdit, for: .normal)
             $0.setTitleColor(.gray4, for: .normal)
             $0.titleLabel?.font = .Pretendard(.medium, size: 16)
+            $0.addTarget(self, action: #selector(editButtonTapped), for: .touchUpInside)
         }
         horizontalStackview.do {
             $0.addArrangedSubviews(cancelButton, emptyView, editButton)
@@ -75,6 +77,10 @@ extension DetailHeaderReusableView {
     
     @objc
     func cancelButtonTapped() {
-        headerClosure?()
+        cancelClosure?()
+    }
+    @objc
+    func editButtonTapped() {
+        editClosure?()
     }
 }
