@@ -30,6 +30,8 @@ class MissionDetailCollectionViewCell: UICollectionViewCell {
     
     private let lineView = UIView()
     
+    // MARK: - Life Cycle
+
     override init(frame: CGRect) {
         super.init(frame: .zero)
         setUI()

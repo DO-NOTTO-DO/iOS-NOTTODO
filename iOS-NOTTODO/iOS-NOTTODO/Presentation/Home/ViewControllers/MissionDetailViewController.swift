@@ -129,11 +129,7 @@ extension MissionDetailViewController {
         return UICollectionViewCompositionalLayout.list(using: config)
     }
 }
-extension MissionDetailViewController: UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print(indexPath)
-    }
-}
+
 extension MissionDetailViewController {
     @objc
     func cancelButtonTapped() {
