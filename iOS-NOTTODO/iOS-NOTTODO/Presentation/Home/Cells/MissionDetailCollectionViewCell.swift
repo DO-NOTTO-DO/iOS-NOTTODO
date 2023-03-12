@@ -10,11 +10,11 @@ import UIKit
 import Then
 import SnapKit
 
-class DetailActionGoalCollectionViewCell: UICollectionViewCell {
+class MissionDetailCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Properties
 
-    static let identifier = "DetailActionGoalCollectionViewCell"
+    static let identifier = "MissionDetailCollectionViewCell"
 
     // MARK: - UI Components
     
@@ -27,6 +27,8 @@ class DetailActionGoalCollectionViewCell: UICollectionViewCell {
     private let verticalStackView = UIStackView()
     private let action = DetailStackView(tag: "실천 행동")
     private let goal = DetailStackView(tag: "목표")
+    
+    private let lineView = UIView()
     
     override init(frame: CGRect) {
         super.init(frame: .zero)
@@ -41,7 +43,7 @@ class DetailActionGoalCollectionViewCell: UICollectionViewCell {
 
 // MARK: - Methods
 
-extension DetailActionGoalCollectionViewCell {
+extension MissionDetailCollectionViewCell {
     private func setUI() {
         backgroundColor = .clear
         
@@ -79,10 +81,13 @@ extension DetailActionGoalCollectionViewCell {
             $0.axis = .vertical
             $0.spacing = 22
         }
+        lineView.do {
+            $0.backgroundColor = .gray5
+        }
     }
     
     private func setLayout() {
-        contentView.addSubviews(missionTagLabel, missionLabel, accumulateView, verticalStackView)
+        contentView.addSubviews(missionTagLabel, missionLabel, accumulateView, lineView, verticalStackView)
         accumulateView.addSubviews(accumulateSubView, accumulateLabel)
         
         missionTagLabel.snp.makeConstraints {
@@ -93,6 +98,12 @@ extension DetailActionGoalCollectionViewCell {
         missionLabel.snp.makeConstraints {
             $0.top.equalTo(missionTagLabel.snp.bottom).offset(10)
             $0.leading.equalTo(missionTagLabel.snp.leading)
+        }
+        lineView.snp.makeConstraints {
+            $0.top.equalTo(missionLabel.snp.bottom).offset(30)
+            $0.leading.equalToSuperview().offset(17)
+            $0.trailing.equalToSuperview()
+            $0.height.equalTo(0.5)
         }
         accumulateView.snp.makeConstraints {
             $0.top.equalTo(missionTagLabel.snp.top)
@@ -107,7 +118,7 @@ extension DetailActionGoalCollectionViewCell {
             $0.centerX.centerY.equalToSuperview()
         }
         verticalStackView.snp.makeConstraints {
-            $0.top.equalTo(missionLabel.snp.bottom).offset(25)
+            $0.top.equalTo(lineView.snp.bottom).offset(25)
             $0.leading.equalToSuperview().offset(29)
             $0.trailing.equalToSuperview()
             $0.bottom.equalToSuperview().inset(35)

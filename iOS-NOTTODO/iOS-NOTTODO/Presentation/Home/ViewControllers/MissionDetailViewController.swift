@@ -46,7 +46,7 @@ class MissionDetailViewController: UIViewController {
 
 extension MissionDetailViewController {
     private func register() {
-        collectionView.register(DetailActionGoalCollectionViewCell.self, forCellWithReuseIdentifier: DetailActionGoalCollectionViewCell.identifier)
+        collectionView.register(MissionDetailCollectionViewCell.self, forCellWithReuseIdentifier: MissionDetailCollectionViewCell.identifier)
     }
     private func setUI() {
         view.backgroundColor = .clear
@@ -108,7 +108,7 @@ extension MissionDetailViewController {
     
     private func setupDataSource() {
         dataSource = UICollectionViewDiffableDataSource<Section, Item>(collectionView: collectionView, cellProvider: { collectionView, indexPath, item in
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DetailActionGoalCollectionViewCell.identifier, for: indexPath) as? DetailActionGoalCollectionViewCell else {return UICollectionViewCell()}
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MissionDetailCollectionViewCell.identifier, for: indexPath) as? MissionDetailCollectionViewCell else {return UICollectionViewCell()}
             cell.configure(model: item as! MissionDetailModel)
             return cell
         })
@@ -124,7 +124,8 @@ extension MissionDetailViewController {
     }
     
     private func layout() -> UICollectionViewCompositionalLayout {
-        let config = UICollectionLayoutListConfiguration(appearance: .plain)
+        var config = UICollectionLayoutListConfiguration(appearance: .plain)
+        config.separatorConfiguration.color = UIColor.gray5!
         return UICollectionViewCompositionalLayout.list(using: config)
     }
 }
