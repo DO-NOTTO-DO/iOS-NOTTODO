@@ -55,7 +55,9 @@ extension DetailActionGoalCollectionViewCell {
     }
     
     func configure(model: MissionDetailModel) {
-        action.titleLabel.text = model.action?.joined(separator: ",")
-        goal.titleLabel.text = model.goal?.joined(separator: ",")
+        action.titleLabel.text = "model.action?.joined(separator: ',')\n"
+//        goal.titleLabel.text = model.goal?.joined(separator: ",")
+        goal.titleLabel.text = "model.goal?.joined(separator: ',')\n"
+
     }
 }
