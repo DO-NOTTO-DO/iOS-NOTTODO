@@ -76,6 +76,10 @@ extension InfoCollectionViewCell {
     func configureWithIcon(model: InfoModelTwo) {
         iconImage.image = model.image
         titleLabel.text = model.title
+        
+        horizontalStackView.snp.updateConstraints {
+            $0.leading.equalToSuperview().offset(8)
+        }
     }
     
     func configureWithArrow(model: InfoModelThree) {
