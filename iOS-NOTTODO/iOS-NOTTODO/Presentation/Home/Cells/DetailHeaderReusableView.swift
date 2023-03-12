@@ -10,11 +10,11 @@ import UIKit
 import Then
 import SnapKit
 
-class DetailMissionCollectionViewCell: UICollectionViewCell {
+class DetailHeaderReusableView: UICollectionReusableView {
     
     // MARK: - Properties
 
-    static let identifier = "DetailMissionCollectionViewCell"
+    static let identifier = "DetailCollectionReusableView"
 
     // MARK: - UI Components
     
@@ -37,7 +37,7 @@ class DetailMissionCollectionViewCell: UICollectionViewCell {
 
 // MARK: - Methods
 
-extension DetailMissionCollectionViewCell {
+extension DetailHeaderReusableView {
     private func setUI() {
         backgroundColor = .clear
         
@@ -73,7 +73,7 @@ extension DetailMissionCollectionViewCell {
     }
     
     private func setLayout() {
-        contentView.addSubviews(missionTagLabel, missionLabel, accumulateView)
+        addSubviews(missionTagLabel, missionLabel, accumulateView)
         accumulateView.addSubviews(accumulateSubView, accumulateLabel)
         
         missionTagLabel.snp.makeConstraints {
