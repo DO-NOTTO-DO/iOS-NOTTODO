@@ -49,7 +49,7 @@ extension InfoCollectionViewCell {
         }
         arrowImage.do {
             $0.isHidden = true
-            $0.image = .calendarRight
+            $0.image = .icRightArrow
         }
     }
     
