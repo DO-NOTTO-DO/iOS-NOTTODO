@@ -18,3 +18,13 @@ extension MissionListModel {
     ]
 //    static let items: [MissionListModel] = []
 }
+
+struct MissionDetailModel: Hashable {
+    var tag: String
+    var mission: String
+    var action: [String]?
+    var goal: [String]?
+}
+extension MissionDetailModel {
+    static let items: [MissionDetailModel] = [ MissionDetailModel(tag: "밥 먹을 때", mission: "배민 vip 탈출하기", action: ["배달의 민족 어플 삭제하기", "주 1회 마트에서 장보기", "가계부 쓰기"], goal: ["불필요한 지출 줄이기"])]
+}

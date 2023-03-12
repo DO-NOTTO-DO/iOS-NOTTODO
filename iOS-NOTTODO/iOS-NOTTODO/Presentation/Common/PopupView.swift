@@ -69,7 +69,7 @@ class PopUpView: UIView {
 
 extension PopUpView {
     func initializeMainView() {
-        if let window = windowScene?.windows.first{
+        if let window = windowScene?.windows.first {
             window.endEditing(true)
             backgroundView.alpha = 1
             blackView.alpha = 0.5
