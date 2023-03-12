@@ -47,7 +47,6 @@ class MissionDetailViewController: UIViewController {
 extension MissionDetailViewController {
     private func register() {
         collectionView.register(DetailActionGoalCollectionViewCell.self, forCellWithReuseIdentifier: DetailActionGoalCollectionViewCell.identifier)
-        collectionView.register(DetailHeaderReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: DetailHeaderReusableView.identifier)
     }
     private func setUI() {
         view.backgroundColor = .clear
@@ -109,16 +108,9 @@ extension MissionDetailViewController {
     
     private func setupDataSource() {
         dataSource = UICollectionViewDiffableDataSource<Section, Item>(collectionView: collectionView, cellProvider: { collectionView, indexPath, item in
-
-
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DetailActionGoalCollectionViewCell.identifier, for: indexPath) as? DetailActionGoalCollectionViewCell else {return UICollectionViewCell()}
-                cell.configure(model: item as! MissionDetailModel)
-                return cell
-//            default:
-//                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DetailActionGoalCollectionViewCell.identifier, for: indexPath) as! DetailActionGoalCollectionViewCell
-//                cell.configure(model: item as! MissionDetailModel)
-//                return cell
-//            }
+            cell.configure(model: item as! MissionDetailModel)
+            return cell
         })
     }
     
@@ -127,25 +119,13 @@ extension MissionDetailViewController {
         defer {
             dataSource.apply(snapShot, animatingDifferences: false)
         }
-        
         snapShot.appendSections([.mission])
         snapShot.appendItems(detailModel, toSection: .mission)
-        
-        dataSource.supplementaryViewProvider = { (collectionView, _, indexPath) in
-            guard let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: DetailHeaderReusableView.identifier, for: indexPath) as? DetailHeaderReusableView else { return UICollectionReusableView() }
-            return header
-            
-        }
     }
     
     private func layout() -> UICollectionViewCompositionalLayout {
-        let item = NSCollectionLayoutItem(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1)))
-        let group = NSCollectionLayoutGroup.vertical(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1)), subitem: item, count:1)
-        let section = NSCollectionLayoutSection(group: group)
-        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(44))
-        let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize,elementKind: UICollectionView.elementKindSectionHeader,alignment: .top)
-        section.boundarySupplementaryItems = [header]
-        return UICollectionViewCompositionalLayout(section: section)
+        let config = UICollectionLayoutListConfiguration(appearance: .plain)
+        return UICollectionViewCompositionalLayout.list(using: config)
     }
 }
 extension MissionDetailViewController: UICollectionViewDelegate {

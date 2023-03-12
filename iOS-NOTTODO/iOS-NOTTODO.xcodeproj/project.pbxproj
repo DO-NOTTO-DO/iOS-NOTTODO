@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		092E04AC29B81CCF008A5892 /* PopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092E04AB29B81CCF008A5892 /* PopupView.swift */; };
-		092E04AF29BD9C67008A5892 /* DetailHeaderReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092E04AE29BD9C67008A5892 /* DetailHeaderReusableView.swift */; };
 		092E04B129BD9C86008A5892 /* DetailActionGoalCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092E04B029BD9C86008A5892 /* DetailActionGoalCollectionViewCell.swift */; };
 		0930DE6229B80550007958DE /* MissionDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0930DE6129B80550007958DE /* MissionDetailViewController.swift */; };
 		09582B4829BDA7F600EF3207 /* DetailStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09582B4729BDA7F600EF3207 /* DetailStackView.swift */; };
@@ -76,7 +75,6 @@
 
 /* Begin PBXFileReference section */
 		092E04AB29B81CCF008A5892 /* PopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupView.swift; sourceTree = "<group>"; };
-		092E04AE29BD9C67008A5892 /* DetailHeaderReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailHeaderReusableView.swift; sourceTree = "<group>"; };
 		092E04B029BD9C86008A5892 /* DetailActionGoalCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailActionGoalCollectionViewCell.swift; sourceTree = "<group>"; };
 		0930DE6129B80550007958DE /* MissionDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionDetailViewController.swift; sourceTree = "<group>"; };
 		09582B4729BDA7F600EF3207 /* DetailStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailStackView.swift; sourceTree = "<group>"; };
@@ -179,7 +177,6 @@
 			children = (
 				0982DE5329ADCCE000D933D2 /* HomeEmptyCollectionViewCell.swift */,
 				097C003529AB8270008CAEF3 /* MissionListCollectionViewCell.swift */,
-				092E04AE29BD9C67008A5892 /* DetailHeaderReusableView.swift */,
 				092E04B029BD9C86008A5892 /* DetailActionGoalCollectionViewCell.swift */,
 				09582B4729BDA7F600EF3207 /* DetailStackView.swift */,
 			);
@@ -643,7 +640,6 @@
 				3B14A13D29A6FBD300F92897 /* UIView+.swift in Sources */,
 				3B482FA5299EAB8800BCF424 /* TabBarController.swift in Sources */,
 				6CF4705D29A68F5C008D145C /* NetworkLoggerPlugin.swift in Sources */,
-				092E04AF29BD9C67008A5892 /* DetailHeaderReusableView.swift in Sources */,
 				09582B4829BDA7F600EF3207 /* DetailStackView.swift in Sources */,
 				3B027A7A299C31B500BEB65C /* SceneDelegate.swift in Sources */,
 				0982DE5829AE40FB00D933D2 /* UITabBar+.swift in Sources */,
