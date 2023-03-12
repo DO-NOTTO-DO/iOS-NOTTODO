@@ -14,31 +14,17 @@ class MissionDetailViewController: UIViewController {
     
     // MARK: - Properties
     
+    private lazy var safeArea = self.view.safeAreaLayoutGuide
+    
     // MARK: - UI Components
-
     private let containerView = UIView()
-    private let popupView = PopUpView()
-
-    private let horizontalStackView = UIStackView()
+    private let horizontalStackview = UIStackView()
     private let cancelButton = UIButton()
     private let editButton = UIButton()
     
-    private let missionVerticalStackView = UIStackView()
-    private let missionTagLabel = PaddingLabel(padding: UIEdgeInsets(top: 4, left: 12, bottom: 4, right: 12))
-    private let missionLabel = UILabel()
-    
-    private let detailVerticalStackView = UIStackView()
-    private let actionTag = UILabel()
-    private let actionLabel = UILabel()
-    private let goalTag = UILabel()
-    private let goalLabel = UILabel()
-    
-    private let dateHorizontalStackView = UIStackView()
-    private let dateLabel = UILabel()
-    private let dateButton = UIButton()
     
     // MARK: - Life Cycle
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setUI()
@@ -51,30 +37,11 @@ class MissionDetailViewController: UIViewController {
 extension MissionDetailViewController {
     private func setUI() {
         view.backgroundColor = .black.withAlphaComponent(0.6)
-        containerView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMaxYCorner]
-        containerView.layer.cornerRadius = 10
         
-        popupView.addSubview(cancelButton)
-        
-        horizontalStackView.do {
-            $0.addArrangedSubviews(cancelButton, editButton)
-            $0.axis = .horizontal
+        containerView.do {
+            $0.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+            $0.layer.cornerRadius = 10
         }
-        missionVerticalStackView.do {
-            $0.addArrangedSubviews(missionTagLabel, missionLabel)
-            $0.axis = .vertical
-        }
-        
-        detailVerticalStackView.do {
-            $0.addArrangedSubviews(actionTag, actionLabel, goalTag, goalLabel)
-            $0.axis = .vertical
-        }
-        
-        dateHorizontalStackView.do {
-            $0.addArrangedSubviews(dateLabel, dateButton)
-            $0.axis = .horizontal
-        }
-        
         cancelButton.do {
             $0.backgroundColor = .systemBlue
             $0.setImage(.delete, for: .normal)
@@ -83,10 +50,29 @@ extension MissionDetailViewController {
         editButton.do {
             $0.setTitle("편집", for: .normal)
             $0.setTitleColor(.gray4, for: .normal)
+            $0.titleLabel?.font = .Pretendard(.medium, size: 16)
         }
-        
+        horizontalStackview.do {
+            $0.addArrangedSubviews(cancelButton, editButton)
+            $0.axis = .horizontal
+        }
     }
+    
     private func setLayout() {
+        view.addSubview(containerView)
+        containerView.addSubview(horizontalStackview)
         
+        cancelButton.snp.makeConstraints {
+            $0.size.equalTo(CGSize(width: 24, height: 24))
+            $0.leading.equalTo(safeArea).offset(24)
+        }
+        editButton.snp.makeConstraints {
+            $0.size.equalTo(CGSize(width: 44, height: 35))
+            $0.trailing.equalTo(safeArea).inset(17)
+        }
+        horizontalStackview.snp.makeConstraints {
+            $0.directionalVerticalEdges.equalTo(safeArea)
+            $0.top.equalToSuperview().offset(20)
+        }
     }
 }
