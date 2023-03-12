@@ -170,8 +170,8 @@ extension HomeViewController {
         deleteAction.backgroundColor = .ntdBlue
         modifyAction.backgroundColor = .ntdRed
         
-        deleteAction.image = .checkboxFill
-        modifyAction.image = .checkboxFill
+        deleteAction.image = .icTrash
+        modifyAction.image = .icFix
         
         let swipeConfiguration = UISwipeActionsConfiguration(actions: [modifyAction, deleteAction])
         swipeConfiguration.performsFirstActionWithFullSwipe = false
