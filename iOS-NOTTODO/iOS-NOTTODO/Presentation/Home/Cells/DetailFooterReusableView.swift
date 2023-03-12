@@ -41,7 +41,6 @@ extension DetailFooterReusableView {
             $0.font = .Pretendard(.medium, size: 16)
         }
         dateButton.do {
-            $0.configuration?.baseBackgroundColor = .clear
             $0.configuration?.image = .icRightArrow
             $0.configuration?.title = "날짜 선택"
             $0.configuration?.imagePadding = 2

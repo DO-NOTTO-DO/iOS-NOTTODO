@@ -29,6 +29,7 @@ class MissionDetailViewController: UIViewController {
     private let cancelButton = UIButton()
     private let editButton = UIButton()
     private let dimmendedView = PopUpView()
+    private let deleteButton = UIButton(configuration: .filled())
     private lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout())
     
     // MARK: - Life Cycle
@@ -73,6 +74,15 @@ extension MissionDetailViewController {
             $0.addArrangedSubviews(cancelButton, emptyView, editButton)
             $0.axis = .horizontal
         }
+        deleteButton.do {
+            $0.configuration?.title = "삭제하기"
+//            $0.configuration?.contentInsets = NSDirectionalEdgeInsets.init(top: 3, leading: 6, bottom: 2, trailing: 7)
+            $0.configuration?.cornerStyle = .capsule
+            $0.configuration?.attributedTitle?.font = .Pretendard(.semiBold, size: 16)
+            $0.configuration?.baseBackgroundColor = .black
+            $0.configuration?.baseForegroundColor = .white
+            $0.addTarget(self, action: #selector(deleteBtnTapped), for: .touchUpInside)
+        }
         collectionView.do {
             $0.bounces = false
             $0.isScrollEnabled = false
@@ -82,7 +92,7 @@ extension MissionDetailViewController {
     private func setLayout() {
         dimmendedView.appearPopUpView(subView: view, width: view.bounds.width, height: view.bounds.height)
         view.addSubview(containerView)
-        containerView.addSubviews(horizontalStackview, collectionView)
+        containerView.addSubviews(horizontalStackview, collectionView, deleteButton)
         
         containerView.snp.makeConstraints {
             $0.top.equalTo(safeArea).offset(60)
@@ -107,6 +117,11 @@ extension MissionDetailViewController {
             $0.top.equalTo(horizontalStackview.snp.bottom)
             $0.directionalHorizontalEdges.equalTo(safeArea)
             $0.bottom.equalToSuperview()
+        }
+        deleteButton.snp.makeConstraints {
+            $0.directionalHorizontalEdges.equalToSuperview().inset(15)
+            $0.height.equalTo(50)
+            $0.bottom.equalTo(safeArea).inset(10)
         }
     }
     
@@ -150,5 +165,9 @@ extension MissionDetailViewController {
     func cancelButtonTapped() {
         dimmendedView.dissmissFromSuperview()
         self.dismiss(animated: true)
+    }
+    @objc
+    func deleteBtnTapped() {
+        print("tapped")
     }
 }
