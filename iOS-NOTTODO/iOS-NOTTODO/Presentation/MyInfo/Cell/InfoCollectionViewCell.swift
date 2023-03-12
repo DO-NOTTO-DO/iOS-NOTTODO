@@ -74,7 +74,7 @@ extension InfoCollectionViewCell {
     }
     
     func configureWithIcon(model: InfoModelTwo) {
-        iconImage.image = UIImage(named: model.image)
+        iconImage.image = model.image
         titleLabel.text = model.title
     }
     
