@@ -30,7 +30,6 @@ class MissionListCollectionViewCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        contentView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMinXMaxYCorner]
         contentView.layer.cornerRadius = 10
     }
     
@@ -57,6 +56,8 @@ extension MissionListCollectionViewCell {
     func setUI() {
         backgroundColor = .clear
         contentView.backgroundColor = .white
+        contentView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMinXMaxYCorner]
+        contentView.layer.cornerRadius = 10
 
         checkButton.do {
             $0.backgroundColor = isTapped ? .clear : .white
