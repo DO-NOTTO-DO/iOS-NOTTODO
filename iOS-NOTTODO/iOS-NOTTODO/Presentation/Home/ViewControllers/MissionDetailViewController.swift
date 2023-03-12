@@ -101,8 +101,8 @@ extension MissionDetailViewController {
         }
         collectionView.snp.makeConstraints {
             $0.top.equalTo(horizontalStackview.snp.bottom)
-            $0.trailing.equalToSuperview().inset(19)
-            $0.leading.bottom.equalToSuperview()
+            $0.directionalHorizontalEdges.equalTo(safeArea)
+            $0.bottom.equalToSuperview()
         }
     }
     
