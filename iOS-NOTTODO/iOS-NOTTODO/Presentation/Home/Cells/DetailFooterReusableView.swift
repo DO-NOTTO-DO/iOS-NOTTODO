@@ -37,12 +37,12 @@ class DetailFooterReusableView: UICollectionReusableView {
 extension DetailFooterReusableView {
     private func setUI() {
         dateLabel.do {
-            $0.text = "다른 날도 할래요"
+            $0.text = I18N.detailDate
             $0.font = .Pretendard(.medium, size: 16)
         }
         dateButton.do {
             $0.configuration?.image = .icRightArrow
-            $0.configuration?.title = "날짜 선택"
+            $0.configuration?.title = I18N.detailSelect
             $0.configuration?.imagePadding = 2
             $0.configuration?.imagePlacement = NSDirectionalRectEdge.trailing
             $0.configuration?.attributedTitle?.font = .Pretendard(.medium, size: 16)

@@ -23,6 +23,7 @@ class MissionDetailViewController: UIViewController {
     private let detailModel: [MissionDetailModel] = MissionDetailModel.items
     
     // MARK: - UI Components
+    
     private let containerView = UIView()
     private let deleteButton = UIButton(configuration: .filled())
     private lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout())
@@ -51,7 +52,7 @@ extension MissionDetailViewController {
         view.backgroundColor = .black.withAlphaComponent(0.6)
         
         deleteButton.do {
-            $0.configuration?.title = "삭제하기"
+            $0.configuration?.title = I18N.detailDelete
             $0.configuration?.cornerStyle = .capsule
             $0.configuration?.attributedTitle?.font = .Pretendard(.semiBold, size: 16)
             $0.configuration?.baseBackgroundColor = .black

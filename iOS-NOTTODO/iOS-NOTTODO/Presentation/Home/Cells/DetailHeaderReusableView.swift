@@ -44,7 +44,7 @@ extension DetailHeaderReusableView {
             $0.addTarget(self, action: #selector(cancelButtonTapped), for: .touchUpInside)
         }
         editButton.do {
-            $0.setTitle("편집", for: .normal)
+            $0.setTitle(I18N.detailEdit, for: .normal)
             $0.setTitleColor(.gray4, for: .normal)
             $0.titleLabel?.font = .Pretendard(.medium, size: 16)
         }

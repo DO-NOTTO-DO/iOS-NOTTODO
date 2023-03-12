@@ -32,4 +32,14 @@ struct I18N {
     /// Home Empty
     
     static let emptyTitle = "새로운 낫투두를 추가하고\n오늘 하루를 더 잘 살아보세요!"
+    
+    /// Detail
+    
+    static let detailEdit = "편집"
+    static let detailAction = "실천 행동"
+    static let detailGoal = "목표"
+    static let detailDate = "다른 날도 할래요"
+    static let detailSelect = "날짜 선택"
+    static let detailDelete = "삭제하기"
+    static let detailComplete = "완료"
 }
