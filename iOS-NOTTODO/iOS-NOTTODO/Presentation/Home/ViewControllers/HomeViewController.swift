@@ -163,7 +163,8 @@ extension HomeViewController {
 extension HomeViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let detailViewController = MissionDetailViewController()
-        present(detailViewController, animated: true)
+        detailViewController.modalPresentationStyle = .overFullScreen
+        present(detailViewController, animated: false)
     }
 }
 

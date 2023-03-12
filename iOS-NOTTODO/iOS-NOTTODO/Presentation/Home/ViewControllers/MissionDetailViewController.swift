@@ -28,6 +28,7 @@ class MissionDetailViewController: UIViewController {
     private let emptyView = UIView()
     private let cancelButton = UIButton()
     private let editButton = UIButton()
+    private let dimmendedView = PopUpView()
     private lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout())
     
     // MARK: - Life Cycle
@@ -50,7 +51,9 @@ extension MissionDetailViewController {
         collectionView.register(DetailFooterReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: DetailFooterReusableView.identifier)
     }
     private func setUI() {
+        
         view.backgroundColor = .clear
+        
         containerView.do {
             $0.backgroundColor = .white
             $0.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
@@ -77,6 +80,7 @@ extension MissionDetailViewController {
     }
     
     private func setLayout() {
+        dimmendedView.appearPopUpView(subView: view, width: view.bounds.width, height: view.bounds.height)
         view.addSubview(containerView)
         containerView.addSubviews(horizontalStackview, collectionView)
         
@@ -144,6 +148,7 @@ extension MissionDetailViewController {
 extension MissionDetailViewController {
     @objc
     func cancelButtonTapped() {
+        dimmendedView.dissmissFromSuperview()
         self.dismiss(animated: true)
     }
 }
