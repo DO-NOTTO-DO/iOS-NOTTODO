@@ -11,15 +11,17 @@ import Then
 import SnapKit
 
 class DetailStackView: UIView {
-
+    
     private let verticalStackView = UIStackView()
     let tagLabel = UILabel()
     let titleLabel = UILabel()
+    private let lineView = UIView()
+    var isTop: Bool = true
     
-    init(tag: String) {
+    init(tag: String, isTop: Bool) {
         super.init(frame: .zero)
         setUI()
-        setLayout()
+        setLayout(isTop: isTop)
         configure(tag: tag)
     }
     
@@ -45,13 +47,24 @@ extension DetailStackView {
             $0.font = .Pretendard(.medium, size: 16)
             $0.numberOfLines = 0
         }
-        
+        lineView.do {
+            $0.backgroundColor = .gray5
+        }
     }
-    private func setLayout() {
-        addSubview(verticalStackView)
+    private func setLayout(isTop: Bool) {
+        addSubviews(verticalStackView, lineView)
         
         verticalStackView.snp.makeConstraints {
             $0.edges.equalToSuperview()
+        }
+        lineView.snp.makeConstraints {
+            if isTop {
+                $0.top.equalTo(verticalStackView.snp.top).offset(-25)
+            } else {
+                $0.top.equalTo(verticalStackView.snp.bottom).offset(35)
+            }
+            $0.directionalHorizontalEdges.equalToSuperview()
+            $0.height.equalTo(0.5)
         }
     }
     

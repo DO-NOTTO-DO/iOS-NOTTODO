@@ -131,7 +131,7 @@ extension HomeViewController {
                 return layoutSection
                 
             case .empty:
-                return CompositionalLayout._vertical(.fractionalWidth(1), .fractionalHeight(1), .fractionalWidth(1), .fractionalHeight(1), count: 1, edge: nil, footer: false)
+                return CompositionalLayout._vertical(.fractionalWidth(1), .fractionalHeight(1), .fractionalWidth(1), .fractionalHeight(1), count: 1, edge: nil)
             }
         }
         return layout

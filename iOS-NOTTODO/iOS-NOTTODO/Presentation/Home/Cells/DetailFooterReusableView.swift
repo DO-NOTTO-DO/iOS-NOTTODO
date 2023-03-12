@@ -55,14 +55,15 @@ extension DetailFooterReusableView {
     
     private func setLayout() {
         addSubviews(dateLabel, dateButton)
-        
+
         dateLabel.snp.makeConstraints {
+            $0.top.equalToSuperview()
             $0.leading.equalToSuperview().offset(29)
         }
         
         dateButton.snp.makeConstraints {
             $0.top.equalTo(dateLabel.snp.top)
-            $0.trailing.equalToSuperview()
+            $0.trailing.equalToSuperview().inset(19)
             $0.size.equalTo(CGSize(width: 86, height: 24))
         }
     }

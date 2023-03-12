@@ -25,11 +25,9 @@ class MissionDetailCollectionViewCell: UICollectionViewCell {
     private let accumulateLabel = UILabel()
     
     private let verticalStackView = UIStackView()
-    private let action = DetailStackView(tag: "실천 행동")
-    private let goal = DetailStackView(tag: "목표")
-    
-    private let lineView = UIView()
-    
+    private let action = DetailStackView(tag: "실천 행동", isTop: true)
+    private let goal = DetailStackView(tag: "목표", isTop: false)
+        
     // MARK: - Life Cycle
 
     override init(frame: CGRect) {
@@ -56,7 +54,6 @@ extension MissionDetailCollectionViewCell {
             $0.font = .Pretendard(.medium, size: 14)
             $0.textColor = .gray1
         }
-        
         missionLabel.do {
             $0.font = .Pretendard(.semiBold, size: 20)
             $0.textColor = .gray2
@@ -83,33 +80,27 @@ extension MissionDetailCollectionViewCell {
             $0.axis = .vertical
             $0.spacing = 22
         }
-        lineView.do {
-            $0.backgroundColor = .gray5
-        }
+
     }
     
     private func setLayout() {
-        contentView.addSubviews(missionTagLabel, missionLabel, accumulateView, lineView, verticalStackView)
+        contentView.addSubviews(missionTagLabel, missionLabel, accumulateView, verticalStackView)
         accumulateView.addSubviews(accumulateSubView, accumulateLabel)
         
         missionTagLabel.snp.makeConstraints {
             $0.top.equalToSuperview().offset(30)
             $0.leading.equalToSuperview().offset(29)
+            $0.height.equalTo(24)
         }
-        
         missionLabel.snp.makeConstraints {
             $0.top.equalTo(missionTagLabel.snp.bottom).offset(10)
             $0.leading.equalTo(missionTagLabel.snp.leading)
+            $0.height.equalTo(24)
         }
-        lineView.snp.makeConstraints {
-            $0.top.equalTo(missionLabel.snp.bottom).offset(30)
-            $0.leading.equalToSuperview().offset(17)
-            $0.trailing.equalToSuperview()
-            $0.height.equalTo(0.5)
-        }
+        
         accumulateView.snp.makeConstraints {
             $0.top.equalTo(missionTagLabel.snp.top)
-            $0.trailing.equalToSuperview()
+            $0.trailing.equalToSuperview().inset(19)
             $0.width.height.equalTo(68)
         }
         accumulateSubView.snp.makeConstraints {
@@ -120,10 +111,9 @@ extension MissionDetailCollectionViewCell {
             $0.centerX.centerY.equalToSuperview()
         }
         verticalStackView.snp.makeConstraints {
-            $0.top.equalTo(lineView.snp.bottom).offset(25)
-            $0.leading.equalToSuperview().offset(29)
-            $0.trailing.equalToSuperview()
-            $0.bottom.equalToSuperview().inset(35)
+            $0.top.equalTo(missionLabel.snp.bottom).offset(56)
+            $0.directionalHorizontalEdges.equalToSuperview().inset(29)
+            $0.bottom.equalToSuperview().inset(68)
         }
     }
     
