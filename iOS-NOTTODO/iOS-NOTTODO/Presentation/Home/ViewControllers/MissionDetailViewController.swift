@@ -47,6 +47,7 @@ class MissionDetailViewController: UIViewController {
 extension MissionDetailViewController {
     private func register() {
         collectionView.register(MissionDetailCollectionViewCell.self, forCellWithReuseIdentifier: MissionDetailCollectionViewCell.identifier)
+        collectionView.register(DetailFooterReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: DetailFooterReusableView.identifier)
     }
     private func setUI() {
         view.backgroundColor = .clear
@@ -68,9 +69,6 @@ extension MissionDetailViewController {
         horizontalStackview.do {
             $0.addArrangedSubviews(cancelButton, emptyView, editButton)
             $0.axis = .horizontal
-        }
-        collectionView.do {
-            $0.delegate = self
         }
     }
     
@@ -121,11 +119,17 @@ extension MissionDetailViewController {
         }
         snapShot.appendSections([.mission])
         snapShot.appendItems(detailModel, toSection: .mission)
+        
+        dataSource.supplementaryViewProvider = { (collectionView, _, indexPath) in
+            guard let footer = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: DetailFooterReusableView.identifier, for: indexPath) as? DetailFooterReusableView else { return UICollectionReusableView() }
+            return footer
+        }
     }
     
     private func layout() -> UICollectionViewCompositionalLayout {
         var config = UICollectionLayoutListConfiguration(appearance: .plain)
         config.separatorConfiguration.color = UIColor.gray5!
+        config.footerMode = .supplementary
         return UICollectionViewCompositionalLayout.list(using: config)
     }
 }
