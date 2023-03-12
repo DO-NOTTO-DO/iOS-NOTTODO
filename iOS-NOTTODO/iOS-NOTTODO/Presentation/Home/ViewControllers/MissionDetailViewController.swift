@@ -24,11 +24,6 @@ class MissionDetailViewController: UIViewController {
     
     // MARK: - UI Components
     private let containerView = UIView()
-    private let horizontalStackview = UIStackView()
-    private let emptyView = UIView()
-    private let cancelButton = UIButton()
-    private let editButton = UIButton()
-    private let dimmendedView = PopUpView()
     private let deleteButton = UIButton(configuration: .filled())
     private lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout())
     
@@ -49,34 +44,14 @@ class MissionDetailViewController: UIViewController {
 extension MissionDetailViewController {
     private func register() {
         collectionView.register(MissionDetailCollectionViewCell.self, forCellWithReuseIdentifier: MissionDetailCollectionViewCell.identifier)
+        collectionView.register(DetailHeaderReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: DetailHeaderReusableView.identifier)
         collectionView.register(DetailFooterReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: DetailFooterReusableView.identifier)
     }
     private func setUI() {
+        view.backgroundColor = .black.withAlphaComponent(0.6)
         
-        view.backgroundColor = .clear
-        
-        containerView.do {
-            $0.backgroundColor = .white
-            $0.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
-            $0.layer.cornerRadius = 10
-        }
-        cancelButton.do {
-            $0.backgroundColor = .clear
-            $0.setImage(.icCancel, for: .normal)
-            $0.addTarget(self, action: #selector(cancelButtonTapped), for: .touchUpInside)
-        }
-        editButton.do {
-            $0.setTitle("편집", for: .normal)
-            $0.setTitleColor(.gray4, for: .normal)
-            $0.titleLabel?.font = .Pretendard(.medium, size: 16)
-        }
-        horizontalStackview.do {
-            $0.addArrangedSubviews(cancelButton, emptyView, editButton)
-            $0.axis = .horizontal
-        }
         deleteButton.do {
             $0.configuration?.title = "삭제하기"
-//            $0.configuration?.contentInsets = NSDirectionalEdgeInsets.init(top: 3, leading: 6, bottom: 2, trailing: 7)
             $0.configuration?.cornerStyle = .capsule
             $0.configuration?.attributedTitle?.font = .Pretendard(.semiBold, size: 16)
             $0.configuration?.baseBackgroundColor = .black
@@ -84,37 +59,19 @@ extension MissionDetailViewController {
             $0.addTarget(self, action: #selector(deleteBtnTapped), for: .touchUpInside)
         }
         collectionView.do {
+            $0.backgroundColor = .white
+            $0.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+            $0.layer.cornerRadius = 10
             $0.bounces = false
             $0.isScrollEnabled = false
         }
     }
     
     private func setLayout() {
-        dimmendedView.appearPopUpView(subView: view, width: view.bounds.width, height: view.bounds.height)
-        view.addSubview(containerView)
-        containerView.addSubviews(horizontalStackview, collectionView, deleteButton)
+        view.addSubviews(collectionView, deleteButton)
         
-        containerView.snp.makeConstraints {
-            $0.top.equalTo(safeArea).offset(60)
-            $0.directionalHorizontalEdges.equalTo(safeArea)
-            $0.bottom.equalTo(safeArea)
-        }
-        cancelButton.snp.makeConstraints {
-            $0.centerY.equalToSuperview()
-            $0.size.equalTo(CGSize(width: 24, height: 24))
-            $0.leading.equalToSuperview().offset(7)
-        }
-        editButton.snp.makeConstraints {
-            $0.centerY.equalToSuperview()
-            $0.size.equalTo(CGSize(width: 44, height: 35))
-        }
-        horizontalStackview.snp.makeConstraints {
-            $0.directionalHorizontalEdges.equalToSuperview().inset(17)
-            $0.top.equalToSuperview().offset(25)
-            $0.height.equalTo(35)
-        }
         collectionView.snp.makeConstraints {
-            $0.top.equalTo(horizontalStackview.snp.bottom)
+            $0.top.equalTo(safeArea).offset(85)
             $0.directionalHorizontalEdges.equalTo(safeArea)
             $0.bottom.equalToSuperview()
         }
@@ -143,18 +100,27 @@ extension MissionDetailViewController {
         snapShot.appendSections([.mission])
         snapShot.appendItems(detailModel, toSection: .mission)
         
-        dataSource.supplementaryViewProvider = { (collectionView, _, indexPath) in
-            guard let footer = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: DetailFooterReusableView.identifier, for: indexPath) as? DetailFooterReusableView else { return UICollectionReusableView() }
-            footer.footerClosure = {
-                print("tapped")
+        dataSource.supplementaryViewProvider = { (collectionView, kind, indexPath) in
+            if kind == UICollectionView.elementKindSectionHeader {
+                guard let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: DetailHeaderReusableView.identifier, for: indexPath) as? DetailHeaderReusableView else {return UICollectionReusableView()}
+                header.headerClosure = {
+                    self.view.alpha = 0
+                    self.dismiss(animated: true)
+                }
+                return header
+            } else {
+                guard let footer = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: DetailFooterReusableView.identifier, for: indexPath) as? DetailFooterReusableView else { return UICollectionReusableView() }
+                footer.footerClosure = {
+                    print("tapped")
+                }
+                return footer
             }
-            return footer
         }
     }
-    
     private func layout() -> UICollectionViewCompositionalLayout {
         var config = UICollectionLayoutListConfiguration(appearance: .plain)
         config.showsSeparators = false
+        config.headerMode = .supplementary
         config.footerMode = .supplementary
         return UICollectionViewCompositionalLayout.list(using: config)
     }
@@ -162,12 +128,7 @@ extension MissionDetailViewController {
 
 extension MissionDetailViewController {
     @objc
-    func cancelButtonTapped() {
-        dimmendedView.dissmissFromSuperview()
-        self.dismiss(animated: true)
-    }
-    @objc
     func deleteBtnTapped() {
-        print("tapped")
+        print("Deletetapped")
     }
 }

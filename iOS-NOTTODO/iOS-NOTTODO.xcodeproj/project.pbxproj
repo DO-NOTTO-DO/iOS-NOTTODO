@@ -12,6 +12,7 @@
 		0930DE6229B80550007958DE /* MissionDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0930DE6129B80550007958DE /* MissionDetailViewController.swift */; };
 		09582B4829BDA7F600EF3207 /* DetailStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09582B4729BDA7F600EF3207 /* DetailStackView.swift */; };
 		09582B4B29BDE37C00EF3207 /* DetailFooterReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09582B4A29BDE37C00EF3207 /* DetailFooterReusableView.swift */; };
+		09582B4D29BE277800EF3207 /* DetailHeaderReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09582B4C29BE277800EF3207 /* DetailHeaderReusableView.swift */; };
 		097C003629AB8270008CAEF3 /* MissionListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097C003529AB8270008CAEF3 /* MissionListCollectionViewCell.swift */; };
 		0982DE5429ADCCE000D933D2 /* HomeEmptyCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0982DE5329ADCCE000D933D2 /* HomeEmptyCollectionViewCell.swift */; };
 		0982DE5829AE40FB00D933D2 /* UITabBar+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0982DE5729AE40FB00D933D2 /* UITabBar+.swift */; };
@@ -80,6 +81,7 @@
 		0930DE6129B80550007958DE /* MissionDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionDetailViewController.swift; sourceTree = "<group>"; };
 		09582B4729BDA7F600EF3207 /* DetailStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailStackView.swift; sourceTree = "<group>"; };
 		09582B4A29BDE37C00EF3207 /* DetailFooterReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailFooterReusableView.swift; sourceTree = "<group>"; };
+		09582B4C29BE277800EF3207 /* DetailHeaderReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailHeaderReusableView.swift; sourceTree = "<group>"; };
 		097C003529AB8270008CAEF3 /* MissionListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionListCollectionViewCell.swift; sourceTree = "<group>"; };
 		0982DE5329ADCCE000D933D2 /* HomeEmptyCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeEmptyCollectionViewCell.swift; sourceTree = "<group>"; };
 		0982DE5729AE40FB00D933D2 /* UITabBar+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITabBar+.swift"; sourceTree = "<group>"; };
@@ -181,6 +183,7 @@
 				097C003529AB8270008CAEF3 /* MissionListCollectionViewCell.swift */,
 				092E04B029BD9C86008A5892 /* MissionDetailCollectionViewCell.swift */,
 				09582B4A29BDE37C00EF3207 /* DetailFooterReusableView.swift */,
+				09582B4C29BE277800EF3207 /* DetailHeaderReusableView.swift */,
 				09582B4729BDA7F600EF3207 /* DetailStackView.swift */,
 			);
 			path = Cells;
@@ -653,6 +656,7 @@
 				6CD4F8BC29AA494300CCC740 /* RecommendActionFooterView.swift in Sources */,
 				6CD4F8BE29AA495900CCC740 /* RecommendActionCollectionViewCell.swift in Sources */,
 				6CF4707429A73D4C008D145C /* RecommendCollectionViewCell.swift in Sources */,
+				09582B4D29BE277800EF3207 /* DetailHeaderReusableView.swift in Sources */,
 				6CF4706A29A71D71008D145C /* Strings.swift in Sources */,
 				6CF4705F29A69025008D145C /* GeneralResponse.swift in Sources */,
 				097C003629AB8270008CAEF3 /* MissionListCollectionViewCell.swift in Sources */,
