@@ -18,10 +18,9 @@ class DetailActionGoalCollectionViewCell: UICollectionViewCell {
 
     // MARK: - UI Components
     
-    private let actionTagLabel = UILabel()
-    private let actionLabel = UILabel()
-    private let goalTagLabel = UILabel()
-    private let goalLabel = UILabel()
+    private let verticalStackView = UIStackView()
+    private let action = DetailStackView(tag: "실천 행동")
+    private let goal = DetailStackView(tag: "목표")
     
     override init(frame: CGRect) {
         super.init(frame: .zero)
@@ -40,20 +39,23 @@ extension DetailActionGoalCollectionViewCell {
     private func setUI() {
         backgroundColor = .clear
         
-        actionTagLabel.do {
-            $0.text = "실천 행동"
-            $0.textColor = .gray4
-            $0.font = .Pretendard(.medium, size: 15)
+        verticalStackView.do {
+            $0.addArrangedSubviews(action, goal)
+            $0.axis = .vertical
+            $0.spacing = 22
         }
-    
     }
     
     private func setLayout() {
-       
+        verticalStackView.snp.makeConstraints {
+            $0.top.equalToSuperview().offset(25)
+            $0.leading.equalToSuperview().offset(29)
+            $0.bottom.equalToSuperview().inset(35)
+        }
     }
     
     func configure(model: MissionDetailModel) {
-        actionLabel.text = model.action?.joined(separator: ",")
-        goalLabel.text = model.goal?.joined(separator: ",")
+        action.titleLabel.text = model.action?.joined(separator: ",")
+        goal.titleLabel.text = model.goal?.joined(separator: ",")
     }
 }

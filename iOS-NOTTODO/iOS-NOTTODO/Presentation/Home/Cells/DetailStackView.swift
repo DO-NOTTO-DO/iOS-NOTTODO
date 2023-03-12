@@ -13,13 +13,14 @@ import SnapKit
 class DetailStackView: UIView {
 
     private let verticalStackView = UIStackView()
-    private let tagLabel = UILabel()
-    private let titleLabel = UILabel()
+    let tagLabel = UILabel()
+    let titleLabel = UILabel()
     
-    init(tagTitle: String) {
+    init(tag: String) {
         super.init(frame: .zero)
         setUI()
         setLayout()
+        configure(tag: tag)
     }
     
     required init?(coder: NSCoder) {
@@ -50,5 +51,9 @@ extension DetailStackView {
         verticalStackView.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
+    }
+    
+    func configure(tag: String) {
+        tagLabel.text = tag
     }
 }
