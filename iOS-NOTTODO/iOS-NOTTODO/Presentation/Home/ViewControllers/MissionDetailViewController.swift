@@ -70,6 +70,9 @@ extension MissionDetailViewController {
             $0.addArrangedSubviews(cancelButton, emptyView, editButton)
             $0.axis = .horizontal
         }
+        collectionView.do {
+            $0.bounces = false
+        }
     }
     
     private func setLayout() {
@@ -122,15 +125,29 @@ extension MissionDetailViewController {
         
         dataSource.supplementaryViewProvider = { (collectionView, _, indexPath) in
             guard let footer = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: DetailFooterReusableView.identifier, for: indexPath) as? DetailFooterReusableView else { return UICollectionReusableView() }
+            footer.footerClosure = {
+                print("tapped")
+            }
             return footer
         }
     }
     
     private func layout() -> UICollectionViewCompositionalLayout {
-        var config = UICollectionLayoutListConfiguration(appearance: .plain)
-        config.separatorConfiguration.color = UIColor.gray5!
-        config.footerMode = .supplementary
-        return UICollectionViewCompositionalLayout.list(using: config)
+//        var config = UICollectionLayoutListConfiguration(appearance: .plain)
+//        config.separatorConfiguration.color = UIColor.gray5!
+//        config.footerMode = .supplementary
+//        let insets = NSDirectionalEdgeInsets(
+//                           top: 100,
+//                           leading: 0,
+//                           bottom: 50,
+//                           trailing: 0
+//                       )
+//        config.separatorConfiguration.bottomSeparatorInsets = insets
+//        let layout = UICollectionViewCompositionalLayout.list(using: config)
+//        layout.configuration.interSectionSpacing = 30
+//        return layout
+      let section =  CompositionalLayout._vertical(.fractionalWidth(1), .fractionalHeight(1), .fractionalWidth(1), .fractionalHeight(1), count: 1, edge: nil, footer: true)
+        return UICollectionViewCompositionalLayout(section: section)
     }
 }
 

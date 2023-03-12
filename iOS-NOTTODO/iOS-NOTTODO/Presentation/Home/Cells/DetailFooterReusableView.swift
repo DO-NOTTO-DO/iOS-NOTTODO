@@ -12,11 +12,12 @@ class DetailFooterReusableView: UICollectionReusableView {
     // MARK: - Properties
     
     static let identifier = "DetailFooterReusableView"
+    var footerClosure: (() -> Void)?
     
     // MARK: - UI Components
-
+    
     private let dateLabel = UILabel()
-    private let dateButton = UIButton()
+    private let dateButton = UIButton(configuration: .plain())
     
     // MARK: - Life Cycle
     override init(frame: CGRect) {
@@ -37,13 +38,17 @@ extension DetailFooterReusableView {
     private func setUI() {
         dateLabel.do {
             $0.text = "다른 날도 할래요"
+            $0.font = .Pretendard(.medium, size: 16)
         }
         dateButton.do {
-            $0.configuration?.image = .icArrow
+            $0.configuration?.baseBackgroundColor = .clear
+            $0.configuration?.image = .icRightArrow
             $0.configuration?.title = "날짜 선택"
             $0.configuration?.imagePadding = 2
             $0.configuration?.imagePlacement = NSDirectionalRectEdge.trailing
             $0.configuration?.attributedTitle?.font = .Pretendard(.medium, size: 16)
+            $0.configuration?.attributedTitle?.foregroundColor = .gray4
+            $0.configuration?.contentInsets = NSDirectionalEdgeInsets.init(top: 0, leading: 0, bottom: 0, trailing: 0)
             $0.addTarget(self, action: #selector(dateButtonTapped), for: .touchUpInside)
         }
     }
@@ -53,7 +58,6 @@ extension DetailFooterReusableView {
         
         dateLabel.snp.makeConstraints {
             $0.leading.equalToSuperview().offset(29)
-            $0.top.equalToSuperview().offset(33)
         }
         
         dateButton.snp.makeConstraints {
@@ -64,7 +68,7 @@ extension DetailFooterReusableView {
     }
     
     @objc
-    private func dateButtonTapped() {
-        print("tapped")
+    func dateButtonTapped() {
+        footerClosure?()
     }
 }
