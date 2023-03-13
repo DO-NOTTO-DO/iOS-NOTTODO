@@ -77,7 +77,7 @@ extension HomeViewController {
         weekCalendar.snp.makeConstraints {
             $0.top.equalTo(safeArea)
             $0.directionalHorizontalEdges.equalTo(safeArea)
-            $0.height.equalTo(convertByHeightRatio(162))
+            $0.height.equalTo(172)
         }
         
         missionCollectionView.snp.makeConstraints {
@@ -170,8 +170,8 @@ extension HomeViewController {
         deleteAction.backgroundColor = .ntdBlue
         modifyAction.backgroundColor = .ntdRed
         
-        deleteAction.image = .checkboxFill
-        modifyAction.image = .checkboxFill
+        deleteAction.image = .icTrash
+        modifyAction.image = .icFix
         
         let swipeConfiguration = UISwipeActionsConfiguration(actions: [modifyAction, deleteAction])
         swipeConfiguration.performsFirstActionWithFullSwipe = false

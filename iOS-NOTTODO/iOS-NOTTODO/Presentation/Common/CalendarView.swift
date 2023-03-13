@@ -55,7 +55,7 @@ extension CalendarView {
         }
         
         todayButton.do {
-            $0.configuration?.image = UIImage(systemName: "return.right")
+            $0.configuration?.image = .icBackToday
             $0.configuration?.title = I18N.todayButton
             $0.configuration?.imagePadding = 2
             $0.configuration?.contentInsets = NSDirectionalEdgeInsets.init(top: 3, leading: 6, bottom: 2, trailing: 7)
@@ -95,7 +95,7 @@ extension CalendarView {
             todayButton.snp.makeConstraints {
                 $0.top.equalTo(yearMonthLabel.snp.top)
                 $0.trailing.equalToSuperview().inset(18)
-                $0.size.equalTo(CGSize(width: 75, height: 30))
+                $0.size.equalTo(CGSize(width: 60, height: 30))
             }
             
             calendar.snp.makeConstraints {
