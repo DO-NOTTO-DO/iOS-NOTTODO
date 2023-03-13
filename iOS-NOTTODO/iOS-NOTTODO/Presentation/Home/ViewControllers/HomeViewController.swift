@@ -62,6 +62,7 @@ extension HomeViewController {
             $0.backgroundColor = .bg
             $0.bounces = false
             $0.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+            $0.delegate = self
         }
         
         addButton.do {
@@ -179,7 +180,11 @@ extension HomeViewController {
         return swipeConfiguration
     }
 }
-// MARK: - Action
+extension HomeViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        Utils.Modal(self, MissionDetailViewController(), .overFullScreen)
+    }
+}
 
 extension HomeViewController {
     @objc
