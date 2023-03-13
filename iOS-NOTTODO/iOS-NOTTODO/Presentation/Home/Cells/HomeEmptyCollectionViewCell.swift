@@ -7,17 +7,20 @@
 
 import UIKit
 
+import SnapKit
+import Then
+
 class HomeEmptyCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Properties
-
+    
     static let identifier = "HomeEmptyCollectionViewCell"
-
+    
     // MARK: - UI Components
     
     private let logoImage = UIImageView()
     private let emptyLabel = UILabel()
-
+    
     override init(frame: CGRect) {
         super.init(frame: .zero)
         setUI()
