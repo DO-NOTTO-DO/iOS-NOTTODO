@@ -32,6 +32,14 @@ struct I18N {
     /// Home Empty
     
     static let emptyTitle = "새로운 낫투두를 추가하고\n오늘 하루를 더 잘 살아보세요!"
+    static let todayButton = "오늘"
+    static let yearMonthTitle = "YYYY년 MM월"
+    static let weekDay = ["일", "월", "화", "수", "목", "금", "토"]
+    
+    /// Achievement
+    
+    static let achievement = "성취"
+    static let total = "더욱 나은 낫투두를 위해\n노력중에 있어요, 기다려주세요."
     
     /// MyInfo
     static let myInfo = "내 정보"
