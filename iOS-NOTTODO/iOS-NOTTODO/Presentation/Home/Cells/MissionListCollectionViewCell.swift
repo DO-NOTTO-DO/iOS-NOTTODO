@@ -55,12 +55,10 @@ extension MissionListCollectionViewCell {
     
     func setUI() {
         backgroundColor = .clear
-        contentView.backgroundColor = isTapped ? .clear : .white
-        contentView.layer.borderWidth = 1
-        contentView.layer.borderColor = isTapped ? UIColor.gray5?.cgColor : UIColor.clear.cgColor
+        contentView.backgroundColor = .white
         contentView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMinXMaxYCorner]
         contentView.layer.cornerRadius = 10
-        
+
         checkButton.do {
             $0.backgroundColor = isTapped ? .clear : .white
             $0.layer.cornerRadius = 6
@@ -71,20 +69,20 @@ extension MissionListCollectionViewCell {
         }
         
         tagLabel.do {
-            $0.backgroundColor = isTapped ? .gray6 : .bg
+            $0.backgroundColor = .bg
             $0.clipsToBounds = true
             $0.layer.cornerRadius = 12
-            $0.textColor = isTapped ? .gray4 : .gray1
+            $0.textColor = isTapped ? .gray7 : .gray1
             $0.font = .Pretendard(.medium, size: 14)
         }
         
         missionLabel.do {
-            $0.textColor = isTapped ? .gray4 : .gray2
+            $0.textColor = isTapped ? .gray7 : .gray2
             $0.font = .Pretendard(.semiBold, size: 16)
         }
         
         lineView.do {
-            $0.backgroundColor = .gray4
+            $0.backgroundColor = .gray7
             $0.isHidden = isTapped ? false : true
         }
     }

@@ -7,8 +7,9 @@
 
 import UIKit
 
-import Then
+import FSCalendar
 import SnapKit
+import Then
 
 class HomeViewController: UIViewController {
     
@@ -20,10 +21,13 @@ class HomeViewController: UIViewController {
     }
     var dataSource: UICollectionViewDiffableDataSource<Sections, AnyHashable>! = nil
     private lazy var safeArea = self.view.safeAreaLayoutGuide
+    private lazy var today: Date = { return Date() }()
     
     // MARK: - UI Components
     
     private lazy var missionCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout())
+    private let weekCalendar = CalendarView(calendarScope: .week, scrollDirection: .horizontal)
+    private let addButton = UIButton()
     
     // MARK: - Life Cycle
     
@@ -47,27 +51,44 @@ extension HomeViewController {
     }
     
     private func setUI() {
-        view.backgroundColor = .bg
+        view.backgroundColor = .ntdBlack
+        
+        weekCalendar.do {
+            $0.calendar.delegate = self
+            $0.calendar.dataSource = self
+        }
         
         missionCollectionView.do {
-            $0.backgroundColor = .clear
+            $0.backgroundColor = .bg
             $0.bounces = false
             $0.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        }
+        
+        addButton.do {
+            $0.setImage(.addMission, for: .normal)
+            $0.addTarget(self, action: #selector(addBtnTapped), for: .touchUpInside)
         }
     }
     
     private func setLayout() {
-        view.addSubview(missionCollectionView)
+        view.addSubviews(weekCalendar, missionCollectionView, addButton)
+        weekCalendar.calendar.select(today)
+        
+        weekCalendar.snp.makeConstraints {
+            $0.top.equalTo(safeArea)
+            $0.directionalHorizontalEdges.equalTo(safeArea)
+            $0.height.equalTo(172)
+        }
         
         missionCollectionView.snp.makeConstraints {
-            $0.top.equalTo(safeArea).offset(162)
-            if missionList.isEmpty {
-                $0.directionalHorizontalEdges.equalToSuperview()
-            } else {
-                $0.trailing.equalTo(safeArea).inset(18)
-                $0.leading.equalTo(safeArea)
-            }
-            $0.bottom.equalTo(safeArea)
+            $0.top.equalTo(weekCalendar.snp.bottom)
+            $0.directionalHorizontalEdges.equalTo(safeArea)
+            $0.bottom.equalToSuperview()
+        }
+        addButton.snp.makeConstraints {
+            $0.width.height.equalTo(convertByHeightRatio(60))
+            $0.trailing.equalTo(safeArea).inset(18)
+            $0.bottom.equalTo(safeArea).inset(20)
         }
     }
     
@@ -124,7 +145,7 @@ extension HomeViewController {
                 let layoutSection = NSCollectionLayoutSection.list(using: config, layoutEnvironment: layoutEnvirnment)
                 layoutSection.orthogonalScrollingBehavior = .none
                 layoutSection.interGroupSpacing = 18
-                layoutSection.contentInsets = .zero
+                layoutSection.contentInsets = NSDirectionalEdgeInsets(top: 32, leading: 0, bottom: 0, trailing: 18)
                 
                 return layoutSection
                 
@@ -149,12 +170,38 @@ extension HomeViewController {
         deleteAction.backgroundColor = .ntdBlue
         modifyAction.backgroundColor = .ntdRed
         
-        deleteAction.image = .checkboxFill
-        modifyAction.image = .checkboxFill
+        deleteAction.image = .icTrash
+        modifyAction.image = .icFix
         
         let swipeConfiguration = UISwipeActionsConfiguration(actions: [modifyAction, deleteAction])
         swipeConfiguration.performsFirstActionWithFullSwipe = false
         
         return swipeConfiguration
+    }
+}
+// MARK: - Action
+
+extension HomeViewController {
+    @objc
+    func addBtnTapped(_sender: UIButton) {
+        print("add button Tapped")
+    }
+}
+extension HomeViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalendarDelegateAppearance {
+    func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
+        weekCalendar.yearMonthLabel.text = Utils.DateFormatter(format: I18N.yearMonthTitle, date: calendar.currentPage)
+    }
+    
+    func  calendar(_ calendar: FSCalendar, titleFor date: Date) -> String? {
+        Utils.DateFormatter(format: "EEEEEE", date: date)
+    }
+    
+    func calendar(_ calendar: FSCalendar, subtitleFor date: Date) -> String? {
+        Utils.DateFormatter(format: "dd", date: date)
+    }
+    
+    func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
+        weekCalendar.yearMonthLabel.text = Utils.DateFormatter(format: I18N.yearMonthTitle, date: date)
+        print("선택")
     }
 }
