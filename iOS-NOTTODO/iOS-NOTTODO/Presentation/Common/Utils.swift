@@ -11,7 +11,7 @@ import FSCalendar
 
 final class Utils {
     
-    class func Modal(_ viewController:UIViewController, _ modalViewController: UIViewController, _ modalStyle: UIModalPresentationStyle) {
+    class func Modal(_ viewController: UIViewController, _ modalViewController: UIViewController, _ modalStyle: UIModalPresentationStyle) {
         let modalViewController = modalViewController
         modalViewController.modalPresentationStyle = modalStyle
         viewController.present(modalViewController, animated: false)
