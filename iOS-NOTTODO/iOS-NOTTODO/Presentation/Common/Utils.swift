@@ -41,4 +41,22 @@ final class Utils {
             return .gray3
         }
     }
+    
+    class func calendarSelected(today: Date, date: Date) -> Bool {
+        switch Calendar.current.compare(today, to: date, toGranularity: .day) {
+        case .orderedSame:
+            print("\(date) is the same as \(today)")
+            return true
+        case .orderedDescending:
+            print("\(date) is before \(today)")
+            return false
+        case .orderedAscending:
+            print("\(date) is after \(today)")
+            let sevenDays = Calendar.current.date(byAdding: .day, value: +6, to: Date())!
+            if date < sevenDays {
+                return true
+            }
+            return false
+        }
+    }
 }

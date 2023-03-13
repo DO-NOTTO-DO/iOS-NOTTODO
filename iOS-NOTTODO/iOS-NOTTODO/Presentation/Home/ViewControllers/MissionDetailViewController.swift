@@ -27,7 +27,6 @@ class MissionDetailViewController: UIViewController {
     private let deleteButton = UIButton(configuration: .filled())
     private lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout())
     
-    private let dimmedView = PopUpView()
     private let subView = UIView()
     private let completeButton = UIButton()
     
@@ -69,23 +68,10 @@ extension MissionDetailViewController {
             $0.bounces = false
             $0.isScrollEnabled = false
         }
-        subView.do {
-            $0.backgroundColor = .gray1
-            $0.layer.masksToBounds = true
-            $0.layer.cornerRadius = 10
-            $0.isUserInteractionEnabled = true
-        }
-        completeButton.do {
-            $0.setTitle(I18N.detailComplete, for: .normal)
-            $0.setTitleColor(.gray4, for: .normal)
-            $0.titleLabel?.font = .Pretendard(.medium, size: 16)
-//            $0.addTarget(self, action: #selector(completeBtnTapped(sender:)), for: .touchUpInside)
-        }
     }
     
     private func setLayout() {
         view.addSubviews(collectionView, deleteButton)
-        subView.addSubview(completeButton)
         
         collectionView.snp.makeConstraints {
             $0.top.equalTo(safeArea).offset(85)
@@ -96,12 +82,6 @@ extension MissionDetailViewController {
             $0.directionalHorizontalEdges.equalToSuperview().inset(15)
             $0.height.equalTo(50)
             $0.bottom.equalTo(safeArea).inset(10)
-        }
-        
-        completeButton.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(18)
-            $0.trailing.equalToSuperview().inset(18)
-            $0.size.equalTo(CGSize(width: 44, height: 35))
         }
     }
     
@@ -137,6 +117,9 @@ extension MissionDetailViewController {
             } else {
                 guard let footer = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: DetailFooterReusableView.identifier, for: indexPath) as? DetailFooterReusableView else { return UICollectionReusableView() }
                 footer.footerClosure = {
+                    let detailViewController = DetailCalendarViewController()
+                    detailViewController.modalPresentationStyle = .overFullScreen
+                    self.present(detailViewController, animated: false)
                     print("tapped")
                 }
                 return footer

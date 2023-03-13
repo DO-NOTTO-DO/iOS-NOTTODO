@@ -28,7 +28,6 @@ class HomeViewController: UIViewController {
     private lazy var missionCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout())
     private let weekCalendar = CalendarView(calendarScope: .week, scrollDirection: .horizontal)
     private let addButton = UIButton()
-    private let popupView = PopUpView()
     
     // MARK: - Life Cycle
     

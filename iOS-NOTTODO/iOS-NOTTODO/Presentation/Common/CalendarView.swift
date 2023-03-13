@@ -17,7 +17,7 @@ final class CalendarView: UIView {
     
     let yearMonthLabel = UILabel()
     let todayButton = UIButton(configuration: .filled())
-    private let horizonStackView = UIStackView()
+    let horizonStackView = UIStackView()
     let leftButton = UIButton()
     let rightButton = UIButton()
     var calendar = WeekMonthFSCalendar()
