@@ -43,7 +43,6 @@ private extension AddMissionTextFieldView {
         
         textFieldUnderLineView.do {
             $0.backgroundColor = .gray3
-            
         }
         
         textCountLabel.do {
