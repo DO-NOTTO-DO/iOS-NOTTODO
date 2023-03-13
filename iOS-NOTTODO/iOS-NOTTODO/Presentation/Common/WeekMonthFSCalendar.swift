@@ -60,6 +60,7 @@ extension WeekMonthFSCalendar {
             appearance.weekdayTextColor = .white
             appearance.selectionColor = .white
             appearance.titleSelectionColor = .ntdBlack
+            placeholderType = .fillHeadTail
         @unknown default:
             return
         }

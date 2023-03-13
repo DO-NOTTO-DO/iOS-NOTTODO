@@ -35,4 +35,9 @@ struct I18N {
     static let todayButton = "오늘"
     static let yearMonthTitle = "YYYY년 MM월"
     static let weekDay = ["일", "월", "화", "수", "목", "금", "토"]
+    
+    /// Achievement
+    
+    static let achievement = "성취"
+    static let total = "더욱 나은 낫투두를 위해\n노력중에 있어요, 기다려주세요."
 }

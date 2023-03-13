@@ -17,12 +17,12 @@ final class CalendarView: UIView {
     
     let yearMonthLabel = UILabel()
     let todayButton = UIButton(configuration: .filled())
-    let horizonStackView = UIStackView()
+    private let horizonStackView = UIStackView()
     let leftButton = UIButton()
     let rightButton = UIButton()
     var calendar = WeekMonthFSCalendar()
     private lazy var today: Date = { return Date() }()
-
+    
     // MARK: - Life Cycle
     
     init(calendarScope: FSCalendarScope, scrollDirection: FSCalendarScrollDirection) {
@@ -51,8 +51,9 @@ extension CalendarView {
         yearMonthLabel.do {
             $0.font = .Pretendard(.medium, size: 18)
             $0.textColor = .white
-            $0.text = Utils.DateFormatter(format: I18N.yearMonthTitle, date: Date())
+            $0.text = Utils.DateFormatterString(format: I18N.yearMonthTitle, date: Date())
         }
+        
         todayButton.do {
             $0.configuration?.image = .icBackToday
             $0.configuration?.title = I18N.todayButton
@@ -64,14 +65,17 @@ extension CalendarView {
             $0.configuration?.baseForegroundColor = .gray5
             $0.addTarget(self, action: #selector(todayBtnTapped), for: .touchUpInside)
         }
+        
         horizonStackView.do {
             $0.axis = .horizontal
             $0.spacing = 16
         }
+        
         leftButton.do {
             $0.setImage(.calendarLeft, for: .normal)
             $0.addTarget(self, action: #selector(prevBtnTapped), for: .touchUpInside)
         }
+        
         rightButton.do {
             $0.setImage(.calendarRight, for: .normal)
             $0.addTarget(self, action: #selector(nextBtnTapped), for: .touchUpInside)
@@ -99,7 +103,6 @@ extension CalendarView {
                 $0.directionalHorizontalEdges.equalToSuperview().inset(11)
                 $0.bottom.equalToSuperview().inset(20)
             }
-            
         case .month:
             addSubviews(horizonStackView, calendar)
             horizonStackView.addArrangedSubviews(leftButton, yearMonthLabel, rightButton)
@@ -121,6 +124,7 @@ extension CalendarView {
             calendar.snp.makeConstraints {
                 $0.top.equalTo(horizonStackView.snp.bottom).offset(20)
                 $0.directionalHorizontalEdges.equalToSuperview().inset(15)
+                $0.height.equalTo((bounds.size.width-22)*0.8)
                 $0.bottom.equalToSuperview().inset(25)
             }
         @unknown default:
@@ -131,7 +135,7 @@ extension CalendarView {
     @objc
     func todayBtnTapped(_sender: UIButton) {
         calendar.select(today)
-        yearMonthLabel.text = Utils.DateFormatter(format: I18N.yearMonthTitle, date: today)
+        yearMonthLabel.text = Utils.DateFormatterString(format: I18N.yearMonthTitle, date: today)
     }
     
     @objc
@@ -144,3 +148,31 @@ extension CalendarView {
         Utils.scrollCurrentPage(calendar: calendar, isPrev: false)
     }
 }
+
+// 오늘부터 일주일 날짜 선택
+// func calendar(_ calendar: FSCalendar, shouldSelect date: Date, at monthPosition: FSCalendarMonthPosition) -> Bool {
+//    switch Calendar.current.compare(today, to: date, toGranularity: .day) {
+//    case .orderedSame:
+//        print("\(date) is the same as \(today)")
+//        return true
+//    case .orderedDescending:
+//        print("\(date) is before \(today)")
+//        return false
+//    case .orderedAscending:
+//        print("\(date) is after \(today)")
+//        let sevenDays = Calendar.current.date(byAdding: .day, value: +6, to: Date())!
+//        if date < sevenDays {
+//            return true
+//        }
+//        return false
+//    }
+// }
+// 오늘부터 일주일 날짜 선택시 활성화 부분 text, border 컬러 , 비활성화 color 
+// func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleSelectionColorFor date: Date) -> UIColor? {
+//    Utils.calendarTitleColor(today: today, date: date, selected: true)
+// }
+//
+// func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleDefaultColorFor date: Date) -> UIColor? {
+//    Utils.calendarTitleColor(today: today, date: date, selected: false)
+//
+// }

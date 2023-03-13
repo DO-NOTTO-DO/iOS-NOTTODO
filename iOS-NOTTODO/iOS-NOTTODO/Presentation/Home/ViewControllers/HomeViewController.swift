@@ -189,19 +189,19 @@ extension HomeViewController {
 }
 extension HomeViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalendarDelegateAppearance {
     func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
-        weekCalendar.yearMonthLabel.text = Utils.DateFormatter(format: I18N.yearMonthTitle, date: calendar.currentPage)
+        weekCalendar.yearMonthLabel.text = Utils.DateFormatterString(format: I18N.yearMonthTitle, date: calendar.currentPage)
     }
     
     func  calendar(_ calendar: FSCalendar, titleFor date: Date) -> String? {
-        Utils.DateFormatter(format: "EEEEEE", date: date)
+        Utils.DateFormatterString(format: "EEEEEE", date: date)
     }
     
     func calendar(_ calendar: FSCalendar, subtitleFor date: Date) -> String? {
-        Utils.DateFormatter(format: "dd", date: date)
+        Utils.DateFormatterString(format: "dd", date: date)
     }
     
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
-        weekCalendar.yearMonthLabel.text = Utils.DateFormatter(format: I18N.yearMonthTitle, date: date)
+        weekCalendar.yearMonthLabel.text = Utils.DateFormatterString(format: I18N.yearMonthTitle, date: date)
         print("선택")
     }
 }
