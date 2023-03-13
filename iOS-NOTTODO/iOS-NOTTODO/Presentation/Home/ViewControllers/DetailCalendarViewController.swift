@@ -66,7 +66,7 @@ extension DetailCalendarViewController {
         }
         
         monthCalendar.snp.makeConstraints {
-            $0.top.equalTo(safeArea).offset(190)
+            $0.centerY.equalTo(safeArea)
             $0.directionalHorizontalEdges.equalTo(safeArea).inset(15)
             $0.height.equalTo((getDeviceWidth()-30)*1.1)
         }
