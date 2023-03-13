@@ -24,7 +24,6 @@ class MissionDetailViewController: UIViewController {
     
     // MARK: - UI Components
     
-    private let containerView = UIView()
     private let deleteButton = UIButton(configuration: .filled())
     private lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout())
     
@@ -70,14 +69,17 @@ extension MissionDetailViewController {
             $0.bounces = false
             $0.isScrollEnabled = false
         }
-        
         subView.do {
             $0.backgroundColor = .gray1
+            $0.layer.masksToBounds = true
+            $0.layer.cornerRadius = 10
+            $0.isUserInteractionEnabled = true
         }
         completeButton.do {
             $0.setTitle(I18N.detailComplete, for: .normal)
             $0.setTitleColor(.gray4, for: .normal)
             $0.titleLabel?.font = .Pretendard(.medium, size: 16)
+//            $0.addTarget(self, action: #selector(completeBtnTapped(sender:)), for: .touchUpInside)
         }
     }
     
@@ -94,6 +96,12 @@ extension MissionDetailViewController {
             $0.directionalHorizontalEdges.equalToSuperview().inset(15)
             $0.height.equalTo(50)
             $0.bottom.equalTo(safeArea).inset(10)
+        }
+        
+        completeButton.snp.makeConstraints {
+            $0.top.equalToSuperview().offset(18)
+            $0.trailing.equalToSuperview().inset(18)
+            $0.size.equalTo(CGSize(width: 44, height: 35))
         }
     }
     
@@ -129,7 +137,6 @@ extension MissionDetailViewController {
             } else {
                 guard let footer = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: DetailFooterReusableView.identifier, for: indexPath) as? DetailFooterReusableView else { return UICollectionReusableView() }
                 footer.footerClosure = {
-                    self.dimmedView.appearPopUpView(subView: self.subView, width: 345, height: 424)
                     print("tapped")
                 }
                 return footer
@@ -149,5 +156,9 @@ extension MissionDetailViewController {
     @objc
     func deleteBtnTapped() {
         print("Deletetapped")
+    }
+    @objc
+    func completeBtnTapped(sender: UIButton) {
+        print("완료")
     }
 }

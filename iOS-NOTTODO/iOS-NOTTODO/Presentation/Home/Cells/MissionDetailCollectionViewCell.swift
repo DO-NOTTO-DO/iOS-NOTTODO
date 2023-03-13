@@ -25,8 +25,8 @@ class MissionDetailCollectionViewCell: UICollectionViewCell {
     private let accumulateLabel = UILabel()
     
     private let verticalStackView = UIStackView()
-    private let action = DetailStackView(tag: "실천 행동", isTop: true)
-    private let goal = DetailStackView(tag: "목표", isTop: false)
+    private let action = DetailStackView(tag: I18N.detailAction, isTop: true)
+    private let goal = DetailStackView(tag: I18N.detailGoal, isTop: false)
         
     // MARK: - Life Cycle
 

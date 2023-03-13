@@ -19,6 +19,8 @@ class PopUpView: UIView {
     var addedSubView: UIView!
     
     private var customAction: (() -> Void)?
+    private var gesture: Bool = false
+    
     var width: CGFloat?
     var height: CGFloat?
     
@@ -26,14 +28,12 @@ class PopUpView: UIView {
         super.init(frame: frame)
     }
     
+    let backgroundView = UIView()
     lazy var blackView =  UIView().then {
         $0.backgroundColor = UIColor.black
-        $0.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(dismiss)))
-    }
-    
-    let backgroundView = UIView().then {
-        $0.backgroundColor = .clear
-        $0.layer.cornerRadius = 10
+        if self.gesture {
+            $0.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(dismiss)))
+        }
     }
     
     required init?(coder: NSCoder) {
@@ -47,7 +47,7 @@ extension PopUpView {
             window.endEditing(true)
             backgroundView.alpha = 1
             blackView.alpha = 0.6
-            
+
             blackView.frame = window.frame
             window.addSubviews(blackView, backgroundView)
             
@@ -59,7 +59,8 @@ extension PopUpView {
 }
 
 extension PopUpView {
-    func appearPopUpView(subView: UIView, width: CGFloat, height: CGFloat) {
+    func appearPopUpView(subView: UIView, width: CGFloat, height: CGFloat, gesture: Bool) {
+        self.gesture = gesture
         self.width = width
         self.height = height
         initializeMainView()
@@ -76,31 +77,27 @@ extension PopUpView {
         backgroundView.bringSubviewToFront(addedSubView)
         
         if (windowScene?.windows.first) != nil {
-            let transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
-            backgroundView.transform = transform
-            blackView.alpha = 0
+            blackView.alpha = 0.6
             UIView.animate(
-                withDuration: 0.7,
+                withDuration: 0,
                 delay: 0,
                 usingSpringWithDamping: 1,
                 initialSpringVelocity: 1,
                 options: .curveEaseOut,
                 animations: {
-                    self.blackView.alpha = 0.5
-                    self.backgroundView.transform = .identity
+                    self.blackView.alpha = 0.6
                 },
                 completion: nil)
         }
     }
-    
+  
     @objc func dismiss(gesture: UITapGestureRecognizer) {
-        dissmissFromSuperview()
+            dissmissFromSuperview()
     }
     
     @objc
     func dissmissFromSuperview() {
         if (windowScene?.windows.first) != nil {
-            let transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
             UIView.animate(
                 withDuration: 0,
                 delay: 0,
@@ -108,7 +105,6 @@ extension PopUpView {
                 initialSpringVelocity: 1,
                 options: .curveEaseOut,
                 animations: { [unowned self] in
-                    backgroundView.transform = transform
                     backgroundView.alpha = 0
                     blackView.alpha = 0
                 },

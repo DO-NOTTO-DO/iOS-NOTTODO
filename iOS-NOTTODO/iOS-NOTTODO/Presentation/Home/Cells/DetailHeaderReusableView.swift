@@ -79,6 +79,7 @@ extension DetailHeaderReusableView {
     func cancelButtonTapped() {
         cancelClosure?()
     }
+    
     @objc
     func editButtonTapped() {
         editClosure?()
