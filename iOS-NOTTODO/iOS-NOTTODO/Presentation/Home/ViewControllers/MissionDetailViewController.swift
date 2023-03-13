@@ -117,9 +117,7 @@ extension MissionDetailViewController {
             } else {
                 guard let footer = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: DetailFooterReusableView.identifier, for: indexPath) as? DetailFooterReusableView else { return UICollectionReusableView() }
                 footer.footerClosure = {
-                    let detailViewController = DetailCalendarViewController()
-                    detailViewController.modalPresentationStyle = .overFullScreen
-                    self.present(detailViewController, animated: false)
+                    Utils.Modal(self, DetailCalendarViewController(), .overFullScreen)
                     print("tapped")
                 }
                 return footer
