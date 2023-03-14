@@ -7,10 +7,10 @@
 
 import UIKit
 
+enum FoldState {
+    case folded, unfolded
+}
+
 protocol AddMissionMenu {
-    var title: String { get set }
-    var subTitle: String { get set }
-    init(title: String, subTitle: String)
-    func makeUI()
-    func fold()
+    var fold: FoldState { get set }
 }
