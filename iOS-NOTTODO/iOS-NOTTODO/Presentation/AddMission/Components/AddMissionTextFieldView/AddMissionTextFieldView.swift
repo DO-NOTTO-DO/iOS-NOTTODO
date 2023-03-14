@@ -12,6 +12,10 @@ import Then
 
 final class AddMissionTextFieldView: UIView {
     
+    // MARK: - Properties
+    
+    private let textMaxCount = 20
+    
     // MARK: - UI Components
     
     private let addMissionTextField = UITextField()
