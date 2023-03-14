@@ -12,7 +12,7 @@ import SnapKit
 
 class StatisticsView: UIView {
     
-    // MARK: - Properties
+    // MARK: - UI Components
     
     private let totalImage = UIImageView()
     private let titleLabel = UILabel()
