@@ -41,7 +41,27 @@ struct I18N {
     static let achievement = "성취"
     static let total = "더욱 나은 낫투두를 위해\n노력중에 있어요, 기다려주세요."
     
-    // AddMission
+    /// AddMission
     
     static let add = "추가"
+    static let date = "날짜"
+    static let nottodo = "낫투두"
+    static let situation = "상황"
+    static let action = "실천행동"
+    static let goal = "목표"
+    static let subDateTitle = "언제 낫투두를 실천할까요?"
+    static let subNottodo = "어떤 낫투두를 설정해볼까요?"
+    static let subSituation = """
+                            어떤 상황에서
+                            낫투두를 실천하고 싶나요?
+                            """
+    static let subAction = """
+                        낫투두를 이루기 위해서
+                        어떤 행동이 필요한가요?
+                        """
+    static let subGoal = """
+                        낫투두를 통해서
+                        어떤 목표를 이루려 하나요?
+                        """
+    static let missionHistoryLabel = "낫투두 입력 기록"
 }
