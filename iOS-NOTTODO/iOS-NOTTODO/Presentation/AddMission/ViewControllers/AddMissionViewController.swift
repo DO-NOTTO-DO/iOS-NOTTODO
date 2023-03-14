@@ -30,8 +30,8 @@ final class AddMissionViewController: UIViewController {
     private let navigationTitle = UILabel()
     private let addButton = UIButton()
     private let separateView = UIView()
-    private lazy var addMissionCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout())
-    private let textFieldView = AddMissionTextFieldView(frame: .zero)
+    private lazy var addMissionCollectionView = UICollectionView(frame: .zero,
+                                                                 collectionViewLayout: layout())
 
     // MARK: - Life Cycle
     
@@ -39,6 +39,8 @@ final class AddMissionViewController: UIViewController {
         super.viewDidLoad()
         setUI()
         setLayout()
+        registerCell()
+        setDelegate()
     }
 }
 
@@ -70,7 +72,7 @@ private extension AddMissionViewController {
     func setLayout() {
         navigationView.addSubviews(dismissButton, navigationTitle, addButton)
         
-        view.addSubviews(navigationView, separateView, addMissionCollectionView, textFieldView)
+        view.addSubviews(navigationView, separateView, addMissionCollectionView)
         
         dismissButton.snp.makeConstraints {
             $0.top.equalToSuperview().inset(16)
@@ -100,13 +102,7 @@ private extension AddMissionViewController {
         
         addMissionCollectionView.snp.makeConstraints {
             $0.top.equalTo(separateView.snp.bottom).offset(12)
-            $0.directionalHorizontalEdges.equalToSuperview()
-        }
-        
-        textFieldView.snp.makeConstraints {
-            $0.height.equalTo(175)
-            $0.center.equalToSuperview()
-            $0.directionalHorizontalEdges.equalToSuperview()
+            $0.directionalHorizontalEdges.bottom.equalToSuperview()
         }
     }
     
@@ -114,5 +110,32 @@ private extension AddMissionViewController {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
         return layout
+    }
+    
+    func setDelegate() {
+        addMissionCollectionView.delegate = self
+        addMissionCollectionView.dataSource = self
+    }
+    
+    func registerCell() {
+        addMissionCollectionView.register(NottodoCollectionViewCell.self,
+                                          forCellWithReuseIdentifier: NottodoCollectionViewCell.identifier)
+    }
+}
+
+extension AddMissionViewController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 1
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NottodoCollectionViewCell.identifier, for: indexPath) as? NottodoCollectionViewCell else { return UICollectionViewCell() }
+        return cell
+    }
+}
+
+extension AddMissionViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: 345, height: 347)
     }
 }

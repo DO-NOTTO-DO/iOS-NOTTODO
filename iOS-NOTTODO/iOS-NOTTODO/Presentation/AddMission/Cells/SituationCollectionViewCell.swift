@@ -7,6 +7,6 @@
 
 import UIKit
 
-class SituationCollectionViewCell: UICollectionViewCell {
+final class SituationCollectionViewCell: UICollectionViewCell {
     
 }

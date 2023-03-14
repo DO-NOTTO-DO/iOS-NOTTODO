@@ -7,6 +7,6 @@
 
 import UIKit
 
-class DateCollectionViewCell: UICollectionViewCell {
+final class DateCollectionViewCell: UICollectionViewCell {
     
 }
