@@ -93,6 +93,9 @@ extension AchievementViewController: FSCalendarDelegate, FSCalendarDataSource, F
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         calendar.appearance.selectionColor = .clear
         calendar.appearance.titleSelectionColor = .white
+        let vc = DetailAchievementViewController()
+        vc.modalPresentationStyle = .overFullScreen
+        present(vc, animated: false)
         print(date)
     }
     
