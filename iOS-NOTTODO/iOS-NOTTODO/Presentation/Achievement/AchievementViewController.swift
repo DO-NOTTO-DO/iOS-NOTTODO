@@ -93,6 +93,10 @@ extension AchievementViewController: FSCalendarDelegate, FSCalendarDataSource, F
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         calendar.appearance.selectionColor = .clear
         calendar.appearance.titleSelectionColor = .white
-        print("선택")
+        print(date)
+    }
+    
+    func calendar(_ calendar: FSCalendar, shouldSelect date: Date, at monthPosition: FSCalendarMonthPosition) -> Bool {
+        Calendar.current.isDate(date, equalTo: calendar.currentPage, toGranularity: .month)
     }
 }
