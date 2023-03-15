@@ -63,7 +63,7 @@ extension DetailMissionView {
             $0.textAlignment = .left
         }
         checkImage.do {
-            $0.image = .checkboxFill
+            $0.image = UIImage(named: "ic_create_checked")
         }
 
         lineView.do {
