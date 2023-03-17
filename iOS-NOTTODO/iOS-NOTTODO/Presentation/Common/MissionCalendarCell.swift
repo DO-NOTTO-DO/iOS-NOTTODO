@@ -33,6 +33,9 @@ final class MissionCalendarCell: FSCalendarCell {
     
     // MARK: - Properties
     
+    static let identifier = "HomeEmptyCollectionViewCell"
+    
+    var mode: FSCalendarScope = .week
     var state: ToDoState = .none {
         didSet {
             updateUI()
@@ -46,6 +49,12 @@ final class MissionCalendarCell: FSCalendarCell {
     
     // MARK: - Life Cycle
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        updateUI()
+        self.state = .none
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
@@ -55,21 +64,39 @@ final class MissionCalendarCell: FSCalendarCell {
         fatalError("init(coder:) has not been implemented")
     }
     private func setupUI() {
-        titleLabel.snp.remakeConstraints {
-            $0.center.equalToSuperview()
-        }
-        
         contentView.insertSubview(iconView, at: 0)
-        iconView.snp.makeConstraints {
-            $0.edges.equalTo(UIEdgeInsets(top: 2, left: 4, bottom: 2, right: 4))
+        
+        switch mode {
+        case .month:
+            titleLabel.snp.remakeConstraints {
+                $0.center.equalToSuperview()
+            }
+            
+            iconView.snp.makeConstraints {
+                $0.edges.equalTo(UIEdgeInsets(top: 2, left: 4, bottom: 2, right: 4))
+            }
+            
+        case .week:
+            iconView.snp.makeConstraints {
+                $0.height.width.equalTo(contentView.bounds.width - 10)
+                $0.centerX.equalToSuperview()
+                $0.bottom.equalToSuperview().inset(5)
+            }
+        @unknown default:
+            iconView.snp.makeConstraints {
+                $0.edges.equalTo(UIEdgeInsets(top: 2, left: 4, bottom: 2, right: 4))
+            }
         }
     }
     private func updateUI() {
-        iconView.image = .icDate50
-        }
+     //   iconView.image = .icDate50
+        self.state = .none
+        self.mode = .week
+    }
 }
 extension MissionCalendarCell {
-    func configure(_ state: ToDoState) {
+    func configure(_ state: ToDoState, _ mode: FSCalendarScope) {
+        self.mode = mode
         self.state = state
         updateUI()
     }

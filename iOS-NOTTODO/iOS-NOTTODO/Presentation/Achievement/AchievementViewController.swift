@@ -51,7 +51,7 @@ extension AchievementViewController {
             $0.layer.cornerRadius = 12
             $0.layer.borderWidth = 1
             $0.layer.borderColor = UIColor.gray4?.cgColor
-            $0.calendar.register(MissionCalendarCell.self, forCellReuseIdentifier: String(describing: MissionCalendarCell.self))
+            $0.calendar.register(MissionCalendarCell.self, forCellReuseIdentifier: MissionCalendarCell.identifier)
             $0.calendar.delegate = self
             $0.calendar.dataSource = self
         }
@@ -99,8 +99,8 @@ extension AchievementViewController: FSCalendarDelegate, FSCalendarDataSource, F
     }
     
     func calendar(_ calendar: FSCalendar, cellFor date: Date, at position: FSCalendarMonthPosition) -> FSCalendarCell {
-        let cell = calendar.dequeueReusableCell(withIdentifier: String(describing: MissionCalendarCell.self), for: date, at: position) as! MissionCalendarCell
-        cell.configure(.rateHalf)
+        let cell = calendar.dequeueReusableCell(withIdentifier: MissionCalendarCell.identifier, for: date, at: position) as! MissionCalendarCell
+        cell.configure(.rateHalf, .month)
         return cell
     }
 }
