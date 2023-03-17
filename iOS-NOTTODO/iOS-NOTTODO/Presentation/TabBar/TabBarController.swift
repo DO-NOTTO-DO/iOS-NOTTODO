@@ -50,6 +50,7 @@ private extension TabBarController {
     }
     
     func setTabBarUI() {
+        tabBar.setUpUITabBar()
         tabBar.backgroundColor = .gray1
         tabBar.layer.cornerRadius = convertByHeightRatio(15)
         tabBar.itemPositioning = .centered

@@ -25,4 +25,22 @@ struct I18N {
     
     static let recommendNavTitle = "낫투두 생성"
     static let addAction = "직접 입력하러 가기"
+    
+    // RecommendAction
+    
+    static let recommendAction = "실천행동 추천"
+    static let more = "필요 없어요 or 직접 입력할게요!"
+    static let next = "계속하기"
+    
+    /// Home Empty
+    
+    static let emptyTitle = "새로운 낫투두를 추가하고\n오늘 하루를 더 잘 살아보세요!"
+    static let todayButton = "오늘"
+    static let yearMonthTitle = "YYYY년 MM월"
+    static let weekDay = ["일", "월", "화", "수", "목", "금", "토"]
+    
+    /// Achievement
+    
+    static let achievement = "성취"
+    static let total = "더욱 나은 낫투두를 위해\n노력중에 있어요, 기다려주세요."
 }
