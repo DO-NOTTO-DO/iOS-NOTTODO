@@ -20,7 +20,7 @@ extension ToDoState {
     var icon: UIImage? {
         switch self {
         case .none:
-            return .icDate50
+            return nil
         case .rateHalf:
             return .icDate50
         case .rateFull:
@@ -36,11 +36,7 @@ final class MissionCalendarCell: FSCalendarCell {
     static let identifier = "HomeEmptyCollectionViewCell"
     
     var mode: FSCalendarScope = .week
-    var state: ToDoState = .none {
-        didSet {
-            updateUI()
-        }
-    }
+    var state: ToDoState = .none
     
     // MARK: - UI Components
     
@@ -49,55 +45,54 @@ final class MissionCalendarCell: FSCalendarCell {
     
     // MARK: - Life Cycle
     
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        updateUI()
-        self.state = .none
-    }
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setupUI()
+        setUI()
+        setLayout(mode: mode)
     }
     
     required init!(coder aDecoder: NSCoder!) {
         fatalError("init(coder:) has not been implemented")
     }
-    private func setupUI() {
+}
+
+// MARK: - Methods
+
+extension MissionCalendarCell {
+    
+    private func setUI() {
         contentView.insertSubview(iconView, at: 0)
-        
+    }
+    
+    private func setLayout(mode: FSCalendarScope) {
         switch mode {
-        case .month:
-            titleLabel.snp.remakeConstraints {
-                $0.center.equalToSuperview()
-            }
-            
-            iconView.snp.makeConstraints {
-                $0.edges.equalTo(UIEdgeInsets(top: 2, left: 4, bottom: 2, right: 4))
-            }
-            
         case .week:
             iconView.snp.makeConstraints {
                 $0.height.width.equalTo(contentView.bounds.width - 10)
                 $0.centerX.equalToSuperview()
                 $0.bottom.equalToSuperview().inset(5)
             }
-        @unknown default:
-            iconView.snp.makeConstraints {
+        case .month:
+            titleLabel.snp.updateConstraints {
+                $0.center.equalToSuperview()
+            }
+            
+            iconView.snp.remakeConstraints {
                 $0.edges.equalTo(UIEdgeInsets(top: 2, left: 4, bottom: 2, right: 4))
             }
+        @unknown default:
+            fatalError()
         }
     }
-    private func updateUI() {
-     //   iconView.image = .icDate50
-        self.state = .none
-        self.mode = .week
+    
+    private func updateUI(state: ToDoState) {
+        iconView.image = state.icon
     }
-}
-extension MissionCalendarCell {
+    
     func configure(_ state: ToDoState, _ mode: FSCalendarScope) {
         self.mode = mode
         self.state = state
-        updateUI()
+        setLayout(mode: mode)
+        updateUI(state: state)
     }
 }
