@@ -22,8 +22,10 @@ class AuthViewController: UIViewController {
     private var loginMainLabel = UILabel()
     private var loginSubLabel = UILabel()
     private var kakaoLoginImageView = UIImageView()
-    private var kakaoLoginButton = UIButton(configuration: .filled())
-    private var appleLoginButton = UIButton(configuration: .filled())
+    private var kakaoLoginButtonView = AuthButtonView(frame: .zero, title: I18N.kakaoLogin, icon: .kakaoLogo, color: .kakaoYellow)
+    private var appleLoginButtonView = AuthButtonView(frame: .zero, title: I18N.appleLogin, icon: .appleLogo, color: .white)
+    private var kakaoLoginButton = UIButton()
+    private var appleLoginButton = UIButton()
     
     // MARK: - Life Cycle
     
@@ -53,38 +55,13 @@ extension AuthViewController {
         
         kakaoLoginImageView.image = .kakaoLoginLabel
         
-        kakaoLoginButton.do {
-            $0.configuration?.title = I18N.kakaoLogin
-            $0.contentHorizontalAlignment = .leading
-            $0.configuration?.image = .kakaoLogo
-            $0.configuration?.imagePadding = 90
-            $0.configuration?.imagePlacement = NSDirectionalRectEdge.leading
-            $0.titleLabel?.font = .Pretendard(.medium, size: 16)
-            $0.configuration?.baseForegroundColor = .systemBlack
-            $0.configuration?.baseBackgroundColor = .kakaoYellow
-            $0.layer.cornerRadius = 5
-            $0.configuration?.contentInsets = NSDirectionalEdgeInsets.init(top: 0, leading: 14, bottom: 0, trailing: 0)
-            $0.addTarget(self, action: #selector(kakaoLoginButtonClicked), for: .touchUpInside)
-        }
-        
-        appleLoginButton.do {
-            $0.configuration?.title = I18N.appleLogin
-            $0.contentHorizontalAlignment = .leading
-            $0.configuration?.image = .appleLogo
-            $0.configuration?.imagePadding = 81
-            $0.configuration?.imagePlacement = NSDirectionalRectEdge.leading
-            $0.titleLabel?.font = .Pretendard(.medium, size: 16)
-            $0.configuration?.baseForegroundColor = .systemBlack
-            $0.configuration?.baseBackgroundColor = .white
-            $0.layer.cornerRadius = 5
-            $0.configuration?.contentInsets = NSDirectionalEdgeInsets.init(top: 0, leading: 12, bottom: 0, trailing: 0)
-            $0.addTarget(self, action: #selector(kakaoLoginButtonClicked), for: .touchUpInside)
-        }
+        kakaoLoginButton.addTarget(self, action: #selector(kakaoLoginButtonClicked), for: .touchUpInside)
+        appleLoginButton.addTarget(self, action: #selector(appleLoginButtonClicked), for: .touchUpInside)
     }
     
     private func setLayout() {
         
-        view.addSubviews(loginMainLabel, loginSubLabel, kakaoLoginImageView, kakaoLoginButton, appleLoginButton)
+        view.addSubviews(loginMainLabel, loginSubLabel, kakaoLoginImageView, kakaoLoginButtonView, appleLoginButtonView, kakaoLoginButton, appleLoginButton)
         
         loginMainLabel.snp.makeConstraints {
             $0.top.equalToSuperview().offset(155)
@@ -96,23 +73,29 @@ extension AuthViewController {
             $0.leading.equalTo(loginMainLabel.snp.leading)
         }
         
-        appleLoginButton.snp.makeConstraints {
-            $0.bottom.equalToSuperview().offset(-91)
-            $0.leading.trailing.equalToSuperview().inset(17)
-            $0.height.equalTo(53)
+        appleLoginButtonView.snp.makeConstraints {
+            $0.leading.trailing.equalToSuperview()
+            $0.bottom.equalToSuperview().offset(-93)
         }
-        
-        kakaoLoginButton.snp.makeConstraints {
-            $0.bottom.equalTo(appleLoginButton.snp.top).offset(-12)
-            $0.leading.trailing.equalToSuperview().inset(17)
-            $0.height.equalTo(appleLoginButton.snp.height)
+
+        kakaoLoginButtonView.snp.makeConstraints {
+            $0.leading.trailing.equalToSuperview()
+            $0.bottom.equalTo(appleLoginButtonView.snp.top).offset(-11)
         }
         
         kakaoLoginImageView.snp.makeConstraints {
-            $0.bottom.equalTo(kakaoLoginButton.snp.top).offset(-10)
+            $0.bottom.equalTo(kakaoLoginButtonView.snp.top).offset(-9)
             $0.leading.equalToSuperview().offset(22)
             $0.width.equalTo(189)
             $0.height.equalTo(37)
+        }
+        
+        kakaoLoginButton.snp.makeConstraints {
+            $0.top.bottom.leading.trailing.equalTo(kakaoLoginButtonView)
+        }
+
+        appleLoginButton.snp.makeConstraints {
+            $0.top.bottom.leading.trailing.equalTo(appleLoginButtonView)
         }
         
     }
