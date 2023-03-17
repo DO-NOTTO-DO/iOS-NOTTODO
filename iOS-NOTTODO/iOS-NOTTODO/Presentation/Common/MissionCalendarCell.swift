@@ -20,7 +20,7 @@ extension ToDoState {
     var icon: UIImage? {
         switch self {
         case .none:
-            return nil
+            return .icDate50
         case .rateHalf:
             return .icDate50
         case .rateFull:
@@ -42,6 +42,7 @@ final class MissionCalendarCell: FSCalendarCell {
     // MARK: - UI Components
     
     private let iconView = UIImageView()
+    private var padding = 8
     
     // MARK: - Life Cycle
     
@@ -60,11 +61,11 @@ final class MissionCalendarCell: FSCalendarCell {
         
         contentView.insertSubview(iconView, at: 0)
         iconView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
+            $0.edges.equalTo(UIEdgeInsets(top: 2, left: 4, bottom: 2, right: 4))
         }
     }
     private func updateUI() {
-        iconView.backgroundColor = .yellow
+        iconView.image = .icDate50
         }
 }
 extension MissionCalendarCell {
