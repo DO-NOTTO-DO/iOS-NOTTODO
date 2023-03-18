@@ -21,11 +21,17 @@ class AuthViewController: UIViewController {
     
     private var loginMainLabel = UILabel()
     private var loginSubLabel = UILabel()
+    
     private var kakaoLoginImageView = UIImageView()
     private var kakaoLoginButtonView = AuthButtonView(frame: .zero, title: I18N.kakaoLogin, icon: .kakaoLogo, color: .kakaoYellow)
     private var appleLoginButtonView = AuthButtonView(frame: .zero, title: I18N.appleLogin, icon: .appleLogo, color: .white)
     private var kakaoLoginButton = UIButton()
     private var appleLoginButton = UIButton()
+    
+    private var moreButtonView = UIView()
+    private var conditionButton = UIButton()
+    private var andLabel = UILabel()
+    private var personalInfoButton = UIButton()
     
     // MARK: - Life Cycle
     
@@ -61,7 +67,8 @@ extension AuthViewController {
     
     private func setLayout() {
         
-        view.addSubviews(loginMainLabel, loginSubLabel, kakaoLoginImageView, kakaoLoginButtonView, appleLoginButtonView, kakaoLoginButton, appleLoginButton)
+        view.addSubviews(loginMainLabel, loginSubLabel, kakaoLoginImageView, kakaoLoginButtonView, appleLoginButtonView, kakaoLoginButton, appleLoginButton, moreButtonView)
+        moreButtonView.addSubviews(conditionButton, andLabel, personalInfoButton)
         
         loginMainLabel.snp.makeConstraints {
             $0.top.equalToSuperview().offset(155)

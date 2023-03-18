@@ -65,7 +65,7 @@ extension AuthButtonView {
         }
         
         buttonIcon.snp.makeConstraints {
-            $0.leading.equalToSuperview().offset(14)
+            $0.centerX.equalTo(buttonView.snp.leading).offset(27)
             $0.centerY.equalToSuperview()
         }
         
