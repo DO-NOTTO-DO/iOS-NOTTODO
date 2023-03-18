@@ -28,9 +28,8 @@ class AuthViewController: UIViewController {
     private var kakaoLoginButton = UIButton()
     private var appleLoginButton = UIButton()
     
-    private var moreButtonView = UIView()
+    private var moreLabel = UILabel()
     private var conditionButton = UIButton()
-    private var andLabel = UILabel()
     private var personalInfoButton = UIButton()
     
     // MARK: - Life Cycle
@@ -63,12 +62,32 @@ extension AuthViewController {
         
         kakaoLoginButton.addTarget(self, action: #selector(kakaoLoginButtonClicked), for: .touchUpInside)
         appleLoginButton.addTarget(self, action: #selector(appleLoginButtonClicked), for: .touchUpInside)
+        
+        moreLabel.do {
+            $0.text = I18N.moreAuth
+            $0.textColor = .gray4
+            $0.font = .Pretendard(.regular, size: 12)
+        }
+        
+        conditionButton.do {
+            $0.setTitle(I18N.condition, for: .normal)
+            $0.setTitleColor(.gray4, for: .normal)
+            $0.titleLabel?.font = .Pretendard(.regular, size: 12)
+            $0.setUnderline()
+        }
+        
+        personalInfoButton.do {
+            $0.setTitle(I18N.personalInfo, for: .normal)
+            $0.setTitleColor(.gray4, for: .normal)
+            $0.titleLabel?.font = .Pretendard(.regular, size: 12)
+            $0.setUnderline()
+        }
     }
     
     private func setLayout() {
         
-        view.addSubviews(loginMainLabel, loginSubLabel, kakaoLoginImageView, kakaoLoginButtonView, appleLoginButtonView, kakaoLoginButton, appleLoginButton, moreButtonView)
-        moreButtonView.addSubviews(conditionButton, andLabel, personalInfoButton)
+        view.addSubviews(loginMainLabel, loginSubLabel, kakaoLoginImageView, kakaoLoginButtonView, appleLoginButtonView, kakaoLoginButton, appleLoginButton, moreLabel)
+        moreLabel.addSubviews(conditionButton, personalInfoButton)
         
         loginMainLabel.snp.makeConstraints {
             $0.top.equalToSuperview().offset(155)
@@ -80,9 +99,14 @@ extension AuthViewController {
             $0.leading.equalTo(loginMainLabel.snp.leading)
         }
         
+        moreLabel.snp.makeConstraints {
+            $0.bottom.equalToSuperview().offset(-65)
+            $0.centerX.equalToSuperview()
+        }
+        
         appleLoginButtonView.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview()
-            $0.bottom.equalToSuperview().offset(-93)
+            $0.bottom.equalTo(moreLabel.snp.top).offset(-14)
         }
 
         kakaoLoginButtonView.snp.makeConstraints {
@@ -103,6 +127,14 @@ extension AuthViewController {
 
         appleLoginButton.snp.makeConstraints {
             $0.top.bottom.leading.trailing.equalTo(appleLoginButtonView)
+        }
+        
+        conditionButton.snp.makeConstraints {
+            $0.centerY.leading.equalToSuperview()
+        }
+        
+        personalInfoButton.snp.makeConstraints {
+            $0.centerY.trailing.equalToSuperview()
         }
         
     }
