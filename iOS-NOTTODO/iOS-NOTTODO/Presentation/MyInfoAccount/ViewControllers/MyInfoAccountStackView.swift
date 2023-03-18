@@ -11,8 +11,6 @@ import SnapKit
 import Then
 
 class MyInfoAccountStackView: UIView {
-    
-    // MARK: - Properties
         
     // MARK: - UI Components
     
@@ -40,7 +38,7 @@ class MyInfoAccountStackView: UIView {
 
 extension MyInfoAccountStackView {
     private func setUI(title: String, isHidden: Bool) {
-        layer.cornerRadius = 12
+        layer.cornerRadius = 10
         
         horizontalStackView.do {
             $0.addArrangedSubviews(titleLabel, emptyView, isHidden ? checkImage : contentLabel)
@@ -49,20 +47,23 @@ extension MyInfoAccountStackView {
         
         titleLabel.do {
             $0.text = title
-            $0.font = .Pretendard(.semiBold, size: 16)
+            $0.font = .Pretendard(.medium, size: 14)
             $0.textColor = .white
             $0.numberOfLines = 0
             $0.textAlignment = .left
         }
+        
         checkImage.do {
             $0.image = UIImage(named: "ic_create_checked")
         }
+        
         contentLabel.do {
-            $0.font = .Pretendard(.semiBold, size: 16)
-            $0.textColor = .white
+            $0.font = .Pretendard(.regular, size: 14)
+            $0.textColor = .gray6
             $0.numberOfLines = 0
             $0.textAlignment = .left
         }
+        
         lineView.do {
             $0.backgroundColor = .gray2
             $0.isHidden = isHidden ? true : false
@@ -75,21 +76,21 @@ extension MyInfoAccountStackView {
         titleLabel.snp.makeConstraints {
             $0.centerY.equalToSuperview()
         }
+        
         horizontalStackView.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(7)
-            $0.directionalHorizontalEdges.equalToSuperview().inset(28)
-            $0.bottom.equalToSuperview().inset(24)
+            $0.top.equalToSuperview().offset(10)
+            $0.directionalHorizontalEdges.equalToSuperview().inset(20)
+            $0.bottom.equalToSuperview().inset(10)
+            $0.height.equalTo(30)
         }
 
         if !isHidden {
             contentLabel.snp.makeConstraints {
                 $0.centerY.equalToSuperview()
-                $0.trailing.equalToSuperview().inset(7)
             }
         } else {
             checkImage.snp.makeConstraints {
-                $0.trailing.equalToSuperview().inset(7)
-                $0.size.equalTo(21)
+                $0.height.equalTo(31)
             }
         }
         
@@ -100,4 +101,3 @@ extension MyInfoAccountStackView {
         }
     }
 }
-

@@ -21,13 +21,16 @@ class MyInfoAccountViewController: UIViewController {
     private let emailView = MyInfoAccountStackView(title: I18N.email, isHidden: false)
     private let accountView = MyInfoAccountStackView(title: I18N.account, isHidden: false)
     private let notificationView = MyInfoAccountStackView(title: I18N.notification, isHidden: true)
+    
+    private let logoutView = UIView()
+    private let logoutButton = UIButton()
     private let withdrawButton = UIButton()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setUI()
         setLayout()
-        configure(model: MyInfoAccountModel(nickname: "aaa", email: "aaa@aaaaa.aaa", account: "kakao", notification: true))
+        configure(model: MyInfoAccountModel(nickname: "내 이름은 노또", email: "test@kakao.com", account: "kakao", notification: true))
     }
 }
 
@@ -54,8 +57,19 @@ private extension MyInfoAccountViewController {
             $0.axis = .vertical
             $0.spacing = 0
             $0.distribution = .equalSpacing
-            $0.layer.cornerRadius = 12
+            $0.layer.cornerRadius = 10
             $0.backgroundColor = .gray1
+        }
+        
+        logoutView.do {
+            $0.layer.cornerRadius = 10
+            $0.backgroundColor = .gray1
+        }
+        
+        logoutButton.do {
+            $0.setTitle(I18N.logout, for: .normal)
+            $0.setTitleColor(.ntdRed, for: .normal)
+            $0.titleLabel?.font = .Pretendard(.medium, size: 14)
         }
         
         withdrawButton.do {
@@ -67,8 +81,9 @@ private extension MyInfoAccountViewController {
     }
     
     func setLayout() {
-        view.addSubviews(navigationView, seperateView, verticalStackView, withdrawButton)
+        view.addSubviews(navigationView, seperateView, verticalStackView, logoutView, withdrawButton)
         navigationView.addSubviews(backButton, navigationTitle)
+        logoutView.addSubview(logoutButton)
         
         navigationView.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide)
@@ -92,9 +107,20 @@ private extension MyInfoAccountViewController {
         }
         
         verticalStackView.snp.makeConstraints {
-            $0.top.equalTo(navigationView.snp.bottom).offset(50)
-            $0.directionalHorizontalEdges.equalToSuperview().inset(18)
-            $0.height.equalTo(200)
+            $0.top.equalTo(navigationView.snp.bottom).offset(35)
+            $0.directionalHorizontalEdges.equalToSuperview().inset(22)
+            // $0.height.equalTo(200)
+        }
+        
+        logoutView.snp.makeConstraints {
+            $0.top.equalTo(verticalStackView.snp.bottom).offset(21)
+            $0.directionalHorizontalEdges.equalToSuperview().inset(22)
+            $0.height.equalTo(50)
+        }
+        
+        logoutButton.snp.makeConstraints {
+            $0.leading.equalToSuperview().offset(20)
+            $0.centerY.equalToSuperview()
         }
         
         withdrawButton.snp.makeConstraints {
