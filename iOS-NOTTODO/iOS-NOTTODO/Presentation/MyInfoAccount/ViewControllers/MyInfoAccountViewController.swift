@@ -109,7 +109,6 @@ private extension MyInfoAccountViewController {
         verticalStackView.snp.makeConstraints {
             $0.top.equalTo(navigationView.snp.bottom).offset(35)
             $0.directionalHorizontalEdges.equalToSuperview().inset(22)
-            // $0.height.equalTo(200)
         }
         
         logoutView.snp.makeConstraints {

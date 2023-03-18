@@ -18,7 +18,8 @@ class MyInfoAccountStackView: UIView {
     private let emptyView = UIView()
     let titleLabel = UILabel()
     let contentLabel = UILabel()
-    private let checkImage = UIImageView()
+    private let toggleBackView = UIView()
+    private let toggleFrontView = UIView()
     private let lineView = UIView()
     
     // MARK: - View Life Cycle
@@ -41,7 +42,7 @@ extension MyInfoAccountStackView {
         layer.cornerRadius = 10
         
         horizontalStackView.do {
-            $0.addArrangedSubviews(titleLabel, emptyView, isHidden ? checkImage : contentLabel)
+            $0.addArrangedSubviews(titleLabel, emptyView, isHidden ? toggleBackView : contentLabel)
             $0.axis = .horizontal
         }
         
@@ -53,15 +54,21 @@ extension MyInfoAccountStackView {
             $0.textAlignment = .left
         }
         
-        checkImage.do {
-            $0.image = UIImage(named: "ic_create_checked")
-        }
-        
         contentLabel.do {
             $0.font = .Pretendard(.regular, size: 14)
             $0.textColor = .gray6
             $0.numberOfLines = 0
             $0.textAlignment = .left
+        }
+        
+        toggleBackView.do {
+            $0.layer.cornerRadius = 30/2
+            $0.backgroundColor = .green2
+        }
+        
+        toggleFrontView.do {
+            $0.layer.cornerRadius = 30/2
+            $0.backgroundColor = .white
         }
         
         lineView.do {
@@ -89,8 +96,8 @@ extension MyInfoAccountStackView {
                 $0.centerY.equalToSuperview()
             }
         } else {
-            checkImage.snp.makeConstraints {
-                $0.height.equalTo(31)
+            toggleBackView.snp.makeConstraints {
+                $0.width.equalTo(50)
             }
         }
         
