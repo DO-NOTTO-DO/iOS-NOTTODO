@@ -7,7 +7,7 @@
 
 struct I18N {
     
-    // Auth
+    /// Auth
     
     static let loginMain = """
                         나만을 위한 추천과
@@ -17,13 +17,18 @@ struct I18N {
                         계정을 연동하면 언제 어디서든
                         낫투두 기록을 관리할 수 있어요.
                         """
+    static let kakaoLogin = "카카오 로그인"
+    static let appleLogin = "Apple로 로그인"
+    static let moreAuth = "이용약관 및 개인정보 처리방침"
+    static let condition = "이용약관"
+    static let personalInfo = "개인정보 처리방침"
     
-    // Recommend
+    /// Recommend
     
     static let recommendNavTitle = "낫투두 생성"
     static let addAction = "직접 입력하러 가기"
     
-    // RecommendAction
+    /// RecommendAction
     
     static let recommendAction = "실천행동 추천"
     static let more = "필요 없어요 or 직접 입력할게요!"
@@ -40,4 +45,7 @@ struct I18N {
     
     static let achievement = "성취"
     static let total = "더욱 나은 낫투두를 위해\n노력중에 있어요, 기다려주세요."
+    
+    /// MyInfo
+    static let myInfo = "내 정보"
 }
