@@ -16,12 +16,18 @@ class MyInfoAccountViewController: UIViewController {
     private let navigationTitle = UILabel()
     private let seperateView = UIView()
     
+    private let verticalStackView = UIStackView()
+    private let nicknameView = MyInfoAccountStackView(title: I18N.nickname, isHidden: false)
+    private let emailView = MyInfoAccountStackView(title: I18N.email, isHidden: false)
+    private let accountView = MyInfoAccountStackView(title: I18N.account, isHidden: false)
+    private let notificationView = MyInfoAccountStackView(title: I18N.notification, isHidden: true)
     private let withdrawButton = UIButton()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setUI()
         setLayout()
+        configure(model: MyInfoAccountModel(nickname: "aaa", email: "aaa@aaaaa.aaa", account: "kakao", notification: true))
     }
 }
 
@@ -43,6 +49,15 @@ private extension MyInfoAccountViewController {
             $0.text = I18N.myInfoAccount
         }
         
+        verticalStackView.do {
+            $0.addArrangedSubviews(nicknameView, emailView, accountView, notificationView)
+            $0.axis = .vertical
+            $0.spacing = 0
+            $0.distribution = .equalSpacing
+            $0.layer.cornerRadius = 12
+            $0.backgroundColor = .gray1
+        }
+        
         withdrawButton.do {
             $0.setTitle(I18N.withdraw, for: .normal)
             $0.setTitleColor(.gray4, for: .normal)
@@ -52,7 +67,7 @@ private extension MyInfoAccountViewController {
     }
     
     func setLayout() {
-        view.addSubviews(navigationView, seperateView, withdrawButton)
+        view.addSubviews(navigationView, seperateView, verticalStackView, withdrawButton)
         navigationView.addSubviews(backButton, navigationTitle)
         
         navigationView.snp.makeConstraints {
@@ -76,9 +91,21 @@ private extension MyInfoAccountViewController {
             $0.height.equalTo(0.7)
         }
         
+        verticalStackView.snp.makeConstraints {
+            $0.top.equalTo(navigationView.snp.bottom).offset(50)
+            $0.directionalHorizontalEdges.equalToSuperview().inset(18)
+            $0.height.equalTo(200)
+        }
+        
         withdrawButton.snp.makeConstraints {
             $0.centerX.equalToSuperview()
             $0.bottom.equalToSuperview().offset(-119)
         }
+    }
+    
+    func configure(model: MyInfoAccountModel) {
+        nicknameView.contentLabel.text = model.nickname
+        emailView.contentLabel.text = model.email
+        accountView.contentLabel.text = model.account
     }
 }
