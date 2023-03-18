@@ -32,7 +32,7 @@ final class AuthButtonView: UIView {
     }
 }
 
-// MARK: - Methodss
+// MARK: - Methods
 
 extension AuthButtonView {
     private func setUI(title: String?, icon: UIImage?, color: UIColor?) {
