@@ -52,7 +52,7 @@ private extension MyInfoAccountViewController {
     }
     
     func setLayout() {
-        view.addSubviews(navigationView, seperateView)
+        view.addSubviews(navigationView, seperateView, withdrawButton)
         navigationView.addSubviews(backButton, navigationTitle)
         
         navigationView.snp.makeConstraints {
@@ -74,6 +74,11 @@ private extension MyInfoAccountViewController {
             $0.top.equalTo(navigationView.snp.bottom)
             $0.directionalHorizontalEdges.equalToSuperview()
             $0.height.equalTo(0.7)
+        }
+        
+        withdrawButton.snp.makeConstraints {
+            $0.centerX.equalToSuperview()
+            $0.bottom.equalToSuperview().offset(-119)
         }
     }
 }
