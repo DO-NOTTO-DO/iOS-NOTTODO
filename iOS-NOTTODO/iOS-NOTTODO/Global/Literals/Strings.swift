@@ -52,8 +52,9 @@ struct I18N {
     static let date = "날짜"
     static let nottodo = "낫투두"
     static let situation = "상황"
-    static let action = "실천행동"
+    static let doAction = "실천행동"
     static let goal = "목표"
+    static let action = "행동"
     static let subDateTitle = "언제 낫투두를 실천할까요?"
     static let subNottodo = "어떤 낫투두를 설정해볼까요?"
     static let subSituation = """
@@ -69,6 +70,10 @@ struct I18N {
                         어떤 목표를 이루려 하나요?
                         """
     static let missionHistoryLabel = "낫투두 입력 기록"
+    static let recommendKeyword = "추천 키워드"
+    static let example = "예시)"
+    static let exampleNottodo = "유튜브 보지 않기"
+    static let exampleGoal = "유튜브 프리미엄 구독 취소"
     
     /// MyInfo
     static let myInfo = "내 정보"
