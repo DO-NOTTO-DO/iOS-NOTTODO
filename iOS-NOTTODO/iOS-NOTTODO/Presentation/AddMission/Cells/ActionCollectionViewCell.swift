@@ -23,6 +23,10 @@ final class ActionCollectionViewCell: UICollectionViewCell, AddMissionMenu {
     private let subTitleLabel = SubTitleLabel(subTitle: I18N.subAction,
                                               colorText: I18N.action)
     private var addMissionTextField = AddMissionTextFieldView(frame: .zero)
+    private let exampleLabel = UILabel()
+    private let exampleNottodo = UILabel()
+    private let exampleActionOne = UILabel()
+    private let exampleActionTwo = UILabel()
     
     // MARK: - Life Cycle
     override init(frame: CGRect) {
@@ -43,10 +47,31 @@ private extension ActionCollectionViewCell {
         layer.borderColor = UIColor.gray3?.cgColor
         layer.cornerRadius = 12
         layer.borderWidth = 1
+        
+        exampleLabel.do {
+            $0.text = I18N.example
+            $0.textColor = .gray3
+            $0.font = .Pretendard(.regular, size: 14)
+        }
+        
+        exampleNottodo.do {
+            $0.text = I18N.exampleNottodo
+            $0.textColor = .bg
+            $0.font = .Pretendard(.medium, size: 14)
+        }
+        
+        [exampleActionOne, exampleActionTwo].forEach {
+            $0.font = .Pretendard(.medium, size: 13)
+            $0.textColor = .gray4
+        }
+        
+        exampleActionOne.text = I18N.exampleGoal
+        exampleActionTwo.text = I18N.exampleAction
     }
     
     func setLayout() {
-        addSubviews(titleLabel, subTitleLabel, addMissionTextField)
+        addSubviews(titleLabel, subTitleLabel, addMissionTextField, exampleLabel,
+                    exampleNottodo, exampleActionOne, exampleActionTwo)
         
         titleLabel.snp.makeConstraints {
             $0.top.equalToSuperview().inset(16)
@@ -62,6 +87,26 @@ private extension ActionCollectionViewCell {
             $0.top.equalTo(subTitleLabel.snp.bottom).offset(25)
             $0.directionalHorizontalEdges.equalToSuperview().inset(23)
             $0.height.equalTo(48)
+        }
+        
+        exampleLabel.snp.makeConstraints {
+            $0.top.equalTo(addMissionTextField.snp.bottom).offset(12)
+            $0.leading.equalToSuperview().inset(23)
+        }
+        
+        exampleNottodo.snp.makeConstraints {
+            $0.centerY.equalTo(exampleLabel)
+            $0.leading.equalTo(exampleLabel.snp.trailing).offset(8)
+        }
+        
+        exampleActionOne.snp.makeConstraints {
+            $0.top.equalTo(exampleNottodo.snp.bottom).offset(8)
+            $0.leading.equalTo(exampleNottodo.snp.leading)
+        }
+        
+        exampleActionTwo.snp.makeConstraints {
+            $0.top.equalTo(exampleActionOne.snp.bottom).offset(6)
+            $0.leading.equalTo(exampleNottodo.snp.leading)
         }
     }
 }

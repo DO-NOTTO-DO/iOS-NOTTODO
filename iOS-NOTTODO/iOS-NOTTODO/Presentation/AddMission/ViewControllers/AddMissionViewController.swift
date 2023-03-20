@@ -27,8 +27,6 @@ final class AddMissionViewController: UIViewController {
         }
     }
     
-    weak var collectionViewHeight: NSLayoutConstraint!
-    
     // MARK: - UI Components
     
     private let navigationView = UIView()
@@ -47,13 +45,6 @@ final class AddMissionViewController: UIViewController {
         setLayout()
         registerCell()
         setDelegate()
-    }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        let height = addMissionCollectionView.collectionViewLayout.collectionViewContentSize.height
-        collectionViewHeight.constant = height
-        self.view.layoutIfNeeded()
     }
 }
 
@@ -96,7 +87,6 @@ private extension AddMissionViewController {
     
     func setLayout() {
         navigationView.addSubviews(dismissButton, navigationTitle, addButton)
-        
         view.addSubviews(navigationView, separateView, addMissionCollectionView)
         
         dismissButton.snp.makeConstraints {
