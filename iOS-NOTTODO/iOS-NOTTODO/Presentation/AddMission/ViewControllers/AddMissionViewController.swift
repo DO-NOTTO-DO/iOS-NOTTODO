@@ -67,6 +67,9 @@ private extension AddMissionViewController {
             $0.isEnabled = isAdd
         }
     
+        addMissionCollectionView.do {
+            $0.backgroundColor = .clear
+        }
     }
     
     func setLayout() {
@@ -109,6 +112,7 @@ private extension AddMissionViewController {
     func layout() -> UICollectionViewFlowLayout {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
+        layout.minimumLineSpacing = 14
         return layout
     }
     
@@ -120,22 +124,48 @@ private extension AddMissionViewController {
     func registerCell() {
         addMissionCollectionView.register(NottodoCollectionViewCell.self,
                                           forCellWithReuseIdentifier: NottodoCollectionViewCell.identifier)
+        addMissionCollectionView.register(SituationCollectionViewCell.self,
+                                          forCellWithReuseIdentifier: SituationCollectionViewCell.identifier)
+        addMissionCollectionView.register(ActionCollectionViewCell.self,
+                                          forCellWithReuseIdentifier: ActionCollectionViewCell.identifier)
+        addMissionCollectionView.register(GoalCollectionViewCell.self,
+                                          forCellWithReuseIdentifier: GoalCollectionViewCell.identifier)
     }
 }
 
 extension AddMissionViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 1
+        return 4
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NottodoCollectionViewCell.identifier, for: indexPath) as? NottodoCollectionViewCell else { return UICollectionViewCell() }
-        return cell
+        switch indexPath.row {
+        case 0:
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NottodoCollectionViewCell.identifier, for: indexPath) as? NottodoCollectionViewCell else { return UICollectionViewCell() }
+            return cell
+        case 1:
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SituationCollectionViewCell.identifier, for: indexPath) as? SituationCollectionViewCell else { return UICollectionViewCell() }
+            return cell
+        case 2:
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ActionCollectionViewCell.identifier, for: indexPath) as? ActionCollectionViewCell else { return UICollectionViewCell() }
+            return cell
+        case 3:
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: GoalCollectionViewCell.identifier, for: indexPath) as? GoalCollectionViewCell else { return UICollectionViewCell() }
+            return cell
+        default:
+            return UICollectionViewCell()
+        }
     }
 }
 
 extension AddMissionViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 345, height: 347)
+        var cellWidth: CGFloat = 345
+        switch indexPath.row {
+        case 3:
+            return CGSize(width: cellWidth, height: 307)
+        default:
+            return CGSize(width: cellWidth, height: 347)
+        }
     }
 }
