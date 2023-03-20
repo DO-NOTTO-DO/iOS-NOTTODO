@@ -21,8 +21,7 @@ class MyInfoAccountStackView: UIView {
     let notificationSwitch = UISwitch()
     private let lineView = UIView()
     var isTapped: Bool = false
-    var switchClosure: ((_ isTapped: Bool)->Void)?
-    
+    var switchClosure: ((_ isTapped: Bool) -> Void)?
     
     // MARK: - View Life Cycle
     
