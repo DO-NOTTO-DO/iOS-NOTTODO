@@ -24,7 +24,7 @@ final class NottodoCollectionViewCell: UICollectionViewCell, AddMissionMenu {
                                               colorText: I18N.nottodo)
     private var addMissionTextField = AddMissionTextFieldView(frame: .zero)
     private let historyLabel = UILabel()
-//    private lazy var historyCollectionView = UICollectionView()
+    private lazy var historyCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout())
     
     // MARK: Life Cycle
     
@@ -32,6 +32,8 @@ final class NottodoCollectionViewCell: UICollectionViewCell, AddMissionMenu {
         super.init(frame: .zero)
         setUI()
         setLayout()
+        setDelegate()
+        registerCell()
     }
     
     @available(*, unavailable)
@@ -46,6 +48,8 @@ private extension NottodoCollectionViewCell {
         layer.borderColor = UIColor.gray3?.cgColor
         layer.cornerRadius = 12
         layer.borderWidth = 1
+        historyCollectionView.backgroundColor = .clear
+        historyCollectionView.indicatorStyle = .white
         
         historyLabel.do {
             $0.font = .Pretendard(.regular, size: 14)
@@ -55,7 +59,8 @@ private extension NottodoCollectionViewCell {
     }
     
     func setLayout() {
-        addSubviews(titleLabel, subTitleLabel, addMissionTextField, historyLabel)
+        addSubviews(titleLabel, subTitleLabel, addMissionTextField,
+                    historyLabel, historyCollectionView)
         
         titleLabel.snp.makeConstraints {
             $0.top.equalToSuperview().inset(16)
@@ -72,10 +77,52 @@ private extension NottodoCollectionViewCell {
             $0.directionalHorizontalEdges.equalToSuperview().inset(23)
             $0.height.equalTo(48)
         }
-//        
-//        historyLabel.snp.makeConstraints {
-//            $0.top.equalTo(addMissionTextField.snp.bottom).offset(11)
-//            $0.leading.equalToSuperview().inset(24)
-//        }
+        
+        historyLabel.snp.makeConstraints {
+            $0.top.equalTo(addMissionTextField.snp.bottom).offset(11)
+            $0.leading.equalToSuperview().inset(24)
+        }
+        
+        historyCollectionView.snp.makeConstraints {
+            $0.top.equalTo(historyLabel.snp.bottom).offset(6)
+            $0.directionalHorizontalEdges.equalToSuperview().inset(28)
+            $0.bottom.equalToSuperview().inset(32)
+        }
+    }
+    
+    func layout() -> UICollectionViewFlowLayout {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .vertical
+        layout.minimumLineSpacing = 0
+        layout.minimumInteritemSpacing = 0
+        return layout
+    }
+    
+    func registerCell() {
+        historyCollectionView.register(MissionHistoryCollectionViewCell.self,
+                                       forCellWithReuseIdentifier: MissionHistoryCollectionViewCell.identifier)
+    }
+    
+    func setDelegate() {
+        historyCollectionView.delegate = self
+        historyCollectionView.dataSource = self
+    }
+}
+
+extension NottodoCollectionViewCell: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return MissionHistoryModel.items.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MissionHistoryCollectionViewCell.identifier, for: indexPath) as? MissionHistoryCollectionViewCell else { return UICollectionViewCell() }
+        cell.configure(MissionHistoryModel.items[indexPath.row])
+        return cell
+    }
+}
+
+extension NottodoCollectionViewCell: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: collectionView.frame.width, height: 37)
     }
 }
