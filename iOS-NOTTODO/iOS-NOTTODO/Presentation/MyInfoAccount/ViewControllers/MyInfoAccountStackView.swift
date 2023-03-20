@@ -18,9 +18,11 @@ class MyInfoAccountStackView: UIView {
     private let emptyView = UIView()
     let titleLabel = UILabel()
     let contentLabel = UILabel()
-    private let toggleBackView = UIView()
-    private let toggleFrontView = UIView()
+    let notificationSwitch = UISwitch()
     private let lineView = UIView()
+    var isTapped: Bool = false
+    var switchClosure: ((_ isTapped: Bool)->Void)?
+    
     
     // MARK: - View Life Cycle
     
@@ -42,7 +44,7 @@ extension MyInfoAccountStackView {
         layer.cornerRadius = 10
         
         horizontalStackView.do {
-            $0.addArrangedSubviews(titleLabel, emptyView, isHidden ? toggleBackView : contentLabel)
+            $0.addArrangedSubviews(titleLabel, emptyView, isHidden ? notificationSwitch : contentLabel)
             $0.axis = .horizontal
         }
         
@@ -61,14 +63,10 @@ extension MyInfoAccountStackView {
             $0.textAlignment = .left
         }
         
-        toggleBackView.do {
-            $0.layer.cornerRadius = 30/2
-            $0.backgroundColor = .green2
-        }
-        
-        toggleFrontView.do {
-            $0.layer.cornerRadius = 30/2
-            $0.backgroundColor = .white
+        notificationSwitch.do {
+            $0.isOn = true
+            $0.onTintColor = .green2
+            $0.addTarget(self, action: #selector(switchTapped), for: .valueChanged)
         }
         
         lineView.do {
@@ -96,7 +94,9 @@ extension MyInfoAccountStackView {
                 $0.centerY.equalToSuperview()
             }
         } else {
-            toggleBackView.snp.makeConstraints {
+            notificationSwitch.snp.makeConstraints {
+                $0.centerY.equalToSuperview()
+                $0.height.equalTo(30)
                 $0.width.equalTo(50)
             }
         }
@@ -106,5 +106,10 @@ extension MyInfoAccountStackView {
             $0.bottom.equalToSuperview()
             $0.height.equalTo(0.5)
         }
+    }
+    
+    @objc func switchTapped(_ sender: Any) {
+        isTapped.toggle()
+        switchClosure?(isTapped)
     }
 }

@@ -38,6 +38,13 @@ class MyInfoAccountViewController: UIViewController {
 
 private extension MyInfoAccountViewController {
     func setUI() {
+        
+        self.notificationView.switchClosure = { result in
+           if result {
+               self.notificationView.notificationSwitch.setOn(result, animated: true)
+           }
+        }
+        
         view.backgroundColor = .ntdBlack
         seperateView.backgroundColor = .gray2
         
