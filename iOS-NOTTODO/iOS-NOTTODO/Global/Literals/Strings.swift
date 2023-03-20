@@ -74,6 +74,7 @@ struct I18N {
     static let example = "예시)"
     static let exampleNottodo = "유튜브 보지 않기"
     static let exampleGoal = "유튜브 프리미엄 구독 취소"
+    static let exampleAction = "공부 중에 가방 안에 핸드폰 넣기"
     
     /// MyInfo
     static let myInfo = "내 정보"
