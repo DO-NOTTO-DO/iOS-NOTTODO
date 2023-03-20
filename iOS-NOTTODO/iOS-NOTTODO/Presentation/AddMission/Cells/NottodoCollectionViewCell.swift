@@ -21,10 +21,10 @@ final class NottodoCollectionViewCell: UICollectionViewCell, AddMissionMenu {
     
     private let titleLabel = TitleLabel(title: I18N.nottodo)
     private let subTitleLabel = SubTitleLabel(subTitle: I18N.subNottodo,
-                                                        colorText: I18N.nottodo)
+                                              colorText: I18N.nottodo)
     private var addMissionTextField = AddMissionTextFieldView(frame: .zero)
     private let historyLabel = UILabel()
-    private lazy var historyCollectionView = UICollectionView()
+//    private lazy var historyCollectionView = UICollectionView()
     
     // MARK: Life Cycle
     
@@ -55,7 +55,7 @@ private extension NottodoCollectionViewCell {
     }
     
     func setLayout() {
-        addSubviews(titleLabel, subTitleLabel, addMissionTextField, historyLabel, historyCollectionView)
+        addSubviews(titleLabel, subTitleLabel, addMissionTextField, historyLabel)
         
         titleLabel.snp.makeConstraints {
             $0.top.equalToSuperview().inset(16)
@@ -70,11 +70,12 @@ private extension NottodoCollectionViewCell {
         addMissionTextField.snp.makeConstraints {
             $0.top.equalTo(subTitleLabel.snp.bottom).offset(25)
             $0.directionalHorizontalEdges.equalToSuperview().inset(23)
+            $0.height.equalTo(48)
         }
-        
-        historyLabel.snp.makeConstraints {
-            $0.top.equalTo(addMissionTextField.snp.bottom).offset(11)
-            $0.leading.equalToSuperview().inset(24)
-        }
+//        
+//        historyLabel.snp.makeConstraints {
+//            $0.top.equalTo(addMissionTextField.snp.bottom).offset(11)
+//            $0.leading.equalToSuperview().inset(24)
+//        }
     }
 }
