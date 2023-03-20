@@ -27,6 +27,8 @@ final class AddMissionViewController: UIViewController {
         }
     }
     
+    weak var collectionViewHeight: NSLayoutConstraint!
+    
     // MARK: - UI Components
     
     private let navigationView = UIView()
@@ -46,10 +48,18 @@ final class AddMissionViewController: UIViewController {
         registerCell()
         setDelegate()
     }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        let height = addMissionCollectionView.collectionViewLayout.collectionViewContentSize.height
+        collectionViewHeight.constant = height
+        self.view.layoutIfNeeded()
+    }
 }
 
 private extension AddMissionViewController {
     func setUI() {
+        setAddButtonUI()
         view.backgroundColor = .ntdBlack
         separateView.backgroundColor = .gray2
         
@@ -79,8 +89,8 @@ private extension AddMissionViewController {
     
     func setAddButtonUI() {
         addButton.do {
-            $0.backgroundColor = isAdd ? .green2 : .gray2
             $0.isEnabled = isAdd
+            $0.backgroundColor = isAdd ? .green2 : .gray2
         }
     }
     

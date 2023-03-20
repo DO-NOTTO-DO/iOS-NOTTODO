@@ -24,6 +24,7 @@ final class SituationCollectionViewCell: UICollectionViewCell, AddMissionMenu {
                                               colorText: I18N.situation)
     private var addMissionTextField = AddMissionTextFieldView(frame: .zero)
     private let recommendKeywordLabel = UILabel()
+    private lazy var recommendCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout())
     
     // MARK: Life Cycle
     
@@ -31,6 +32,8 @@ final class SituationCollectionViewCell: UICollectionViewCell, AddMissionMenu {
         super.init(frame: .zero)
         setUI()
         setLayout()
+        registerCell()
+        setDelegate()
     }
     
     @available(*, unavailable)
@@ -46,6 +49,11 @@ private extension SituationCollectionViewCell {
         layer.cornerRadius = 12
         layer.borderWidth = 1
         
+        recommendCollectionView.do {
+            $0.backgroundColor = .clear
+            $0.isScrollEnabled = false
+        }
+        
         recommendKeywordLabel.do {
             $0.text = I18N.recommendKeyword
             $0.textColor = .white
@@ -54,7 +62,8 @@ private extension SituationCollectionViewCell {
     }
     
     func setLayout() {
-        addSubviews(titleLabel, subTitleLabel, addMissionTextField, recommendKeywordLabel)
+        addSubviews(titleLabel, subTitleLabel, addMissionTextField,
+                    recommendKeywordLabel, recommendCollectionView)
         
         titleLabel.snp.makeConstraints {
             $0.top.equalToSuperview().inset(16)
@@ -76,5 +85,50 @@ private extension SituationCollectionViewCell {
             $0.top.equalTo(addMissionTextField.snp.bottom).offset(14)
             $0.leading.equalToSuperview().inset(25)
         }
+        
+        recommendCollectionView.snp.makeConstraints {
+            $0.top.equalTo(recommendKeywordLabel.snp.bottom).offset(10)
+            $0.directionalHorizontalEdges.equalToSuperview().inset(23)
+            $0.bottom.equalToSuperview().inset(29)
+        }
+    }
+    
+    func registerCell() {
+        recommendCollectionView.register(RecommendKeywordCollectionViewCell.self,
+                                         forCellWithReuseIdentifier: RecommendKeywordCollectionViewCell.identifier)
+    }
+    
+    func setDelegate() {
+        recommendCollectionView.delegate = self
+        recommendCollectionView.dataSource = self
+    }
+    
+    func layout() -> UICollectionViewFlowLayout {
+        let layout = UICollectionViewFlowLayout()
+        layout.minimumInteritemSpacing = 5
+        layout.minimumLineSpacing = 8
+        return layout
+    }
+}
+
+extension SituationCollectionViewCell: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return RecommendKeywordModel.items.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RecommendKeywordCollectionViewCell.identifier, for: indexPath) as? RecommendKeywordCollectionViewCell else { return UICollectionViewCell() }
+        cell.configure(RecommendKeywordModel.items[indexPath.row])
+        return cell
+    }
+}
+
+extension SituationCollectionViewCell: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let item = RecommendKeywordModel.items[indexPath.row].keyword
+        let itemSize = item.size(withAttributes: [
+            NSAttributedString.Key.font: UIFont.Pretendard(.medium, size: 14)
+        ])
+        return CGSize(width: itemSize.width + 34, height: itemSize.height + 8)
     }
 }
