@@ -56,6 +56,7 @@ extension UIImage {
     static var imgTotal: UIImage { UIImage(named: "img_total")! }
     
     // recommend
+    
     static var card: UIImage { UIImage(named: "img_card")! }
     static var coffee: UIImage { UIImage(named: "img_coffee")! }
     static var downArrow: UIImage { UIImage(named: "img_create_downarrow")! }
