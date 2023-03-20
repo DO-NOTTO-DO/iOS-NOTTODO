@@ -21,7 +21,11 @@ final class AddMissionViewController: UIViewController {
     // MARK: Properties
     
     static var isSE2: Bool = false
-    var isAdd: Bool = false
+    var isAdd: Bool = false {
+        didSet {
+            setAddButtonUI()
+        }
+    }
     
     // MARK: - UI Components
     
@@ -61,14 +65,22 @@ private extension AddMissionViewController {
         }
         
         addButton.do {
+            $0.layer.cornerRadius = 26 / 2
+            $0.titleLabel?.font = .Pretendard(.medium, size: 15)
             $0.setTitle(I18N.add, for: .normal)
             $0.setTitleColor(.gray3, for: .disabled)
-            $0.setTitleColor(.white, for: .normal)
-            $0.isEnabled = isAdd
+            $0.setTitleColor(.gray1, for: .normal)
         }
-    
+        
         addMissionCollectionView.do {
             $0.backgroundColor = .clear
+        }
+    }
+    
+    func setAddButtonUI() {
+        addButton.do {
+            $0.backgroundColor = isAdd ? .green2 : .gray2
+            $0.isEnabled = isAdd
         }
     }
     
@@ -89,6 +101,8 @@ private extension AddMissionViewController {
         addButton.snp.makeConstraints {
             $0.top.equalToSuperview().inset(14)
             $0.trailing.equalToSuperview().inset(19)
+            $0.width.equalTo(60)
+            $0.height.equalTo(26)
         }
         
         navigationView.snp.makeConstraints {
@@ -160,7 +174,7 @@ extension AddMissionViewController: UICollectionViewDataSource {
 
 extension AddMissionViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        var cellWidth: CGFloat = 345
+        let cellWidth: CGFloat = 345
         switch indexPath.row {
         case 3:
             return CGSize(width: cellWidth, height: 307)
