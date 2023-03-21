@@ -57,5 +57,16 @@ struct I18N {
     static let detailComplete = "완료"
     
     /// MyInfo
+
     static let myInfo = "내 정보"
+    
+    /// MyInfoAccount
+    
+    static let myInfoAccount = "계정 정보"
+    static let nickname = "닉네임"
+    static let email = "이메일"
+    static let account = "연결된 계정"
+    static let notification = "푸시 알림 설정"
+    static let logout = "로그아웃"
+    static let withdraw = "회원 탈퇴"
 }
