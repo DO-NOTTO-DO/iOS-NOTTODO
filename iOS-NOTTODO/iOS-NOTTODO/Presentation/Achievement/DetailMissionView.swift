@@ -1,8 +1,8 @@
 //
-//  detailMissionView.swift
+//  DetailMissionView.swift
 //  iOS-NOTTODO
 //
-//  Created by JEONGEUN KIM on 2023/03/14.
+//  Created by JEONGEUN KIM on 2023/03/21.
 //
 
 import UIKit
