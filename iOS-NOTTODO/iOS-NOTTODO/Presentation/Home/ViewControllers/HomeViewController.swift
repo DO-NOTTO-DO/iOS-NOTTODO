@@ -215,7 +215,6 @@ extension HomeViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalend
     
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         weekCalendar.yearMonthLabel.text = Utils.dateFormatterString(format: I18N.yearMonthTitle, date: date)
-        Utils.dateFormatterString(format: "yyyy-MM-dd", date: date)
         if let dateString =  Utils.dateFormatterString(format: "yyyy-MM-dd", date: date) {
             print(dateString)
         }
