@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "btn_login_forapple.png",
+      "filename" : "image 281.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "btn_login_forapple@2x.png",
+      "filename" : "image 281@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "btn_login_forapple@3x.png",
+      "filename" : "image 281@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

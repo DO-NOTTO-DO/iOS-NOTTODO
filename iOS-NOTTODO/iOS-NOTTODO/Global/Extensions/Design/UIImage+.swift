@@ -14,6 +14,8 @@ extension UIImage {
     static var appleLogin: UIImage { UIImage(named: "btn_login_forapple")! }
     static var kakaoLogin: UIImage { UIImage(named: "btn_login_forkakao")! }
     static var kakaoLoginLabel: UIImage { UIImage(named: "label_login_kakao")! }
+    static var appleLogo: UIImage { UIImage(named: "ic_apple_logo")! }
+    static var kakaoLogo: UIImage { UIImage(named: "ic_kakao_logo")! }
     
     // button
     
@@ -56,6 +58,7 @@ extension UIImage {
     static var imgTotal: UIImage { UIImage(named: "img_total")! }
     
     // recommend
+    
     static var card: UIImage { UIImage(named: "img_card")! }
     static var coffee: UIImage { UIImage(named: "img_coffee")! }
     static var downArrow: UIImage { UIImage(named: "img_create_downarrow")! }
