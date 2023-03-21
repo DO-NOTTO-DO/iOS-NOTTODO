@@ -41,8 +41,8 @@ final class SubTitleLabel: UILabel {
     
     // MARK: - Life Cycle
     
-    init(subTitle: String, colorText: String) {
-        self.colorText = colorText
+    init(subTitle: String, colorText: String?) {
+        self.colorText = colorText ?? ""
         super.init(frame: .zero)
         self.text = subTitle
         setUI()
