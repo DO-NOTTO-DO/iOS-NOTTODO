@@ -17,6 +17,7 @@ final class AchievementViewController: UIViewController {
     
     private lazy var safeArea = self.view.safeAreaLayoutGuide
     private lazy var today: Date = { return Date() }()
+    var dataSource: [String: Int] = [:]
     
     // MARK: - UI Components
     
@@ -50,6 +51,7 @@ extension AchievementViewController {
             $0.layer.cornerRadius = 12
             $0.layer.borderWidth = 1
             $0.layer.borderColor = UIColor.gray4?.cgColor
+            $0.calendar.register(MissionCalendarCell.self, forCellReuseIdentifier: MissionCalendarCell.identifier)
             $0.calendar.delegate = self
             $0.calendar.dataSource = self
         }
@@ -101,5 +103,11 @@ extension AchievementViewController: FSCalendarDelegate, FSCalendarDataSource, F
     
     func calendar(_ calendar: FSCalendar, shouldSelect date: Date, at monthPosition: FSCalendarMonthPosition) -> Bool {
         Calendar.current.isDate(date, equalTo: calendar.currentPage, toGranularity: .month)
+    }
+    
+    func calendar(_ calendar: FSCalendar, cellFor date: Date, at position: FSCalendarMonthPosition) -> FSCalendarCell {
+        let cell = calendar.dequeueReusableCell(withIdentifier: MissionCalendarCell.identifier, for: date, at: position) as! MissionCalendarCell
+        cell.configure(.rateHalf, .month)
+        return cell
     }
 }
