@@ -185,6 +185,39 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0917F2AF29C9798800009324 /* Calendar */ = {
+			isa = PBXGroup;
+			children = (
+				099FC98029B3094F005B37E6 /* WeekMonthFSCalendar.swift */,
+				099FC98829B3233D005B37E6 /* CalendarView.swift */,
+			);
+			path = Calendar;
+			sourceTree = "<group>";
+		};
+		0917F2B029C9799100009324 /* Layout */ = {
+			isa = PBXGroup;
+			children = (
+				0982DE5929AE5E6000D933D2 /* CompositionalLayout.swift */,
+			);
+			path = Layout;
+			sourceTree = "<group>";
+		};
+		0917F2B129C979A400009324 /* StackView */ = {
+			isa = PBXGroup;
+			children = (
+				09582B4729BDA7F600EF3207 /* DetailStackView.swift */,
+			);
+			path = StackView;
+			sourceTree = "<group>";
+		};
+		09582B4929BDB45F00EF3207 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				099CFA1929AB8D710003E5D5 /* MissionListModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		098BFD6029B80137008E80F9 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
@@ -211,14 +244,6 @@
 			path = Viewcontrollers;
 			sourceTree = "<group>";
 		};
-		09582B4929BDB45F00EF3207 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				099CFA1929AB8D710003E5D5 /* MissionListModel.swift */,
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
 		099CFA1729AB8C260003E5D5 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -237,7 +262,6 @@
 				092E04B029BD9C86008A5892 /* MissionDetailCollectionViewCell.swift */,
 				09582B4A29BDE37C00EF3207 /* DetailFooterReusableView.swift */,
 				09582B4C29BE277800EF3207 /* DetailHeaderReusableView.swift */,
-				09582B4729BDA7F600EF3207 /* DetailStackView.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -565,10 +589,10 @@
 			isa = PBXGroup;
 			children = (
 				6CF4707829A7AADB008D145C /* PaddingLabel */,
-				0982DE5929AE5E6000D933D2 /* CompositionalLayout.swift */,
+				0917F2B029C9799100009324 /* Layout */,
 				099FC98229B30A2E005B37E6 /* Utils.swift */,
-				099FC98029B3094F005B37E6 /* WeekMonthFSCalendar.swift */,
-				099FC98829B3233D005B37E6 /* CalendarView.swift */,
+				0917F2B129C979A400009324 /* StackView */,
+				0917F2AF29C9798800009324 /* Calendar */,
 			);
 			path = Common;
 			sourceTree = "<group>";
