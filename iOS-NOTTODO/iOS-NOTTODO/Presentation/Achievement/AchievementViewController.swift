@@ -83,11 +83,11 @@ extension AchievementViewController {
 
 extension AchievementViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalendarDelegateAppearance {
     func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
-        monthCalendar.yearMonthLabel.text = Utils.DateFormatterString(format: I18N.yearMonthTitle, date: calendar.currentPage)
+        monthCalendar.yearMonthLabel.text = Utils.dateFormatterString(format: I18N.yearMonthTitle, date: calendar.currentPage)
     }
     
     func calendar(_ calendar: FSCalendar, titleFor date: Date) -> String? {
-        Utils.DateFormatterString(format: "dd", date: date)
+        Utils.dateFormatterString(format: "dd", date: date)
     }
     
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
