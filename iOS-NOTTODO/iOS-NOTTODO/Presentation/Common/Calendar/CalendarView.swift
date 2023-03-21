@@ -51,7 +51,7 @@ extension CalendarView {
         yearMonthLabel.do {
             $0.font = .Pretendard(.medium, size: 18)
             $0.textColor = .white
-            $0.text = Utils.DateFormatterString(format: I18N.yearMonthTitle, date: Date())
+            $0.text = Utils.dateFormatterString(format: I18N.yearMonthTitle, date: Date())
         }
         
         todayButton.do {
@@ -135,7 +135,7 @@ extension CalendarView {
     @objc
     func todayBtnTapped(_sender: UIButton) {
         calendar.select(today)
-        yearMonthLabel.text = Utils.DateFormatterString(format: I18N.yearMonthTitle, date: today)
+        yearMonthLabel.text = Utils.dateFormatterString(format: I18N.yearMonthTitle, date: today)
     }
     
     @objc

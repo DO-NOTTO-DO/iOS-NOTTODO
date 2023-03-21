@@ -182,7 +182,7 @@ extension HomeViewController {
 }
 extension HomeViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        Utils.Modal(self, MissionDetailViewController(), .overFullScreen)
+        Utils.modal(self, MissionDetailViewController(), .overFullScreen)
     }
 }
 
@@ -194,19 +194,19 @@ extension HomeViewController {
 }
 extension HomeViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalendarDelegateAppearance {
     func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
-        weekCalendar.yearMonthLabel.text = Utils.DateFormatterString(format: I18N.yearMonthTitle, date: calendar.currentPage)
+        weekCalendar.yearMonthLabel.text = Utils.dateFormatterString(format: I18N.yearMonthTitle, date: calendar.currentPage)
     }
     
     func  calendar(_ calendar: FSCalendar, titleFor date: Date) -> String? {
-        Utils.DateFormatterString(format: "EEEEEE", date: date)
+        Utils.dateFormatterString(format: "EEEEEE", date: date)
     }
     
     func calendar(_ calendar: FSCalendar, subtitleFor date: Date) -> String? {
-        Utils.DateFormatterString(format: "dd", date: date)
+        Utils.dateFormatterString(format: "dd", date: date)
     }
     
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
-        weekCalendar.yearMonthLabel.text = Utils.DateFormatterString(format: I18N.yearMonthTitle, date: date)
+        weekCalendar.yearMonthLabel.text = Utils.dateFormatterString(format: I18N.yearMonthTitle, date: date)
         print("선택")
     }
 }

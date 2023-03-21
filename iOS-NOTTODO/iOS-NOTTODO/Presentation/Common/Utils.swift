@@ -11,13 +11,13 @@ import FSCalendar
 
 final class Utils {
     
-    class func Modal(_ viewController: UIViewController, _ modalViewController: UIViewController, _ modalStyle: UIModalPresentationStyle) {
+    class func modal(_ viewController: UIViewController, _ modalViewController: UIViewController, _ modalStyle: UIModalPresentationStyle) {
         let modalViewController = modalViewController
         modalViewController.modalPresentationStyle = modalStyle
         viewController.present(modalViewController, animated: false)
     }
     
-    class func DateFormatterString(format: String, date: Date) -> String? {
+    class func dateFormatterString(format: String, date: Date) -> String? {
         let formatter = Foundation.DateFormatter()
         formatter.dateFormat = format
         formatter.locale = Locale(identifier: "ko_KR")
