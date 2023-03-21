@@ -63,6 +63,7 @@ extension HomeViewController {
             $0.backgroundColor = .bg
             $0.bounces = false
             $0.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+            $0.delegate = self
         }
         
         addButton.do {
@@ -180,7 +181,11 @@ extension HomeViewController {
         return swipeConfiguration
     }
 }
-// MARK: - Action
+extension HomeViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        Utils.modal(self, MissionDetailViewController(), .overFullScreen)
+    }
+}
 
 extension HomeViewController {
     @objc
@@ -190,19 +195,19 @@ extension HomeViewController {
 }
 extension HomeViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalendarDelegateAppearance {
     func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
-        weekCalendar.yearMonthLabel.text = Utils.DateFormatterString(format: I18N.yearMonthTitle, date: calendar.currentPage)
+        weekCalendar.yearMonthLabel.text = Utils.dateFormatterString(format: I18N.yearMonthTitle, date: calendar.currentPage)
     }
     
     func  calendar(_ calendar: FSCalendar, titleFor date: Date) -> String? {
-        Utils.DateFormatterString(format: "EEEEEE", date: date)
+        Utils.dateFormatterString(format: "EEEEEE", date: date)
     }
     
     func calendar(_ calendar: FSCalendar, subtitleFor date: Date) -> String? {
-        Utils.DateFormatterString(format: "dd", date: date)
+        Utils.dateFormatterString(format: "dd", date: date)
     }
     
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
-        weekCalendar.yearMonthLabel.text = Utils.DateFormatterString(format: I18N.yearMonthTitle, date: date)
+        weekCalendar.yearMonthLabel.text = Utils.dateFormatterString(format: I18N.yearMonthTitle, date: date)
         print("선택")
     }
     func calendar(_ calendar: FSCalendar, cellFor date: Date, at position: FSCalendarMonthPosition) -> FSCalendarCell {

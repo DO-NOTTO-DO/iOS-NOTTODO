@@ -46,6 +46,27 @@ struct I18N {
     static let achievement = "성취"
     static let total = "더욱 나은 낫투두를 위해\n노력중에 있어요, 기다려주세요."
     
+    /// Detail
+    
+    static let detailEdit = "편집"
+    static let detailAction = "실천 행동"
+    static let detailGoal = "목표"
+    static let detailDate = "다른 날도 할래요"
+    static let detailSelect = "날짜 선택"
+    static let detailDelete = "삭제하기"
+    static let detailComplete = "완료"
+    
     /// MyInfo
+
     static let myInfo = "내 정보"
+    
+    /// MyInfoAccount
+    
+    static let myInfoAccount = "계정 정보"
+    static let nickname = "닉네임"
+    static let email = "이메일"
+    static let account = "연결된 계정"
+    static let notification = "푸시 알림 설정"
+    static let logout = "로그아웃"
+    static let withdraw = "회원 탈퇴"
 }
