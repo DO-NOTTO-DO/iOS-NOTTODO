@@ -116,10 +116,10 @@ extension MissionDetailCollectionViewCell {
     }
     
     func configure(model: MissionDetailModel) {
-        missionTagLabel.text = model.tag
-        missionLabel.text = model.mission
+        missionTagLabel.text = model.title
+        missionLabel.text = model.situation
         accumulateLabel.text = "\(model.count)회\n달성"
         action.titleLabel.text = model.action?.joined(separator: "\n")
-        goal.titleLabel.text = model.goal?.joined(separator: "\n")
+        goal.titleLabel.text = model.goal
     }
 }
