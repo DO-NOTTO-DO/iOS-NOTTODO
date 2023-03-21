@@ -38,6 +38,7 @@ extension UIImage {
     static var icCancel: UIImage { UIImage(named: "ic_cancel")! }
     static var icBack: UIImage { UIImage(named: "ic_create_back")! }
     static var icCalendar: UIImage { UIImage(named: "ic_create_calender")! }
+    static var icChecked: UIImage { UIImage(named: "ic_create_checked")! }
     static var icDelete: UIImage { UIImage(named: "ic_create_delete")! }
     static var icTooltip: UIImage { UIImage(named: "ic_create_tooltip")! }
     static var icDate50: UIImage { UIImage(named: "ic_date50")! }
@@ -48,6 +49,7 @@ extension UIImage {
     static var icMeatball: UIImage { UIImage(named: "ic_meatball")! }
     static var icQuestion: UIImage { UIImage(named: "ic_question")! }
     static var icTrash: UIImage { UIImage(named: "ic_trash")! }
+    static var icFlag: UIImage { UIImage(named: "ic_flag")! }
     
     // image
     
@@ -87,4 +89,11 @@ extension UIImage {
     static var homeOn: UIImage { UIImage(named: "ic_home_on")! }
     static var mypageOff: UIImage { UIImage(named: "ic_mypage_off")! }
     static var mypageOn: UIImage { UIImage(named: "ic_mypage_on")! }
+    
+    // splash
+    
+    static var pageControlLeft: UIImage { UIImage(named: "splash_pageControl_left")! }
+    static var pageControlRight: UIImage { UIImage(named: "splash_pageControl_right")! }
+    static var kakaoAppleIcon: UIImage { UIImage(named: "splash_kakao_apple")! }
+
 }
