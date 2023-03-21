@@ -34,6 +34,7 @@ final class WeekMonthFSCalendar: FSCalendar {
 
 extension WeekMonthFSCalendar {
     func configure(scope: FSCalendarScope) {
+        locale = Locale(identifier: "ko_KR")
         calendarHeaderView.isHidden = true
         headerHeight = 0
         backgroundColor = .clear
