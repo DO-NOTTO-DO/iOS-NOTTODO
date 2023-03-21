@@ -53,6 +53,9 @@
 		3B482FA7299EB8FD00BCF424 /* UIViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B482FA6299EB8FD00BCF424 /* UIViewController+.swift */; };
 		3B482FA9299EB95400BCF424 /* UIScreen+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B482FA8299EB95400BCF424 /* UIScreen+.swift */; };
 		6C16015829C40112005AE3F5 /* AuthButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C16015729C40112005AE3F5 /* AuthButtonView.swift */; };
+		6C16015C29C56DBA005AE3F5 /* MyInfoAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C16015B29C56DBA005AE3F5 /* MyInfoAccountViewController.swift */; };
+		6C16016229C59EFD005AE3F5 /* MyInfoAccountModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C16016129C59EFD005AE3F5 /* MyInfoAccountModel.swift */; };
+		6C16016429C5E37D005AE3F5 /* MyInfoAccountStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C16016329C5E37D005AE3F5 /* MyInfoAccountStackView.swift */; };
 		6C44127129A35A1000313C3F /* KakaoSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 6C44127029A35A1000313C3F /* KakaoSDK */; };
 		6C44127329A35A1000313C3F /* KakaoSDKAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 6C44127229A35A1000313C3F /* KakaoSDKAuth */; };
 		6C44127529A35A1000313C3F /* KakaoSDKCommon in Frameworks */ = {isa = PBXBuildFile; productRef = 6C44127429A35A1000313C3F /* KakaoSDKCommon */; };
@@ -127,6 +130,9 @@
 		3B482FA8299EB95400BCF424 /* UIScreen+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScreen+.swift"; sourceTree = "<group>"; };
 		3BDE6157299EDD02001CCEA9 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		6C16015729C40112005AE3F5 /* AuthButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthButtonView.swift; sourceTree = "<group>"; };
+		6C16015B29C56DBA005AE3F5 /* MyInfoAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInfoAccountViewController.swift; sourceTree = "<group>"; };
+		6C16016129C59EFD005AE3F5 /* MyInfoAccountModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInfoAccountModel.swift; sourceTree = "<group>"; };
+		6C16016329C5E37D005AE3F5 /* MyInfoAccountStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInfoAccountStackView.swift; sourceTree = "<group>"; };
 		6CD4F8B929AA493600CCC740 /* RecommendActionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendActionHeaderView.swift; sourceTree = "<group>"; };
 		6CD4F8BB29AA494300CCC740 /* RecommendActionFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendActionFooterView.swift; sourceTree = "<group>"; };
 		6CD4F8BD29AA495900CCC740 /* RecommendActionCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendActionCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -306,6 +312,7 @@
 				6CF4707729A7AAD1008D145C /* Common */,
 				3B027A99299C347A00BEB65C /* Home */,
 				3B027A9A299C348200BEB65C /* MyInfo */,
+				6C16015929C56CE8005AE3F5 /* MyInfoAccount */,
 				6CF4706B29A737E8008D145C /* Recommend */,
 				6CD4F8B529AA48D900CCC740 /* RecommendAction */,
 				3B027AA5299C358300BEB65C /* TabBar */,
@@ -415,6 +422,32 @@
 				3B027A80299C31B600BEB65C /* Assets.xcassets */,
 			);
 			path = Assets;
+			sourceTree = "<group>";
+		};
+		6C16015929C56CE8005AE3F5 /* MyInfoAccount */ = {
+			isa = PBXGroup;
+			children = (
+				6C16016029C59EE0005AE3F5 /* Models */,
+				6C16015A29C56D90005AE3F5 /* ViewControllers */,
+			);
+			path = MyInfoAccount;
+			sourceTree = "<group>";
+		};
+		6C16015A29C56D90005AE3F5 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				6C16015B29C56DBA005AE3F5 /* MyInfoAccountViewController.swift */,
+				6C16016329C5E37D005AE3F5 /* MyInfoAccountStackView.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		6C16016029C59EE0005AE3F5 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				6C16016129C59EFD005AE3F5 /* MyInfoAccountModel.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		6CD4F8B529AA48D900CCC740 /* RecommendAction */ = {
@@ -650,7 +683,7 @@
 			files = (
 				3B14A14129A6FDA900F92897 /* UILabel+.swift in Sources */,
 				3B027A7C299C31B500BEB65C /* AuthViewController.swift in Sources */,
-				09582B5329C0BE8000EF3207 /* DetailMissionView.swift in Sources */,
+				6C16016229C59EFD005AE3F5 /* MyInfoAccountModel.swift in Sources */,
 				3B027A92299C33FE00BEB65C /* UIColor+.swift in Sources */,
 				3B027AA4299C357000BEB65C /* MyInfoViewController.swift in Sources */,
 				3B027A94299C340600BEB65C /* UIFont+.swift in Sources */,
@@ -689,10 +722,12 @@
 				6CF4706A29A71D71008D145C /* Strings.swift in Sources */,
 				6CF4705F29A69025008D145C /* GeneralResponse.swift in Sources */,
 				097C003629AB8270008CAEF3 /* MissionListCollectionViewCell.swift in Sources */,
+				6C16015C29C56DBA005AE3F5 /* MyInfoAccountViewController.swift in Sources */,
 				6CF4706129A69096008D145C /* NetworkConstant.swift in Sources */,
 				6CD4F8C229AA5AF200CCC740 /* UIButton+.swift in Sources */,
 				6CF4706529A690E5008D145C /* NetworkBase.swift in Sources */,
 				099FC98129B3094F005B37E6 /* WeekMonthFSCalendar.swift in Sources */,
+				6C16016429C5E37D005AE3F5 /* MyInfoAccountStackView.swift in Sources */,
 				6CF4707029A73A15008D145C /* RecommendActionViewController.swift in Sources */,
 				0982DE5429ADCCE000D933D2 /* HomeEmptyCollectionViewCell.swift in Sources */,
 				3B027AA2299C355800BEB65C /* AchievementViewController.swift in Sources */,
