@@ -56,6 +56,7 @@ extension HomeViewController {
         weekCalendar.do {
             $0.calendar.delegate = self
             $0.calendar.dataSource = self
+            $0.calendar.register(MissionCalendarCell.self, forCellReuseIdentifier: MissionCalendarCell.identifier)
         }
         
         missionCollectionView.do {
@@ -218,5 +219,10 @@ extension HomeViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalend
         if let dateString =  Utils.dateFormatterString(format: "yyyy-MM-dd", date: date) {
             print(dateString)
         }
+    }
+    func calendar(_ calendar: FSCalendar, cellFor date: Date, at position: FSCalendarMonthPosition) -> FSCalendarCell {
+        let cell = calendar.dequeueReusableCell(withIdentifier: MissionCalendarCell.identifier, for: date, at: position) as! MissionCalendarCell
+        cell.configure(.rateHalf, .week)
+        return cell
     }
 }
