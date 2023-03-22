@@ -7,10 +7,12 @@
 
 import UIKit
 
-import Then
 import SnapKit
+import Then
 
 class SecondOnboardingViewController: UIViewController {
+    
+    // MARK: - Properties
     
     enum Section {
         case main
@@ -19,9 +21,13 @@ class SecondOnboardingViewController: UIViewController {
     private lazy var safeArea = self.view.safeAreaLayoutGuide
     private let onboardingModel: [SecondOnboardingModel] = SecondOnboardingModel.titles
     
+    // MARK: - UI Components
+    
     private lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout())
     
     private var dataSource: UICollectionViewDiffableDataSource<Section, SecondOnboardingModel>! = nil
+    
+    // MARK: - Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,6 +38,9 @@ class SecondOnboardingViewController: UIViewController {
         reloadData()
     }
 }
+
+// MARK: - Methods
+
 extension SecondOnboardingViewController {
     private func register() {
         collectionView.register(OnboardingCollectionViewCell.self, forCellWithReuseIdentifier: OnboardingCollectionViewCell.identifier)
@@ -97,7 +106,7 @@ extension SecondOnboardingViewController {
 
 extension SecondOnboardingViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-         let viewController = ThirdOnboardingViewController()
-        navigationController?.pushViewController(viewController, animated: false)
-        }
+        let viewController = ThirdOnboardingViewController()
+        navigationController?.pushViewController(viewController, animated: true)
+    }
 }

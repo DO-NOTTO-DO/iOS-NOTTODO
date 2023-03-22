@@ -7,8 +7,8 @@
 
 import UIKit
 
-import Then
 import SnapKit
+import Then
 
 class SubOnboardingCollectionViewCell: UICollectionViewCell {
     
@@ -20,6 +20,8 @@ class SubOnboardingCollectionViewCell: UICollectionViewCell {
     private let iconImage = UIImageView()
     private let tagLabel = PaddingLabel(padding: UIEdgeInsets(top: 2, left: 7, bottom: 2, right: 7))
     private let titleLabel = UILabel()
+    
+    // MARK: - Life Cycle
     
     override init(frame: CGRect) {
         super.init(frame: .zero)
@@ -39,7 +41,7 @@ extension SubOnboardingCollectionViewCell {
         contentView.backgroundColor = .gray1
         contentView.layer.cornerRadius = 35
         contentView.layer.masksToBounds = true
-
+        
         tagLabel.do {
             $0.layer.cornerRadius = 8
             $0.layer.masksToBounds = true

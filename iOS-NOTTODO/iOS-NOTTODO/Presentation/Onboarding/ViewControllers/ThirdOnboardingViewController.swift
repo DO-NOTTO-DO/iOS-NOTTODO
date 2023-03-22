@@ -7,10 +7,12 @@
 
 import UIKit
 
-import Then
 import SnapKit
+import Then
 
 class ThirdOnboardingViewController: UIViewController {
+    
+    // MARK: - Properties
     
     enum Section {
         case main
@@ -20,10 +22,14 @@ class ThirdOnboardingViewController: UIViewController {
     private var isTapped: Bool = false
     private let onboardingModel: [ThirdOnboardingModel] = ThirdOnboardingModel.titles
     
+    // MARK: - UI Components
+    
     private lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout())
     private let nextButton = UIButton()
     
     private var dataSource: UICollectionViewDiffableDataSource<Section, ThirdOnboardingModel>! = nil
+    
+    // MARK: - Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,6 +40,9 @@ class ThirdOnboardingViewController: UIViewController {
         reloadData()
     }
 }
+
+// MARK: - Methods
+
 extension ThirdOnboardingViewController {
     private func register() {
         collectionView.register(OnboardingCollectionViewCell.self, forCellWithReuseIdentifier: OnboardingCollectionViewCell.identifier)
@@ -41,7 +50,7 @@ extension ThirdOnboardingViewController {
     }
     private func setUI() {
         view.backgroundColor = .ntdBlack
-
+        
         collectionView.do {
             $0.backgroundColor = .clear
             $0.bounces = false
@@ -113,6 +122,7 @@ extension ThirdOnboardingViewController {
         return UICollectionViewCompositionalLayout(section: section)
     }
 }
+
 extension ThirdOnboardingViewController {
     @objc
     private func buttonTapped() {
@@ -120,13 +130,21 @@ extension ThirdOnboardingViewController {
         navigationController?.pushViewController(nextViewController, animated: true)
     }
 }
+
 extension ThirdOnboardingViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if let selctItem = collectionView.indexPathsForSelectedItems {
-            if selctItem.count > 0 {
-                print("select:\(selctItem.count)")
+        if let select = collectionView.indexPathsForSelectedItems {
+            if select.count > 0 {
                 self.isTapped = true
-                self.nextButton.isUserInteractionEnabled = true
+                setUI()
+            }
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        if let deSelect = collectionView.indexPathsForSelectedItems {
+            if deSelect.count == 0 {
+                self.isTapped = false
                 setUI()
             }
         }

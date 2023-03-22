@@ -7,10 +7,12 @@
 
 import UIKit
 
-import Then
 import SnapKit
+import Then
 
 class FourOnboardingViewController: UIViewController {
+    
+    // MARK: - Properties
     
     enum Section {
         case main
@@ -19,9 +21,13 @@ class FourOnboardingViewController: UIViewController {
     private lazy var safeArea = self.view.safeAreaLayoutGuide
     private let onboardingModel: [FourOnboardingModel] = FourOnboardingModel.items
     
+    // MARK: - UI Components
+    
     private lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout())
     private let nextButton = UIButton(configuration: .plain())
     private var dataSource: UICollectionViewDiffableDataSource<Section, FourOnboardingModel>! = nil
+    
+    // MARK: - Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,6 +38,9 @@ class FourOnboardingViewController: UIViewController {
         reloadData()
     }
 }
+
+// MARK: - Methods
+
 extension FourOnboardingViewController {
     private func register() {
         collectionView.register(SubOnboardingCollectionViewCell.self, forCellWithReuseIdentifier: SubOnboardingCollectionViewCell.identifier)
@@ -39,7 +48,7 @@ extension FourOnboardingViewController {
     }
     private func setUI() {
         view.backgroundColor = .ntdBlack
-
+        
         collectionView.do {
             $0.backgroundColor = .clear
             $0.bounces = false

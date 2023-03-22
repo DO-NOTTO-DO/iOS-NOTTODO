@@ -7,8 +7,8 @@
 
 import UIKit
 
-import Then
 import SnapKit
+import Then
 
 class OnboardingHeaderView: UICollectionReusableView {
     
@@ -25,6 +25,8 @@ class OnboardingHeaderView: UICollectionReusableView {
     private let titleLabel = UILabel()
     private let subTitleLabel = UILabel()
     
+    // MARK: - Life Cycle
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setUI(isControl: isControl)
@@ -35,6 +37,8 @@ class OnboardingHeaderView: UICollectionReusableView {
         fatalError("init(coder:) has not been implemented")
     }
 }
+
+// MARK: - Methods
 
 extension OnboardingHeaderView {
     private func setUI(isControl: Bool) {

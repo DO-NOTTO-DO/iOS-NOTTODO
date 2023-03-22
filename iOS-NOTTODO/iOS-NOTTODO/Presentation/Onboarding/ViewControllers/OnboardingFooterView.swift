@@ -7,8 +7,8 @@
 
 import UIKit
 
-import Then
 import SnapKit
+import Then
 
 class OnboardingFooterView: UICollectionReusableView {
     
@@ -49,7 +49,7 @@ extension OnboardingFooterView {
     
     private func setLayout() {
         addSubviews(iconImage, actionLabel)
-
+        
         iconImage.snp.makeConstraints {
             $0.top.equalToSuperview().offset(21)
             $0.centerX.equalToSuperview()

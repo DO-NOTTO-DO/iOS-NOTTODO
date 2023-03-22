@@ -7,7 +7,12 @@
 
 import UIKit
 
+import SnapKit
+import Then
+
 class FiveOnboardingViewController: UIViewController {
+    
+    // MARK: - Properties
     
     enum Sections {
         case main, sub
@@ -17,11 +22,15 @@ class FiveOnboardingViewController: UIViewController {
     var onboardingModel: FourOnboardingModel = FourOnboardingModel.items[4]
     var fiveOnboardingModel: [FiveOnboardingModel] = FiveOnboardingModel.titles
     
+    // MARK: - UI Components
+    
     private lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout())
     
     private let nextButton = UIButton(configuration: .plain())
     private let arrowImage = UIImageView()
     private var dataSource: UICollectionViewDiffableDataSource<Sections, AnyHashable>! = nil
+    
+    // MARK: - Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,6 +41,9 @@ class FiveOnboardingViewController: UIViewController {
         reloadData()
     }
 }
+
+// MARK: - Methods
+
 extension FiveOnboardingViewController {
     private func register() {
         collectionView.register(SubOnboardingCollectionViewCell.self, forCellWithReuseIdentifier: SubOnboardingCollectionViewCell.identifier)
@@ -41,7 +53,7 @@ extension FiveOnboardingViewController {
     }
     private func setUI() {
         view.backgroundColor = .ntdBlack
-
+        
         collectionView.do {
             $0.backgroundColor = .clear
             $0.bounces = false

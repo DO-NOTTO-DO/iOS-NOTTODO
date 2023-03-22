@@ -26,6 +26,8 @@ class OnboardingCollectionViewCell: UICollectionViewCell {
     
     private let titleLabel = UILabel()
     
+    // MARK: - Life Cycle
+    
     override init(frame: CGRect) {
         super.init(frame: .zero)
         setUI()
@@ -46,7 +48,7 @@ extension OnboardingCollectionViewCell {
         contentView.layer.masksToBounds = true
         contentView.layer.borderWidth = 1
         contentView.layer.borderColor = UIColor.clear.cgColor
-
+        
         titleLabel.do {
             $0.font = .Pretendard(.regular, size: 15)
             $0.textColor = .white
