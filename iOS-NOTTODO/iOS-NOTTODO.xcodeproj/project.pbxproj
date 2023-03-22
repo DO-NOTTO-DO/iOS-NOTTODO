@@ -33,6 +33,8 @@
 		09F6718429CADB1100708725 /* OnboardingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F6718329CADB1100708725 /* OnboardingModel.swift */; };
 		09F6718629CB26E400708725 /* OnboardingHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F6718529CB26E400708725 /* OnboardingHeaderView.swift */; };
 		09F6718829CB383800708725 /* ThirdOnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F6718729CB383800708725 /* ThirdOnboardingViewController.swift */; };
+		09F6718A29CB4A3F00708725 /* FourViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F6718929CB4A3F00708725 /* FourViewController.swift */; };
+		09F6718C29CB4AB700708725 /* SubOnboardingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F6718B29CB4AB700708725 /* SubOnboardingCollectionViewCell.swift */; };
 		3B027A78299C31B500BEB65C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B027A77299C31B500BEB65C /* AppDelegate.swift */; };
 		3B027A7A299C31B500BEB65C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B027A79299C31B500BEB65C /* SceneDelegate.swift */; };
 		3B027A7C299C31B500BEB65C /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B027A7B299C31B500BEB65C /* AuthViewController.swift */; };
@@ -120,6 +122,8 @@
 		09F6718329CADB1100708725 /* OnboardingModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingModel.swift; sourceTree = "<group>"; };
 		09F6718529CB26E400708725 /* OnboardingHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingHeaderView.swift; sourceTree = "<group>"; };
 		09F6718729CB383800708725 /* ThirdOnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThirdOnboardingViewController.swift; sourceTree = "<group>"; };
+		09F6718929CB4A3F00708725 /* FourViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FourViewController.swift; sourceTree = "<group>"; };
+		09F6718B29CB4AB700708725 /* SubOnboardingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubOnboardingCollectionViewCell.swift; sourceTree = "<group>"; };
 		3B027A74299C31B500BEB65C /* iOS-NOTTODO.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "iOS-NOTTODO.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B027A77299C31B500BEB65C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3B027A79299C31B500BEB65C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -283,8 +287,10 @@
 			children = (
 				09F6717F29CAD76C00708725 /* SecondOnboardingViewController.swift */,
 				09F6718729CB383800708725 /* ThirdOnboardingViewController.swift */,
+				09F6718929CB4A3F00708725 /* FourViewController.swift */,
 				09F6718329CADB1100708725 /* OnboardingModel.swift */,
 				09F6718129CAD86100708725 /* OnboardingCollectionViewCell.swift */,
+				09F6718B29CB4AB700708725 /* SubOnboardingCollectionViewCell.swift */,
 				09F6718529CB26E400708725 /* OnboardingHeaderView.swift */,
 			);
 			path = Onboarding;
@@ -761,6 +767,7 @@
 				3B482FA3299EA9CB00BCF424 /* TabBarItem.swift in Sources */,
 				3B027AA0299C353700BEB65C /* AddMissionViewController.swift in Sources */,
 				098BFD5929B7999E008E80F9 /* MyProfileCollectionViewCell.swift in Sources */,
+				09F6718C29CB4AB700708725 /* SubOnboardingCollectionViewCell.swift in Sources */,
 				3B027A96299C340C00BEB65C /* UIImage+.swift in Sources */,
 				098BFD5B29B79B6A008E80F9 /* MyInfoModel.swift in Sources */,
 				6CF4707A29A7AAFF008D145C /* PaddingLabel.swift in Sources */,
@@ -783,6 +790,7 @@
 				3B14A13D29A6FBD300F92897 /* UIView+.swift in Sources */,
 				3B482FA5299EAB8800BCF424 /* TabBarController.swift in Sources */,
 				6CF4705D29A68F5C008D145C /* NetworkLoggerPlugin.swift in Sources */,
+				09F6718A29CB4A3F00708725 /* FourViewController.swift in Sources */,
 				09582B4829BDA7F600EF3207 /* DetailStackView.swift in Sources */,
 				09F6718429CADB1100708725 /* OnboardingModel.swift in Sources */,
 				3B027A7A299C31B500BEB65C /* SceneDelegate.swift in Sources */,
