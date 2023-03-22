@@ -11,7 +11,7 @@ import SnapKit
 import Then
 
 final class NottodoCollectionViewCell: UICollectionViewCell, AddMissionMenu {
-
+    
     // MARK: - Properties
     
     var fold: FoldState = .unfolded
@@ -39,6 +39,23 @@ final class NottodoCollectionViewCell: UICollectionViewCell, AddMissionMenu {
     @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func calculateCellHeight() -> CGFloat {
+        var cellHeight: CGFloat = 0
+        
+        let itemWidth = self.bounds.width
+        let titleLabelHeight = calculateLabelHeight(titleLabel.text, font: titleLabel.font, width: itemWidth)
+        let subTitleLabelHeight = calculateLabelHeight(subTitleLabel.text, font: subTitleLabel.font, width: itemWidth)
+        let textFieldViewHeight: CGFloat = 48
+        let historyLabelHeight = calculateLabelHeight(historyLabel.text, font: historyLabel.font, width: itemWidth)
+        var historyCollectionViewHeight: CGFloat = CGFloat(37 * MissionHistoryModel.items.count)
+        historyCollectionViewHeight = historyCollectionViewHeight > 134 ? 134 : historyCollectionViewHeight
+        let spacing: CGFloat = 16 + 10 + 24 + 11 + 6 + 32
+        
+        cellHeight = titleLabelHeight + subTitleLabelHeight + textFieldViewHeight + historyLabelHeight + historyCollectionViewHeight + spacing
+        print(cellHeight, "??")
+        return cellHeight
     }
 }
 
@@ -118,6 +135,11 @@ extension NottodoCollectionViewCell: UICollectionViewDataSource {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MissionHistoryCollectionViewCell.identifier, for: indexPath) as? MissionHistoryCollectionViewCell else { return UICollectionViewCell() }
         cell.configure(MissionHistoryModel.items[indexPath.row])
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let cell = collectionView.cellForItem(at: indexPath) as? MissionHistoryCollectionViewCell else { fatalError() }
+        addMissionTextField.setText(cell.getText())
     }
 }
 

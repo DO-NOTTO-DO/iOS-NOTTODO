@@ -40,6 +40,10 @@ final class SituationCollectionViewCell: UICollectionViewCell, AddMissionMenu {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    func calculateCellHeight() -> CGFloat {
+        return 0
+    }
 }
 
 private extension SituationCollectionViewCell {
@@ -120,6 +124,11 @@ extension SituationCollectionViewCell: UICollectionViewDataSource {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RecommendKeywordCollectionViewCell.identifier, for: indexPath) as? RecommendKeywordCollectionViewCell else { return UICollectionViewCell() }
         cell.configure(RecommendKeywordModel.items[indexPath.row])
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let cell = collectionView.cellForItem(at: indexPath) as? RecommendKeywordCollectionViewCell else { fatalError() }
+        addMissionTextField.setText(cell.getText())
     }
 }
 

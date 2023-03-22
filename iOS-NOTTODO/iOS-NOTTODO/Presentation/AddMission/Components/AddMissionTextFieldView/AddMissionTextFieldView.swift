@@ -35,6 +35,10 @@ final class AddMissionTextFieldView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    func setText(_ text: String) {
+        addMissionTextField.text = text
+    }
 }
 
 private extension AddMissionTextFieldView {

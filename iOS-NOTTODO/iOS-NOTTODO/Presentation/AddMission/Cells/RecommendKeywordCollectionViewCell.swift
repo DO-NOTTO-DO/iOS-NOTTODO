@@ -32,6 +32,13 @@ final class RecommendKeywordCollectionViewCell: UICollectionViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    func getText() -> String {
+        if let text = recommendLabel.text {
+            return text
+        }
+        return ""
+    }
 }
 
 private extension RecommendKeywordCollectionViewCell {
