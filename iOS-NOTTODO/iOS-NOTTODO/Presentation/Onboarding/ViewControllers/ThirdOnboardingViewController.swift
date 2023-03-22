@@ -102,7 +102,7 @@ extension ThirdOnboardingViewController {
         
         dataSource.supplementaryViewProvider = { (collectionView, _, indexPath) in
             guard let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: OnboardingHeaderView.identifier, for: indexPath) as? OnboardingHeaderView else { return UICollectionReusableView() }
-            header.configure(isControl: false, title: "하루 중 어느 순간을\n가장 개선하고 싶으세요?", subTitle: "여러개 선택할 수 있어요")
+            header.configure(isControl: false, title: I18N.thirdOnboarding, subTitle: I18N.subThirdbOnboarding)
             return header
         }
     }
@@ -126,7 +126,7 @@ extension ThirdOnboardingViewController {
 extension ThirdOnboardingViewController {
     @objc
     private func buttonTapped() {
-        let nextViewController = FourOnboardingViewController()
+        let nextViewController = FourthOnboardingViewController()
         navigationController?.pushViewController(nextViewController, animated: true)
     }
 }

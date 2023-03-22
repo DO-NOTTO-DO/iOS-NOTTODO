@@ -17,15 +17,13 @@ class SecondOnboardingViewController: UIViewController {
     enum Section {
         case main
     }
-    
-    private lazy var safeArea = self.view.safeAreaLayoutGuide
     private let onboardingModel: [SecondOnboardingModel] = SecondOnboardingModel.titles
-    
+    private var dataSource: UICollectionViewDiffableDataSource<Section, SecondOnboardingModel>! = nil
+    private lazy var safeArea = self.view.safeAreaLayoutGuide
+
     // MARK: - UI Components
     
     private lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout())
-    
-    private var dataSource: UICollectionViewDiffableDataSource<Section, SecondOnboardingModel>! = nil
     
     // MARK: - Life Cycle
     
@@ -59,6 +57,7 @@ extension SecondOnboardingViewController {
     
     private func setLayout() {
         view.addSubview(collectionView)
+        
         collectionView.snp.makeConstraints {
             $0.top.equalTo(safeArea)
             $0.directionalHorizontalEdges.equalTo(safeArea).inset(27)
@@ -84,7 +83,7 @@ extension SecondOnboardingViewController {
         
         dataSource.supplementaryViewProvider = { (collectionView, _, indexPath) in
             guard let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: OnboardingHeaderView.identifier, for: indexPath) as? OnboardingHeaderView else { return UICollectionReusableView() }
-            header.configure(isControl: false, title: "좋아요!\n어떤 고민이 있으신가요?", subTitle: "")
+            header.configure(isControl: false, title: I18N.secondOnboarding, subTitle: I18N.onboardingEmpty)
             return header
         }
     }

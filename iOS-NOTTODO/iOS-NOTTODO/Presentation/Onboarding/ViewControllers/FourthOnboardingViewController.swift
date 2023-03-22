@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 import Then
 
-class FourOnboardingViewController: UIViewController {
+class FourthOnboardingViewController: UIViewController {
     
     // MARK: - Properties
     
@@ -19,13 +19,13 @@ class FourOnboardingViewController: UIViewController {
     }
     
     private lazy var safeArea = self.view.safeAreaLayoutGuide
-    private let onboardingModel: [FourOnboardingModel] = FourOnboardingModel.items
+    private let onboardingModel: [FourthOnboardingModel] = FourthOnboardingModel.items
     
     // MARK: - UI Components
     
     private lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout())
     private let nextButton = UIButton(configuration: .plain())
-    private var dataSource: UICollectionViewDiffableDataSource<Section, FourOnboardingModel>! = nil
+    private var dataSource: UICollectionViewDiffableDataSource<Section, FourthOnboardingModel>! = nil
     
     // MARK: - Life Cycle
     
@@ -41,7 +41,7 @@ class FourOnboardingViewController: UIViewController {
 
 // MARK: - Methods
 
-extension FourOnboardingViewController {
+extension FourthOnboardingViewController {
     private func register() {
         collectionView.register(SubOnboardingCollectionViewCell.self, forCellWithReuseIdentifier: SubOnboardingCollectionViewCell.identifier)
         collectionView.register(OnboardingHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: OnboardingHeaderView.identifier)
@@ -82,7 +82,7 @@ extension FourOnboardingViewController {
     }
     
     private func setupDataSource() {
-        dataSource = UICollectionViewDiffableDataSource<Section, FourOnboardingModel>(collectionView: collectionView, cellProvider: { collectionView, indexPath, item in
+        dataSource = UICollectionViewDiffableDataSource<Section, FourthOnboardingModel>(collectionView: collectionView, cellProvider: { collectionView, indexPath, item in
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SubOnboardingCollectionViewCell.identifier, for: indexPath) as? SubOnboardingCollectionViewCell else { return UICollectionViewCell() }
             cell.configure(model: item)
             return cell
@@ -90,7 +90,7 @@ extension FourOnboardingViewController {
     }
     
     private func reloadData() {
-        var snapShot = NSDiffableDataSourceSnapshot<Section, FourOnboardingModel>()
+        var snapShot = NSDiffableDataSourceSnapshot<Section, FourthOnboardingModel>()
         defer {
             dataSource.apply(snapShot, animatingDifferences: false)
         }
@@ -99,7 +99,7 @@ extension FourOnboardingViewController {
         
         dataSource.supplementaryViewProvider = { (collectionView, _, indexPath) in
             guard let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: OnboardingHeaderView.identifier, for: indexPath) as? OnboardingHeaderView else { return UICollectionReusableView() }
-            header.configure(isControl: true, title: "먼저,\n하지 않을 일을 정해요", subTitle: "")
+            header.configure(isControl: true, title: I18N.fourthOnboarding, subTitle: I18N.onboardingEmpty)
             header.flagImage.isHidden = true
             return header
         }
@@ -119,11 +119,11 @@ extension FourOnboardingViewController {
         return layout
     }
 }
-extension FourOnboardingViewController {
+extension FourthOnboardingViewController {
     @objc
     private func ButtonTapped() {
         print("tapped")
-        let nextViewController = FiveOnboardingViewController()
+        let nextViewController = FifthOnboardingViewController()
         navigationController?.pushViewController(nextViewController, animated: true)
     }
 }

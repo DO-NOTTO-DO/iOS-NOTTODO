@@ -73,7 +73,7 @@ extension SubOnboardingCollectionViewCell {
             $0.bottom.equalToSuperview().inset(15)
         }
     }
-    func configure(model: FourOnboardingModel) {
+    func configure(model: FourthOnboardingModel) {
         iconImage.image = model.icon
         tagLabel.text = model.tag
         titleLabel.text = model.title

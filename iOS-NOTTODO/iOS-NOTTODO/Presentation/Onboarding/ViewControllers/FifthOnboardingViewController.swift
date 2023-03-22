@@ -1,5 +1,5 @@
 //
-//  FiveOnboardingViewController.swift.swift
+//  FifthOnboardingViewController.swift.swift
 //  iOS-NOTTODO
 //
 //  Created by JEONGEUN KIM on 2023/03/23.
@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 import Then
 
-class FiveOnboardingViewController: UIViewController {
+class FifthOnboardingViewController: UIViewController {
     
     // MARK: - Properties
     
@@ -19,8 +19,8 @@ class FiveOnboardingViewController: UIViewController {
     }
     
     private lazy var safeArea = self.view.safeAreaLayoutGuide
-    var onboardingModel: FourOnboardingModel = FourOnboardingModel.items[4]
-    var fiveOnboardingModel: [FiveOnboardingModel] = FiveOnboardingModel.titles
+    var onboardingModel: FourthOnboardingModel = FourthOnboardingModel.items[4]
+    var fiveOnboardingModel: [FifthOnboardingModel] = FifthOnboardingModel.titles
     
     // MARK: - UI Components
     
@@ -44,7 +44,7 @@ class FiveOnboardingViewController: UIViewController {
 
 // MARK: - Methods
 
-extension FiveOnboardingViewController {
+extension FifthOnboardingViewController {
     private func register() {
         collectionView.register(SubOnboardingCollectionViewCell.self, forCellWithReuseIdentifier: SubOnboardingCollectionViewCell.identifier)
         collectionView.register(OnboardingCollectionViewCell.self, forCellWithReuseIdentifier: OnboardingCollectionViewCell.identifier)
@@ -101,11 +101,11 @@ extension FiveOnboardingViewController {
             switch section {
             case .main:
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SubOnboardingCollectionViewCell.identifier, for: indexPath) as! SubOnboardingCollectionViewCell
-                cell.configure(model: item as! FourOnboardingModel)
+                cell.configure(model: item as! FourthOnboardingModel)
                 return cell
             case .sub:
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: OnboardingCollectionViewCell.identifier, for: indexPath) as! OnboardingCollectionViewCell
-                cell.fiveConfigure(model: item as! FiveOnboardingModel)
+                cell.fiveConfigure(model: item as! FifthOnboardingModel)
                 cell.isUserInteractionEnabled = false
                 return cell
             }
@@ -124,7 +124,7 @@ extension FiveOnboardingViewController {
         dataSource.supplementaryViewProvider = { (collectionView, kind, indexPath) in
             if kind == UICollectionView.elementKindSectionHeader {
                 guard let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: OnboardingHeaderView.identifier, for: indexPath) as? OnboardingHeaderView else { return UICollectionReusableView() }
-                header.configure(isControl: true, title: "낫투두를 실천할 방법과\n환경을 정해요", subTitle: "달성률을 높이기 위해선 필수!")
+                header.configure(isControl: true, title: I18N.fifthOnboarding, subTitle: I18N.subFifthOnboarding)
                 return header
             } else {
                 guard let footer = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: OnboardingFooterView.identifier, for: indexPath) as? OnboardingFooterView else { return UICollectionReusableView() }
@@ -172,7 +172,7 @@ extension FiveOnboardingViewController {
     }
 }
 
-extension FiveOnboardingViewController {
+extension FifthOnboardingViewController {
     @objc
     private func ButtonTapped() {
         print("tapped")

@@ -69,4 +69,14 @@ struct I18N {
     static let notification = "푸시 알림 설정"
     static let logout = "로그아웃"
     static let withdraw = "회원 탈퇴"
+    
+    /// Onboarding
+    static let secondOnboarding = "좋아요!\n어떤 고민이 있으신가요?"
+    static let thirdOnboarding = "하루 중 어느 순간을\n가장 개선하고 싶으세요?"
+    static let fourthOnboarding = "먼저,\n하지 않을 일을 정해요"
+    static let fifthOnboarding = "낫투두를 실천할 방법과\n환경을 정해요"
+    
+    static let onboardingEmpty = ""
+    static let subThirdbOnboarding = "여러 개 선택할 수 있어요"
+    static let subFifthOnboarding = "달성률을 높이기 위해선 필수!"
 }
