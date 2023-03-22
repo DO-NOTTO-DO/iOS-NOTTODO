@@ -96,6 +96,6 @@ extension SecondOnboardingViewController {
 extension SecondOnboardingViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
          let viewController = ThirdOnboardingViewController()
-        navigationController?.pushViewController(viewController, animated: true)
+        navigationController?.pushViewController(viewController, animated: false)
         }
 }

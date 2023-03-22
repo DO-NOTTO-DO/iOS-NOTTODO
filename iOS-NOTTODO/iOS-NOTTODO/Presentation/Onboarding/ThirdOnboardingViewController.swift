@@ -17,9 +17,11 @@ class ThirdOnboardingViewController: UIViewController {
     }
     
     private lazy var safeArea = self.view.safeAreaLayoutGuide
+    private var isTapped: Bool = false
     private let onboardingModel: [ThirdOnboardingModel] = ThirdOnboardingModel.titles
     
     private lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout())
+    private let nextButton = UIButton()
     
     private var dataSource: UICollectionViewDiffableDataSource<Section, ThirdOnboardingModel>! = nil
     
@@ -42,15 +44,31 @@ extension ThirdOnboardingViewController {
             $0.backgroundColor = .clear
             $0.bounces = false
             $0.isScrollEnabled = false
+            $0.allowsMultipleSelection = true
+            $0.delegate = self
+        }
+        nextButton.do {
+            $0.backgroundColor = isTapped ? .white : .gray2
+            $0.isEnabled = false
+            $0.layer.cornerRadius = 25
+            $0.titleLabel?.font = .Pretendard(.semiBold, size: 16)
+            $0.setTitleColor(isTapped ? .black :.gray4, for: .normal)
+            $0.setTitle("사용법이 궁금해요", for: .normal)
         }
     }
     
     private func setLayout() {
-        view.addSubview(collectionView)
+        view.addSubviews(collectionView, nextButton)
         collectionView.snp.makeConstraints {
             $0.top.equalTo(safeArea)
             $0.directionalHorizontalEdges.equalTo(safeArea).inset(27)
+        }
+        
+        nextButton.snp.makeConstraints {
+            $0.top.equalTo(collectionView.snp.bottom)
             $0.bottom.equalTo(safeArea)
+            $0.directionalHorizontalEdges.equalTo(safeArea).inset(15)
+            $0.height.equalTo(50)
         }
     }
     
@@ -83,12 +101,24 @@ extension ThirdOnboardingViewController {
         group.interItemSpacing = .fixed(18)
         let section = NSCollectionLayoutSection(group: group)
         section.interGroupSpacing = 18
-        section.supplementariesFollowContentInsets = false
+        section.contentInsets = NSDirectionalEdgeInsets(top: 30, leading: 0, bottom: 0, trailing: 0)
         
         let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(210))
         let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
         section.boundarySupplementaryItems = [header]
-        let layout = UICollectionViewCompositionalLayout(section: section)
-        return layout
+        
+        return UICollectionViewCompositionalLayout(section: section)
+    }
+}
+extension ThirdOnboardingViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if let selctItem = collectionView.indexPathsForSelectedItems {
+            if selctItem.count > 0 {
+                print("select:\(selctItem.count)")
+                self.isTapped = true
+                self.nextButton.isEnabled = true
+                setUI()
+            }
+        }
     }
 }
