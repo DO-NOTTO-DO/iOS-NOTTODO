@@ -61,7 +61,7 @@ extension FifthOnboardingViewController {
         }
         nextButton.do {
             $0.configuration?.image = .kakaoAppleIcon
-            $0.configuration?.title = "로그인하고 시작하기"
+            $0.configuration?.title = I18N.fifthButton
             $0.configuration?.imagePadding = 7
             $0.configuration?.imagePlacement = NSDirectionalRectEdge.leading
             $0.configuration?.attributedTitle?.font = .Pretendard(.medium, size: 16)

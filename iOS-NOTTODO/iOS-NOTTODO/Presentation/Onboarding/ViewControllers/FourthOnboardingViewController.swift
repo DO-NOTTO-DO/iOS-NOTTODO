@@ -56,7 +56,7 @@ extension FourthOnboardingViewController {
         }
         nextButton.do {
             $0.configuration?.image = .icRightArrow
-            $0.configuration?.title = "그리고요?"
+            $0.configuration?.title = I18N.fourthButton
             $0.configuration?.imagePadding = 2
             $0.configuration?.imagePlacement = NSDirectionalRectEdge.trailing
             $0.configuration?.attributedTitle?.font = .Pretendard(.medium, size: 16)

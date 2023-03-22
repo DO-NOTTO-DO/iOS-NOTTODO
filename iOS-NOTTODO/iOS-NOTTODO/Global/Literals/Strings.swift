@@ -79,4 +79,8 @@ struct I18N {
     static let onboardingEmpty = ""
     static let subThirdbOnboarding = "여러 개 선택할 수 있어요"
     static let subFifthOnboarding = "달성률을 높이기 위해선 필수!"
+    
+    static let thirdButton = "사용법이 궁금해요"
+    static let fourthButton = "그리고요?"
+    static let fifthButton = "로그인하고 시작하기"
 }

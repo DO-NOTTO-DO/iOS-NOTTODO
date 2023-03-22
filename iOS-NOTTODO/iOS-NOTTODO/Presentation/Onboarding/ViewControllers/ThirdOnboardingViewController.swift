@@ -64,7 +64,7 @@ extension ThirdOnboardingViewController {
             $0.layer.cornerRadius = 25
             $0.titleLabel?.font = .Pretendard(.semiBold, size: 16)
             $0.setTitleColor(isTapped ? .black :.gray4, for: .normal)
-            $0.setTitle("사용법이 궁금해요", for: .normal)
+            $0.setTitle(I18N.thirdButton, for: .normal)
             $0.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
         }
     }
