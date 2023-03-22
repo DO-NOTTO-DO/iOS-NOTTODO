@@ -32,6 +32,7 @@
 		09F6718229CAD86100708725 /* OnboardingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F6718129CAD86100708725 /* OnboardingCollectionViewCell.swift */; };
 		09F6718429CADB1100708725 /* OnboardingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F6718329CADB1100708725 /* OnboardingModel.swift */; };
 		09F6718629CB26E400708725 /* OnboardingHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F6718529CB26E400708725 /* OnboardingHeaderView.swift */; };
+		09F6718829CB383800708725 /* ThirdOnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F6718729CB383800708725 /* ThirdOnboardingViewController.swift */; };
 		3B027A78299C31B500BEB65C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B027A77299C31B500BEB65C /* AppDelegate.swift */; };
 		3B027A7A299C31B500BEB65C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B027A79299C31B500BEB65C /* SceneDelegate.swift */; };
 		3B027A7C299C31B500BEB65C /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B027A7B299C31B500BEB65C /* AuthViewController.swift */; };
@@ -118,6 +119,7 @@
 		09F6718129CAD86100708725 /* OnboardingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCollectionViewCell.swift; sourceTree = "<group>"; };
 		09F6718329CADB1100708725 /* OnboardingModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingModel.swift; sourceTree = "<group>"; };
 		09F6718529CB26E400708725 /* OnboardingHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingHeaderView.swift; sourceTree = "<group>"; };
+		09F6718729CB383800708725 /* ThirdOnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThirdOnboardingViewController.swift; sourceTree = "<group>"; };
 		3B027A74299C31B500BEB65C /* iOS-NOTTODO.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "iOS-NOTTODO.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B027A77299C31B500BEB65C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3B027A79299C31B500BEB65C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -276,15 +278,16 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
-		09F6717E29CAD68100708725 /* Splash */ = {
+		09F6717E29CAD68100708725 /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
 				09F6717F29CAD76C00708725 /* SecondOnboardingViewController.swift */,
+				09F6718729CB383800708725 /* ThirdOnboardingViewController.swift */,
 				09F6718329CADB1100708725 /* OnboardingModel.swift */,
 				09F6718129CAD86100708725 /* OnboardingCollectionViewCell.swift */,
 				09F6718529CB26E400708725 /* OnboardingHeaderView.swift */,
 			);
-			path = Splash;
+			path = Onboarding;
 			sourceTree = "<group>";
 		};
 		3B027A6B299C31B500BEB65C = {
@@ -373,7 +376,7 @@
 		3B027A97299C343D00BEB65C /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
-				09F6717E29CAD68100708725 /* Splash */,
+				09F6717E29CAD68100708725 /* Onboarding */,
 				3B027A9B299C348800BEB65C /* Achievement */,
 				3B027A9C299C349A00BEB65C /* AddMission */,
 				3B027A98299C347400BEB65C /* Auth */,
@@ -807,6 +810,7 @@
 				0982DE5429ADCCE000D933D2 /* HomeEmptyCollectionViewCell.swift in Sources */,
 				3B027AA2299C355800BEB65C /* AchievementViewController.swift in Sources */,
 				09582B4F29BEBAFA00EF3207 /* DetailCalendarViewController.swift in Sources */,
+				09F6718829CB383800708725 /* ThirdOnboardingViewController.swift in Sources */,
 				099CFA1A29AB8D710003E5D5 /* MissionListModel.swift in Sources */,
 				099FC98929B3233D005B37E6 /* CalendarView.swift in Sources */,
 				09F6718029CAD76C00708725 /* SecondOnboardingViewController.swift in Sources */,

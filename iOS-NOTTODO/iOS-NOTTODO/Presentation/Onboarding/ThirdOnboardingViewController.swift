@@ -1,5 +1,5 @@
 //
-//  SecondOnboardingViewController.swift
+//  ThirdOnboardingViewController.swift
 //  iOS-NOTTODO
 //
 //  Created by JEONGEUN KIM on 2023/03/22.
@@ -10,7 +10,7 @@ import UIKit
 import Then
 import SnapKit
 
-class SecondOnboardingViewController: UIViewController {
+class ThirdOnboardingViewController: UIViewController {
     
     enum Section {
         case main
@@ -32,7 +32,7 @@ class SecondOnboardingViewController: UIViewController {
         reloadData()
     }
 }
-extension SecondOnboardingViewController {
+extension ThirdOnboardingViewController {
     private func register() {
         collectionView.register(OnboardingCollectionViewCell.self, forCellWithReuseIdentifier: OnboardingCollectionViewCell.identifier)
         collectionView.register(OnboardingHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: OnboardingHeaderView.identifier)
@@ -72,14 +72,14 @@ extension SecondOnboardingViewController {
         
         dataSource.supplementaryViewProvider = { (collectionView, _, indexPath) in
             guard let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: OnboardingHeaderView.identifier, for: indexPath) as? OnboardingHeaderView else { return UICollectionReusableView() }
-            header.configure(isControl: false, title: "좋아요!\n어떤 고민이 있으신가요?", subTitle: "")
+            header.configure(isControl: false, title: "하루 중 어느 순간을\n가장 개선하고 싶으세요?", subTitle: "여러개 선택할 수 있어요")
             return header
         }
     }
     
     private func layout() -> UICollectionViewCompositionalLayout {
         let item = NSCollectionLayoutItem(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .estimated(55)))
-        let group = NSCollectionLayoutGroup.vertical(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .estimated(55)), subitems: [item])
+        let group = NSCollectionLayoutGroup.vertical(layoutSize: .init(widthDimension: .fractionalWidth(0.5), heightDimension: .estimated(55)), subitems: [item])
         let section = NSCollectionLayoutSection(group: group)
         section.interGroupSpacing = 18
         section.supplementariesFollowContentInsets = false
