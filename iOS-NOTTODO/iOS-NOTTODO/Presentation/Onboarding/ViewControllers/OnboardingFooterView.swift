@@ -38,10 +38,10 @@ class OnboardingFooterView: UICollectionReusableView {
 extension OnboardingFooterView {
     private func setUI() {
         iconImage.do {
-            $0.image = .downArrow
+            $0.image = .splashArrow
         }
         actionLabel.do {
-            $0.text = "실천 방법"
+            $0.text = I18N.actionOnboarding
             $0.font = .Pretendard(.regular, size: 14)
             $0.textColor = .white
         }

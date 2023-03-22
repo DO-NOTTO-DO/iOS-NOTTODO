@@ -86,4 +86,5 @@ struct I18N {
     
     static let dailyPageControl = "나의 일상"
     static let usePageControl = "사용 방법"
+    static let actionOnboarding = "실천 방법"
 }
