@@ -18,16 +18,15 @@ class ThirdOnboardingViewController: UIViewController {
         case main
     }
     
-    private lazy var safeArea = self.view.safeAreaLayoutGuide
-    private var isTapped: Bool = false
     private let onboardingModel: [ThirdOnboardingModel] = ThirdOnboardingModel.titles
-    
+    private var dataSource: UICollectionViewDiffableDataSource<Section, ThirdOnboardingModel>! = nil
+    private lazy var safeArea = self.view.safeAreaLayoutGuide
+
     // MARK: - UI Components
     
     private lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout())
     private let nextButton = UIButton()
-    
-    private var dataSource: UICollectionViewDiffableDataSource<Section, ThirdOnboardingModel>! = nil
+    private var isTapped: Bool = false
     
     // MARK: - Life Cycle
     

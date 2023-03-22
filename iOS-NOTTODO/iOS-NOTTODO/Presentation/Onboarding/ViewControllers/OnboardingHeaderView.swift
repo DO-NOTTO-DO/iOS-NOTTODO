@@ -46,7 +46,7 @@ extension OnboardingHeaderView {
             $0.image = isControl ? .pageControlRight : .pageControlLeft
         }
         pageControlLabel.do {
-            $0.text = isControl ? "사용 방법" : "나의 일상"
+            $0.text = isControl ? I18N.usePageControl : I18N.dailyPageControl
             $0.font = .Pretendard(.regular, size: 15)
             $0.textColor = .green1
         }

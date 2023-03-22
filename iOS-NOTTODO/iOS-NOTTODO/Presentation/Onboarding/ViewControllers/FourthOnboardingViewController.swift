@@ -17,15 +17,14 @@ class FourthOnboardingViewController: UIViewController {
     enum Section {
         case main
     }
-    
-    private lazy var safeArea = self.view.safeAreaLayoutGuide
     private let onboardingModel: [FourthOnboardingModel] = FourthOnboardingModel.items
+    private var dataSource: UICollectionViewDiffableDataSource<Section, FourthOnboardingModel>! = nil
+    private lazy var safeArea = self.view.safeAreaLayoutGuide
     
     // MARK: - UI Components
     
     private lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout())
     private let nextButton = UIButton(configuration: .plain())
-    private var dataSource: UICollectionViewDiffableDataSource<Section, FourthOnboardingModel>! = nil
     
     // MARK: - Life Cycle
     

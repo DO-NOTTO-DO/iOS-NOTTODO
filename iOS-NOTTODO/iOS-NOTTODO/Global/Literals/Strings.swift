@@ -83,4 +83,7 @@ struct I18N {
     static let thirdButton = "사용법이 궁금해요"
     static let fourthButton = "그리고요?"
     static let fifthButton = "로그인하고 시작하기"
+    
+    static let dailyPageControl = "나의 일상"
+    static let usePageControl = "사용 방법"
 }

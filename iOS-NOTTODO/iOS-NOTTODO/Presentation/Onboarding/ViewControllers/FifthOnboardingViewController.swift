@@ -18,17 +18,16 @@ class FifthOnboardingViewController: UIViewController {
         case main, sub
     }
     
-    private lazy var safeArea = self.view.safeAreaLayoutGuide
     var onboardingModel: FourthOnboardingModel = FourthOnboardingModel.items[4]
     var fiveOnboardingModel: [FifthOnboardingModel] = FifthOnboardingModel.titles
+    private var dataSource: UICollectionViewDiffableDataSource<Sections, AnyHashable>! = nil
+    private lazy var safeArea = self.view.safeAreaLayoutGuide
     
     // MARK: - UI Components
     
     private lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout())
-    
     private let nextButton = UIButton(configuration: .plain())
     private let arrowImage = UIImageView()
-    private var dataSource: UICollectionViewDiffableDataSource<Sections, AnyHashable>! = nil
     
     // MARK: - Life Cycle
     
@@ -167,7 +166,6 @@ extension FifthOnboardingViewController {
         let section = NSCollectionLayoutSection(group: group)
         section.interGroupSpacing = 18
         section.contentInsets = NSDirectionalEdgeInsets(top: 11, leading: 0, bottom: 0, trailing: 0)
-        
         return section
     }
 }

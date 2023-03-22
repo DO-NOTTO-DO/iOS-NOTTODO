@@ -64,12 +64,15 @@ extension OnboardingCollectionViewCell {
             $0.centerX.equalToSuperview()
         }
     }
+    
     func secondConfigure(model: SecondOnboardingModel) {
         titleLabel.text = model.title
     }
+    
     func thirdConfigure(model: ThirdOnboardingModel) {
         titleLabel.text = model.title
     }
+    
     func fiveConfigure(model: FifthOnboardingModel) {
         titleLabel.text = model.title
         titleLabel.snp.remakeConstraints {
