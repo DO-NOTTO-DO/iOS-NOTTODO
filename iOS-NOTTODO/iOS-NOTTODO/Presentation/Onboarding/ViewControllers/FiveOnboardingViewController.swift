@@ -18,7 +18,9 @@ class FiveOnboardingViewController: UIViewController {
     var fiveOnboardingModel: [FiveOnboardingModel] = FiveOnboardingModel.titles
     
     private lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout())
+    
     private let nextButton = UIButton(configuration: .plain())
+    private let arrowImage = UIImageView()
     private var dataSource: UICollectionViewDiffableDataSource<Sections, AnyHashable>! = nil
     
     override func viewDidLoad() {
@@ -44,24 +46,33 @@ extension FiveOnboardingViewController {
             $0.isScrollEnabled = false
         }
         nextButton.do {
-            $0.configuration?.image = .icRightArrow
+            $0.configuration?.image = .kakaoAppleIcon
             $0.configuration?.title = "로그인하고 시작하기"
-            $0.configuration?.imagePadding = 2
-            $0.configuration?.imagePlacement = NSDirectionalRectEdge.trailing
+            $0.configuration?.imagePadding = 7
+            $0.configuration?.imagePlacement = NSDirectionalRectEdge.leading
             $0.configuration?.attributedTitle?.font = .Pretendard(.medium, size: 16)
             $0.configuration?.attributedTitle?.foregroundColor = .white
             $0.configuration?.contentInsets = NSDirectionalEdgeInsets.init(top: 0, leading: 0, bottom: 0, trailing: 0)
             $0.addTarget(self, action: #selector(ButtonTapped), for: .touchUpInside)
         }
+        arrowImage.do {
+            $0.image = .icRightArrow
+        }
     }
     
     private func setLayout() {
         view.addSubviews(collectionView, nextButton)
+        nextButton.addSubview(arrowImage)
         
         nextButton.snp.makeConstraints {
             $0.trailing.equalTo(safeArea).inset(34)
-            $0.size.equalTo(CGSize(width: 95, height: 24))
+            $0.size.equalTo(CGSize(width: 205, height: 24))
             $0.bottom.equalTo(safeArea)
+        }
+        arrowImage.snp.makeConstraints {
+            $0.size.equalTo(16)
+            $0.trailing.equalToSuperview().offset(12)
+            $0.centerY.equalToSuperview()
         }
         collectionView.snp.makeConstraints {
             $0.top.equalTo(safeArea)
@@ -81,7 +92,7 @@ extension FiveOnboardingViewController {
             case .sub:
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: OnboardingCollectionViewCell.identifier, for: indexPath) as! OnboardingCollectionViewCell
                 cell.fiveConfigure(model: item as! FiveOnboardingModel)
-                cell.isSelected = false
+                cell.isUserInteractionEnabled = false
                 return cell
             }
         })
@@ -141,7 +152,7 @@ extension FiveOnboardingViewController {
         let group = NSCollectionLayoutGroup.vertical(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .estimated(70)), subitems: [item])
         let section = NSCollectionLayoutSection(group: group)
         section.interGroupSpacing = 18
-        section.contentInsets = NSDirectionalEdgeInsets(top: 30, leading: 0, bottom: 0, trailing: 0)
+        section.contentInsets = NSDirectionalEdgeInsets(top: 11, leading: 0, bottom: 0, trailing: 0)
         
         return section
     }
