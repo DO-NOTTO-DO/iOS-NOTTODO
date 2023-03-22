@@ -17,11 +17,11 @@ class SecondOnboardingViewController: UIViewController {
     }
     
     private lazy var safeArea = self.view.safeAreaLayoutGuide
-    private let onboardingModel: [OnboardingModel] = OnboardingModel.titles
+    private let onboardingModel: [SecondOnboardingModel] = SecondOnboardingModel.titles
     
     private lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout())
     
-    private var dataSource: UICollectionViewDiffableDataSource<Section, OnboardingModel>! = nil
+    private var dataSource: UICollectionViewDiffableDataSource<Section, SecondOnboardingModel>! = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,7 +56,7 @@ extension SecondOnboardingViewController {
     }
     
     private func setupDataSource() {
-        dataSource = UICollectionViewDiffableDataSource<Section, OnboardingModel>(collectionView: collectionView, cellProvider: { collectionView, indexPath, item in
+        dataSource = UICollectionViewDiffableDataSource<Section, SecondOnboardingModel>(collectionView: collectionView, cellProvider: { collectionView, indexPath, item in
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: OnboardingCollectionViewCell.identifier, for: indexPath) as? OnboardingCollectionViewCell else { return UICollectionViewCell() }
             cell.configure(model: item)
             return cell
@@ -64,7 +64,7 @@ extension SecondOnboardingViewController {
     }
     
     private func reloadData() {
-        var snapShot = NSDiffableDataSourceSnapshot<Section, OnboardingModel>()
+        var snapShot = NSDiffableDataSourceSnapshot<Section, SecondOnboardingModel>()
         defer {
             dataSource.apply(snapShot, animatingDifferences: false)
         }
