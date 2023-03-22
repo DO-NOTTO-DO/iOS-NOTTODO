@@ -40,6 +40,8 @@ extension FiveOnboardingViewController {
         collectionView.register(OnboardingFooterView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: OnboardingFooterView.identifier)
     }
     private func setUI() {
+        view.backgroundColor = .ntdBlack
+
         collectionView.do {
             $0.backgroundColor = .clear
             $0.bounces = false

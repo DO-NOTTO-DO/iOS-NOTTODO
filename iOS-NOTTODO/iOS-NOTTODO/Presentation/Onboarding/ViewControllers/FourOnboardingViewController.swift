@@ -38,6 +38,8 @@ extension FourOnboardingViewController {
         collectionView.register(OnboardingHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: OnboardingHeaderView.identifier)
     }
     private func setUI() {
+        view.backgroundColor = .ntdBlack
+
         collectionView.do {
             $0.backgroundColor = .clear
             $0.bounces = false

@@ -40,6 +40,8 @@ extension ThirdOnboardingViewController {
         collectionView.register(OnboardingHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: OnboardingHeaderView.identifier)
     }
     private func setUI() {
+        view.backgroundColor = .ntdBlack
+
         collectionView.do {
             $0.backgroundColor = .clear
             $0.bounces = false
@@ -49,7 +51,7 @@ extension ThirdOnboardingViewController {
         }
         nextButton.do {
             $0.backgroundColor = isTapped ? .white : .gray2
-            $0.isUserInteractionEnabled = false
+            $0.isUserInteractionEnabled = isTapped ? true : false
             $0.layer.cornerRadius = 25
             $0.titleLabel?.font = .Pretendard(.semiBold, size: 16)
             $0.setTitleColor(isTapped ? .black :.gray4, for: .normal)
@@ -126,8 +128,6 @@ extension ThirdOnboardingViewController: UICollectionViewDelegate {
                 self.isTapped = true
                 self.nextButton.isUserInteractionEnabled = true
                 setUI()
-                let nextViewController = FourOnboardingViewController()
-                navigationController?.pushViewController(nextViewController, animated: true)
             }
         }
     }

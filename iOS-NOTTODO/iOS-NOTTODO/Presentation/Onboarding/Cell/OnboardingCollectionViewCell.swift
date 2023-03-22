@@ -18,7 +18,7 @@ class OnboardingCollectionViewCell: UICollectionViewCell {
     
     override var isSelected: Bool {
         didSet {
-            contentView.layer.borderColor = isSelected ? UIColor.green1?.cgColor : UIColor.gray2?.cgColor
+            contentView.layer.borderColor = isSelected ? UIColor.green1?.cgColor : UIColor.clear.cgColor
         }
     }
     
@@ -45,7 +45,8 @@ extension OnboardingCollectionViewCell {
         contentView.layer.cornerRadius = 10
         contentView.layer.masksToBounds = true
         contentView.layer.borderWidth = 1
-        
+        contentView.layer.borderColor = UIColor.clear.cgColor
+
         titleLabel.do {
             $0.font = .Pretendard(.regular, size: 15)
             $0.textColor = .white
