@@ -112,5 +112,7 @@ extension FourOnboardingViewController {
     @objc
     private func ButtonTapped() {
         print("tapped")
+        let nextViewController = FiveOnboardingViewController()
+        navigationController?.pushViewController(nextViewController, animated: true)
     }
 }

@@ -35,6 +35,7 @@ extension ThirdOnboardingModel {
     ]
 }
 struct FourOnboardingModel: Hashable {
+    let id = UUID()
     var icon: UIImage
     var tag: String
     var title: String
@@ -45,5 +46,15 @@ extension FourOnboardingModel {
                                                FourOnboardingModel(icon: .coffee, tag: "기상 직후", title: "공복에 커피 마시지 않기"),
                                                FourOnboardingModel(icon: .kakao, tag: "업무 중", title: "불필요한 PC 카톡 하지 않기"),
                                                FourOnboardingModel(icon: .nightmeal, tag: "취침 전", title: "자기 2시간 전 야식 먹지 않기")
+    ]
+}
+struct FiveOnboardingModel: Hashable {
+    let id = UUID()
+    var title: String
+}
+extension FiveOnboardingModel {
+    static let titles: [FiveOnboardingModel] = [FiveOnboardingModel(title: "배고플 때마다 양치하기"),
+                                                FiveOnboardingModel(title: "삶은 계란으로 대신하기"),
+                                                FiveOnboardingModel(title: "집에 간식 사두지 않기")
     ]
 }
