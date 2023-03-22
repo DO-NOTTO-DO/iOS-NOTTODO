@@ -17,11 +17,11 @@ class ThirdOnboardingViewController: UIViewController {
     }
     
     private lazy var safeArea = self.view.safeAreaLayoutGuide
-    private let onboardingModel: [OnboardingModel] = OnboardingModel.titles
+    private let onboardingModel: [ThirdOnboardingModel] = ThirdOnboardingModel.titles
     
     private lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout())
     
-    private var dataSource: UICollectionViewDiffableDataSource<Section, OnboardingModel>! = nil
+    private var dataSource: UICollectionViewDiffableDataSource<Section, ThirdOnboardingModel>! = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,15 +55,15 @@ extension ThirdOnboardingViewController {
     }
     
     private func setupDataSource() {
-        dataSource = UICollectionViewDiffableDataSource<Section, OnboardingModel>(collectionView: collectionView, cellProvider: { collectionView, indexPath, item in
+        dataSource = UICollectionViewDiffableDataSource<Section, ThirdOnboardingModel>(collectionView: collectionView, cellProvider: { collectionView, indexPath, item in
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: OnboardingCollectionViewCell.identifier, for: indexPath) as? OnboardingCollectionViewCell else { return UICollectionViewCell() }
-            cell.configure(model: item)
+            cell.thirdConfigure(model: item)
             return cell
         })
     }
     
     private func reloadData() {
-        var snapShot = NSDiffableDataSourceSnapshot<Section, OnboardingModel>()
+        var snapShot = NSDiffableDataSourceSnapshot<Section, ThirdOnboardingModel>()
         defer {
             dataSource.apply(snapShot, animatingDifferences: false)
         }
@@ -79,7 +79,8 @@ extension ThirdOnboardingViewController {
     
     private func layout() -> UICollectionViewCompositionalLayout {
         let item = NSCollectionLayoutItem(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .estimated(55)))
-        let group = NSCollectionLayoutGroup.vertical(layoutSize: .init(widthDimension: .fractionalWidth(0.5), heightDimension: .estimated(55)), subitems: [item])
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .estimated(55)), subitem: item, count: 2)
+        group.interItemSpacing = .fixed(18)
         let section = NSCollectionLayoutSection(group: group)
         section.interGroupSpacing = 18
         section.supplementariesFollowContentInsets = false

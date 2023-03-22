@@ -61,7 +61,10 @@ extension OnboardingCollectionViewCell {
             $0.centerX.equalToSuperview()
         }
     }
-    func configure(model: OnboardingModel) {
+    func secondConfigure(model: SecondOnboardingModel) {
+        titleLabel.text = model.title
+    }
+    func thirdConfigure(model: ThirdOnboardingModel) {
         titleLabel.text = model.title
     }
 }

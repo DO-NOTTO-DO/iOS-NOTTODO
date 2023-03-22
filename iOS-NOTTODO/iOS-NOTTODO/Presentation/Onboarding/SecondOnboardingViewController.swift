@@ -58,7 +58,7 @@ extension SecondOnboardingViewController {
     private func setupDataSource() {
         dataSource = UICollectionViewDiffableDataSource<Section, SecondOnboardingModel>(collectionView: collectionView, cellProvider: { collectionView, indexPath, item in
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: OnboardingCollectionViewCell.identifier, for: indexPath) as? OnboardingCollectionViewCell else { return UICollectionViewCell() }
-            cell.configure(model: item)
+            cell.secondConfigure(model: item)
             return cell
         })
     }
