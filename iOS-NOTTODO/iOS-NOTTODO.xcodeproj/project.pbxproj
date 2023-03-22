@@ -289,17 +289,41 @@
 		09F6717E29CAD68100708725 /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
+				09F6719229CB6E6200708725 /* ViewControllers */,
+				09F6719129CB6E4D00708725 /* Model */,
+				09F6719329CB6E7800708725 /* Cell */,
+			);
+			path = Onboarding;
+			sourceTree = "<group>";
+		};
+		09F6719129CB6E4D00708725 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				09F6718329CADB1100708725 /* OnboardingModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		09F6719229CB6E6200708725 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
 				09F6717F29CAD76C00708725 /* SecondOnboardingViewController.swift */,
 				09F6718729CB383800708725 /* ThirdOnboardingViewController.swift */,
 				09F6718929CB4A3F00708725 /* FourOnboardingViewController.swift */,
 				09F6718D29CB612B00708725 /* FiveOnboardingViewController.swift */,
-				09F6718329CADB1100708725 /* OnboardingModel.swift */,
-				09F6718129CAD86100708725 /* OnboardingCollectionViewCell.swift */,
-				09F6718B29CB4AB700708725 /* SubOnboardingCollectionViewCell.swift */,
 				09F6718529CB26E400708725 /* OnboardingHeaderView.swift */,
 				09F6718F29CB6AB400708725 /* OnboardingFooterView.swift */,
 			);
-			path = Onboarding;
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		09F6719329CB6E7800708725 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				09F6718129CAD86100708725 /* OnboardingCollectionViewCell.swift */,
+				09F6718B29CB4AB700708725 /* SubOnboardingCollectionViewCell.swift */,
+			);
+			path = Cell;
 			sourceTree = "<group>";
 		};
 		3B027A6B299C31B500BEB65C = {

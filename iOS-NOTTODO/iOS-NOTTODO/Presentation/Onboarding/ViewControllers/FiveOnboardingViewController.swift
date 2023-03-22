@@ -97,7 +97,7 @@ extension FiveOnboardingViewController {
         snapShot.appendItems(fiveOnboardingModel, toSection: .sub)
         
         dataSource.supplementaryViewProvider = { (collectionView, kind, indexPath) in
-            if kind  == UICollectionView.elementKindSectionHeader{
+            if kind == UICollectionView.elementKindSectionHeader {
                 guard let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: OnboardingHeaderView.identifier, for: indexPath) as? OnboardingHeaderView else { return UICollectionReusableView() }
                 header.configure(isControl: true, title: "낫투두를 실천할 방법과\n환경을 정해요", subTitle: "달성률을 높이기 위해선 필수!")
                 return header
@@ -108,34 +108,14 @@ extension FiveOnboardingViewController {
         }
     }
     
-//    if kind == UICollectionView.elementKindSectionHeader {
-//        guard let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: DetailHeaderReusableView.identifier, for: indexPath) as? DetailHeaderReusableView else {return UICollectionReusableView()}
-//        header.cancelClosure = {
-//            self.view.alpha = 0
-//            self.dismiss(animated: true)
-//        }
-//        header.editClosure = {
-//            print("edit")
-//        }
-//        return header
-//    } else {
-//        guard let footer = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: DetailFooterReusableView.identifier, for: indexPath) as? DetailFooterReusableView else { return UICollectionReusableView() }
-//        footer.footerClosure = {
-//            Utils.modal(self, DetailCalendarViewController(), .overFullScreen)
-//            print("tapped")
-//        }
-//        return footer
-//    }
     private func layout() -> UICollectionViewCompositionalLayout {
-        let layout = UICollectionViewCompositionalLayout(sectionProvider: { sectionIndex, env in
+        let layout = UICollectionViewCompositionalLayout(sectionProvider: { sectionIndex, _ in
             let section = self.dataSource.snapshot().sectionIdentifiers[sectionIndex]
             switch section {
             case .main:
                 return self.MainSection()
-            case .sub:
-                return self.SubSection()
             default:
-                return self.MainSection()
+                return self.SubSection()
             }
         })
         return layout
@@ -155,6 +135,7 @@ extension FiveOnboardingViewController {
         section.boundarySupplementaryItems = [header, footer]
         return section
     }
+    
     private func SubSection() -> NSCollectionLayoutSection {
         let item = NSCollectionLayoutItem(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .estimated(50)))
         let group = NSCollectionLayoutGroup.vertical(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .estimated(70)), subitems: [item])
