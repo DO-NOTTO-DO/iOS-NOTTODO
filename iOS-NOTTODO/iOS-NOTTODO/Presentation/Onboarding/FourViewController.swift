@@ -17,11 +17,11 @@ class FourOnboardingViewController: UIViewController {
     }
     
     private lazy var safeArea = self.view.safeAreaLayoutGuide
-    private let onboardingModel: [SecondOnboardingModel] = SecondOnboardingModel.titles
+    private let onboardingModel: [FourOnboardingModel] = FourOnboardingModel.items
     
     private lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout())
-    
-    private var dataSource: UICollectionViewDiffableDataSource<Section, SecondOnboardingModel>! = nil
+    private let nextButton = UIButton(configuration: .plain())
+    private var dataSource: UICollectionViewDiffableDataSource<Section, FourOnboardingModel>! = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,9 +32,9 @@ class FourOnboardingViewController: UIViewController {
         reloadData()
     }
 }
-extension SecondOnboardingViewController {
+extension FourOnboardingViewController {
     private func register() {
-        collectionView.register(OnboardingCollectionViewCell.self, forCellWithReuseIdentifier: OnboardingCollectionViewCell.identifier)
+        collectionView.register(SubOnboardingCollectionViewCell.self, forCellWithReuseIdentifier: SubOnboardingCollectionViewCell.identifier)
         collectionView.register(OnboardingHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: OnboardingHeaderView.identifier)
     }
     private func setUI() {
@@ -42,29 +42,44 @@ extension SecondOnboardingViewController {
             $0.backgroundColor = .clear
             $0.bounces = false
             $0.isScrollEnabled = false
-            $0.delegate = self
+        }
+        nextButton.do {
+            $0.configuration?.image = .icRightArrow
+            $0.configuration?.title = "그리고요?"
+            $0.configuration?.imagePadding = 2
+            $0.configuration?.imagePlacement = NSDirectionalRectEdge.trailing
+            $0.configuration?.attributedTitle?.font = .Pretendard(.medium, size: 16)
+            $0.configuration?.attributedTitle?.foregroundColor = .white
+            $0.configuration?.contentInsets = NSDirectionalEdgeInsets.init(top: 0, leading: 0, bottom: 0, trailing: 0)
+            $0.addTarget(self, action: #selector(ButtonTapped), for: .touchUpInside)
         }
     }
     
     private func setLayout() {
-        view.addSubview(collectionView)
+        view.addSubviews(collectionView, nextButton)
+        
+        nextButton.snp.makeConstraints {
+            $0.trailing.equalTo(safeArea).inset(34)
+            $0.size.equalTo(CGSize(width: 95, height: 24))
+            $0.bottom.equalTo(safeArea)
+        }
         collectionView.snp.makeConstraints {
             $0.top.equalTo(safeArea)
             $0.directionalHorizontalEdges.equalTo(safeArea).inset(27)
-            $0.bottom.equalTo(safeArea)
+            $0.bottom.equalTo(nextButton.snp.top).inset(80)
         }
     }
     
     private func setupDataSource() {
-        dataSource = UICollectionViewDiffableDataSource<Section, SecondOnboardingModel>(collectionView: collectionView, cellProvider: { collectionView, indexPath, item in
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: OnboardingCollectionViewCell.identifier, for: indexPath) as? OnboardingCollectionViewCell else { return UICollectionViewCell() }
-            cell.secondConfigure(model: item)
+        dataSource = UICollectionViewDiffableDataSource<Section, FourOnboardingModel>(collectionView: collectionView, cellProvider: { collectionView, indexPath, item in
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SubOnboardingCollectionViewCell.identifier, for: indexPath) as? SubOnboardingCollectionViewCell else { return UICollectionViewCell() }
+            cell.configure(model: item)
             return cell
         })
     }
     
     private func reloadData() {
-        var snapShot = NSDiffableDataSourceSnapshot<Section, SecondOnboardingModel>()
+        var snapShot = NSDiffableDataSourceSnapshot<Section, FourOnboardingModel>()
         defer {
             dataSource.apply(snapShot, animatingDifferences: false)
         }
@@ -73,17 +88,18 @@ extension SecondOnboardingViewController {
         
         dataSource.supplementaryViewProvider = { (collectionView, _, indexPath) in
             guard let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: OnboardingHeaderView.identifier, for: indexPath) as? OnboardingHeaderView else { return UICollectionReusableView() }
-            header.configure(isControl: false, title: "좋아요!\n어떤 고민이 있으신가요?", subTitle: "")
+            header.configure(isControl: true, title: "먼저,\n하지 않을 일을 정해요", subTitle: "")
+            header.flagImage.isHidden = true
             return header
         }
     }
     
     private func layout() -> UICollectionViewCompositionalLayout {
-        let item = NSCollectionLayoutItem(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .estimated(55)))
-        let group = NSCollectionLayoutGroup.vertical(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .estimated(55)), subitems: [item])
+        let item = NSCollectionLayoutItem(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .estimated(70)))
+        let group = NSCollectionLayoutGroup.vertical(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .estimated(70)), subitems: [item])
         let section = NSCollectionLayoutSection(group: group)
         section.interGroupSpacing = 18
-        section.supplementariesFollowContentInsets = false
+        section.contentInsets = NSDirectionalEdgeInsets(top: 30, leading: 0, bottom: 0, trailing: 0)
         
         let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(210))
         let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
@@ -92,10 +108,9 @@ extension SecondOnboardingViewController {
         return layout
     }
 }
-
-extension FourOnboardingViewController: UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-         let viewController = ThirdOnboardingViewController()
-        navigationController?.pushViewController(viewController, animated: false)
-        }
+extension FourOnboardingViewController {
+    @objc
+    private func ButtonTapped() {
+        print("tapped")
+    }
 }

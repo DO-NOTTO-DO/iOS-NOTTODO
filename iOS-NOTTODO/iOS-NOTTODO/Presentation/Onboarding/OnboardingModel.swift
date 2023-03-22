@@ -5,7 +5,7 @@
 //  Created by JEONGEUN KIM on 2023/03/22.
 //
 
-import Foundation
+import UIKit
 
 struct SecondOnboardingModel: Hashable {
     var title: String
@@ -44,6 +44,6 @@ extension FourOnboardingModel {
                                                FourOnboardingModel(icon: .delivery, tag: "항상", title: "배민 VIP 탈출하기"),
                                                FourOnboardingModel(icon: .coffee, tag: "기상 직후", title: "공복에 커피 마시지 않기"),
                                                FourOnboardingModel(icon: .kakao, tag: "업무 중", title: "불필요한 PC 카톡 하지 않기"),
-                                               FourOnboardingModel(icon: .food, tag: "취침 전", title: "자기 2시간 전 야식 먹지 않기")
+                                               FourOnboardingModel(icon: .nightmeal, tag: "취침 전", title: "자기 2시간 전 야식 먹지 않기")
     ]
 }

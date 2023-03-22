@@ -49,11 +49,12 @@ extension ThirdOnboardingViewController {
         }
         nextButton.do {
             $0.backgroundColor = isTapped ? .white : .gray2
-            $0.isEnabled = false
+            $0.isUserInteractionEnabled = false
             $0.layer.cornerRadius = 25
             $0.titleLabel?.font = .Pretendard(.semiBold, size: 16)
             $0.setTitleColor(isTapped ? .black :.gray4, for: .normal)
             $0.setTitle("사용법이 궁금해요", for: .normal)
+            $0.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
         }
     }
     
@@ -110,14 +111,23 @@ extension ThirdOnboardingViewController {
         return UICollectionViewCompositionalLayout(section: section)
     }
 }
+extension ThirdOnboardingViewController {
+    @objc
+    private func buttonTapped() {
+        let nextViewController = FourOnboardingViewController()
+        navigationController?.pushViewController(nextViewController, animated: true)
+    }
+}
 extension ThirdOnboardingViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let selctItem = collectionView.indexPathsForSelectedItems {
             if selctItem.count > 0 {
                 print("select:\(selctItem.count)")
                 self.isTapped = true
-                self.nextButton.isEnabled = true
+                self.nextButton.isUserInteractionEnabled = true
                 setUI()
+                let nextViewController = FourOnboardingViewController()
+                navigationController?.pushViewController(nextViewController, animated: true)
             }
         }
     }

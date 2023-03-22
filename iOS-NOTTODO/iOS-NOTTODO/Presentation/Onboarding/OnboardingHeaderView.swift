@@ -20,7 +20,7 @@ class OnboardingHeaderView: UICollectionReusableView {
     
     private let verticalStackView = UIStackView()
     private let horizontalStackView = UIStackView()
-    private let flagImage = UIImageView()
+    let flagImage = UIImageView()
     private let goalLabel = UILabel()
     private let titleLabel = UILabel()
     private let subTitleLabel = UILabel()
@@ -59,7 +59,7 @@ extension OnboardingHeaderView {
             if isControl {
                 $0.addArrangedSubviews(flagImage, subTitleLabel)
             } else {
-                $0.addArrangedSubviews(subTitleLabel)
+                $0.addArrangedSubview(subTitleLabel)
             }
             $0.axis = .horizontal
             $0.spacing = 6
@@ -80,6 +80,7 @@ extension OnboardingHeaderView {
     
     private func setLayout(isControl: Bool) {
         addSubviews(pageControl, pageControlLabel, verticalStackView)
+        
         pageControl.snp.makeConstraints {
             $0.top.equalToSuperview().offset(21)
             $0.size.equalTo(CGSize(width: 27, height: 6))
@@ -97,16 +98,17 @@ extension OnboardingHeaderView {
         }
         
         if isControl {
+            titleLabel.snp.makeConstraints {
+                $0.bottom.equalToSuperview().inset(45)
+            }
             horizontalStackView.snp.makeConstraints {
-                $0.top.equalToSuperview()
-                $0.directionalHorizontalEdges.equalToSuperview()
+                $0.bottom.equalTo(titleLabel.snp.top).inset(11)
             }
             flagImage.snp.makeConstraints {
-                $0.leading.equalToSuperview()
                 $0.size.equalTo(20)
             }
         } else {
-            horizontalStackView.snp.makeConstraints {
+            horizontalStackView.snp.remakeConstraints {
                 $0.bottom.equalToSuperview()
                 $0.directionalHorizontalEdges.equalToSuperview()
             }
@@ -119,8 +121,8 @@ extension OnboardingHeaderView {
     }
     func configure(isControl: Bool, title: String, subTitle: String) {
         self.isControl = isControl
+        updateUI(title: title, subTitle: subTitle)
         setLayout(isControl: isControl)
         setUI(isControl: isControl)
-        updateUI(title: title, subTitle: subTitle)
     }
 }

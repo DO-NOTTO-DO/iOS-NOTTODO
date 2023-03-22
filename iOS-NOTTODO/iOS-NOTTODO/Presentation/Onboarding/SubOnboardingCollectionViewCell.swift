@@ -18,7 +18,7 @@ class SubOnboardingCollectionViewCell: UICollectionViewCell {
     
     // MARK: - UI Components
     private let iconImage = UIImageView()
-    private let tagLabel = PaddingLabel(padding: EdgeInsets(top: 2, leading: 7, bottom: 2, trailing: 7))
+    private let tagLabel = PaddingLabel(padding: UIEdgeInsets(top: 2, left: 7, bottom: 2, right: 7))
     private let titleLabel = UILabel()
     
     override init(frame: CGRect) {
@@ -41,8 +41,10 @@ extension SubOnboardingCollectionViewCell {
         contentView.layer.masksToBounds = true
 
         tagLabel.do {
-            $0.backgroundColor = .gray8
-            $0.font = .Pretendard(.regular, size: 1)
+            $0.layer.cornerRadius = 8
+            $0.layer.masksToBounds = true
+            $0.backgroundColor = UIColor.gray8
+            $0.font = .Pretendard(.regular, size: 10)
             $0.textColor = .gray6
         }
         titleLabel.do {
@@ -52,7 +54,7 @@ extension SubOnboardingCollectionViewCell {
     }
     
     private func setLayout() {
-        addSubviews(iconImage, tag, tagLabel)
+        addSubviews(iconImage, tagLabel, titleLabel)
         
         iconImage.snp.makeConstraints {
             $0.centerY.equalToSuperview()
@@ -66,12 +68,12 @@ extension SubOnboardingCollectionViewCell {
         titleLabel.snp.makeConstraints {
             $0.leading.equalTo(tagLabel.snp.leading)
             $0.top.equalTo(tagLabel.snp.bottom).offset(6)
+            $0.bottom.equalToSuperview().inset(15)
         }
     }
     func configure(model: FourOnboardingModel) {
-        titleLabel.text = model.title
-    }
-    func thirdConfigure(model: ThirdOnboardingModel) {
+        iconImage.image = model.icon
+        tagLabel.text = model.tag
         titleLabel.text = model.title
     }
 }
