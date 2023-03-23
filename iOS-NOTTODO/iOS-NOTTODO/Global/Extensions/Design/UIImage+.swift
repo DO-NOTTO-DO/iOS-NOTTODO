@@ -96,4 +96,5 @@ extension UIImage {
     static var pageControlRight: UIImage { UIImage(named: "splash_pageControl_right")! }
     static var kakaoAppleIcon: UIImage { UIImage(named: "splash_kakao_apple")! }
     static var splashArrow: UIImage { UIImage(named: "splash_arrow")! }
+    static var splashBack: UIImage { UIImage(named: "splash_create_back")! }
 }
