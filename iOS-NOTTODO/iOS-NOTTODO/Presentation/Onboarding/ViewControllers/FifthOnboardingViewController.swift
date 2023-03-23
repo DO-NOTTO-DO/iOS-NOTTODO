@@ -28,6 +28,7 @@ class FifthOnboardingViewController: UIViewController {
     private lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout())
     private let nextButton = UIButton(configuration: .plain())
     private let arrowImage = UIImageView()
+    private let gradientView = GradientView(color: .clear, color1: .ntdBlack!)
     
     // MARK: - Life Cycle
     
@@ -74,7 +75,7 @@ extension FifthOnboardingViewController {
     }
     
     private func setLayout() {
-        view.addSubviews(collectionView, nextButton)
+        view.addSubviews(collectionView, gradientView, nextButton)
         nextButton.addSubview(arrowImage)
         
         nextButton.snp.makeConstraints {
@@ -91,6 +92,11 @@ extension FifthOnboardingViewController {
             $0.top.equalTo(safeArea)
             $0.directionalHorizontalEdges.equalTo(safeArea).inset(27)
             $0.bottom.equalTo(nextButton.snp.top).inset(80)
+        }
+        gradientView.snp.makeConstraints {
+            $0.bottom.equalTo(nextButton.snp.top).offset(-90)
+            $0.top.equalTo(safeArea).offset(getDeviceHeight()*0.5)
+            $0.directionalHorizontalEdges.equalTo(safeArea)
         }
     }
     
