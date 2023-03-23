@@ -25,6 +25,7 @@ class FourthOnboardingViewController: UIViewController {
     
     private lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout())
     private let nextButton = UIButton(configuration: .plain())
+    private let gradientView = GradientView(color: .clear, color1: .ntdBlack!)
     
     // MARK: - Life Cycle
     
@@ -63,10 +64,11 @@ extension FourthOnboardingViewController {
             $0.configuration?.contentInsets = NSDirectionalEdgeInsets.init(top: 0, leading: 0, bottom: 0, trailing: 0)
             $0.addTarget(self, action: #selector(ButtonTapped), for: .touchUpInside)
         }
+
     }
     
     private func setLayout() {
-        view.addSubviews(collectionView, nextButton)
+        view.addSubviews(collectionView, gradientView, nextButton)
         
         nextButton.snp.makeConstraints {
             $0.trailing.equalTo(safeArea).inset(34)
@@ -77,6 +79,11 @@ extension FourthOnboardingViewController {
             $0.top.equalTo(safeArea)
             $0.directionalHorizontalEdges.equalTo(safeArea).inset(27)
             $0.bottom.equalTo(nextButton.snp.top).inset(80)
+        }
+        gradientView.snp.makeConstraints {
+            $0.bottom.equalTo(nextButton.snp.top)
+            $0.top.equalTo(safeArea).offset(getDeviceHeight()*0.5)
+            $0.directionalHorizontalEdges.equalTo(safeArea)
         }
     }
     
