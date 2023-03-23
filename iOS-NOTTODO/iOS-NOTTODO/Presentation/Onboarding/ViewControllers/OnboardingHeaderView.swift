@@ -103,11 +103,12 @@ extension OnboardingHeaderView {
         
         if isControl {
             titleLabel.snp.makeConstraints {
-                $0.bottom.equalToSuperview().inset(45)
+                $0.bottom.equalToSuperview().inset(40)
             }
             horizontalStackView.snp.makeConstraints {
-                $0.bottom.equalTo(titleLabel.snp.top).inset(11)
+                $0.bottom.equalTo(titleLabel.snp.top).inset(20)
             }
+
             flagImage.snp.makeConstraints {
                 $0.size.equalTo(20)
             }
@@ -115,6 +116,10 @@ extension OnboardingHeaderView {
             horizontalStackView.snp.remakeConstraints {
                 $0.bottom.equalToSuperview()
                 $0.directionalHorizontalEdges.equalToSuperview()
+            }
+            titleLabel.snp.remakeConstraints {
+                $0.top.equalToSuperview()
+                $0.height.equalTo(50)
             }
         }
     }

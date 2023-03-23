@@ -81,7 +81,7 @@ extension FifthOnboardingViewController {
         nextButton.snp.makeConstraints {
             $0.trailing.equalTo(safeArea).inset(34)
             $0.size.equalTo(CGSize(width: 205, height: 24))
-            $0.bottom.equalTo(safeArea)
+            $0.bottom.equalTo(safeArea).inset(12)
         }
         arrowImage.snp.makeConstraints {
             $0.size.equalTo(CGSize(width: 8, height: 16))
@@ -91,7 +91,7 @@ extension FifthOnboardingViewController {
         collectionView.snp.makeConstraints {
             $0.top.equalTo(safeArea)
             $0.directionalHorizontalEdges.equalTo(safeArea).inset(27)
-            $0.bottom.equalTo(nextButton.snp.top).inset(80)
+            $0.bottom.equalTo(nextButton.snp.top)
         }
         gradientView.snp.makeConstraints {
             $0.bottom.equalTo(nextButton.snp.top).offset(-90)
@@ -156,10 +156,9 @@ extension FifthOnboardingViewController {
         let group = NSCollectionLayoutGroup.vertical(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .estimated(70)), subitems: [item])
         let section = NSCollectionLayoutSection(group: group)
         section.interGroupSpacing = 18
-        section.contentInsets = NSDirectionalEdgeInsets(top: 11, leading: 0, bottom: 0, trailing: 0)
         
         let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(210))
-        let footerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(80))
+        let footerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .estimated(80))
         let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
         let footer = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: footerSize, elementKind: UICollectionView.elementKindSectionFooter, alignment: .bottom)
         section.boundarySupplementaryItems = [header, footer]

@@ -93,7 +93,6 @@ extension SecondOnboardingViewController {
         let group = NSCollectionLayoutGroup.vertical(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .estimated(55)), subitems: [item])
         let section = NSCollectionLayoutSection(group: group)
         section.interGroupSpacing = 18
-        section.supplementariesFollowContentInsets = false
         
         let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(210))
         let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)

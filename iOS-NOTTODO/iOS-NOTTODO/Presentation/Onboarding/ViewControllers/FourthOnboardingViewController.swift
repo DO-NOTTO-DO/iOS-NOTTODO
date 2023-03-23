@@ -57,7 +57,7 @@ extension FourthOnboardingViewController {
         nextButton.do {
             $0.configuration?.image = .splashBack
             $0.configuration?.title = I18N.fourthButton
-            $0.configuration?.imagePadding = 2
+            $0.configuration?.imagePadding = 13
             $0.configuration?.imagePlacement = NSDirectionalRectEdge.trailing
             $0.configuration?.attributedTitle?.font = .Pretendard(.medium, size: 16)
             $0.configuration?.attributedTitle?.foregroundColor = .white
@@ -73,12 +73,12 @@ extension FourthOnboardingViewController {
         nextButton.snp.makeConstraints {
             $0.trailing.equalTo(safeArea).inset(34)
             $0.size.equalTo(CGSize(width: 95, height: 24))
-            $0.bottom.equalTo(safeArea)
+            $0.bottom.equalTo(safeArea).inset(12)
         }
         collectionView.snp.makeConstraints {
             $0.top.equalTo(safeArea)
             $0.directionalHorizontalEdges.equalTo(safeArea).inset(27)
-            $0.bottom.equalTo(nextButton.snp.top).inset(80)
+            $0.bottom.equalTo(nextButton.snp.top)
         }
         gradientView.snp.makeConstraints {
             $0.bottom.equalTo(nextButton.snp.top)
@@ -116,9 +116,9 @@ extension FourthOnboardingViewController {
         let group = NSCollectionLayoutGroup.vertical(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .estimated(70)), subitems: [item])
         let section = NSCollectionLayoutSection(group: group)
         section.interGroupSpacing = 18
-        section.contentInsets = NSDirectionalEdgeInsets(top: 30, leading: 0, bottom: 0, trailing: 0)
+        section.contentInsets = NSDirectionalEdgeInsets(top: 35, leading: 0, bottom: 0, trailing: 0)
         
-        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(210))
+        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(150))
         let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
         section.boundarySupplementaryItems = [header]
         let layout = UICollectionViewCompositionalLayout(section: section)

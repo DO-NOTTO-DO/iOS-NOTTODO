@@ -70,16 +70,17 @@ extension ThirdOnboardingViewController {
     
     private func setLayout() {
         view.addSubviews(collectionView, nextButton)
+    
+        nextButton.snp.makeConstraints {
+            $0.top.equalTo(collectionView.snp.bottom)
+            $0.bottom.equalTo(safeArea).inset(10)
+            $0.directionalHorizontalEdges.equalTo(safeArea).inset(15)
+            $0.height.equalTo(50)
+        }
         collectionView.snp.makeConstraints {
             $0.top.equalTo(safeArea)
             $0.directionalHorizontalEdges.equalTo(safeArea).inset(27)
-        }
-        
-        nextButton.snp.makeConstraints {
-            $0.top.equalTo(collectionView.snp.bottom)
-            $0.bottom.equalTo(safeArea)
-            $0.directionalHorizontalEdges.equalTo(safeArea).inset(15)
-            $0.height.equalTo(50)
+            $0.bottom.equalTo(nextButton.snp.top)
         }
     }
     
@@ -112,12 +113,11 @@ extension ThirdOnboardingViewController {
         group.interItemSpacing = .fixed(18)
         let section = NSCollectionLayoutSection(group: group)
         section.interGroupSpacing = 18
-        section.contentInsets = NSDirectionalEdgeInsets(top: 30, leading: 0, bottom: 0, trailing: 0)
+        section.contentInsets = NSDirectionalEdgeInsets(top: 30, leading: 0, bottom: 80, trailing: 0)
         
-        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(210))
+        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .estimated(210))
         let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
         section.boundarySupplementaryItems = [header]
-        
         return UICollectionViewCompositionalLayout(section: section)
     }
 }
