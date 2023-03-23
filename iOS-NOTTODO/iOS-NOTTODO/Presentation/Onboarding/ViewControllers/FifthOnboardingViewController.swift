@@ -70,7 +70,7 @@ extension FifthOnboardingViewController {
             $0.addTarget(self, action: #selector(ButtonTapped), for: .touchUpInside)
         }
         arrowImage.do {
-            $0.image = .icRightArrow
+            $0.image = .splashBack
         }
     }
     
@@ -84,8 +84,8 @@ extension FifthOnboardingViewController {
             $0.bottom.equalTo(safeArea)
         }
         arrowImage.snp.makeConstraints {
-            $0.size.equalTo(16)
-            $0.trailing.equalToSuperview().offset(12)
+            $0.size.equalTo(CGSize(width: 8, height: 16))
+            $0.trailing.equalToSuperview()
             $0.centerY.equalToSuperview()
         }
         collectionView.snp.makeConstraints {

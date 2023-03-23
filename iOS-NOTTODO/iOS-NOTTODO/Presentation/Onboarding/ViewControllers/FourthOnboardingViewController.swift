@@ -55,7 +55,7 @@ extension FourthOnboardingViewController {
             $0.isScrollEnabled = false
         }
         nextButton.do {
-            $0.configuration?.image = .icRightArrow
+            $0.configuration?.image = .splashBack
             $0.configuration?.title = I18N.fourthButton
             $0.configuration?.imagePadding = 2
             $0.configuration?.imagePlacement = NSDirectionalRectEdge.trailing
