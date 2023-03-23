@@ -126,7 +126,7 @@ extension ThirdOnboardingViewController {
     @objc
     private func buttonTapped() {
         let nextViewController = FourthOnboardingViewController()
-        navigationController?.pushViewController(nextViewController, animated: true)
+        navigationController?.pushViewController(nextViewController, animated: false)
     }
 }
 

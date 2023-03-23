@@ -130,6 +130,6 @@ extension FourthOnboardingViewController {
     private func ButtonTapped() {
         print("tapped")
         let nextViewController = FifthOnboardingViewController()
-        navigationController?.pushViewController(nextViewController, animated: true)
+        navigationController?.pushViewController(nextViewController, animated: false)
     }
 }
