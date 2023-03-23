@@ -1,19 +1,18 @@
 //
-//  DetailMissionView.swift
+//  DetailAchievementCollectionViewCell.swift
 //  iOS-NOTTODO
 //
-//  Created by JEONGEUN KIM on 2023/03/21.
+//  Created by JEONGEUN KIM on 2023/03/23.
 //
 
 import UIKit
 
-import SnapKit
-import Then
-
-class DetailMissionView: UIView {
+class DetailAchievementCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Properties
-        
+    
+    static let identifier = "DetailAchievementCollectionViewCell"
+    
     // MARK: - UI Components
     
     let tagLabel = PaddingLabel(padding: UIEdgeInsets(top: 4, left: 12, bottom: 4, right: 12))
@@ -21,29 +20,27 @@ class DetailMissionView: UIView {
     private let emptyView = UIView()
     let titleLabel = UILabel()
     private let checkImage = UIImageView()
-    private let lineView = UIView()
     
-    // MARK: - View Life Cycle
+    // MARK: - Life Cycle
     
-    init(tag: String, title: String, isHidden: Bool) {
-        super.init(frame: .zero)
-        setUI(tag: tag, title: title, isHidden: isHidden)
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setUI()
         setLayout()
     }
     
-    required init?(coder: NSCoder) {
+    required init!(coder aDecoder: NSCoder!) {
         fatalError("init(coder:) has not been implemented")
     }
 }
 
 // MARK: - Methods
 
-extension DetailMissionView {
-    private func setUI(tag: String, title: String, isHidden: Bool) {
-        layer.cornerRadius = 12
+extension DetailAchievementCollectionViewCell {
+    private func setUI() {
+        contentView.backgroundColor = .clear
         
         tagLabel.do {
-            $0.text = tag
             $0.layer.backgroundColor = UIColor.bg?.cgColor
             $0.font = .Pretendard(.medium, size: 14)
             $0.textColor = .gray1
@@ -56,7 +53,6 @@ extension DetailMissionView {
         }
         
         titleLabel.do {
-            $0.text = title
             $0.font = .Pretendard(.semiBold, size: 16)
             $0.textColor = .gray2
             $0.numberOfLines = 0
@@ -65,34 +61,33 @@ extension DetailMissionView {
         checkImage.do {
             $0.image = UIImage(named: "ic_create_checked")
         }
-
-        lineView.do {
-            $0.backgroundColor = .gray5
-            $0.isHidden = isHidden ? false : true
-        }
     }
-        
     private func setLayout() {
-        addSubviews(lineView, tagLabel, horizontalStackView)
+        addSubviews(tagLabel, horizontalStackView)
         
         tagLabel.snp.makeConstraints {
             $0.top.equalToSuperview().offset(22)
             $0.leading.equalToSuperview().offset(29)
         }
+        
         horizontalStackView.snp.makeConstraints {
             $0.top.equalTo(tagLabel.snp.bottom).offset(7)
             $0.directionalHorizontalEdges.equalToSuperview().inset(28)
             $0.bottom.equalToSuperview().inset(24)
         }
-
+        
         checkImage.snp.makeConstraints {
             $0.trailing.equalToSuperview().inset(7)
             $0.size.equalTo(21)
         }
-        lineView.snp.makeConstraints {
-            $0.top.equalTo(tagLabel.snp.top).offset(-22)
-            $0.directionalHorizontalEdges.equalToSuperview().inset(20)
-            $0.height.equalTo(0.5)
+    }
+    
+    func configure(model: MissionListModel) {
+        tagLabel.text = model.title
+        titleLabel.text = model.situation
+        switch model.completionStatus {
+        case .CHECKED: checkImage.isHidden = false
+        case .UNCHECKED: checkImage.isHidden = true
         }
     }
 }

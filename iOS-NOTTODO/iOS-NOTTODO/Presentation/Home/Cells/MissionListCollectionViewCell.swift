@@ -116,8 +116,8 @@ extension MissionListCollectionViewCell {
     }
     
     func configure(model: MissionListModel) {
-        tagLabel.text = model.tag
-        missionLabel.text = model.missiontitle
+        tagLabel.text = model.title
+        missionLabel.text = model.situation
     }
     
     @objc
