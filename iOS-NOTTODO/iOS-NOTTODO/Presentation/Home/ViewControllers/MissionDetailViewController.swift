@@ -20,7 +20,7 @@ class MissionDetailViewController: UIViewController {
     }
     typealias Item = AnyHashable
     var dataSource: UICollectionViewDiffableDataSource<Section, Item>! = nil
-    private let detailModel: [MissionDetailModel] = MissionDetailModel.items
+    var detailModel: MissionDetailModel?
     
     // MARK: - UI Components
     
@@ -101,7 +101,7 @@ extension MissionDetailViewController {
             dataSource.apply(snapShot, animatingDifferences: false)
         }
         snapShot.appendSections([.mission])
-        snapShot.appendItems(detailModel, toSection: .mission)
+        snapShot.appendItems([detailModel], toSection: .mission)
         
         dataSource.supplementaryViewProvider = { (collectionView, kind, indexPath) in
             if kind == UICollectionView.elementKindSectionHeader {
