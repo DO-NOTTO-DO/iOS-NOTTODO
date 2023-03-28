@@ -59,7 +59,7 @@ extension DetailAchievementCollectionViewCell {
             $0.textAlignment = .left
         }
         checkImage.do {
-            $0.image = UIImage(named: "ic_create_checked")
+            $0.image = .icChecked
         }
     }
     private func setLayout() {
