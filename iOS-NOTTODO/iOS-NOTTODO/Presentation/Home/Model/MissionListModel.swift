@@ -6,7 +6,6 @@
 //
 
 import Foundation
-
 enum CompletionStatus: String, Codable {
     case CHECKED, UNCHECKED
 }
