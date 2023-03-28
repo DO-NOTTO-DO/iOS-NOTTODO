@@ -29,7 +29,7 @@ class DetailAchievementCollectionViewCell: UICollectionViewCell {
         setLayout()
     }
     
-    required init!(coder aDecoder: NSCoder!) {
+    required init!(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 }
@@ -72,12 +72,13 @@ extension DetailAchievementCollectionViewCell {
         
         horizontalStackView.snp.makeConstraints {
             $0.top.equalTo(tagLabel.snp.bottom).offset(7)
-            $0.directionalHorizontalEdges.equalToSuperview().inset(28)
+            $0.leading.equalToSuperview().inset(28)
+            $0.trailing.equalToSuperview()
             $0.bottom.equalToSuperview().inset(24)
         }
         
         checkImage.snp.makeConstraints {
-            $0.trailing.equalToSuperview().inset(7)
+            $0.trailing.equalToSuperview()
             $0.size.equalTo(21)
         }
     }
