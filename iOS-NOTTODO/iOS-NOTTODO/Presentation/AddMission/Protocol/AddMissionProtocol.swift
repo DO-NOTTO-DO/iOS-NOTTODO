@@ -13,4 +13,5 @@ enum FoldState {
 
 protocol AddMissionMenu {
     var fold: FoldState { get set }
+    func calculateCellHeight() -> CGFloat
 }

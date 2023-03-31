@@ -10,13 +10,12 @@ import UIKit
 import SnapKit
 import Then
 
-final class DateCollectionViewCell: UICollectionViewCell {
+final class DateCollectionViewCell: UICollectionViewCell, AddMissionMenu {
     
     // MARK: - Properties
     
     static let identifier = "DateCollectionViewCell"
-    
-    var isHeightCalculated = false
+    var fold: FoldState = .unfolded
     
     // MARK: - UI Components
     
@@ -34,6 +33,10 @@ final class DateCollectionViewCell: UICollectionViewCell {
     @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func calculateCellHeight() -> CGFloat {
+        return 0
     }
 }
 

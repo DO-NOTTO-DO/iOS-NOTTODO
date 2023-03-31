@@ -39,6 +39,10 @@ final class ActionCollectionViewCell: UICollectionViewCell, AddMissionMenu {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    func calculateCellHeight() -> CGFloat {
+        return 0
+    }
 }
 
 private extension ActionCollectionViewCell {
