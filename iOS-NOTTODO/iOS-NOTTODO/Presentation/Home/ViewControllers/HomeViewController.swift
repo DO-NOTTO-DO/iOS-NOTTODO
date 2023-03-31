@@ -15,7 +15,7 @@ class HomeViewController: UIViewController {
     
     // MARK: - Properties
     
-    private let missionList: [MissionListModel] = MissionListModel.items
+    private var missionList: [MissionListModel] = MissionListModel.items // 서버 통신 데이터 넣기
     enum Sections: Int, Hashable {
         case mission, empty
     }
@@ -56,12 +56,14 @@ extension HomeViewController {
         weekCalendar.do {
             $0.calendar.delegate = self
             $0.calendar.dataSource = self
+            $0.calendar.register(MissionCalendarCell.self, forCellReuseIdentifier: MissionCalendarCell.identifier)
         }
         
         missionCollectionView.do {
             $0.backgroundColor = .bg
             $0.bounces = false
             $0.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+            $0.delegate = self
         }
         
         addButton.do {
@@ -103,8 +105,12 @@ extension HomeViewController {
                 cell.configure(model: item as! MissionListModel )
                 cell.isTappedClosure = { result in
                     if result {
-                        cell.isTapped.toggle()
+                        switch  self.missionList[indexPath.item].completionStatus {
+                        case .CHECKED: self.missionList[indexPath.item].completionStatus = .UNCHECKED
+                        case .UNCHECKED: self.missionList[indexPath.item].completionStatus = .CHECKED
+                        }
                         cell.setUI()
+                        self.reloadData()
                     }
                 }
                 return cell
@@ -179,7 +185,15 @@ extension HomeViewController {
         return swipeConfiguration
     }
 }
-// MARK: - Action
+extension HomeViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let modalViewController = MissionDetailViewController()
+        modalViewController.modalPresentationStyle = .overFullScreen
+        modalViewController.detailModel = MissionDetailModel.items[missionList[indexPath.item].id - 1] // id 값
+        // 서버 : missionList[indexPath.item].id
+        self.present(modalViewController, animated: true)
+    }
+}
 
 extension HomeViewController {
     @objc
@@ -189,19 +203,26 @@ extension HomeViewController {
 }
 extension HomeViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalendarDelegateAppearance {
     func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
-        weekCalendar.yearMonthLabel.text = Utils.DateFormatterString(format: I18N.yearMonthTitle, date: calendar.currentPage)
+        weekCalendar.yearMonthLabel.text = Utils.dateFormatterString(format: I18N.yearMonthTitle, date: calendar.currentPage)
     }
     
     func  calendar(_ calendar: FSCalendar, titleFor date: Date) -> String? {
-        Utils.DateFormatterString(format: "EEEEEE", date: date)
+        Utils.dateFormatterString(format: "EEEEEE", date: date)
     }
     
     func calendar(_ calendar: FSCalendar, subtitleFor date: Date) -> String? {
-        Utils.DateFormatterString(format: "dd", date: date)
+        Utils.dateFormatterString(format: "dd", date: date)
     }
     
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
-        weekCalendar.yearMonthLabel.text = Utils.DateFormatterString(format: I18N.yearMonthTitle, date: date)
-        print("선택")
+        weekCalendar.yearMonthLabel.text = Utils.dateFormatterString(format: I18N.yearMonthTitle, date: date)
+        if let dateString =  Utils.dateFormatterString(format: "yyyy-MM-dd", date: date) {
+            print(dateString)
+        }
+    }
+    func calendar(_ calendar: FSCalendar, cellFor date: Date, at position: FSCalendarMonthPosition) -> FSCalendarCell {
+        let cell = calendar.dequeueReusableCell(withIdentifier: MissionCalendarCell.identifier, for: date, at: position) as! MissionCalendarCell
+        cell.configure(.rateHalf, .week)
+        return cell
     }
 }

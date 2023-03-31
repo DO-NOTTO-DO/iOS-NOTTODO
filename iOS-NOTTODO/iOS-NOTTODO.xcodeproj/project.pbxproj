@@ -7,7 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		09022D4629C44BC300DE6E49 /* MissionCalendarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09022D4529C44BC300DE6E49 /* MissionCalendarCell.swift */; };
+		092E04B129BD9C86008A5892 /* MissionDetailCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092E04B029BD9C86008A5892 /* MissionDetailCollectionViewCell.swift */; };
 		0930D37329B4FCAE0000C4AE /* StatisticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0930D37229B4FCAE0000C4AE /* StatisticsView.swift */; };
+		0930DE6229B80550007958DE /* MissionDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0930DE6129B80550007958DE /* MissionDetailViewController.swift */; };
+		09582B4829BDA7F600EF3207 /* DetailStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09582B4729BDA7F600EF3207 /* DetailStackView.swift */; };
+		09582B4B29BDE37C00EF3207 /* DetailFooterReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09582B4A29BDE37C00EF3207 /* DetailFooterReusableView.swift */; };
+		09582B4D29BE277800EF3207 /* DetailHeaderReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09582B4C29BE277800EF3207 /* DetailHeaderReusableView.swift */; };
+		09582B4F29BEBAFA00EF3207 /* DetailCalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09582B4E29BEBAFA00EF3207 /* DetailCalendarViewController.swift */; };
+		09582B5129C0BC3600EF3207 /* DetailAchievementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09582B5029C0BC3600EF3207 /* DetailAchievementViewController.swift */; };
 		097C003629AB8270008CAEF3 /* MissionListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097C003529AB8270008CAEF3 /* MissionListCollectionViewCell.swift */; };
 		0982DE5429ADCCE000D933D2 /* HomeEmptyCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0982DE5329ADCCE000D933D2 /* HomeEmptyCollectionViewCell.swift */; };
 		0982DE5829AE40FB00D933D2 /* UITabBar+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0982DE5729AE40FB00D933D2 /* UITabBar+.swift */; };
@@ -21,6 +29,17 @@
 		099FC98129B3094F005B37E6 /* WeekMonthFSCalendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 099FC98029B3094F005B37E6 /* WeekMonthFSCalendar.swift */; };
 		099FC98329B30A2E005B37E6 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 099FC98229B30A2E005B37E6 /* Utils.swift */; };
 		099FC98929B3233D005B37E6 /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 099FC98829B3233D005B37E6 /* CalendarView.swift */; };
+		09F6718029CAD76C00708725 /* SecondOnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F6717F29CAD76C00708725 /* SecondOnboardingViewController.swift */; };
+		09F6718229CAD86100708725 /* OnboardingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F6718129CAD86100708725 /* OnboardingCollectionViewCell.swift */; };
+		09F6718429CADB1100708725 /* OnboardingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F6718329CADB1100708725 /* OnboardingModel.swift */; };
+		09F6718629CB26E400708725 /* OnboardingHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F6718529CB26E400708725 /* OnboardingHeaderView.swift */; };
+		09F6718829CB383800708725 /* ThirdOnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F6718729CB383800708725 /* ThirdOnboardingViewController.swift */; };
+		09F6718A29CB4A3F00708725 /* FourthOnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F6718929CB4A3F00708725 /* FourthOnboardingViewController.swift */; };
+		09F6718C29CB4AB700708725 /* SubOnboardingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F6718B29CB4AB700708725 /* SubOnboardingCollectionViewCell.swift */; };
+		09F6718E29CB612B00708725 /* FifthOnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F6718D29CB612B00708725 /* FifthOnboardingViewController.swift */; };
+		09F6719029CB6AB400708725 /* OnboardingFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F6718F29CB6AB400708725 /* OnboardingFooterView.swift */; };
+		09F6719529CBFCD200708725 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F6719429CBFCD200708725 /* GradientView.swift */; };
+		09F6719729CC81B500708725 /* DetailAchievementCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F6719629CC81B500708725 /* DetailAchievementCollectionViewCell.swift */; };
 		3B027A78299C31B500BEB65C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B027A77299C31B500BEB65C /* AppDelegate.swift */; };
 		3B027A7A299C31B500BEB65C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B027A79299C31B500BEB65C /* SceneDelegate.swift */; };
 		3B027A7C299C31B500BEB65C /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B027A7B299C31B500BEB65C /* AuthViewController.swift */; };
@@ -65,6 +84,9 @@
 		3BC1A27929C9BE6C0088376B /* AddMissionFooterCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC1A27829C9BE6C0088376B /* AddMissionFooterCollectionReusableView.swift */; };
 		3BD3B5C829B8F82C00D3575B /* AddMissionTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD3B5C729B8F82C00D3575B /* AddMissionTextFieldView.swift */; };
 		6C16015829C40112005AE3F5 /* AuthButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C16015729C40112005AE3F5 /* AuthButtonView.swift */; };
+		6C16015C29C56DBA005AE3F5 /* MyInfoAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C16015B29C56DBA005AE3F5 /* MyInfoAccountViewController.swift */; };
+		6C16016229C59EFD005AE3F5 /* MyInfoAccountModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C16016129C59EFD005AE3F5 /* MyInfoAccountModel.swift */; };
+		6C16016429C5E37D005AE3F5 /* MyInfoAccountStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C16016329C5E37D005AE3F5 /* MyInfoAccountStackView.swift */; };
 		6C44127129A35A1000313C3F /* KakaoSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 6C44127029A35A1000313C3F /* KakaoSDK */; };
 		6C44127329A35A1000313C3F /* KakaoSDKAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 6C44127229A35A1000313C3F /* KakaoSDKAuth */; };
 		6C44127529A35A1000313C3F /* KakaoSDKCommon in Frameworks */ = {isa = PBXBuildFile; productRef = 6C44127429A35A1000313C3F /* KakaoSDKCommon */; };
@@ -94,7 +116,15 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		09022D4529C44BC300DE6E49 /* MissionCalendarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionCalendarCell.swift; sourceTree = "<group>"; };
+		092E04B029BD9C86008A5892 /* MissionDetailCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionDetailCollectionViewCell.swift; sourceTree = "<group>"; };
 		0930D37229B4FCAE0000C4AE /* StatisticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsView.swift; sourceTree = "<group>"; };
+		0930DE6129B80550007958DE /* MissionDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionDetailViewController.swift; sourceTree = "<group>"; };
+		09582B4729BDA7F600EF3207 /* DetailStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailStackView.swift; sourceTree = "<group>"; };
+		09582B4A29BDE37C00EF3207 /* DetailFooterReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailFooterReusableView.swift; sourceTree = "<group>"; };
+		09582B4C29BE277800EF3207 /* DetailHeaderReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailHeaderReusableView.swift; sourceTree = "<group>"; };
+		09582B4E29BEBAFA00EF3207 /* DetailCalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailCalendarViewController.swift; sourceTree = "<group>"; };
+		09582B5029C0BC3600EF3207 /* DetailAchievementViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailAchievementViewController.swift; sourceTree = "<group>"; };
 		097C003529AB8270008CAEF3 /* MissionListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionListCollectionViewCell.swift; sourceTree = "<group>"; };
 		0982DE5329ADCCE000D933D2 /* HomeEmptyCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeEmptyCollectionViewCell.swift; sourceTree = "<group>"; };
 		0982DE5729AE40FB00D933D2 /* UITabBar+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITabBar+.swift"; sourceTree = "<group>"; };
@@ -107,6 +137,17 @@
 		099FC98029B3094F005B37E6 /* WeekMonthFSCalendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekMonthFSCalendar.swift; sourceTree = "<group>"; };
 		099FC98229B30A2E005B37E6 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		099FC98829B3233D005B37E6 /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
+		09F6717F29CAD76C00708725 /* SecondOnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondOnboardingViewController.swift; sourceTree = "<group>"; };
+		09F6718129CAD86100708725 /* OnboardingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCollectionViewCell.swift; sourceTree = "<group>"; };
+		09F6718329CADB1100708725 /* OnboardingModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingModel.swift; sourceTree = "<group>"; };
+		09F6718529CB26E400708725 /* OnboardingHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingHeaderView.swift; sourceTree = "<group>"; };
+		09F6718729CB383800708725 /* ThirdOnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThirdOnboardingViewController.swift; sourceTree = "<group>"; };
+		09F6718929CB4A3F00708725 /* FourthOnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FourthOnboardingViewController.swift; sourceTree = "<group>"; };
+		09F6718B29CB4AB700708725 /* SubOnboardingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubOnboardingCollectionViewCell.swift; sourceTree = "<group>"; };
+		09F6718D29CB612B00708725 /* FifthOnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FifthOnboardingViewController.swift; sourceTree = "<group>"; };
+		09F6718F29CB6AB400708725 /* OnboardingFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingFooterView.swift; sourceTree = "<group>"; };
+		09F6719429CBFCD200708725 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
+		09F6719629CC81B500708725 /* DetailAchievementCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailAchievementCollectionViewCell.swift; sourceTree = "<group>"; };
 		3B027A74299C31B500BEB65C /* iOS-NOTTODO.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "iOS-NOTTODO.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B027A77299C31B500BEB65C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3B027A79299C31B500BEB65C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -151,6 +192,9 @@
 		3BD3B5C729B8F82C00D3575B /* AddMissionTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMissionTextFieldView.swift; sourceTree = "<group>"; };
 		3BDE6157299EDD02001CCEA9 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		6C16015729C40112005AE3F5 /* AuthButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthButtonView.swift; sourceTree = "<group>"; };
+		6C16015B29C56DBA005AE3F5 /* MyInfoAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInfoAccountViewController.swift; sourceTree = "<group>"; };
+		6C16016129C59EFD005AE3F5 /* MyInfoAccountModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInfoAccountModel.swift; sourceTree = "<group>"; };
+		6C16016329C5E37D005AE3F5 /* MyInfoAccountStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInfoAccountStackView.swift; sourceTree = "<group>"; };
 		6CD4F8B929AA493600CCC740 /* RecommendActionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendActionHeaderView.swift; sourceTree = "<group>"; };
 		6CD4F8BB29AA494300CCC740 /* RecommendActionFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendActionFooterView.swift; sourceTree = "<group>"; };
 		6CD4F8BD29AA495900CCC740 /* RecommendActionCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendActionCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -195,6 +239,39 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0917F2AF29C9798800009324 /* Calendar */ = {
+			isa = PBXGroup;
+			children = (
+				099FC98029B3094F005B37E6 /* WeekMonthFSCalendar.swift */,
+				099FC98829B3233D005B37E6 /* CalendarView.swift */,
+			);
+			path = Calendar;
+			sourceTree = "<group>";
+		};
+		0917F2B029C9799100009324 /* Layout */ = {
+			isa = PBXGroup;
+			children = (
+				0982DE5929AE5E6000D933D2 /* CompositionalLayout.swift */,
+			);
+			path = Layout;
+			sourceTree = "<group>";
+		};
+		0917F2B129C979A400009324 /* StackView */ = {
+			isa = PBXGroup;
+			children = (
+				09582B4729BDA7F600EF3207 /* DetailStackView.swift */,
+			);
+			path = StackView;
+			sourceTree = "<group>";
+		};
+		09582B4929BDB45F00EF3207 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				099CFA1929AB8D710003E5D5 /* MissionListModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		098BFD6029B80137008E80F9 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
@@ -225,6 +302,8 @@
 			isa = PBXGroup;
 			children = (
 				3B027A9D299C34DA00BEB65C /* HomeViewController.swift */,
+				0930DE6129B80550007958DE /* MissionDetailViewController.swift */,
+				09582B4E29BEBAFA00EF3207 /* DetailCalendarViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -234,8 +313,70 @@
 			children = (
 				0982DE5329ADCCE000D933D2 /* HomeEmptyCollectionViewCell.swift */,
 				097C003529AB8270008CAEF3 /* MissionListCollectionViewCell.swift */,
+				092E04B029BD9C86008A5892 /* MissionDetailCollectionViewCell.swift */,
+				09582B4A29BDE37C00EF3207 /* DetailFooterReusableView.swift */,
+				09582B4C29BE277800EF3207 /* DetailHeaderReusableView.swift */,
 			);
 			path = Cells;
+			sourceTree = "<group>";
+		};
+		09F6717E29CAD68100708725 /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				09F6719229CB6E6200708725 /* ViewControllers */,
+				09F6719129CB6E4D00708725 /* Model */,
+				09F6719329CB6E7800708725 /* Cell */,
+			);
+			path = Onboarding;
+			sourceTree = "<group>";
+		};
+		09F6719129CB6E4D00708725 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				09F6718329CADB1100708725 /* OnboardingModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		09F6719229CB6E6200708725 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				09F6717F29CAD76C00708725 /* SecondOnboardingViewController.swift */,
+				09F6718729CB383800708725 /* ThirdOnboardingViewController.swift */,
+				09F6718929CB4A3F00708725 /* FourthOnboardingViewController.swift */,
+				09F6718D29CB612B00708725 /* FifthOnboardingViewController.swift */,
+				09F6718529CB26E400708725 /* OnboardingHeaderView.swift */,
+				09F6718F29CB6AB400708725 /* OnboardingFooterView.swift */,
+				09F6719429CBFCD200708725 /* GradientView.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		09F6719329CB6E7800708725 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				09F6718129CAD86100708725 /* OnboardingCollectionViewCell.swift */,
+				09F6718B29CB4AB700708725 /* SubOnboardingCollectionViewCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		09F6719829CC8EC500708725 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				09F6719629CC81B500708725 /* DetailAchievementCollectionViewCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		09F6719929CC8ECD00708725 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				3B027AA1299C355800BEB65C /* AchievementViewController.swift */,
+				09582B5029C0BC3600EF3207 /* DetailAchievementViewController.swift */,
+				0930D37229B4FCAE0000C4AE /* StatisticsView.swift */,
+			);
+			path = ViewControllers;
 			sourceTree = "<group>";
 		};
 		3B027A6B299C31B500BEB65C = {
@@ -325,12 +466,14 @@
 		3B027A97299C343D00BEB65C /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				09F6717E29CAD68100708725 /* Onboarding */,
 				3B027A9B299C348800BEB65C /* Achievement */,
 				3B027A9C299C349A00BEB65C /* AddMission */,
 				3B027A98299C347400BEB65C /* Auth */,
 				6CF4707729A7AAD1008D145C /* Common */,
 				3B027A99299C347A00BEB65C /* Home */,
 				3B027A9A299C348200BEB65C /* MyInfo */,
+				6C16015929C56CE8005AE3F5 /* MyInfoAccount */,
 				6CF4706B29A737E8008D145C /* Recommend */,
 				6CD4F8B529AA48D900CCC740 /* RecommendAction */,
 				3B027AA5299C358300BEB65C /* TabBar */,
@@ -352,7 +495,7 @@
 			children = (
 				099CFA1729AB8C260003E5D5 /* ViewControllers */,
 				099CFA1829AB8C2F0003E5D5 /* Cells */,
-				099CFA1929AB8D710003E5D5 /* MissionListModel.swift */,
+				09582B4929BDB45F00EF3207 /* Model */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -370,8 +513,8 @@
 		3B027A9B299C348800BEB65C /* Achievement */ = {
 			isa = PBXGroup;
 			children = (
-				3B027AA1299C355800BEB65C /* AchievementViewController.swift */,
-				0930D37229B4FCAE0000C4AE /* StatisticsView.swift */,
+				09F6719929CC8ECD00708725 /* ViewControllers */,
+				09F6719829CC8EC500708725 /* Cell */,
 			);
 			path = Achievement;
 			sourceTree = "<group>";
@@ -442,6 +585,32 @@
 				3B027A80299C31B600BEB65C /* Assets.xcassets */,
 			);
 			path = Assets;
+			sourceTree = "<group>";
+		};
+		6C16015929C56CE8005AE3F5 /* MyInfoAccount */ = {
+			isa = PBXGroup;
+			children = (
+				6C16016029C59EE0005AE3F5 /* Models */,
+				6C16015A29C56D90005AE3F5 /* ViewControllers */,
+			);
+			path = MyInfoAccount;
+			sourceTree = "<group>";
+		};
+		6C16015A29C56D90005AE3F5 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				6C16015B29C56DBA005AE3F5 /* MyInfoAccountViewController.swift */,
+				6C16016329C5E37D005AE3F5 /* MyInfoAccountStackView.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		6C16016029C59EE0005AE3F5 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				6C16016129C59EFD005AE3F5 /* MyInfoAccountModel.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		3B3C89DB29C0EF6A00B1D56D /* Models */ = {
@@ -604,10 +773,11 @@
 			isa = PBXGroup;
 			children = (
 				6CF4707829A7AADB008D145C /* PaddingLabel */,
-				0982DE5929AE5E6000D933D2 /* CompositionalLayout.swift */,
+				0917F2B029C9799100009324 /* Layout */,
 				099FC98229B30A2E005B37E6 /* Utils.swift */,
-				099FC98029B3094F005B37E6 /* WeekMonthFSCalendar.swift */,
-				099FC98829B3233D005B37E6 /* CalendarView.swift */,
+				09022D4529C44BC300DE6E49 /* MissionCalendarCell.swift */,
+				0917F2B129C979A400009324 /* StackView */,
+				0917F2AF29C9798800009324 /* Calendar */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -740,8 +910,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				09F6719729CC81B500708725 /* DetailAchievementCollectionViewCell.swift in Sources */,
 				3B14A14129A6FDA900F92897 /* UILabel+.swift in Sources */,
 				3B027A7C299C31B500BEB65C /* AuthViewController.swift in Sources */,
+				6C16016229C59EFD005AE3F5 /* MyInfoAccountModel.swift in Sources */,
 				3B027A92299C33FE00BEB65C /* UIColor+.swift in Sources */,
 				3B027AA4299C357000BEB65C /* MyInfoViewController.swift in Sources */,
 				3B5F8F8129BF90190063A7F8 /* NottodoCollectionViewCell.swift in Sources */,
@@ -751,6 +923,7 @@
 				3B027AA0299C353700BEB65C /* AddMissionViewController.swift in Sources */,
 				098BFD5929B7999E008E80F9 /* MyProfileCollectionViewCell.swift in Sources */,
 				3B5F8F7A29BF8E8D0063A7F8 /* AddMissionProtocol.swift in Sources */,
+				09F6718C29CB4AB700708725 /* SubOnboardingCollectionViewCell.swift in Sources */,
 				3B027A96299C340C00BEB65C /* UIImage+.swift in Sources */,
 				098BFD5B29B79B6A008E80F9 /* MyInfoModel.swift in Sources */,
 				6CF4707A29A7AAFF008D145C /* PaddingLabel.swift in Sources */,
@@ -758,23 +931,33 @@
 				3B027A78299C31B500BEB65C /* AppDelegate.swift in Sources */,
 				3B37AE2929C8821600AB7587 /* GoalCollectionViewCell.swift in Sources */,
 				3B14A14329A6FEE400F92897 /* UITextField+.swift in Sources */,
+				09022D4629C44BC300DE6E49 /* MissionCalendarCell.swift in Sources */,
+				09582B4B29BDE37C00EF3207 /* DetailFooterReusableView.swift in Sources */,
 				6CF4707629A73D62008D145C /* RecommendModel.swift in Sources */,
 				6CD4F8C029AA497A00CCC740 /* RecommendActionModel.swift in Sources */,
 				6CF4705B29A68EA9008D145C /* URLConstant.swift in Sources */,
 				3BD3B5C829B8F82C00D3575B /* AddMissionTextFieldView.swift in Sources */,
 				3B14518629C618920013DFB4 /* ActionCollectionViewCell.swift in Sources */,
+				092E04B129BD9C86008A5892 /* MissionDetailCollectionViewCell.swift in Sources */,
 				6CF4706D29A739D9008D145C /* RecommendViewController.swift in Sources */,
 				3BC1A27429C9AF500088376B /* MissionHistoryCollectionViewCell.swift in Sources */,
 				3B027A9E299C34DA00BEB65C /* HomeViewController.swift in Sources */,
+				09F6719029CB6AB400708725 /* OnboardingFooterView.swift in Sources */,
 				3B482FA9299EB95400BCF424 /* UIScreen+.swift in Sources */,
 				099FC98329B30A2E005B37E6 /* Utils.swift in Sources */,
 				3B14A13B29A694C000F92897 /* UITextView+.swift in Sources */,
 				098BFD5F29B7AECF008E80F9 /* MyInfoHeaderCollectionReusableView.swift in Sources */,
 				3B482FA7299EB8FD00BCF424 /* UIViewController+.swift in Sources */,
+				09F6718629CB26E400708725 /* OnboardingHeaderView.swift in Sources */,
 				3B14A13D29A6FBD300F92897 /* UIView+.swift in Sources */,
+				09F6719529CBFCD200708725 /* GradientView.swift in Sources */,
 				3B482FA5299EAB8800BCF424 /* TabBarController.swift in Sources */,
 				6CF4705D29A68F5C008D145C /* NetworkLoggerPlugin.swift in Sources */,
+				09F6718A29CB4A3F00708725 /* FourthOnboardingViewController.swift in Sources */,
+				09582B4829BDA7F600EF3207 /* DetailStackView.swift in Sources */,
+				09F6718429CADB1100708725 /* OnboardingModel.swift in Sources */,
 				3B027A7A299C31B500BEB65C /* SceneDelegate.swift in Sources */,
+				09582B5129C0BC3600EF3207 /* DetailAchievementViewController.swift in Sources */,
 				0982DE5829AE40FB00D933D2 /* UITabBar+.swift in Sources */,
 				3BC1A27929C9BE6C0088376B /* AddMissionFooterCollectionReusableView.swift in Sources */,
 				6C16015829C40112005AE3F5 /* AuthButtonView.swift in Sources */,
@@ -782,25 +965,34 @@
 				3B5F8F7F29BF900A0063A7F8 /* DateCollectionViewCell.swift in Sources */,
 				3BC1A27229C9AF310088376B /* MissionHistoryModels.swift in Sources */,
 				6CD4F8BA29AA493600CCC740 /* RecommendActionHeaderView.swift in Sources */,
+				0930DE6229B80550007958DE /* MissionDetailViewController.swift in Sources */,
 				3B14A13F29A6FCB300F92897 /* UIStackView+.swift in Sources */,
 				6CD4F8BC29AA494300CCC740 /* RecommendActionFooterView.swift in Sources */,
 				6CD4F8BE29AA495900CCC740 /* RecommendActionCollectionViewCell.swift in Sources */,
 				6CF4707429A73D4C008D145C /* RecommendCollectionViewCell.swift in Sources */,
 				0930D37329B4FCAE0000C4AE /* StatisticsView.swift in Sources */,
+				09582B4D29BE277800EF3207 /* DetailHeaderReusableView.swift in Sources */,
 				6CF4706A29A71D71008D145C /* Strings.swift in Sources */,
 				6CF4705F29A69025008D145C /* GeneralResponse.swift in Sources */,
 				097C003629AB8270008CAEF3 /* MissionListCollectionViewCell.swift in Sources */,
+				6C16015C29C56DBA005AE3F5 /* MyInfoAccountViewController.swift in Sources */,
 				6CF4706129A69096008D145C /* NetworkConstant.swift in Sources */,
+				09F6718E29CB612B00708725 /* FifthOnboardingViewController.swift in Sources */,
 				6CD4F8C229AA5AF200CCC740 /* UIButton+.swift in Sources */,
 				6CF4706529A690E5008D145C /* NetworkBase.swift in Sources */,
 				099FC98129B3094F005B37E6 /* WeekMonthFSCalendar.swift in Sources */,
+				6C16016429C5E37D005AE3F5 /* MyInfoAccountStackView.swift in Sources */,
+				09F6718229CAD86100708725 /* OnboardingCollectionViewCell.swift in Sources */,
 				6CF4707029A73A15008D145C /* RecommendActionViewController.swift in Sources */,
 				0982DE5429ADCCE000D933D2 /* HomeEmptyCollectionViewCell.swift in Sources */,
 				3B027AA2299C355800BEB65C /* AchievementViewController.swift in Sources */,
 				3B5F8F8929BF9EFE0063A7F8 /* AddMissionLabel.swift in Sources */,
+				09582B4F29BEBAFA00EF3207 /* DetailCalendarViewController.swift in Sources */,
+				09F6718829CB383800708725 /* ThirdOnboardingViewController.swift in Sources */,
 				099CFA1A29AB8D710003E5D5 /* MissionListModel.swift in Sources */,
 				3B37AE2B29C8904800AB7587 /* RecommendKeywordCollectionViewCell.swift in Sources */,
 				099FC98929B3233D005B37E6 /* CalendarView.swift in Sources */,
+				09F6718029CAD76C00708725 /* SecondOnboardingViewController.swift in Sources */,
 				098BFD5D29B79CE3008E80F9 /* InfoCollectionViewCell.swift in Sources */,
 				6CF4706329A690CD008D145C /* NetworkResult.swift in Sources */,
 				3B5F8F8329BF90290063A7F8 /* SituationCollectionViewCell.swift in Sources */,

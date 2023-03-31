@@ -19,6 +19,7 @@ extension UIColor {
     static let gray5 = UIColor(named: "gray5")
     static let gray6 = UIColor(named: "gray6")
     static let gray7 = UIColor(named: "gray7")
+    static let gray8 = UIColor(named: "gray8")
     static let green1 = UIColor(named: "green1")
     static let green2 = UIColor(named: "green2")
     static let systemBlack = UIColor(named: "systemBlack")

@@ -27,15 +27,15 @@ class MissionListCollectionViewCell: UICollectionViewCell {
     private let lineView = UIView()
     
     // MARK: - View Life Cycle
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
+
+    override func layoutSublayers(of layer: CALayer) {
+        super.layoutSublayers(of: layer)
         contentView.layer.cornerRadius = 10
     }
     
     override init(frame: CGRect) {
         super.init(frame: .zero)
-        setUI()
+        
         setLayout()
     }
     
@@ -116,8 +116,13 @@ extension MissionListCollectionViewCell {
     }
     
     func configure(model: MissionListModel) {
-        tagLabel.text = model.tag
-        missionLabel.text = model.missiontitle
+        tagLabel.text = model.title
+        missionLabel.text = model.situation
+        switch model.completionStatus {
+        case .UNCHECKED:  isTapped = false
+        case .CHECKED: isTapped = true
+        }
+        setUI()
     }
     
     @objc

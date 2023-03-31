@@ -46,6 +46,16 @@ struct I18N {
     static let achievement = "성취"
     static let total = "더욱 나은 낫투두를 위해\n노력중에 있어요, 기다려주세요."
     
+    /// Detail
+    
+    static let detailEdit = "편집"
+    static let detailAction = "실천 행동"
+    static let detailGoal = "목표"
+    static let detailDate = "다른 날도 할래요"
+    static let detailSelect = "날짜 선택"
+    static let detailDelete = "삭제하기"
+    static let detailComplete = "완료"
+    
     /// AddMission
     
     static let add = "추가"
@@ -82,5 +92,34 @@ struct I18N {
                           """
     
     /// MyInfo
+
     static let myInfo = "내 정보"
+    
+    /// MyInfoAccount
+    
+    static let myInfoAccount = "계정 정보"
+    static let nickname = "닉네임"
+    static let email = "이메일"
+    static let account = "연결된 계정"
+    static let notification = "푸시 알림 설정"
+    static let logout = "로그아웃"
+    static let withdraw = "회원 탈퇴"
+    
+    /// Onboarding
+    static let secondOnboarding = "좋아요!\n어떤 고민이 있으신가요?"
+    static let thirdOnboarding = "하루 중 어느 순간을\n가장 개선하고 싶으세요?"
+    static let fourthOnboarding = "먼저,\n하지 않을 일을 정해요"
+    static let fifthOnboarding = "낫투두를 실천할 방법과\n환경을 정해요"
+    
+    static let onboardingEmpty = ""
+    static let subThirdbOnboarding = "여러 개 선택할 수 있어요"
+    static let subFifthOnboarding = "달성률을 높이기 위해선 필수!"
+    
+    static let thirdButton = "사용법이 궁금해요"
+    static let fourthButton = "그리고요?"
+    static let fifthButton = "로그인하고 시작하기"
+    
+    static let dailyPageControl = "나의 일상"
+    static let usePageControl = "사용 방법"
+    static let actionOnboarding = "실천 방법"
 }
