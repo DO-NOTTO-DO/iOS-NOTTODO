@@ -49,7 +49,11 @@ private extension RecommendViewController {
     func setUI() {
         view.backgroundColor = .ntdBlack
         seperateView.backgroundColor = .gray2
-        recommendCollectionView.backgroundColor = .clear
+        
+        recommendCollectionView.do {
+            $0.backgroundColor = .clear
+            $0.bounces = false
+        }
         
         dismissButton.do {
             $0.setBackgroundImage(.delete, for: .normal)
@@ -63,11 +67,12 @@ private extension RecommendViewController {
         }
         
         addActionButton.do {
+            $0.backgroundColor = .white
             $0.setTitle(I18N.addAction, for: .normal)
             $0.setTitleColor(.ntdBlack, for: .normal)
             $0.titleLabel?.font = .Pretendard(.semiBold, size: 16)
-            $0.backgroundColor = .white
             $0.layer.cornerRadius = 25
+            // $0.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
         }
     }
     
