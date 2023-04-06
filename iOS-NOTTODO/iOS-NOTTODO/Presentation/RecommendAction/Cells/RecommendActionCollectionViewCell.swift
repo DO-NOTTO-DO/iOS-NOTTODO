@@ -15,11 +15,18 @@ class RecommendActionCollectionViewCell: UICollectionViewCell {
     // MARK: - Properties
     
     static let identifier = "RecommendActionCollectionViewCell"
+    override var isSelected: Bool {
+        didSet {
+            contentView.layer.borderColor = isSelected ? UIColor.gray3?.cgColor : UIColor.clear.cgColor
+            checkIcon.isHidden = isSelected ? false : true
+        }
+    }
 
     // MARK: - UI Components
     
     private let titleLabel = UILabel()
     let bodyLabel = UILabel()
+    private let checkIcon = UIImageView()
     
     // MARK: - View Life Cycle
     
@@ -43,6 +50,8 @@ extension RecommendActionCollectionViewCell {
         contentView.backgroundColor = .gray1
         contentView.layer.masksToBounds = true
         contentView.layer.cornerRadius = 10
+        contentView.layer.borderWidth = 1
+        contentView.layer.borderColor = UIColor.clear.cgColor
 
         titleLabel.do {
             $0.font = .Pretendard(.regular, size: 14)
@@ -54,10 +63,15 @@ extension RecommendActionCollectionViewCell {
             $0.textColor = .gray4
             $0.numberOfLines = 0
         }
+        
+        checkIcon.do {
+            $0.image = .icChecked
+            $0.isHidden = true
+        }
     }
     
     private func setLayout() {
-        contentView.addSubviews(titleLabel, bodyLabel)
+        contentView.addSubviews(titleLabel, bodyLabel, checkIcon)
         
         titleLabel.snp.makeConstraints {
             $0.top.equalToSuperview().offset(16)
@@ -68,6 +82,11 @@ extension RecommendActionCollectionViewCell {
             $0.top.equalTo(titleLabel.snp.bottom).offset(7)
             $0.leading.equalTo(titleLabel.snp.leading)
             $0.trailing.equalToSuperview().offset(-40)
+        }
+        
+        checkIcon.snp.makeConstraints {
+            $0.centerY.equalToSuperview()
+            $0.trailing.equalToSuperview().offset(-17)
         }
     }
     

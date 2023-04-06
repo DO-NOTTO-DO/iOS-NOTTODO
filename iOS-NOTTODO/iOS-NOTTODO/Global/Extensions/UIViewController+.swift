@@ -42,4 +42,9 @@ extension UIViewController {
     func dismissViewController() {
         self.dismiss(animated: true)
     }
+    
+    @objc
+    func popViewController() {
+        self.navigationController?.popViewController(animated: true)
+    }
 }

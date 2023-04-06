@@ -18,7 +18,7 @@ class OnboardingCollectionViewCell: UICollectionViewCell {
     
     override var isSelected: Bool {
         didSet {
-            contentView.layer.borderColor = isSelected ? UIColor.green1?.cgColor : UIColor.clear.cgColor
+            contentView.layer.borderColor = isSelected ? UIColor.gray3?.cgColor : UIColor.clear.cgColor
         }
     }
     

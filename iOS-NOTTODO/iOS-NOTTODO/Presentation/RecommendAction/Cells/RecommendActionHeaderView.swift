@@ -62,7 +62,7 @@ extension RecommendActionHeaderView {
         }
         
         bodyImage.image = .food // 추후 데이터 연결 필요
-        arrowIcon.image = .icArrow
+        arrowIcon.image = .downArrow
         infoIcon.image = .icInfo
         
         recommendLabel.do {

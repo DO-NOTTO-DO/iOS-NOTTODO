@@ -15,6 +15,7 @@ class RecommendActionViewController: UIViewController {
     private let backButton = UIButton()
     private let navigationTitle = UILabel()
     private let nextButton = UIButton()
+    private var isTapped: Bool = false
     
     private lazy var recommendActionCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout())
     private let recommendActionInset: UIEdgeInsets = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 15)
@@ -46,11 +47,16 @@ private extension RecommendActionViewController {
     
     func setUI() {
         view.backgroundColor = .ntdBlack
-        recommendActionCollectionView.backgroundColor = .clear
+        
+        recommendActionCollectionView.do {
+            $0.backgroundColor = .clear
+            $0.bounces = false
+            $0.allowsMultipleSelection = true
+        }
         
         backButton.do {
             $0.setBackgroundImage(.back, for: .normal)
-            // $0.addTarget(self, action: #selector(self.popViewController), for: .touchUpInside)
+            $0.addTarget(self, action: #selector(self.popViewController), for: .touchUpInside)
         }
         
         navigationTitle.do {
@@ -60,6 +66,8 @@ private extension RecommendActionViewController {
         }
         
         nextButton.do {
+            $0.isHidden = isTapped ? false : true
+            $0.isUserInteractionEnabled = isTapped ? true : false
             $0.setTitle(I18N.next, for: .normal)
             $0.setTitleColor(.gray1, for: .normal)
             $0.titleLabel?.font = .Pretendard(.semiBold, size: 17.18) // 수정 필요
@@ -173,6 +181,28 @@ extension RecommendActionViewController: UICollectionViewDataSource {
         } else {
             guard let footerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: RecommendActionFooterView.identifier, for: indexPath) as? RecommendActionFooterView else { return UICollectionReusableView() }
             return footerView
+        }
+    }
+}
+
+extension RecommendActionViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if let select = collectionView.indexPathsForSelectedItems {
+            if select.count > 0 {
+                self.isTapped = true
+                setUI()
+                setDelegate()
+            }
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        if let deSelect = collectionView.indexPathsForSelectedItems {
+            if deSelect.count == 0 {
+                self.isTapped = false
+                setUI()
+                setDelegate()
+            }
         }
     }
 }
