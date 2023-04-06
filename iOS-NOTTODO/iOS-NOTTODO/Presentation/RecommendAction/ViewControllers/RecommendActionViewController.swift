@@ -56,7 +56,7 @@ private extension RecommendActionViewController {
         
         backButton.do {
             $0.setBackgroundImage(.back, for: .normal)
-            // $0.addTarget(self, action: #selector(self.popViewController), for: .touchUpInside)
+            $0.addTarget(self, action: #selector(self.popViewController), for: .touchUpInside)
         }
         
         navigationTitle.do {

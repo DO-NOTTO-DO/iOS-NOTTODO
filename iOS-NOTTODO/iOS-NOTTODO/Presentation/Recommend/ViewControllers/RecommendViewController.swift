@@ -57,7 +57,7 @@ private extension RecommendViewController {
         
         dismissButton.do {
             $0.setBackgroundImage(.delete, for: .normal)
-            // $0.addTarget(self, action: #selector(self.dismissViewController), for: .touchUpInside)
+            $0.addTarget(self, action: #selector(self.dismissViewController), for: .touchUpInside)
         }
         
         navigationTitle.do {
@@ -72,7 +72,7 @@ private extension RecommendViewController {
             $0.setTitleColor(.ntdBlack, for: .normal)
             $0.titleLabel?.font = .Pretendard(.semiBold, size: 16)
             $0.layer.cornerRadius = 25
-            // $0.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
+            $0.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
         }
     }
     
@@ -129,6 +129,12 @@ private extension RecommendViewController {
         recommendCollectionView.delegate = self
         recommendCollectionView.dataSource = self
     }
+    
+    @objc
+    private func buttonTapped() {
+        let nextViewController = AddMissionViewController()
+        navigationController?.pushViewController(nextViewController, animated: false)
+    }
 }
 
 extension RecommendViewController: UICollectionViewDelegateFlowLayout {
@@ -155,5 +161,14 @@ extension RecommendViewController: UICollectionViewDataSource {
                 as? RecommendCollectionViewCell else { return UICollectionViewCell() }
         cell.configure(model: recommendList[indexPath.row])
         return cell
+    }
+}
+
+extension RecommendViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.1) {
+            let viewController = RecommendActionViewController()
+            self.navigationController?.pushViewController(viewController, animated: false)
+        }
     }
 }

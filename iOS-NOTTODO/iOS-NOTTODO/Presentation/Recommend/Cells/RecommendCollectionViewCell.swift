@@ -43,9 +43,11 @@ class RecommendCollectionViewCell: UICollectionViewCell {
 extension RecommendCollectionViewCell {
     
     private func setUI() {
-        contentView.backgroundColor = .gray1
-        contentView.layer.masksToBounds = true
-        contentView.layer.cornerRadius = 12
+        contentView.do {
+            $0.backgroundColor = .gray1
+            $0.layer.masksToBounds = true
+            $0.layer.cornerRadius = 12
+        }
         
         tagLabel.do {
             $0.font = .Pretendard(.medium, size: 14)
