@@ -11,6 +11,7 @@
 		092E04B129BD9C86008A5892 /* MissionDetailCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092E04B029BD9C86008A5892 /* MissionDetailCollectionViewCell.swift */; };
 		0930D37329B4FCAE0000C4AE /* StatisticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0930D37229B4FCAE0000C4AE /* StatisticsView.swift */; };
 		0930DE6229B80550007958DE /* MissionDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0930DE6129B80550007958DE /* MissionDetailViewController.swift */; };
+		093DB0372A146BF900ECA5F6 /* MyInfoURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093DB0362A146BF900ECA5F6 /* MyInfoURL.swift */; };
 		09582B4829BDA7F600EF3207 /* DetailStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09582B4729BDA7F600EF3207 /* DetailStackView.swift */; };
 		09582B4B29BDE37C00EF3207 /* DetailFooterReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09582B4A29BDE37C00EF3207 /* DetailFooterReusableView.swift */; };
 		09582B4D29BE277800EF3207 /* DetailHeaderReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09582B4C29BE277800EF3207 /* DetailHeaderReusableView.swift */; };
@@ -120,6 +121,7 @@
 		092E04B029BD9C86008A5892 /* MissionDetailCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionDetailCollectionViewCell.swift; sourceTree = "<group>"; };
 		0930D37229B4FCAE0000C4AE /* StatisticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsView.swift; sourceTree = "<group>"; };
 		0930DE6129B80550007958DE /* MissionDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionDetailViewController.swift; sourceTree = "<group>"; };
+		093DB0362A146BF900ECA5F6 /* MyInfoURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInfoURL.swift; sourceTree = "<group>"; };
 		09582B4729BDA7F600EF3207 /* DetailStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailStackView.swift; sourceTree = "<group>"; };
 		09582B4A29BDE37C00EF3207 /* DetailFooterReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailFooterReusableView.swift; sourceTree = "<group>"; };
 		09582B4C29BE277800EF3207 /* DetailHeaderReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailHeaderReusableView.swift; sourceTree = "<group>"; };
@@ -262,6 +264,35 @@
 				09582B4729BDA7F600EF3207 /* DetailStackView.swift */,
 			);
 			path = StackView;
+			sourceTree = "<group>";
+		};
+		093DB02B2A14687300ECA5F6 /* API */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = API;
+			sourceTree = "<group>";
+		};
+		093DB02F2A1468CE00ECA5F6 /* DataModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = DataModel;
+			sourceTree = "<group>";
+		};
+		093DB0312A1468F100ECA5F6 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		093DB0352A146BE800ECA5F6 /* Enum */ = {
+			isa = PBXGroup;
+			children = (
+				093DB0362A146BF900ECA5F6 /* MyInfoURL.swift */,
+			);
+			path = Enum;
 			sourceTree = "<group>";
 		};
 		09582B4929BDB45F00EF3207 /* Model */ = {
@@ -421,6 +452,7 @@
 		3B027A8C299C337900BEB65C /* Global */ = {
 			isa = PBXGroup;
 			children = (
+				093DB0352A146BE800ECA5F6 /* Enum */,
 				6CF4706829A71D67008D145C /* Literals */,
 				3B027A8E299C339B00BEB65C /* Extensions */,
 			);
@@ -458,6 +490,9 @@
 		3B027A90299C33CA00BEB65C /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				093DB0312A1468F100ECA5F6 /* Service */,
+				093DB02F2A1468CE00ECA5F6 /* DataModel */,
+				093DB02B2A14687300ECA5F6 /* API */,
 				6CF4705929A68E7F008D145C /* Base */,
 			);
 			path = Network;
@@ -587,32 +622,6 @@
 			path = Assets;
 			sourceTree = "<group>";
 		};
-		6C16015929C56CE8005AE3F5 /* MyInfoAccount */ = {
-			isa = PBXGroup;
-			children = (
-				6C16016029C59EE0005AE3F5 /* Models */,
-				6C16015A29C56D90005AE3F5 /* ViewControllers */,
-			);
-			path = MyInfoAccount;
-			sourceTree = "<group>";
-		};
-		6C16015A29C56D90005AE3F5 /* ViewControllers */ = {
-			isa = PBXGroup;
-			children = (
-				6C16015B29C56DBA005AE3F5 /* MyInfoAccountViewController.swift */,
-				6C16016329C5E37D005AE3F5 /* MyInfoAccountStackView.swift */,
-			);
-			path = ViewControllers;
-			sourceTree = "<group>";
-		};
-		6C16016029C59EE0005AE3F5 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				6C16016129C59EFD005AE3F5 /* MyInfoAccountModel.swift */,
-			);
-			path = Models;
-			sourceTree = "<group>";
-		};
 		3B3C89DB29C0EF6A00B1D56D /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -676,6 +685,32 @@
 				3BD3B5C729B8F82C00D3575B /* AddMissionTextFieldView.swift */,
 			);
 			path = AddMissionTextFieldView;
+			sourceTree = "<group>";
+		};
+		6C16015929C56CE8005AE3F5 /* MyInfoAccount */ = {
+			isa = PBXGroup;
+			children = (
+				6C16016029C59EE0005AE3F5 /* Models */,
+				6C16015A29C56D90005AE3F5 /* ViewControllers */,
+			);
+			path = MyInfoAccount;
+			sourceTree = "<group>";
+		};
+		6C16015A29C56D90005AE3F5 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				6C16015B29C56DBA005AE3F5 /* MyInfoAccountViewController.swift */,
+				6C16016329C5E37D005AE3F5 /* MyInfoAccountStackView.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		6C16016029C59EE0005AE3F5 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				6C16016129C59EFD005AE3F5 /* MyInfoAccountModel.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		6CD4F8B529AA48D900CCC740 /* RecommendAction */ = {
@@ -946,6 +981,7 @@
 				3B482FA9299EB95400BCF424 /* UIScreen+.swift in Sources */,
 				099FC98329B30A2E005B37E6 /* Utils.swift in Sources */,
 				3B14A13B29A694C000F92897 /* UITextView+.swift in Sources */,
+				093DB0372A146BF900ECA5F6 /* MyInfoURL.swift in Sources */,
 				098BFD5F29B7AECF008E80F9 /* MyInfoHeaderCollectionReusableView.swift in Sources */,
 				3B482FA7299EB8FD00BCF424 /* UIViewController+.swift in Sources */,
 				09F6718629CB26E400708725 /* OnboardingHeaderView.swift in Sources */,
