@@ -1,5 +1,5 @@
 //
-//  AchieveDetailResponseDTO.swift
+//  MissionDetailResponseDTO.swift
 //  iOS-NOTTODO
 //
 //  Created by JEONGEUN KIM on 2023/05/18.
@@ -7,18 +7,10 @@
 
 import Foundation
 
-// MARK: - AchieveCalendarResponse
+// MARK: - MissionDetailResponseDTO
 
-struct AchieveCalendarResponse: Codable {
-    let status: Int
-    let success: Bool
-    let message: String
-    let data: DetailData
-}
-
-// MARK: - DataClass
-
-struct DetailData: Codable {
+struct MissionDetailResponseDTO: Codable {
+    
     let id: Int
     let title, situation: String
     let actions: [Action]

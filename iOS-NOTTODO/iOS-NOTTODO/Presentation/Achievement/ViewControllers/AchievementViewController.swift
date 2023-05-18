@@ -28,6 +28,11 @@ final class AchievementViewController: UIViewController {
     
     // MARK: - Life Cycle
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        requestMonthAPI(month: Utils.dateFormatterString(format: "yyyy-MM", date: monthCalendar.calendar.today!)!)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setUI()
@@ -81,6 +86,28 @@ extension AchievementViewController {
             $0.bottom.equalTo(scrollView.snp.bottom).inset(20)
         }
     }
+    func requestMonthAPI(month: String) {
+        AchieveAPI.shared.getAchieveCalendar(month: month) { [self] result in
+            switch result {
+            case let .success(data):
+                guard let data = data as? [AchieveCalendarResponseDTO] else { return }
+                self.dataSource = [:]
+                for item in data {
+                    self.dataSource[item.actionDate] = item.rate
+                }
+                monthCalendar.calendar.reloadData()
+                
+            case .requestErr:
+                print("requestErr")
+            case .pathErr:
+                print("pathErr")
+            case .serverErr:
+                print("serverErr")
+            case .networkFail:
+                print("networkFail")
+            }
+        }
+    }
 }
 
 extension AchievementViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalendarDelegateAppearance {
@@ -107,7 +134,19 @@ extension AchievementViewController: FSCalendarDelegate, FSCalendarDataSource, F
     
     func calendar(_ calendar: FSCalendar, cellFor date: Date, at position: FSCalendarMonthPosition) -> FSCalendarCell {
         let cell = calendar.dequeueReusableCell(withIdentifier: MissionCalendarCell.identifier, for: date, at: position) as! MissionCalendarCell
-        cell.configure(.rateHalf, .month)
+
+        if let count = self.dataSource[date.toString()] {
+            switch count {
+            case 0:
+                cell.configure(.rateFull, .month)
+            case 1, 2:
+                cell.configure(.rateHalf, .month)
+            case 3:
+                cell.configure(.rateFull, .month)
+            default:
+                cell.configure(.rateFull, .month)
+            }
+        }
         return cell
     }
 }
