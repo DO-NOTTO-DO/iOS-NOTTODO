@@ -22,6 +22,7 @@ final class CalendarView: UIView {
     let rightButton = UIButton()
     var calendar = WeekMonthFSCalendar()
     private lazy var today: Date = { return Date() }()
+    var monthCalendarClosure: ((_ month: String) -> Void)?
     
     // MARK: - Life Cycle
     
@@ -132,6 +133,18 @@ extension CalendarView {
         }
     }
     
+    func scrollCurrentPage(calendar: WeekMonthFSCalendar, isPrev: Bool) {
+        let gregorian = Calendar(identifier: .gregorian)
+        calendar.setCurrentPage( gregorian.date(byAdding: calendar.scope == .week ? .weekOfMonth : .month, value: isPrev ? -1 : 1, to: calendar.currentPage)!, animated: true)
+        let monthDateFormatter = DateFormatter()
+        monthDateFormatter.dateFormat = "yyyy-MM"
+        let stringDate = monthDateFormatter.string(from: calendar.currentPage)
+        monthCalendarClosure?(stringDate)
+    }
+}
+
+extension CalendarView {
+    
     @objc
     func todayBtnTapped(_sender: UIButton) {
         calendar.select(today)
@@ -140,12 +153,12 @@ extension CalendarView {
     
     @objc
     func prevBtnTapped(_sender: UIButton) {
-        Utils.scrollCurrentPage(calendar: calendar, isPrev: true)
+        scrollCurrentPage(calendar: calendar, isPrev: true)
     }
     
     @objc
     func nextBtnTapped(_sender: UIButton) {
-        Utils.scrollCurrentPage(calendar: calendar, isPrev: false)
+        scrollCurrentPage(calendar: calendar, isPrev: false)
     }
 }
 

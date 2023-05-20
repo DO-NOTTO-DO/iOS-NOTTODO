@@ -8,13 +8,18 @@
 import Foundation
 
 struct URLConstant {
-
+    
     // MARK: - base URL
     
-    static let baseURL = "http://43.201.125.166:3000/api"
+    static let baseURL = "http://43.201.125.166:8080/api/v1"
     
     // MARK: - Auth
     
     static let auth = "/auth"
+    
+    // MARK: - Achieve
+    
+    static let achieveCalendar = "/mission/month"
+    static let achieveDetail = "/mission"
     
 }

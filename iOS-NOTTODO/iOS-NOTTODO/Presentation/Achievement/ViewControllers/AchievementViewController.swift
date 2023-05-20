@@ -18,6 +18,7 @@ final class AchievementViewController: UIViewController {
     private lazy var safeArea = self.view.safeAreaLayoutGuide
     private lazy var today: Date = { return Date() }()
     var dataSource: [String: Int] = [:]
+    var selectDate: Date?
     
     // MARK: - UI Components
     
@@ -27,6 +28,11 @@ final class AchievementViewController: UIViewController {
     private let statisticsView = StatisticsView()
     
     // MARK: - Life Cycle
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        requestMonthAPI(month: Utils.dateFormatterString(format: "yyyy-MM", date: monthCalendar.calendar.today!)!)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,6 +44,11 @@ final class AchievementViewController: UIViewController {
 // MARK: - Methods
 
 extension AchievementViewController {
+    
+    func reloadMonthData(month: String) {
+        requestMonthAPI(month: month)
+    }
+    
     private func setUI() {
         view.backgroundColor = .ntdBlack
         scrollView.backgroundColor = .clear
@@ -54,6 +65,10 @@ extension AchievementViewController {
             $0.calendar.register(MissionCalendarCell.self, forCellReuseIdentifier: MissionCalendarCell.identifier)
             $0.calendar.delegate = self
             $0.calendar.dataSource = self
+            $0.monthCalendarClosure = { [self] result in
+                let month = result
+                self.reloadMonthData(month: month)
+            }
         }
     }
     private func setLayout() {
@@ -79,6 +94,28 @@ extension AchievementViewController {
             $0.directionalHorizontalEdges.equalTo(safeArea).inset(15)
             $0.height.equalTo((getDeviceWidth()-30)*0.6)
             $0.bottom.equalTo(scrollView.snp.bottom).inset(20)
+        }
+    }
+    func requestMonthAPI(month: String) {
+        AchieveAPI.shared.getAchieveCalendar(month: month) { [self] result in
+            switch result {
+            case let .success(data):
+                guard let data = data as? [AchieveCalendarResponseDTO] else { return }
+                self.dataSource = [:]
+                for item in data {
+                    self.dataSource[item.actionDate] = item.rate
+                }
+                monthCalendar.calendar.reloadData()
+                
+            case .requestErr:
+                print("requestErr")
+            case .pathErr:
+                print("pathErr")
+            case .serverErr:
+                print("serverErr")
+            case .networkFail:
+                print("networkFail")
+            }
         }
     }
 }
@@ -107,7 +144,19 @@ extension AchievementViewController: FSCalendarDelegate, FSCalendarDataSource, F
     
     func calendar(_ calendar: FSCalendar, cellFor date: Date, at position: FSCalendarMonthPosition) -> FSCalendarCell {
         let cell = calendar.dequeueReusableCell(withIdentifier: MissionCalendarCell.identifier, for: date, at: position) as! MissionCalendarCell
-        cell.configure(.rateHalf, .month)
+        
+        if let count = self.dataSource[date.toString()] {
+            switch count {
+            case 0:
+                cell.configure(.none, .month)
+            case 1, 2:
+                cell.configure(.rateHalf, .month)
+            case 3:
+                cell.configure(.rateFull, .month)
+            default:
+                cell.configure(.rateFull, .month)
+            }
+        }
         return cell
     }
 }

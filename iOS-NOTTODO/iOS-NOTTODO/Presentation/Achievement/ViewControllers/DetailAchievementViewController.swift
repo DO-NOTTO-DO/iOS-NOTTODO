@@ -14,7 +14,9 @@ class DetailAchievementViewController: UIViewController {
     
     // MARK: - Properties
     
-    private let missionList: [MissionListModel] = MissionListModel.items
+    var missionList: [MissionDetailResponseDTO] = []
+    private var mission: String?
+    private var goal: String?
     enum Section: Int, Hashable {
         case main
     }
@@ -30,6 +32,10 @@ class DetailAchievementViewController: UIViewController {
     
     // MARK: - Life Cycle
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        requestDetailAPI(missionId: 1)
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         register()
@@ -109,8 +115,13 @@ extension DetailAchievementViewController {
         }
         
         snapShot.appendSections([.main])
-        snapShot.appendItems(missionList, toSection: .main)
+        snapShot.appendItems([], toSection: .main)
     }
+//    private func updateData(item: [MissionDetailResponseDTO]) {
+//            var snapshot = dataSource.snapshot()
+//            snapshot.appendItems(item, toSection: .main)
+//            dataSource.apply(snapshot)
+//        }
     
     private func layout() -> UICollectionViewCompositionalLayout {
         var config = UICollectionLayoutListConfiguration(appearance: .insetGrouped)
@@ -121,5 +132,25 @@ extension DetailAchievementViewController {
     }
     @objc func didTapView(_ sender: UITapGestureRecognizer) {
         dismiss(animated: false)
+    }
+}
+extension DetailAchievementViewController {
+    func requestDetailAPI(missionId: Int) {
+        AchieveAPI.shared.getMissionDetail(missionId: missionId) { [self] result in
+            switch result {
+            case let .success(data):
+                guard let data = data as? [MissionDetailResponseDTO] else { return }
+                self.missionList = data
+               // updateData(item: missionList)
+            case .requestErr:
+                print("requestErr")
+            case .pathErr:
+                print("pathErr")
+            case .serverErr:
+                print("serverErr")
+            case .networkFail:
+                print("networkFail")
+            }
+        }
     }
 }
