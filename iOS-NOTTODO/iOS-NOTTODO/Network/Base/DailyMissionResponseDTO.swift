@@ -7,18 +7,15 @@
 
 import Foundation
 
+enum CompletionStatus: String, Codable {
+    case CHECKED, UNCHECKED
+}
+
 // MARK: - DailyMissionResponseDTO
 
 struct DailyMissionResponseDTO: Codable {
-    let status: Int
-    let success: Bool
-    let message: String
-    let data: [DailyData]
-}
-
-// MARK: - Datum
-
-struct DailyData: Codable {
-    let id: Int
-    let title, situationName, completionStatus: String
+    var id: Int
+    var title: String
+    var situationName: String
+    var completionStatus: CompletionStatus
 }

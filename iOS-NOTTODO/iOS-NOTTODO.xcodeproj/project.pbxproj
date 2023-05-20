@@ -34,6 +34,8 @@
 		099FC98329B30A2E005B37E6 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 099FC98229B30A2E005B37E6 /* Utils.swift */; };
 		099FC98929B3233D005B37E6 /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 099FC98829B3233D005B37E6 /* CalendarView.swift */; };
 		09DCCD1F2A18ED76003DCF8A /* DailyMissionResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09DCCD1E2A18ED76003DCF8A /* DailyMissionResponseDTO.swift */; };
+		09DCCD212A18EF43003DCF8A /* HomeSevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09DCCD202A18EF43003DCF8A /* HomeSevice.swift */; };
+		09DCCD232A18EFB0003DCF8A /* HomeAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09DCCD222A18EFB0003DCF8A /* HomeAPI.swift */; };
 		09F6718029CAD76C00708725 /* SecondOnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F6717F29CAD76C00708725 /* SecondOnboardingViewController.swift */; };
 		09F6718229CAD86100708725 /* OnboardingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F6718129CAD86100708725 /* OnboardingCollectionViewCell.swift */; };
 		09F6718429CADB1100708725 /* OnboardingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F6718329CADB1100708725 /* OnboardingModel.swift */; };
@@ -147,6 +149,8 @@
 		099FC98229B30A2E005B37E6 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		099FC98829B3233D005B37E6 /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
 		09DCCD1E2A18ED76003DCF8A /* DailyMissionResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyMissionResponseDTO.swift; sourceTree = "<group>"; };
+		09DCCD202A18EF43003DCF8A /* HomeSevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeSevice.swift; sourceTree = "<group>"; };
+		09DCCD222A18EFB0003DCF8A /* HomeAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeAPI.swift; sourceTree = "<group>"; };
 		09F6717F29CAD76C00708725 /* SecondOnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondOnboardingViewController.swift; sourceTree = "<group>"; };
 		09F6718129CAD86100708725 /* OnboardingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCollectionViewCell.swift; sourceTree = "<group>"; };
 		09F6718329CADB1100708725 /* OnboardingModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingModel.swift; sourceTree = "<group>"; };
@@ -735,6 +739,8 @@
 				6CF4706429A690E5008D145C /* NetworkBase.swift */,
 				093DB0382A15F6CE00ECA5F6 /* AchieveAPI.swift */,
 				09DCCD1E2A18ED76003DCF8A /* DailyMissionResponseDTO.swift */,
+				09DCCD202A18EF43003DCF8A /* HomeSevice.swift */,
+				09DCCD222A18EFB0003DCF8A /* HomeAPI.swift */,
 				093DB03E2A15FCC100ECA5F6 /* MissionDetailResponseDTO.swift */,
 				093DB03C2A15FC7800ECA5F6 /* AchieveCalendarResponseDTO.swift */,
 				093DB03A2A15F6E700ECA5F6 /* AchieveService.swift */,
@@ -928,6 +934,7 @@
 				09F6719729CC81B500708725 /* DetailAchievementCollectionViewCell.swift in Sources */,
 				3B14A14129A6FDA900F92897 /* UILabel+.swift in Sources */,
 				3B027A7C299C31B500BEB65C /* AuthViewController.swift in Sources */,
+				09DCCD212A18EF43003DCF8A /* HomeSevice.swift in Sources */,
 				6C16016229C59EFD005AE3F5 /* MyInfoAccountModel.swift in Sources */,
 				093DB0392A15F6CE00ECA5F6 /* AchieveAPI.swift in Sources */,
 				093DB03B2A15F6E700ECA5F6 /* AchieveService.swift in Sources */,
@@ -973,6 +980,7 @@
 				3B482FA5299EAB8800BCF424 /* TabBarController.swift in Sources */,
 				6CF4705D29A68F5C008D145C /* NetworkLoggerPlugin.swift in Sources */,
 				09F6718A29CB4A3F00708725 /* FourthOnboardingViewController.swift in Sources */,
+				09DCCD232A18EFB0003DCF8A /* HomeAPI.swift in Sources */,
 				09582B4829BDA7F600EF3207 /* DetailStackView.swift in Sources */,
 				09F6718429CADB1100708725 /* OnboardingModel.swift in Sources */,
 				3B027A7A299C31B500BEB65C /* SceneDelegate.swift in Sources */,
