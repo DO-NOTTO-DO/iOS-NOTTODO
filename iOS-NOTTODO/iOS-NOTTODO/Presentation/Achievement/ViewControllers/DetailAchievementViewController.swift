@@ -35,7 +35,9 @@ class DetailAchievementViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        requestDetailAPI(date: Utils.dateFormatterString(format: "YYYY-MM-dd", date: selectedDate!)!)
+        if let selectedDate = selectedDate {
+            requestDetailAPI(date: Utils.dateFormatterString(format: "YYYY-MM-dd", date: selectedDate))
+        }
     }
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,7 +66,9 @@ extension DetailAchievementViewController {
             $0.isUserInteractionEnabled = false
         }
         dateLabel.do {
-            $0.text = Utils.dateFormatterString(format: "YYYY년 MM월 dd일", date: selectedDate!)
+            if let selectedDate = selectedDate {
+                $0.text = Utils.dateFormatterString(format: "YYYY년 MM월 dd일", date:   selectedDate)
+            }
             $0.font = .Pretendard(.semiBold, size: 18)
             $0.textColor = .gray2
             $0.textAlignment = .center
@@ -120,10 +124,10 @@ extension DetailAchievementViewController {
     }
     
     private func updateData(item: [DailyMissionResponseDTO]) {
-            var snapshot = dataSource.snapshot()
-            snapshot.appendItems(item, toSection: .main)
-            dataSource.apply(snapshot)
-        }
+        var snapshot = dataSource.snapshot()
+        snapshot.appendItems(item, toSection: .main)
+        dataSource.apply(snapshot)
+    }
     
     private func layout() -> UICollectionViewCompositionalLayout {
         var config = UICollectionLayoutListConfiguration(appearance: .insetGrouped)

@@ -17,7 +17,7 @@ final class Utils {
         viewController.present(modalViewController, animated: false)
     }
     
-    class func dateFormatterString(format: String, date: Date) -> String? {
+    class func dateFormatterString(format: String, date: Date) -> String {
         let formatter = Foundation.DateFormatter()
         formatter.dateFormat = format
         formatter.locale = Locale(identifier: "ko_KR")
