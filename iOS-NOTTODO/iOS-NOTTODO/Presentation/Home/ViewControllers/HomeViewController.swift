@@ -15,7 +15,8 @@ class HomeViewController: UIViewController {
     
     // MARK: - Properties
     
-    private var missionList: [MissionListModel] = MissionListModel.items // 서버 통신 데이터 넣기
+    private var missionList: [DailyMissionResponseDTO] = []
+    private var selectedDate: Date?
     enum Sections: Int, Hashable {
         case mission, empty
     }
@@ -31,6 +32,10 @@ class HomeViewController: UIViewController {
     
     // MARK: - Life Cycle
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setUI()
@@ -38,6 +43,7 @@ class HomeViewController: UIViewController {
         setLayout()
         setupDataSource()
         reloadData()
+        requestDailyMissionAPI(date: Utils.dateFormatterString(format: "yyyy-MM-dd", date: today))
     }
 }
 
@@ -102,7 +108,7 @@ extension HomeViewController {
             switch section {
             case .mission:
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MissionListCollectionViewCell.identifier, for: indexPath) as! MissionListCollectionViewCell
-                cell.configure(model: item as! MissionListModel )
+                cell.configure(model: item as! DailyMissionResponseDTO )
                 cell.isTappedClosure = { result in
                     if result {
                         switch  self.missionList[indexPath.item].completionStatus {
@@ -127,13 +133,24 @@ extension HomeViewController {
             dataSource.apply(snapShot, animatingDifferences: false)
         }
         
-        if missionList.isEmpty {
+//        if missionList.isEmpty {
             snapShot.appendSections([.empty])
             snapShot.appendItems([0], toSection: .empty)
-        } else {
-            snapShot.appendSections([.mission])
-            snapShot.appendItems(missionList, toSection: .mission)
+//        } else {
+//            snapShot.appendSections([.mission])
+//            snapShot.appendItems(missionList, toSection: .mission)
+//        }
+    }
+    
+    private func updateData(item: [DailyMissionResponseDTO]) {
+        var snapshot = dataSource.snapshot()
+        if !item.isEmpty {
+            snapshot.deleteSections([.empty])
+            snapshot.appendSections([.mission])
+            snapshot.appendItems(item, toSection: .mission)
         }
+       // snapshot.deleteSections([.empty])
+        dataSource.apply(snapshot)
     }
     
     // MARK: - Layout
@@ -189,9 +206,11 @@ extension HomeViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let modalViewController = MissionDetailViewController()
         modalViewController.modalPresentationStyle = .overFullScreen
-        modalViewController.detailModel = MissionDetailModel.items[missionList[indexPath.item].id - 1] // id 값
+       // modalViewController.detailModel = missionList[indexPath.item].id
+        //  modalViewController.detailModel = MissionDetailModel.items[missionList[indexPath.item].id - 1] // id 값
         // 서버 : missionList[indexPath.item].id
         self.present(modalViewController, animated: true)
+        
     }
 }
 
@@ -201,6 +220,7 @@ extension HomeViewController {
         print("add button Tapped")
     }
 }
+
 extension HomeViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalendarDelegateAppearance {
     func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
         weekCalendar.yearMonthLabel.text = Utils.dateFormatterString(format: I18N.yearMonthTitle, date: calendar.currentPage)
@@ -216,13 +236,35 @@ extension HomeViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalend
     
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         weekCalendar.yearMonthLabel.text = Utils.dateFormatterString(format: I18N.yearMonthTitle, date: date)
-//        if let dateString =  Utils.dateFormatterString(format: "yyyy-MM-dd", date: date) {
-//            print(dateString)
-//        }
+        requestDailyMissionAPI(date: Utils.dateFormatterString(format: "yyyy-MM-dd", date: date))
     }
+    
     func calendar(_ calendar: FSCalendar, cellFor date: Date, at position: FSCalendarMonthPosition) -> FSCalendarCell {
         let cell = calendar.dequeueReusableCell(withIdentifier: MissionCalendarCell.identifier, for: date, at: position) as! MissionCalendarCell
         cell.configure(.rateHalf, .week)
         return cell
+    }
+}
+extension HomeViewController {
+    func requestDailyMissionAPI(date: String) {
+        HomeAPI.shared.getDailyMission(date: date) { [weak self] result in
+            switch result {
+            case let .success(data):
+                guard let data = data as? [DailyMissionResponseDTO] else { return }
+                self?.missionList = data
+                
+                // guard let data = data as? [DailyMissionResponseDTO] else { return }
+                // self?.missionList = data
+                self?.updateData(item: self?.missionList ?? [])
+            case .pathErr:
+                print("pathErr")
+            case .serverErr:
+                print("serverErr")
+            case .networkFail:
+                print("networkFail")
+            case .requestErr:
+                print("networkFail")
+            }
+        }
     }
 }
