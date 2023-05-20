@@ -46,9 +46,8 @@ final class AchievementViewController: UIViewController {
 extension AchievementViewController {
     
     func reloadMonthData(month: String) {
-            print(month)
-            requestMonthAPI(month: month)
-        }
+        requestMonthAPI(month: month)
+    }
     
     private func setUI() {
         view.backgroundColor = .ntdBlack
@@ -67,9 +66,9 @@ extension AchievementViewController {
             $0.calendar.delegate = self
             $0.calendar.dataSource = self
             $0.monthCalendarClosure = { [self] result in
-                            let month = result
-                            self.reloadMonthData(month: month)
-                        }
+                let month = result
+                self.reloadMonthData(month: month)
+            }
         }
     }
     private func setLayout() {
@@ -138,18 +137,18 @@ extension AchievementViewController: FSCalendarDelegate, FSCalendarDataSource, F
         present(vc, animated: false)
         print(date)
     }
-
+    
     func calendar(_ calendar: FSCalendar, shouldSelect date: Date, at monthPosition: FSCalendarMonthPosition) -> Bool {
         Calendar.current.isDate(date, equalTo: calendar.currentPage, toGranularity: .month)
     }
     
     func calendar(_ calendar: FSCalendar, cellFor date: Date, at position: FSCalendarMonthPosition) -> FSCalendarCell {
         let cell = calendar.dequeueReusableCell(withIdentifier: MissionCalendarCell.identifier, for: date, at: position) as! MissionCalendarCell
-
+        
         if let count = self.dataSource[date.toString()] {
             switch count {
             case 0:
-                cell.configure(.rateFull, .month)
+                cell.configure(.none, .month)
             case 1, 2:
                 cell.configure(.rateHalf, .month)
             case 3:
