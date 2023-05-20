@@ -22,6 +22,10 @@ struct URLConstant {
     static let achieveCalendar = "/mission/month"
     static let achieveDetail = "/mission"
     
+    // MARK: - Recommend
+    
+    static let recommend = "/recommend/mission"
+    
     // MARK: - Home
     
     static let dailyMission = "/mission/daily"

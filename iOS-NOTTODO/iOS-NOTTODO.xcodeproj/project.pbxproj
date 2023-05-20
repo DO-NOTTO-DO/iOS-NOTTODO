@@ -103,6 +103,11 @@
 		6C44127D29A35A1000313C3F /* KakaoSDKTalk in Frameworks */ = {isa = PBXBuildFile; productRef = 6C44127C29A35A1000313C3F /* KakaoSDKTalk */; };
 		6C44127F29A35A1000313C3F /* KakaoSDKTemplate in Frameworks */ = {isa = PBXBuildFile; productRef = 6C44127E29A35A1000313C3F /* KakaoSDKTemplate */; };
 		6C44128129A35A1000313C3F /* KakaoSDKUser in Frameworks */ = {isa = PBXBuildFile; productRef = 6C44128029A35A1000313C3F /* KakaoSDKUser */; };
+		6CA208232A18FE78001C4247 /* RecommendAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA208222A18FE78001C4247 /* RecommendAPI.swift */; };
+		6CA208252A18FEEA001C4247 /* RecommendService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA208242A18FEEA001C4247 /* RecommendService.swift */; };
+		6CA208272A18FFCF001C4247 /* RecommendResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA208262A18FFCF001C4247 /* RecommendResponseDTO.swift */; };
+		6CA208292A191185001C4247 /* UIImageView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA208282A191185001C4247 /* UIImageView+.swift */; };
+		6CA2082C2A19122A001C4247 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 6CA2082B2A19122A001C4247 /* Kingfisher */; };
 		6CD4F8BA29AA493600CCC740 /* RecommendActionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CD4F8B929AA493600CCC740 /* RecommendActionHeaderView.swift */; };
 		6CD4F8BC29AA494300CCC740 /* RecommendActionFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CD4F8BB29AA494300CCC740 /* RecommendActionFooterView.swift */; };
 		6CD4F8BE29AA495900CCC740 /* RecommendActionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CD4F8BD29AA495900CCC740 /* RecommendActionCollectionViewCell.swift */; };
@@ -209,6 +214,10 @@
 		6C16015B29C56DBA005AE3F5 /* MyInfoAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInfoAccountViewController.swift; sourceTree = "<group>"; };
 		6C16016129C59EFD005AE3F5 /* MyInfoAccountModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInfoAccountModel.swift; sourceTree = "<group>"; };
 		6C16016329C5E37D005AE3F5 /* MyInfoAccountStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInfoAccountStackView.swift; sourceTree = "<group>"; };
+		6CA208222A18FE78001C4247 /* RecommendAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendAPI.swift; sourceTree = "<group>"; };
+		6CA208242A18FEEA001C4247 /* RecommendService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendService.swift; sourceTree = "<group>"; };
+		6CA208262A18FFCF001C4247 /* RecommendResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendResponseDTO.swift; sourceTree = "<group>"; };
+		6CA208282A191185001C4247 /* UIImageView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+.swift"; sourceTree = "<group>"; };
 		6CD4F8B929AA493600CCC740 /* RecommendActionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendActionHeaderView.swift; sourceTree = "<group>"; };
 		6CD4F8BB29AA494300CCC740 /* RecommendActionFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendActionFooterView.swift; sourceTree = "<group>"; };
 		6CD4F8BD29AA495900CCC740 /* RecommendActionCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendActionCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -236,6 +245,7 @@
 			files = (
 				3B146DA1299D0A7A00B17B62 /* SnapKit in Frameworks */,
 				099FC97B29B305F0005B37E6 /* FSCalendar in Frameworks */,
+				6CA2082C2A19122A001C4247 /* Kingfisher in Frameworks */,
 				6C44127929A35A1000313C3F /* KakaoSDKShare in Frameworks */,
 				6C44127B29A35A1000313C3F /* KakaoSDKStory in Frameworks */,
 				6C44127F29A35A1000313C3F /* KakaoSDKTemplate in Frameworks */,
@@ -455,6 +465,7 @@
 				6CD4F8C129AA5AF200CCC740 /* UIButton+.swift */,
 				0982DE5729AE40FB00D933D2 /* UITabBar+.swift */,
 				3BC19A9229CA1CA800C02803 /* UICollectionViewCell+.swift */,
+				6CA208282A191185001C4247 /* UIImageView+.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -472,6 +483,7 @@
 		3B027A90299C33CA00BEB65C /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				6CA208212A18FC80001C4247 /* New Group */,
 				6CF4705929A68E7F008D145C /* Base */,
 			);
 			path = Network;
@@ -692,6 +704,13 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		6CA208212A18FC80001C4247 /* New Group */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "New Group";
+			sourceTree = "<group>";
+		};
 		6CD4F8B529AA48D900CCC740 /* RecommendAction */ = {
 			isa = PBXGroup;
 			children = (
@@ -744,6 +763,9 @@
 				093DB03E2A15FCC100ECA5F6 /* MissionDetailResponseDTO.swift */,
 				093DB03C2A15FC7800ECA5F6 /* AchieveCalendarResponseDTO.swift */,
 				093DB03A2A15F6E700ECA5F6 /* AchieveService.swift */,
+				6CA208222A18FE78001C4247 /* RecommendAPI.swift */,
+				6CA208242A18FEEA001C4247 /* RecommendService.swift */,
+				6CA208262A18FFCF001C4247 /* RecommendResponseDTO.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -842,6 +864,7 @@
 				6C44127E29A35A1000313C3F /* KakaoSDKTemplate */,
 				6C44128029A35A1000313C3F /* KakaoSDKUser */,
 				099FC97A29B305F0005B37E6 /* FSCalendar */,
+				6CA2082B2A19122A001C4247 /* Kingfisher */,
 			);
 			productName = "iOS-NOTTODO";
 			productReference = 3B027A74299C31B500BEB65C /* iOS-NOTTODO.app */;
@@ -877,6 +900,7 @@
 				3B146DA5299D0AA300B17B62 /* XCRemoteSwiftPackageReference "Moya" */,
 				6C44126F29A35A1000313C3F /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */,
 				099FC97929B305F0005B37E6 /* XCRemoteSwiftPackageReference "FSCalendar" */,
+				6CA2082A2A19122A001C4247 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			productRefGroup = 3B027A75299C31B500BEB65C /* Products */;
 			projectDirPath = "";
@@ -942,6 +966,7 @@
 				3B027AA4299C357000BEB65C /* MyInfoViewController.swift in Sources */,
 				3B5F8F8129BF90190063A7F8 /* NottodoCollectionViewCell.swift in Sources */,
 				3B027A94299C340600BEB65C /* UIFont+.swift in Sources */,
+				6CA208292A191185001C4247 /* UIImageView+.swift in Sources */,
 				0982DE5A29AE5E6000D933D2 /* CompositionalLayout.swift in Sources */,
 				3B482FA3299EA9CB00BCF424 /* TabBarItem.swift in Sources */,
 				3B027AA0299C353700BEB65C /* AddMissionViewController.swift in Sources */,
@@ -952,6 +977,7 @@
 				098BFD5B29B79B6A008E80F9 /* MyInfoModel.swift in Sources */,
 				09DCCD1F2A18ED76003DCF8A /* DailyMissionResponseDTO.swift in Sources */,
 				6CF4707A29A7AAFF008D145C /* PaddingLabel.swift in Sources */,
+				6CA208272A18FFCF001C4247 /* RecommendResponseDTO.swift in Sources */,
 				3B37AE2D29C89B3000AB7587 /* RecommendKewordModels.swift in Sources */,
 				3B027A78299C31B500BEB65C /* AppDelegate.swift in Sources */,
 				3B37AE2929C8821600AB7587 /* GoalCollectionViewCell.swift in Sources */,
@@ -977,6 +1003,7 @@
 				09F6718629CB26E400708725 /* OnboardingHeaderView.swift in Sources */,
 				3B14A13D29A6FBD300F92897 /* UIView+.swift in Sources */,
 				09F6719529CBFCD200708725 /* GradientView.swift in Sources */,
+				6CA208252A18FEEA001C4247 /* RecommendService.swift in Sources */,
 				3B482FA5299EAB8800BCF424 /* TabBarController.swift in Sources */,
 				6CF4705D29A68F5C008D145C /* NetworkLoggerPlugin.swift in Sources */,
 				09F6718A29CB4A3F00708725 /* FourthOnboardingViewController.swift in Sources */,
@@ -1024,6 +1051,7 @@
 				098BFD5D29B79CE3008E80F9 /* InfoCollectionViewCell.swift in Sources */,
 				6CF4706329A690CD008D145C /* NetworkResult.swift in Sources */,
 				3B5F8F8329BF90290063A7F8 /* SituationCollectionViewCell.swift in Sources */,
+				6CA208232A18FE78001C4247 /* RecommendAPI.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1285,6 +1313,14 @@
 				kind = branch;
 			};
 		};
+		6CA2082A2A19122A001C4247 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1352,6 +1388,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 6C44126F29A35A1000313C3F /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
 			productName = KakaoSDKUser;
+		};
+		6CA2082B2A19122A001C4247 /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6CA2082A2A19122A001C4247 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
