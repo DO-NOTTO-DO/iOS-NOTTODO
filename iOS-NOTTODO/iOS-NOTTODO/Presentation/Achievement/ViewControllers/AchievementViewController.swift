@@ -123,6 +123,7 @@ extension AchievementViewController {
 extension AchievementViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalendarDelegateAppearance {
     func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
         monthCalendar.yearMonthLabel.text = Utils.dateFormatterString(format: I18N.yearMonthTitle, date: calendar.currentPage)
+        reloadMonthData(month: Utils.dateFormatterString(format: "yyyy-MM", date: calendar.currentPage)!)
     }
     
     func calendar(_ calendar: FSCalendar, titleFor date: Date) -> String? {
@@ -136,7 +137,6 @@ extension AchievementViewController: FSCalendarDelegate, FSCalendarDataSource, F
         vc.selectedDate = Utils.dateFormatterString(format: "YYYY년 MM월 dd일", date: date)
         vc.modalPresentationStyle = .overFullScreen
         present(vc, animated: false)
-        print(date)
     }
     
     func calendar(_ calendar: FSCalendar, shouldSelect date: Date, at monthPosition: FSCalendarMonthPosition) -> Bool {
