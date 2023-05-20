@@ -9,6 +9,12 @@ import UIKit
 
 class RecommendActionViewController: UIViewController {
     
+    // MARK: - Properties
+    
+    var recommendActionResponse: RecommendActionResponseDTO?
+    var recommendActionList: [RecommendActions] = []
+    var selectedIndex = 11
+    
     // MARK: - UI Components
     
     private let navigationView = UIView()
@@ -20,24 +26,19 @@ class RecommendActionViewController: UIViewController {
     private lazy var recommendActionCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout())
     private let recommendActionInset: UIEdgeInsets = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 15)
     
-    // test
-    
-    var recommendActionList: [RecommendActionModel] = [
-        RecommendActionModel(title: "배고플 때마다 양치하기", body: "치약 성분은 식욕감을 떨어뜨리는데 도움을 줘요."),
-        RecommendActionModel(title: "삶은 게란으로 대신하기", body: "삶은 계란은 멜라토닌 생성을 도와\n숙면을 유도한다는 사실을 알고 계셨나요?"),
-        RecommendActionModel(title: "배고플 때마다 양치하기", body: "치약 성분은 식욕감을 떨어뜨리는데 도움을 줘요."),
-        RecommendActionModel(title: "배고플 때마다 양치하기", body: "치약 성분은 식욕감을 떨어뜨리는데 도움을 줘요."),
-        RecommendActionModel(title: "삶은 게란으로 대신하기", body: "삶은 계란은 멜라토닌 생성을 도와\n숙면을 유도한다는 사실을 알고 계셨나요?")
-    ]
-    
     // MARK: - View Life Cycle
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setUI()
         setLayout()
         register()
         setDelegate()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        requestRecommendActionAPI()
     }
 }
 
@@ -128,6 +129,17 @@ private extension RecommendActionViewController {
         recommendActionCollectionView.delegate = self
         recommendActionCollectionView.dataSource = self
     }
+    
+    func requestRecommendActionAPI() {
+        RecommendActionAPI.shared.getRecommendAction(index: selectedIndex + 1) { [weak self] response in
+            guard self != nil else { return }
+            guard let response = response else { return }
+            guard let data = response.data else { return }
+            
+            self?.recommendActionList = data.recommendActions
+            self?.recommendActionCollectionView.reloadData()
+        }
+    }
 }
 
 extension RecommendActionViewController: UICollectionViewDelegateFlowLayout {
@@ -135,8 +147,8 @@ extension RecommendActionViewController: UICollectionViewDelegateFlowLayout {
         guard let cell = recommendActionCollectionView.dequeueReusableCell(withReuseIdentifier: RecommendActionCollectionViewCell.identifier, for: indexPath) as? RecommendActionCollectionViewCell else {
             return .zero
         }
-        cell.bodyLabel.text = recommendActionList[indexPath.row].body
-        cell.bodyLabel.sizeToFit()
+        cell.titleLabel.text = recommendActionList[indexPath.row].name
+        cell.titleLabel.sizeToFit()
         
         let cellHeight = cell.bodyLabel.frame.height + 56
         
@@ -151,7 +163,7 @@ extension RecommendActionViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout,
                         referenceSizeForHeaderInSection section: Int) -> CGSize {
         let width = collectionView.frame.width
-        return CGSize(width: width, height: 217)
+        return CGSize(width: width, height: 260)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
@@ -177,6 +189,14 @@ extension RecommendActionViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         if kind == UICollectionView.elementKindSectionHeader {
             guard let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: RecommendActionHeaderView.identifier, for: indexPath) as? RecommendActionHeaderView else { return UICollectionReusableView() }
+            RecommendActionAPI.shared.getRecommendAction(index: selectedIndex + 1) { [weak self] response in
+                guard self != nil else { return }
+                guard let response = response else { return }
+                guard let data = response.data else { return }
+                headerView.HeaderTitle(title: data.title)
+                // headerView.HeaderImage(image: data.image)
+            }
+    
             return headerView
         } else {
             guard let footerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: RecommendActionFooterView.identifier, for: indexPath) as? RecommendActionFooterView else { return UICollectionReusableView() }

@@ -108,6 +108,9 @@
 		6CA208272A18FFCF001C4247 /* RecommendResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA208262A18FFCF001C4247 /* RecommendResponseDTO.swift */; };
 		6CA208292A191185001C4247 /* UIImageView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA208282A191185001C4247 /* UIImageView+.swift */; };
 		6CA2082C2A19122A001C4247 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 6CA2082B2A19122A001C4247 /* Kingfisher */; };
+		6CA2082E2A1924CC001C4247 /* RecommendActionAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA2082D2A1924CC001C4247 /* RecommendActionAPI.swift */; };
+		6CA208302A1925EE001C4247 /* RecommendActionResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA2082F2A1925EE001C4247 /* RecommendActionResponseDTO.swift */; };
+		6CA208322A192601001C4247 /* RecommendActionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA208312A192601001C4247 /* RecommendActionService.swift */; };
 		6CD4F8BA29AA493600CCC740 /* RecommendActionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CD4F8B929AA493600CCC740 /* RecommendActionHeaderView.swift */; };
 		6CD4F8BC29AA494300CCC740 /* RecommendActionFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CD4F8BB29AA494300CCC740 /* RecommendActionFooterView.swift */; };
 		6CD4F8BE29AA495900CCC740 /* RecommendActionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CD4F8BD29AA495900CCC740 /* RecommendActionCollectionViewCell.swift */; };
@@ -218,6 +221,9 @@
 		6CA208242A18FEEA001C4247 /* RecommendService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendService.swift; sourceTree = "<group>"; };
 		6CA208262A18FFCF001C4247 /* RecommendResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendResponseDTO.swift; sourceTree = "<group>"; };
 		6CA208282A191185001C4247 /* UIImageView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+.swift"; sourceTree = "<group>"; };
+		6CA2082D2A1924CC001C4247 /* RecommendActionAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendActionAPI.swift; sourceTree = "<group>"; };
+		6CA2082F2A1925EE001C4247 /* RecommendActionResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendActionResponseDTO.swift; sourceTree = "<group>"; };
+		6CA208312A192601001C4247 /* RecommendActionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendActionService.swift; sourceTree = "<group>"; };
 		6CD4F8B929AA493600CCC740 /* RecommendActionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendActionHeaderView.swift; sourceTree = "<group>"; };
 		6CD4F8BB29AA494300CCC740 /* RecommendActionFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendActionFooterView.swift; sourceTree = "<group>"; };
 		6CD4F8BD29AA495900CCC740 /* RecommendActionCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendActionCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -766,6 +772,9 @@
 				6CA208222A18FE78001C4247 /* RecommendAPI.swift */,
 				6CA208242A18FEEA001C4247 /* RecommendService.swift */,
 				6CA208262A18FFCF001C4247 /* RecommendResponseDTO.swift */,
+				6CA2082D2A1924CC001C4247 /* RecommendActionAPI.swift */,
+				6CA2082F2A1925EE001C4247 /* RecommendActionResponseDTO.swift */,
+				6CA208312A192601001C4247 /* RecommendActionService.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -1000,6 +1009,7 @@
 				3B14A13B29A694C000F92897 /* UITextView+.swift in Sources */,
 				098BFD5F29B7AECF008E80F9 /* MyInfoHeaderCollectionReusableView.swift in Sources */,
 				3B482FA7299EB8FD00BCF424 /* UIViewController+.swift in Sources */,
+				6CA208302A1925EE001C4247 /* RecommendActionResponseDTO.swift in Sources */,
 				09F6718629CB26E400708725 /* OnboardingHeaderView.swift in Sources */,
 				3B14A13D29A6FBD300F92897 /* UIView+.swift in Sources */,
 				09F6719529CBFCD200708725 /* GradientView.swift in Sources */,
@@ -1014,6 +1024,7 @@
 				09582B5129C0BC3600EF3207 /* DetailAchievementViewController.swift in Sources */,
 				0982DE5829AE40FB00D933D2 /* UITabBar+.swift in Sources */,
 				3BC1A27929C9BE6C0088376B /* AddMissionFooterCollectionReusableView.swift in Sources */,
+				6CA2082E2A1924CC001C4247 /* RecommendActionAPI.swift in Sources */,
 				6C16015829C40112005AE3F5 /* AuthButtonView.swift in Sources */,
 				3BC19A9329CA1CA800C02803 /* UICollectionViewCell+.swift in Sources */,
 				093DB03D2A15FC7800ECA5F6 /* AchieveCalendarResponseDTO.swift in Sources */,
@@ -1021,6 +1032,7 @@
 				3BC1A27229C9AF310088376B /* MissionHistoryModels.swift in Sources */,
 				6CD4F8BA29AA493600CCC740 /* RecommendActionHeaderView.swift in Sources */,
 				0930DE6229B80550007958DE /* MissionDetailViewController.swift in Sources */,
+				6CA208322A192601001C4247 /* RecommendActionService.swift in Sources */,
 				3B14A13F29A6FCB300F92897 /* UIStackView+.swift in Sources */,
 				6CD4F8BC29AA494300CCC740 /* RecommendActionFooterView.swift in Sources */,
 				6CD4F8BE29AA495900CCC740 /* RecommendActionCollectionViewCell.swift in Sources */,

@@ -23,7 +23,9 @@ class RecommendActionHeaderView: UICollectionReusableView {
     private let titleLabel = UILabel()
     private let bodyImage = UIImageView()
     private let arrowIcon = UIImageView()
+    private let infoView = UIView()
     private let recommendLabel = UILabel()
+    private let recommendSubLabel = UILabel()
     private let infoIcon = UIImageView()
     
     // MARK: - View Life Cycles
@@ -36,6 +38,18 @@ class RecommendActionHeaderView: UICollectionReusableView {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func HeaderTitle(title: String?) {
+        self.titleLabel.text = title
+    }
+    
+    func HeaderImage(image: UIImage?) {
+        self.bodyImage.image = image
+    }
+    
+    func HeaderTag(title: String?) {
+        self.tagLabel.text = title
     }
 }
 
@@ -70,15 +84,28 @@ extension RecommendActionHeaderView {
             $0.font = .Pretendard(.semiBold, size: 18)
             $0.textColor = .white
         }
+        
+        recommendSubLabel.do {
+            $0.text = I18N.recommendActionSub
+            $0.font = .Pretendard(.regular, size: 15)
+            $0.textColor = .gray4
+        }
     }
     
     private func setLayout() {
-        addSubviews(topView, arrowIcon, recommendLabel, infoIcon)
+        addSubviews(topView, arrowIcon, infoView)
+        infoView.addSubviews(recommendLabel, infoIcon, recommendSubLabel)
         topView.addSubviews(tagLabel, titleLabel, bodyImage)
         
         topView.snp.makeConstraints {
             $0.top.leading.trailing.equalToSuperview()
             $0.height.equalTo(122)
+        }
+        
+        infoView.snp.makeConstraints {
+            $0.top.equalTo(topView.snp.bottom)
+            $0.leading.trailing.equalToSuperview()
+            $0.height.equalTo(138)
         }
         
         tagLabel.snp.makeConstraints {
@@ -103,7 +130,7 @@ extension RecommendActionHeaderView {
         }
         
         recommendLabel.snp.makeConstraints {
-            $0.top.equalTo(topView.snp.bottom).offset(46)
+            $0.top.equalToSuperview().offset(47)
             $0.leading.equalToSuperview().offset(28)
         }
         
@@ -111,5 +138,15 @@ extension RecommendActionHeaderView {
             $0.centerY.equalTo(recommendLabel.snp.centerY)
             $0.leading.equalTo(recommendLabel.snp.trailing).offset(9)
         }
+        
+        recommendSubLabel.snp.makeConstraints {
+            $0.top.equalTo(recommendLabel.snp.bottom).offset(8)
+            $0.leading.equalTo(recommendLabel.snp.leading)
+        }
+    }
+    
+    func configure(model: RecommendActionResponseDTO) {
+        // tagLabel.text = model.situation
+        titleLabel.text = model.title
     }
 }
