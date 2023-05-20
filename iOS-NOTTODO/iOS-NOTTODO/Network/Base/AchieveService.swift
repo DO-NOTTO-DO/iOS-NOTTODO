@@ -11,7 +11,7 @@ import Moya
 
 enum AchieveService {
     case achieveCalendar(month: String)
-    case achieveDetail(missionId: String )
+    case achieveDetail(missionId: Int )
 }
 
 extension AchieveService: TargetType {

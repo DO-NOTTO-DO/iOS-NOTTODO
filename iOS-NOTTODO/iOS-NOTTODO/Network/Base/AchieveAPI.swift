@@ -22,7 +22,7 @@ final class AchieveAPI {
     
     // MARK: - GET
     
-    func getMissionDetail(missionId: String, completion: @escaping (NetworkResult<Any>) -> Void) {
+    func getMissionDetail(missionId: Int, completion: @escaping (NetworkResult<Any>) -> Void) {
         achieveProvider.request(.achieveDetail(missionId: missionId)) { response in
             switch response {
             case let .success(response):

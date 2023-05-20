@@ -9,7 +9,7 @@ import Foundation
 
 // MARK: - MissionDetailResponseDTO
 
-struct MissionDetailResponseDTO: Codable {
+struct MissionDetailResponseDTO: Codable, Hashable {
     
     let id: Int
     let title, situation: String
@@ -20,6 +20,6 @@ struct MissionDetailResponseDTO: Codable {
 
 // MARK: - Action
 
-struct Action: Codable {
+struct Action: Codable, Hashable {
     let name: String
 }

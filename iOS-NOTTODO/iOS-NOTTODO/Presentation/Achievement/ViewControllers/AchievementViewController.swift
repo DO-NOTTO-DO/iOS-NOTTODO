@@ -18,6 +18,7 @@ final class AchievementViewController: UIViewController {
     private lazy var safeArea = self.view.safeAreaLayoutGuide
     private lazy var today: Date = { return Date() }()
     var dataSource: [String: Int] = [:]
+    var selectDate: Date?
     
     // MARK: - UI Components
     
@@ -127,7 +128,7 @@ extension AchievementViewController: FSCalendarDelegate, FSCalendarDataSource, F
         present(vc, animated: false)
         print(date)
     }
-    
+
     func calendar(_ calendar: FSCalendar, shouldSelect date: Date, at monthPosition: FSCalendarMonthPosition) -> Bool {
         Calendar.current.isDate(date, equalTo: calendar.currentPage, toGranularity: .month)
     }
