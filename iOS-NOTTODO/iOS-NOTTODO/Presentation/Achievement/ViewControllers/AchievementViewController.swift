@@ -44,6 +44,12 @@ final class AchievementViewController: UIViewController {
 // MARK: - Methods
 
 extension AchievementViewController {
+    
+    func reloadMonthData(month: String) {
+            print(month)
+            requestMonthAPI(month: month)
+        }
+    
     private func setUI() {
         view.backgroundColor = .ntdBlack
         scrollView.backgroundColor = .clear
@@ -60,6 +66,10 @@ extension AchievementViewController {
             $0.calendar.register(MissionCalendarCell.self, forCellReuseIdentifier: MissionCalendarCell.identifier)
             $0.calendar.delegate = self
             $0.calendar.dataSource = self
+            $0.monthCalendarClosure = { [self] result in
+                            let month = result
+                            self.reloadMonthData(month: month)
+                        }
         }
     }
     private func setLayout() {
