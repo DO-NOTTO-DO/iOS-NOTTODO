@@ -18,6 +18,7 @@ class RecommendActionCollectionViewCell: UICollectionViewCell {
     override var isSelected: Bool {
         didSet {
             contentView.layer.borderColor = isSelected ? UIColor.gray3?.cgColor : UIColor.clear.cgColor
+            titleLabel.textColor = isSelected ? .white : .gray4
             checkIcon.isHidden = isSelected ? false : true
         }
     }
