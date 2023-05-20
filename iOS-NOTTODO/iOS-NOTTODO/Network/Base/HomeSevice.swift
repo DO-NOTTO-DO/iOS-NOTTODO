@@ -11,6 +11,7 @@ import Moya
 
 enum HomeService {
     case dailyMission(date: String)
+    case missionWeekly(startDate: String)
 }
 
 extension HomeService: TargetType {
@@ -22,19 +23,21 @@ extension HomeService: TargetType {
         switch self {
         case .dailyMission(let date):
             return URLConstant.dailyMission + "/\(date)"
+        case .missionWeekly(let startDate):
+            return URLConstant.missionWeekly + "/\(startDate)"
         }
     }
     
     var method: Moya.Method {
         switch self {
-        case .dailyMission:
+        case .dailyMission, .missionWeekly:
             return .get
         }
     }
     
     var task: Moya.Task {
         switch self {
-        case .dailyMission:
+        case .dailyMission, .missionWeekly:
             return .requestPlain
         }
     }

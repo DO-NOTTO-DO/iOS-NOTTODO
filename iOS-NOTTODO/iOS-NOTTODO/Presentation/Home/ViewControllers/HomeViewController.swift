@@ -17,6 +17,7 @@ class HomeViewController: UIViewController {
     
     private var missionList: [DailyMissionResponseDTO] = []
     private var selectedDate: Date?
+    var calendarDataSource: [String: Float] = [:]
     enum Sections: Int, Hashable {
         case mission, empty
     }
@@ -34,6 +35,8 @@ class HomeViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        requestDailyMissionAPI(date: Utils.dateFormatterString(format: "yyyy-MM-dd", date: today))
+        requestWeeklyMissoinAPI(startDate: "2023-05-21")
     }
     
     override func viewDidLoad() {
@@ -43,7 +46,6 @@ class HomeViewController: UIViewController {
         setLayout()
         setupDataSource()
         reloadData()
-        requestDailyMissionAPI(date: Utils.dateFormatterString(format: "yyyy-MM-dd", date: today))
     }
 }
 
@@ -112,12 +114,14 @@ extension HomeViewController {
                 cell.configure(model: item as! DailyMissionResponseDTO )
                 cell.isTappedClosure = { result in
                     if result {
-                        switch  self.missionList[indexPath.item].completionStatus {
-                        case .CHECKED: self.missionList[indexPath.item].completionStatus = .UNCHECKED
-                        case .UNCHECKED: self.missionList[indexPath.item].completionStatus = .CHECKED
+                        if !self.missionList.isEmpty {
+                            switch  self.missionList[indexPath.item].completionStatus {
+                            case .CHECKED: self.missionList[indexPath.item].completionStatus = .UNCHECKED
+                            case .UNCHECKED: self.missionList[indexPath.item].completionStatus = .CHECKED
+                            }
+                            cell.setUI()
+                            self.reloadData()
                         }
-                        cell.setUI()
-                        self.reloadData()
                     }
                 }
                 return cell
@@ -225,6 +229,9 @@ extension HomeViewController {
 extension HomeViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalendarDelegateAppearance {
     func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
         weekCalendar.yearMonthLabel.text = Utils.dateFormatterString(format: I18N.yearMonthTitle, date: calendar.currentPage)
+        requestWeeklyMissoinAPI(startDate: Utils.dateFormatterString(format: "YYYY-MM-dd", date: calendar.currentPage))
+        print()
+        print("hhhhhhhhhhh")
         
     }
     
@@ -243,7 +250,19 @@ extension HomeViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalend
     
     func calendar(_ calendar: FSCalendar, cellFor date: Date, at position: FSCalendarMonthPosition) -> FSCalendarCell {
         let cell = calendar.dequeueReusableCell(withIdentifier: MissionCalendarCell.identifier, for: date, at: position) as! MissionCalendarCell
-        cell.configure(.rateHalf, .week)
+        
+        if let count = self.calendarDataSource[date.toString()] {
+            switch count {
+            case 0:
+                cell.configure(.none, .week)
+            case 1, 2:
+                cell.configure(.rateHalf, .week)
+            case 3:
+                cell.configure(.rateFull, .week)
+            default:
+                cell.configure(.rateFull, .week)
+            }
+        }
         return cell
     }
 }
@@ -253,8 +272,8 @@ extension HomeViewController {
             switch result {
             case let .success(data):
                 guard let data = data as? [DailyMissionResponseDTO] else { return }
-                self?.missionList = data
-                self?.updateData(item: self?.missionList ?? [])
+                self?.updateData(item: data)
+                
             case .pathErr:
                 print("pathErr")
             case .serverErr:
@@ -262,6 +281,27 @@ extension HomeViewController {
             case .networkFail:
                 print("networkFail")
             case .requestErr:
+                print("networkFail")
+            }
+        }
+    }
+    private func requestWeeklyMissoinAPI(startDate: String) {
+        HomeAPI.shared.getWeeklyMissoin(startDate: startDate) { result in
+            switch result {
+            case let .success(data):
+                guard let data = data as? [WeekMissionResponseDTO] else { return }
+                self.calendarDataSource = [:]
+                for item in data {
+                    self.calendarDataSource[item.actionDate] = item.percentage
+                }
+                self.weekCalendar.calendar.reloadData()
+            case .requestErr:
+                print("requestErr")
+            case .pathErr:
+                print("pathErr")
+            case .serverErr:
+                print("serverErr")
+            case .networkFail:
                 print("networkFail")
             }
         }

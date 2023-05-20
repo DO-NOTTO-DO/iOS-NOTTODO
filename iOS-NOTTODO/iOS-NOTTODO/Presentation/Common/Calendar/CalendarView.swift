@@ -107,7 +107,7 @@ extension CalendarView {
         case .month:
             addSubviews(horizonStackView, calendar)
             horizonStackView.addArrangedSubviews(leftButton, yearMonthLabel, rightButton)
-            
+
             leftButton.snp.makeConstraints {
                 $0.size.equalTo(CGSize(width: 25, height: 25))
             }

@@ -39,7 +39,7 @@ final class MissionCalendarCell: FSCalendarCell {
     var state: ToDoState = .none
     
     // MARK: - UI Components
-    
+
     private let iconView = UIImageView()
     private var padding = 8
     
