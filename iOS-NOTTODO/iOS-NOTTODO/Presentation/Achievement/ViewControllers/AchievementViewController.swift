@@ -134,7 +134,7 @@ extension AchievementViewController: FSCalendarDelegate, FSCalendarDataSource, F
         calendar.appearance.selectionColor = .clear
         calendar.appearance.titleSelectionColor = .white
         let vc = DetailAchievementViewController()
-        vc.selectedDate = Utils.dateFormatterString(format: "YYYY년 MM월 dd일", date: date)
+        vc.selectedDate = date
         vc.modalPresentationStyle = .overFullScreen
         present(vc, animated: false)
     }

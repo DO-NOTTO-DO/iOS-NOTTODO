@@ -17,7 +17,7 @@ class DetailAchievementViewController: UIViewController {
     var missionList: [DailyMissionResponseDTO] = []
     private var mission: String?
     private var goal: String?
-    var selectedDate: String?
+    var selectedDate: Date?
     enum Section: Int, Hashable {
         case main
     }
@@ -35,6 +35,7 @@ class DetailAchievementViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        requestDetailAPI(date: Utils.dateFormatterString(format: "YYYY-MM-dd", date: selectedDate!)!)
     }
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -63,7 +64,7 @@ extension DetailAchievementViewController {
             $0.isUserInteractionEnabled = false
         }
         dateLabel.do {
-            $0.text = selectedDate
+            $0.text = Utils.dateFormatterString(format: "YYYY년 MM월 dd일", date: selectedDate!)
             $0.font = .Pretendard(.semiBold, size: 18)
             $0.textColor = .gray2
             $0.textAlignment = .center
