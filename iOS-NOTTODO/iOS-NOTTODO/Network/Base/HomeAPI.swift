@@ -18,6 +18,9 @@ final class HomeAPI {
     private init() { }
     
     public private(set) var missionDailyData: GeneralArrayResponse<DailyMissionResponseDTO>?
+    public private(set) var updateMissionStatus: GeneralResponse<UpdateMissionResponseDTO>?
+    public private(set) var missionWeekly: GeneralResponse<WeekMissionResponseDTO>?
+
     
     // MARK: - GET
     
@@ -46,6 +49,26 @@ final class HomeAPI {
                 completion(networkResult)
             case let .failure(err):
                 print(err)
+            }
+        }
+    }
+    
+    // MARK: - Patch
+    
+    func patchUpdateMissionStatus(id: Int, status: String, completion: @escaping (GeneralResponse<UpdateMissionResponseDTO>?) -> Void) {
+        homeProvider.request(.updateMissionStatus(id: id, status: status)) { result in
+            switch result {
+            case .success(let response):
+                do {
+                    self.updateMissionStatus = try response.map(GeneralResponse<UpdateMissionResponseDTO>?.self)
+                    guard self.updateMissionStatus != nil else { return }
+                    completion(self.updateMissionStatus)
+                } catch let err {
+                    print(err.localizedDescription, 500)
+                }
+            case .failure(let err):
+                print(err.localizedDescription)
+                completion(nil)
             }
         }
     }

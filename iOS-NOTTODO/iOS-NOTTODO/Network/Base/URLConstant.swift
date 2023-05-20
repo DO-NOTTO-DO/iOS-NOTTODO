@@ -26,4 +26,5 @@ struct URLConstant {
     
     static let dailyMission = "/mission/daily"
     static let missionWeekly = "/mission/week"
+    static let mission = "/mission"
 }

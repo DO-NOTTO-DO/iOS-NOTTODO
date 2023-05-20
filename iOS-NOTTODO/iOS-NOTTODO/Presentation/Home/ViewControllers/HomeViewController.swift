@@ -112,16 +112,16 @@ extension HomeViewController {
             case .mission:
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MissionListCollectionViewCell.identifier, for: indexPath) as! MissionListCollectionViewCell
                 cell.configure(model: item as! DailyMissionResponseDTO )
-                cell.isTappedClosure = { result in
+                cell.isTappedClosure = { result, id in
                     if result {
-                        if !self.missionList.isEmpty {
-                            switch  self.missionList[indexPath.item].completionStatus {
-                            case .CHECKED: self.missionList[indexPath.item].completionStatus = .UNCHECKED
-                            case .UNCHECKED: self.missionList[indexPath.item].completionStatus = .CHECKED
-                            }
-                            cell.setUI()
-                            self.reloadData()
-                        }
+                        self.requestPatchUpdateMissionAPI(id: id, status: CompletionStatus.UNCHECKED )
+                        cell.setUI()
+                        self.reloadData()
+                    } else {
+                        self.requestPatchUpdateMissionAPI(id: id, status: CompletionStatus.CHECKED )
+                        cell.setUI()
+                        self.reloadData()
+
                     }
                 }
                 return cell
@@ -137,8 +137,8 @@ extension HomeViewController {
         defer {
             dataSource.apply(snapShot, animatingDifferences: false)
         }
-            snapShot.appendSections([.empty])
-            snapShot.appendItems([0], toSection: .empty)
+        snapShot.appendSections([.empty])
+        snapShot.appendItems([0], toSection: .empty)
     }
     
     private func updateData(item: [DailyMissionResponseDTO]) {
@@ -204,9 +204,7 @@ extension HomeViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let modalViewController = MissionDetailViewController()
         modalViewController.modalPresentationStyle = .overFullScreen
-       // modalViewController.detailModel = missionList[indexPath.item]
-        //  modalViewController.detailModel = MissionDetailModel.items[missionList[indexPath.item].id - 1] // id 값
-        // 서버 : missionList[indexPath.item].id
+        modalViewController.detailModel = MissionDetailModel.items[indexPath.item]
         self.present(modalViewController, animated: true)
         
     }
@@ -246,6 +244,7 @@ extension HomeViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalend
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         weekCalendar.yearMonthLabel.text = Utils.dateFormatterString(format: I18N.yearMonthTitle, date: date)
         requestDailyMissionAPI(date: Utils.dateFormatterString(format: "yyyy-MM-dd", date: date))
+        self.reloadData()
     }
     
     func calendar(_ calendar: FSCalendar, cellFor date: Date, at position: FSCalendarMonthPosition) -> FSCalendarCell {
@@ -304,6 +303,12 @@ extension HomeViewController {
             case .networkFail:
                 print("networkFail")
             }
+        }
+    }
+    private func requestPatchUpdateMissionAPI(id: Int, status: CompletionStatus) {
+        HomeAPI.shared.patchUpdateMissionStatus(id: id, status: status.rawValue) { [weak self] result in
+            guard self != nil else { return }
+            guard result != nil else { return }
         }
     }
 }

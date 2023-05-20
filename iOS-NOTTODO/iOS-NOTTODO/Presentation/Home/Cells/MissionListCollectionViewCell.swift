@@ -16,8 +16,9 @@ class MissionListCollectionViewCell: UICollectionViewCell {
     
     static let identifier = "MissionListCollectionViewCell"
     
-    var isTappedClosure: ((_ result: Bool) -> Void)?
+    var isTappedClosure: ((_ result: Bool, _ userId: Int) -> Void)?
     var isTapped: Bool = false
+    var userId: Int = 0
     
     // MARK: - UI Components
     
@@ -116,6 +117,7 @@ extension MissionListCollectionViewCell {
     }
     
     func configure(model: DailyMissionResponseDTO) {
+        self.userId = model.id
         tagLabel.text = model.title
         missionLabel.text = model.situationName
         switch model.completionStatus {
@@ -127,6 +129,6 @@ extension MissionListCollectionViewCell {
     
     @objc
     func checkBoxButton(sender: UIButton) {
-        isTappedClosure?(true)
+        isTappedClosure?(isTapped, userId)
     }
 }

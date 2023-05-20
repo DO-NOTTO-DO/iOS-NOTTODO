@@ -11,6 +11,7 @@ import Moya
 
 enum HomeService {
     case dailyMission(date: String)
+    case updateMissionStatus(id: Int, status: String)
     case missionWeekly(startDate: String)
 }
 
@@ -25,6 +26,8 @@ extension HomeService: TargetType {
             return URLConstant.dailyMission + "/\(date)"
         case .missionWeekly(let startDate):
             return URLConstant.missionWeekly + "/\(startDate)"
+        case .updateMissionStatus(let id, _):
+            return URLConstant.mission + "/\(id)" + "/check"
         }
     }
     
@@ -32,6 +35,8 @@ extension HomeService: TargetType {
         switch self {
         case .dailyMission, .missionWeekly:
             return .get
+        case .updateMissionStatus:
+            return .patch
         }
     }
     
@@ -39,6 +44,9 @@ extension HomeService: TargetType {
         switch self {
         case .dailyMission, .missionWeekly:
             return .requestPlain
+        case .updateMissionStatus(_, let status):
+            return .requestParameters(parameters: ["completionStatus": status],
+                                      encoding: JSONEncoding.default)
         }
     }
     
