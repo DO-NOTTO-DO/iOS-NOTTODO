@@ -104,6 +104,7 @@
 		6CA208252A18FEEA001C4247 /* RecommendService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA208242A18FEEA001C4247 /* RecommendService.swift */; };
 		6CA208272A18FFCF001C4247 /* RecommendResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA208262A18FFCF001C4247 /* RecommendResponseDTO.swift */; };
 		6CA208292A191185001C4247 /* UIImageView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA208282A191185001C4247 /* UIImageView+.swift */; };
+		6CA2082C2A19122A001C4247 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 6CA2082B2A19122A001C4247 /* Kingfisher */; };
 		6CD4F8BA29AA493600CCC740 /* RecommendActionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CD4F8B929AA493600CCC740 /* RecommendActionHeaderView.swift */; };
 		6CD4F8BC29AA494300CCC740 /* RecommendActionFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CD4F8BB29AA494300CCC740 /* RecommendActionFooterView.swift */; };
 		6CD4F8BE29AA495900CCC740 /* RecommendActionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CD4F8BD29AA495900CCC740 /* RecommendActionCollectionViewCell.swift */; };
@@ -238,6 +239,7 @@
 			files = (
 				3B146DA1299D0A7A00B17B62 /* SnapKit in Frameworks */,
 				099FC97B29B305F0005B37E6 /* FSCalendar in Frameworks */,
+				6CA2082C2A19122A001C4247 /* Kingfisher in Frameworks */,
 				6C44127929A35A1000313C3F /* KakaoSDKShare in Frameworks */,
 				6C44127B29A35A1000313C3F /* KakaoSDKStory in Frameworks */,
 				6C44127F29A35A1000313C3F /* KakaoSDKTemplate in Frameworks */,
@@ -853,6 +855,7 @@
 				6C44127E29A35A1000313C3F /* KakaoSDKTemplate */,
 				6C44128029A35A1000313C3F /* KakaoSDKUser */,
 				099FC97A29B305F0005B37E6 /* FSCalendar */,
+				6CA2082B2A19122A001C4247 /* Kingfisher */,
 			);
 			productName = "iOS-NOTTODO";
 			productReference = 3B027A74299C31B500BEB65C /* iOS-NOTTODO.app */;
@@ -888,6 +891,7 @@
 				3B146DA5299D0AA300B17B62 /* XCRemoteSwiftPackageReference "Moya" */,
 				6C44126F29A35A1000313C3F /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */,
 				099FC97929B305F0005B37E6 /* XCRemoteSwiftPackageReference "FSCalendar" */,
+				6CA2082A2A19122A001C4247 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			productRefGroup = 3B027A75299C31B500BEB65C /* Products */;
 			projectDirPath = "";
@@ -1297,6 +1301,14 @@
 				kind = branch;
 			};
 		};
+		6CA2082A2A19122A001C4247 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1364,6 +1376,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 6C44126F29A35A1000313C3F /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
 			productName = KakaoSDKUser;
+		};
+		6CA2082B2A19122A001C4247 /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6CA2082A2A19122A001C4247 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
