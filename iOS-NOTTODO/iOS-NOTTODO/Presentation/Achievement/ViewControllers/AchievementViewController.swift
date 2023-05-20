@@ -31,7 +31,9 @@ final class AchievementViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        requestMonthAPI(month: Utils.dateFormatterString(format: "yyyy-MM", date: monthCalendar.calendar.today!)!)
+        if let today = monthCalendar.calendar.today {
+            requestMonthAPI(month: Utils.dateFormatterString(format: "yyyy-MM", date: today))
+        }
     }
     
     override func viewDidLoad() {
@@ -123,6 +125,7 @@ extension AchievementViewController {
 extension AchievementViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalendarDelegateAppearance {
     func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
         monthCalendar.yearMonthLabel.text = Utils.dateFormatterString(format: I18N.yearMonthTitle, date: calendar.currentPage)
+        reloadMonthData(month: Utils.dateFormatterString(format: "yyyy-MM", date: calendar.currentPage))
     }
     
     func calendar(_ calendar: FSCalendar, titleFor date: Date) -> String? {
@@ -133,9 +136,9 @@ extension AchievementViewController: FSCalendarDelegate, FSCalendarDataSource, F
         calendar.appearance.selectionColor = .clear
         calendar.appearance.titleSelectionColor = .white
         let vc = DetailAchievementViewController()
+        vc.selectedDate = date
         vc.modalPresentationStyle = .overFullScreen
         present(vc, animated: false)
-        print(date)
     }
     
     func calendar(_ calendar: FSCalendar, shouldSelect date: Date, at monthPosition: FSCalendarMonthPosition) -> Bool {
