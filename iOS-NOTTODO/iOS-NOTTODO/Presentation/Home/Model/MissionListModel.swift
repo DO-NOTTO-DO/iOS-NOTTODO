@@ -6,9 +6,7 @@
 //
 
 import Foundation
-//enum CompletionStatus: String, Codable {
-//    case CHECKED, UNCHECKED
-//}
+
 struct MissionListModel: Hashable {
     var id: Int
     var title: String

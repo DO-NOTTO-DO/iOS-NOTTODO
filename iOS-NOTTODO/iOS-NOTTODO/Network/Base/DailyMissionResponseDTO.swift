@@ -7,13 +7,13 @@
 
 import Foundation
 
-enum CompletionStatus: String, Codable {
+enum CompletionStatus: String, Codable, Hashable {
     case CHECKED, UNCHECKED
 }
 
 // MARK: - DailyMissionResponseDTO
 
-struct DailyMissionResponseDTO: Codable {
+struct DailyMissionResponseDTO: Codable, Hashable {
     var id: Int
     var title: String
     var situationName: String

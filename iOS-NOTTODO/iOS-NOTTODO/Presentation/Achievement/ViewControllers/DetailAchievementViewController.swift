@@ -14,13 +14,14 @@ class DetailAchievementViewController: UIViewController {
     
     // MARK: - Properties
     
-    var missionList: [MissionDetailResponseDTO] = []
+    var missionList: [DailyMissionResponseDTO] = []
     private var mission: String?
     private var goal: String?
+    var selectedDate: String?
     enum Section: Int, Hashable {
         case main
     }
-    typealias Item = MissionListModel
+    typealias Item = AnyHashable
     var dataSource: UICollectionViewDiffableDataSource<Section, Item>! = nil
     private lazy var safeArea = self.view.safeAreaLayoutGuide
     
@@ -34,7 +35,6 @@ class DetailAchievementViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        requestDetailAPI(missionId: 1)
     }
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -63,7 +63,7 @@ extension DetailAchievementViewController {
             $0.isUserInteractionEnabled = false
         }
         dateLabel.do {
-            $0.text = "2023년 12월 11일"
+            $0.text = selectedDate
             $0.font = .Pretendard(.semiBold, size: 18)
             $0.textColor = .gray2
             $0.textAlignment = .center
@@ -103,7 +103,7 @@ extension DetailAchievementViewController {
     private func setupDataSource() {
         dataSource = UICollectionViewDiffableDataSource<Section, Item>(collectionView: collectionView, cellProvider: { collectionView, indexPath, item in
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DetailAchievementCollectionViewCell.identifier, for: indexPath) as? DetailAchievementCollectionViewCell else { return UICollectionViewCell() }
-            cell.configure(model: item)
+            cell.configure(model: item as! MissionListModel)
             return cell
         })
     }
@@ -117,11 +117,12 @@ extension DetailAchievementViewController {
         snapShot.appendSections([.main])
         snapShot.appendItems([], toSection: .main)
     }
-//    private func updateData(item: [MissionDetailResponseDTO]) {
-//            var snapshot = dataSource.snapshot()
-//            snapshot.appendItems(item, toSection: .main)
-//            dataSource.apply(snapshot)
-//        }
+    
+    private func updateData(item: [DailyMissionResponseDTO]) {
+            var snapshot = dataSource.snapshot()
+            snapshot.appendItems(item, toSection: .main)
+            dataSource.apply(snapshot)
+        }
     
     private func layout() -> UICollectionViewCompositionalLayout {
         var config = UICollectionLayoutListConfiguration(appearance: .insetGrouped)
@@ -135,13 +136,13 @@ extension DetailAchievementViewController {
     }
 }
 extension DetailAchievementViewController {
-    func requestDetailAPI(missionId: Int) {
-        AchieveAPI.shared.getMissionDetail(missionId: missionId) { [self] result in
+    func requestDetailAPI(date: String) {
+        HomeAPI.shared.getDailyMission(date: date) { [self] result in
             switch result {
             case let .success(data):
-                guard let data = data as? [MissionDetailResponseDTO] else { return }
+                guard let data = data as? [DailyMissionResponseDTO] else { return }
                 self.missionList = data
-               // updateData(item: missionList)
+                updateData(item: missionList)
             case .requestErr:
                 print("requestErr")
             case .pathErr:
