@@ -108,7 +108,7 @@ extension DetailAchievementViewController {
     private func setupDataSource() {
         dataSource = UICollectionViewDiffableDataSource<Section, Item>(collectionView: collectionView, cellProvider: { collectionView, indexPath, item in
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DetailAchievementCollectionViewCell.identifier, for: indexPath) as? DetailAchievementCollectionViewCell else { return UICollectionViewCell() }
-            cell.configure(model: item as! MissionListModel)
+            cell.configure(model: item as! DailyMissionResponseDTO)
             return cell
         })
     }
