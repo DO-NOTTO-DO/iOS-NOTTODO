@@ -67,7 +67,7 @@ extension DetailAchievementViewController {
         }
         dateLabel.do {
             if let selectedDate = selectedDate {
-                $0.text = Utils.dateFormatterString(format: "YYYY년 MM월 dd일", date:   selectedDate)
+                $0.text = Utils.dateFormatterString(format: "YYYY년 MM월 dd일", date: selectedDate)
             }
             $0.font = .Pretendard(.semiBold, size: 18)
             $0.textColor = .gray2
