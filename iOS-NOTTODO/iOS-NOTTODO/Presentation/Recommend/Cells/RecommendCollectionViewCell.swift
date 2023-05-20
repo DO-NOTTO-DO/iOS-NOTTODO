@@ -96,10 +96,10 @@ extension RecommendCollectionViewCell {
         }
     }
     
-    func configure(model: RecommendModel) {
-        tagLabel.text = model.tag
-        titleLabel.text = model.title
-        bodyLabel.text = model.body
+    func configure(model: RecommendResponseDTO) {
+        tagLabel.text = model.title
+        titleLabel.text = model.situation
+        bodyLabel.text = model.description
         bodyImage.image = UIImage(named: model.image)
     }
     
