@@ -63,6 +63,7 @@ extension HomeViewController {
             $0.calendar.delegate = self
             $0.calendar.dataSource = self
             $0.calendar.register(MissionCalendarCell.self, forCellReuseIdentifier: MissionCalendarCell.identifier)
+            $0.todayButton.addTarget(self, action: #selector(todayBtnTapped), for: .touchUpInside)
         }
         
         missionCollectionView.do {
@@ -132,14 +133,8 @@ extension HomeViewController {
         defer {
             dataSource.apply(snapShot, animatingDifferences: false)
         }
-        
-//        if missionList.isEmpty {
             snapShot.appendSections([.empty])
             snapShot.appendItems([0], toSection: .empty)
-//        } else {
-//            snapShot.appendSections([.mission])
-//            snapShot.appendItems(missionList, toSection: .mission)
-//        }
     }
     
     private func updateData(item: [DailyMissionResponseDTO]) {
@@ -149,7 +144,6 @@ extension HomeViewController {
             snapshot.appendSections([.mission])
             snapshot.appendItems(item, toSection: .mission)
         }
-       // snapshot.deleteSections([.empty])
         dataSource.apply(snapshot)
     }
     
@@ -206,7 +200,7 @@ extension HomeViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let modalViewController = MissionDetailViewController()
         modalViewController.modalPresentationStyle = .overFullScreen
-       // modalViewController.detailModel = missionList[indexPath.item].id
+       // modalViewController.detailModel = missionList[indexPath.item]
         //  modalViewController.detailModel = MissionDetailModel.items[missionList[indexPath.item].id - 1] // id 값
         // 서버 : missionList[indexPath.item].id
         self.present(modalViewController, animated: true)
@@ -219,11 +213,19 @@ extension HomeViewController {
     func addBtnTapped(_sender: UIButton) {
         print("add button Tapped")
     }
+    
+    @objc
+    func todayBtnTapped(_sender: UIButton) {
+        weekCalendar.calendar.select(today)
+        weekCalendar.yearMonthLabel.text = Utils.dateFormatterString(format: I18N.yearMonthTitle, date: today)
+        requestDailyMissionAPI(date: Utils.dateFormatterString(format: "YYYY-MM-dd", date: today))
+    }
 }
 
 extension HomeViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalendarDelegateAppearance {
     func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
         weekCalendar.yearMonthLabel.text = Utils.dateFormatterString(format: I18N.yearMonthTitle, date: calendar.currentPage)
+        
     }
     
     func  calendar(_ calendar: FSCalendar, titleFor date: Date) -> String? {
@@ -252,9 +254,6 @@ extension HomeViewController {
             case let .success(data):
                 guard let data = data as? [DailyMissionResponseDTO] else { return }
                 self?.missionList = data
-                
-                // guard let data = data as? [DailyMissionResponseDTO] else { return }
-                // self?.missionList = data
                 self?.updateData(item: self?.missionList ?? [])
             case .pathErr:
                 print("pathErr")
