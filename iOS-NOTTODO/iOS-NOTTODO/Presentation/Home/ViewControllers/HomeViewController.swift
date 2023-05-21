@@ -17,6 +17,7 @@ class HomeViewController: UIViewController {
     
     private var missionList: [DailyMissionResponseDTO] = []
     private var selectedDate: Date?
+    private var userId: Int = 0
     var calendarDataSource: [String: Float] = [:]
     enum Sections: Int, Hashable {
         case mission, empty
@@ -112,13 +113,16 @@ extension HomeViewController {
             case .mission:
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MissionListCollectionViewCell.identifier, for: indexPath) as! MissionListCollectionViewCell
                 cell.configure(model: item as! DailyMissionResponseDTO )
+                //이슈 : 체크 박스 업데이트
                 cell.isTappedClosure = { result, id in
+                    self.userId = id
+                    print("self.userID: \(id)")
                     if result {
-                        self.requestPatchUpdateMissionAPI(id: id, status: CompletionStatus.UNCHECKED )
+                        self.requestPatchUpdateMissionAPI(id: self.userId, status: CompletionStatus.UNCHECKED )
                         cell.setUI()
                         self.reloadData()
                     } else {
-                        self.requestPatchUpdateMissionAPI(id: id, status: CompletionStatus.CHECKED )
+                        self.requestPatchUpdateMissionAPI(id: self.userId, status: CompletionStatus.CHECKED )
                         cell.setUI()
                         self.reloadData()
 
@@ -178,8 +182,13 @@ extension HomeViewController {
     }
     
     private func makeSwipeActions(for indexPath: IndexPath?) -> UISwipeActionsConfiguration? {
-        let deleteAction = UIContextualAction(style: .normal, title: "") { _, _, completion in
+        let deleteAction = UIContextualAction(style: .normal, title: "") { [unowned self] _, _, completion in
             print("delete")
+            requestDeleteMission(id: self.userId)
+            var snapshot = self.dataSource.snapshot()
+            snapshot.deleteItems([self.missionList])
+            self.dataSource.apply(snapshot, animatingDifferences: true)
+
             completion(true)
         }
         
@@ -188,13 +197,13 @@ extension HomeViewController {
             completionHandler(true)
         }
         
-        deleteAction.backgroundColor = .ntdBlue
-        modifyAction.backgroundColor = .ntdRed
+        deleteAction.backgroundColor = .ntdRed
+        modifyAction.backgroundColor = .ntdBlue
         
         deleteAction.image = .icTrash
         modifyAction.image = .icFix
         
-        let swipeConfiguration = UISwipeActionsConfiguration(actions: [modifyAction, deleteAction])
+        let swipeConfiguration = UISwipeActionsConfiguration(actions: [deleteAction, modifyAction])
         swipeConfiguration.performsFirstActionWithFullSwipe = false
         
         return swipeConfiguration
@@ -228,9 +237,6 @@ extension HomeViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalend
     func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
         weekCalendar.yearMonthLabel.text = Utils.dateFormatterString(format: I18N.yearMonthTitle, date: calendar.currentPage)
         requestWeeklyMissoinAPI(startDate: Utils.dateFormatterString(format: "YYYY-MM-dd", date: calendar.currentPage))
-        print()
-        print("hhhhhhhhhhh")
-        
     }
     
     func  calendar(_ calendar: FSCalendar, titleFor date: Date) -> String? {
@@ -241,6 +247,7 @@ extension HomeViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalend
         Utils.dateFormatterString(format: "dd", date: date)
     }
     
+    //이슈 2: section update
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         weekCalendar.yearMonthLabel.text = Utils.dateFormatterString(format: I18N.yearMonthTitle, date: date)
         requestDailyMissionAPI(date: Utils.dateFormatterString(format: "yyyy-MM-dd", date: date))
@@ -309,6 +316,13 @@ extension HomeViewController {
         HomeAPI.shared.patchUpdateMissionStatus(id: id, status: status.rawValue) { [weak self] result in
             guard self != nil else { return }
             guard result != nil else { return }
+        }
+    }
+    private func requestDeleteMission(id: Int) {
+        HomeAPI.shared.deleteMission(id: id) { [weak self] response in
+            print(response)
+            guard self != nil else { return }
+            guard response != nil else { return }
         }
     }
 }
