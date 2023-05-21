@@ -165,7 +165,7 @@ extension AuthViewController {
 extension AuthViewController {
     
     func kakaoLoginWithApp() {
-        UserApi.shared.loginWithKakaoTalk {(_, error) in
+        UserApi.shared.loginWithKakaoTalk {(oauthToken, error) in
             if let error = error {
                 print(error)
             } else {
@@ -175,6 +175,9 @@ extension AuthViewController {
                     if let error = error {
                         print(error)
                     } else {
+                        if let accessToken = AuthApi.shared.tokenManager.accessToken {
+                            UserDefaults.standard.setValue(accessToken, forKey: "KakaoAccessToken")
+                        }
                         self.presentToHomeViewController()
                     }
                 }
@@ -183,7 +186,7 @@ extension AuthViewController {
     }
     
     func kakaoLoginWithAccount() {
-        UserApi.shared.loginWithKakaoAccount {(_, error) in
+        UserApi.shared.loginWithKakaoAccount {(oauthToken, error) in
             if let error = error {
                 print(error)
             } else {
@@ -193,6 +196,9 @@ extension AuthViewController {
                     if let error = error {
                         print(error)
                     } else {
+                        if let accessToken = AuthApi.shared.tokenManager.accessToken {
+                            UserDefaults.standard.setValue(accessToken, forKey: "KakaoAccessToken")
+                        }
                         self.presentToHomeViewController()
                     }
                 }
