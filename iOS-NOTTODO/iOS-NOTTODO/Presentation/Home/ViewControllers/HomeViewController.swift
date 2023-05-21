@@ -46,6 +46,7 @@ class HomeViewController: UIViewController {
         register()
         setLayout()
         setupDataSource()
+        updateData()
     }
 }
 
@@ -199,7 +200,6 @@ extension HomeViewController {
     private func makeSwipeActions(for indexPath: IndexPath?) -> UISwipeActionsConfiguration? {
         let deleteAction = UIContextualAction(style: .normal, title: "") { [unowned self] _, _, completion in
             print("delete")
-            // user.id가 바로 안넘어옴
             requestDeleteMission(id: self.userId)
             var snapshot = self.dataSource.snapshot()
             snapshot.deleteItems([self.missionList])

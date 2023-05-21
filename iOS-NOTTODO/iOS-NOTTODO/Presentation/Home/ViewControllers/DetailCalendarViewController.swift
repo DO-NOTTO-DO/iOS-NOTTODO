@@ -15,6 +15,8 @@ class DetailCalendarViewController: UIViewController {
     
     // MARK: - Properties
     
+    var anotherDate: [String] = []
+    var userId: Int?
     private lazy var safeArea = self.view.safeAreaLayoutGuide
     private lazy var today: Date = { return Date() }()
     
@@ -89,19 +91,20 @@ extension DetailCalendarViewController: FSCalendarDelegate, FSCalendarDataSource
     
     func calendar(_ calendar: FSCalendar, shouldSelect date: Date, at monthPosition: FSCalendarMonthPosition) -> Bool {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        let convertDate = dateFormatter.string(from: date)
-        let stringDate: [String] = ["2023-03-23", "2023-03-25", "2023-03-26"]
-        if stringDate.contains(convertDate) { return false }
+        dateFormatter.dateFormat = "yyyy.MM.dd"
+        self.anotherDate.append(dateFormatter.string(from: date))
+        if let id = self.userId {
+            requestAddAnotherDay(id: id, dates: anotherDate)
+        }
         return Utils.calendarSelected(today: today, date: date)
     }
     
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, fillDefaultColorFor date: Date) -> UIColor? {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        let convertDate = dateFormatter.string(from: date)
-        let stringDate: [String] = ["2023-03-23", "2023-03-25", "2023-03-26"]
-        if stringDate.contains(convertDate) { return UIColor.gray2 }
+        dateFormatter.dateFormat = "yyyy.MM.dd"
+      //  self.anotherDate.append(dateFormatter.string(from: date))
+        print(self.anotherDate)
+        if self.anotherDate.contains(dateFormatter.string(from: date)) { return UIColor.gray2 }
         return .clear
     }
     
@@ -111,5 +114,13 @@ extension DetailCalendarViewController: FSCalendarDelegate, FSCalendarDataSource
     
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleDefaultColorFor date: Date) -> UIColor? {
         Utils.calendarTitleColor(today: today, date: date, selected: false)
+    }
+}
+extension DetailCalendarViewController {
+    private func requestAddAnotherDay(id: Int, dates: [String]) {
+        HomeAPI.shared.postAnotherDay(id: id, dates: dates) { [weak self] response in
+            guard let self = self else { return }
+            guard response != nil else { return }
+        }
     }
 }
