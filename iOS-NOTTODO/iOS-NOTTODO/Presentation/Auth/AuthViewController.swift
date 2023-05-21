@@ -17,6 +17,10 @@ import AuthenticationServices
 
 class AuthViewController: UIViewController {
     
+    // MARK: - Properties
+    
+    var authRequest: AuthRequestDTO?
+    
     // MARK: - UI Components
     
     private var loginMainLabel = UILabel()
@@ -108,7 +112,7 @@ extension AuthViewController {
             $0.leading.trailing.equalToSuperview()
             $0.bottom.equalTo(moreLabel.snp.top).offset(-14)
         }
-
+        
         kakaoLoginButtonView.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview()
             $0.bottom.equalTo(appleLoginButtonView.snp.top).offset(-11)
@@ -124,7 +128,7 @@ extension AuthViewController {
         kakaoLoginButton.snp.makeConstraints {
             $0.top.bottom.leading.trailing.equalTo(kakaoLoginButtonView)
         }
-
+        
         appleLoginButton.snp.makeConstraints {
             $0.top.bottom.leading.trailing.equalTo(appleLoginButtonView)
         }
@@ -165,42 +169,45 @@ extension AuthViewController {
 extension AuthViewController {
     
     func kakaoLoginWithApp() {
-        UserApi.shared.loginWithKakaoTalk {(oauthToken, error) in
+        UserApi.shared.loginWithKakaoTalk { _, error in
             if let error = error {
                 print(error)
             } else {
-                print("loginWithKakaoTalk() success.")
+                print("kakaoLoginWithApp() success.")
                 
-                UserApi.shared.me {(_, error) in
-                    if let error = error {
-                        print(error)
-                    } else {
-                        if let accessToken = AuthApi.shared.tokenManager.accessToken {
-                            UserDefaults.standard.setValue(accessToken, forKey: "KakaoAccessToken")
-                        }
-                        self.presentToHomeViewController()
-                    }
-                }
+                self.getUserInfo()
             }
         }
     }
     
     func kakaoLoginWithAccount() {
-        UserApi.shared.loginWithKakaoAccount {(oauthToken, error) in
+        UserApi.shared.loginWithKakaoAccount { _, error in
             if let error = error {
                 print(error)
             } else {
-                print("loginWithKakaoAccount() success.")
+                print("kakaoLoginWithAccount() success.")
                 
-                UserApi.shared.me {(_, error) in
-                    if let error = error {
-                        print(error)
-                    } else {
-                        if let accessToken = AuthApi.shared.tokenManager.accessToken {
-                            UserDefaults.standard.setValue(accessToken, forKey: "KakaoAccessToken")
-                        }
-                        self.presentToHomeViewController()
+                self.getUserInfo()
+            }
+        }
+    }
+    
+    private func getUserInfo() {
+        UserApi.shared.me {(user, error) in
+            if let error = error {
+                print(error)
+            } else {
+                if let userID = user?.id {
+//                   let email = user?.kakaoAccount?.email,
+//                   let name = user?.kakaoAccount?.profile?.nickname {
+                    
+                    UserDefaults.standard.set(String(userID), forKey: "KakaoAccessToken")
+                    // print("토큰토큰", UserDefaults.standard.string(forKey: "KakaoAccessToken"))
+                    
+                    AuthAPI.shared.postAuth(newAuth: AuthRequestDTO(socialToken: UserDefaults.standard.string(forKey: "KakaoAccessToken") ?? "", fcmToken: "", name: "", email: user?.kakaoAccount?.email ?? "")) { [weak self] _ in
+                        guard let self = self else { return }
                     }
+                    self.presentToHomeViewController()
                 }
             }
         }
@@ -213,9 +220,9 @@ extension AuthViewController {
     }
 }
 
+// MARK: - AppleSignIn
+
 extension AuthViewController: ASAuthorizationControllerDelegate, ASAuthorizationControllerPresentationContextProviding {
-    
-    // 로그인 진행하는 화면 표출
     func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
         return self.view.window!
     }
@@ -223,19 +230,15 @@ extension AuthViewController: ASAuthorizationControllerDelegate, ASAuthorization
     // Apple ID 연동 성공 시
     func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
         switch authorization.credential {
-            // Apple ID
         case let appleIDCredential as ASAuthorizationAppleIDCredential:
-            
             let userIdentifier = appleIDCredential.user
-            let fullName = appleIDCredential.fullName
-            let email = appleIDCredential.email
             
-            print("User ID : \(userIdentifier)")
-            print("User Email : \(email ?? "")")
-            print("User Name : \((fullName?.givenName ?? "") + (fullName?.familyName ?? ""))")
-            
+            UserDefaults.standard.setValue(userIdentifier, forKey: "AppleAccessToken")
+        
+            AuthAPI.shared.postAuth(newAuth: AuthRequestDTO(socialToken: UserDefaults.standard.string(forKey: "AppleAccessToken") ?? "", fcmToken: "", name: "", email: "")) { [weak self] _ in
+                guard let self = self else { return }
+            }
             self.presentToHomeViewController()
-            
         default:
             break
         }

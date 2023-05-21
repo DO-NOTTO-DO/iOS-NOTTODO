@@ -19,12 +19,12 @@ final class AuthAPI {
     
     // MARK: - POST
     
-    func postAuth(newMission: AuthRequestDTO, completion: @escaping (GeneralResponse<AuthResponse>?) -> Void) {
+    func postAuth(newAuth: AuthRequestDTO, completion: @escaping (GeneralResponse<AuthResponseDTO>?) -> Void) {
         authProvider.request(.auth(newAuth)) { result in
             switch result {
             case .success(let response):
                 do {
-                    guard let authData = try response.map(GeneralResponse<AuthResponse>?.self) else { return }
+                    guard let authData = try response.map(GeneralResponse<AuthResponseDTO>?.self) else { return }
                     completion(authData)
                 } catch let err {
                     print(err.localizedDescription, 500)

@@ -10,7 +10,7 @@ import Foundation
 import Moya
 
 enum AuthService {
-    case auth(AuthRequest)
+    case auth(AuthRequestDTO)
 }
 
 extension AuthService: TargetType {
@@ -21,21 +21,23 @@ extension AuthService: TargetType {
     var path: String {
         switch self {
         case .auth:
-            return URLConstant.addMission
+            return URLConstant.auth
+        }
     }
     
     var method: Moya.Method {
         switch self {
         case .auth:
             return .post
+        }
     }
-    
     var task: Moya.Task {
         switch self {
         case .auth(let newAuth):
             return .requestParameters(
-                parameters: newMission.toDictionary,
+                parameters: newAuth.toDictionary,
                 encoding: JSONEncoding.default)
+        }
     }
     
     var headers: [String: String]? {
@@ -47,10 +49,9 @@ extension AuthService: TargetType {
 }
 
 extension Encodable {
-  var toDictionary: [String: Any] {
-    guard let object = try? JSONEncoder().encode(self) else { fatalError() }
-    guard let dictionary = try? JSONSerialization.jsonObject(with: object, options: []) as? [String: Any] else { fatalError() }
-    return dictionary
-  }
+    var toDictionary: [String: Any] {
+        guard let object = try? JSONEncoder().encode(self) else { fatalError() }
+        guard let dictionary = try? JSONSerialization.jsonObject(with: object, options: []) as? [String: Any] else { fatalError() }
+        return dictionary
+    }
 }
-
