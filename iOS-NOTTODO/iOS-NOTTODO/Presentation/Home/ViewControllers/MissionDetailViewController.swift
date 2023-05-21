@@ -130,12 +130,6 @@ extension MissionDetailViewController {
         }
     }
     
-    private func updateData(item: [MissionDetailResponseDTO]) {
-        var snapshot = dataSource.snapshot()
-        snapshot.appendItems(item, toSection: .mission)
-        dataSource.apply(snapshot)
-    }
-    
     private func layout() -> UICollectionViewCompositionalLayout {
         var config = UICollectionLayoutListConfiguration(appearance: .plain)
         config.showsSeparators = false
@@ -148,7 +142,9 @@ extension MissionDetailViewController {
 extension MissionDetailViewController {
     @objc
     func deleteBtnTapped() {
-        print("Deletetapped")
+        guard let id = userId else { return }
+        requestDeleteMission(id: id)
+        dismiss(animated: true)
     }
     @objc
     func completeBtnTapped(sender: UIButton) {
@@ -163,7 +159,7 @@ extension MissionDetailViewController {
                 if let missionData = data as? MissionDetailResponseDTO {
                     print("data: \(missionData)")
                     self?.detailModel = [missionData]
-                    self?.updateData(item: [missionData])
+                    self?.reloadData()
                     print(missionData)
                 } else {
                     print("Failed to cast data to MissionDetailResponseDTO")
@@ -176,6 +172,16 @@ extension MissionDetailViewController {
                 print("networkFail")
             case .requestErr:
                 print("networkFail")
+            }
+        }
+    }
+    private func requestDeleteMission(id: Int) {
+        HomeAPI.shared.deleteMission(id: id) { [weak self] _ in
+            for index in 0..<(self?.detailModel.count ?? 0) {
+                if self?.detailModel[index].id == id {
+                    self?.detailModel.remove(at: index)
+                    self?.reloadData()
+                } else {}
             }
         }
     }

@@ -114,7 +114,6 @@ extension HomeViewController {
                 cell.configure(model: item as! DailyMissionResponseDTO )
                 cell.isTappedClosure = { result, id in
                     self.userId = id
-                    print("self.userID: \(id)")
                     if result {
                         self.requestPatchUpdateMissionAPI(id: self.userId, status: CompletionStatus.UNCHECKED )
                         cell.setUI()
@@ -230,13 +229,6 @@ extension HomeViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let modalViewController = MissionDetailViewController()
         modalViewController.modalPresentationStyle = .overFullScreen
-        //        modalViewController.userId = missionList[indexPath.item].id
-        //        if !missionList.isEmpty  {
-        //            modalViewController.userId = missionList[indexPath.item].id
-        //        } else {
-        //            print("index is out of range")
-        //            // Handle the case when the index is out of range
-        //        }
         modalViewController.userId = self.userId
         self.present(modalViewController, animated: true)
         
