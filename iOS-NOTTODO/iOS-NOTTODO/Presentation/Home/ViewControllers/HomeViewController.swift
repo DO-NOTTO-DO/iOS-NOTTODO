@@ -36,8 +36,8 @@ class HomeViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        requestDailyMissionAPI(date: Utils.dateFormatterString(format: "yyyy-MM-dd", date: today))
-        requestWeeklyMissoinAPI(startDate: Utils.dateFormatterString(format: "yyyy-MM-dd", date: today))
+        requestDailyMissionAPI(date: Utils.dateFormatterString(format: nil, date: today))
+        requestWeeklyMissoinAPI(startDate: Utils.dateFormatterString(format: nil, date: today))
     }
     
     override func viewDidLoad() {
@@ -229,7 +229,7 @@ extension HomeViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let modalViewController = MissionDetailViewController()
         modalViewController.modalPresentationStyle = .overFullScreen
-        modalViewController.userId = self.userId
+        modalViewController.userId = missionList[indexPath.item].id
         self.present(modalViewController, animated: true)
         
     }
@@ -245,14 +245,14 @@ extension HomeViewController {
     func todayBtnTapped(_sender: UIButton) {
         weekCalendar.calendar.select(today)
         weekCalendar.yearMonthLabel.text = Utils.dateFormatterString(format: I18N.yearMonthTitle, date: today)
-        requestDailyMissionAPI(date: Utils.dateFormatterString(format: "YYYY-MM-dd", date: today))
+        requestDailyMissionAPI(date: Utils.dateFormatterString(format: nil, date: today))
     }
 }
 
 extension HomeViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalendarDelegateAppearance {
     func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
         weekCalendar.yearMonthLabel.text = Utils.dateFormatterString(format: I18N.yearMonthTitle, date: calendar.currentPage)
-        requestWeeklyMissoinAPI(startDate: Utils.dateFormatterString(format: "YYYY-MM-dd", date: calendar.currentPage))
+        requestWeeklyMissoinAPI(startDate: Utils.dateFormatterString(format: nil, date: calendar.currentPage))
     }
     
     func  calendar(_ calendar: FSCalendar, titleFor date: Date) -> String? {
@@ -265,12 +265,12 @@ extension HomeViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalend
     
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         weekCalendar.yearMonthLabel.text = Utils.dateFormatterString(format: I18N.yearMonthTitle, date: date)
-        requestDailyMissionAPI(date: Utils.dateFormatterString(format: "yyyy-MM-dd", date: date))
+        requestDailyMissionAPI(date: Utils.dateFormatterString(format: nil, date: date))
     }
     
     func calendar(_ calendar: FSCalendar, cellFor date: Date, at position: FSCalendarMonthPosition) -> FSCalendarCell {
         let cell = calendar.dequeueReusableCell(withIdentifier: MissionCalendarCell.identifier, for: date, at: position) as! MissionCalendarCell
-        let dateString = Utils.dateFormatterString(format: "yyyy-MM-dd", date: date)
+        let dateString = Utils.dateFormatterString(format: nil, date: date)
         if let count = self.calendarDataSource[dateString] {
             print(count)
             switch count {
