@@ -37,7 +37,7 @@ class HomeViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         requestDailyMissionAPI(date: Utils.dateFormatterString(format: "yyyy-MM-dd", date: today))
-        requestWeeklyMissoinAPI(startDate: "2023-05-21")
+        requestWeeklyMissoinAPI(startDate: Utils.dateFormatterString(format: "yyyy-MM-dd", date: today))
     }
     
     override func viewDidLoad() {
@@ -46,7 +46,6 @@ class HomeViewController: UIViewController {
         register()
         setLayout()
         setupDataSource()
-        reloadData()
     }
 }
 
@@ -113,19 +112,15 @@ extension HomeViewController {
             case .mission:
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MissionListCollectionViewCell.identifier, for: indexPath) as! MissionListCollectionViewCell
                 cell.configure(model: item as! DailyMissionResponseDTO )
-                //이슈 : 체크 박스 업데이트
                 cell.isTappedClosure = { result, id in
                     self.userId = id
                     print("self.userID: \(id)")
                     if result {
                         self.requestPatchUpdateMissionAPI(id: self.userId, status: CompletionStatus.UNCHECKED )
                         cell.setUI()
-                        self.reloadData()
                     } else {
                         self.requestPatchUpdateMissionAPI(id: self.userId, status: CompletionStatus.CHECKED )
                         cell.setUI()
-                        self.reloadData()
-
                     }
                 }
                 return cell
@@ -137,20 +132,41 @@ extension HomeViewController {
     }
     
     private func reloadData() {
-        var snapShot = NSDiffableDataSourceSnapshot<Sections, AnyHashable>()
+        var snapshot = NSDiffableDataSourceSnapshot<Sections, AnyHashable>()
         defer {
-            dataSource.apply(snapShot, animatingDifferences: false)
+            dataSource.apply(snapshot, animatingDifferences: false)
         }
-        snapShot.appendSections([.empty])
-        snapShot.appendItems([0], toSection: .empty)
+        snapshot.appendSections([.empty])
+        snapshot.appendItems([0], toSection: .empty)
+        dataSource.apply(snapshot, animatingDifferences: true)
     }
     
-    private func updateData(item: [DailyMissionResponseDTO]) {
+    private func updateData() {
         var snapshot = dataSource.snapshot()
-        if !item.isEmpty {
-            snapshot.deleteSections([.empty])
-            snapshot.appendSections([.mission])
-            snapshot.appendItems(item, toSection: .mission)
+        if missionList.isEmpty {
+            if snapshot.sectionIdentifiers.contains(.mission) {
+                snapshot.deleteSections([.mission])
+                snapshot.appendSections([.empty])
+                snapshot.appendItems([0], toSection: .empty)
+            } else if snapshot.sectionIdentifiers.contains(.empty) {
+                
+            } else {
+                snapshot.appendSections([.empty])
+                snapshot.appendItems([0], toSection: .empty)
+            }
+        } else {
+            if snapshot.sectionIdentifiers.contains(.empty) {
+                snapshot.deleteSections([.empty])
+                snapshot.appendSections([.mission])
+                snapshot.appendItems(missionList, toSection: .mission)
+                
+            } else if snapshot.sectionIdentifiers.contains(.mission) {
+                snapshot.deleteItems(snapshot.itemIdentifiers(inSection: .mission))
+                snapshot.appendItems(missionList, toSection: .mission)
+            } else {
+                snapshot.appendSections([.mission])
+                snapshot.appendItems(missionList, toSection: .mission)
+            }
         }
         dataSource.apply(snapshot)
     }
@@ -214,7 +230,14 @@ extension HomeViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let modalViewController = MissionDetailViewController()
         modalViewController.modalPresentationStyle = .overFullScreen
-        modalViewController.detailModel = MissionDetailModel.items[indexPath.item]
+        //        modalViewController.userId = missionList[indexPath.item].id
+        //        if !missionList.isEmpty  {
+        //            modalViewController.userId = missionList[indexPath.item].id
+        //        } else {
+        //            print("index is out of range")
+        //            // Handle the case when the index is out of range
+        //        }
+        modalViewController.userId = self.userId
         self.present(modalViewController, animated: true)
         
     }
@@ -248,21 +271,20 @@ extension HomeViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalend
         Utils.dateFormatterString(format: "dd", date: date)
     }
     
-    //이슈 2: section update
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         weekCalendar.yearMonthLabel.text = Utils.dateFormatterString(format: I18N.yearMonthTitle, date: date)
         requestDailyMissionAPI(date: Utils.dateFormatterString(format: "yyyy-MM-dd", date: date))
-        self.reloadData()
     }
     
     func calendar(_ calendar: FSCalendar, cellFor date: Date, at position: FSCalendarMonthPosition) -> FSCalendarCell {
         let cell = calendar.dequeueReusableCell(withIdentifier: MissionCalendarCell.identifier, for: date, at: position) as! MissionCalendarCell
-        
-        if let count = self.calendarDataSource[date.toString()] {
+        let dateString = Utils.dateFormatterString(format: "yyyy-MM-dd", date: date)
+        if let count = self.calendarDataSource[dateString] {
+            print(count)
             switch count {
             case 0:
                 cell.configure(.none, .week)
-            case 1, 2:
+            case 1.0, 2.0:
                 cell.configure(.rateHalf, .week)
             case 3:
                 cell.configure(.rateFull, .week)
@@ -278,9 +300,15 @@ extension HomeViewController {
         HomeAPI.shared.getDailyMission(date: date) { [weak self] result in
             switch result {
             case let .success(data):
-                guard let data = data as? [DailyMissionResponseDTO] else { return }
-                self?.updateData(item: data)
-                
+                guard let data = data as? [DailyMissionResponseDTO] else {return}
+                self?.missionList = []
+                if !data.isEmpty {
+                    for item in data {
+                        self?.missionList = data
+                        self?.userId = item.id
+                    }
+                }
+                self?.updateData()
             case .pathErr:
                 print("pathErr")
             case .serverErr:
@@ -300,6 +328,7 @@ extension HomeViewController {
                 self.calendarDataSource = [:]
                 for item in data {
                     self.calendarDataSource[item.actionDate] = item.percentage
+                    print(self.calendarDataSource)
                 }
                 self.weekCalendar.calendar.reloadData()
             case .requestErr:
@@ -315,14 +344,24 @@ extension HomeViewController {
     }
     private func requestPatchUpdateMissionAPI(id: Int, status: CompletionStatus) {
         HomeAPI.shared.patchUpdateMissionStatus(id: id, status: status.rawValue) { [weak self] result in
-            guard self != nil else { return }
-            guard result != nil else { return }
+            guard let result = result else { return }
+            for index in 0..<(self?.missionList.count ?? 0) {
+                if self?.missionList[index].id == id {
+                    guard let data = result.data else { return }
+                    self?.missionList[index] = data
+                    self?.updateData()
+                } else {}
+            }
         }
     }
     private func requestDeleteMission(id: Int) {
-        HomeAPI.shared.deleteMission(id: id) { [weak self] response in
-            guard self != nil else { return }
-            guard response != nil else { return }
+        HomeAPI.shared.deleteMission(id: id) { [weak self] _ in
+            for index in 0..<(self?.missionList.count ?? 0) {
+                if self?.missionList[index].id == id {
+                    self?.missionList.remove(at: index)
+                    self?.updateData()
+                } else {}
+            }
         }
     }
 }

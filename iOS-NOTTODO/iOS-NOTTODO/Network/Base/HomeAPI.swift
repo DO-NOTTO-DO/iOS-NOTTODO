@@ -18,8 +18,8 @@ final class HomeAPI {
     private init() { }
     
     public private(set) var missionDailyData: GeneralArrayResponse<DailyMissionResponseDTO>?
-    public private(set) var missionDetailDailyData: GeneralArrayResponse<MissionDetailResponseDTO>?
-    public private(set) var updateMissionStatus: GeneralResponse<UpdateMissionResponseDTO>?
+    public private(set) var missionDetailDailyData: GeneralResponse<MissionDetailResponseDTO>?
+    public private(set) var updateMissionStatus: GeneralResponse<DailyMissionResponseDTO>?
     public private(set) var missionWeekly: GeneralResponse<WeekMissionResponseDTO>?
     public private(set) var addAnotherDay: GeneralResponse<AddAnotherDayResponseDTO>?
     
@@ -54,13 +54,13 @@ final class HomeAPI {
         }
     }
     
-    func getDailyDetailMission(date: String, completion: @escaping (NetworkResult<Any>) -> Void) {
-        homeProvider.request(.dailyMission(date: date)) { response in
+    func getDailyDetailMission(id: Int, completion: @escaping (NetworkResult<Any>) -> Void) {
+        homeProvider.request(.dailyDetailMission(id: id)) { response in
             switch response {
             case let .success(response):
                 let statusCode = response.statusCode
                 let data = response.data
-                let networkResult = NetworkBase.judgeStatus(by: statusCode, data, [DailyMissionResponseDTO].self)
+                let networkResult = NetworkBase.judgeStatus(by: statusCode, data, MissionDetailResponseDTO.self)
                 completion(networkResult)
             case let .failure(err):
                 print(err)
@@ -89,12 +89,12 @@ final class HomeAPI {
     
     // MARK: - Patch
     
-    func patchUpdateMissionStatus(id: Int, status: String, completion: @escaping (GeneralResponse<UpdateMissionResponseDTO>?) -> Void) {
+    func patchUpdateMissionStatus(id: Int, status: String, completion: @escaping (GeneralResponse<DailyMissionResponseDTO>?) -> Void) {
         homeProvider.request(.updateMissionStatus(id: id, status: status)) { result in
             switch result {
             case .success(let response):
                 do {
-                    self.updateMissionStatus = try response.map(GeneralResponse<UpdateMissionResponseDTO>?.self)
+                    self.updateMissionStatus = try response.map(GeneralResponse<DailyMissionResponseDTO>?.self)
                     guard self.updateMissionStatus != nil else { return }
                     completion(self.updateMissionStatus)
                 } catch let err {

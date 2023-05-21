@@ -64,9 +64,7 @@ extension CalendarView {
             $0.configuration?.attributedTitle?.font = .Pretendard(.regular, size: 14)
             $0.configuration?.baseBackgroundColor = .gray2
             $0.configuration?.baseForegroundColor = .gray5
-            //$0.addTarget(self, action: #selector(todayBtnTapped), for: .touchUpInside)
         }
-        
         horizonStackView.do {
             $0.axis = .horizontal
             $0.spacing = 16
@@ -144,13 +142,7 @@ extension CalendarView {
 }
 
 extension CalendarView {
-    
-//    @objc
-//    func todayBtnTapped(_sender: UIButton) {
-//        calendar.select(today)
-//        yearMonthLabel.text = Utils.dateFormatterString(format: I18N.yearMonthTitle, date: today)
-//    }
-    
+
     @objc
     func prevBtnTapped(_sender: UIButton) {
         scrollCurrentPage(calendar: calendar, isPrev: true)
