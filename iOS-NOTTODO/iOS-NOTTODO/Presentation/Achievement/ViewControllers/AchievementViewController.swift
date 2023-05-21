@@ -17,7 +17,7 @@ final class AchievementViewController: UIViewController {
     
     private lazy var safeArea = self.view.safeAreaLayoutGuide
     private lazy var today: Date = { return Date() }()
-    var dataSource: [String: Int] = [:]
+    var dataSource: [String: Float] = [:]
     var selectDate: Date?
     
     // MARK: - UI Components
@@ -99,25 +99,13 @@ extension AchievementViewController {
         }
     }
     func requestMonthAPI(month: String) {
-        AchieveAPI.shared.getAchieveCalendar(month: month) { [self] result in
-            switch result {
-            case let .success(data):
-                guard let data = data as? [AchieveCalendarResponseDTO] else { return }
-                self.dataSource = [:]
-                for item in data {
-                    self.dataSource[item.actionDate] = item.rate
-                }
-                monthCalendar.calendar.reloadData()
-                
-            case .requestErr:
-                print("requestErr")
-            case .pathErr:
-                print("pathErr")
-            case .serverErr:
-                print("serverErr")
-            case .networkFail:
-                print("networkFail")
+        AchieveAPI.shared.getAchieveCalendar(month: month) { [weak self] result in
+            guard let result = result?.data else { return }
+            self?.dataSource = [:]
+            for item in result {
+                self?.dataSource[item.actionDate] = item.percentage
             }
+            self?.monthCalendar.calendar.reloadData()
         }
     }
 }
@@ -147,8 +135,8 @@ extension AchievementViewController: FSCalendarDelegate, FSCalendarDataSource, F
     
     func calendar(_ calendar: FSCalendar, cellFor date: Date, at position: FSCalendarMonthPosition) -> FSCalendarCell {
         let cell = calendar.dequeueReusableCell(withIdentifier: MissionCalendarCell.identifier, for: date, at: position) as! MissionCalendarCell
-        
-        if let count = self.dataSource[date.toString()] {
+        let dateString = Utils.dateFormatterString(format: "yyyy-MM-dd", date: date)
+        if let count = self.dataSource[dateString] {
             switch count {
             case 0:
                 cell.configure(.none, .month)
