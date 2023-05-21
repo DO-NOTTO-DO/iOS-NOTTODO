@@ -20,7 +20,8 @@ class MissionDetailViewController: UIViewController {
     }
     typealias Item = AnyHashable
     var dataSource: UICollectionViewDiffableDataSource<Section, Item>! = nil
-    var detailModel: MissionDetailModel?
+    var detailModel: [MissionDetailResponseDTO] = []
+    var userId: Int?
     
     // MARK: - UI Components
     
@@ -31,7 +32,11 @@ class MissionDetailViewController: UIViewController {
     private let completeButton = UIButton()
     
     // MARK: - Life Cycle
-    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        guard let id = self.userId else { return }
+        requestDailyMissionAPI(id: id)
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         register()
@@ -90,7 +95,7 @@ extension MissionDetailViewController {
     private func setupDataSource() {
         dataSource = UICollectionViewDiffableDataSource<Section, Item>(collectionView: collectionView, cellProvider: { collectionView, indexPath, item in
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MissionDetailCollectionViewCell.identifier, for: indexPath) as? MissionDetailCollectionViewCell else {return UICollectionViewCell()}
-            cell.configure(model: item as! MissionDetailModel)
+            cell.configure(model: item as! MissionDetailResponseDTO)
             return cell
         })
     }
@@ -101,7 +106,7 @@ extension MissionDetailViewController {
             dataSource.apply(snapShot, animatingDifferences: false)
         }
         snapShot.appendSections([.mission])
-        snapShot.appendItems([detailModel], toSection: .mission)
+        snapShot.appendItems(detailModel, toSection: .mission)
         
         dataSource.supplementaryViewProvider = { (collectionView, kind, indexPath) in
             if kind == UICollectionView.elementKindSectionHeader {
@@ -124,6 +129,13 @@ extension MissionDetailViewController {
             }
         }
     }
+    
+    private func updateData(item: [MissionDetailResponseDTO]) {
+        var snapshot = dataSource.snapshot()
+        snapshot.appendItems(item, toSection: .mission)
+        dataSource.apply(snapshot)
+    }
+    
     private func layout() -> UICollectionViewCompositionalLayout {
         var config = UICollectionLayoutListConfiguration(appearance: .plain)
         config.showsSeparators = false
@@ -141,5 +153,30 @@ extension MissionDetailViewController {
     @objc
     func completeBtnTapped(sender: UIButton) {
         print("완료")
+    }
+}
+extension MissionDetailViewController {
+    func requestDailyMissionAPI(id: Int) {
+        HomeAPI.shared.getDailyDetailMission(id: id) { [weak self] result in
+            switch result {
+            case let .success(data):
+                if let missionData = data as? MissionDetailResponseDTO {
+                    print("data: \(missionData)")
+                    self?.detailModel = [missionData]
+                    self?.updateData(item: [missionData])
+                    print(missionData)
+                } else {
+                    print("Failed to cast data to MissionDetailResponseDTO")
+                }
+            case .pathErr:
+                print("pathErr")
+            case .serverErr:
+                print("serverErr")
+            case .networkFail:
+                print("networkFail")
+            case .requestErr:
+                print("networkFail")
+            }
+        }
     }
 }
