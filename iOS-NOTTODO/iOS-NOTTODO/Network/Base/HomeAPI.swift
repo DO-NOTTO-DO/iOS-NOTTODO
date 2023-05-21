@@ -18,6 +18,7 @@ final class HomeAPI {
     private init() { }
     
     public private(set) var missionDailyData: GeneralArrayResponse<DailyMissionResponseDTO>?
+    public private(set) var missionDetailDailyData: GeneralArrayResponse<MissionDetailResponseDTO>?
     public private(set) var updateMissionStatus: GeneralResponse<UpdateMissionResponseDTO>?
     public private(set) var missionWeekly: GeneralResponse<WeekMissionResponseDTO>?
     public private(set) var addAnotherDay: GeneralResponse<AddAnotherDayResponseDTO>?
@@ -46,6 +47,20 @@ final class HomeAPI {
                 let data = response.data
                 let networkResult = NetworkBase.judgeStatus(by: statusCode, data,
                                                             [WeekMissionResponseDTO].self)
+                completion(networkResult)
+            case let .failure(err):
+                print(err)
+            }
+        }
+    }
+    
+    func getDailyDetailMission(date: String, completion: @escaping (NetworkResult<Any>) -> Void) {
+        homeProvider.request(.dailyMission(date: date)) { response in
+            switch response {
+            case let .success(response):
+                let statusCode = response.statusCode
+                let data = response.data
+                let networkResult = NetworkBase.judgeStatus(by: statusCode, data, [DailyMissionResponseDTO].self)
                 completion(networkResult)
             case let .failure(err):
                 print(err)

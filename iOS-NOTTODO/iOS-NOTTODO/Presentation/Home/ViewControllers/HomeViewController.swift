@@ -184,11 +184,12 @@ extension HomeViewController {
     private func makeSwipeActions(for indexPath: IndexPath?) -> UISwipeActionsConfiguration? {
         let deleteAction = UIContextualAction(style: .normal, title: "") { [unowned self] _, _, completion in
             print("delete")
+            // user.id가 바로 안넘어옴
             requestDeleteMission(id: self.userId)
             var snapshot = self.dataSource.snapshot()
             snapshot.deleteItems([self.missionList])
+            snapshot.reloadSections([.mission])
             self.dataSource.apply(snapshot, animatingDifferences: true)
-
             completion(true)
         }
         
@@ -320,7 +321,6 @@ extension HomeViewController {
     }
     private func requestDeleteMission(id: Int) {
         HomeAPI.shared.deleteMission(id: id) { [weak self] response in
-            print(response)
             guard self != nil else { return }
             guard response != nil else { return }
         }
