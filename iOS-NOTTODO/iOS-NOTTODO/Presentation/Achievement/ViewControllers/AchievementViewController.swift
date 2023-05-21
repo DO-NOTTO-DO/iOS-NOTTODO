@@ -123,10 +123,13 @@ extension AchievementViewController: FSCalendarDelegate, FSCalendarDataSource, F
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         calendar.appearance.selectionColor = .clear
         calendar.appearance.titleSelectionColor = .white
-        let vc = DetailAchievementViewController()
-        vc.selectedDate = date
-        vc.modalPresentationStyle = .overFullScreen
-        present(vc, animated: false)
+        let dateString = Utils.dateFormatterString(format: "yyyy-MM-dd", date: date)
+        if self.dataSource.contains(where: { $0.key == dateString }) {
+            let vc = DetailAchievementViewController()
+            vc.selectedDate = date
+            vc.modalPresentationStyle = .overFullScreen
+            present(vc, animated: false)
+        }
     }
     
     func calendar(_ calendar: FSCalendar, shouldSelect date: Date, at monthPosition: FSCalendarMonthPosition) -> Bool {

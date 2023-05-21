@@ -45,6 +45,12 @@ final class MissionCalendarCell: FSCalendarCell {
     
     // MARK: - Life Cycle
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        updateUI(state: .none)
+        self.state = .none
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setUI()
