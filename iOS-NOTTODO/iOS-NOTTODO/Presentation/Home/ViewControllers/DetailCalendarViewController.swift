@@ -78,6 +78,9 @@ extension DetailCalendarViewController {
 extension DetailCalendarViewController {
     @objc
     func completeBtnTapped(sender: UIButton) {
+        if let id = self.userId {
+            requestAddAnotherDay(id: id, dates: anotherDate)
+        }
         view.alpha = 0
         self.dismiss(animated: true)
         print("완료")
@@ -93,9 +96,6 @@ extension DetailCalendarViewController: FSCalendarDelegate, FSCalendarDataSource
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy.MM.dd"
         self.anotherDate.append(dateFormatter.string(from: date))
-        if let id = self.userId {
-            requestAddAnotherDay(id: id, dates: anotherDate)
-        }
         return Utils.calendarSelected(today: today, date: date)
     }
     
