@@ -17,6 +17,8 @@ class HomeViewController: UIViewController {
     
     private var missionList: [DailyMissionResponseDTO] = []
     private var selectedDate: Date?
+    private var percentage: Float?
+    private var count: Int?
     private var userId: Int = 0
     var calendarDataSource: [String: Float] = [:]
     enum Sections: Int, Hashable {
@@ -268,7 +270,7 @@ extension HomeViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalend
         weekCalendar.yearMonthLabel.text = Utils.dateFormatterString(format: I18N.yearMonthTitle, date: calendar.currentPage)
         requestWeeklyMissoinAPI(startDate: Utils.dateFormatterString(format: nil, date: calendar.currentPage))
     }
-    
+
     func  calendar(_ calendar: FSCalendar, titleFor date: Date) -> String? {
         Utils.dateFormatterString(format: "EEEEEE", date: date)
     }
@@ -282,12 +284,72 @@ extension HomeViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalend
         weekCalendar.yearMonthLabel.text = Utils.dateFormatterString(format: I18N.yearMonthTitle, date: date)
         requestDailyMissionAPI(date: Utils.dateFormatterString(format: nil, date: date))
     }
+    func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, subtitleSelectionColorFor date: Date) -> UIColor? {
+        guard let count = self.count else { return .white }
+        let dateString = Utils.dateFormatterString(format: nil, date: date)
+        if let percentage = self.calendarDataSource[dateString] {
+            if count == 1 {
+                switch percentage {
+                case 1:
+                    return .black
+                default:
+                    return .white
+                }
+            } else if count == 2 {
+                switch percentage {
+                case 1.0:
+                    return .black
+                default:
+                    return .white
+                }
+            } else {
+                switch percentage {
+                case 1.0:
+                    return .black
+                default:
+                    return .white
+                }
+            }
+        }
+        return .white
+    }
+    func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, subtitleDefaultColorFor date: Date) -> UIColor? {
+        guard let count = self.count else { return .white }
+        let dateString = Utils.dateFormatterString(format: nil, date: date)
+        if let percentage = self.calendarDataSource[dateString] {
+            print("count:\(count)")
+            if count == 1 {
+                switch percentage {
+                case 1:
+                    return .black
+                default:
+                    return .white
+                }
+            } else if count == 2 {
+                switch percentage {
+                case 1.0:
+                    return .black
+                default:
+                    return .white
+                }
+            } else {
+                switch percentage {
+                case 1.0:
+                    return .black
+                default:
+                    return .white
+                }
+            }
+        }
+        return .white
+    }
     
     func calendar(_ calendar: FSCalendar, cellFor date: Date, at position: FSCalendarMonthPosition) -> FSCalendarCell {
         let cell = calendar.dequeueReusableCell(withIdentifier: MissionCalendarCell.identifier, for: date, at: position) as! MissionCalendarCell
+        guard let count = self.count else { return cell }
         let dateString = Utils.dateFormatterString(format: nil, date: date)
-        let count = self.calendarDataSource.count
         if let percentage = self.calendarDataSource[dateString] {
+            print("count:\(count)")
             if count == 1 {
                 switch percentage {
                 case 1:
@@ -295,12 +357,11 @@ extension HomeViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalend
                 default:
                     cell.configure(.none, .week)
                 }
-            }
-            else if count == 2 {
+            } else if count == 2 {
                 switch percentage {
                 case 0.5:
                     cell.configure(.rateHalf, .week)
-                case 1:
+                case 1.0:
                     cell.configure(.rateFull, .week)
                 default:
                     cell.configure(.none, .week)
@@ -353,6 +414,8 @@ extension HomeViewController {
                 for item in data {
                     self.calendarDataSource[item.actionDate] = item.percentage
                     print(self.calendarDataSource)
+                    self.count = self.calendarDataSource.count
+                    print(self.count)
                 }
                 self.weekCalendar.calendar.reloadData()
             case .requestErr:

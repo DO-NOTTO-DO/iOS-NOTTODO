@@ -19,12 +19,12 @@ enum ToDoState {
 extension ToDoState {
     var icon: UIImage? {
         switch self {
-        case .none:
-            return nil
         case .rateHalf:
             return .icDate50
         case .rateFull:
             return .icDate100
+        case .none:
+            return nil
         }
     }
 }
@@ -33,7 +33,7 @@ final class MissionCalendarCell: FSCalendarCell {
     
     // MARK: - Properties
     
-    static let identifier = "HomeEmptyCollectionViewCell"
+    static let identifier = "MissionCalendarCell"
     
     var mode: FSCalendarScope = .week
     var state: ToDoState = .none

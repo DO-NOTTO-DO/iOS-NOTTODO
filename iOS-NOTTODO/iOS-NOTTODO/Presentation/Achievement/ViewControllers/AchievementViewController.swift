@@ -17,6 +17,7 @@ final class AchievementViewController: UIViewController {
     
     private lazy var safeArea = self.view.safeAreaLayoutGuide
     private lazy var today: Date = { return Date() }()
+    var count: Int?
     var dataSource: [String: Float] = [:]
     var selectDate: Date?
     
@@ -104,6 +105,7 @@ extension AchievementViewController {
             self?.dataSource = [:]
             for item in result {
                 self?.dataSource[item.actionDate] = item.percentage
+                self?.count = self?.dataSource.count
             }
             self?.monthCalendar.calendar.reloadData()
         }
@@ -134,6 +136,65 @@ extension AchievementViewController: FSCalendarDelegate, FSCalendarDataSource, F
     
     func calendar(_ calendar: FSCalendar, shouldSelect date: Date, at monthPosition: FSCalendarMonthPosition) -> Bool {
         Calendar.current.isDate(date, equalTo: calendar.currentPage, toGranularity: .month)
+    }
+    func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleSelectionColorFor date: Date) -> UIColor? {
+        guard let count = self.count else { return .white }
+        let dateString = Utils.dateFormatterString(format: nil, date: date)
+        if let percentage = self.dataSource[dateString] {
+            if count == 1 {
+                switch percentage {
+                case 1:
+                    return .black
+                default:
+                    return .white
+                }
+            } else if count == 2 {
+                switch percentage {
+                case 1.0:
+                    return .black
+                default:
+                    return .white
+                }
+            } else {
+                switch percentage {
+                case 1.0:
+                    return .black
+                default:
+                    return .white
+                }
+            }
+        }
+        return .white
+    }
+    func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleDefaultColorFor date: Date) -> UIColor? {
+        guard let count = self.count else { return .white }
+        let dateString = Utils.dateFormatterString(format: nil, date: date)
+        if let percentage = self.dataSource[dateString] {
+            print("count:\(count)")
+            if count == 1 {
+                switch percentage {
+                case 1:
+                    return .black
+                default:
+                    return .white
+                }
+            } else if count == 2 {
+                switch percentage {
+                case 1.0:
+                    return .black
+                default:
+                    return .white
+                }
+            } else {
+                switch percentage {
+                case 1.0:
+                    return .black
+                default:
+                    return .white
+                }
+            }
+        }
+        return .white
     }
     
     func calendar(_ calendar: FSCalendar, cellFor date: Date, at position: FSCalendarMonthPosition) -> FSCalendarCell {
