@@ -147,10 +147,10 @@ extension MyInfoViewController: UICollectionViewDelegate {
             switch indexPath.item {
             case 0:
                 Utils.myInfoUrl(vc: self, url: MyInfoURL.notice.url)
-            case 2:
-                Utils.myInfoUrl(vc: self, url: MyInfoURL.service.url)
+            case 1:
+                Utils.myInfoUrl(vc: self, url: MyInfoURL.contact.url)
             default: 
-                sendEmail()
+                Utils.myInfoUrl(vc: self, url: MyInfoURL.service.url)
             }
         default:
             return
