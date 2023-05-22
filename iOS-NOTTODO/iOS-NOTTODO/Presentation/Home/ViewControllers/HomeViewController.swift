@@ -373,7 +373,6 @@ extension HomeViewController {
                 if self?.missionList[index].id == id {
                     guard let data = result.data else { return }
                     self?.missionList[index] = data
-                    guard let selectedDate = self?.selectedDate else { return }
                     self?.weeklyLoadData()
                     self?.updateData()
                 } else {}

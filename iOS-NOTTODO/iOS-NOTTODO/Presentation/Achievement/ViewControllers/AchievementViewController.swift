@@ -148,8 +148,7 @@ extension AchievementViewController: FSCalendarDelegate, FSCalendarDataSource, F
                 default:
                     cell.configure(.none, .month)
                 }
-            }
-            else if count == 2 {
+            } else if count == 2 {
                 switch percentage {
                 case 0.5:
                     cell.configure(.rateHalf, .month)
