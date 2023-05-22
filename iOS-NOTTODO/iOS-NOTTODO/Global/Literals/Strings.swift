@@ -122,4 +122,8 @@ struct I18N {
     static let dailyPageControl = "나의 일상"
     static let usePageControl = "사용 방법"
     static let actionOnboarding = "실천 방법"
+    
+    
+    /// home
+    static let subText = "*달성 가능한 계획을 위해 다가올 일주일만 선택할 수 있어요"
 }
