@@ -26,6 +26,7 @@ class DetailCalendarViewController: UIViewController {
     
     private let monthCalendar = CalendarView(calendarScope: .month, scrollDirection: .horizontal)
     private let completeButton = UIButton()
+    private let subLabel = UILabel()
     
     // MARK: - Life Cycle
     
@@ -64,11 +65,16 @@ extension DetailCalendarViewController {
             $0.calendar.delegate = self
             $0.calendar.dataSource = self
         }
+        subLabel.do {
+            $0.text = I18N.subText
+            $0.font = .Pretendard(.regular, size: 12)
+            $0.textColor = .gray4
+        }
     }
     
     private func setLayout() {
         view.addSubviews(monthCalendar)
-        monthCalendar.addSubview(completeButton)
+        monthCalendar.addSubviews(completeButton, subLabel)
         
         completeButton.snp.makeConstraints {
             $0.top.equalToSuperview().offset(13)
@@ -83,7 +89,14 @@ extension DetailCalendarViewController {
         monthCalendar.snp.makeConstraints {
             $0.centerY.equalTo(safeArea)
             $0.directionalHorizontalEdges.equalTo(safeArea).inset(15)
-            $0.height.equalTo((getDeviceWidth()-30)*1.1)
+            $0.height.equalTo((getDeviceWidth()-30)*1.2)
+        }
+        monthCalendar.calendar.snp.updateConstraints {
+            $0.bottom.equalToSuperview().inset(45)
+        }
+        subLabel.snp.makeConstraints {
+            $0.bottom.equalToSuperview().inset(25)
+            $0.left.equalToSuperview().offset(17)
         }
     }
 }
