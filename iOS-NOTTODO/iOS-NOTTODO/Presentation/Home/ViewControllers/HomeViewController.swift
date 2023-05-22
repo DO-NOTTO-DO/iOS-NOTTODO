@@ -36,8 +36,8 @@ class HomeViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        requestDailyMissionAPI(date: Utils.dateFormatterString(format: nil, date: today))
-        requestWeeklyMissoinAPI(startDate: Utils.dateFormatterString(format: nil, date: today))
+        dailyLoadData()
+        weeklyLoadData()
     }
     
     override func viewDidLoad() {
@@ -46,7 +46,8 @@ class HomeViewController: UIViewController {
         register()
         setLayout()
         setupDataSource()
-        updateData()
+        dailyLoadData()
+        weeklyLoadData()
     }
 }
 
@@ -54,6 +55,18 @@ class HomeViewController: UIViewController {
 
 extension HomeViewController {
     
+    private func dailyLoadData() {
+        let todayString = Utils.dateFormatterString(format: nil, date: self.selectedDate ?? today)
+        requestDailyMissionAPI(date: todayString)
+    }
+    private func weeklyLoadData() {
+        let weekdayComponent = Calendar.current.component(.weekday, from: today)
+        let daysUntilSunday = (8 - weekdayComponent) % 7
+        guard let sundayDate = Calendar.current.date(byAdding: .day, value: daysUntilSunday, to: today) else { return }
+        let sundayDateString = Utils.dateFormatterString(format: nil, date: sundayDate)
+        requestWeeklyMissoinAPI(startDate: "2023-05-21")
+    }
+
     private func register() {
         missionCollectionView.register(MissionListCollectionViewCell.self, forCellWithReuseIdentifier: MissionListCollectionViewCell.identifier)
         missionCollectionView.register(HomeEmptyCollectionViewCell.self, forCellWithReuseIdentifier: HomeEmptyCollectionViewCell.identifier)
@@ -191,7 +204,7 @@ extension HomeViewController {
                 return layoutSection
                 
             case .empty:
-                return CompositionalLayout._vertical(.fractionalWidth(1), .fractionalHeight(1), .fractionalWidth(1), .fractionalHeight(1), count: 1, edge: nil)
+                return CompositionalLayout._vertical(.fractionalWidth(1), .fractionalWidth(1), .fractionalWidth(1), .fractionalWidth(1), count: 1, edge: nil)
             }
         }
         return layout
@@ -227,11 +240,12 @@ extension HomeViewController {
 }
 extension HomeViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let modalViewController = MissionDetailViewController()
-        modalViewController.modalPresentationStyle = .overFullScreen
-        modalViewController.userId = missionList[indexPath.item].id
-        self.present(modalViewController, animated: true)
-        
+        if !missionList.isEmpty {
+            let modalViewController = MissionDetailViewController()
+            modalViewController.modalPresentationStyle = .overFullScreen
+            modalViewController.userId = missionList[indexPath.item].id
+            self.present(modalViewController, animated: true)
+        }
     }
 }
 
@@ -264,6 +278,7 @@ extension HomeViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalend
     }
     
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
+        self.selectedDate = date
         weekCalendar.yearMonthLabel.text = Utils.dateFormatterString(format: I18N.yearMonthTitle, date: date)
         requestDailyMissionAPI(date: Utils.dateFormatterString(format: nil, date: date))
     }
@@ -341,6 +356,8 @@ extension HomeViewController {
                 if self?.missionList[index].id == id {
                     guard let data = result.data else { return }
                     self?.missionList[index] = data
+                    guard let selectedDate = self?.selectedDate else { return }
+                    self?.weeklyLoadData()
                     self?.updateData()
                 } else {}
             }
