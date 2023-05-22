@@ -109,15 +109,23 @@ extension DetailCalendarViewController: FSCalendarDelegate, FSCalendarDataSource
     func calendar(_ calendar: FSCalendar, shouldSelect date: Date, at monthPosition: FSCalendarMonthPosition) -> Bool {
         var datesArray: [Date] = []
         var currentDate = today
+        
         for _ in 0..<7 {
             datesArray.append(currentDate)
             let nextDay = Calendar.current.date(byAdding: .day, value: 1, to: currentDate)
             currentDate = Calendar.current.startOfDay(for: nextDay!)
         }
-        let formattedDatesArray = datesArray.map { DateFormatter().string(from: $0) }
-        let formattedDate = Utils.dateFormatterString(format: nil, date: date)
+        let dateFormatter = DateFormatter()
+
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+
+        let formattedDatesArray = datesArray.map { dateFormatter.string(from: $0) }
+        print("formattedDate:\(formattedDatesArray)")
         let arrayKeys = Array(dataSource.keys)
-        
+        print("arrayKeys:\(arrayKeys)")
+        let formattedDate = Utils.dateFormatterString(format: nil, date: date)
+        anotherDate.append(Utils.dateFormatterString(format: "YYYY.MM.dd", date: date))
+        print("anotherDate:\(anotherDate)")
         return (!formattedDatesArray.contains(formattedDate) || !arrayKeys.contains(formattedDate)) && Utils.calendarSelected(today: today, date: date)
     }
     
@@ -133,10 +141,10 @@ extension DetailCalendarViewController: FSCalendarDelegate, FSCalendarDataSource
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleSelectionColorFor date: Date) -> UIColor? {
         Utils.calendarTitleColor(today: today, date: date, selected: true)
     }
-    //기본 캘린서 타이틀 - 비활성화 색상
-    //    func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleDefaultColorFor date: Date) -> UIColor? {
-    //        Utils.calendarTitleColor(today: today, date: date, selected: false)
-    //    }
+
+    func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleDefaultColorFor date: Date) -> UIColor? {
+            Utils.calendarTitleColor(today: today, date: date, selected: false)
+        }
 }
 extension DetailCalendarViewController {
     private func requestAddAnotherDay(id: Int, dates: [String]) {
