@@ -18,6 +18,7 @@ class HomeViewController: UIViewController {
     private var missionList: [DailyMissionResponseDTO] = []
     private var selectedDate: Date?
     private var percentage: Float?
+    private var current: Date?
     private var count: Int?
     private var userId: Int = 0
     var calendarDataSource: [String: Float] = [:]
@@ -39,7 +40,7 @@ class HomeViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         dailyLoadData()
-        weeklyLoadData()
+        weeklyLoadData(sunday: today)
     }
     
     override func viewDidLoad() {
@@ -48,8 +49,6 @@ class HomeViewController: UIViewController {
         register()
         setLayout()
         setupDataSource()
-        dailyLoadData()
-        weeklyLoadData()
     }
 }
 
@@ -61,12 +60,18 @@ extension HomeViewController {
         let todayString = Utils.dateFormatterString(format: nil, date: self.selectedDate ?? today)
         requestDailyMissionAPI(date: todayString)
     }
-    private func weeklyLoadData() {
-        let weekdayComponent = Calendar.current.component(.weekday, from: today)
-        let daysUntilSunday = (8 - weekdayComponent) % 7
-        guard let sundayDate = Calendar.current.date(byAdding: .day, value: daysUntilSunday, to: today) else { return }
-        let sundayDateString = Utils.dateFormatterString(format: nil, date: sundayDate)
-        requestWeeklyMissoinAPI(startDate: "2023-05-21")
+    private func weeklyLoadData(sunday: Date) {
+        let df = DateFormatter()
+        df.dateFormat = "yyyy-MM-dd"
+        let sunday = getSunday(date: sunday)
+        requestWeeklyMissoinAPI(startDate: Utils.dateFormatterString(format: nil, date: sunday))
+    }
+    func getSunday(date: Date) -> Date {
+        let cal = Calendar.current
+        var comps = cal.dateComponents([.weekOfYear, .yearForWeekOfYear], from: date)
+        comps.weekday = 1
+        let sundayInWeek = cal.date(from: comps)!
+        return sundayInWeek
     }
     
     private func register() {
@@ -216,7 +221,8 @@ extension HomeViewController {
         let deleteAction = UIContextualAction(style: .normal, title: "") { [unowned self] _, _, completion in
             print("delete")
             guard let index = indexPath?.item else { return }
-            requestDeleteMission(index: index)
+            guard let current = self.current else { return }
+            requestDeleteMission(sunday: current, index: index)
             
             var snapshot = self.dataSource.snapshot()
             snapshot.deleteItems([self.missionList])
@@ -271,7 +277,9 @@ extension HomeViewController {
 extension HomeViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalendarDelegateAppearance {
     func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
         weekCalendar.yearMonthLabel.text = Utils.dateFormatterString(format: I18N.yearMonthTitle, date: calendar.currentPage)
-        requestWeeklyMissoinAPI(startDate: Utils.dateFormatterString(format: nil, date: calendar.currentPage))
+        self.current = calendar.currentPage
+        let sunday = getSunday(date: calendar.currentPage)
+        requestWeeklyMissoinAPI(startDate: Utils.dateFormatterString(format: nil, date: sunday))
     }
     
     func  calendar(_ calendar: FSCalendar, titleFor date: Date) -> String? {
@@ -438,17 +446,19 @@ extension HomeViewController {
                 if self?.missionList[index].id == id {
                     guard let data = result.data else { return }
                     self?.missionList[index] = data
-                    self?.weeklyLoadData()
+                    guard let current = self?.current else { return }
+                    self?.weeklyLoadData(sunday: current)
                     self?.updateData()
                 } else {}
             }
         }
     }
-    private func requestDeleteMission(index: Int) {
+    private func requestDeleteMission(sunday: Date, index: Int) {
         let id = self.missionList[index].id
         HomeAPI.shared.deleteMission(id: id) { [weak self] _ in
             self?.dailyLoadData()
-            self?.weeklyLoadData()
+            guard let current = self?.current else { return }
+            self?.weeklyLoadData(sunday: current)
             self?.updateData()
         }
     }
