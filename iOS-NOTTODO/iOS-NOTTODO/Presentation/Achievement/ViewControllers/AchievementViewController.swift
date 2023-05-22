@@ -139,16 +139,34 @@ extension AchievementViewController: FSCalendarDelegate, FSCalendarDataSource, F
     func calendar(_ calendar: FSCalendar, cellFor date: Date, at position: FSCalendarMonthPosition) -> FSCalendarCell {
         let cell = calendar.dequeueReusableCell(withIdentifier: MissionCalendarCell.identifier, for: date, at: position) as! MissionCalendarCell
         let dateString = Utils.dateFormatterString(format: "yyyy-MM-dd", date: date)
-        if let count = self.dataSource[dateString] {
-            switch count {
-            case 0:
-                cell.configure(.none, .month)
-            case 1, 2:
-                cell.configure(.rateHalf, .month)
-            case 3:
-                cell.configure(.rateFull, .month)
-            default:
-                cell.configure(.rateFull, .month)
+        let count = self.dataSource.count
+        if let percentage = self.dataSource[dateString] {
+            if count == 1 {
+                switch percentage {
+                case 1:
+                    cell.configure(.rateFull, .month)
+                default:
+                    cell.configure(.none, .month)
+                }
+            }
+            else if count == 2 {
+                switch percentage {
+                case 0.5:
+                    cell.configure(.rateHalf, .month)
+                case 1:
+                    cell.configure(.rateFull, .month)
+                default:
+                    cell.configure(.none, .month)
+                }
+            } else {
+                switch percentage {
+                case 0:
+                    cell.configure(.none, .month)
+                case 1.0:
+                    cell.configure(.rateFull, .month)
+                default:
+                    cell.configure(.rateHalf, .month)
+                }
             }
         }
         return cell
