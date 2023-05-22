@@ -68,7 +68,7 @@ extension HomeViewController {
         let sundayDateString = Utils.dateFormatterString(format: nil, date: sundayDate)
         requestWeeklyMissoinAPI(startDate: "2023-05-21")
     }
-
+    
     private func register() {
         missionCollectionView.register(MissionListCollectionViewCell.self, forCellWithReuseIdentifier: MissionListCollectionViewCell.identifier)
         missionCollectionView.register(HomeEmptyCollectionViewCell.self, forCellWithReuseIdentifier: HomeEmptyCollectionViewCell.identifier)
@@ -215,7 +215,9 @@ extension HomeViewController {
     private func makeSwipeActions(for indexPath: IndexPath?) -> UISwipeActionsConfiguration? {
         let deleteAction = UIContextualAction(style: .normal, title: "") { [unowned self] _, _, completion in
             print("delete")
-            requestDeleteMission(id: self.userId)
+            guard let index = indexPath?.item else { return }
+            requestDeleteMission(index: index)
+            
             var snapshot = self.dataSource.snapshot()
             snapshot.deleteItems([self.missionList])
             snapshot.reloadSections([.mission])
@@ -225,6 +227,7 @@ extension HomeViewController {
         
         let modifyAction = UIContextualAction(style: .normal, title: "") { _, _, completionHandler in
             print("modify")
+            
             completionHandler(true)
         }
         
@@ -270,7 +273,7 @@ extension HomeViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalend
         weekCalendar.yearMonthLabel.text = Utils.dateFormatterString(format: I18N.yearMonthTitle, date: calendar.currentPage)
         requestWeeklyMissoinAPI(startDate: Utils.dateFormatterString(format: nil, date: calendar.currentPage))
     }
-
+    
     func  calendar(_ calendar: FSCalendar, titleFor date: Date) -> String? {
         Utils.dateFormatterString(format: "EEEEEE", date: date)
     }
@@ -415,7 +418,6 @@ extension HomeViewController {
                     self.calendarDataSource[item.actionDate] = item.percentage
                     print(self.calendarDataSource)
                     self.count = self.calendarDataSource.count
-                    print(self.count)
                 }
                 self.weekCalendar.calendar.reloadData()
             case .requestErr:
@@ -442,14 +444,12 @@ extension HomeViewController {
             }
         }
     }
-    private func requestDeleteMission(id: Int) {
+    private func requestDeleteMission(index: Int) {
+        let id = self.missionList[index].id
         HomeAPI.shared.deleteMission(id: id) { [weak self] _ in
-            for index in 0..<(self?.missionList.count ?? 0) {
-                if self?.missionList[index].id == id {
-                    self?.missionList.remove(at: index)
-                    self?.updateData()
-                } else {}
-            }
+            self?.dailyLoadData()
+            self?.weeklyLoadData()
+            self?.updateData()
         }
     }
 }
