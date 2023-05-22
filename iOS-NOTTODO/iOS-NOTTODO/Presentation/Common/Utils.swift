@@ -10,7 +10,12 @@ import Foundation
 import FSCalendar
 
 final class Utils {
-    
+    class func push(_ naviViewController: UINavigationController?, _ viewController: UIViewController, animated: Bool = true) {
+        DispatchQueue.main.async {
+            naviViewController?.isNavigationBarHidden = true
+            naviViewController?.pushViewController(viewController, animated: true)
+        }
+    }
     class func modal(_ viewController: UIViewController, _ modalViewController: UIViewController, _ modalStyle: UIModalPresentationStyle) {
         let modalViewController = modalViewController
         modalViewController.modalPresentationStyle = modalStyle

@@ -109,7 +109,6 @@ extension DetailCalendarViewController {
         }
         view.alpha = 0
         self.dismiss(animated: true)
-        print("완료")
     }
 }
 extension DetailCalendarViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalendarDelegateAppearance {
@@ -133,18 +132,14 @@ extension DetailCalendarViewController: FSCalendarDelegate, FSCalendarDataSource
         dateFormatter.dateFormat = "yyyy-MM-dd"
 
         let formattedDatesArray = datesArray.map { dateFormatter.string(from: $0) }
-        print("formattedDate:\(formattedDatesArray)")
         let arrayKeys = Array(dataSource.keys)
-        print("arrayKeys:\(arrayKeys)")
         let formattedDate = Utils.dateFormatterString(format: nil, date: date)
         anotherDate.append(Utils.dateFormatterString(format: "YYYY.MM.dd", date: date))
-        print("anotherDate:\(anotherDate)")
         return (!formattedDatesArray.contains(formattedDate) || !arrayKeys.contains(formattedDate)) && Utils.calendarSelected(today: today, date: date)
     }
     
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, fillDefaultColorFor date: Date) -> UIColor? {
         let dateKeys = Array(dataSource.keys)
-        
         if dateKeys.contains(Utils.dateFormatterString(format: nil, date: date)) {
             return .gray3
         }

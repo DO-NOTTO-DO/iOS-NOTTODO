@@ -40,7 +40,7 @@ class HomeViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         dailyLoadData()
-        weeklyLoadData(sunday: today)
+        weeklyLoadData()
     }
     
     override func viewDidLoad() {
@@ -60,12 +60,12 @@ extension HomeViewController {
         let todayString = Utils.dateFormatterString(format: nil, date: self.selectedDate ?? today)
         requestDailyMissionAPI(date: todayString)
     }
-    private func weeklyLoadData(sunday: Date) {
-        let df = DateFormatter()
-        df.dateFormat = "yyyy-MM-dd"
-        let sunday = getSunday(date: sunday)
+    
+    private func weeklyLoadData() {
+        let sunday = getSunday(date: today)
         requestWeeklyMissoinAPI(startDate: Utils.dateFormatterString(format: nil, date: sunday))
     }
+    
     func getSunday(date: Date) -> Date {
         let cal = Calendar.current
         var comps = cal.dateComponents([.weekOfYear, .yearForWeekOfYear], from: date)
@@ -219,10 +219,8 @@ extension HomeViewController {
     
     private func makeSwipeActions(for indexPath: IndexPath?) -> UISwipeActionsConfiguration? {
         let deleteAction = UIContextualAction(style: .normal, title: "") { [unowned self] _, _, completion in
-            print("delete")
             guard let index = indexPath?.item else { return }
-            guard let current = self.current else { return }
-            requestDeleteMission(sunday: current, index: index)
+            requestDeleteMission(index: index)
             
             var snapshot = self.dataSource.snapshot()
             snapshot.deleteItems([self.missionList])
@@ -233,7 +231,6 @@ extension HomeViewController {
         
         let modifyAction = UIContextualAction(style: .normal, title: "") { _, _, completionHandler in
             print("modify")
-            
             completionHandler(true)
         }
         
@@ -249,6 +246,7 @@ extension HomeViewController {
         return swipeConfiguration
     }
 }
+
 extension HomeViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if !missionList.isEmpty {
@@ -263,7 +261,7 @@ extension HomeViewController: UICollectionViewDelegate {
 extension HomeViewController {
     @objc
     func addBtnTapped(_sender: UIButton) {
-        print("add button Tapped")
+        Utils.push(navigationController, AddMissionViewController())
     }
     
     @objc
@@ -295,61 +293,26 @@ extension HomeViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalend
         weekCalendar.yearMonthLabel.text = Utils.dateFormatterString(format: I18N.yearMonthTitle, date: date)
         requestDailyMissionAPI(date: Utils.dateFormatterString(format: nil, date: date))
     }
+    
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, subtitleSelectionColorFor date: Date) -> UIColor? {
         guard let count = self.count else { return .white }
         let dateString = Utils.dateFormatterString(format: nil, date: date)
         if let percentage = self.calendarDataSource[dateString] {
-            if count == 1 {
-                switch percentage {
-                case 1:
-                    return .black
-                default:
-                    return .white
-                }
-            } else if count == 2 {
-                switch percentage {
-                case 1.0:
-                    return .black
-                default:
-                    return .white
-                }
-            } else {
-                switch percentage {
-                case 1.0:
-                    return .black
-                default:
-                    return .white
-                }
+            switch (count, percentage) {
+            case (_, 1.0): return .black
+            default: return .white
             }
         }
         return .white
     }
+    
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, subtitleDefaultColorFor date: Date) -> UIColor? {
         guard let count = self.count else { return .white }
         let dateString = Utils.dateFormatterString(format: nil, date: date)
         if let percentage = self.calendarDataSource[dateString] {
-            print("count:\(count)")
-            if count == 1 {
-                switch percentage {
-                case 1:
-                    return .black
-                default:
-                    return .white
-                }
-            } else if count == 2 {
-                switch percentage {
-                case 1.0:
-                    return .black
-                default:
-                    return .white
-                }
-            } else {
-                switch percentage {
-                case 1.0:
-                    return .black
-                default:
-                    return .white
-                }
+            switch (count, percentage) {
+            case (_, 1.0): return .black
+            default: return .white
             }
         }
         return .white
@@ -360,37 +323,16 @@ extension HomeViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalend
         guard let count = self.count else { return cell }
         let dateString = Utils.dateFormatterString(format: nil, date: date)
         if let percentage = self.calendarDataSource[dateString] {
-            print("count:\(count)")
-            if count == 1 {
-                switch percentage {
-                case 1:
-                    cell.configure(.rateFull, .week)
-                default:
-                    cell.configure(.none, .week)
-                }
-            } else if count == 2 {
-                switch percentage {
-                case 0.5:
-                    cell.configure(.rateHalf, .week)
-                case 1.0:
-                    cell.configure(.rateFull, .week)
-                default:
-                    cell.configure(.none, .week)
-                }
-            } else {
-                switch percentage {
-                case 0:
-                    cell.configure(.none, .week)
-                case 1.0:
-                    cell.configure(.rateFull, .week)
-                default:
-                    cell.configure(.rateHalf, .week)
-                }
+            switch (count, percentage) {
+            case (_, 1.0): cell.configure(.rateFull, .week)
+            case (1, _), (2, _), (_, 0.0): cell.configure(.none, .week)
+            case (2, 0.5), (_, _): cell.configure(.rateHalf, .week)
             }
         }
         return cell
     }
 }
+
 extension HomeViewController {
     func requestDailyMissionAPI(date: String) {
         HomeAPI.shared.getDailyMission(date: date) { [weak self] result in
@@ -405,17 +347,14 @@ extension HomeViewController {
                     }
                 }
                 self?.updateData()
-            case .pathErr:
-                print("pathErr")
-            case .serverErr:
-                print("serverErr")
-            case .networkFail:
-                print("networkFail")
-            case .requestErr:
-                print("networkFail")
+            case .pathErr: print("pathErr")
+            case .serverErr: print("serverErr")
+            case .networkFail: print("networkFail")
+            case .requestErr: print("networkFail")
             }
         }
     }
+    
     private func requestWeeklyMissoinAPI(startDate: String) {
         HomeAPI.shared.getWeeklyMissoin(startDate: startDate) { result in
             switch result {
@@ -424,21 +363,17 @@ extension HomeViewController {
                 self.calendarDataSource = [:]
                 for item in data {
                     self.calendarDataSource[item.actionDate] = item.percentage
-                    print(self.calendarDataSource)
                     self.count = self.calendarDataSource.count
                 }
                 self.weekCalendar.calendar.reloadData()
-            case .requestErr:
-                print("requestErr")
-            case .pathErr:
-                print("pathErr")
-            case .serverErr:
-                print("serverErr")
-            case .networkFail:
-                print("networkFail")
+            case .requestErr: print("requestErr")
+            case .pathErr: print("pathErr")
+            case .serverErr: print("serverErr")
+            case .networkFail: print("networkFail")
             }
         }
     }
+    
     private func requestPatchUpdateMissionAPI(id: Int, status: CompletionStatus) {
         HomeAPI.shared.patchUpdateMissionStatus(id: id, status: status.rawValue) { [weak self] result in
             guard let result = result else { return }
@@ -446,19 +381,18 @@ extension HomeViewController {
                 if self?.missionList[index].id == id {
                     guard let data = result.data else { return }
                     self?.missionList[index] = data
-                    guard let current = self?.current else { return }
-                    self?.weeklyLoadData(sunday: current)
+                    self?.weeklyLoadData()
                     self?.updateData()
                 } else {}
             }
         }
     }
-    private func requestDeleteMission(sunday: Date, index: Int) {
+    
+    private func requestDeleteMission(index: Int) {
         let id = self.missionList[index].id
         HomeAPI.shared.deleteMission(id: id) { [weak self] _ in
             self?.dailyLoadData()
-            guard let current = self?.current else { return }
-            self?.weeklyLoadData(sunday: current)
+            self?.weeklyLoadData()
             self?.updateData()
         }
     }
