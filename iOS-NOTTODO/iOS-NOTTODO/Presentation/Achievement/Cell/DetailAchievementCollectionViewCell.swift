@@ -83,9 +83,9 @@ extension DetailAchievementCollectionViewCell {
         }
     }
     
-    func configure(model: MissionListModel) {
+    func configure(model: DailyMissionResponseDTO) {
         tagLabel.text = model.title
-        titleLabel.text = model.situation
+        titleLabel.text = model.situationName
         switch model.completionStatus {
         case .CHECKED: checkImage.isHidden = false
         case .UNCHECKED: checkImage.isHidden = true

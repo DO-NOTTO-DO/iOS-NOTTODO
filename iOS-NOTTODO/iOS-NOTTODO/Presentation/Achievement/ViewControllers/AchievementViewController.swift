@@ -18,6 +18,7 @@ final class AchievementViewController: UIViewController {
     private lazy var safeArea = self.view.safeAreaLayoutGuide
     private lazy var today: Date = { return Date() }()
     var dataSource: [String: Int] = [:]
+    var selectDate: Date?
     
     // MARK: - UI Components
     
@@ -27,6 +28,13 @@ final class AchievementViewController: UIViewController {
     private let statisticsView = StatisticsView()
     
     // MARK: - Life Cycle
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if let today = monthCalendar.calendar.today {
+            requestMonthAPI(month: Utils.dateFormatterString(format: "yyyy-MM", date: today))
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,6 +46,11 @@ final class AchievementViewController: UIViewController {
 // MARK: - Methods
 
 extension AchievementViewController {
+    
+    func reloadMonthData(month: String) {
+        requestMonthAPI(month: month)
+    }
+    
     private func setUI() {
         view.backgroundColor = .ntdBlack
         scrollView.backgroundColor = .clear
@@ -54,6 +67,10 @@ extension AchievementViewController {
             $0.calendar.register(MissionCalendarCell.self, forCellReuseIdentifier: MissionCalendarCell.identifier)
             $0.calendar.delegate = self
             $0.calendar.dataSource = self
+            $0.monthCalendarClosure = { [self] result in
+                let month = result
+                self.reloadMonthData(month: month)
+            }
         }
     }
     private func setLayout() {
@@ -81,11 +98,34 @@ extension AchievementViewController {
             $0.bottom.equalTo(scrollView.snp.bottom).inset(20)
         }
     }
+    func requestMonthAPI(month: String) {
+        AchieveAPI.shared.getAchieveCalendar(month: month) { [self] result in
+            switch result {
+            case let .success(data):
+                guard let data = data as? [AchieveCalendarResponseDTO] else { return }
+                self.dataSource = [:]
+                for item in data {
+                    self.dataSource[item.actionDate] = item.rate
+                }
+                monthCalendar.calendar.reloadData()
+                
+            case .requestErr:
+                print("requestErr")
+            case .pathErr:
+                print("pathErr")
+            case .serverErr:
+                print("serverErr")
+            case .networkFail:
+                print("networkFail")
+            }
+        }
+    }
 }
 
 extension AchievementViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalendarDelegateAppearance {
     func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
         monthCalendar.yearMonthLabel.text = Utils.dateFormatterString(format: I18N.yearMonthTitle, date: calendar.currentPage)
+        reloadMonthData(month: Utils.dateFormatterString(format: "yyyy-MM", date: calendar.currentPage))
     }
     
     func calendar(_ calendar: FSCalendar, titleFor date: Date) -> String? {
@@ -96,9 +136,9 @@ extension AchievementViewController: FSCalendarDelegate, FSCalendarDataSource, F
         calendar.appearance.selectionColor = .clear
         calendar.appearance.titleSelectionColor = .white
         let vc = DetailAchievementViewController()
+        vc.selectedDate = date
         vc.modalPresentationStyle = .overFullScreen
         present(vc, animated: false)
-        print(date)
     }
     
     func calendar(_ calendar: FSCalendar, shouldSelect date: Date, at monthPosition: FSCalendarMonthPosition) -> Bool {
@@ -107,7 +147,19 @@ extension AchievementViewController: FSCalendarDelegate, FSCalendarDataSource, F
     
     func calendar(_ calendar: FSCalendar, cellFor date: Date, at position: FSCalendarMonthPosition) -> FSCalendarCell {
         let cell = calendar.dequeueReusableCell(withIdentifier: MissionCalendarCell.identifier, for: date, at: position) as! MissionCalendarCell
-        cell.configure(.rateHalf, .month)
+        
+        if let count = self.dataSource[date.toString()] {
+            switch count {
+            case 0:
+                cell.configure(.none, .month)
+            case 1, 2:
+                cell.configure(.rateHalf, .month)
+            case 3:
+                cell.configure(.rateFull, .month)
+            default:
+                cell.configure(.rateFull, .month)
+            }
+        }
         return cell
     }
 }

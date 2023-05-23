@@ -216,9 +216,9 @@ extension HomeViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalend
     
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         weekCalendar.yearMonthLabel.text = Utils.dateFormatterString(format: I18N.yearMonthTitle, date: date)
-        if let dateString =  Utils.dateFormatterString(format: "yyyy-MM-dd", date: date) {
-            print(dateString)
-        }
+//        if let dateString =  Utils.dateFormatterString(format: "yyyy-MM-dd", date: date) {
+//            print(dateString)
+//        }
     }
     func calendar(_ calendar: FSCalendar, cellFor date: Date, at position: FSCalendarMonthPosition) -> FSCalendarCell {
         let cell = calendar.dequeueReusableCell(withIdentifier: MissionCalendarCell.identifier, for: date, at: position) as! MissionCalendarCell

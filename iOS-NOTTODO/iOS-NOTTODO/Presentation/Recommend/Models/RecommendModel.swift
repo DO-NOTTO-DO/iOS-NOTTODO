@@ -6,8 +6,8 @@
 //
 
 struct RecommendModel {
-    let tag: String
     let title: String
-    let body: String
+    let situation: String
+    let description: String
     let image: String
 }
