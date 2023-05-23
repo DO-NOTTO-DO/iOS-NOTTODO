@@ -156,7 +156,7 @@ extension DetailCalendarViewController: FSCalendarDelegate, FSCalendarDataSource
 }
 extension DetailCalendarViewController {
     private func requestAddAnotherDay(id: Int, dates: [String]) {
-        HomeAPI.shared.postAnotherDay(id: id, dates: dates) { [weak self] response in
+        HomeAPI.shared.postAnotherDay(id: id, dates: dates) { response in
             guard response != nil else { return }
         }
     }

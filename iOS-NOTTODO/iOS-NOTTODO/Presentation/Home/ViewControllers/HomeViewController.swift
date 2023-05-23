@@ -21,7 +21,6 @@ class HomeViewController: UIViewController {
     private var current: Date? // 스와이프했을 때 일요일 date 구하기 위함 - weeklyAPI 호출 시 사용
     private var count: Int?
     private var userId: Int = 0
-    var delete : (()->Void)?
     var calendarDataSource: [String: Float] = [:]
     enum Sections: Int, Hashable {
         case mission, empty
