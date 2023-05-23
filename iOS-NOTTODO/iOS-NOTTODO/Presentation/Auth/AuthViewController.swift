@@ -172,25 +172,33 @@ extension AuthViewController {
 extension AuthViewController {
     
     func kakaoLoginWithApp() {
-        UserApi.shared.loginWithKakaoTalk { _, error in
+        UserApi.shared.loginWithKakaoTalk { (oauthToken, error) in
             if let error = error {
                 print(error)
             } else {
                 print("kakaoLoginWithApp() success.")
                 
-                self.getUserInfo()
+                if let accessToken = oauthToken?.accessToken {
+                    UserDefaults.standard.set(accessToken, forKey: "KakaoAccessToken")
+                    
+                    self.getUserInfo()
+                }
             }
         }
     }
     
     func kakaoLoginWithAccount() {
-        UserApi.shared.loginWithKakaoAccount { _, error in
+        UserApi.shared.loginWithKakaoAccount { (oauthToken, error) in
             if let error = error {
                 print(error)
             } else {
                 print("kakaoLoginWithAccount() success.")
                 
-                self.getUserInfo()
+                if let accessToken = oauthToken?.accessToken {
+                    UserDefaults.standard.set(accessToken, forKey: "KakaoAccessToken")
+                    
+                    self.getUserInfo()
+                }
             }
         }
     }
@@ -200,20 +208,15 @@ extension AuthViewController {
             if let error = error {
                 print(error)
             } else {
-                if let userID = user?.id {
-//                    let email = user?.kakaoAccount?.email {
-//                   let name = user?.kakaoAccount?.profile?.nickname {
-                    
-                    UserDefaults.standard.set(String(userID), forKey: "KakaoAccessToken")
-                    // UserDefaults.standard.set(String(email), forKey: "KakaoEmail")
-                    UserDefaults.standard.set(false, forKey: "isAppleLogin")
-                    // print("토큰토큰", UserDefaults.standard.string(forKey: "KakaoAccessToken"))
-                    
-                    self.requestAuthAPI(social: "KAKAO",
-                                   socialToken: UserDefaults.standard.string(forKey: "KakaoAccessToken") ?? "",
-                                   fcmToken: "", name: "", email: UserDefaults.standard.string(forKey: "KakaoEmail") ?? "")
-                    self.presentToHomeViewController()
-                }
+                let email = user?.kakaoAccount?.email
+                
+                UserDefaults.standard.set(email, forKey: "KakaoEmail")
+                UserDefaults.standard.set(false, forKey: "isAppleLogin")
+                
+                self.requestAuthAPI(social: "KAKAO",
+                               socialToken: UserDefaults.standard.string(forKey: "KakaoAccessToken") ?? "",
+                               fcmToken: "1", name: "", email: UserDefaults.standard.string(forKey: "KakaoEmail") ?? "")
+                self.presentToHomeViewController()
             }
         }
     }
