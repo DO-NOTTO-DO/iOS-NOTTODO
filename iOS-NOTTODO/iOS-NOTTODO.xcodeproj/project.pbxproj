@@ -11,11 +11,11 @@
 		092E04B129BD9C86008A5892 /* MissionDetailCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092E04B029BD9C86008A5892 /* MissionDetailCollectionViewCell.swift */; };
 		0930D37329B4FCAE0000C4AE /* StatisticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0930D37229B4FCAE0000C4AE /* StatisticsView.swift */; };
 		0930DE6229B80550007958DE /* MissionDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0930DE6129B80550007958DE /* MissionDetailViewController.swift */; };
+		093DB0372A146BF900ECA5F6 /* MyInfoURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093DB0362A146BF900ECA5F6 /* MyInfoURL.swift */; };
 		093DB0392A15F6CE00ECA5F6 /* AchieveAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093DB0382A15F6CE00ECA5F6 /* AchieveAPI.swift */; };
 		093DB03B2A15F6E700ECA5F6 /* AchieveService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093DB03A2A15F6E700ECA5F6 /* AchieveService.swift */; };
 		093DB03D2A15FC7800ECA5F6 /* AchieveCalendarResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093DB03C2A15FC7800ECA5F6 /* AchieveCalendarResponseDTO.swift */; };
 		093DB03F2A15FCC100ECA5F6 /* MissionDetailResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093DB03E2A15FCC100ECA5F6 /* MissionDetailResponseDTO.swift */; };
-		093DB0372A146BF900ECA5F6 /* MyInfoURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093DB0362A146BF900ECA5F6 /* MyInfoURL.swift */; };
 		09582B4829BDA7F600EF3207 /* DetailStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09582B4729BDA7F600EF3207 /* DetailStackView.swift */; };
 		09582B4B29BDE37C00EF3207 /* DetailFooterReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09582B4A29BDE37C00EF3207 /* DetailFooterReusableView.swift */; };
 		09582B4D29BE277800EF3207 /* DetailHeaderReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09582B4C29BE277800EF3207 /* DetailHeaderReusableView.swift */; };
@@ -133,11 +133,11 @@
 		092E04B029BD9C86008A5892 /* MissionDetailCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionDetailCollectionViewCell.swift; sourceTree = "<group>"; };
 		0930D37229B4FCAE0000C4AE /* StatisticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsView.swift; sourceTree = "<group>"; };
 		0930DE6129B80550007958DE /* MissionDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionDetailViewController.swift; sourceTree = "<group>"; };
+		093DB0362A146BF900ECA5F6 /* MyInfoURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInfoURL.swift; sourceTree = "<group>"; };
 		093DB0382A15F6CE00ECA5F6 /* AchieveAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchieveAPI.swift; sourceTree = "<group>"; };
 		093DB03A2A15F6E700ECA5F6 /* AchieveService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchieveService.swift; sourceTree = "<group>"; };
 		093DB03C2A15FC7800ECA5F6 /* AchieveCalendarResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchieveCalendarResponseDTO.swift; sourceTree = "<group>"; };
 		093DB03E2A15FCC100ECA5F6 /* MissionDetailResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionDetailResponseDTO.swift; sourceTree = "<group>"; };
-		093DB0362A146BF900ECA5F6 /* MyInfoURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInfoURL.swift; sourceTree = "<group>"; };
 		09582B4729BDA7F600EF3207 /* DetailStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailStackView.swift; sourceTree = "<group>"; };
 		09582B4A29BDE37C00EF3207 /* DetailFooterReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailFooterReusableView.swift; sourceTree = "<group>"; };
 		09582B4C29BE277800EF3207 /* DetailHeaderReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailHeaderReusableView.swift; sourceTree = "<group>"; };
@@ -515,7 +515,6 @@
 		3B027A90299C33CA00BEB65C /* Network */ = {
 			isa = PBXGroup;
 			children = (
-				6CA208212A18FC80001C4247 /* New Group */,
 				093DB0312A1468F100ECA5F6 /* Service */,
 				093DB02F2A1468CE00ECA5F6 /* DataModel */,
 				093DB02B2A14687300ECA5F6 /* API */,
@@ -711,39 +710,6 @@
 				3BD3B5C729B8F82C00D3575B /* AddMissionTextFieldView.swift */,
 			);
 			path = AddMissionTextFieldView;
-			sourceTree = "<group>";
-		};
-		6C16015929C56CE8005AE3F5 /* MyInfoAccount */ = {
-			isa = PBXGroup;
-			children = (
-				6C16016029C59EE0005AE3F5 /* Models */,
-				6C16015A29C56D90005AE3F5 /* ViewControllers */,
-			);
-			path = MyInfoAccount;
-			sourceTree = "<group>";
-		};
-		6C16015A29C56D90005AE3F5 /* ViewControllers */ = {
-			isa = PBXGroup;
-			children = (
-				6C16015B29C56DBA005AE3F5 /* MyInfoAccountViewController.swift */,
-				6C16016329C5E37D005AE3F5 /* MyInfoAccountStackView.swift */,
-			);
-			path = ViewControllers;
-			sourceTree = "<group>";
-		};
-		6C16016029C59EE0005AE3F5 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				6C16016129C59EFD005AE3F5 /* MyInfoAccountModel.swift */,
-			);
-			path = Models;
-			sourceTree = "<group>";
-		};
-		6CA208212A18FC80001C4247 /* New Group */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "New Group";
 			sourceTree = "<group>";
 		};
 		6C16015929C56CE8005AE3F5 /* MyInfoAccount */ = {
