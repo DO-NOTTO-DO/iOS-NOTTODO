@@ -10,7 +10,7 @@ import Foundation
 import Moya
 
 enum AuthService {
-    case auth(AuthRequestDTO)
+    case auth(social: String, socialToken: String, fcmToken: String, name: String, email: String)
 }
 
 extension AuthService: TargetType {
@@ -20,8 +20,8 @@ extension AuthService: TargetType {
     
     var path: String {
         switch self {
-        case .auth:
-            return URLConstant.auth
+        case .auth(let social, _, _, _, _):
+            return URLConstant.auth + "/\(social)"
         }
     }
     
@@ -33,10 +33,9 @@ extension AuthService: TargetType {
     }
     var task: Moya.Task {
         switch self {
-        case .auth(let newAuth):
-            return .requestParameters(
-                parameters: newAuth.toDictionary,
-                encoding: JSONEncoding.default)
+        case .auth(_, let socialToken, let fcmToken, let name, let email):
+            return .requestParameters(parameters: ["socialToken": socialToken, "fcmToken": fcmToken, "name": name, "email": email],
+                                      encoding: JSONEncoding.default)
         }
     }
     

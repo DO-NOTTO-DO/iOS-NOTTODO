@@ -17,10 +17,6 @@ import AuthenticationServices
 
 class AuthViewController: UIViewController {
     
-    // MARK: - Properties
-    
-    var authRequest: AuthRequestDTO?
-    
     // MARK: - UI Components
     
     private var loginMainLabel = UILabel()
@@ -143,6 +139,13 @@ extension AuthViewController {
         
     }
     
+    private func requestAuthAPI(social: String, socialToken: String, fcmToken: String, name: String, email: String) {
+        AuthAPI.shared.postAuth(social: social, socialToken: socialToken, fcmToken: fcmToken, name: name, email: email) { [weak self] result in
+            guard self != nil else { return }
+            guard result != nil else { return }
+        }
+    }
+    
     // MARK: - @objc Methods
     
     @objc func kakaoLoginButtonClicked() {
@@ -202,11 +205,12 @@ extension AuthViewController {
 //                   let name = user?.kakaoAccount?.profile?.nickname {
                     
                     UserDefaults.standard.set(String(userID), forKey: "KakaoAccessToken")
+                    UserDefaults.standard.set(false, forKey: "isAppleLogin")
                     // print("토큰토큰", UserDefaults.standard.string(forKey: "KakaoAccessToken"))
                     
-                    AuthAPI.shared.postAuth(newAuth: AuthRequestDTO(socialToken: UserDefaults.standard.string(forKey: "KakaoAccessToken") ?? "", fcmToken: "", name: "", email: user?.kakaoAccount?.email ?? "")) { [weak self] _ in
-                        guard let self = self else { return }
-                    }
+                    self.requestAuthAPI(social: "KAKAO",
+                                   socialToken: UserDefaults.standard.string(forKey: "KakaoAccessToken") ?? "",
+                                   fcmToken: "", name: "", email: "")
                     self.presentToHomeViewController()
                 }
             }
@@ -234,10 +238,11 @@ extension AuthViewController: ASAuthorizationControllerDelegate, ASAuthorization
             let userIdentifier = appleIDCredential.user
             
             UserDefaults.standard.setValue(userIdentifier, forKey: "AppleAccessToken")
+            UserDefaults.standard.set(true, forKey: "isAppleLogin")
         
-            AuthAPI.shared.postAuth(newAuth: AuthRequestDTO(socialToken: UserDefaults.standard.string(forKey: "AppleAccessToken") ?? "", fcmToken: "", name: "", email: "")) { [weak self] _ in
-                guard let self = self else { return }
-            }
+            self.requestAuthAPI(social: "APPLE",
+                           socialToken: UserDefaults.standard.string(forKey: "AppleAccessToken") ?? "",
+                           fcmToken: "", name: "", email: "")
             self.presentToHomeViewController()
         default:
             break

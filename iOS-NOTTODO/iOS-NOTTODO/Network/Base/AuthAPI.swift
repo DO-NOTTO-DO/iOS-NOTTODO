@@ -18,9 +18,9 @@ final class AuthAPI {
     private init() { }
     
     // MARK: - POST
-    
-    func postAuth(newAuth: AuthRequestDTO, completion: @escaping (GeneralResponse<AuthResponseDTO>?) -> Void) {
-        authProvider.request(.auth(newAuth)) { result in
+
+    func postAuth(social: String, socialToken: String, fcmToken: String, name: String, email: String, completion: @escaping (GeneralResponse<AuthResponseDTO>?) -> Void) {
+        authProvider.request(.auth(social: social, socialToken: socialToken, fcmToken: fcmToken, name: name, email: email)) { result in
             switch result {
             case .success(let response):
                 do {
@@ -36,4 +36,3 @@ final class AuthAPI {
         }
     }
 }
-
