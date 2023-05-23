@@ -236,13 +236,12 @@ extension HomeViewController {
         
         deleteAction.backgroundColor = .ntdRed
         modifyAction.backgroundColor = .ntdBlue
-        
         deleteAction.image = .icTrash
         modifyAction.image = .icFix
         
         let swipeConfiguration = UISwipeActionsConfiguration(actions: [deleteAction, modifyAction])
         swipeConfiguration.performsFirstActionWithFullSwipe = false
-        
+
         return swipeConfiguration
     }
 }

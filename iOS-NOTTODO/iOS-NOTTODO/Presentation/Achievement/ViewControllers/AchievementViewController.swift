@@ -32,6 +32,8 @@ final class AchievementViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        setUI()
+        setLayout()
         if let today = monthCalendar.calendar.today {
             requestMonthAPI(month: Utils.dateFormatterString(format: "yyyy-MM", date: today))
         }
@@ -162,13 +164,22 @@ extension AchievementViewController: FSCalendarDelegate, FSCalendarDataSource, F
     
     func calendar(_ calendar: FSCalendar, cellFor date: Date, at position: FSCalendarMonthPosition) -> FSCalendarCell {
         let cell = calendar.dequeueReusableCell(withIdentifier: MissionCalendarCell.identifier, for: date, at: position) as! MissionCalendarCell
+        cell.iconView.contentMode = .scaleAspectFit
+        cell.iconView.snp.remakeConstraints {
+            $0.edges.equalToSuperview()
+            $0.center.equalToSuperview()
+        }
+        cell.titleLabel.snp.remakeConstraints {
+            $0.centerY.equalToSuperview().offset(-1)
+            $0.centerX.equalToSuperview()
+        }
         guard let count = self.count else { return cell }
         let dateString = Utils.dateFormatterString(format: nil, date: date)
         if let percentage = self.dataSource[dateString] {
             switch (count, percentage) {
             case (_, 1.0): cell.configure(.rateFull, .week)
             case (_, 0.0): cell.configure(.none, .week)
-            case (2, 0.5), (3, 0.0..<1.0), (_,_): cell.configure(.rateHalf, .week)
+            case (2, 0.5), (3, 0.0..<1.0), (_, _): cell.configure(.rateHalf, .week)
             }
         }
         return cell
