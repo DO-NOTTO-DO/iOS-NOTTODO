@@ -15,7 +15,7 @@ final class Utils {
     class func myInfoUrl(vc: UIViewController, url: String) {
         let url = URL(string: url)
         let safariView: SFSafariViewController = SFSafariViewController(url: url!)
-        vc.present(safariView , animated: true , completion: nil)
+        vc.present(safariView, animated: true, completion: nil)
     }
     
     class func modal(_ viewController: UIViewController, _ modalViewController: UIViewController, _ modalStyle: UIModalPresentationStyle) {
