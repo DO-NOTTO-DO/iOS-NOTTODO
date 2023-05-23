@@ -32,6 +32,7 @@ class DetailCalendarViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        setUI()
         if let today = monthCalendar.calendar.today {
             requestMonthAPI(month: Utils.dateFormatterString(format: "yyyy-MM", date: today))
         }
@@ -56,8 +57,15 @@ extension DetailCalendarViewController {
         
         completeButton.do {
             $0.setTitle(I18N.detailComplete, for: .normal)
-            $0.setTitleColor(.gray4, for: .normal)
             $0.titleLabel?.font = .Pretendard(.medium, size: 16)
+            if anotherDate.count == 0 {
+                $0.isEnabled = false
+                $0.setTitleColor(.gray4, for: .normal)
+                
+            } else {
+                $0.isEnabled = true
+                $0.setTitleColor(.white, for: .normal)
+            }
             $0.addTarget(self, action: #selector(completeBtnTapped(sender:)), for: .touchUpInside)
         }
         monthCalendar.do {
@@ -128,14 +136,34 @@ extension DetailCalendarViewController: FSCalendarDelegate, FSCalendarDataSource
             currentDate = Calendar.current.startOfDay(for: nextDay!)
         }
         let dateFormatter = DateFormatter()
-
+        
         dateFormatter.dateFormat = "yyyy-MM-dd"
-
+        
         let formattedDatesArray = datesArray.map { dateFormatter.string(from: $0) }
         let arrayKeys = Array(dataSource.keys)
         let formattedDate = Utils.dateFormatterString(format: nil, date: date)
-        anotherDate.append(Utils.dateFormatterString(format: "YYYY.MM.dd", date: date))
+//        anotherDate.append(Utils.dateFormatterString(format: "YYYY.MM.dd", date: date))
+        
         return (!formattedDatesArray.contains(formattedDate) || !arrayKeys.contains(formattedDate)) && Utils.calendarSelected(today: today, date: date)
+    }
+    func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
+        let selectedDateString = Utils.dateFormatterString(format: "YYYY.MM.dd", date: date)
+        
+        if !anotherDate.contains(selectedDateString) {
+            anotherDate.append(selectedDateString)
+        } else {
+            anotherDate.removeAll { $0 == selectedDateString }
+        }
+        setUI()
+    }
+
+    func calendar(_ calendar: FSCalendar, didDeselect date: Date, at monthPosition: FSCalendarMonthPosition) {
+        let selectedDateString = Utils.dateFormatterString(format: "YYYY.MM.dd", date: date)
+        
+        if anotherDate.contains(selectedDateString) {
+            anotherDate.removeAll { $0 == selectedDateString }
+        }
+        setUI()
     }
     
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, fillDefaultColorFor date: Date) -> UIColor? {
@@ -149,15 +177,16 @@ extension DetailCalendarViewController: FSCalendarDelegate, FSCalendarDataSource
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleSelectionColorFor date: Date) -> UIColor? {
         Utils.calendarTitleColor(today: today, date: date, selected: true)
     }
-
+    
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleDefaultColorFor date: Date) -> UIColor? {
-            Utils.calendarTitleColor(today: today, date: date, selected: false)
-        }
+        Utils.calendarTitleColor(today: today, date: date, selected: false)
+    }
 }
 extension DetailCalendarViewController {
     private func requestAddAnotherDay(id: Int, dates: [String]) {
         HomeAPI.shared.postAnotherDay(id: id, dates: dates) { response in
             guard response != nil else { return }
+            self.setUI()
         }
     }
     func requestMonthAPI(month: String) {
