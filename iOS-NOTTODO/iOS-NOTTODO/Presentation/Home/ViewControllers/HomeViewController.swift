@@ -16,11 +16,12 @@ class HomeViewController: UIViewController {
     // MARK: - Properties
     
     private var missionList: [DailyMissionResponseDTO] = []
-    private var selectedDate: Date?
+    private var selectedDate: Date? // 눌렀을 떄 date - dailymissionAPI 호출 시 사용
     private var percentage: Float?
-    private var current: Date?
+    private var current: Date? // 스와이프했을 때 일요일 date 구하기 위함 - weeklyAPI 호출 시 사용
     private var count: Int?
     private var userId: Int = 0
+    var delete : (()->Void)?
     var calendarDataSource: [String: Float] = [:]
     enum Sections: Int, Hashable {
         case mission, empty
@@ -62,7 +63,7 @@ extension HomeViewController {
     }
     
     private func weeklyLoadData() {
-        let sunday = getSunday(date: today)
+        let sunday = getSunday(date: self.current ?? today)
         requestWeeklyMissoinAPI(startDate: Utils.dateFormatterString(format: nil, date: sunday))
     }
     
@@ -253,6 +254,11 @@ extension HomeViewController: UICollectionViewDelegate {
             let modalViewController = MissionDetailViewController()
             modalViewController.modalPresentationStyle = .overFullScreen
             modalViewController.userId = missionList[indexPath.item].id
+            modalViewController.deleteClosure = { [weak self] in
+                self?.dailyLoadData()
+                self?.weeklyLoadData()
+                self?.updateData()
+            }
             self.present(modalViewController, animated: true)
         }
     }
@@ -275,6 +281,7 @@ extension HomeViewController {
 extension HomeViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalendarDelegateAppearance {
     func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
         weekCalendar.yearMonthLabel.text = Utils.dateFormatterString(format: I18N.yearMonthTitle, date: calendar.currentPage)
+        print(calendar.currentPage)
         self.current = calendar.currentPage
         let sunday = getSunday(date: calendar.currentPage)
         requestWeeklyMissoinAPI(startDate: Utils.dateFormatterString(format: nil, date: sunday))
@@ -325,8 +332,8 @@ extension HomeViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalend
         if let percentage = self.calendarDataSource[dateString] {
             switch (count, percentage) {
             case (_, 1.0): cell.configure(.rateFull, .week)
-            case (1, _), (2, _), (_, 0.0): cell.configure(.none, .week)
-            case (2, 0.5), (_, _): cell.configure(.rateHalf, .week)
+            case (_, 0.0): cell.configure(.none, .week)
+            case (2, 0.5), (3, 0.0..<1.0), (_, _): cell.configure(.rateHalf, .week)
             }
         }
         return cell

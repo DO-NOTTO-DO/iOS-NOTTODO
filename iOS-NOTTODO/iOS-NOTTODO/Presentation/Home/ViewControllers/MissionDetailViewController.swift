@@ -14,6 +14,8 @@ class MissionDetailViewController: UIViewController {
     
     // MARK: - Properties
     
+    var deleteClosure: (() -> Void)?
+
     private lazy var safeArea = self.view.safeAreaLayoutGuide
     enum Section {
         case mission
@@ -148,7 +150,6 @@ extension MissionDetailViewController {
     func deleteBtnTapped() {
         guard let id = userId else { return }
         requestDeleteMission(id: id)
-        dismiss(animated: true)
     }
     @objc
     func completeBtnTapped(sender: UIButton) {
@@ -183,8 +184,10 @@ extension MissionDetailViewController {
         HomeAPI.shared.deleteMission(id: id) { [weak self] _ in
             for index in 0..<(self?.detailModel.count ?? 0) {
                 if self?.detailModel[index].id == id {
-                    self?.detailModel.remove(at: index)
+                    self?.deleteClosure?()
                     self?.reloadData()
+                    self?.dismiss(animated: true)
+
                 } else {}
             }
         }

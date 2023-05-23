@@ -141,27 +141,9 @@ extension AchievementViewController: FSCalendarDelegate, FSCalendarDataSource, F
         guard let count = self.count else { return .white }
         let dateString = Utils.dateFormatterString(format: nil, date: date)
         if let percentage = self.dataSource[dateString] {
-            if count == 1 {
-                switch percentage {
-                case 1:
-                    return .black
-                default:
-                    return .white
-                }
-            } else if count == 2 {
-                switch percentage {
-                case 1.0:
-                    return .black
-                default:
-                    return .white
-                }
-            } else {
-                switch percentage {
-                case 1.0:
-                    return .black
-                default:
-                    return .white
-                }
+            switch (count, percentage) {
+            case (_, 1.0): return .black
+            default: return .white
             }
         }
         return .white
@@ -170,28 +152,9 @@ extension AchievementViewController: FSCalendarDelegate, FSCalendarDataSource, F
         guard let count = self.count else { return .white }
         let dateString = Utils.dateFormatterString(format: nil, date: date)
         if let percentage = self.dataSource[dateString] {
-            print("count:\(count)")
-            if count == 1 {
-                switch percentage {
-                case 1:
-                    return .black
-                default:
-                    return .white
-                }
-            } else if count == 2 {
-                switch percentage {
-                case 1.0:
-                    return .black
-                default:
-                    return .white
-                }
-            } else {
-                switch percentage {
-                case 1.0:
-                    return .black
-                default:
-                    return .white
-                }
+            switch (count, percentage) {
+            case (_, 1.0): return .black
+            default: return .white
             }
         }
         return .white
@@ -199,34 +162,13 @@ extension AchievementViewController: FSCalendarDelegate, FSCalendarDataSource, F
     
     func calendar(_ calendar: FSCalendar, cellFor date: Date, at position: FSCalendarMonthPosition) -> FSCalendarCell {
         let cell = calendar.dequeueReusableCell(withIdentifier: MissionCalendarCell.identifier, for: date, at: position) as! MissionCalendarCell
-        let dateString = Utils.dateFormatterString(format: "yyyy-MM-dd", date: date)
-        let count = self.dataSource.count
+        guard let count = self.count else { return cell }
+        let dateString = Utils.dateFormatterString(format: nil, date: date)
         if let percentage = self.dataSource[dateString] {
-            if count == 1 {
-                switch percentage {
-                case 1:
-                    cell.configure(.rateFull, .month)
-                default:
-                    cell.configure(.none, .month)
-                }
-            } else if count == 2 {
-                switch percentage {
-                case 0.5:
-                    cell.configure(.rateHalf, .month)
-                case 1:
-                    cell.configure(.rateFull, .month)
-                default:
-                    cell.configure(.none, .month)
-                }
-            } else {
-                switch percentage {
-                case 0:
-                    cell.configure(.none, .month)
-                case 1.0:
-                    cell.configure(.rateFull, .month)
-                default:
-                    cell.configure(.rateHalf, .month)
-                }
+            switch (count, percentage) {
+            case (_, 1.0): cell.configure(.rateFull, .week)
+            case (_, 0.0): cell.configure(.none, .week)
+            case (2, 0.5), (3, 0.0..<1.0), (_,_): cell.configure(.rateHalf, .week)
             }
         }
         return cell
