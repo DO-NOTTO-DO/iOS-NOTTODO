@@ -8,8 +8,16 @@
 import Foundation
 
 import FSCalendar
+import SafariServices
 
 final class Utils {
+    
+    class func myInfoUrl(vc: UIViewController, url: String) {
+        let url = URL(string: url)
+        let safariView: SFSafariViewController = SFSafariViewController(url: url!)
+        vc.present(safariView, animated: true, completion: nil)
+    }
+    
     class func push(_ naviViewController: UINavigationController?, _ viewController: UIViewController, animated: Bool = true) {
         DispatchQueue.main.async {
             naviViewController?.isNavigationBarHidden = true
