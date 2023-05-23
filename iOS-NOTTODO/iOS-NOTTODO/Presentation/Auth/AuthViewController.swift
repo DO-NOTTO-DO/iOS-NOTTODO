@@ -201,16 +201,17 @@ extension AuthViewController {
                 print(error)
             } else {
                 if let userID = user?.id {
-//                   let email = user?.kakaoAccount?.email,
+//                    let email = user?.kakaoAccount?.email {
 //                   let name = user?.kakaoAccount?.profile?.nickname {
                     
                     UserDefaults.standard.set(String(userID), forKey: "KakaoAccessToken")
+                    // UserDefaults.standard.set(String(email), forKey: "KakaoEmail")
                     UserDefaults.standard.set(false, forKey: "isAppleLogin")
                     // print("토큰토큰", UserDefaults.standard.string(forKey: "KakaoAccessToken"))
                     
                     self.requestAuthAPI(social: "KAKAO",
                                    socialToken: UserDefaults.standard.string(forKey: "KakaoAccessToken") ?? "",
-                                   fcmToken: "", name: "", email: "")
+                                   fcmToken: "", name: "", email: UserDefaults.standard.string(forKey: "KakaoEmail") ?? "")
                     self.presentToHomeViewController()
                 }
             }
@@ -236,13 +237,17 @@ extension AuthViewController: ASAuthorizationControllerDelegate, ASAuthorization
         switch authorization.credential {
         case let appleIDCredential as ASAuthorizationAppleIDCredential:
             let userIdentifier = appleIDCredential.user
+            let firstName = appleIDCredential.fullName?.givenName
+            let lastName = appleIDCredential.fullName?.familyName
+            let fullName = "\(String(describing: firstName)) \(String(describing: lastName))"
             
             UserDefaults.standard.setValue(userIdentifier, forKey: "AppleAccessToken")
+            UserDefaults.standard.setValue(fullName, forKey: "AppleUserName")
             UserDefaults.standard.set(true, forKey: "isAppleLogin")
         
             self.requestAuthAPI(social: "APPLE",
                            socialToken: UserDefaults.standard.string(forKey: "AppleAccessToken") ?? "",
-                           fcmToken: "", name: "", email: "")
+                                fcmToken: "1", name: UserDefaults.standard.string(forKey: "AppleUserName") ?? "", email: "")
             self.presentToHomeViewController()
         default:
             break
