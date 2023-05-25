@@ -26,17 +26,6 @@ class RecommendViewController: UIViewController {
     private let recommendInset: UIEdgeInsets = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 15)
     private let cellHeight: CGFloat = 137
     
-//    // test
-//
-//    var recommendList: [RecommendModel] = [
-//        RecommendModel(tag: "업무 시간 중", title: "유튜브 보지 않기", body: "유튜브를 보지 않는 것이 당신의 일상에\n어떠한 변화를 일으킬까요?\n행복한 중독 해소를 위해 제안해요!", image: "img_youtube"),
-//        RecommendModel(tag: "취침 전", title: "커피 마시지 않기", body: "한국인들은 평균 2잔의 커피를 마신대요.\n적당한 섭취를 위해 제안해요!", image: "img_coffee"),
-//        RecommendModel(tag: "기상 직후", title: "SNS 접속하지 않도록 하기", body: "도파민 중독에서 벗어나지 못하는 당신,\n이제는 건강한 삶을 위해 절제해봐요.\n중독 해소를 위한 건강한 제안!", image: "img_insta"),
-//        RecommendModel(tag: "업무 시간 중", title: "유튜브 보지 않기", body: "유튜브를 보지 않는 것이 당신의 일상에\n어떠한 변화를 일으킬까요?\n행복한 중독 해소를 위해 제안해요!", image: "img_youtube"),
-//        RecommendModel(tag: "취침 전", title: "커피 마시지 않기", body: "한국인들은 평균 2잔의 커피를 마신대요.\n적당한 섭취를 위해 제안해요!", image: "img_coffee"),
-//        RecommendModel(tag: "기상 직후", title: "SNS 접속하지 않도록 하기", body: "도파민 중독에서 벗어나지 못하는 당신,\n이제는 건강한 삶을 위해 절제해봐요.\n중독 해소를 위한 건강한 제안!", image: "img_insta")
-//    ]
-    
     // MARK: - View Life Cycle
     
     override func viewDidLoad() {
@@ -188,7 +177,13 @@ extension RecommendViewController: UICollectionViewDataSource {
 extension RecommendViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.1) {
+            let selectedCell = collectionView.cellForItem(at: indexPath) as! RecommendCollectionViewCell
             let viewController = RecommendActionViewController()
+            
+            viewController.selectedIndex = selectedCell.id
+            viewController.tagLabelText = selectedCell.tagLabel.text
+            viewController.bodyImageUrl = selectedCell.bodyImage.image
+            
             self.navigationController?.pushViewController(viewController, animated: false)
         }
     }
