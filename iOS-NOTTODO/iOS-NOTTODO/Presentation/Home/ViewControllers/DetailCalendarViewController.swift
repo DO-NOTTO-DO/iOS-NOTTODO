@@ -41,6 +41,7 @@ class DetailCalendarViewController: UIViewController {
         super.viewDidLoad()
         setUI()
         setLayout()
+        setRecognizer()
     }
 }
 
@@ -61,7 +62,6 @@ extension DetailCalendarViewController {
             if anotherDate.count == 0 {
                 $0.isEnabled = false
                 $0.setTitleColor(.gray4, for: .normal)
-                
             } else {
                 $0.isEnabled = true
                 $0.setTitleColor(.white, for: .normal)
@@ -107,6 +107,19 @@ extension DetailCalendarViewController {
             $0.left.equalToSuperview().offset(17)
         }
     }
+    
+    private func setRecognizer() {
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapView(_:)))
+        view.addGestureRecognizer(tapGestureRecognizer)
+    }
+    
+    @objc func didTapView(_ sender: UITapGestureRecognizer) {
+        let location = sender.location(in: monthCalendar)
+        if monthCalendar.bounds.contains(location) {
+            return
+        }
+        dismiss(animated: false)
+    }
 }
 
 extension DetailCalendarViewController {
@@ -142,7 +155,6 @@ extension DetailCalendarViewController: FSCalendarDelegate, FSCalendarDataSource
         let formattedDatesArray = datesArray.map { dateFormatter.string(from: $0) }
         let arrayKeys = Array(dataSource.keys)
         let formattedDate = Utils.dateFormatterString(format: nil, date: date)
-//        anotherDate.append(Utils.dateFormatterString(format: "YYYY.MM.dd", date: date))
         
         return (!formattedDatesArray.contains(formattedDate) || !arrayKeys.contains(formattedDate)) && Utils.calendarSelected(today: today, date: date)
     }
