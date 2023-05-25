@@ -110,14 +110,18 @@ extension DetailCalendarViewController {
     
     private func setRecognizer() {
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapView(_:)))
+        tapGestureRecognizer.cancelsTouchesInView = false
         view.addGestureRecognizer(tapGestureRecognizer)
     }
     
     @objc func didTapView(_ sender: UITapGestureRecognizer) {
-        let location = sender.location(in: monthCalendar)
-        if monthCalendar.bounds.contains(location) {
+        let location = sender.location(in: view)
+        let monthCalendarFrame = monthCalendar.frame
+        
+        if monthCalendarFrame.contains(location) {
             return
         }
+        
         dismiss(animated: false)
     }
 }
@@ -132,6 +136,7 @@ extension DetailCalendarViewController {
         self.dismiss(animated: true)
     }
 }
+
 extension DetailCalendarViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalendarDelegateAppearance {
     
     func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
@@ -168,7 +173,7 @@ extension DetailCalendarViewController: FSCalendarDelegate, FSCalendarDataSource
         }
         setUI()
     }
-
+    
     func calendar(_ calendar: FSCalendar, didDeselect date: Date, at monthPosition: FSCalendarMonthPosition) {
         let selectedDateString = Utils.dateFormatterString(format: "YYYY.MM.dd", date: date)
         
@@ -194,6 +199,7 @@ extension DetailCalendarViewController: FSCalendarDelegate, FSCalendarDataSource
         Utils.calendarTitleColor(today: today, date: date, selected: false)
     }
 }
+
 extension DetailCalendarViewController {
     private func requestAddAnotherDay(id: Int, dates: [String]) {
         HomeAPI.shared.postAnotherDay(id: id, dates: dates) { response in
