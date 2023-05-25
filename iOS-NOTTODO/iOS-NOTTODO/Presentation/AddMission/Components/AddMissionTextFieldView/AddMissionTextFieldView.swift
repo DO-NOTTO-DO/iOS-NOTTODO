@@ -39,6 +39,14 @@ final class AddMissionTextFieldView: UIView {
     func setText(_ text: String) {
         addMissionTextField.text = text
     }
+    
+    func upKeyboard() {
+        addMissionTextField.becomeFirstResponder()
+    }
+    
+    func downKeyboard() {
+        addMissionTextField.resignFirstResponder()
+    }
 }
 
 private extension AddMissionTextFieldView {
@@ -97,5 +105,10 @@ extension AddMissionTextFieldView: UITextFieldDelegate {
         let changeText = currentText.replacingCharacters(in: stringRange, with: string)
         textFieldUnderLineView.backgroundColor = changeText.count == 0 ? .gray3 : .white
         return changeText.count < 20 + 1
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+            textField.resignFirstResponder()
+            return true
     }
 }

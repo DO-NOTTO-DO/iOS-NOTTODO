@@ -45,6 +45,7 @@ final class AddMissionViewController: UIViewController {
         setLayout()
         registerCell()
         setDelegate()
+        hideKeyboardWhenTappedAround()
     }
 }
 
@@ -195,4 +196,17 @@ extension AddMissionViewController: UICollectionViewDelegateFlowLayout {
             return footer
         } else { return UICollectionReusableView() }
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        addMissionCollectionView.scrollToItem(at: indexPath, at: .top, animated: true)
+//        switch indexPath.row {
+//        case 0:
+//            dismissKeyboard()
+//        default:
+//            addMissionCollectionView.cellForItem(at: indexPath)?.isSelected.toggle()
+//            guard let cell = addMissionCollectionView.cellForItem(at: indexPath) as? NottodoCollectionViewCell else { return }
+//            cell.fold.toggle()
+//        }
+    }
+
 }

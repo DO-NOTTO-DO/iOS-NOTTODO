@@ -24,7 +24,7 @@ final class SituationCollectionViewCell: UICollectionViewCell, AddMissionMenu {
                                               colorText: I18N.situation)
     private var addMissionTextField = AddMissionTextFieldView(frame: .zero)
     private let recommendKeywordLabel = UILabel()
-    private lazy var recommendCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout())
+    private lazy var recommendCollectionView = UICollectionView(frame: .zero, collectionViewLayout: CollectionViewLeftAlignLayout())
     
     // MARK: Life Cycle
     
