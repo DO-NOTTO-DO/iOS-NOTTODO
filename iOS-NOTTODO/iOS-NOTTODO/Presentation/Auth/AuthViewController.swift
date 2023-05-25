@@ -208,14 +208,17 @@ extension AuthViewController {
             if let error = error {
                 print(error)
             } else {
+                let name = user?.kakaoAccount?.name
                 let email = user?.kakaoAccount?.email
                 
+                UserDefaults.standard.set(name, forKey: "KakaoName")
                 UserDefaults.standard.set(email, forKey: "KakaoEmail")
                 UserDefaults.standard.set(false, forKey: "isAppleLogin")
                 
                 self.requestAuthAPI(social: "KAKAO",
                                socialToken: UserDefaults.standard.string(forKey: "KakaoAccessToken") ?? "",
-                               fcmToken: "1", name: "", email: UserDefaults.standard.string(forKey: "KakaoEmail") ?? "")
+                               fcmToken: "1", name: UserDefaults.standard.string(forKey: "KakaoName") ?? "익명의 도전자",
+                                    email: UserDefaults.standard.string(forKey: "KakaoEmail") ?? "연동된 이메일 정보가 없습니다")
                 self.presentToHomeViewController()
             }
         }
@@ -250,7 +253,7 @@ extension AuthViewController: ASAuthorizationControllerDelegate, ASAuthorization
         
             self.requestAuthAPI(social: "APPLE",
                            socialToken: UserDefaults.standard.string(forKey: "AppleAccessToken") ?? "",
-                                fcmToken: "1", name: UserDefaults.standard.string(forKey: "AppleUserName") ?? "", email: "")
+                                fcmToken: "1", name: UserDefaults.standard.string(forKey: "AppleUserName") ?? "익명의 도전자", email: "연동된 이메일 정보가 없습니다")
             self.presentToHomeViewController()
         default:
             break
