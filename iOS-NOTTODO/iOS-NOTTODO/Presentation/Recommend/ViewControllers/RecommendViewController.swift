@@ -178,12 +178,13 @@ extension RecommendViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.1) {
             let selectedCell = collectionView.cellForItem(at: indexPath) as! RecommendCollectionViewCell
-            let recommendActionViewController = RecommendActionViewController()
-            let recommendActionHeaderView = RecommendActionHeaderView()
-            recommendActionViewController.selectedIndex = selectedCell.id
-            recommendActionHeaderView.tagLabelText = selectedCell.tagLabel.text
-            recommendActionHeaderView.bodyImageUrl = selectedCell.bodyImage.image
-            self.navigationController?.pushViewController(recommendActionViewController, animated: false)
+            let viewController = RecommendActionViewController()
+            
+            viewController.selectedIndex = selectedCell.id
+            viewController.tagLabelText = selectedCell.tagLabel.text
+            viewController.bodyImageUrl = selectedCell.bodyImage.image
+            
+            self.navigationController?.pushViewController(viewController, animated: false)
         }
     }
 }

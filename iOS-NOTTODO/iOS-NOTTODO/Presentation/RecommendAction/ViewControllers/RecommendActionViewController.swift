@@ -14,6 +14,8 @@ class RecommendActionViewController: UIViewController {
     var recommendActionResponse: RecommendActionResponseDTO?
     var recommendActionList: [RecommendActions] = []
     var selectedIndex: Int = 0
+    var tagLabelText: String?
+    var bodyImageUrl: UIImage?
     
     // MARK: - UI Components
     
@@ -193,8 +195,10 @@ extension RecommendActionViewController: UICollectionViewDataSource {
                 guard self != nil else { return }
                 guard let response = response else { return }
                 guard let data = response.data else { return }
-                headerView.HeaderTitle(title: data.title)
-                // headerView.HeaderImage(image: data.image)
+//                headerView.HeaderTitle(title: data.title)
+//                headerView.HeaderTag(tag: self?.tagLabelText)
+//                headerView.HeaderImage(image: self?.bodyImageUrl)
+                headerView.configure(tag: self?.tagLabelText, title: data.title, image: self?.bodyImageUrl)
             }
     
             return headerView

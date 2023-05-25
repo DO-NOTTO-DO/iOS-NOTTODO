@@ -16,11 +16,6 @@ class RecommendActionHeaderView: UICollectionReusableView {
     
     static let identifier: String = "RecommendActionHeaderView"
     
-    // MARK: - Properties
-    
-    var tagLabelText: String?
-    var bodyImageUrl: UIImage?
-    
     // MARK: - UI Components
     
     private let topView = UIView()
@@ -53,8 +48,8 @@ class RecommendActionHeaderView: UICollectionReusableView {
         self.bodyImage.image = image
     }
     
-    func HeaderTag(title: String?) {
-        self.tagLabel.text = title
+    func HeaderTag(tag: String?) {
+        self.tagLabel.text = tag
     }
 }
 
@@ -66,7 +61,6 @@ extension RecommendActionHeaderView {
         topView.backgroundColor = .gray1
         
         tagLabel.do {
-            $0.text = "자기 전" // 추후 데이터 연결 필요
             $0.font = .Pretendard(.medium, size: 14)
             $0.textColor = .white
             $0.backgroundColor = .gray2
@@ -75,12 +69,10 @@ extension RecommendActionHeaderView {
         }
         
         titleLabel.do {
-            $0.text = "자기 2시간 전 야식 먹지 않기" // 추후 데이터 연결 필요
             $0.font = .Pretendard(.semiBold, size: 18)
             $0.textColor = .white
         }
         
-        bodyImage.image = .food // 추후 데이터 연결 필요
         arrowIcon.image = .downArrow
         infoIcon.image = .icInfo
         
@@ -150,9 +142,10 @@ extension RecommendActionHeaderView {
         }
     }
     
-    func configure(model: RecommendActionResponseDTO) {
-        titleLabel.text = model.title
-        tagLabel.text = tagLabelText
-        bodyImage.image = bodyImageUrl
+    func configure(tag: String?, title: String?, image: UIImage?) {
+        // titleLabel.text = model.title
+        self.tagLabel.text = tag
+        self.bodyImage.image = image
+        self.titleLabel.text = title
     }
 }
