@@ -39,18 +39,6 @@ class RecommendActionHeaderView: UICollectionReusableView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    func HeaderTitle(title: String?) {
-        self.titleLabel.text = title
-    }
-    
-    func HeaderImage(image: UIImage?) {
-        self.bodyImage.image = image
-    }
-    
-    func HeaderTag(tag: String?) {
-        self.tagLabel.text = tag
-    }
 }
 
 // MARK: - Extensions
