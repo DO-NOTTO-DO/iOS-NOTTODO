@@ -13,7 +13,7 @@ class RecommendActionViewController: UIViewController {
     
     var recommendActionResponse: RecommendActionResponseDTO?
     var recommendActionList: [RecommendActions] = []
-    var selectedIndex = 11
+    var selectedIndex: Int = 0
     
     // MARK: - UI Components
     
@@ -131,7 +131,7 @@ private extension RecommendActionViewController {
     }
     
     func requestRecommendActionAPI() {
-        RecommendActionAPI.shared.getRecommendAction(index: selectedIndex + 1) { [weak self] response in
+        RecommendActionAPI.shared.getRecommendAction(index: selectedIndex) { [weak self] response in
             guard self != nil else { return }
             guard let response = response else { return }
             guard let data = response.data else { return }
@@ -189,7 +189,7 @@ extension RecommendActionViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         if kind == UICollectionView.elementKindSectionHeader {
             guard let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: RecommendActionHeaderView.identifier, for: indexPath) as? RecommendActionHeaderView else { return UICollectionReusableView() }
-            RecommendActionAPI.shared.getRecommendAction(index: selectedIndex + 1) { [weak self] response in
+            RecommendActionAPI.shared.getRecommendAction(index: selectedIndex) { [weak self] response in
                 guard self != nil else { return }
                 guard let response = response else { return }
                 guard let data = response.data else { return }

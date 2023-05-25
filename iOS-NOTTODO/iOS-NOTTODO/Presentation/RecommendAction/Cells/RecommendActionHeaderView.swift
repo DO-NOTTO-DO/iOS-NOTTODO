@@ -16,6 +16,11 @@ class RecommendActionHeaderView: UICollectionReusableView {
     
     static let identifier: String = "RecommendActionHeaderView"
     
+    // MARK: - Properties
+    
+    var tagLabelText: String?
+    var bodyImageUrl: UIImage?
+    
     // MARK: - UI Components
     
     private let topView = UIView()
@@ -146,7 +151,8 @@ extension RecommendActionHeaderView {
     }
     
     func configure(model: RecommendActionResponseDTO) {
-        // tagLabel.text = model.situation
         titleLabel.text = model.title
+        tagLabel.text = tagLabelText
+        bodyImage.image = bodyImageUrl
     }
 }

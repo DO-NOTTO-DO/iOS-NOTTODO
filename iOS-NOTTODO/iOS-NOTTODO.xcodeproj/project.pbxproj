@@ -489,7 +489,6 @@
 		3B027A90299C33CA00BEB65C /* Network */ = {
 			isa = PBXGroup;
 			children = (
-				6CA208212A18FC80001C4247 /* New Group */,
 				6CF4705929A68E7F008D145C /* Base */,
 			);
 			path = Network;
@@ -708,13 +707,6 @@
 				6C16016129C59EFD005AE3F5 /* MyInfoAccountModel.swift */,
 			);
 			path = Models;
-			sourceTree = "<group>";
-		};
-		6CA208212A18FC80001C4247 /* New Group */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "New Group";
 			sourceTree = "<group>";
 		};
 		6CD4F8B529AA48D900CCC740 /* RecommendAction */ = {
