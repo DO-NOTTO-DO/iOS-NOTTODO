@@ -15,13 +15,14 @@ class RecommendCollectionViewCell: UICollectionViewCell {
     // MARK: - Properties
     
     static let identifier = "RecommendCollectionViewCell"
+    var id: Int = 0
 
     // MARK: - UI Components
     
-    private let tagLabel = PaddingLabel(padding: UIEdgeInsets(top: 4, left: 17, bottom: 4, right: 17))
+    let tagLabel = PaddingLabel(padding: UIEdgeInsets(top: 4, left: 17, bottom: 4, right: 17))
     private let titleLabel = UILabel()
     private let bodyLabel = UILabel()
-    private let bodyImage = UIImageView()
+    let bodyImage = UIImageView()
     
     // MARK: - View Life Cycle
     
@@ -97,6 +98,7 @@ extension RecommendCollectionViewCell {
     }
     
     func configure(model: RecommendResponseDTO) {
+        id = model.id
         tagLabel.text = model.situation
         titleLabel.text = model.title
         bodyLabel.text = model.description

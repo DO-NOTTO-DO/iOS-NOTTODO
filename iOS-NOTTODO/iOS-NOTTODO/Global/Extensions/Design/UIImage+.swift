@@ -73,6 +73,7 @@ extension UIImage {
     static var sports: UIImage { UIImage(named: "img_sports")! }
     static var wine: UIImage { UIImage(named: "img_wine")! }
     static var youtube: UIImage { UIImage(named: "img_youtube")! }
+    static var dot: UIImage { UIImage(named: "ic_dot")! }
     static var delete: UIImage { UIImage(named: "ic_delete_recommend")! } // 추후 삭제 필요
     static var back: UIImage { UIImage(named: "ic_back_recommend")! } // 추후 삭제 필요
     
