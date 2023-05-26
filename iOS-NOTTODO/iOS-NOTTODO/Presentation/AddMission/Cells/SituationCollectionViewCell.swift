@@ -14,7 +14,8 @@ final class SituationCollectionViewCell: UICollectionViewCell, AddMissionMenu {
     
     // MARK: - Properties
     
-    var fold: FoldState = .unfolded
+    var missionCellHeight: ((CGFloat) -> Void)?
+    private var fold: FoldState = .folded
     static let identifier = "SituationCollectionViewCell"
     
     // MARK: - UI Components
@@ -31,9 +32,9 @@ final class SituationCollectionViewCell: UICollectionViewCell, AddMissionMenu {
     override init(frame: CGRect) {
         super.init(frame: .zero)
         setUI()
-        setLayout()
         registerCell()
         setDelegate()
+        setLayout()
     }
     
     @available(*, unavailable)
@@ -41,9 +42,14 @@ final class SituationCollectionViewCell: UICollectionViewCell, AddMissionMenu {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func calculateCellHeight() -> CGFloat {
-        return 0
+    func setFoldState(_ state: FoldState) {
+        fold = state
+        missionCellHeight?(state == .folded ? 54 : 314)
+        updateLayout()
+        updateUI()
+        contentView.layoutIfNeeded()
     }
+
 }
 
 private extension SituationCollectionViewCell {
@@ -66,35 +72,45 @@ private extension SituationCollectionViewCell {
     }
     
     func setLayout() {
-        addSubviews(titleLabel, subTitleLabel, addMissionTextField,
+        contentView.addSubviews(titleLabel, subTitleLabel, addMissionTextField,
                     recommendKeywordLabel, recommendCollectionView)
-        
-        titleLabel.snp.makeConstraints {
+        updateLayout()
+        updateUI()
+    }
+    
+    private func updateLayout() {
+        titleLabel.snp.remakeConstraints {
             $0.top.equalToSuperview().inset(16)
             $0.leading.equalToSuperview().inset(21)
         }
         
-        subTitleLabel.snp.makeConstraints {
+        subTitleLabel.snp.remakeConstraints {
             $0.top.equalTo(titleLabel.snp.bottom).offset(10)
             $0.leading.equalToSuperview().inset(23)
         }
         
-        addMissionTextField.snp.makeConstraints {
+        addMissionTextField.snp.remakeConstraints {
             $0.top.equalTo(subTitleLabel.snp.bottom).offset(25)
             $0.directionalHorizontalEdges.equalToSuperview().inset(23)
             $0.height.equalTo(48)
         }
-        
-        recommendKeywordLabel.snp.makeConstraints {
+
+        recommendKeywordLabel.snp.remakeConstraints {
             $0.top.equalTo(addMissionTextField.snp.bottom).offset(14)
             $0.leading.equalToSuperview().inset(25)
         }
-        
-        recommendCollectionView.snp.makeConstraints {
+
+        recommendCollectionView.snp.remakeConstraints {
             $0.top.equalTo(recommendKeywordLabel.snp.bottom).offset(10)
             $0.directionalHorizontalEdges.equalToSuperview().inset(23)
             $0.bottom.equalToSuperview().inset(29)
         }
+    }
+    
+    private func updateUI() {
+        let isHidden: Bool = (fold == .folded)
+        
+        [titleLabel, subTitleLabel, addMissionTextField, recommendKeywordLabel, recommendCollectionView].forEach { $0.isHidden = isHidden }
     }
     
     func registerCell() {

@@ -14,7 +14,8 @@ final class ActionCollectionViewCell: UICollectionViewCell, AddMissionMenu {
     
     // MARK: - Properties
     
-    var fold: FoldState = .unfolded
+    var missionCellHeight: ((CGFloat) -> Void)?
+    private var fold: FoldState = .folded
     static let identifier = "ActionCollectionViewCell"
     
     // MARK: - UI Components
@@ -40,13 +41,17 @@ final class ActionCollectionViewCell: UICollectionViewCell, AddMissionMenu {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func calculateCellHeight() -> CGFloat {
-        return 0
+    func setFoldState(_ state: FoldState) {
+        fold = state
+        missionCellHeight?(state == .folded ? 54 : 289)
+        updateLayout()
+        updateUI()
+        contentView.layoutIfNeeded()
     }
 }
 
 private extension ActionCollectionViewCell {
-    func setUI() {
+    private func setUI() {
         backgroundColor = .gray1
         layer.borderColor = UIColor.gray3?.cgColor
         layer.cornerRadius = 12
@@ -73,9 +78,14 @@ private extension ActionCollectionViewCell {
         exampleActionTwo.text = I18N.exampleAction
     }
     
-    func setLayout() {
-        addSubviews(titleLabel, subTitleLabel, addMissionTextField, exampleLabel,
+    private func setLayout() {
+        contentView.addSubviews(titleLabel, subTitleLabel, addMissionTextField, exampleLabel,
                     exampleNottodo, exampleActionOne, exampleActionTwo)
+        updateLayout()
+        updateUI()
+    }
+    
+    private func updateLayout() {
         
         titleLabel.snp.makeConstraints {
             $0.top.equalToSuperview().inset(16)
@@ -87,6 +97,7 @@ private extension ActionCollectionViewCell {
             $0.leading.equalToSuperview().inset(23)
         }
         
+//        let textFieldHeight: CGFloat = fold == .folded ? 0 : 48
         addMissionTextField.snp.makeConstraints {
             $0.top.equalTo(subTitleLabel.snp.bottom).offset(25)
             $0.directionalHorizontalEdges.equalToSuperview().inset(23)
@@ -112,5 +123,12 @@ private extension ActionCollectionViewCell {
             $0.top.equalTo(exampleActionOne.snp.bottom).offset(6)
             $0.leading.equalTo(exampleNottodo.snp.leading)
         }
+    }
+    
+    private func updateUI() {
+        let isHidden: Bool = (fold == .folded)
+        
+        [titleLabel, subTitleLabel, addMissionTextField, exampleLabel, exampleNottodo,
+         exampleActionOne, exampleActionTwo].forEach { $0.isHidden = isHidden }
     }
 }
