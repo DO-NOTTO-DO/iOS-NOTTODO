@@ -105,7 +105,7 @@
 		6C44127F29A35A1000313C3F /* KakaoSDKTemplate in Frameworks */ = {isa = PBXBuildFile; productRef = 6C44127E29A35A1000313C3F /* KakaoSDKTemplate */; };
 		6C44128129A35A1000313C3F /* KakaoSDKUser in Frameworks */ = {isa = PBXBuildFile; productRef = 6C44128029A35A1000313C3F /* KakaoSDKUser */; };
 		6C9628A72A22208F003ADE25 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 6C9628A62A22208F003ADE25 /* Lottie */; };
-		6C9628A92A22209E003ADE25 /* FirstOnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C9628A82A22209E003ADE25 /* FirstOnboardingViewController.swift */; };
+		6C9628A92A22209E003ADE25 /* LogoOnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C9628A82A22209E003ADE25 /* LogoOnboardingViewController.swift */; };
 		6C9628AD2A222168003ADE25 /* logo.json in Resources */ = {isa = PBXBuildFile; fileRef = 6C9628AB2A222168003ADE25 /* logo.json */; };
 		6C9628AE2A222168003ADE25 /* onboarding.json in Resources */ = {isa = PBXBuildFile; fileRef = 6C9628AC2A222168003ADE25 /* onboarding.json */; };
 		6CA208232A18FE78001C4247 /* RecommendAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA208222A18FE78001C4247 /* RecommendAPI.swift */; };
@@ -116,6 +116,7 @@
 		6CA2082E2A1924CC001C4247 /* RecommendActionAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA2082D2A1924CC001C4247 /* RecommendActionAPI.swift */; };
 		6CA208302A1925EE001C4247 /* RecommendActionResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA2082F2A1925EE001C4247 /* RecommendActionResponseDTO.swift */; };
 		6CA208322A192601001C4247 /* RecommendActionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA208312A192601001C4247 /* RecommendActionService.swift */; };
+		6CA2B7BB2A222D2300A9E549 /* ValueOnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA2B7BA2A222D2300A9E549 /* ValueOnboardingViewController.swift */; };
 		6CD4F8BA29AA493600CCC740 /* RecommendActionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CD4F8B929AA493600CCC740 /* RecommendActionHeaderView.swift */; };
 		6CD4F8BC29AA494300CCC740 /* RecommendActionFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CD4F8BB29AA494300CCC740 /* RecommendActionFooterView.swift */; };
 		6CD4F8BE29AA495900CCC740 /* RecommendActionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CD4F8BD29AA495900CCC740 /* RecommendActionCollectionViewCell.swift */; };
@@ -223,7 +224,7 @@
 		6C16015B29C56DBA005AE3F5 /* MyInfoAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInfoAccountViewController.swift; sourceTree = "<group>"; };
 		6C16016129C59EFD005AE3F5 /* MyInfoAccountModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInfoAccountModel.swift; sourceTree = "<group>"; };
 		6C16016329C5E37D005AE3F5 /* MyInfoAccountStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInfoAccountStackView.swift; sourceTree = "<group>"; };
-		6C9628A82A22209E003ADE25 /* FirstOnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstOnboardingViewController.swift; sourceTree = "<group>"; };
+		6C9628A82A22209E003ADE25 /* LogoOnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoOnboardingViewController.swift; sourceTree = "<group>"; };
 		6C9628AB2A222168003ADE25 /* logo.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = logo.json; path = ../../../../../../../../Downloads/logo.json; sourceTree = "<group>"; };
 		6C9628AC2A222168003ADE25 /* onboarding.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = onboarding.json; path = ../../../../../../../../Downloads/onboarding.json; sourceTree = "<group>"; };
 		6CA208222A18FE78001C4247 /* RecommendAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendAPI.swift; sourceTree = "<group>"; };
@@ -233,6 +234,7 @@
 		6CA2082D2A1924CC001C4247 /* RecommendActionAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendActionAPI.swift; sourceTree = "<group>"; };
 		6CA2082F2A1925EE001C4247 /* RecommendActionResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendActionResponseDTO.swift; sourceTree = "<group>"; };
 		6CA208312A192601001C4247 /* RecommendActionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendActionService.swift; sourceTree = "<group>"; };
+		6CA2B7BA2A222D2300A9E549 /* ValueOnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValueOnboardingViewController.swift; sourceTree = "<group>"; };
 		6CD4F8B929AA493600CCC740 /* RecommendActionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendActionHeaderView.swift; sourceTree = "<group>"; };
 		6CD4F8BB29AA494300CCC740 /* RecommendActionFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendActionFooterView.swift; sourceTree = "<group>"; };
 		6CD4F8BD29AA495900CCC740 /* RecommendActionCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendActionCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -418,7 +420,8 @@
 				09F6718529CB26E400708725 /* OnboardingHeaderView.swift */,
 				09F6718F29CB6AB400708725 /* OnboardingFooterView.swift */,
 				09F6719429CBFCD200708725 /* GradientView.swift */,
-				6C9628A82A22209E003ADE25 /* FirstOnboardingViewController.swift */,
+				6C9628A82A22209E003ADE25 /* LogoOnboardingViewController.swift */,
+				6CA2B7BA2A222D2300A9E549 /* ValueOnboardingViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -1023,6 +1026,7 @@
 				093DB03B2A15F6E700ECA5F6 /* AchieveService.swift in Sources */,
 				3B027A92299C33FE00BEB65C /* UIColor+.swift in Sources */,
 				3B027AA4299C357000BEB65C /* MyInfoViewController.swift in Sources */,
+				6CA2B7BB2A222D2300A9E549 /* ValueOnboardingViewController.swift in Sources */,
 				3B5F8F8129BF90190063A7F8 /* NottodoCollectionViewCell.swift in Sources */,
 				3B027A94299C340600BEB65C /* UIFont+.swift in Sources */,
 				6CA208292A191185001C4247 /* UIImageView+.swift in Sources */,
@@ -1110,7 +1114,7 @@
 				099CFA1A29AB8D710003E5D5 /* MissionListModel.swift in Sources */,
 				3B37AE2B29C8904800AB7587 /* RecommendKeywordCollectionViewCell.swift in Sources */,
 				099FC98929B3233D005B37E6 /* CalendarView.swift in Sources */,
-				6C9628A92A22209E003ADE25 /* FirstOnboardingViewController.swift in Sources */,
+				6C9628A92A22209E003ADE25 /* LogoOnboardingViewController.swift in Sources */,
 				09F6718029CAD76C00708725 /* SecondOnboardingViewController.swift in Sources */,
 				098BFD5D29B79CE3008E80F9 /* InfoCollectionViewCell.swift in Sources */,
 				6CF4706329A690CD008D145C /* NetworkResult.swift in Sources */,
