@@ -107,7 +107,7 @@
 		6C9628A72A22208F003ADE25 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 6C9628A62A22208F003ADE25 /* Lottie */; };
 		6C9628A92A22209E003ADE25 /* LogoOnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C9628A82A22209E003ADE25 /* LogoOnboardingViewController.swift */; };
 		6C9628AD2A222168003ADE25 /* logo.json in Resources */ = {isa = PBXBuildFile; fileRef = 6C9628AB2A222168003ADE25 /* logo.json */; };
-		6C9628AE2A222168003ADE25 /* onboarding.json in Resources */ = {isa = PBXBuildFile; fileRef = 6C9628AC2A222168003ADE25 /* onboarding.json */; };
+		6C9628AE2A222168003ADE25 /* value.json in Resources */ = {isa = PBXBuildFile; fileRef = 6C9628AC2A222168003ADE25 /* value.json */; };
 		6CA208232A18FE78001C4247 /* RecommendAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA208222A18FE78001C4247 /* RecommendAPI.swift */; };
 		6CA208252A18FEEA001C4247 /* RecommendService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA208242A18FEEA001C4247 /* RecommendService.swift */; };
 		6CA208272A18FFCF001C4247 /* RecommendResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA208262A18FFCF001C4247 /* RecommendResponseDTO.swift */; };
@@ -226,7 +226,7 @@
 		6C16016329C5E37D005AE3F5 /* MyInfoAccountStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInfoAccountStackView.swift; sourceTree = "<group>"; };
 		6C9628A82A22209E003ADE25 /* LogoOnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoOnboardingViewController.swift; sourceTree = "<group>"; };
 		6C9628AB2A222168003ADE25 /* logo.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = logo.json; path = ../../../../../../../../Downloads/logo.json; sourceTree = "<group>"; };
-		6C9628AC2A222168003ADE25 /* onboarding.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = onboarding.json; path = ../../../../../../../../Downloads/onboarding.json; sourceTree = "<group>"; };
+		6C9628AC2A222168003ADE25 /* value.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = value.json; path = ../../../../../../../../Downloads/value.json; sourceTree = "<group>"; };
 		6CA208222A18FE78001C4247 /* RecommendAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendAPI.swift; sourceTree = "<group>"; };
 		6CA208242A18FEEA001C4247 /* RecommendService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendService.swift; sourceTree = "<group>"; };
 		6CA208262A18FFCF001C4247 /* RecommendResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendResponseDTO.swift; sourceTree = "<group>"; };
@@ -760,7 +760,7 @@
 		6C9628AA2A2220E2003ADE25 /* Lottie */ = {
 			isa = PBXGroup;
 			children = (
-				6C9628AC2A222168003ADE25 /* onboarding.json */,
+				6C9628AC2A222168003ADE25 /* value.json */,
 				6C9628AB2A222168003ADE25 /* logo.json */,
 			);
 			path = Lottie;
@@ -979,7 +979,7 @@
 				3B027AAC299C35E500BEB65C /* Colors.xcassets in Resources */,
 				3B146D9C299D07D500B17B62 /* Pretendard-Regular.otf in Resources */,
 				6C9628AD2A222168003ADE25 /* logo.json in Resources */,
-				6C9628AE2A222168003ADE25 /* onboarding.json in Resources */,
+				6C9628AE2A222168003ADE25 /* value.json in Resources */,
 				3B146D9E299D081400B17B62 /* Pretendard-SemiBold.otf in Resources */,
 				3B027A84299C31B600BEB65C /* LaunchScreen.storyboard in Resources */,
 				3B027A81299C31B600BEB65C /* Assets.xcassets in Resources */,

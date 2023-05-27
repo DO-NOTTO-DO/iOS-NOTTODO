@@ -16,7 +16,7 @@ class LogoOnboardingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         playAnimation(named: "logo") { [weak self] in
-            self?.navigateToNextViewController()
+            self?.pushToNextViewController()
         }
     }
     
@@ -35,8 +35,8 @@ class LogoOnboardingViewController: UIViewController {
         }
     }
     
-    func navigateToNextViewController() {
+    func pushToNextViewController() {
         let nextViewController = SecondOnboardingViewController()
-        self.present(nextViewController, animated: true, completion: nil)
+        navigationController?.pushViewController(nextViewController, animated: false)
     }
 }
