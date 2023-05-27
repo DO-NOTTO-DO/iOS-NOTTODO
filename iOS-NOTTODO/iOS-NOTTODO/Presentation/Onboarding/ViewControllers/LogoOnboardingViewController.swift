@@ -36,7 +36,7 @@ class LogoOnboardingViewController: UIViewController {
     }
     
     func pushToNextViewController() {
-        let nextViewController = SecondOnboardingViewController()
+        let nextViewController = FirstOnboardingViewController()
         navigationController?.pushViewController(nextViewController, animated: false)
     }
 }
