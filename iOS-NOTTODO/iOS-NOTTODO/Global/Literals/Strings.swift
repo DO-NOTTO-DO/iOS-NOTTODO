@@ -107,6 +107,8 @@ struct I18N {
     static let withdraw = "회원 탈퇴"
     
     /// Onboarding
+    
+    static let firstOnboarding = "남들과는 다르게\n일상 속 나만의 규율로\n더 나은 삶을 만들어볼까요?"
     static let secondOnboarding = "좋아요!\n어떤 고민이 있으신가요?"
     static let thirdOnboarding = "하루 중 어느 순간을\n가장 개선하고 싶으세요?"
     static let fourthOnboarding = "먼저,\n하지 않을 일을 정해요"
@@ -116,6 +118,7 @@ struct I18N {
     static let subThirdbOnboarding = "여러 개 선택할 수 있어요"
     static let subFifthOnboarding = "달성률을 높이기 위해선 필수!"
     
+    static let firstButton = "시작할래요!"
     static let thirdButton = "사용법이 궁금해요"
     static let fourthButton = "그리고요?"
     static let fifthButton = "로그인하고 시작하기"
