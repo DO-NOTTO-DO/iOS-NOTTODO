@@ -25,8 +25,8 @@ class MissionDetailCollectionViewCell: UICollectionViewCell {
     private let accumulateLabel = UILabel()
     
     private let verticalStackView = UIStackView()
-    private let action = DetailStackView(tag: I18N.detailAction, isTop: true)
-    private let goal = DetailStackView(tag: I18N.detailGoal, isTop: false)
+    private let action = DetailStackView(tag: I18N.detailAction, isTop: true, empty: .actionEmpty)
+    private let goal = DetailStackView(tag: I18N.detailGoal, isTop: false, empty: .goalEmpty)
         
     // MARK: - Life Cycle
 
@@ -119,9 +119,24 @@ extension MissionDetailCollectionViewCell {
         missionTagLabel.text = model.title
         missionLabel.text = model.situation
         accumulateLabel.text = "\(model.count)회\n달성"
-        let actionNames = model.actions.map { $0.name }
+        if model.actions.isEmpty {
+            action.titleLabel.isHidden = true
+            action.emptyIcon.isHidden = false
+        } else {
+            let actionNames = model.actions.map { $0.name }
             let joinedActionNames = actionNames.joined(separator: "\n")
             action.titleLabel.text = joinedActionNames
-        goal.titleLabel.text = model.goal
+            action.verticalStackView.removeArrangedSubview(action.emptyIcon)
+            action.emptyIcon.removeFromSuperview()
+        }
+        if model.goal.isEmpty {
+            goal.titleLabel.isHidden = true
+            goal.emptyIcon.isHidden = false
+
+        } else {
+            goal.verticalStackView.removeArrangedSubview(action.emptyIcon)
+            goal.emptyIcon.removeFromSuperview()
+            goal.titleLabel.text = model.goal
+        }
     }
 }
