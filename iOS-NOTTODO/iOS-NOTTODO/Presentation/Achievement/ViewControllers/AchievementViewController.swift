@@ -118,7 +118,10 @@ extension AchievementViewController: FSCalendarDelegate, FSCalendarDataSource, F
     func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
         monthCalendar.yearMonthLabel.text = Utils.dateFormatterString(format: I18N.yearMonthTitle, date: calendar.currentPage)
         reloadMonthData(month: Utils.dateFormatterString(format: "yyyy-MM", date: calendar.currentPage))
+        
     }
+        
+    
     
     func calendar(_ calendar: FSCalendar, titleFor date: Date) -> String? {
         Utils.dateFormatterString(format: "dd", date: date)
@@ -150,7 +153,9 @@ extension AchievementViewController: FSCalendarDelegate, FSCalendarDataSource, F
         }
         return .white
     }
+    
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleDefaultColorFor date: Date) -> UIColor? {
+
         guard let count = self.count else { return .white }
         let dateString = Utils.dateFormatterString(format: nil, date: date)
         if let percentage = self.dataSource[dateString] {

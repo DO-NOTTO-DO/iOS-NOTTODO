@@ -16,6 +16,7 @@ class DetailCalendarViewController: UIViewController {
     // MARK: - Properties
     
     var anotherDate: [String] = []
+    var invalidDate: [String] = []
     var dataSource: [String: Float] = [:]
     var userId: Int?
     var count: Int?
@@ -33,8 +34,8 @@ class DetailCalendarViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setUI()
-        if let today = monthCalendar.calendar.today {
-            requestMonthAPI(month: Utils.dateFormatterString(format: "yyyy-MM", date: today))
+        if let id = self.userId {
+            requestParticualrDatesAPI(id: id)
         }
     }
     override func viewDidLoad() {
@@ -49,8 +50,8 @@ class DetailCalendarViewController: UIViewController {
 
 extension DetailCalendarViewController {
     
-    func reloadMonthData(month: String) {
-        requestMonthAPI(month: month)
+    func requestParticualrDatesAPI(id: String) {
+        requestParticualrDatesAPI(id: id)
     }
     
     private func setUI() {
@@ -141,7 +142,8 @@ extension DetailCalendarViewController: FSCalendarDelegate, FSCalendarDataSource
     
     func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
         monthCalendar.yearMonthLabel.text = Utils.dateFormatterString(format: I18N.yearMonthTitle, date: calendar.currentPage)
-        reloadMonthData(month: Utils.dateFormatterString(format: "yyyy-MM", date: calendar.currentPage))
+        guard let id = self.userId else { return }
+        requestParticualrDatesAPI(id: id)
     }
     
     func calendar(_ calendar: FSCalendar, shouldSelect date: Date, at monthPosition: FSCalendarMonthPosition) -> Bool {
@@ -184,8 +186,7 @@ extension DetailCalendarViewController: FSCalendarDelegate, FSCalendarDataSource
     }
     
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, fillDefaultColorFor date: Date) -> UIColor? {
-        let dateKeys = Array(dataSource.keys)
-        if dateKeys.contains(Utils.dateFormatterString(format: nil, date: date)) {
+        if self.invalidDate.contains(Utils.dateFormatterString(format: "yyyy.MM.dd", date: date)) {
             return .gray3
         }
         return .clear
@@ -207,14 +208,12 @@ extension DetailCalendarViewController {
             self.setUI()
         }
     }
-    func requestMonthAPI(month: String) {
-        AchieveAPI.shared.getAchieveCalendar(month: month) { [weak self] result in
-            guard let result = result?.data else { return }
-            self?.dataSource = [:]
-            for item in result {
-                self?.dataSource[item.actionDate] = item.percentage
-                self?.count = self?.dataSource.count
-            }
+    func requestParticualrDatesAPI(id: Int) {
+        HomeAPI.shared.particularMissionDates(id: id) { [weak self] response in
+            guard response != nil else { return}
+            guard let dates = response.data else { return }
+            self?.invalidDate = dates
+            print("✅\(self?.invalidDate)")
             self?.monthCalendar.calendar.reloadData()
         }
     }
