@@ -6,24 +6,33 @@
 //
 
 import UIKit
+import SnapKit
 
-class NottodoModalViewController: UIViewController {
+enum ViewType {
+    case quit
+    case quitSurvey
+}
 
+final class NottodoModalViewController: UIViewController {
+    
+    // MARK: - UI Components
+    
+    // MARK: - Life Cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        setUI()
+        setLayout()
+    }
 
-        // Do any additional setup after loading the view.
+}
+
+extension NottodoModalViewController {
+    private func setUI() {
+        view.backgroundColor = .black.withAlphaComponent(0.6)
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    private func setLayout() {
+        
     }
-    */
-
 }
