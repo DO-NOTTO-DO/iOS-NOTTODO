@@ -207,7 +207,6 @@ extension AddMissionViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         addMissionCollectionView.scrollToItem(at: indexPath, at: .top, animated: true)
-        
         foldStateList[indexPath.row].toggle()
         addMissionCollectionView.reloadData()
     }
