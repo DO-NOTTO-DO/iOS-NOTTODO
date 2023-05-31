@@ -14,7 +14,7 @@ final class AddMissionTextFieldView: UIView {
     
     // MARK: - Properties
     
-    private let textMaxCount = 20
+    private var textMaxCount: Int
     
     // MARK: - UI Components
     
@@ -23,9 +23,10 @@ final class AddMissionTextFieldView: UIView {
     private let textFieldUnderLineView = UIView()
     
     // MARK: - Life Cycle
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+  
+    init(textMaxCount: Int) {
+        self.textMaxCount = textMaxCount
+        super.init(frame: .zero)
         setUI()
         setLayout()
         setDelegate()
@@ -38,15 +39,33 @@ final class AddMissionTextFieldView: UIView {
     
     func setText(_ text: String) {
         addMissionTextField.text = text
+        textCountLabel.text = "\(text.count)/\(textMaxCount)"
+    }
+    
+    func setMaxCount(_ max: Int) {
+        textMaxCount = max
+    }
+    
+    func upKeyboard() {
+        addMissionTextField.becomeFirstResponder()
+    }
+    
+    func downKeyboard() {
+        addMissionTextField.resignFirstResponder()
+    }
+    
+    func setReturnType( _ type: UIKeyboardType) {
+        addMissionTextField.keyboardType = type
     }
 }
 
-private extension AddMissionTextFieldView {
-    func setUI() {
+extension AddMissionTextFieldView {
+    private func setUI() {
         addMissionTextField.do {
             $0.borderStyle = .none
             $0.textColor = .white
             $0.font = .Pretendard(.regular, size: 15)
+            $0.returnKeyType = .go
         }
         
         textFieldUnderLineView.do {
@@ -56,11 +75,11 @@ private extension AddMissionTextFieldView {
         textCountLabel.do {
             $0.font = .Pretendard(.regular, size: 12)
             $0.textColor = .gray3
-            $0.text = "0/20"
+            $0.text = "0/\(textMaxCount)"
         }
     }
     
-    func setLayout() {
+    private func setLayout() {
         addMissionTextField.addSubview(textFieldUnderLineView)
         addSubviews(addMissionTextField, textCountLabel)
         
@@ -88,7 +107,7 @@ extension AddMissionTextFieldView: UITextFieldDelegate {
     
     func textFieldDidChangeSelection(_ textField: UITextField) {
             guard let text = addMissionTextField.text else { return }
-            textCountLabel.text = "\(text.count)/20"
+            textCountLabel.text = "\(text.count)/\(textMaxCount)"
         }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
@@ -96,6 +115,11 @@ extension AddMissionTextFieldView: UITextFieldDelegate {
         guard let stringRange = Range(range, in: currentText) else { return false }
         let changeText = currentText.replacingCharacters(in: stringRange, with: string)
         textFieldUnderLineView.backgroundColor = changeText.count == 0 ? .gray3 : .white
-        return changeText.count < 20 + 1
+        return changeText.count < textMaxCount + 1
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+            textField.resignFirstResponder()
+            return true
     }
 }
