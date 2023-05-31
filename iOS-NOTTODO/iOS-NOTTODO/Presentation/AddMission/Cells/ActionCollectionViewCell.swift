@@ -23,7 +23,7 @@ final class ActionCollectionViewCell: UICollectionViewCell, AddMissionMenu {
     private let titleLabel = TitleLabel(title: I18N.doAction)
     private let subTitleLabel = SubTitleLabel(subTitle: I18N.subAction,
                                               colorText: I18N.action)
-    private var addMissionTextField = AddMissionTextFieldView(frame: .zero)
+    private var addMissionTextField = AddMissionTextFieldView(textMaxCount: 20)
     private let exampleLabel = UILabel()
     private let exampleNottodo = UILabel()
     private let exampleActionOne = UILabel()
@@ -46,11 +46,12 @@ final class ActionCollectionViewCell: UICollectionViewCell, AddMissionMenu {
         missionCellHeight?(state == .folded ? 54 : 289)
         updateLayout()
         updateUI()
+        setKeyboardReturnType()
         contentView.layoutIfNeeded()
     }
 }
 
-private extension ActionCollectionViewCell {
+extension ActionCollectionViewCell {
     private func setUI() {
         backgroundColor = .gray1
         layer.borderColor = UIColor.gray3?.cgColor
@@ -130,5 +131,9 @@ private extension ActionCollectionViewCell {
         
         [titleLabel, subTitleLabel, addMissionTextField, exampleLabel, exampleNottodo,
          exampleActionOne, exampleActionTwo].forEach { $0.isHidden = isHidden }
+    }
+    
+    private func setKeyboardReturnType() {
+        addMissionTextField.setReturnType(.default)
     }
 }

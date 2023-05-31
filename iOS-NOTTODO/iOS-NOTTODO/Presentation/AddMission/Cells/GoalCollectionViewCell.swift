@@ -23,7 +23,7 @@ final class GoalCollectionViewCell: UICollectionViewCell, AddMissionMenu {
     private let titleLabel = TitleLabel(title: I18N.goal)
     private let subTitleLabel = SubTitleLabel(subTitle: I18N.subGoal,
                                               colorText: I18N.goal)
-    private var addMissionTextField = AddMissionTextFieldView(frame: .zero)
+    private var addMissionTextField = AddMissionTextFieldView(textMaxCount: 20)
     private let exampleLabel = UILabel()
     private let exampleNottodoLabel = UILabel()
     private let exampleGoalLabel = UILabel()

@@ -23,7 +23,7 @@ final class NottodoCollectionViewCell: UICollectionViewCell, AddMissionMenu {
     private let titleLabel = TitleLabel(title: I18N.nottodo)
     private let subTitleLabel = SubTitleLabel(subTitle: I18N.subNottodo,
                                               colorText: I18N.nottodo)
-    private var addMissionTextField = AddMissionTextFieldView(frame: .zero)
+    private var addMissionTextField = AddMissionTextFieldView(textMaxCount: 20)
     private let historyLabel = UILabel()
     private lazy var historyCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout())
     
@@ -68,7 +68,7 @@ final class NottodoCollectionViewCell: UICollectionViewCell, AddMissionMenu {
 
 }
 
-private extension NottodoCollectionViewCell {
+extension NottodoCollectionViewCell {
     func setUI() {
         backgroundColor = .gray1
         layer.borderColor = UIColor.gray3?.cgColor
@@ -128,7 +128,7 @@ private extension NottodoCollectionViewCell {
         [titleLabel, subTitleLabel, addMissionTextField, historyLabel, historyCollectionView].forEach { $0.isHidden = isHidden }
     }
     
-    func layout() -> UICollectionViewFlowLayout {
+    private func layout() -> UICollectionViewFlowLayout {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
         layout.minimumLineSpacing = 0
@@ -136,12 +136,12 @@ private extension NottodoCollectionViewCell {
         return layout
     }
     
-    func registerCell() {
+    private func registerCell() {
         historyCollectionView.register(MissionHistoryCollectionViewCell.self,
                                        forCellWithReuseIdentifier: MissionHistoryCollectionViewCell.identifier)
     }
     
-    func setDelegate() {
+    private func setDelegate() {
         historyCollectionView.delegate = self
         historyCollectionView.dataSource = self
     }

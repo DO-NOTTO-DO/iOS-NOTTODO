@@ -23,7 +23,7 @@ final class SituationCollectionViewCell: UICollectionViewCell, AddMissionMenu {
     private let titleLabel = TitleLabel(title: I18N.situation)
     private let subTitleLabel = SubTitleLabel(subTitle: I18N.subSituation,
                                               colorText: I18N.situation)
-    private var addMissionTextField = AddMissionTextFieldView(frame: .zero)
+    private var addMissionTextField = AddMissionTextFieldView(textMaxCount: 10)
     private let recommendKeywordLabel = UILabel()
     private lazy var recommendCollectionView = UICollectionView(frame: .zero, collectionViewLayout: CollectionViewLeftAlignLayout())
     
