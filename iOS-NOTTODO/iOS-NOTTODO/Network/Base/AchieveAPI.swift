@@ -18,7 +18,7 @@ final class AchieveAPI {
     private init() { }
     
     public private(set) var missionDetailData: GeneralResponse<MissionDetailResponseDTO>?
-    public private(set) var achieveCalendarData: GeneralResponse<AchieveCalendarResponseDTO>?
+    public private(set) var achieveCalendarData: GeneralArrayResponse<AchieveCalendarResponseDTO>?
     
     // MARK: - GET
     
@@ -39,17 +39,21 @@ final class AchieveAPI {
     
     // MARK: - GET
     
-    func getAchieveCalendar(month: String, completion: @escaping (NetworkResult<Any>) -> Void) {
+    func getAchieveCalendar(month: String, completion: @escaping (GeneralArrayResponse<AchieveCalendarResponseDTO>?) -> Void) {
         achieveProvider.request(.achieveCalendar(month: month)) { response in
             switch response {
-            case let .success(response):
-                let statusCode = response.statusCode
-                let data = response.data
-                let networkResult = NetworkBase.judgeStatus(by: statusCode, data,
-                                                            [AchieveCalendarResponseDTO].self)
-                completion(networkResult)
-            case let .failure(err):
-                print(err)
+            case .success(let result):
+                        do {
+                            let responseData = try result.map(GeneralArrayResponse<AchieveCalendarResponseDTO>.self)
+                            self.achieveCalendarData = responseData
+                            completion(self.achieveCalendarData)
+                        } catch let error {
+                            print(error.localizedDescription)
+                            completion(nil)
+                        }
+            case .failure(let err):
+                print(err.localizedDescription)
+                completion(nil)
             }
         }
     }

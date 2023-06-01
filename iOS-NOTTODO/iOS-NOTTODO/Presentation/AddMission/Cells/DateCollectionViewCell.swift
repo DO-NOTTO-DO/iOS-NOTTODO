@@ -9,6 +9,7 @@ import UIKit
 
 import SnapKit
 import Then
+import FSCalendar
 
 final class DateCollectionViewCell: UICollectionViewCell, AddMissionMenu {
     
@@ -23,7 +24,7 @@ final class DateCollectionViewCell: UICollectionViewCell, AddMissionMenu {
     private let titleLabel = TitleLabel(title: I18N.date)
     private let subTitleLabel = SubTitleLabel(subTitle: I18N.subDateTitle, colorText: nil)
     // 캘린더뷰가 들어갈 공간
-    private let calendarView = UIView()
+    let calendarView = CalendarView(calendarScope: .month, scrollDirection: .horizontal)
     private let warningLabel = UILabel()
     
     // MARK: - Life Cycle
@@ -61,7 +62,11 @@ private extension DateCollectionViewCell {
             $0.textColor = .gray4
         }
         
-        calendarView.backgroundColor = .cyan
+        calendarView.do {
+            $0.calendar.backgroundColor = .clear
+            $0.backgroundColor = .clear
+            $0.calendar.delegate = self
+        }
     }
     
     private func setLayout() {
@@ -81,23 +86,33 @@ private extension DateCollectionViewCell {
             $0.leading.equalToSuperview().inset(23)
         }
         
-        calendarView.snp.makeConstraints {
-            $0.centerX.equalToSuperview()
-            $0.top.equalTo(subTitleLabel.snp.bottom).offset(27)
-            $0.width.equalToSuperview().inset(16)
-        }
-        
         warningLabel.snp.makeConstraints {
-            $0.top.equalTo(calendarView.snp.bottom).offset(13)
             $0.leading.equalToSuperview().inset(22)
             $0.bottom.equalToSuperview().inset(18)
         }
+        
+        calendarView.snp.makeConstraints {
+            $0.top.equalTo(subTitleLabel.snp.bottom)
+            $0.directionalHorizontalEdges.equalToSuperview()
+            $0.height.equalTo((UIScreen.main.bounds.size.width-60)*1.05)
+        }
+        
+        calendarView.calendar.snp.updateConstraints {
+            $0.bottom.equalToSuperview()
+            $0.directionalHorizontalEdges.equalToSuperview().inset(13)
+        }
     }
-    
+
     private func updateUI() {
         let isHidden: Bool = ( fold == .folded )
         [titleLabel, subTitleLabel, calendarView, warningLabel].forEach {
             $0.isHidden = isHidden
         }
+    }
+}
+
+extension DateCollectionViewCell: FSCalendarDelegate {
+    func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
+        calendarView.yearMonthLabel.text = Utils.dateFormatterString(format: I18N.yearMonthTitle, date: calendar.currentPage)        
     }
 }

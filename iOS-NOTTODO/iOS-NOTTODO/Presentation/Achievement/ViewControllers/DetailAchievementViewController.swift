@@ -137,9 +137,15 @@ extension DetailAchievementViewController {
         return listLayout
     }
     @objc func didTapView(_ sender: UITapGestureRecognizer) {
+        let location = sender.location(in: backGroundView)
+        if backGroundView.bounds.contains(location) {
+            return
+        }
         dismiss(animated: false)
     }
+    
 }
+
 extension DetailAchievementViewController {
     func requestDetailAPI(date: String) {
         HomeAPI.shared.getDailyMission(date: date) { [self] result in

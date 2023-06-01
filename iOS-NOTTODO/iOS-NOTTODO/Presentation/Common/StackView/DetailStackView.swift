@@ -12,15 +12,16 @@ import SnapKit
 
 class DetailStackView: UIView {
     
-    private let verticalStackView = UIStackView()
+    let verticalStackView = UIStackView()
     let tagLabel = UILabel()
     let titleLabel = UILabel()
+    let emptyIcon = UIImageView()
     private let lineView = UIView()
     var isTop: Bool = true
     
-    init(tag: String, isTop: Bool) {
+    init(tag: String, isTop: Bool, empty: UIImage) {
         super.init(frame: .zero)
-        setUI()
+        setUI(empty: empty)
         setLayout(isTop: isTop)
         configure(tag: tag)
     }
@@ -30,9 +31,9 @@ class DetailStackView: UIView {
     }
 }
 extension DetailStackView {
-    private func setUI() {
+    private func setUI(empty: UIImage) {
         verticalStackView.do {
-            $0.addArrangedSubviews(tagLabel, titleLabel)
+            $0.addArrangedSubviews(tagLabel, titleLabel, emptyIcon)
             $0.axis = .vertical
             $0.spacing = 10
         }
@@ -50,6 +51,11 @@ extension DetailStackView {
         lineView.do {
             $0.backgroundColor = .gray5
         }
+        emptyIcon.do {
+            $0.contentMode = .scaleAspectFit
+            $0.isHidden = true
+            $0.image = empty
+        }
     }
     private func setLayout(isTop: Bool) {
         addSubviews(verticalStackView, lineView)
@@ -65,6 +71,16 @@ extension DetailStackView {
             }
             $0.directionalHorizontalEdges.equalToSuperview()
             $0.height.equalTo(0.5)
+        }
+        
+        tagLabel.snp.makeConstraints {
+            $0.height.equalTo(24)
+        }
+        
+        emptyIcon.snp.makeConstraints {
+            $0.top.equalToSuperview().offset(30)
+            $0.center.equalToSuperview()
+            $0.size.equalTo(CGSize(width: 185, height: 107))
         }
     }
     

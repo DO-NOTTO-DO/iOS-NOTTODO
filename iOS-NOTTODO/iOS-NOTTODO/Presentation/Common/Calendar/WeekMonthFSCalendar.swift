@@ -41,7 +41,7 @@ extension WeekMonthFSCalendar {
         
         appearance.titleDefaultColor = .white
         appearance.titleFont = .Pretendard(.medium, size: 14)
-        
+
         appearance.subtitleSelectionColor = .white
         appearance.subtitleDefaultColor = .white
         appearance.subtitleFont = .Pretendard(.medium, size: 14)

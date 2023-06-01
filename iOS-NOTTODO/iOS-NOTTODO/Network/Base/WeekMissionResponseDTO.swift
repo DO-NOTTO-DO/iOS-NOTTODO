@@ -1,13 +1,15 @@
 //
-//  AchieveCalendarResponseDTO.swift
+//  WeekMissionResponseDTO.swift
 //  iOS-NOTTODO
 //
-//  Created by JEONGEUN KIM on 2023/05/18.
+//  Created by JEONGEUN KIM on 2023/05/21.
 //
 
 import Foundation
 
-struct AchieveCalendarResponseDTO: Codable {
+// MARK: - WeekMissionResponseDTO
+
+struct WeekMissionResponseDTO: Codable {
     let actionDate: String
     let percentage: Float
     

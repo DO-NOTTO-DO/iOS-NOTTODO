@@ -28,6 +28,8 @@ extension UIImage {
     
     static var addMission: UIImage { UIImage(named: "btn_add")! }
     static var emptyLogo: UIImage { UIImage(named: "emptylogo")! }
+    static var goalEmpty: UIImage { UIImage(named: "goalEmpty")! }
+    static var actionEmpty: UIImage { UIImage(named: "actionEmpty")! }
     
     // icon
     

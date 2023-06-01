@@ -18,15 +18,21 @@ final class Utils {
         vc.present(safariView, animated: true, completion: nil)
     }
     
+    class func push(_ naviViewController: UINavigationController?, _ viewController: UIViewController, animated: Bool = true) {
+        DispatchQueue.main.async {
+            naviViewController?.isNavigationBarHidden = true
+            naviViewController?.pushViewController(viewController, animated: true)
+        }
+    }
     class func modal(_ viewController: UIViewController, _ modalViewController: UIViewController, _ modalStyle: UIModalPresentationStyle) {
         let modalViewController = modalViewController
         modalViewController.modalPresentationStyle = modalStyle
         viewController.present(modalViewController, animated: false)
     }
     
-    class func dateFormatterString(format: String, date: Date) -> String {
+    class func dateFormatterString(format: String?, date: Date) -> String {
         let formatter = Foundation.DateFormatter()
-        formatter.dateFormat = format
+        formatter.dateFormat = format ?? "yyyy-MM-dd"
         formatter.locale = Locale(identifier: "ko_KR")
         let convertStr = formatter.string(from: date)
         return convertStr
