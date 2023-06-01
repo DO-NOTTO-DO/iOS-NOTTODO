@@ -243,17 +243,25 @@ extension AuthViewController: ASAuthorizationControllerDelegate, ASAuthorization
         switch authorization.credential {
         case let appleIDCredential as ASAuthorizationAppleIDCredential:
             let userIdentifier = appleIDCredential.user
+            let email = appleIDCredential.email
             let firstName = appleIDCredential.fullName?.givenName
             let lastName = appleIDCredential.fullName?.familyName
-            let fullName = "\(String(describing: firstName)) \(String(describing: lastName))"
+            
+            if let email = email {
+                UserDefaults.standard.setValue(email, forKey: "AppleUserEmail")
+            }
+            
+            if let firstName = firstName, let lastName = lastName {
+                let fullName = "\(lastName)\(firstName)"
+                UserDefaults.standard.setValue(fullName, forKey: "AppleUserName")
+            }
             
             UserDefaults.standard.setValue(userIdentifier, forKey: "AppleAccessToken")
-            UserDefaults.standard.setValue(fullName, forKey: "AppleUserName")
             UserDefaults.standard.set(true, forKey: "isAppleLogin")
         
             self.requestAuthAPI(social: "APPLE",
                            socialToken: UserDefaults.standard.string(forKey: "AppleAccessToken") ?? "",
-                                fcmToken: "1", name: UserDefaults.standard.string(forKey: "AppleUserName") ?? "익명의 도전자", email: "연동된 이메일 정보가 없습니다")
+                                fcmToken: "1", name: UserDefaults.standard.string(forKey: "AppleUserName") ?? "익명의 도전자", email: UserDefaults.standard.string(forKey: "AppleUserEmail") ?? "연동된 이메일 정보가 없습니다")
             self.presentToHomeViewController()
         default:
             break
