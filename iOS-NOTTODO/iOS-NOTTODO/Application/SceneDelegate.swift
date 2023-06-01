@@ -17,7 +17,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             let window = UIWindow(windowScene: windowScene)
             window.overrideUserInterfaceStyle = UIUserInterfaceStyle.light
             
-            let rootViewController = AuthViewController()
+            let rootViewController = MyInfoAccountViewController()
             let navigationController = UINavigationController(rootViewController: rootViewController)
             navigationController.isNavigationBarHidden = true
             window.rootViewController = navigationController

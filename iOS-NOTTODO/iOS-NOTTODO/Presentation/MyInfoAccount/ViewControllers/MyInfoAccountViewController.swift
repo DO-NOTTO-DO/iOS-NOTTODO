@@ -30,7 +30,7 @@ class MyInfoAccountViewController: UIViewController {
         super.viewDidLoad()
         setUI()
         setLayout()
-        configure(model: MyInfoAccountModel(nickname: "내 이름은 노또", email: "test@kakao.com", account: "kakao", notification: true))
+        configure(model: MyInfoAccountModel(nickname: UserDefaults.standard.string(forKey: "KakaoName") ?? "익명의 도전자", email: UserDefaults.standard.string(forKey: "KakaoEmail") ?? "연동된 이메일 정보가 없습니다", account: UserDefaults.standard.bool(forKey: "isAppleLogin") ? "apple" : "kakao", notification: true))
     }
 }
 
