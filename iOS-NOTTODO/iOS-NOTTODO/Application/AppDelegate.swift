@@ -16,7 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
-        KakaoSDK.initSDK(appKey: "6f841a6d67d26f443d42124882524e1f")
+        KakaoSDK.initSDK(appKey: "f06c671df540ff4a8f8275f453368748")
         
 //        let accessToken = UserDefaults.standard.string(forKey: Const.UserDefaultsKey.accessToken)
 //
