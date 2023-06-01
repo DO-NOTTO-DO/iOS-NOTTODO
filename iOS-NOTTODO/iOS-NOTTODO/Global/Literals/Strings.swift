@@ -145,4 +145,5 @@ struct I18N {
                                      무엇이 불편하셨는지 알려주시겠어요?
                                      """
     static let surveyButton = "이런 점이 아쉬웠어요.."
+    static let cancel = "취소"
 }
