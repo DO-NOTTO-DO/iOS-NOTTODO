@@ -65,7 +65,7 @@ extension FifthOnboardingViewController {
             $0.configuration?.imagePadding = 7
             $0.configuration?.imagePlacement = NSDirectionalRectEdge.leading
             $0.configuration?.attributedTitle?.font = .Pretendard(.medium, size: 16)
-            $0.configuration?.attributedTitle?.foregroundColor = .white
+            $0.configuration?.baseForegroundColor = .white
             $0.configuration?.contentInsets = NSDirectionalEdgeInsets.init(top: 0, leading: 0, bottom: 0, trailing: 10)
             $0.addTarget(self, action: #selector(ButtonTapped), for: .touchUpInside)
         }
@@ -178,6 +178,11 @@ extension FifthOnboardingViewController {
 extension FifthOnboardingViewController {
     @objc
     private func ButtonTapped() {
-        print("tapped")
+        if let window = view.window?.windowScene?.keyWindow {
+            let TabBarController = TabBarController()
+            let navigationController = UINavigationController(rootViewController: TabBarController)
+            navigationController.isNavigationBarHidden = true
+            window.rootViewController = navigationController
+        }
     }
 }
