@@ -23,7 +23,9 @@ class RecommendActionHeaderView: UICollectionReusableView {
     private let titleLabel = UILabel()
     private let bodyImage = UIImageView()
     private let arrowIcon = UIImageView()
+    private let infoView = UIView()
     private let recommendLabel = UILabel()
+    private let recommendSubLabel = UILabel()
     private let infoIcon = UIImageView()
     
     // MARK: - View Life Cycles
@@ -47,7 +49,6 @@ extension RecommendActionHeaderView {
         topView.backgroundColor = .gray1
         
         tagLabel.do {
-            $0.text = "자기 전" // 추후 데이터 연결 필요
             $0.font = .Pretendard(.medium, size: 14)
             $0.textColor = .white
             $0.backgroundColor = .gray2
@@ -56,12 +57,10 @@ extension RecommendActionHeaderView {
         }
         
         titleLabel.do {
-            $0.text = "자기 2시간 전 야식 먹지 않기" // 추후 데이터 연결 필요
             $0.font = .Pretendard(.semiBold, size: 18)
             $0.textColor = .white
         }
         
-        bodyImage.image = .food // 추후 데이터 연결 필요
         arrowIcon.image = .downArrow
         infoIcon.image = .icInfo
         
@@ -70,15 +69,28 @@ extension RecommendActionHeaderView {
             $0.font = .Pretendard(.semiBold, size: 18)
             $0.textColor = .white
         }
+        
+        recommendSubLabel.do {
+            $0.text = I18N.recommendActionSub
+            $0.font = .Pretendard(.regular, size: 15)
+            $0.textColor = .gray4
+        }
     }
     
     private func setLayout() {
-        addSubviews(topView, arrowIcon, recommendLabel, infoIcon)
+        addSubviews(topView, arrowIcon, infoView)
+        infoView.addSubviews(recommendLabel, infoIcon, recommendSubLabel)
         topView.addSubviews(tagLabel, titleLabel, bodyImage)
         
         topView.snp.makeConstraints {
             $0.top.leading.trailing.equalToSuperview()
             $0.height.equalTo(122)
+        }
+        
+        infoView.snp.makeConstraints {
+            $0.top.equalTo(topView.snp.bottom)
+            $0.leading.trailing.equalToSuperview()
+            $0.height.equalTo(138)
         }
         
         tagLabel.snp.makeConstraints {
@@ -103,7 +115,7 @@ extension RecommendActionHeaderView {
         }
         
         recommendLabel.snp.makeConstraints {
-            $0.top.equalTo(topView.snp.bottom).offset(46)
+            $0.top.equalToSuperview().offset(47)
             $0.leading.equalToSuperview().offset(28)
         }
         
@@ -111,5 +123,17 @@ extension RecommendActionHeaderView {
             $0.centerY.equalTo(recommendLabel.snp.centerY)
             $0.leading.equalTo(recommendLabel.snp.trailing).offset(9)
         }
+        
+        recommendSubLabel.snp.makeConstraints {
+            $0.top.equalTo(recommendLabel.snp.bottom).offset(8)
+            $0.leading.equalTo(recommendLabel.snp.leading)
+        }
+    }
+    
+    func configure(tag: String?, title: String?, image: UIImage?) {
+        // titleLabel.text = model.title
+        self.tagLabel.text = tag
+        self.bodyImage.image = image
+        self.titleLabel.text = title
     }
 }

@@ -50,7 +50,7 @@ private extension MyInfoAccountViewController {
         
         backButton.do {
             $0.setBackgroundImage(.icBack, for: .normal)
-            // $0.addTarget(self, action: #selector(self.dismissViewController), for: .touchUpInside)
+            $0.addTarget(self, action: #selector(self.popViewController), for: .touchUpInside)
         }
         
         navigationTitle.do {
@@ -84,6 +84,7 @@ private extension MyInfoAccountViewController {
             $0.setTitleColor(.gray4, for: .normal)
             $0.titleLabel?.font = .Pretendard(.regular, size: 12)
             $0.setUnderline()
+            $0.addTarget(self, action: #selector(presentToWithdraw), for: .touchUpInside)
         }
     }
     
@@ -139,5 +140,13 @@ private extension MyInfoAccountViewController {
         nicknameView.contentLabel.text = model.nickname
         emailView.contentLabel.text = model.email
         accountView.contentLabel.text = model.account
+    }
+    
+    @objc
+    private func presentToWithdraw() {
+        let nextView = NottodoModalViewController()
+        nextView.modalPresentationStyle = .overFullScreen
+        nextView.modalTransitionStyle = .crossDissolve
+        self.present(nextView, animated: true)
     }
 }

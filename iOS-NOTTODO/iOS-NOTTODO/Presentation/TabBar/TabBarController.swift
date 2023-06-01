@@ -53,6 +53,7 @@ private extension TabBarController {
         tabBar.setUpUITabBar()
         tabBar.backgroundColor = .gray1
         tabBar.layer.cornerRadius = convertByHeightRatio(15)
+        tabBar.layer.maskedCorners = CACornerMask(arrayLiteral: .layerMinXMinYCorner, .layerMaxXMinYCorner)
         tabBar.itemPositioning = .centered
     }
     

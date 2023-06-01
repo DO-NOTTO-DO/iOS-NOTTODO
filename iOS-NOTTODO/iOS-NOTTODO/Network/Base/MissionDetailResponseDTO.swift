@@ -10,7 +10,6 @@ import Foundation
 // MARK: - MissionDetailResponseDTO
 
 struct MissionDetailResponseDTO: Codable, Hashable {
-    
     let id: Int
     let title, situation: String
     let actions: [Action]

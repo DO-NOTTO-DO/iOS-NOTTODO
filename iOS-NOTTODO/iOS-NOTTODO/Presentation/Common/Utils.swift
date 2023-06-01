@@ -8,18 +8,31 @@
 import Foundation
 
 import FSCalendar
+import SafariServices
 
 final class Utils {
     
+    class func myInfoUrl(vc: UIViewController, url: String) {
+        let url = URL(string: url)
+        let safariView: SFSafariViewController = SFSafariViewController(url: url!)
+        vc.present(safariView, animated: true, completion: nil)
+    }
+    
+    class func push(_ naviViewController: UINavigationController?, _ viewController: UIViewController, animated: Bool = true) {
+        DispatchQueue.main.async {
+            naviViewController?.isNavigationBarHidden = true
+            naviViewController?.pushViewController(viewController, animated: true)
+        }
+    }
     class func modal(_ viewController: UIViewController, _ modalViewController: UIViewController, _ modalStyle: UIModalPresentationStyle) {
         let modalViewController = modalViewController
         modalViewController.modalPresentationStyle = modalStyle
         viewController.present(modalViewController, animated: false)
     }
     
-    class func dateFormatterString(format: String, date: Date) -> String {
+    class func dateFormatterString(format: String?, date: Date) -> String {
         let formatter = Foundation.DateFormatter()
-        formatter.dateFormat = format
+        formatter.dateFormat = format ?? "yyyy-MM-dd"
         formatter.locale = Locale(identifier: "ko_KR")
         let convertStr = formatter.string(from: date)
         return convertStr
@@ -37,14 +50,14 @@ final class Utils {
             return selected ? .black : .white
         case .orderedDescending:
             print("\(date) is before \(today)")
-            return  .gray3
+            return  .gray4
         case .orderedAscending:
             print("\(date) is after \(today)")
             let sevenDays = Calendar.current.date(byAdding: .day, value: +6, to: Date())!
             if date < sevenDays {
                 return selected ? .black : .white
             }
-            return .gray3
+            return .gray4
         }
     }
     

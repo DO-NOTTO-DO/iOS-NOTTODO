@@ -26,7 +26,13 @@ struct URLConstant {
     
     static let recommend = "/recommend/mission"
     
+    // MARK: - RecommendAction
+    
+    static let recommendAction = "/recommend"
+    
     // MARK: - Home
     
     static let dailyMission = "/mission/daily"
+    static let missionWeekly = "/mission/week"
+    static let mission = "/mission"
 }

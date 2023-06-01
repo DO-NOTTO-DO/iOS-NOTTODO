@@ -7,11 +7,7 @@
 
 import UIKit
 
-enum FoldState {
-    case folded, unfolded
-}
-
 protocol AddMissionMenu {
-    var fold: FoldState { get set }
-    func calculateCellHeight() -> CGFloat
+    func setFoldState(_ state: FoldState)
+    var missionCellHeight: ((CGFloat) -> Void)? { get set }
 }

@@ -9,6 +9,7 @@ import UIKit
 
 import Then
 import SnapKit
+import MessageUI
 
 final class MyInfoViewController: UIViewController {
     
@@ -22,7 +23,8 @@ final class MyInfoViewController: UIViewController {
     enum Sections: Int, Hashable {
         case one, two, three, four
     }
-    var dataSource: UICollectionViewDiffableDataSource<Sections, AnyHashable>! = nil
+    typealias DataSource = UICollectionViewDiffableDataSource<Sections, AnyHashable>
+    var dataSource: DataSource?
     private lazy var safeArea = self.view.safeAreaLayoutGuide
     
     // MARK: - UI Components
@@ -58,6 +60,7 @@ extension MyInfoViewController {
             $0.bounces = false
             $0.autoresizingMask = [.flexibleWidth, .flexibleHeight]
             $0.showsVerticalScrollIndicator = false
+            $0.delegate = self
         }
     }
     
@@ -73,8 +76,8 @@ extension MyInfoViewController {
     // MARK: - Data
     
     private func setupDataSource() {
-        dataSource = UICollectionViewDiffableDataSource<Sections, AnyHashable>(collectionView: myInfoCollectionView, cellProvider: { collectionView, indexPath, item in
-            let section = self.dataSource.snapshot().sectionIdentifiers[indexPath.section]
+        dataSource = DataSource(collectionView: myInfoCollectionView, cellProvider: { collectionView, indexPath, item in
+            let section = self.dataSource?.snapshot().sectionIdentifiers[indexPath.section]
             switch section {
             case .one:
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MyProfileCollectionViewCell.identifier, for: indexPath) as! MyProfileCollectionViewCell
@@ -88,7 +91,7 @@ extension MyInfoViewController {
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: InfoCollectionViewCell.identifier, for: indexPath) as! InfoCollectionViewCell
                 cell.configureWithArrow(model: item as! InfoModelThree)
                 return cell
-            case .four:
+            case .four, .none:
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: InfoCollectionViewCell.identifier, for: indexPath) as! InfoCollectionViewCell
                 cell.configure(model: item as! InfoModelFour)
                 return cell
@@ -99,7 +102,7 @@ extension MyInfoViewController {
     private func reloadData() {
         var snapShot = NSDiffableDataSourceSnapshot<Sections, AnyHashable>()
         defer {
-            dataSource.apply(snapShot, animatingDifferences: false)
+            dataSource?.apply(snapShot, animatingDifferences: false)
         }
         snapShot.appendSections([.one, .two, .three, .four])
         snapShot.appendItems(infoOne, toSection: .one)
@@ -107,7 +110,7 @@ extension MyInfoViewController {
         snapShot.appendItems(infoThree, toSection: .three)
         snapShot.appendItems(infoFour, toSection: .four)
         
-        dataSource.supplementaryViewProvider = { (collectionView, _, indexPath) in
+        dataSource?.supplementaryViewProvider = { (collectionView, _, indexPath) in
             guard let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: MyInfoHeaderReusableView.identifier, for: indexPath) as? MyInfoHeaderReusableView else { return UICollectionReusableView() }
             return header
         }
@@ -117,16 +120,43 @@ extension MyInfoViewController {
     
     private func layout() -> UICollectionViewLayout {
         let layout = UICollectionViewCompositionalLayout { sectionIndex, env  in
-            let section = self.dataSource.snapshot().sectionIdentifiers[sectionIndex]
+            let section = self.dataSource?.snapshot().sectionIdentifiers[sectionIndex]
             switch section {
             case .one:
                 return CompositionalLayout.setUpSection(layoutEnvironment: env, mode: .supplementary, 24, 0)
             case .two, .three:
                 return CompositionalLayout.setUpSection(layoutEnvironment: env, mode: .none, 18, 0)
-            case .four:
+            case .four, .none:
                 return CompositionalLayout.setUpSection(layoutEnvironment: env, mode: .none, 18, 60)
             }
         }
         return layout
+    }
+}
+extension MyInfoViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        switch indexPath.section {
+        case 0:
+            let nextViewController = MyInfoAccountViewController()
+            navigationController?.pushViewController(nextViewController, animated: true)
+        case 1:
+            switch indexPath.item {
+            case 0:
+                Utils.myInfoUrl(vc: self, url: MyInfoURL.guid.url)
+            default:
+                Utils.myInfoUrl(vc: self, url: MyInfoURL.quesition.url)
+            }
+        case 2:
+            switch indexPath.item {
+            case 0:
+                Utils.myInfoUrl(vc: self, url: MyInfoURL.notice.url)
+            case 1:
+                Utils.myInfoUrl(vc: self, url: MyInfoURL.contact.url)
+            default: 
+                Utils.myInfoUrl(vc: self, url: MyInfoURL.service.url)
+            }
+        default:
+            return
+        }
     }
 }

@@ -8,9 +8,8 @@
 import Foundation
 
 struct AchieveCalendarResponseDTO: Codable {
-    
     let actionDate: String
-    let rate: Int
+    let percentage: Float
     
     func toDate(dateString: String) -> Date? {
             let dateFormatter = DateFormatter()
@@ -23,8 +22,8 @@ struct AchieveCalendarResponseDTO: Codable {
             }
         }
     
-    func convert() -> [Date: Int] {
+    func convert() -> [Date: Float] {
         guard let date = self.toDate(dateString: actionDate) else { return [:]}
-        return [date: rate]
+        return [date: percentage]
     }
 }

@@ -28,6 +28,8 @@ extension UIImage {
     
     static var addMission: UIImage { UIImage(named: "btn_add")! }
     static var emptyLogo: UIImage { UIImage(named: "emptylogo")! }
+    static var goalEmpty: UIImage { UIImage(named: "goalEmpty")! }
+    static var actionEmpty: UIImage { UIImage(named: "actionEmpty")! }
     
     // icon
     
@@ -73,6 +75,7 @@ extension UIImage {
     static var sports: UIImage { UIImage(named: "img_sports")! }
     static var wine: UIImage { UIImage(named: "img_wine")! }
     static var youtube: UIImage { UIImage(named: "img_youtube")! }
+    static var dot: UIImage { UIImage(named: "ic_dot")! }
     static var delete: UIImage { UIImage(named: "ic_delete_recommend")! } // 추후 삭제 필요
     static var back: UIImage { UIImage(named: "ic_back_recommend")! } // 추후 삭제 필요
     
@@ -97,4 +100,10 @@ extension UIImage {
     static var kakaoAppleIcon: UIImage { UIImage(named: "splash_kakao_apple")! }
     static var splashArrow: UIImage { UIImage(named: "splash_arrow")! }
     static var splashBack: UIImage { UIImage(named: "splash_create_back")! }
+    static var logo: UIImage { UIImage(named: "logo")! }
+    
+    // modal
+    
+    static var quit1: UIImage { UIImage(named: "img_quit1")! }
+    static var quit2: UIImage { UIImage(named: "img_quit2")! }
 }

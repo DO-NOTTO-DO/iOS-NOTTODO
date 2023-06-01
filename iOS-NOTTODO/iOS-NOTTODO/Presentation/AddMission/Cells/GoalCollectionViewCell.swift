@@ -14,7 +14,8 @@ final class GoalCollectionViewCell: UICollectionViewCell, AddMissionMenu {
     
     // MARK: - Properties
     
-    var fold: FoldState = .unfolded
+    var missionCellHeight: ((CGFloat) -> Void)?
+    private var fold: FoldState = .folded
     static let identifier = "GoalCollectionViewCell"
     
     // MARK: - UI Components
@@ -22,7 +23,7 @@ final class GoalCollectionViewCell: UICollectionViewCell, AddMissionMenu {
     private let titleLabel = TitleLabel(title: I18N.goal)
     private let subTitleLabel = SubTitleLabel(subTitle: I18N.subGoal,
                                               colorText: I18N.goal)
-    private var addMissionTextField = AddMissionTextFieldView(frame: .zero)
+    private var addMissionTextField = AddMissionTextFieldView(textMaxCount: 20)
     private let exampleLabel = UILabel()
     private let exampleNottodoLabel = UILabel()
     private let exampleGoalLabel = UILabel()
@@ -41,8 +42,12 @@ final class GoalCollectionViewCell: UICollectionViewCell, AddMissionMenu {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func calculateCellHeight() -> CGFloat {
-        return 0
+    func setFoldState(_ state: FoldState) {
+        fold = state
+        missionCellHeight?(state == .folded ? 54 : 307)
+        updateLayout()
+        updateUI()
+        contentView.layoutIfNeeded()
     }
 }
 
@@ -84,10 +89,15 @@ private extension GoalCollectionViewCell {
     }
     
     func setLayout() {
-        addSubviews(titleLabel, subTitleLabel, addMissionTextField,
+        contentView.addSubviews(titleLabel, subTitleLabel, addMissionTextField,
                     exampleLabel, nottodoTag, exampleNottodoLabel,
                     goalTag, exampleGoalLabel)
         
+        updateLayout()
+        updateUI()
+    }
+    
+    private func updateLayout() {
         titleLabel.snp.makeConstraints {
             $0.top.equalToSuperview().inset(16)
             $0.leading.equalToSuperview().inset(21)
@@ -98,6 +108,7 @@ private extension GoalCollectionViewCell {
             $0.leading.equalToSuperview().inset(23)
         }
         
+//        let textFieldHeight = fold == .folded ? 0 : 48
         addMissionTextField.snp.makeConstraints {
             $0.top.equalTo(subTitleLabel.snp.bottom).offset(25)
             $0.directionalHorizontalEdges.equalToSuperview().inset(23)
@@ -128,5 +139,12 @@ private extension GoalCollectionViewCell {
             $0.centerY.equalTo(goalTag.snp.centerY)
             $0.leading.equalTo(goalTag.snp.trailing).offset(5)
         }
+    }
+    
+    private func updateUI() {
+        let isHidden: Bool = (fold == .folded)
+        
+        [titleLabel, subTitleLabel, addMissionTextField, exampleLabel, nottodoTag,
+         exampleNottodoLabel, goalTag, exampleGoalLabel].forEach { $0.isHidden = isHidden }
     }
 }

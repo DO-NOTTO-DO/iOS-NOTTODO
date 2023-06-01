@@ -64,9 +64,7 @@ extension CalendarView {
             $0.configuration?.attributedTitle?.font = .Pretendard(.regular, size: 14)
             $0.configuration?.baseBackgroundColor = .gray2
             $0.configuration?.baseForegroundColor = .gray5
-            $0.addTarget(self, action: #selector(todayBtnTapped), for: .touchUpInside)
         }
-        
         horizonStackView.do {
             $0.axis = .horizontal
             $0.spacing = 16
@@ -107,7 +105,7 @@ extension CalendarView {
         case .month:
             addSubviews(horizonStackView, calendar)
             horizonStackView.addArrangedSubviews(leftButton, yearMonthLabel, rightButton)
-            
+
             leftButton.snp.makeConstraints {
                 $0.size.equalTo(CGSize(width: 25, height: 25))
             }
@@ -125,7 +123,6 @@ extension CalendarView {
             calendar.snp.makeConstraints {
                 $0.top.equalTo(horizonStackView.snp.bottom).offset(20)
                 $0.directionalHorizontalEdges.equalToSuperview().inset(15)
-                $0.height.equalTo((bounds.size.width-22)*0.8)
                 $0.bottom.equalToSuperview().inset(25)
             }
         @unknown default:
@@ -144,13 +141,7 @@ extension CalendarView {
 }
 
 extension CalendarView {
-    
-    @objc
-    func todayBtnTapped(_sender: UIButton) {
-        calendar.select(today)
-        yearMonthLabel.text = Utils.dateFormatterString(format: I18N.yearMonthTitle, date: today)
-    }
-    
+
     @objc
     func prevBtnTapped(_sender: UIButton) {
         scrollCurrentPage(calendar: calendar, isPrev: true)

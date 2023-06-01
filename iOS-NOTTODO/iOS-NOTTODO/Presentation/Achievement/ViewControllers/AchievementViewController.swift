@@ -17,7 +17,8 @@ final class AchievementViewController: UIViewController {
     
     private lazy var safeArea = self.view.safeAreaLayoutGuide
     private lazy var today: Date = { return Date() }()
-    var dataSource: [String: Int] = [:]
+    var count: Int?
+    var dataSource: [String: Float] = [:]
     var selectDate: Date?
     
     // MARK: - UI Components
@@ -31,6 +32,8 @@ final class AchievementViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        setUI()
+        setLayout()
         if let today = monthCalendar.calendar.today {
             requestMonthAPI(month: Utils.dateFormatterString(format: "yyyy-MM", date: today))
         }
@@ -99,25 +102,14 @@ extension AchievementViewController {
         }
     }
     func requestMonthAPI(month: String) {
-        AchieveAPI.shared.getAchieveCalendar(month: month) { [self] result in
-            switch result {
-            case let .success(data):
-                guard let data = data as? [AchieveCalendarResponseDTO] else { return }
-                self.dataSource = [:]
-                for item in data {
-                    self.dataSource[item.actionDate] = item.rate
-                }
-                monthCalendar.calendar.reloadData()
-                
-            case .requestErr:
-                print("requestErr")
-            case .pathErr:
-                print("pathErr")
-            case .serverErr:
-                print("serverErr")
-            case .networkFail:
-                print("networkFail")
+        AchieveAPI.shared.getAchieveCalendar(month: month) { [weak self] result in
+            guard let result = result?.data else { return }
+            self?.dataSource = [:]
+            for item in result {
+                self?.dataSource[item.actionDate] = item.percentage
+                self?.count = self?.dataSource.count
             }
+            self?.monthCalendar.calendar.reloadData()
         }
     }
 }
@@ -126,8 +118,9 @@ extension AchievementViewController: FSCalendarDelegate, FSCalendarDataSource, F
     func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
         monthCalendar.yearMonthLabel.text = Utils.dateFormatterString(format: I18N.yearMonthTitle, date: calendar.currentPage)
         reloadMonthData(month: Utils.dateFormatterString(format: "yyyy-MM", date: calendar.currentPage))
+        
     }
-    
+        
     func calendar(_ calendar: FSCalendar, titleFor date: Date) -> String? {
         Utils.dateFormatterString(format: "dd", date: date)
     }
@@ -135,29 +128,61 @@ extension AchievementViewController: FSCalendarDelegate, FSCalendarDataSource, F
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         calendar.appearance.selectionColor = .clear
         calendar.appearance.titleSelectionColor = .white
-        let vc = DetailAchievementViewController()
-        vc.selectedDate = date
-        vc.modalPresentationStyle = .overFullScreen
-        present(vc, animated: false)
+        let dateString = Utils.dateFormatterString(format: "yyyy-MM-dd", date: date)
+        if self.dataSource.contains(where: { $0.key == dateString }) {
+            let vc = DetailAchievementViewController()
+            vc.selectedDate = date
+            vc.modalPresentationStyle = .overFullScreen
+            present(vc, animated: false)
+        }
     }
     
     func calendar(_ calendar: FSCalendar, shouldSelect date: Date, at monthPosition: FSCalendarMonthPosition) -> Bool {
         Calendar.current.isDate(date, equalTo: calendar.currentPage, toGranularity: .month)
     }
+    func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleSelectionColorFor date: Date) -> UIColor? {
+        guard let count = self.count else { return .white }
+        let dateString = Utils.dateFormatterString(format: nil, date: date)
+        if let percentage = self.dataSource[dateString] {
+            switch (count, percentage) {
+            case (_, 1.0): return .black
+            default: return .white
+            }
+        }
+        return .white
+    }
+    
+    func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleDefaultColorFor date: Date) -> UIColor? {
+
+        guard let count = self.count else { return .white }
+        let dateString = Utils.dateFormatterString(format: nil, date: date)
+        if let percentage = self.dataSource[dateString] {
+            switch (count, percentage) {
+            case (_, 1.0): return .black
+            default: return .white
+            }
+        }
+        return .white
+    }
     
     func calendar(_ calendar: FSCalendar, cellFor date: Date, at position: FSCalendarMonthPosition) -> FSCalendarCell {
         let cell = calendar.dequeueReusableCell(withIdentifier: MissionCalendarCell.identifier, for: date, at: position) as! MissionCalendarCell
-        
-        if let count = self.dataSource[date.toString()] {
-            switch count {
-            case 0:
-                cell.configure(.none, .month)
-            case 1, 2:
-                cell.configure(.rateHalf, .month)
-            case 3:
-                cell.configure(.rateFull, .month)
-            default:
-                cell.configure(.rateFull, .month)
+        cell.iconView.contentMode = .scaleAspectFit
+        cell.iconView.snp.remakeConstraints {
+            $0.edges.equalToSuperview()
+            $0.center.equalToSuperview()
+        }
+        cell.titleLabel.snp.remakeConstraints {
+            $0.centerY.equalToSuperview().offset(-1)
+            $0.centerX.equalToSuperview()
+        }
+        guard let count = self.count else { return cell }
+        let dateString = Utils.dateFormatterString(format: nil, date: date)
+        if let percentage = self.dataSource[dateString] {
+            switch (count, percentage) {
+            case (_, 1.0): cell.configure(.rateFull, .week)
+            case (_, 0.0): cell.configure(.none, .week)
+            case (2, 0.5), (3, 0.0..<1.0), (_, _): cell.configure(.rateHalf, .week)
             }
         }
         return cell
