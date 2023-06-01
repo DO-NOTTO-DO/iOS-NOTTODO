@@ -50,7 +50,7 @@ private extension MyInfoAccountViewController {
         
         backButton.do {
             $0.setBackgroundImage(.icBack, for: .normal)
-            // $0.addTarget(self, action: #selector(self.dismissViewController), for: .touchUpInside)
+            $0.addTarget(self, action: #selector(self.popViewController), for: .touchUpInside)
         }
         
         navigationTitle.do {
