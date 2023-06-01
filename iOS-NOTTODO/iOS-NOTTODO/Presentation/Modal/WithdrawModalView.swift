@@ -11,6 +11,10 @@ import Then
 
 final class WithdrawModalView: UIView {
     
+    // MARK: - Properties
+    
+    weak var delegate: ModalDelegate?
+    
     // MARK: - UI Components
     
     private let modalImageView = UIImageView()
@@ -28,6 +32,15 @@ final class WithdrawModalView: UIView {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+}
+
+// MARK: - @objc Methods
+
+extension WithdrawModalView {
+    @objc
+    func buttonDidTapped() {
+        delegate?.modalAction()
     }
 }
 
@@ -59,7 +72,7 @@ extension WithdrawModalView {
             $0.layer.cornerRadius = 7
             $0.titleLabel?.font = .Pretendard(.medium, size: 14)
             $0.setTitleColor(.white, for: .normal)
-//            $0.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
+            $0.addTarget(self, action: #selector(buttonDidTapped), for: .touchUpInside)
         }
     }
     

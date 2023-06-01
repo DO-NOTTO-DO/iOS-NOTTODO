@@ -11,6 +11,12 @@ import Then
 
 final class QuitModalView: UIView {
     
+    // MARK: - Properties
+    
+    weak var delegate: ModalDelegate?
+    
+    // MARK: - UI Components
+    
     private let modalImageView = UIImageView()
     private let modalTitleLabel = UILabel()
     private let modalSubTitleLabel = UILabel()
@@ -31,6 +37,22 @@ final class QuitModalView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 }
+
+// MARK: - @objc Methods
+
+extension QuitModalView {
+    @objc
+    func didTapCancel() {
+        delegate?.modalDismiss()
+    }
+    
+    @objc
+    func didTapWithdraw() {
+        delegate?.modalAction()
+    }
+}
+
+// MARK: - Methods
 
 extension QuitModalView {
     private func setUI() {
@@ -58,6 +80,7 @@ extension QuitModalView {
             $0.setTitle(I18N.cancel, for: .normal)
             $0.setTitleColor(UIColor.gray4, for: .normal)
             $0.titleLabel?.font = .Pretendard(.medium, size: 14)
+            $0.addTarget(self, action: #selector(didTapCancel), for: .touchUpInside)
         }
         
         withdrawButton.do {
@@ -65,6 +88,7 @@ extension QuitModalView {
             $0.setTitle(I18N.withdraw, for: .normal)
             $0.setTitleColor(UIColor.ntdRed, for: .normal)
             $0.titleLabel?.font = .Pretendard(.medium, size: 14)
+            $0.addTarget(self, action: #selector(didTapWithdraw), for: .touchUpInside)
         }
         
         separateLineView.do {

@@ -17,7 +17,13 @@ final class NottodoModalViewController: UIViewController {
     
     // MARK: - Properties
     
-    private var viewType: ViewType?
+    private var viewType: ViewType? = .quit {
+        didSet {
+            setUI()
+            setLayout()
+        }
+    }
+    var dimissAction: (() -> Void)?
     
     // MARK: - UI Components
     
@@ -31,6 +37,7 @@ final class NottodoModalViewController: UIViewController {
         super.viewDidLoad()
         setUI()
         setLayout()
+        setDelegate()
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -65,5 +72,26 @@ extension NottodoModalViewController {
             $0.center.equalToSuperview()
             $0.directionalHorizontalEdges.equalToSuperview().inset(52)
         }
+    }
+    
+    private func setDelegate() {
+        quitView.delegate = self
+        withdrawView.delegate = self
+    }
+}
+
+extension NottodoModalViewController: ModalDelegate {
+    func modalAction() {
+        switch viewType {
+        case .quit:
+            viewType = .quitSurvey
+        default:
+            Utils.myInfoUrl(vc: self, url: MyInfoURL.googleForm.url)
+        }
+    }
+    
+    func modalDismiss() {
+        dismiss(animated: true)
+        self.dimissAction?()
     }
 }
