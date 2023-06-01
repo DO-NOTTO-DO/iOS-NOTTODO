@@ -50,9 +50,9 @@ class DetailCalendarViewController: UIViewController {
 
 extension DetailCalendarViewController {
     
-    func requestParticualrDatesAPI(id: String) {
-        requestParticualrDatesAPI(id: id)
-    }
+//    func particualrDatesAPI(id: Int) {
+//        requestParticualrDatesAPI(id: id)
+//    }
     
     private func setUI() {
         view.backgroundColor = .black.withAlphaComponent(0.6)
@@ -210,10 +210,8 @@ extension DetailCalendarViewController {
     }
     func requestParticualrDatesAPI(id: Int) {
         HomeAPI.shared.particularMissionDates(id: id) { [weak self] response in
-            guard response != nil else { return}
             guard let dates = response.data else { return }
             self?.invalidDate = dates
-            print("✅\(self?.invalidDate)")
             self?.monthCalendar.calendar.reloadData()
         }
     }

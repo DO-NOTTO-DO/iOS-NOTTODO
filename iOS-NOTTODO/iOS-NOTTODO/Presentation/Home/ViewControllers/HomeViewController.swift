@@ -88,14 +88,12 @@ extension HomeViewController {
             $0.calendar.register(MissionCalendarCell.self, forCellReuseIdentifier: MissionCalendarCell.identifier)
             $0.todayButton.addTarget(self, action: #selector(todayBtnTapped), for: .touchUpInside)
         }
-        
         missionCollectionView.do {
             $0.backgroundColor = .bg
             $0.bounces = false
             $0.autoresizingMask = [.flexibleWidth, .flexibleHeight]
             $0.delegate = self
         }
-        
         addButton.do {
             $0.setImage(.addMission, for: .normal)
             $0.addTarget(self, action: #selector(addBtnTapped), for: .touchUpInside)
@@ -111,7 +109,6 @@ extension HomeViewController {
             $0.directionalHorizontalEdges.equalTo(safeArea)
             $0.height.equalTo(172)
         }
-        
         missionCollectionView.snp.makeConstraints {
             $0.top.equalTo(weekCalendar.snp.bottom)
             $0.directionalHorizontalEdges.equalTo(safeArea)
@@ -123,9 +120,7 @@ extension HomeViewController {
             $0.bottom.equalTo(safeArea).inset(20)
         }
     }
-    
-    // MARK: - Data
-    
+        
     private func setupDataSource() {
         dataSource = UICollectionViewDiffableDataSource<Sections, AnyHashable>(collectionView: missionCollectionView, cellProvider: { collectionView, indexPath, item in
             let section = self.dataSource.snapshot().sectionIdentifiers[indexPath.section]

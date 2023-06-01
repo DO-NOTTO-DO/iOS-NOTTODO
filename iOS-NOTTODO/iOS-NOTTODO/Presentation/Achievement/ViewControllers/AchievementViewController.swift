@@ -121,8 +121,6 @@ extension AchievementViewController: FSCalendarDelegate, FSCalendarDataSource, F
         
     }
         
-    
-    
     func calendar(_ calendar: FSCalendar, titleFor date: Date) -> String? {
         Utils.dateFormatterString(format: "dd", date: date)
     }
