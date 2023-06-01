@@ -108,7 +108,7 @@ extension AuthViewController {
             $0.leading.trailing.equalToSuperview()
             $0.bottom.equalTo(moreLabel.snp.top).offset(-14)
         }
-
+        
         kakaoLoginButtonView.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview()
             $0.bottom.equalTo(appleLoginButtonView.snp.top).offset(-11)
@@ -124,7 +124,7 @@ extension AuthViewController {
         kakaoLoginButton.snp.makeConstraints {
             $0.top.bottom.leading.trailing.equalTo(kakaoLoginButtonView)
         }
-
+        
         appleLoginButton.snp.makeConstraints {
             $0.top.bottom.leading.trailing.equalTo(appleLoginButtonView)
         }
@@ -137,6 +137,13 @@ extension AuthViewController {
             $0.centerY.trailing.equalToSuperview()
         }
         
+    }
+    
+    private func requestAuthAPI(social: String, socialToken: String, fcmToken: String, name: String, email: String) {
+        AuthAPI.shared.postAuth(social: social, socialToken: socialToken, fcmToken: fcmToken, name: name, email: email) { [weak self] result in
+            guard self != nil else { return }
+            guard result != nil else { return }
+        }
     }
     
     // MARK: - @objc Methods
@@ -165,37 +172,54 @@ extension AuthViewController {
 extension AuthViewController {
     
     func kakaoLoginWithApp() {
-        UserApi.shared.loginWithKakaoTalk {(_, error) in
+        UserApi.shared.loginWithKakaoTalk { (oauthToken, error) in
             if let error = error {
                 print(error)
             } else {
-                print("loginWithKakaoTalk() success.")
+                print("kakaoLoginWithApp() success.")
                 
-                UserApi.shared.me {(_, error) in
-                    if let error = error {
-                        print(error)
-                    } else {
-                        self.presentToHomeViewController()
-                    }
+                if let accessToken = oauthToken?.accessToken {
+                    UserDefaults.standard.set(accessToken, forKey: "KakaoAccessToken")
+                    
+                    self.getUserInfo()
                 }
             }
         }
     }
     
     func kakaoLoginWithAccount() {
-        UserApi.shared.loginWithKakaoAccount {(_, error) in
+        UserApi.shared.loginWithKakaoAccount { (oauthToken, error) in
             if let error = error {
                 print(error)
             } else {
-                print("loginWithKakaoAccount() success.")
+                print("kakaoLoginWithAccount() success.")
                 
-                UserApi.shared.me {(_, error) in
-                    if let error = error {
-                        print(error)
-                    } else {
-                        self.presentToHomeViewController()
-                    }
+                if let accessToken = oauthToken?.accessToken {
+                    UserDefaults.standard.set(accessToken, forKey: "KakaoAccessToken")
+                    
+                    self.getUserInfo()
                 }
+            }
+        }
+    }
+    
+    private func getUserInfo() {
+        UserApi.shared.me {(user, error) in
+            if let error = error {
+                print(error)
+            } else {
+                let name = user?.kakaoAccount?.name
+                let email = user?.kakaoAccount?.email
+                
+                UserDefaults.standard.set(name, forKey: "KakaoName")
+                UserDefaults.standard.set(email, forKey: "KakaoEmail")
+                UserDefaults.standard.set(false, forKey: "isAppleLogin")
+                
+                self.requestAuthAPI(social: "KAKAO",
+                               socialToken: UserDefaults.standard.string(forKey: "KakaoAccessToken") ?? "",
+                               fcmToken: "1", name: UserDefaults.standard.string(forKey: "KakaoName") ?? "익명의 도전자",
+                                    email: UserDefaults.standard.string(forKey: "KakaoEmail") ?? "연동된 이메일 정보가 없습니다")
+                self.presentToHomeViewController()
             }
         }
     }
@@ -207,9 +231,9 @@ extension AuthViewController {
     }
 }
 
+// MARK: - AppleSignIn
+
 extension AuthViewController: ASAuthorizationControllerDelegate, ASAuthorizationControllerPresentationContextProviding {
-    
-    // 로그인 진행하는 화면 표출
     func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
         return self.view.window!
     }
@@ -217,19 +241,28 @@ extension AuthViewController: ASAuthorizationControllerDelegate, ASAuthorization
     // Apple ID 연동 성공 시
     func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
         switch authorization.credential {
-            // Apple ID
         case let appleIDCredential as ASAuthorizationAppleIDCredential:
-            
             let userIdentifier = appleIDCredential.user
-            let fullName = appleIDCredential.fullName
             let email = appleIDCredential.email
+            let firstName = appleIDCredential.fullName?.givenName
+            let lastName = appleIDCredential.fullName?.familyName
             
-            print("User ID : \(userIdentifier)")
-            print("User Email : \(email ?? "")")
-            print("User Name : \((fullName?.givenName ?? "") + (fullName?.familyName ?? ""))")
+            if let email = email {
+                UserDefaults.standard.setValue(email, forKey: "AppleUserEmail")
+            }
             
+            if let firstName = firstName, let lastName = lastName {
+                let fullName = "\(lastName)\(firstName)"
+                UserDefaults.standard.setValue(fullName, forKey: "AppleUserName")
+            }
+            
+            UserDefaults.standard.setValue(userIdentifier, forKey: "AppleAccessToken")
+            UserDefaults.standard.set(true, forKey: "isAppleLogin")
+        
+            self.requestAuthAPI(social: "APPLE",
+                           socialToken: UserDefaults.standard.string(forKey: "AppleAccessToken") ?? "",
+                                fcmToken: "1", name: UserDefaults.standard.string(forKey: "AppleUserName") ?? "익명의 도전자", email: UserDefaults.standard.string(forKey: "AppleUserEmail") ?? "연동된 이메일 정보가 없습니다")
             self.presentToHomeViewController()
-            
         default:
             break
         }

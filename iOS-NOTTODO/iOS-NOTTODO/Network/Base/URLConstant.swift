@@ -15,7 +15,7 @@ struct URLConstant {
     
     // MARK: - Auth
     
-    static let auth = "/auth"
+    static let auth = "/auth/login"
     
     // MARK: - Achieve
     
