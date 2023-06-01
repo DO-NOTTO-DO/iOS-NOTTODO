@@ -104,9 +104,11 @@ extension SecondOnboardingViewController {
 
 extension SecondOnboardingViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.1) {
-            let viewController = ThirdOnboardingViewController()
-            self.navigationController?.pushViewController(viewController, animated: false)
+        let destinationViewController = ThirdOnboardingViewController()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            UIView.animate(withDuration: 0.01) {
+                self.navigationController?.pushViewController(destinationViewController, animated: false)
+            }
         }
     }
 }
