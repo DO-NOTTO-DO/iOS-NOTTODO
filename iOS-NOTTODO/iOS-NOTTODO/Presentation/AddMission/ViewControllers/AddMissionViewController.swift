@@ -11,6 +11,13 @@ import SnapKit
 import Then
 
 // 유저매니저에 isSE2 상태 저장해두고 갖다 쓰는건?
+enum FoldState {
+    case folded, unfolded
+    
+    mutating func toggle() {
+        self = (self == FoldState.folded) ? FoldState.unfolded : FoldState.folded
+    }
+}
 
 final class AddMissionViewController: UIViewController {
     
@@ -26,6 +33,9 @@ final class AddMissionViewController: UIViewController {
             setAddButtonUI()
         }
     }
+    private var foldStateList: [FoldState] = [.folded, .folded, .folded, .folded, .folded]
+    
+    private var heightList: [CGFloat] = [54, 54, 54, 54, 54]
     
     // MARK: - UI Components
     
@@ -34,6 +44,7 @@ final class AddMissionViewController: UIViewController {
     private let navigationTitle = UILabel()
     private let addButton = UIButton()
     private let separateView = UIView()
+    
     private lazy var addMissionCollectionView = UICollectionView(frame: .zero,
                                                                  collectionViewLayout: layout())
 
@@ -45,6 +56,7 @@ final class AddMissionViewController: UIViewController {
         setLayout()
         registerCell()
         setDelegate()
+        hideKeyboardWhenTappedAround()
     }
 }
 
@@ -154,11 +166,58 @@ private extension AddMissionViewController {
 
 extension AddMissionViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return foldStateList.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = makeCollectionCell(collectionView: collectionView, for: indexPath)
+        
+        guard var missionMenuCell = cell as? AddMissionMenu else {
+            return UICollectionViewCell()
+        }
+        
+        let currentFoldState = foldStateList[indexPath.row]
+        
+        missionMenuCell.missionCellHeight = { [weak self] height in
+            
+            self?.heightList[indexPath.row] = height
+            self?.addMissionCollectionView.collectionViewLayout.collectionView?.reloadItems(at: [indexPath])
+        }
+                
+        missionMenuCell.setFoldState(currentFoldState)
+
+        return cell
+    }
+}
+
+extension AddMissionViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let cellWidth: CGFloat = UIScreen.main.bounds.width - 40
+        let height = heightList[indexPath.row]
+
+        return CGSize(width: cellWidth, height: height)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        if kind == UICollectionView.elementKindSectionFooter {
+            guard let footer = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: AddMissionFooterCollectionReusableView.identifier, for: indexPath) as? AddMissionFooterCollectionReusableView else { return UICollectionReusableView() }
+            return footer
+        } else { return UICollectionReusableView() }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        addMissionCollectionView.scrollToItem(at: indexPath, at: .top, animated: true)
+        foldStateList[indexPath.row].toggle()
+        addMissionCollectionView.reloadData()
+    }
+}
+
+extension AddMissionViewController {
+    private func makeCollectionCell(collectionView: UICollectionView, for indexPath: IndexPath) -> UICollectionViewCell {
         switch indexPath.row {
+        case 0:
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DateCollectionViewCell.identifier, for: indexPath) as? DateCollectionViewCell else { return UICollectionViewCell() }
+            return cell
         case 1:
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NottodoCollectionViewCell.identifier, for: indexPath) as? NottodoCollectionViewCell else { return UICollectionViewCell() }
             return cell
@@ -172,27 +231,7 @@ extension AddMissionViewController: UICollectionViewDataSource {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: GoalCollectionViewCell.identifier, for: indexPath) as? GoalCollectionViewCell else { return UICollectionViewCell() }
             return cell
         default:
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DateCollectionViewCell.identifier, for: indexPath) as? DateCollectionViewCell else { return UICollectionViewCell() }
-            return cell
+            return UICollectionViewCell()
         }
-    }
-}
-
-extension AddMissionViewController: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let cellWidth: CGFloat = 345
-        switch indexPath.row {
-        case 3:
-            return CGSize(width: cellWidth, height: 307)
-        default:
-            return CGSize(width: cellWidth, height: 347)
-        }
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        if kind == UICollectionView.elementKindSectionFooter {
-            guard let footer = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: AddMissionFooterCollectionReusableView.identifier, for: indexPath) as? AddMissionFooterCollectionReusableView else { return UICollectionReusableView() }
-            return footer
-        } else { return UICollectionReusableView() }
     }
 }
