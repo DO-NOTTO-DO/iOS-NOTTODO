@@ -50,14 +50,14 @@ final class Utils {
             return selected ? .black : .white
         case .orderedDescending:
             print("\(date) is before \(today)")
-            return  .gray3
+            return  .gray4
         case .orderedAscending:
             print("\(date) is after \(today)")
             let sevenDays = Calendar.current.date(byAdding: .day, value: +6, to: Date())!
             if date < sevenDays {
                 return selected ? .black : .white
             }
-            return .gray3
+            return .gray4
         }
     }
     
