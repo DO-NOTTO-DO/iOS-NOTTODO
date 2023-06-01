@@ -15,7 +15,13 @@ class HomeViewController: UIViewController {
     
     // MARK: - Properties
     
-    private var missionList: [MissionListModel] = MissionListModel.items // 서버 통신 데이터 넣기
+    private var missionList: [DailyMissionResponseDTO] = []
+    private var selectedDate: Date? // 눌렀을 떄 date - dailymissionAPI 호출 시 사용
+    private var percentage: Float?
+    private var current: Date? // 스와이프했을 때 일요일 date 구하기 위함 - weeklyAPI 호출 시 사용
+    private var count: Int?
+    private var userId: Int = 0
+    var calendarDataSource: [String: Float] = [:]
     enum Sections: Int, Hashable {
         case mission, empty
     }
@@ -31,19 +37,42 @@ class HomeViewController: UIViewController {
     
     // MARK: - Life Cycle
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        dailyLoadData()
+        weeklyLoadData()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setUI()
         register()
         setLayout()
         setupDataSource()
-        reloadData()
     }
 }
 
 // MARK: - Methods
 
 extension HomeViewController {
+    
+    private func dailyLoadData() {
+        let todayString = Utils.dateFormatterString(format: nil, date: self.selectedDate ?? today)
+        requestDailyMissionAPI(date: todayString)
+    }
+    
+    private func weeklyLoadData() {
+        let sunday = getSunday(date: self.current ?? today)
+        requestWeeklyMissoinAPI(startDate: Utils.dateFormatterString(format: nil, date: sunday))
+    }
+    
+    func getSunday(date: Date) -> Date {
+        let cal = Calendar.current
+        var comps = cal.dateComponents([.weekOfYear, .yearForWeekOfYear], from: date)
+        comps.weekday = 1
+        let sundayInWeek = cal.date(from: comps)!
+        return sundayInWeek
+    }
     
     private func register() {
         missionCollectionView.register(MissionListCollectionViewCell.self, forCellWithReuseIdentifier: MissionListCollectionViewCell.identifier)
@@ -57,15 +86,14 @@ extension HomeViewController {
             $0.calendar.delegate = self
             $0.calendar.dataSource = self
             $0.calendar.register(MissionCalendarCell.self, forCellReuseIdentifier: MissionCalendarCell.identifier)
+            $0.todayButton.addTarget(self, action: #selector(todayBtnTapped), for: .touchUpInside)
         }
-        
         missionCollectionView.do {
             $0.backgroundColor = .bg
             $0.bounces = false
             $0.autoresizingMask = [.flexibleWidth, .flexibleHeight]
             $0.delegate = self
         }
-        
         addButton.do {
             $0.setImage(.addMission, for: .normal)
             $0.addTarget(self, action: #selector(addBtnTapped), for: .touchUpInside)
@@ -81,7 +109,6 @@ extension HomeViewController {
             $0.directionalHorizontalEdges.equalTo(safeArea)
             $0.height.equalTo(172)
         }
-        
         missionCollectionView.snp.makeConstraints {
             $0.top.equalTo(weekCalendar.snp.bottom)
             $0.directionalHorizontalEdges.equalTo(safeArea)
@@ -93,24 +120,22 @@ extension HomeViewController {
             $0.bottom.equalTo(safeArea).inset(20)
         }
     }
-    
-    // MARK: - Data
-    
+        
     private func setupDataSource() {
         dataSource = UICollectionViewDiffableDataSource<Sections, AnyHashable>(collectionView: missionCollectionView, cellProvider: { collectionView, indexPath, item in
             let section = self.dataSource.snapshot().sectionIdentifiers[indexPath.section]
             switch section {
             case .mission:
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MissionListCollectionViewCell.identifier, for: indexPath) as! MissionListCollectionViewCell
-                cell.configure(model: item as! MissionListModel )
-                cell.isTappedClosure = { result in
+                cell.configure(model: item as! DailyMissionResponseDTO )
+                cell.isTappedClosure = { result, id in
+                    self.userId = id
                     if result {
-                        switch  self.missionList[indexPath.item].completionStatus {
-                        case .CHECKED: self.missionList[indexPath.item].completionStatus = .UNCHECKED
-                        case .UNCHECKED: self.missionList[indexPath.item].completionStatus = .CHECKED
-                        }
+                        self.requestPatchUpdateMissionAPI(id: self.userId, status: CompletionStatus.UNCHECKED )
                         cell.setUI()
-                        self.reloadData()
+                    } else {
+                        self.requestPatchUpdateMissionAPI(id: self.userId, status: CompletionStatus.CHECKED )
+                        cell.setUI()
                     }
                 }
                 return cell
@@ -122,18 +147,43 @@ extension HomeViewController {
     }
     
     private func reloadData() {
-        var snapShot = NSDiffableDataSourceSnapshot<Sections, AnyHashable>()
+        var snapshot = NSDiffableDataSourceSnapshot<Sections, AnyHashable>()
         defer {
-            dataSource.apply(snapShot, animatingDifferences: false)
+            dataSource.apply(snapshot, animatingDifferences: false)
         }
-        
+        snapshot.appendSections([.empty])
+        snapshot.appendItems([0], toSection: .empty)
+        dataSource.apply(snapshot, animatingDifferences: true)
+    }
+    
+    private func updateData() {
+        var snapshot = dataSource.snapshot()
         if missionList.isEmpty {
-            snapShot.appendSections([.empty])
-            snapShot.appendItems([0], toSection: .empty)
+            if snapshot.sectionIdentifiers.contains(.mission) {
+                snapshot.deleteSections([.mission])
+                snapshot.appendSections([.empty])
+                snapshot.appendItems([0], toSection: .empty)
+            } else if snapshot.sectionIdentifiers.contains(.empty) {
+                
+            } else {
+                snapshot.appendSections([.empty])
+                snapshot.appendItems([0], toSection: .empty)
+            }
         } else {
-            snapShot.appendSections([.mission])
-            snapShot.appendItems(missionList, toSection: .mission)
+            if snapshot.sectionIdentifiers.contains(.empty) {
+                snapshot.deleteSections([.empty])
+                snapshot.appendSections([.mission])
+                snapshot.appendItems(missionList, toSection: .mission)
+                
+            } else if snapshot.sectionIdentifiers.contains(.mission) {
+                snapshot.deleteItems(snapshot.itemIdentifiers(inSection: .mission))
+                snapshot.appendItems(missionList, toSection: .mission)
+            } else {
+                snapshot.appendSections([.mission])
+                snapshot.appendItems(missionList, toSection: .mission)
+            }
         }
+        dataSource.apply(snapshot)
     }
     
     // MARK: - Layout
@@ -156,15 +206,21 @@ extension HomeViewController {
                 return layoutSection
                 
             case .empty:
-                return CompositionalLayout._vertical(.fractionalWidth(1), .fractionalHeight(1), .fractionalWidth(1), .fractionalHeight(1), count: 1, edge: nil)
+                return CompositionalLayout._vertical(.fractionalWidth(1), .fractionalWidth(1), .fractionalWidth(1), .fractionalWidth(1), count: 1, edge: nil)
             }
         }
         return layout
     }
     
     private func makeSwipeActions(for indexPath: IndexPath?) -> UISwipeActionsConfiguration? {
-        let deleteAction = UIContextualAction(style: .normal, title: "") { _, _, completion in
-            print("delete")
+        let deleteAction = UIContextualAction(style: .normal, title: "") { [unowned self] _, _, completion in
+            guard let index = indexPath?.item else { return }
+            requestDeleteMission(index: index)
+            
+            var snapshot = self.dataSource.snapshot()
+            snapshot.deleteItems([self.missionList])
+            snapshot.reloadSections([.mission])
+            self.dataSource.apply(snapshot, animatingDifferences: true)
             completion(true)
         }
         
@@ -173,37 +229,55 @@ extension HomeViewController {
             completionHandler(true)
         }
         
-        deleteAction.backgroundColor = .ntdBlue
-        modifyAction.backgroundColor = .ntdRed
-        
+        deleteAction.backgroundColor = .ntdRed
+        modifyAction.backgroundColor = .ntdBlue
         deleteAction.image = .icTrash
         modifyAction.image = .icFix
         
-        let swipeConfiguration = UISwipeActionsConfiguration(actions: [modifyAction, deleteAction])
+        let swipeConfiguration = UISwipeActionsConfiguration(actions: [deleteAction, modifyAction])
         swipeConfiguration.performsFirstActionWithFullSwipe = false
-        
+
         return swipeConfiguration
     }
 }
+
 extension HomeViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let modalViewController = MissionDetailViewController()
-        modalViewController.modalPresentationStyle = .overFullScreen
-        modalViewController.detailModel = MissionDetailModel.items[missionList[indexPath.item].id - 1] // id 값
-        // 서버 : missionList[indexPath.item].id
-        self.present(modalViewController, animated: true)
+        if !missionList.isEmpty {
+            let modalViewController = MissionDetailViewController()
+            modalViewController.modalPresentationStyle = .overFullScreen
+            modalViewController.userId = missionList[indexPath.item].id
+            modalViewController.deleteClosure = { [weak self] in
+                self?.dailyLoadData()
+                self?.weeklyLoadData()
+                self?.updateData()
+            }
+            self.present(modalViewController, animated: true)
+        }
     }
 }
 
 extension HomeViewController {
     @objc
     func addBtnTapped(_sender: UIButton) {
-        print("add button Tapped")
+        Utils.push(navigationController, AddMissionViewController())
+    }
+    
+    @objc
+    func todayBtnTapped(_sender: UIButton) {
+        weekCalendar.calendar.select(today)
+        weekCalendar.yearMonthLabel.text = Utils.dateFormatterString(format: I18N.yearMonthTitle, date: today)
+        requestDailyMissionAPI(date: Utils.dateFormatterString(format: nil, date: today))
     }
 }
+
 extension HomeViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalendarDelegateAppearance {
     func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
         weekCalendar.yearMonthLabel.text = Utils.dateFormatterString(format: I18N.yearMonthTitle, date: calendar.currentPage)
+        print(calendar.currentPage)
+        self.current = calendar.currentPage
+        let sunday = getSunday(date: calendar.currentPage)
+        requestWeeklyMissoinAPI(startDate: Utils.dateFormatterString(format: nil, date: sunday))
     }
     
     func  calendar(_ calendar: FSCalendar, titleFor date: Date) -> String? {
@@ -215,14 +289,111 @@ extension HomeViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalend
     }
     
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
+        self.selectedDate = date
         weekCalendar.yearMonthLabel.text = Utils.dateFormatterString(format: I18N.yearMonthTitle, date: date)
-//        if let dateString =  Utils.dateFormatterString(format: "yyyy-MM-dd", date: date) {
-//            print(dateString)
-//        }
+        requestDailyMissionAPI(date: Utils.dateFormatterString(format: nil, date: date))
     }
+    
+    func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, subtitleSelectionColorFor date: Date) -> UIColor? {
+        guard let count = self.count else { return .white }
+        let dateString = Utils.dateFormatterString(format: nil, date: date)
+        if let percentage = self.calendarDataSource[dateString] {
+            switch (count, percentage) {
+            case (_, 1.0): return .black
+            default: return .white
+            }
+        }
+        return .white
+    }
+    
+    func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, subtitleDefaultColorFor date: Date) -> UIColor? {
+        guard let count = self.count else { return .white }
+        let dateString = Utils.dateFormatterString(format: nil, date: date)
+        if let percentage = self.calendarDataSource[dateString] {
+            switch (count, percentage) {
+            case (_, 1.0): return .black
+            default: return .white
+            }
+        }
+        return .white
+    }
+    
     func calendar(_ calendar: FSCalendar, cellFor date: Date, at position: FSCalendarMonthPosition) -> FSCalendarCell {
         let cell = calendar.dequeueReusableCell(withIdentifier: MissionCalendarCell.identifier, for: date, at: position) as! MissionCalendarCell
-        cell.configure(.rateHalf, .week)
+        guard let count = self.count else { return cell }
+        let dateString = Utils.dateFormatterString(format: nil, date: date)
+        if let percentage = self.calendarDataSource[dateString] {
+            switch (count, percentage) {
+            case (_, 1.0): cell.configure(.rateFull, .week)
+            case (_, 0.0): cell.configure(.none, .week)
+            case (2, 0.5), (3, 0.0..<1.0), (_, _): cell.configure(.rateHalf, .week)
+            }
+        }
         return cell
+    }
+}
+
+extension HomeViewController {
+    func requestDailyMissionAPI(date: String) {
+        HomeAPI.shared.getDailyMission(date: date) { [weak self] result in
+            switch result {
+            case let .success(data):
+                guard let data = data as? [DailyMissionResponseDTO] else {return}
+                self?.missionList = []
+                if !data.isEmpty {
+                    for item in data {
+                        self?.missionList = data
+                        self?.userId = item.id
+                    }
+                }
+                self?.updateData()
+            case .pathErr: print("pathErr")
+            case .serverErr: print("serverErr")
+            case .networkFail: print("networkFail")
+            case .requestErr: print("networkFail")
+            }
+        }
+    }
+    
+    private func requestWeeklyMissoinAPI(startDate: String) {
+        HomeAPI.shared.getWeeklyMissoin(startDate: startDate) { result in
+            switch result {
+            case let .success(data):
+                guard let data = data as? [WeekMissionResponseDTO] else { return }
+                self.calendarDataSource = [:]
+                for item in data {
+                    self.calendarDataSource[item.actionDate] = item.percentage
+                    self.count = self.calendarDataSource.count
+                }
+                self.weekCalendar.calendar.reloadData()
+            case .requestErr: print("requestErr")
+            case .pathErr: print("pathErr")
+            case .serverErr: print("serverErr")
+            case .networkFail: print("networkFail")
+            }
+        }
+    }
+    
+    private func requestPatchUpdateMissionAPI(id: Int, status: CompletionStatus) {
+        HomeAPI.shared.patchUpdateMissionStatus(id: id, status: status.rawValue) { [weak self] result in
+            guard let result = result else { return }
+            for index in 0..<(self?.missionList.count ?? 0) {
+                if self?.missionList[index].id == id {
+                    guard let data = result.data else { return }
+                    self?.missionList[index] = data
+                    self?.weeklyLoadData()
+                    self?.updateData()
+                } else {}
+            }
+        }
+    }
+    
+    private func requestDeleteMission(index: Int) {
+        let id = self.missionList[index].id
+        HomeAPI.shared.deleteMission(id: id) { [weak self] _ in
+            self?.dailyLoadData()
+            self?.weeklyLoadData()
+            self?.updateData()
+        }
     }
 }

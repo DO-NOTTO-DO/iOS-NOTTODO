@@ -126,7 +126,7 @@ struct I18N {
     static let dailyPageControl = "나의 일상"
     static let usePageControl = "사용 방법"
     static let actionOnboarding = "실천 방법"
-    
+
     /// Modal
     static let quitModalTitle = """
                               정말 낫투두와의 도전을
@@ -146,4 +146,7 @@ struct I18N {
                                      """
     static let surveyButton = "이런 점이 아쉬웠어요.."
     static let cancel = "취소"
+
+    /// home
+    static let subText = "*달성 가능한 계획을 위해 다가올 일주일만 선택할 수 있어요"
 }

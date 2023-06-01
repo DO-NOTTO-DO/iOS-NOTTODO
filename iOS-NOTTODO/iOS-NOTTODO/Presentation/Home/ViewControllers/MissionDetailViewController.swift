@@ -14,13 +14,16 @@ class MissionDetailViewController: UIViewController {
     
     // MARK: - Properties
     
+    var deleteClosure: (() -> Void)?
+
     private lazy var safeArea = self.view.safeAreaLayoutGuide
     enum Section {
         case mission
     }
     typealias Item = AnyHashable
     var dataSource: UICollectionViewDiffableDataSource<Section, Item>! = nil
-    var detailModel: MissionDetailModel?
+    var detailModel: [MissionDetailResponseDTO] = []
+    var userId: Int?
     
     // MARK: - UI Components
     
@@ -31,7 +34,11 @@ class MissionDetailViewController: UIViewController {
     private let completeButton = UIButton()
     
     // MARK: - Life Cycle
-    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        guard let id = self.userId else { return }
+        requestDailyMissionAPI(id: id)
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         register()
@@ -90,7 +97,7 @@ extension MissionDetailViewController {
     private func setupDataSource() {
         dataSource = UICollectionViewDiffableDataSource<Section, Item>(collectionView: collectionView, cellProvider: { collectionView, indexPath, item in
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MissionDetailCollectionViewCell.identifier, for: indexPath) as? MissionDetailCollectionViewCell else {return UICollectionViewCell()}
-            cell.configure(model: item as! MissionDetailModel)
+            cell.configure(model: item as! MissionDetailResponseDTO)
             return cell
         })
     }
@@ -101,7 +108,7 @@ extension MissionDetailViewController {
             dataSource.apply(snapShot, animatingDifferences: false)
         }
         snapShot.appendSections([.mission])
-        snapShot.appendItems([detailModel], toSection: .mission)
+        snapShot.appendItems(detailModel, toSection: .mission)
         
         dataSource.supplementaryViewProvider = { (collectionView, kind, indexPath) in
             if kind == UICollectionView.elementKindSectionHeader {
@@ -117,13 +124,18 @@ extension MissionDetailViewController {
             } else {
                 guard let footer = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: DetailFooterReusableView.identifier, for: indexPath) as? DetailFooterReusableView else { return UICollectionReusableView() }
                 footer.footerClosure = {
-                    Utils.modal(self, DetailCalendarViewController(), .overFullScreen)
+                    let modalViewController = DetailCalendarViewController()
+                    modalViewController.modalPresentationStyle = .overFullScreen
+                    guard let id = self.userId else {return}
+                    modalViewController.userId = id
+                    self.present(modalViewController, animated: false)
                     print("tapped")
                 }
                 return footer
             }
         }
     }
+    
     private func layout() -> UICollectionViewCompositionalLayout {
         var config = UICollectionLayoutListConfiguration(appearance: .plain)
         config.showsSeparators = false
@@ -136,10 +148,48 @@ extension MissionDetailViewController {
 extension MissionDetailViewController {
     @objc
     func deleteBtnTapped() {
-        print("Deletetapped")
+        guard let id = userId else { return }
+        requestDeleteMission(id: id)
     }
     @objc
     func completeBtnTapped(sender: UIButton) {
         print("완료")
+    }
+}
+extension MissionDetailViewController {
+    func requestDailyMissionAPI(id: Int) {
+        HomeAPI.shared.getDailyDetailMission(id: id) { [weak self] result in
+            switch result {
+            case let .success(data):
+                if let missionData = data as? MissionDetailResponseDTO {
+                    print("data: \(missionData)")
+                    self?.detailModel = [missionData]
+                    self?.reloadData()
+                    print(missionData)
+                } else {
+                    print("Failed to cast data to MissionDetailResponseDTO")
+                }
+            case .pathErr:
+                print("pathErr")
+            case .serverErr:
+                print("serverErr")
+            case .networkFail:
+                print("networkFail")
+            case .requestErr:
+                print("networkFail")
+            }
+        }
+    }
+    private func requestDeleteMission(id: Int) {
+        HomeAPI.shared.deleteMission(id: id) { [weak self] _ in
+            for index in 0..<(self?.detailModel.count ?? 0) {
+                if self?.detailModel[index].id == id {
+                    self?.deleteClosure?()
+                    self?.reloadData()
+                    self?.dismiss(animated: true)
+
+                } else {}
+            }
+        }
     }
 }

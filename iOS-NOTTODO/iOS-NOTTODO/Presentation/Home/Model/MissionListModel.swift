@@ -18,7 +18,6 @@ extension MissionListModel {
                                              MissionListModel(id: 2, title: "아침", situation: "공복에 커피 마시지 않기", completionStatus: .UNCHECKED),
                                              MissionListModel(id: 3, title: "출근 시간", situation: "아침 거르지 않기", completionStatus: .UNCHECKED)
     ]
-//    static let items: [MissionListModel] = []
 }
 
 struct MissionDetailModel: Hashable {
