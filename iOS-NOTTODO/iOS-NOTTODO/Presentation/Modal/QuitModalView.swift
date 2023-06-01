@@ -21,12 +21,6 @@ final class QuitModalView: UIView {
 
     // MARK: - View Life Cycle
     
-//    init(title: String, isHidden: Bool) {
-//        super.init(frame: .zero)
-//        setUI(title: title, isHidden: isHidden)
-//        setLayout(isHidden: isHidden)
-//    }
-    
     init() {
         super.init(frame: .zero)
         setUI()
