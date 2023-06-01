@@ -101,4 +101,9 @@ extension UIImage {
     static var splashArrow: UIImage { UIImage(named: "splash_arrow")! }
     static var splashBack: UIImage { UIImage(named: "splash_create_back")! }
     static var logo: UIImage { UIImage(named: "logo")! }
+    
+    // modal
+    
+    static var quit1: UIImage { UIImage(named: "img_quit1")! }
+    static var quit2: UIImage { UIImage(named: "img_quit2")! }
 }

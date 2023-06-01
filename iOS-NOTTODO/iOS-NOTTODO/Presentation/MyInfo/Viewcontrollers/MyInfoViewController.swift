@@ -136,6 +136,9 @@ extension MyInfoViewController {
 extension MyInfoViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         switch indexPath.section {
+        case 0:
+            let nextViewController = MyInfoAccountViewController()
+            navigationController?.pushViewController(nextViewController, animated: true)
         case 1:
             switch indexPath.item {
             case 0:
