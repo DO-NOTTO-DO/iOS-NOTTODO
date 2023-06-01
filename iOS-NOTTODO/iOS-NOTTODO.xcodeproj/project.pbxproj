@@ -119,14 +119,16 @@
 		6CA208272A18FFCF001C4247 /* RecommendResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA208262A18FFCF001C4247 /* RecommendResponseDTO.swift */; };
 		6CA208292A191185001C4247 /* UIImageView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA208282A191185001C4247 /* UIImageView+.swift */; };
 		6CA2082C2A19122A001C4247 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 6CA2082B2A19122A001C4247 /* Kingfisher */; };
-		6CA208342A1956ED001C4247 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA208332A1956ED001C4247 /* AuthService.swift */; };
-		6CA208362A1957CA001C4247 /* AuthAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA208352A1957CA001C4247 /* AuthAPI.swift */; };
-		6CA2083A2A195906001C4247 /* AuthResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA208392A195906001C4247 /* AuthResponseDTO.swift */; };
 		6CA2082E2A1924CC001C4247 /* RecommendActionAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA2082D2A1924CC001C4247 /* RecommendActionAPI.swift */; };
 		6CA208302A1925EE001C4247 /* RecommendActionResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA2082F2A1925EE001C4247 /* RecommendActionResponseDTO.swift */; };
 		6CA208322A192601001C4247 /* RecommendActionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA208312A192601001C4247 /* RecommendActionService.swift */; };
+		6CA208342A1956ED001C4247 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA208332A1956ED001C4247 /* AuthService.swift */; };
+		6CA208362A1957CA001C4247 /* AuthAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA208352A1957CA001C4247 /* AuthAPI.swift */; };
+		6CA2083A2A195906001C4247 /* AuthResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA208392A195906001C4247 /* AuthResponseDTO.swift */; };
 		6CA2B7BB2A222D2300A9E549 /* ValueOnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA2B7BA2A222D2300A9E549 /* ValueOnboardingViewController.swift */; };
 		6CA2B7BD2A222E8500A9E549 /* FirstOnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA2B7BC2A222E8500A9E549 /* FirstOnboardingViewController.swift */; };
+		6CC54C1A2A28C3AE00AAD76D /* value.json in Resources */ = {isa = PBXBuildFile; fileRef = 6CC54C192A28C3AE00AAD76D /* value.json */; };
+		6CC54C1C2A28C3B800AAD76D /* logo.json in Resources */ = {isa = PBXBuildFile; fileRef = 6CC54C1B2A28C3B800AAD76D /* logo.json */; };
 		6CD4F8BA29AA493600CCC740 /* RecommendActionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CD4F8B929AA493600CCC740 /* RecommendActionHeaderView.swift */; };
 		6CD4F8BC29AA494300CCC740 /* RecommendActionFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CD4F8BB29AA494300CCC740 /* RecommendActionFooterView.swift */; };
 		6CD4F8BE29AA495900CCC740 /* RecommendActionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CD4F8BD29AA495900CCC740 /* RecommendActionCollectionViewCell.swift */; };
@@ -250,11 +252,13 @@
 		6CA2082D2A1924CC001C4247 /* RecommendActionAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendActionAPI.swift; sourceTree = "<group>"; };
 		6CA2082F2A1925EE001C4247 /* RecommendActionResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendActionResponseDTO.swift; sourceTree = "<group>"; };
 		6CA208312A192601001C4247 /* RecommendActionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendActionService.swift; sourceTree = "<group>"; };
-		6CA2B7BA2A222D2300A9E549 /* ValueOnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValueOnboardingViewController.swift; sourceTree = "<group>"; };
-		6CA2B7BC2A222E8500A9E549 /* FirstOnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstOnboardingViewController.swift; sourceTree = "<group>"; };
 		6CA208332A1956ED001C4247 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		6CA208352A1957CA001C4247 /* AuthAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthAPI.swift; sourceTree = "<group>"; };
 		6CA208392A195906001C4247 /* AuthResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthResponseDTO.swift; sourceTree = "<group>"; };
+		6CA2B7BA2A222D2300A9E549 /* ValueOnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValueOnboardingViewController.swift; sourceTree = "<group>"; };
+		6CA2B7BC2A222E8500A9E549 /* FirstOnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstOnboardingViewController.swift; sourceTree = "<group>"; };
+		6CC54C192A28C3AE00AAD76D /* value.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = value.json; sourceTree = "<group>"; };
+		6CC54C1B2A28C3B800AAD76D /* logo.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = logo.json; sourceTree = "<group>"; };
 		6CD4F8B929AA493600CCC740 /* RecommendActionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendActionHeaderView.swift; sourceTree = "<group>"; };
 		6CD4F8BB29AA494300CCC740 /* RecommendActionFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendActionFooterView.swift; sourceTree = "<group>"; };
 		6CD4F8BD29AA495900CCC740 /* RecommendActionCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendActionCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -803,6 +807,8 @@
 		6C9628AA2A2220E2003ADE25 /* Lottie */ = {
 			isa = PBXGroup;
 			children = (
+				6CC54C1B2A28C3B800AAD76D /* logo.json */,
+				6CC54C192A28C3AE00AAD76D /* value.json */,
 			);
 			path = Lottie;
 			sourceTree = "<group>";
@@ -1024,9 +1030,11 @@
 			files = (
 				3B027AAC299C35E500BEB65C /* Colors.xcassets in Resources */,
 				3B4E12FA2A27C4DD001D1EC1 /* Pretendard-Bold.otf in Resources */,
+				6CC54C1C2A28C3B800AAD76D /* logo.json in Resources */,
 				3B146D9C299D07D500B17B62 /* Pretendard-Regular.otf in Resources */,
 				3B146D9E299D081400B17B62 /* Pretendard-SemiBold.otf in Resources */,
 				3B027A84299C31B600BEB65C /* LaunchScreen.storyboard in Resources */,
+				6CC54C1A2A28C3AE00AAD76D /* value.json in Resources */,
 				3B027A81299C31B600BEB65C /* Assets.xcassets in Resources */,
 				3B146D9A299D079D00B17B62 /* Pretendard-Light.otf in Resources */,
 				3B146D98299D077800B17B62 /* Pretendard-Medium.otf in Resources */,
