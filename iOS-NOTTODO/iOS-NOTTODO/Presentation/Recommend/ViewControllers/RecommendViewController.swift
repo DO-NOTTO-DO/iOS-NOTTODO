@@ -143,7 +143,7 @@ private extension RecommendViewController {
     @objc
     private func buttonTapped() {
         let nextViewController = AddMissionViewController()
-        navigationController?.pushViewController(nextViewController, animated: false)
+        navigationController?.pushViewController(nextViewController, animated: true)
     }
 }
 
