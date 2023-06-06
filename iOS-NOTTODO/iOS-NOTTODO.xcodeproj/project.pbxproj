@@ -21,6 +21,7 @@
 		09582B4D29BE277800EF3207 /* DetailHeaderReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09582B4C29BE277800EF3207 /* DetailHeaderReusableView.swift */; };
 		09582B4F29BEBAFA00EF3207 /* DetailCalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09582B4E29BEBAFA00EF3207 /* DetailCalendarViewController.swift */; };
 		09582B5129C0BC3600EF3207 /* DetailAchievementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09582B5029C0BC3600EF3207 /* DetailAchievementViewController.swift */; };
+		097568362A2FEF630001EC46 /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097568352A2FEF3F0001EC46 /* String+.swift */; };
 		097C003629AB8270008CAEF3 /* MissionListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097C003529AB8270008CAEF3 /* MissionListCollectionViewCell.swift */; };
 		0982DE5429ADCCE000D933D2 /* HomeEmptyCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0982DE5329ADCCE000D933D2 /* HomeEmptyCollectionViewCell.swift */; };
 		0982DE5829AE40FB00D933D2 /* UITabBar+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0982DE5729AE40FB00D933D2 /* UITabBar+.swift */; };
@@ -165,6 +166,7 @@
 		09582B4C29BE277800EF3207 /* DetailHeaderReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailHeaderReusableView.swift; sourceTree = "<group>"; };
 		09582B4E29BEBAFA00EF3207 /* DetailCalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailCalendarViewController.swift; sourceTree = "<group>"; };
 		09582B5029C0BC3600EF3207 /* DetailAchievementViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailAchievementViewController.swift; sourceTree = "<group>"; };
+		097568352A2FEF3F0001EC46 /* String+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+.swift"; sourceTree = "<group>"; };
 		097C003529AB8270008CAEF3 /* MissionListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionListCollectionViewCell.swift; sourceTree = "<group>"; };
 		0982DE5329ADCCE000D933D2 /* HomeEmptyCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeEmptyCollectionViewCell.swift; sourceTree = "<group>"; };
 		0982DE5729AE40FB00D933D2 /* UITabBar+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITabBar+.swift"; sourceTree = "<group>"; };
@@ -565,6 +567,7 @@
 				0982DE5729AE40FB00D933D2 /* UITabBar+.swift */,
 				3BC19A9229CA1CA800C02803 /* UICollectionViewCell+.swift */,
 				6CA208282A191185001C4247 /* UIImageView+.swift */,
+				097568352A2FEF3F0001EC46 /* String+.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1158,6 +1161,7 @@
 				093DB03B2A15F6E700ECA5F6 /* AchieveService.swift in Sources */,
 				3B027A92299C33FE00BEB65C /* UIColor+.swift in Sources */,
 				3B027AA4299C357000BEB65C /* MyInfoViewController.swift in Sources */,
+				097568362A2FEF630001EC46 /* String+.swift in Sources */,
 				6CA2B7BB2A222D2300A9E549 /* ValueOnboardingViewController.swift in Sources */,
 				3B5F8F8129BF90190063A7F8 /* NottodoCollectionViewCell.swift in Sources */,
 				3B027A94299C340600BEB65C /* UIFont+.swift in Sources */,
