@@ -334,6 +334,10 @@
 		093DB02B2A14687300ECA5F6 /* API */ = {
 			isa = PBXGroup;
 			children = (
+				3B892AB52A2FB69200A316BC /* Auth */,
+				3B892AB22A2FB67000A316BC /* Recommend */,
+				093DB0382A15F6CE00ECA5F6 /* AchieveAPI.swift */,
+				09DCCD222A18EFB0003DCF8A /* HomeAPI.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -341,6 +345,13 @@
 		093DB02F2A1468CE00ECA5F6 /* DataModel */ = {
 			isa = PBXGroup;
 			children = (
+				3B892AB42A2FB68700A316BC /* Auth */,
+				3B892AB12A2FB66100A316BC /* Recommend */,
+				09A1465E2A192C4900DDC308 /* WeekMissionResponseDTO.swift */,
+				09A146642A19649A00DDC308 /* AddAnotherDayResponseDTO.swift */,
+				09DCCD1E2A18ED76003DCF8A /* DailyMissionResponseDTO.swift */,
+				093DB03E2A15FCC100ECA5F6 /* MissionDetailResponseDTO.swift */,
+				093DB03C2A15FC7800ECA5F6 /* AchieveCalendarResponseDTO.swift */,
 			);
 			path = DataModel;
 			sourceTree = "<group>";
@@ -348,6 +359,10 @@
 		093DB0312A1468F100ECA5F6 /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				3B892AB32A2FB67B00A316BC /* Auth */,
+				3B892AB02A2FB63E00A316BC /* Recommend */,
+				09DCCD202A18EF43003DCF8A /* HomeSevice.swift */,
+				093DB03A2A15F6E700ECA5F6 /* AchieveService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -762,6 +777,57 @@
 			path = AddMissionLabel;
 			sourceTree = "<group>";
 		};
+		3B892AB02A2FB63E00A316BC /* Recommend */ = {
+			isa = PBXGroup;
+			children = (
+				6CA208242A18FEEA001C4247 /* RecommendService.swift */,
+				6CA208312A192601001C4247 /* RecommendActionService.swift */,
+			);
+			path = Recommend;
+			sourceTree = "<group>";
+		};
+		3B892AB12A2FB66100A316BC /* Recommend */ = {
+			isa = PBXGroup;
+			children = (
+				6CA208262A18FFCF001C4247 /* RecommendResponseDTO.swift */,
+				6CA2082F2A1925EE001C4247 /* RecommendActionResponseDTO.swift */,
+			);
+			path = Recommend;
+			sourceTree = "<group>";
+		};
+		3B892AB22A2FB67000A316BC /* Recommend */ = {
+			isa = PBXGroup;
+			children = (
+				6CA208222A18FE78001C4247 /* RecommendAPI.swift */,
+				6CA2082D2A1924CC001C4247 /* RecommendActionAPI.swift */,
+			);
+			path = Recommend;
+			sourceTree = "<group>";
+		};
+		3B892AB32A2FB67B00A316BC /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				6CA208332A1956ED001C4247 /* AuthService.swift */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
+		3B892AB42A2FB68700A316BC /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				6CA208392A195906001C4247 /* AuthResponseDTO.swift */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
+		3B892AB52A2FB69200A316BC /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				6CA208352A1957CA001C4247 /* AuthAPI.swift */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
 		3B9532F22A284CAD006510F8 /* Protocol */ = {
 			isa = PBXGroup;
 			children = (
@@ -858,24 +924,6 @@
 				6CF4706029A69096008D145C /* NetworkConstant.swift */,
 				6CF4706229A690CD008D145C /* NetworkResult.swift */,
 				6CF4706429A690E5008D145C /* NetworkBase.swift */,
-				093DB0382A15F6CE00ECA5F6 /* AchieveAPI.swift */,
-				09A1465E2A192C4900DDC308 /* WeekMissionResponseDTO.swift */,
-				09A146642A19649A00DDC308 /* AddAnotherDayResponseDTO.swift */,
-				09DCCD1E2A18ED76003DCF8A /* DailyMissionResponseDTO.swift */,
-				09DCCD202A18EF43003DCF8A /* HomeSevice.swift */,
-				09DCCD222A18EFB0003DCF8A /* HomeAPI.swift */,
-				093DB03E2A15FCC100ECA5F6 /* MissionDetailResponseDTO.swift */,
-				093DB03C2A15FC7800ECA5F6 /* AchieveCalendarResponseDTO.swift */,
-				093DB03A2A15F6E700ECA5F6 /* AchieveService.swift */,
-				6CA208222A18FE78001C4247 /* RecommendAPI.swift */,
-				6CA208242A18FEEA001C4247 /* RecommendService.swift */,
-				6CA208262A18FFCF001C4247 /* RecommendResponseDTO.swift */,
-				6CA2082D2A1924CC001C4247 /* RecommendActionAPI.swift */,
-				6CA2082F2A1925EE001C4247 /* RecommendActionResponseDTO.swift */,
-				6CA208312A192601001C4247 /* RecommendActionService.swift */,
-				6CA208332A1956ED001C4247 /* AuthService.swift */,
-				6CA208352A1957CA001C4247 /* AuthAPI.swift */,
-				6CA208392A195906001C4247 /* AuthResponseDTO.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
