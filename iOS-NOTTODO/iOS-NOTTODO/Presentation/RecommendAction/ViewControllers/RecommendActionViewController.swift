@@ -44,6 +44,16 @@ class RecommendActionViewController: UIViewController {
     }
 }
 
+// MARK: - @objc
+// 데이터 넘겨주는 코드 추가 필요
+extension RecommendActionViewController {
+    @objc
+    private func pushToAddMission() {
+        let nextViewController = AddMissionViewController()
+        navigationController?.pushViewController(nextViewController, animated: true)
+    }
+}
+
 // MARK: - Methods
 
 private extension RecommendActionViewController {
@@ -75,6 +85,7 @@ private extension RecommendActionViewController {
             $0.setTitleColor(.gray1, for: .normal)
             $0.titleLabel?.font = .Pretendard(.semiBold, size: 17.18) // 수정 필요
             $0.backgroundColor = .white
+            $0.addTarget(self, action: #selector(pushToAddMission), for: .touchUpInside)
         }
     }
     
@@ -201,6 +212,10 @@ extension RecommendActionViewController: UICollectionViewDataSource {
             return headerView
         } else {
             guard let footerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: RecommendActionFooterView.identifier, for: indexPath) as? RecommendActionFooterView else { return UICollectionReusableView() }
+            footerView.clickedNextButton = { [weak self] in
+                let nextViewContoller = AddMissionViewController()
+                self?.navigationController?.pushViewController(nextViewContoller, animated: true)
+            }
             return footerView
         }
     }
