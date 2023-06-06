@@ -20,6 +20,7 @@ class DetailCalendarViewController: UIViewController {
     var dataSource: [String: Float] = [:]
     var userId: Int?
     var count: Int?
+    var movedateClosure: ((_ date: String) -> Void)?
     private lazy var safeArea = self.view.safeAreaLayoutGuide
     private lazy var today: Date = { return Date() }()
     
@@ -134,7 +135,6 @@ extension DetailCalendarViewController {
             requestAddAnotherDay(id: id, dates: anotherDate)
         }
         view.alpha = 0
-        self.dismiss(animated: true)
     }
 }
 
@@ -155,16 +155,13 @@ extension DetailCalendarViewController: FSCalendarDelegate, FSCalendarDataSource
             let nextDay = Calendar.current.date(byAdding: .day, value: 1, to: currentDate)
             currentDate = Calendar.current.startOfDay(for: nextDay!)
         }
-        let dateFormatter = DateFormatter()
-        
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        
-        let formattedDatesArray = datesArray.map { dateFormatter.string(from: $0) }
-        let arrayKeys = Array(dataSource.keys)
-        let formattedDate = Utils.dateFormatterString(format: nil, date: date)
-        
-        return (!formattedDatesArray.contains(formattedDate) || !arrayKeys.contains(formattedDate)) && Utils.calendarSelected(today: today, date: date)
+
+        let formattedDatesArray = datesArray.map { Utils.dateFormatterString(format: "yyyy.MM.dd", date: $0) }
+        let formattedDate = Utils.dateFormatterString(format: "yyyy.MM.dd", date: date)
+    
+        return (!formattedDatesArray.contains(formattedDate) || !invalidDate.contains(formattedDate)) && Utils.calendarSelected(today: today, date: date)
     }
+    
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         let selectedDateString = Utils.dateFormatterString(format: "YYYY.MM.dd", date: date)
         
@@ -206,6 +203,16 @@ extension DetailCalendarViewController {
         HomeAPI.shared.postAnotherDay(id: id, dates: dates) { response in
             guard response != nil else { return }
             self.setUI()
+            self.dismiss(animated: true)
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy.MM.dd"
+            if let earliestDate = dateFormatter.date(from: self.anotherDate.min() ?? "") {
+                let earliestDateString = dateFormatter.string(from: earliestDate)
+                print("The earliest date is \(earliestDateString)")
+                self.movedateClosure?(earliestDateString)
+            } else {
+                print("Invalid date strings")
+            }
         }
     }
     func requestParticualrDatesAPI(id: Int) {

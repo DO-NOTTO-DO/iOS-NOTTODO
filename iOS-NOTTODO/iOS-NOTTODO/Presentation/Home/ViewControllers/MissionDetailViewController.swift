@@ -15,6 +15,7 @@ class MissionDetailViewController: UIViewController {
     // MARK: - Properties
     
     var deleteClosure: (() -> Void)?
+    var moveDateClosure: ((_ date: String) -> Void)?
 
     private lazy var safeArea = self.view.safeAreaLayoutGuide
     enum Section {
@@ -128,6 +129,10 @@ extension MissionDetailViewController {
                     modalViewController.modalPresentationStyle = .overFullScreen
                     guard let id = self.userId else {return}
                     modalViewController.userId = id
+                    modalViewController.movedateClosure = { [weak self] date in
+                        self?.dismiss(animated: true)
+                        self?.moveDateClosure?(date)
+                    }
                     self.present(modalViewController, animated: false)
                     print("tapped")
                 }
@@ -187,7 +192,6 @@ extension MissionDetailViewController {
                     self?.deleteClosure?()
                     self?.reloadData()
                     self?.dismiss(animated: true)
-
                 } else {}
             }
         }
