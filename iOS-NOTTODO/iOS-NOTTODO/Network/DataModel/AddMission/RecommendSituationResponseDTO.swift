@@ -6,3 +6,7 @@
 //
 
 import Foundation
+
+struct RecommendSituationResponseDTO: Codable {
+    let name: String
+}
