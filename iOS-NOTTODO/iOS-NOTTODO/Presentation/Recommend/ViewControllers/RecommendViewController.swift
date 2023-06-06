@@ -56,7 +56,7 @@ private extension RecommendViewController {
         
         dismissButton.do {
             $0.setBackgroundImage(.delete, for: .normal)
-            $0.addTarget(self, action: #selector(self.dismissViewController), for: .touchUpInside)
+            $0.addTarget(self, action: #selector(self.popViewController), for: .touchUpInside)
         }
         
         navigationTitle.do {
