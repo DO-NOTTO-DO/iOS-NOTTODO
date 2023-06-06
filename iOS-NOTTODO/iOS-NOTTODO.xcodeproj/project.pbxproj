@@ -78,7 +78,6 @@
 		3B14A14329A6FEE400F92897 /* UITextField+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B14A14229A6FEE400F92897 /* UITextField+.swift */; };
 		3B37AE2929C8821600AB7587 /* GoalCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B37AE2829C8821600AB7587 /* GoalCollectionViewCell.swift */; };
 		3B37AE2B29C8904800AB7587 /* RecommendKeywordCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B37AE2A29C8904800AB7587 /* RecommendKeywordCollectionViewCell.swift */; };
-		3B37AE2D29C89B3000AB7587 /* RecommendKewordModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B37AE2C29C89B3000AB7587 /* RecommendKewordModels.swift */; };
 		3B482FA3299EA9CB00BCF424 /* TabBarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B482FA2299EA9CB00BCF424 /* TabBarItem.swift */; };
 		3B482FA5299EAB8800BCF424 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B482FA4299EAB8800BCF424 /* TabBarController.swift */; };
 		3B482FA7299EB8FD00BCF424 /* UIViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B482FA6299EB8FD00BCF424 /* UIViewController+.swift */; };
@@ -92,6 +91,9 @@
 		3B5F8F8129BF90190063A7F8 /* NottodoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5F8F8029BF90190063A7F8 /* NottodoCollectionViewCell.swift */; };
 		3B5F8F8329BF90290063A7F8 /* SituationCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5F8F8229BF90290063A7F8 /* SituationCollectionViewCell.swift */; };
 		3B5F8F8929BF9EFE0063A7F8 /* AddMissionLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5F8F8829BF9EFE0063A7F8 /* AddMissionLabel.swift */; };
+		3B892AB82A2FBBAD00A316BC /* AddMissionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B892AB72A2FBBAD00A316BC /* AddMissionService.swift */; };
+		3B892ABB2A2FBD4C00A316BC /* RecommendSituationResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B892ABA2A2FBD4C00A316BC /* RecommendSituationResponseDTO.swift */; };
+		3B892ABE2A2FBDDE00A316BC /* AddMissionAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B892ABD2A2FBDDE00A316BC /* AddMissionAPI.swift */; };
 		3B9532F42A284CC1006510F8 /* ModalProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9532F32A284CC1006510F8 /* ModalProtocol.swift */; };
 		3BBB6C8F2A1E7BEA00B8745A /* CollectionViewLeftAlignLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BBB6C8E2A1E7BEA00B8745A /* CollectionViewLeftAlignLayout.swift */; };
 		3BC19A9329CA1CA800C02803 /* UICollectionViewCell+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC19A9229CA1CA800C02803 /* UICollectionViewCell+.swift */; };
@@ -218,7 +220,6 @@
 		3B14A14229A6FEE400F92897 /* UITextField+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+.swift"; sourceTree = "<group>"; };
 		3B37AE2829C8821600AB7587 /* GoalCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalCollectionViewCell.swift; sourceTree = "<group>"; };
 		3B37AE2A29C8904800AB7587 /* RecommendKeywordCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendKeywordCollectionViewCell.swift; sourceTree = "<group>"; };
-		3B37AE2C29C89B3000AB7587 /* RecommendKewordModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendKewordModels.swift; sourceTree = "<group>"; };
 		3B482FA2299EA9CB00BCF424 /* TabBarItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarItem.swift; sourceTree = "<group>"; };
 		3B482FA4299EAB8800BCF424 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		3B482FA6299EB8FD00BCF424 /* UIViewController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+.swift"; sourceTree = "<group>"; };
@@ -232,6 +233,9 @@
 		3B5F8F8029BF90190063A7F8 /* NottodoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NottodoCollectionViewCell.swift; sourceTree = "<group>"; };
 		3B5F8F8229BF90290063A7F8 /* SituationCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SituationCollectionViewCell.swift; sourceTree = "<group>"; };
 		3B5F8F8829BF9EFE0063A7F8 /* AddMissionLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMissionLabel.swift; sourceTree = "<group>"; };
+		3B892AB72A2FBBAD00A316BC /* AddMissionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMissionService.swift; sourceTree = "<group>"; };
+		3B892ABA2A2FBD4C00A316BC /* RecommendSituationResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendSituationResponseDTO.swift; sourceTree = "<group>"; };
+		3B892ABD2A2FBDDE00A316BC /* AddMissionAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMissionAPI.swift; sourceTree = "<group>"; };
 		3B9532F32A284CC1006510F8 /* ModalProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalProtocol.swift; sourceTree = "<group>"; };
 		3BBB6C8E2A1E7BEA00B8745A /* CollectionViewLeftAlignLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewLeftAlignLayout.swift; sourceTree = "<group>"; };
 		3BC19A9229CA1CA800C02803 /* UICollectionViewCell+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionViewCell+.swift"; sourceTree = "<group>"; };
@@ -334,6 +338,11 @@
 		093DB02B2A14687300ECA5F6 /* API */ = {
 			isa = PBXGroup;
 			children = (
+				3B892ABC2A2FBDC800A316BC /* AddMission */,
+				3B892AB52A2FB69200A316BC /* Auth */,
+				3B892AB22A2FB67000A316BC /* Recommend */,
+				093DB0382A15F6CE00ECA5F6 /* AchieveAPI.swift */,
+				09DCCD222A18EFB0003DCF8A /* HomeAPI.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -341,6 +350,14 @@
 		093DB02F2A1468CE00ECA5F6 /* DataModel */ = {
 			isa = PBXGroup;
 			children = (
+				3B892AB92A2FBD3500A316BC /* AddMission */,
+				3B892AB42A2FB68700A316BC /* Auth */,
+				3B892AB12A2FB66100A316BC /* Recommend */,
+				09A1465E2A192C4900DDC308 /* WeekMissionResponseDTO.swift */,
+				09A146642A19649A00DDC308 /* AddAnotherDayResponseDTO.swift */,
+				09DCCD1E2A18ED76003DCF8A /* DailyMissionResponseDTO.swift */,
+				093DB03E2A15FCC100ECA5F6 /* MissionDetailResponseDTO.swift */,
+				093DB03C2A15FC7800ECA5F6 /* AchieveCalendarResponseDTO.swift */,
 			);
 			path = DataModel;
 			sourceTree = "<group>";
@@ -348,6 +365,11 @@
 		093DB0312A1468F100ECA5F6 /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				3B892AB62A2FBB9B00A316BC /* AddMission */,
+				3B892AB32A2FB67B00A316BC /* Auth */,
+				3B892AB02A2FB63E00A316BC /* Recommend */,
+				09DCCD202A18EF43003DCF8A /* HomeSevice.swift */,
+				093DB03A2A15F6E700ECA5F6 /* AchieveService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -698,7 +720,6 @@
 			isa = PBXGroup;
 			children = (
 				3BC1A27129C9AF310088376B /* MissionHistoryModels.swift */,
-				3B37AE2C29C89B3000AB7587 /* RecommendKewordModels.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -760,6 +781,81 @@
 				3B5F8F8829BF9EFE0063A7F8 /* AddMissionLabel.swift */,
 			);
 			path = AddMissionLabel;
+			sourceTree = "<group>";
+		};
+		3B892AB02A2FB63E00A316BC /* Recommend */ = {
+			isa = PBXGroup;
+			children = (
+				6CA208242A18FEEA001C4247 /* RecommendService.swift */,
+				6CA208312A192601001C4247 /* RecommendActionService.swift */,
+			);
+			path = Recommend;
+			sourceTree = "<group>";
+		};
+		3B892AB12A2FB66100A316BC /* Recommend */ = {
+			isa = PBXGroup;
+			children = (
+				6CA208262A18FFCF001C4247 /* RecommendResponseDTO.swift */,
+				6CA2082F2A1925EE001C4247 /* RecommendActionResponseDTO.swift */,
+			);
+			path = Recommend;
+			sourceTree = "<group>";
+		};
+		3B892AB22A2FB67000A316BC /* Recommend */ = {
+			isa = PBXGroup;
+			children = (
+				6CA208222A18FE78001C4247 /* RecommendAPI.swift */,
+				6CA2082D2A1924CC001C4247 /* RecommendActionAPI.swift */,
+			);
+			path = Recommend;
+			sourceTree = "<group>";
+		};
+		3B892AB32A2FB67B00A316BC /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				6CA208332A1956ED001C4247 /* AuthService.swift */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
+		3B892AB42A2FB68700A316BC /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				6CA208392A195906001C4247 /* AuthResponseDTO.swift */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
+		3B892AB52A2FB69200A316BC /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				6CA208352A1957CA001C4247 /* AuthAPI.swift */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
+		3B892AB62A2FBB9B00A316BC /* AddMission */ = {
+			isa = PBXGroup;
+			children = (
+				3B892AB72A2FBBAD00A316BC /* AddMissionService.swift */,
+			);
+			path = AddMission;
+			sourceTree = "<group>";
+		};
+		3B892AB92A2FBD3500A316BC /* AddMission */ = {
+			isa = PBXGroup;
+			children = (
+				3B892ABA2A2FBD4C00A316BC /* RecommendSituationResponseDTO.swift */,
+			);
+			path = AddMission;
+			sourceTree = "<group>";
+		};
+		3B892ABC2A2FBDC800A316BC /* AddMission */ = {
+			isa = PBXGroup;
+			children = (
+				3B892ABD2A2FBDDE00A316BC /* AddMissionAPI.swift */,
+			);
+			path = AddMission;
 			sourceTree = "<group>";
 		};
 		3B9532F22A284CAD006510F8 /* Protocol */ = {
@@ -858,24 +954,6 @@
 				6CF4706029A69096008D145C /* NetworkConstant.swift */,
 				6CF4706229A690CD008D145C /* NetworkResult.swift */,
 				6CF4706429A690E5008D145C /* NetworkBase.swift */,
-				093DB0382A15F6CE00ECA5F6 /* AchieveAPI.swift */,
-				09A1465E2A192C4900DDC308 /* WeekMissionResponseDTO.swift */,
-				09A146642A19649A00DDC308 /* AddAnotherDayResponseDTO.swift */,
-				09DCCD1E2A18ED76003DCF8A /* DailyMissionResponseDTO.swift */,
-				09DCCD202A18EF43003DCF8A /* HomeSevice.swift */,
-				09DCCD222A18EFB0003DCF8A /* HomeAPI.swift */,
-				093DB03E2A15FCC100ECA5F6 /* MissionDetailResponseDTO.swift */,
-				093DB03C2A15FC7800ECA5F6 /* AchieveCalendarResponseDTO.swift */,
-				093DB03A2A15F6E700ECA5F6 /* AchieveService.swift */,
-				6CA208222A18FE78001C4247 /* RecommendAPI.swift */,
-				6CA208242A18FEEA001C4247 /* RecommendService.swift */,
-				6CA208262A18FFCF001C4247 /* RecommendResponseDTO.swift */,
-				6CA2082D2A1924CC001C4247 /* RecommendActionAPI.swift */,
-				6CA2082F2A1925EE001C4247 /* RecommendActionResponseDTO.swift */,
-				6CA208312A192601001C4247 /* RecommendActionService.swift */,
-				6CA208332A1956ED001C4247 /* AuthService.swift */,
-				6CA208352A1957CA001C4247 /* AuthAPI.swift */,
-				6CA208392A195906001C4247 /* AuthResponseDTO.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -1096,7 +1174,6 @@
 				6CF4707A29A7AAFF008D145C /* PaddingLabel.swift in Sources */,
 				6CA208272A18FFCF001C4247 /* RecommendResponseDTO.swift in Sources */,
 				3B4E12F22A27B621001D1EC1 /* NottodoModalViewController.swift in Sources */,
-				3B37AE2D29C89B3000AB7587 /* RecommendKewordModels.swift in Sources */,
 				3B027A78299C31B500BEB65C /* AppDelegate.swift in Sources */,
 				3B37AE2929C8821600AB7587 /* GoalCollectionViewCell.swift in Sources */,
 				3B14A14329A6FEE400F92897 /* UITextField+.swift in Sources */,
@@ -1116,6 +1193,7 @@
 				09F6719029CB6AB400708725 /* OnboardingFooterView.swift in Sources */,
 				3B482FA9299EB95400BCF424 /* UIScreen+.swift in Sources */,
 				099FC98329B30A2E005B37E6 /* Utils.swift in Sources */,
+				3B892ABB2A2FBD4C00A316BC /* RecommendSituationResponseDTO.swift in Sources */,
 				3B14A13B29A694C000F92897 /* UITextView+.swift in Sources */,
 				093DB0372A146BF900ECA5F6 /* MyInfoURL.swift in Sources */,
 				098BFD5F29B7AECF008E80F9 /* MyInfoHeaderCollectionReusableView.swift in Sources */,
@@ -1161,6 +1239,7 @@
 				6CF4706129A69096008D145C /* NetworkConstant.swift in Sources */,
 				09F6718E29CB612B00708725 /* FifthOnboardingViewController.swift in Sources */,
 				6CD4F8C229AA5AF200CCC740 /* UIButton+.swift in Sources */,
+				3B892AB82A2FBBAD00A316BC /* AddMissionService.swift in Sources */,
 				6CA208362A1957CA001C4247 /* AuthAPI.swift in Sources */,
 				6CF4706529A690E5008D145C /* NetworkBase.swift in Sources */,
 				099FC98129B3094F005B37E6 /* WeekMonthFSCalendar.swift in Sources */,
@@ -1178,6 +1257,7 @@
 				6C9628A92A22209E003ADE25 /* LogoOnboardingViewController.swift in Sources */,
 				09F6718029CAD76C00708725 /* SecondOnboardingViewController.swift in Sources */,
 				098BFD5D29B79CE3008E80F9 /* InfoCollectionViewCell.swift in Sources */,
+				3B892ABE2A2FBDDE00A316BC /* AddMissionAPI.swift in Sources */,
 				6CF4706329A690CD008D145C /* NetworkResult.swift in Sources */,
 				3B9532F42A284CC1006510F8 /* ModalProtocol.swift in Sources */,
 				3B5F8F8329BF90290063A7F8 /* SituationCollectionViewCell.swift in Sources */,
