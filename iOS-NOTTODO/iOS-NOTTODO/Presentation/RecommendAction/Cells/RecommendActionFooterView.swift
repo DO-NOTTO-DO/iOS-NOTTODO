@@ -16,6 +16,10 @@ class RecommendActionFooterView: UICollectionReusableView {
     
     static let identifier: String = "RecommendActionFooterView"
     
+    // MARK: - Properties
+    
+    var clickedNextButton: (() -> Void)?
+    
     // MARK: - UI Components
     
     private let moreButton = UIButton()
@@ -43,6 +47,7 @@ extension RecommendActionFooterView {
             $0.setTitleColor(.gray4, for: .normal)
             $0.titleLabel?.font = .Pretendard(.medium, size: 14)
             $0.setUnderline()
+            $0.addTarget(self, action: #selector(moreButtonButtonTapped), for: .touchUpInside)
         }
     }
     
@@ -53,5 +58,13 @@ extension RecommendActionFooterView {
             $0.top.equalToSuperview().offset(34)
             $0.centerX.equalToSuperview()
         }
+    }
+}
+
+// MARK: - @objc function
+
+extension RecommendActionFooterView {
+    @objc func moreButtonButtonTapped(_ sender: UIButton) {
+        clickedNextButton?()
     }
 }

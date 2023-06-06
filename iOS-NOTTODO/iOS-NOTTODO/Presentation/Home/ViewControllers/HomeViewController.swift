@@ -260,7 +260,7 @@ extension HomeViewController: UICollectionViewDelegate {
 extension HomeViewController {
     @objc
     func addBtnTapped(_sender: UIButton) {
-        Utils.push(navigationController, AddMissionViewController())
+        Utils.push(navigationController, RecommendViewController())
     }
     
     @objc

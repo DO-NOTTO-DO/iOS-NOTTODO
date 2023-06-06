@@ -45,7 +45,7 @@ extension UIViewController {
     
     @objc
     func popViewController() {
-        self.navigationController?.popViewController(animated: true)
+        self.navigationController?.popToRootViewController(animated: true)
     }
     
     func hideKeyboardWhenTappedAround() {
