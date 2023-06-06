@@ -17,7 +17,7 @@ final class NottodoModalViewController: UIViewController {
     
     // MARK: - Properties
     
-    private var viewType: ViewType? = .quit {
+    private var viewType: ViewType? = .quitSurvey {
         didSet {
             setUI()
             setLayout()
@@ -83,10 +83,20 @@ extension NottodoModalViewController {
 extension NottodoModalViewController: ModalDelegate {
     func modalAction() {
         switch viewType {
-        case .quit:
-            viewType = .quitSurvey
-        default:
+        case .quitSurvey:
             Utils.myInfoUrl(vc: self, url: MyInfoURL.googleForm.url)
+            viewType = .quit
+            withdrawView.isHidden = true
+        case .quit:
+            let authViewController = AuthViewController()
+            if let window = view.window?.windowScene?.keyWindow {
+                let TabBarController = TabBarController()
+                let navigationController = UINavigationController(rootViewController: authViewController)
+                navigationController.isNavigationBarHidden = true
+                window.rootViewController = navigationController
+            }
+        default:
+            viewType = .quit
         }
     }
     
