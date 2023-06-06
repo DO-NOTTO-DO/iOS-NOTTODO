@@ -62,7 +62,7 @@ private extension RecommendKeywordCollectionViewCell {
 }
 
 extension RecommendKeywordCollectionViewCell {
-    func configure(_ item: RecommendKeywordModel) {
-        recommendLabel.text = item.keyword
+    func configure(_ item: RecommendSituationResponseDTO) {
+        recommendLabel.text = item.name
     }
 }

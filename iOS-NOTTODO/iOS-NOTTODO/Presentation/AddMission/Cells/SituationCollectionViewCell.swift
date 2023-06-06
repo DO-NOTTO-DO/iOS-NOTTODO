@@ -16,6 +16,7 @@ final class SituationCollectionViewCell: UICollectionViewCell, AddMissionMenu {
     
     var missionCellHeight: ((CGFloat) -> Void)?
     private var fold: FoldState = .folded
+    private var recommendSituatoinList: [RecommendSituationResponseDTO] = []
     static let identifier = "SituationCollectionViewCell"
     
     // MARK: - UI Components
@@ -35,6 +36,7 @@ final class SituationCollectionViewCell: UICollectionViewCell, AddMissionMenu {
         registerCell()
         setDelegate()
         setLayout()
+        requestRecommendSituationAPI()
     }
     
     @available(*, unavailable)
@@ -61,7 +63,7 @@ private extension SituationCollectionViewCell {
         
         recommendCollectionView.do {
             $0.backgroundColor = .clear
-            $0.isScrollEnabled = false
+            $0.isScrollEnabled = true               // 동적 뷰 계산 후 수정
         }
         
         recommendKeywordLabel.do {
@@ -129,16 +131,26 @@ private extension SituationCollectionViewCell {
         layout.minimumLineSpacing = 8
         return layout
     }
+    
+    func requestRecommendSituationAPI() {
+        AddMissionAPI.shared.getRecommendSituation { [weak self] response in
+            guard self != nil else { return }
+            guard let response = response else { return }
+            guard let data = response.data else { return }
+            self?.recommendSituatoinList = data
+            self?.recommendCollectionView.reloadData()
+        }
+    }
 }
 
 extension SituationCollectionViewCell: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return RecommendKeywordModel.items.count
+        return recommendSituatoinList.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RecommendKeywordCollectionViewCell.identifier, for: indexPath) as? RecommendKeywordCollectionViewCell else { return UICollectionViewCell() }
-        cell.configure(RecommendKeywordModel.items[indexPath.row])
+        cell.configure(recommendSituatoinList[indexPath.row])
         return cell
     }
     
@@ -150,7 +162,7 @@ extension SituationCollectionViewCell: UICollectionViewDataSource {
 
 extension SituationCollectionViewCell: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let item = RecommendKeywordModel.items[indexPath.row].keyword
+        let item = recommendSituatoinList[indexPath.row].name
         let itemSize = item.size(withAttributes: [
             NSAttributedString.Key.font: UIFont.Pretendard(.medium, size: 14)
         ])
