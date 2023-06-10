@@ -16,9 +16,14 @@ final class AchievementViewController: UIViewController {
     // MARK: - Properties
     
     private lazy var safeArea = self.view.safeAreaLayoutGuide
-    private lazy var today: Date = { return Date() }()
+   // private lazy var today: Date = { return Date() }()
+    private var currentPage: Date? = Date()
     var count: Int?
-    var dataSource: [String: Float] = [:]
+    var dataSource: [String: Float] = [:] {
+        didSet {
+            self.monthCalendar.calendar.reloadData()
+        }
+    }
     var selectDate: Date?
     
     // MARK: - UI Components
@@ -105,10 +110,23 @@ extension AchievementViewController {
         AchieveAPI.shared.getAchieveCalendar(month: month) { [weak self] result in
             guard let result = result?.data else { return }
             self?.dataSource = [:]
-            for item in result {
-                self?.dataSource[item.actionDate] = item.percentage
-                self?.count = self?.dataSource.count
+            guard let currentPage = self?.currentPage else { return }
+            let currentMonth = Calendar.current.component(.month, from: currentPage)
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd"
+            let actionDate = result.filter { result in
+                if let date = dateFormatter.date(from: result.actionDate) {
+                    let month = Calendar.current.component(.month, from: date)
+                    return month == currentMonth
+                }
+                return false
             }
+
+            actionDate.forEach {
+                self?.dataSource[$0.actionDate] = $0.percentage
+                               self?.count = self?.dataSource.count
+            }
+      
             self?.monthCalendar.calendar.reloadData()
         }
     }
@@ -116,6 +134,7 @@ extension AchievementViewController {
 
 extension AchievementViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalendarDelegateAppearance {
     func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
+        self.currentPage = calendar.currentPage
         monthCalendar.yearMonthLabel.text = Utils.dateFormatterString(format: I18N.yearMonthTitle, date: calendar.currentPage)
         reloadMonthData(month: Utils.dateFormatterString(format: "yyyy-MM", date: calendar.currentPage))
         
@@ -133,6 +152,7 @@ extension AchievementViewController: FSCalendarDelegate, FSCalendarDataSource, F
             let vc = DetailAchievementViewController()
             vc.selectedDate = date
             vc.modalPresentationStyle = .overFullScreen
+            vc.modalTransitionStyle = .crossDissolve
             present(vc, animated: false)
         }
     }
@@ -141,8 +161,10 @@ extension AchievementViewController: FSCalendarDelegate, FSCalendarDataSource, F
         Calendar.current.isDate(date, equalTo: calendar.currentPage, toGranularity: .month)
     }
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleSelectionColorFor date: Date) -> UIColor? {
+        
         guard let count = self.count else { return .white }
         let dateString = Utils.dateFormatterString(format: nil, date: date)
+ 
         if let percentage = self.dataSource[dateString] {
             switch (count, percentage) {
             case (_, 1.0): return .black
@@ -153,7 +175,9 @@ extension AchievementViewController: FSCalendarDelegate, FSCalendarDataSource, F
     }
     
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleDefaultColorFor date: Date) -> UIColor? {
-
+        guard let currentPage = self.currentPage else { return .white }
+        let currentMonth = Calendar.current.component(.month, from: currentPage)
+        let dateMonth = Calendar.current.component(.month, from: date)
         guard let count = self.count else { return .white }
         let dateString = Utils.dateFormatterString(format: nil, date: date)
         if let percentage = self.dataSource[dateString] {
@@ -161,7 +185,12 @@ extension AchievementViewController: FSCalendarDelegate, FSCalendarDataSource, F
             case (_, 1.0): return .black
             default: return .white
             }
+        } else {
+            if currentMonth != dateMonth {
+                return .gray3
+            }
         }
+        
         return .white
     }
     
