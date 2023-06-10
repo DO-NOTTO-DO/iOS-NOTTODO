@@ -58,7 +58,7 @@ extension WeekMonthFSCalendar {
         case .month:
             allowsMultipleSelection = true
             appearance.borderSelectionColor = .clear
-            appearance.weekdayTextColor = .white
+            appearance.weekdayTextColor = .gray4
             appearance.selectionColor = .white
             appearance.titleSelectionColor = .ntdBlack
             placeholderType = .fillHeadTail

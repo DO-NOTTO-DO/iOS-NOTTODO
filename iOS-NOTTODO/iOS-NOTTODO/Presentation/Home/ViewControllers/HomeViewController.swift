@@ -205,7 +205,7 @@ extension HomeViewController {
                 return layoutSection
                 
             case .empty:
-                return CompositionalLayout._vertical(.fractionalWidth(1), .fractionalWidth(1), .fractionalWidth(1), .fractionalWidth(1), count: 1, edge: nil)
+                return CompositionalLayout._vertical(.fractionalWidth(1), .fractionalWidth(1), .fractionalWidth(1), .fractionalWidth(1), count: 1, edge: .init(top: 30, leading: 0, bottom: 0, trailing: 0))
             }
         }
         return layout
@@ -254,6 +254,7 @@ extension HomeViewController: UICollectionViewDelegate {
             modalViewController.moveDateClosure = { [weak self] date in
                 let modifiedDate: Date = date.toDate(withFormat: "YYYY.MM.dd")
                 self?.weekCalendar.calendar.select(modifiedDate)
+                self?.requestDailyMissionAPI(date: Utils.dateFormatterString(format: nil, date: modifiedDate))
             }
             self.present(modalViewController, animated: true)
         }
