@@ -34,27 +34,32 @@ class DetailCalendarViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        setUI()
         if let id = self.userId {
             requestParticualrDatesAPI(id: id)
         }
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setUI()
         setLayout()
-        setRecognizer()
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        let touch = touches.first!
+        let location = touch.location(in: self.view)
+        
+        if !monthCalendar.frame.contains(location) {
+            self.dismiss(animated: true)
+        }
     }
 }
 
 // MARK: - Methods
 
 extension DetailCalendarViewController {
-    
-//    func particualrDatesAPI(id: Int) {
-//        requestParticualrDatesAPI(id: id)
-//    }
-    
+
     private func setUI() {
         view.backgroundColor = .black.withAlphaComponent(0.6)
         
@@ -109,23 +114,6 @@ extension DetailCalendarViewController {
             $0.left.equalToSuperview().offset(17)
         }
     }
-    
-    private func setRecognizer() {
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapView(_:)))
-        tapGestureRecognizer.cancelsTouchesInView = false
-        view.addGestureRecognizer(tapGestureRecognizer)
-    }
-    
-    @objc func didTapView(_ sender: UITapGestureRecognizer) {
-        let location = sender.location(in: view)
-        let monthCalendarFrame = monthCalendar.frame
-        
-        if monthCalendarFrame.contains(location) {
-            return
-        }
-        
-        dismiss(animated: false)
-    }
 }
 
 extension DetailCalendarViewController {
@@ -134,7 +122,6 @@ extension DetailCalendarViewController {
         if let id = self.userId {
             requestAddAnotherDay(id: id, dates: anotherDate)
         }
-        view.alpha = 0
     }
 }
 
@@ -199,6 +186,7 @@ extension DetailCalendarViewController: FSCalendarDelegate, FSCalendarDataSource
 }
 
 extension DetailCalendarViewController {
+    
     private func requestAddAnotherDay(id: Int, dates: [String]) {
         HomeAPI.shared.postAnotherDay(id: id, dates: dates) { response in
             guard response != nil else { return }
@@ -215,6 +203,7 @@ extension DetailCalendarViewController {
             }
         }
     }
+    
     func requestParticualrDatesAPI(id: Int) {
         HomeAPI.shared.particularMissionDates(id: id) { [weak self] response in
             guard let dates = response.data else { return }

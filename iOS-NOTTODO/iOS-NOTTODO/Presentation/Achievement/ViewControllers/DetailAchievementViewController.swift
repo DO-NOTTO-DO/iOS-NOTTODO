@@ -44,9 +44,18 @@ class DetailAchievementViewController: UIViewController {
         register()
         setUI()
         setLayout()
-        setRecognizer()
         setupDataSource()
         reloadData()
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        let touch = touches.first!
+        let location = touch.location(in: self.view)
+        
+        if !backGroundView.frame.contains(location) {
+            self.dismiss(animated: true)
+        }
     }
 }
 
@@ -58,7 +67,7 @@ extension DetailAchievementViewController {
     }
     
     private func setUI() {
-        view.backgroundColor = .black.withAlphaComponent(0.8)
+        view.backgroundColor = .black.withAlphaComponent(0.6)
         
         backGroundView.do {
             $0.layer.cornerRadius = 15
@@ -79,12 +88,7 @@ extension DetailAchievementViewController {
             $0.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         }
     }
-    
-    private func setRecognizer() {
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapView(_:)))
-        view.addGestureRecognizer(tapGestureRecognizer)
-    }
-    
+
     private func setLayout() {
         view.addSubview(backGroundView)
         backGroundView.addSubviews(dateLabel, collectionView)
@@ -105,6 +109,7 @@ extension DetailAchievementViewController {
             $0.bottom.equalToSuperview()
         }
     }
+    
     private func setupDataSource() {
         dataSource = UICollectionViewDiffableDataSource<Section, Item>(collectionView: collectionView, cellProvider: { collectionView, indexPath, item in
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DetailAchievementCollectionViewCell.identifier, for: indexPath) as? DetailAchievementCollectionViewCell else { return UICollectionViewCell() }
@@ -136,14 +141,6 @@ extension DetailAchievementViewController {
         let listLayout = UICollectionViewCompositionalLayout.list(using: config)
         return listLayout
     }
-    @objc func didTapView(_ sender: UITapGestureRecognizer) {
-        let location = sender.location(in: backGroundView)
-        if backGroundView.bounds.contains(location) {
-            return
-        }
-        dismiss(animated: false)
-    }
-    
 }
 
 extension DetailAchievementViewController {

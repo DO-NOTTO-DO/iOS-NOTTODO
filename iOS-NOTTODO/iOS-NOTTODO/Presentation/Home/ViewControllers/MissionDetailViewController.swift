@@ -53,6 +53,14 @@ class MissionDetailViewController: UIViewController {
 // MARK: - Methods
 
 extension MissionDetailViewController {
+    func setupBlurEffect() {
+           let blurEffect = UIBlurEffect(style: .dark)
+           let visualEffectView = UIVisualEffectView(effect: blurEffect)
+           visualEffectView.frame = view.frame
+           view.addSubview(visualEffectView)
+           collectionView.addSubview(visualEffectView)
+       }
+    
     private func register() {
         collectionView.register(MissionDetailCollectionViewCell.self, forCellWithReuseIdentifier: MissionDetailCollectionViewCell.identifier)
         collectionView.register(DetailHeaderReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: DetailHeaderReusableView.identifier)
@@ -82,7 +90,7 @@ extension MissionDetailViewController {
         view.addSubviews(collectionView, deleteButton)
         
         collectionView.snp.makeConstraints {
-            $0.top.equalTo(safeArea).offset(85)
+            $0.height.equalTo(getDeviceHeight()*0.88)
             $0.directionalHorizontalEdges.equalTo(safeArea)
             $0.bottom.equalToSuperview()
         }
@@ -127,6 +135,7 @@ extension MissionDetailViewController {
                 footer.footerClosure = {
                     let modalViewController = DetailCalendarViewController()
                     modalViewController.modalPresentationStyle = .overFullScreen
+                    modalViewController.modalTransitionStyle = .crossDissolve
                     guard let id = self.userId else {return}
                     modalViewController.userId = id
                     modalViewController.movedateClosure = { [weak self] date in
@@ -170,7 +179,6 @@ extension MissionDetailViewController {
                     print("data: \(missionData)")
                     self?.detailModel = [missionData]
                     self?.reloadData()
-                    print(missionData)
                 } else {
                     print("Failed to cast data to MissionDetailResponseDTO")
                 }
