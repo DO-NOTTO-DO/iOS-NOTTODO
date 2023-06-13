@@ -215,11 +215,6 @@ extension HomeViewController {
         let deleteAction = UIContextualAction(style: .normal, title: "") { [unowned self] _, _, completion in
             guard let index = indexPath?.item else { return }
             requestDeleteMission(index: index)
-            
-            var snapshot = self.dataSource.snapshot()
-            snapshot.deleteItems([self.missionList])
-            snapshot.reloadSections([.mission])
-            self.dataSource.apply(snapshot, animatingDifferences: true)
             completion(true)
         }
         
@@ -269,7 +264,6 @@ extension HomeViewController {
     @objc
     func todayBtnTapped(_sender: UIButton) {
         weekCalendar.calendar.select(today)
-        print(today)
         weekCalendar.yearMonthLabel.text = Utils.dateFormatterString(format: I18N.yearMonthTitle, date: today)
         requestDailyMissionAPI(date: Utils.dateFormatterString(format: nil, date: today))
     }
