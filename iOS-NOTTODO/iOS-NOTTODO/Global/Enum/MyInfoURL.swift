@@ -28,7 +28,7 @@ enum MyInfoURL {
         case .googleForm:
             return "https://forms.gle/gwBJ4hL4bCTjXRTP6"
         case .opensource:
-            return ""
+            return "https://www.notion.so/teamnottodo/a391274a627643f6a4d1f2412d4cf170?pvs=4"
         }
     }
     
