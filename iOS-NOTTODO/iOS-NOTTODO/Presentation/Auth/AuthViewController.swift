@@ -242,21 +242,23 @@ extension AuthViewController: ASAuthorizationControllerDelegate, ASAuthorization
     func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
         switch authorization.credential {
         case let appleIDCredential as ASAuthorizationAppleIDCredential:
-            let userIdentifier = appleIDCredential.user
-            let email = appleIDCredential.email
-            let firstName = appleIDCredential.fullName?.givenName
-            let lastName = appleIDCredential.fullName?.familyName
             
-            if let email = email {
+            if let accessToken = appleIDCredential.identityToken {
+                let accessTokenString = String(data: accessToken, encoding: .utf8)
+                UserDefaults.standard.setValue(accessTokenString, forKey: "AppleAccessToken")
+            }
+            
+            if let email = appleIDCredential.email {
                 UserDefaults.standard.setValue(email, forKey: "AppleUserEmail")
             }
             
+            let firstName = appleIDCredential.fullName?.givenName
+            let lastName = appleIDCredential.fullName?.familyName
             if let firstName = firstName, let lastName = lastName {
                 let fullName = "\(lastName)\(firstName)"
                 UserDefaults.standard.setValue(fullName, forKey: "AppleUserName")
             }
             
-            UserDefaults.standard.setValue(userIdentifier, forKey: "AppleAccessToken")
             UserDefaults.standard.set(true, forKey: "isAppleLogin")
         
             self.requestAuthAPI(social: "APPLE",
