@@ -16,58 +16,65 @@ import AuthenticationServices
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
-    var isLogin = false
+    var window: UIWindow?
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
         KakaoSDK.initSDK(appKey: "f06c671df540ff4a8f8275f453368748")
         
-        let kakaoAccessToken = UserDefaults.standard.string(forKey: "KakaoAccessToken")
-
-        if kakaoAccessToken != nil {
-            if UserDefaults.standard.bool(forKey: "isAppleLogin") {
-                
-                // 애플 연동상태 확인
-                let appleIDProvider = ASAuthorizationAppleIDProvider()
-                appleIDProvider.getCredentialState(forUserID: UserDefaults.standard.string(forKey: "AppleAccessToken") ?? "") { credentialState, _ in
-                    switch credentialState {
-                    case .authorized:
-                        print("해당 ID는 연동되어있습니다.")
-                        self.isLogin = true
-                    case .revoked:
-                        print("해당 ID는 연동되어있지않습니다.")
-                        self.isLogin = false
-                    case .notFound:
-                        print("해당 ID를 찾을 수 없습니다.")
-                        self.isLogin = false
-                    default:
-                        break
-                    }
-                }
-            } else {
-                if AuthApi.hasToken() {
-                    UserApi.shared.accessTokenInfo { _, error in
-                        if let error = error {
-                            if let sdkError = error as? SdkError, sdkError.isInvalidTokenError() == true {
-                                self.isLogin = false
-                            }
-                        } else {
-                            // 토큰 유효성 확인한 경우
-                            self.isLogin = true
-                        }
-                    }
+        if UserDefaults.standard.string(forKey: "KakaoAccessToken") != nil {
+            UserApi.shared.accessTokenInfo { (_, error) in
+                if let _ = error {
+                    // 카카오 로그인 정보가 유효하지 않은 경우
+                    self.checkAppleLoginStatus()
                 } else {
-                    // 유효한 토큰이 없는 경우
-                    self.isLogin = false
+                    // 카카오 로그인 정보가 유효한 경우
+                    self.skipAuthView()
                 }
             }
         } else {
-            // access token 이 없는 경우
-            self.isLogin = false
+            // 카카오 로그인 정보가 없는 경우
+            checkAppleLoginStatus()
         }
         
         return true
+    }
+    
+    func checkAppleLoginStatus() {
+        if UserDefaults.standard.bool(forKey: "isAppleLogin") {
+            let appleIDProvider = ASAuthorizationAppleIDProvider()
+            appleIDProvider.getCredentialState(forUserID: UserDefaults.standard.string(forKey: "AppleAccessToken") ?? "") { credentialState, _ in
+                switch credentialState {
+                case .authorized:
+                    // 애플 로그인 정보가 유효한 경우
+                    self.skipAuthView()
+                case .revoked, .notFound:
+                    // 애플 로그인 정보가 유효하지 않은 경우
+                    self.showAuthView()
+                default:
+                    break
+                }
+            }
+        } else {
+            // 애플 로그인 정보가 없는 경우
+            showAuthView()
+        }
+    }
+    
+    func showAuthView() {
+        let authViewController = AuthViewController()
+        window = UIWindow(frame: UIScreen.main.bounds)
+        window?.rootViewController = authViewController
+        window?.makeKeyAndVisible()
+    }
+    
+    func skipAuthView() {
+        // 홈 화면으로 바로 이동
+        let homeViewController = HomeViewController()
+        window = UIWindow(frame: UIScreen.main.bounds)
+        window?.rootViewController = homeViewController
+        window?.makeKeyAndVisible()
     }
 }
 
