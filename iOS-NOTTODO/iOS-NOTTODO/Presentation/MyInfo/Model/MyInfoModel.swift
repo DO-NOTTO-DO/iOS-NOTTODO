@@ -13,7 +13,7 @@ struct InfoModelOne: Hashable {
     var email: String
 }
 extension InfoModelOne {
-    static let item: [InfoModelOne] = [InfoModelOne(image: .imgUser, user: "내이름은노또", email: "ghdtjgus123@kakao.com")]
+    static let item: [InfoModelOne] = [InfoModelOne(image: .imgUser, user: KeychainUtil.getUsername(), email: KeychainUtil.getEmail())]
 }
 
 struct InfoModelTwo: Hashable {
