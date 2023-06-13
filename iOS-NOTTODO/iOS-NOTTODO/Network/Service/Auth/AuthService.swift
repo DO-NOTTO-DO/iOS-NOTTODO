@@ -42,7 +42,7 @@ extension AuthService: TargetType {
     var headers: [String: String]? {
         switch self {
         case .auth:
-            return NetworkConstant.hasTokenHeader
+            return NetworkConstant.noTokenHeader
         }
     }
 }
