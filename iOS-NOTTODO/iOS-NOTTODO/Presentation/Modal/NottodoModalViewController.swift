@@ -90,7 +90,6 @@ extension NottodoModalViewController: ModalDelegate {
         case .quit:
             let authViewController = AuthViewController()
             if let window = view.window?.windowScene?.keyWindow {
-                let TabBarController = TabBarController()
                 let navigationController = UINavigationController(rootViewController: authViewController)
                 navigationController.isNavigationBarHidden = true
                 window.rootViewController = navigationController
