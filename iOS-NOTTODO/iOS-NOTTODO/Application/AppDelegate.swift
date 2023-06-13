@@ -63,18 +63,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func showAuthView() {
-        let authViewController = AuthViewController()
-        window = UIWindow(frame: UIScreen.main.bounds)
-        window?.rootViewController = authViewController
-        window?.makeKeyAndVisible()
+        DispatchQueue.main.async {
+            let authViewController = AuthViewController()
+            self.window = UIWindow(frame: UIScreen.main.bounds)
+            self.window?.rootViewController = authViewController
+            self.window?.makeKeyAndVisible()
+        }
     }
     
     func skipAuthView() {
         // 홈 화면으로 바로 이동
-        let homeViewController = HomeViewController()
-        window = UIWindow(frame: UIScreen.main.bounds)
-        window?.rootViewController = homeViewController
-        window?.makeKeyAndVisible()
+        DispatchQueue.main.async {
+            let homeViewController = HomeViewController()
+            self.window = UIWindow(frame: UIScreen.main.bounds)
+            self.window?.rootViewController = homeViewController
+            self.window?.makeKeyAndVisible()
+        }
     }
 }
 
