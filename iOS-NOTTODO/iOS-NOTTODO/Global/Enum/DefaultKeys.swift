@@ -28,5 +28,3 @@ struct DefaultKeys {
     static let accessToken = "accessToken"
     static let fcmToken = "1"
 }
-
-
