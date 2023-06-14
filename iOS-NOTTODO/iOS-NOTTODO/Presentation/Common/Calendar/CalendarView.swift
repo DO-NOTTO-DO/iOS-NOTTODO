@@ -14,7 +14,7 @@ import SnapKit
 final class CalendarView: UIView {
     
     // MARK: - UI Components
-    
+
     let yearMonthLabel = UILabel()
     let todayButton = UIButton(configuration: .filled())
     let horizonStackView = UIStackView()

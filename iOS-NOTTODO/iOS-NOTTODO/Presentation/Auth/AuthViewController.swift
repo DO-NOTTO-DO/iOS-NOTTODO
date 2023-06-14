@@ -143,6 +143,10 @@ extension AuthViewController {
         AuthAPI.shared.postAuth(social: social, socialToken: socialToken, fcmToken: fcmToken, name: name, email: email) { [weak self] result in
             guard self != nil else { return }
             guard result != nil else { return }
+            // accessToken userDefault에 저장
+            guard let accessToken = result?.data?.accessToken else { return }
+            KeychainUtil.setAccessToken(accessToken)
+            self?.presentToHomeViewController()
         }
     }
     
@@ -179,8 +183,8 @@ extension AuthViewController {
                 print("kakaoLoginWithApp() success.")
                 
                 if let accessToken = oauthToken?.accessToken {
-                    UserDefaults.standard.set(accessToken, forKey: "KakaoAccessToken")
-                    
+                  //  UserDefaults.standard.set(accessToken, forKey: "KakaoAccessToken")
+                    KeychainUtil.setSocialToken(accessToken)
                     self.getUserInfo()
                 }
             }
@@ -195,7 +199,8 @@ extension AuthViewController {
                 print("kakaoLoginWithAccount() success.")
                 
                 if let accessToken = oauthToken?.accessToken {
-                    UserDefaults.standard.set(accessToken, forKey: "KakaoAccessToken")
+                 //   UserDefaults.standard.set(accessToken, forKey: "KakaoAccessToken")
+                    KeychainUtil.setSocialToken(accessToken)
                     
                     self.getUserInfo()
                 }
@@ -211,23 +216,32 @@ extension AuthViewController {
                 let name = user?.kakaoAccount?.name
                 let email = user?.kakaoAccount?.email
                 
-                UserDefaults.standard.set(name, forKey: "KakaoName")
-                UserDefaults.standard.set(email, forKey: "KakaoEmail")
-                UserDefaults.standard.set(false, forKey: "isAppleLogin")
+                KeychainUtil.setString(name, forKey: DefaultKeys.name)
+                KeychainUtil.setString(email, forKey: DefaultKeys.email)
+                KeychainUtil.setBool(false, forKey: DefaultKeys.isAppleLogin)
                 
-                self.requestAuthAPI(social: "KAKAO",
-                               socialToken: UserDefaults.standard.string(forKey: "KakaoAccessToken") ?? "",
-                               fcmToken: "1", name: UserDefaults.standard.string(forKey: "KakaoName") ?? "익명의 도전자",
-                                    email: UserDefaults.standard.string(forKey: "KakaoEmail") ?? "연동된 이메일 정보가 없습니다")
-                self.presentToHomeViewController()
+//                UserDefaults.standard.set(name, forKey: "KakaoName")
+//                UserDefaults.standard.set(email, forKey: "KakaoEmail")
+//                UserDefaults.standard.set(false, forKey: "isAppleLogin")
+                
+//                self.requestAuthAPI(social: "KAKAO",
+//                               socialToken: UserDefaults.standard.string(forKey: "KakaoAccessToken") ?? "",
+//                               fcmToken: "1", name: UserDefaults.standard.string(forKey: "KakaoName") ?? "익명의 도전자",
+//                                    email: UserDefaults.standard.string(forKey: "KakaoEmail") ?? "연동된 이메일 정보가 없습니다")
+               // self.presentToHomeViewController()
+                
+                self.requestAuthAPI(social: LoginType.Kakao.social, socialToken: KeychainUtil.getSocialToken(), fcmToken: DefaultKeys.fcmToken, name: KeychainUtil.getUsername(), email: KeychainUtil.getEmail())
             }
         }
     }
     
     func presentToHomeViewController() {
-        let nextVC = HomeViewController()
-        nextVC.modalPresentationStyle = .overFullScreen
-        self.present(nextVC, animated: true)
+        if let window = view.window?.windowScene?.keyWindow {
+            let tabBarController = TabBarController()
+            let navigationController = UINavigationController(rootViewController: tabBarController)
+            navigationController.isNavigationBarHidden = true
+            window.rootViewController = navigationController
+        }
     }
 }
 
@@ -244,27 +258,34 @@ extension AuthViewController: ASAuthorizationControllerDelegate, ASAuthorization
         case let appleIDCredential as ASAuthorizationAppleIDCredential:
             
             if let accessToken = appleIDCredential.identityToken {
-                let accessTokenString = String(data: accessToken, encoding: .utf8)
-                UserDefaults.standard.setValue(accessTokenString, forKey: "AppleAccessToken")
+                if let accessTokenString = String(data: accessToken, encoding: .utf8) {
+                    // UserDefaults.standard.setValue(accessTokenString, forKey: "AppleAccessToken")
+                    KeychainUtil.setSocialToken(accessTokenString)
+                }
             }
             
             if let email = appleIDCredential.email {
-                UserDefaults.standard.setValue(email, forKey: "AppleUserEmail")
+              //  UserDefaults.standard.setValue(email, forKey: "AppleUserEmail")
+                KeychainUtil.setString(email, forKey: DefaultKeys.email)
             }
             
             let firstName = appleIDCredential.fullName?.givenName
             let lastName = appleIDCredential.fullName?.familyName
             if let firstName = firstName, let lastName = lastName {
                 let fullName = "\(lastName)\(firstName)"
-                UserDefaults.standard.setValue(fullName, forKey: "AppleUserName")
+               // UserDefaults.standard.setValue(fullName, forKey: "AppleUserName")
+                KeychainUtil.setString(fullName, forKey: DefaultKeys.name)
+
             }
             
-            UserDefaults.standard.set(true, forKey: "isAppleLogin")
+           // UserDefaults.standard.set(true, forKey: "isAppleLogin")
+            KeychainUtil.setBool(true, forKey: DefaultKeys.isAppleLogin)
         
-            self.requestAuthAPI(social: "APPLE",
-                           socialToken: UserDefaults.standard.string(forKey: "AppleAccessToken") ?? "",
-                                fcmToken: "1", name: UserDefaults.standard.string(forKey: "AppleUserName") ?? "익명의 도전자", email: UserDefaults.standard.string(forKey: "AppleUserEmail") ?? "연동된 이메일 정보가 없습니다")
-            self.presentToHomeViewController()
+//            self.requestAuthAPI(social: "APPLE",
+//                           socialToken: UserDefaults.standard.string(forKey: "AppleAccessToken") ?? "",
+//                                fcmToken: "1", name: UserDefaults.standard.string(forKey: "AppleUserName") ?? "익명의 도전자", email: UserDefaults.standard.string(forKey: "AppleUserEmail") ?? "연동된 이메일 정보가 없습니다")
+//            self.presentToHomeViewController()
+            self.requestAuthAPI(social: LoginType.Apple.social, socialToken: KeychainUtil.getSocialToken(), fcmToken: DefaultKeys.fcmToken, name: KeychainUtil.getUsername(), email: KeychainUtil.getEmail())
         default:
             break
         }

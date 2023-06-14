@@ -152,8 +152,10 @@ extension MyInfoViewController: UICollectionViewDelegate {
                 Utils.myInfoUrl(vc: self, url: MyInfoURL.notice.url)
             case 1:
                 Utils.myInfoUrl(vc: self, url: MyInfoURL.contact.url)
-            default: 
+            case 2:
                 Utils.myInfoUrl(vc: self, url: MyInfoURL.service.url)
+            default:
+                Utils.myInfoUrl(vc: self, url: MyInfoURL.opensource.url)
             }
         default:
             return

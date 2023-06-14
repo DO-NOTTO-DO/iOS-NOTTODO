@@ -18,6 +18,7 @@ class HomeViewController: UIViewController {
     private var missionList: [DailyMissionResponseDTO] = []
     private var selectedDate: Date? // 눌렀을 떄 date - dailymissionAPI 호출 시 사용
     private var percentage: Float?
+    private var moveDate: String?
     private var current: Date? // 스와이프했을 때 일요일 date 구하기 위함 - weeklyAPI 호출 시 사용
     private var count: Int?
     private var userId: Int = 0
@@ -99,7 +100,6 @@ extension HomeViewController {
             $0.addTarget(self, action: #selector(addBtnTapped), for: .touchUpInside)
         }
     }
-    
     private func setLayout() {
         view.addSubviews(weekCalendar, missionCollectionView, addButton)
         weekCalendar.calendar.select(today)
@@ -120,7 +120,6 @@ extension HomeViewController {
             $0.bottom.equalTo(safeArea).inset(20)
         }
     }
-        
     private func setupDataSource() {
         dataSource = UICollectionViewDiffableDataSource<Sections, AnyHashable>(collectionView: missionCollectionView, cellProvider: { collectionView, indexPath, item in
             let section = self.dataSource.snapshot().sectionIdentifiers[indexPath.section]
@@ -206,7 +205,7 @@ extension HomeViewController {
                 return layoutSection
                 
             case .empty:
-                return CompositionalLayout._vertical(.fractionalWidth(1), .fractionalWidth(1), .fractionalWidth(1), .fractionalWidth(1), count: 1, edge: nil)
+                return CompositionalLayout._vertical(.fractionalWidth(1), .fractionalWidth(1), .fractionalWidth(1), .fractionalWidth(1), count: 1, edge: .init(top: 30, leading: 0, bottom: 0, trailing: 0))
             }
         }
         return layout
@@ -216,11 +215,6 @@ extension HomeViewController {
         let deleteAction = UIContextualAction(style: .normal, title: "") { [unowned self] _, _, completion in
             guard let index = indexPath?.item else { return }
             requestDeleteMission(index: index)
-            
-            var snapshot = self.dataSource.snapshot()
-            snapshot.deleteItems([self.missionList])
-            snapshot.reloadSections([.mission])
-            self.dataSource.apply(snapshot, animatingDifferences: true)
             completion(true)
         }
         
@@ -252,6 +246,11 @@ extension HomeViewController: UICollectionViewDelegate {
                 self?.weeklyLoadData()
                 self?.updateData()
             }
+            modalViewController.moveDateClosure = { [weak self] date in
+                let modifiedDate: Date = date.toDate(withFormat: "YYYY.MM.dd")
+                self?.weekCalendar.calendar.select(modifiedDate)
+                self?.requestDailyMissionAPI(date: Utils.dateFormatterString(format: nil, date: modifiedDate))
+            }
             self.present(modalViewController, animated: true)
         }
     }
@@ -262,7 +261,6 @@ extension HomeViewController {
     func addBtnTapped(_sender: UIButton) {
         Utils.push(navigationController, RecommendViewController())
     }
-    
     @objc
     func todayBtnTapped(_sender: UIButton) {
         weekCalendar.calendar.select(today)
@@ -274,26 +272,21 @@ extension HomeViewController {
 extension HomeViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalendarDelegateAppearance {
     func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
         weekCalendar.yearMonthLabel.text = Utils.dateFormatterString(format: I18N.yearMonthTitle, date: calendar.currentPage)
-        print(calendar.currentPage)
         self.current = calendar.currentPage
         let sunday = getSunday(date: calendar.currentPage)
         requestWeeklyMissoinAPI(startDate: Utils.dateFormatterString(format: nil, date: sunday))
     }
-    
     func  calendar(_ calendar: FSCalendar, titleFor date: Date) -> String? {
         Utils.dateFormatterString(format: "EEEEEE", date: date)
     }
-    
     func calendar(_ calendar: FSCalendar, subtitleFor date: Date) -> String? {
         Utils.dateFormatterString(format: "dd", date: date)
     }
-    
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         self.selectedDate = date
         weekCalendar.yearMonthLabel.text = Utils.dateFormatterString(format: I18N.yearMonthTitle, date: date)
         requestDailyMissionAPI(date: Utils.dateFormatterString(format: nil, date: date))
     }
-    
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, subtitleSelectionColorFor date: Date) -> UIColor? {
         guard let count = self.count else { return .white }
         let dateString = Utils.dateFormatterString(format: nil, date: date)

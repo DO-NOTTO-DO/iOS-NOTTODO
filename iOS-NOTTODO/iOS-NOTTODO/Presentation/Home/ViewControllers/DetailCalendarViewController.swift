@@ -20,6 +20,7 @@ class DetailCalendarViewController: UIViewController {
     var dataSource: [String: Float] = [:]
     var userId: Int?
     var count: Int?
+    var movedateClosure: ((_ date: String) -> Void)?
     private lazy var safeArea = self.view.safeAreaLayoutGuide
     private lazy var today: Date = { return Date() }()
     
@@ -33,27 +34,32 @@ class DetailCalendarViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        setUI()
         if let id = self.userId {
             requestParticualrDatesAPI(id: id)
         }
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setUI()
         setLayout()
-        setRecognizer()
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        let touch = touches.first!
+        let location = touch.location(in: self.view)
+        
+        if !monthCalendar.frame.contains(location) {
+            self.dismiss(animated: true)
+        }
     }
 }
 
 // MARK: - Methods
 
 extension DetailCalendarViewController {
-    
-//    func particualrDatesAPI(id: Int) {
-//        requestParticualrDatesAPI(id: id)
-//    }
-    
+
     private func setUI() {
         view.backgroundColor = .black.withAlphaComponent(0.6)
         
@@ -108,23 +114,6 @@ extension DetailCalendarViewController {
             $0.left.equalToSuperview().offset(17)
         }
     }
-    
-    private func setRecognizer() {
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapView(_:)))
-        tapGestureRecognizer.cancelsTouchesInView = false
-        view.addGestureRecognizer(tapGestureRecognizer)
-    }
-    
-    @objc func didTapView(_ sender: UITapGestureRecognizer) {
-        let location = sender.location(in: view)
-        let monthCalendarFrame = monthCalendar.frame
-        
-        if monthCalendarFrame.contains(location) {
-            return
-        }
-        
-        dismiss(animated: false)
-    }
 }
 
 extension DetailCalendarViewController {
@@ -133,8 +122,6 @@ extension DetailCalendarViewController {
         if let id = self.userId {
             requestAddAnotherDay(id: id, dates: anotherDate)
         }
-        view.alpha = 0
-        self.dismiss(animated: true)
     }
 }
 
@@ -155,16 +142,13 @@ extension DetailCalendarViewController: FSCalendarDelegate, FSCalendarDataSource
             let nextDay = Calendar.current.date(byAdding: .day, value: 1, to: currentDate)
             currentDate = Calendar.current.startOfDay(for: nextDay!)
         }
-        let dateFormatter = DateFormatter()
-        
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        
-        let formattedDatesArray = datesArray.map { dateFormatter.string(from: $0) }
-        let arrayKeys = Array(dataSource.keys)
-        let formattedDate = Utils.dateFormatterString(format: nil, date: date)
-        
-        return (!formattedDatesArray.contains(formattedDate) || !arrayKeys.contains(formattedDate)) && Utils.calendarSelected(today: today, date: date)
+
+        let formattedDatesArray = datesArray.map { Utils.dateFormatterString(format: "yyyy.MM.dd", date: $0) }
+        let formattedDate = Utils.dateFormatterString(format: "yyyy.MM.dd", date: date)
+    
+        return (!formattedDatesArray.contains(formattedDate) || !invalidDate.contains(formattedDate)) && Utils.calendarSelected(today: today, date: date)
     }
+    
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         let selectedDateString = Utils.dateFormatterString(format: "YYYY.MM.dd", date: date)
         
@@ -202,12 +186,24 @@ extension DetailCalendarViewController: FSCalendarDelegate, FSCalendarDataSource
 }
 
 extension DetailCalendarViewController {
+    
     private func requestAddAnotherDay(id: Int, dates: [String]) {
         HomeAPI.shared.postAnotherDay(id: id, dates: dates) { response in
             guard response != nil else { return }
             self.setUI()
+            self.dismiss(animated: true)
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy.MM.dd"
+            if let earliestDate = dateFormatter.date(from: self.anotherDate.min() ?? "") {
+                let earliestDateString = dateFormatter.string(from: earliestDate)
+                print("The earliest date is \(earliestDateString)")
+                self.movedateClosure?(earliestDateString)
+            } else {
+                print("Invalid date strings")
+            }
         }
     }
+    
     func requestParticualrDatesAPI(id: Int) {
         HomeAPI.shared.particularMissionDates(id: id) { [weak self] response in
             guard let dates = response.data else { return }
