@@ -183,7 +183,6 @@ extension AuthViewController {
                 print("kakaoLoginWithApp() success.")
                 
                 if let accessToken = oauthToken?.accessToken {
-                  //  UserDefaults.standard.set(accessToken, forKey: "KakaoAccessToken")
                     KeychainUtil.setSocialToken(accessToken)
                     self.getUserInfo()
                 }
@@ -199,7 +198,6 @@ extension AuthViewController {
                 print("kakaoLoginWithAccount() success.")
                 
                 if let accessToken = oauthToken?.accessToken {
-                 //   UserDefaults.standard.set(accessToken, forKey: "KakaoAccessToken")
                     KeychainUtil.setSocialToken(accessToken)
                     
                     self.getUserInfo()
@@ -219,16 +217,6 @@ extension AuthViewController {
                 KeychainUtil.setString(name, forKey: DefaultKeys.name)
                 KeychainUtil.setString(email, forKey: DefaultKeys.email)
                 KeychainUtil.setBool(false, forKey: DefaultKeys.isAppleLogin)
-                
-//                UserDefaults.standard.set(name, forKey: "KakaoName")
-//                UserDefaults.standard.set(email, forKey: "KakaoEmail")
-//                UserDefaults.standard.set(false, forKey: "isAppleLogin")
-                
-//                self.requestAuthAPI(social: "KAKAO",
-//                               socialToken: UserDefaults.standard.string(forKey: "KakaoAccessToken") ?? "",
-//                               fcmToken: "1", name: UserDefaults.standard.string(forKey: "KakaoName") ?? "익명의 도전자",
-//                                    email: UserDefaults.standard.string(forKey: "KakaoEmail") ?? "연동된 이메일 정보가 없습니다")
-               // self.presentToHomeViewController()
                 
                 self.requestAuthAPI(social: LoginType.Kakao.social, socialToken: KeychainUtil.getSocialToken(), fcmToken: DefaultKeys.fcmToken, name: KeychainUtil.getUsername(), email: KeychainUtil.getEmail())
             }
@@ -259,13 +247,11 @@ extension AuthViewController: ASAuthorizationControllerDelegate, ASAuthorization
             
             if let accessToken = appleIDCredential.identityToken {
                 if let accessTokenString = String(data: accessToken, encoding: .utf8) {
-                    // UserDefaults.standard.setValue(accessTokenString, forKey: "AppleAccessToken")
                     KeychainUtil.setSocialToken(accessTokenString)
                 }
             }
             
             if let email = appleIDCredential.email {
-              //  UserDefaults.standard.setValue(email, forKey: "AppleUserEmail")
                 KeychainUtil.setString(email, forKey: DefaultKeys.email)
             }
             
@@ -273,18 +259,11 @@ extension AuthViewController: ASAuthorizationControllerDelegate, ASAuthorization
             let lastName = appleIDCredential.fullName?.familyName
             if let firstName = firstName, let lastName = lastName {
                 let fullName = "\(lastName)\(firstName)"
-               // UserDefaults.standard.setValue(fullName, forKey: "AppleUserName")
                 KeychainUtil.setString(fullName, forKey: DefaultKeys.name)
-
             }
             
-           // UserDefaults.standard.set(true, forKey: "isAppleLogin")
             KeychainUtil.setBool(true, forKey: DefaultKeys.isAppleLogin)
-        
-//            self.requestAuthAPI(social: "APPLE",
-//                           socialToken: UserDefaults.standard.string(forKey: "AppleAccessToken") ?? "",
-//                                fcmToken: "1", name: UserDefaults.standard.string(forKey: "AppleUserName") ?? "익명의 도전자", email: UserDefaults.standard.string(forKey: "AppleUserEmail") ?? "연동된 이메일 정보가 없습니다")
-//            self.presentToHomeViewController()
+
             self.requestAuthAPI(social: LoginType.Apple.social, socialToken: KeychainUtil.getSocialToken(), fcmToken: DefaultKeys.fcmToken, name: KeychainUtil.getUsername(), email: KeychainUtil.getEmail())
         default:
             break
