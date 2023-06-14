@@ -18,11 +18,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
     
-//    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-//        // Override point for customization after application launch.
-//
-//        KakaoSDK.initSDK(appKey: "f06c671df540ff4a8f8275f453368748")
-//        
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        // Override point for customization after application launch.
+
+        KakaoSDK.initSDK(appKey: "f06c671df540ff4a8f8275f453368748")
+        
 //        if UserDefaults.standard.string(forKey: "KakaoAccessToken") != nil {
 //            UserApi.shared.accessTokenInfo { (_, error) in
 //                if let _ = error {
@@ -37,10 +37,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //            // 카카오 로그인 정보가 없는 경우
 //            checkAppleLoginStatus()
 //        }
-//
-//        return true
-//    }
-//
+
+        return true
+    }
+
 //    func checkAppleLoginStatus() {
 //        if UserDefaults.standard.bool(forKey: "isAppleLogin") {
 //            let appleIDProvider = ASAuthorizationAppleIDProvider()
