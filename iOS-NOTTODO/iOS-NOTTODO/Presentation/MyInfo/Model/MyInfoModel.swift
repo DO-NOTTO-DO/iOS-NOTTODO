@@ -22,7 +22,7 @@ struct InfoModelTwo: Hashable {
 }
 extension InfoModelTwo {
     static let items: [InfoModelTwo] = [InfoModelTwo(image: .icGuide, title: "낫투두 가이드"),
-                                        InfoModelTwo(image: .icQuestion, title: "자주 묻는 질문")
+                                        InfoModelTwo(image: .icQuestion1, title: "자주 묻는 질문")
     ]
 }
 
