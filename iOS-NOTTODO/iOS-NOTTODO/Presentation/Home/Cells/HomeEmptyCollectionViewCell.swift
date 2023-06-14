@@ -44,6 +44,7 @@ extension HomeEmptyCollectionViewCell {
         
         emptyLabel.do {
             $0.text = I18N.emptyTitle
+            $0.setLineSpacing(lineSpacing: 4.0)
             $0.textAlignment = .center
             $0.numberOfLines = 0
             $0.textColor = .gray4
