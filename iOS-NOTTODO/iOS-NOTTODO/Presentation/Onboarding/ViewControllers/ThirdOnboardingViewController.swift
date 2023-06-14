@@ -125,8 +125,12 @@ extension ThirdOnboardingViewController {
 extension ThirdOnboardingViewController {
     @objc
     private func buttonTapped() {
-        let nextViewController = FourthOnboardingViewController()
-        navigationController?.pushViewController(nextViewController, animated: false)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            UIView.animate(withDuration: 0.01) {
+                let nextViewController = FourthOnboardingViewController()
+                self.navigationController?.pushViewController(nextViewController, animated: false)
+            }
+        }
     }
 }
 
