@@ -14,8 +14,7 @@ class MyInfoAccountStackView: UIView {
         
     // MARK: - UI Components
     
-    private let horizontalStackView = UIStackView()
-    private let emptyView = UIView()
+    private let stackView = UIView()
     let titleLabel = UILabel()
     let contentLabel = UILabel()
     let notificationSwitch = UISwitch()
@@ -42,11 +41,6 @@ extension MyInfoAccountStackView {
     private func setUI(title: String, isHidden: Bool) {
         layer.cornerRadius = 10
         
-        horizontalStackView.do {
-            $0.addArrangedSubviews(titleLabel, emptyView, isHidden ? notificationSwitch : contentLabel)
-            $0.axis = .horizontal
-        }
-        
         titleLabel.do {
             $0.text = title
             $0.font = .Pretendard(.medium, size: 14)
@@ -59,7 +53,7 @@ extension MyInfoAccountStackView {
             $0.font = .Pretendard(.regular, size: 14)
             $0.textColor = .gray6
             $0.numberOfLines = 0
-            $0.textAlignment = .left
+            $0.textAlignment = .right
         }
         
         notificationSwitch.do {
@@ -75,26 +69,29 @@ extension MyInfoAccountStackView {
     }
         
     private func setLayout(isHidden: Bool) {
-        addSubviews(lineView, horizontalStackView)
+        addSubviews(lineView, stackView)
+        stackView.addSubviews(titleLabel, isHidden ? notificationSwitch : contentLabel)
         
-        titleLabel.snp.makeConstraints {
-            $0.centerY.equalToSuperview()
-        }
-        
-        horizontalStackView.snp.makeConstraints {
+        stackView.snp.makeConstraints {
             $0.top.equalToSuperview().offset(10)
             $0.directionalHorizontalEdges.equalToSuperview().inset(20)
             $0.bottom.equalToSuperview().inset(10)
             $0.height.equalTo(30)
         }
+        
+        titleLabel.snp.makeConstraints {
+            $0.centerY.equalToSuperview()
+        }
 
         if !isHidden {
             contentLabel.snp.makeConstraints {
                 $0.centerY.equalToSuperview()
+                $0.trailing.equalToSuperview()
             }
         } else {
             notificationSwitch.snp.makeConstraints {
                 $0.centerY.equalToSuperview()
+                $0.trailing.equalToSuperview()
                 $0.height.equalTo(30)
                 $0.width.equalTo(50)
             }
