@@ -126,7 +126,7 @@ extension MissionDetailCollectionViewCell {
             let actionNames = model.actions.map { $0.name }
             let joinedActionNames = actionNames.joined(separator: "\n")
             action.titleLabel.text = joinedActionNames
-            action.titleLabel.setLineSpacing(lineSpacing: 5.0)
+            action.titleLabel.setLineSpacing(lineSpacing: 7.0)
             action.verticalStackView.removeArrangedSubview(action.emptyIcon)
             action.emptyIcon.removeFromSuperview()
         }
