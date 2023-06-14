@@ -388,13 +388,6 @@
 			path = Enum;
 			sourceTree = "<group>";
 		};
-		09582B4929BDB45F00EF3207 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
 		098BFD6029B80137008E80F9 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
@@ -629,7 +622,6 @@
 			children = (
 				099CFA1729AB8C260003E5D5 /* ViewControllers */,
 				099CFA1829AB8C2F0003E5D5 /* Cells */,
-				09582B4929BDB45F00EF3207 /* Model */,
 			);
 			path = Home;
 			sourceTree = "<group>";
