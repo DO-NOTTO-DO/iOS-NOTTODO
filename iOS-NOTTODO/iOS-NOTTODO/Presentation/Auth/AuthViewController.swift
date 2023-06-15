@@ -6,14 +6,14 @@
 //
 
 import UIKit
+
+import AuthenticationServices
+import SafariServices
 import SnapKit
 import Then
-
 import KakaoSDKCommon
 import KakaoSDKAuth
 import KakaoSDKUser
-
-import AuthenticationServices
 
 class AuthViewController: UIViewController {
     
@@ -28,7 +28,7 @@ class AuthViewController: UIViewController {
     private var kakaoLoginButton = UIButton()
     private var appleLoginButton = UIButton()
     
-    private var moreLabel = UILabel()
+    private var moreButton = UIButton()
     private var conditionButton = UIButton()
     private var personalInfoButton = UIButton()
     
@@ -63,10 +63,10 @@ extension AuthViewController {
         kakaoLoginButton.addTarget(self, action: #selector(kakaoLoginButtonClicked), for: .touchUpInside)
         appleLoginButton.addTarget(self, action: #selector(appleLoginButtonClicked), for: .touchUpInside)
         
-        moreLabel.do {
-            $0.text = I18N.moreAuth
-            $0.textColor = .gray4
-            $0.font = .Pretendard(.regular, size: 12)
+        moreButton.do {
+            $0.setTitle(I18N.moreAuth, for: .normal)
+            $0.setTitleColor(.gray4, for: .normal)
+            $0.titleLabel?.font = .Pretendard(.regular, size: 12)
         }
         
         conditionButton.do {
@@ -74,6 +74,7 @@ extension AuthViewController {
             $0.setTitleColor(.gray4, for: .normal)
             $0.titleLabel?.font = .Pretendard(.regular, size: 12)
             $0.setUnderline()
+            $0.addTarget(self, action: #selector(moreButtonTapped), for: .touchUpInside)
         }
         
         personalInfoButton.do {
@@ -81,13 +82,14 @@ extension AuthViewController {
             $0.setTitleColor(.gray4, for: .normal)
             $0.titleLabel?.font = .Pretendard(.regular, size: 12)
             $0.setUnderline()
+            $0.addTarget(self, action: #selector(moreButtonTapped), for: .touchUpInside)
         }
     }
     
     private func setLayout() {
         
-        view.addSubviews(loginMainLabel, loginSubLabel, kakaoLoginImageView, kakaoLoginButtonView, appleLoginButtonView, kakaoLoginButton, appleLoginButton, moreLabel)
-        moreLabel.addSubviews(conditionButton, personalInfoButton)
+        view.addSubviews(loginMainLabel, loginSubLabel, kakaoLoginImageView, kakaoLoginButtonView, appleLoginButtonView, kakaoLoginButton, appleLoginButton, moreButton)
+        moreButton.addSubviews(conditionButton, personalInfoButton)
         
         loginMainLabel.snp.makeConstraints {
             $0.top.equalToSuperview().offset(155)
@@ -99,14 +101,14 @@ extension AuthViewController {
             $0.leading.equalTo(loginMainLabel.snp.leading)
         }
         
-        moreLabel.snp.makeConstraints {
+        moreButton.snp.makeConstraints {
             $0.bottom.equalToSuperview().offset(-65)
             $0.centerX.equalToSuperview()
         }
         
         appleLoginButtonView.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview()
-            $0.bottom.equalTo(moreLabel.snp.top).offset(-14)
+            $0.bottom.equalTo(moreButton.snp.top).offset(-14)
         }
         
         kakaoLoginButtonView.snp.makeConstraints {
@@ -151,6 +153,10 @@ extension AuthViewController {
     }
     
     // MARK: - @objc Methods
+    
+    @objc func moreButtonTapped() {
+        Utils.myInfoUrl(vc: self, url: MyInfoURL.service.url)
+    }
     
     @objc func kakaoLoginButtonClicked() {
         if UserApi.isKakaoTalkLoginAvailable() {

@@ -28,7 +28,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             print("토큰유효!!!!!")
         } else {
             // self.showAuthView()
-            // 토큰이 유효하지 않을 경우 일단은 온보딩->로그인->홈 이렇게 가도록
+            // 토큰이 유효하지 않을 경우 일단은 온보딩->로그인->홈 이렇게만 가도록
             print("토큰없넹!!!!!")
         }
         return true

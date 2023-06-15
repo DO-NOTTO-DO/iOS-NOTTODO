@@ -22,6 +22,7 @@ struct I18N {
     static let moreAuth = "이용약관 및 개인정보 처리방침"
     static let condition = "이용약관"
     static let personalInfo = "개인정보 처리방침"
+    static let moreLink = "https://teamnottodo.notion.site/0c3c7c02857b46e1b16307ce7a8f6ca9"
     
     /// Recommend
     
