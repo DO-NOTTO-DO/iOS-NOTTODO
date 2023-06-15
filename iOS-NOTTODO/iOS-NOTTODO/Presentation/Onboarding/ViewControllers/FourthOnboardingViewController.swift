@@ -128,8 +128,11 @@ extension FourthOnboardingViewController {
 extension FourthOnboardingViewController {
     @objc
     private func ButtonTapped() {
-        print("tapped")
-        let nextViewController = FifthOnboardingViewController()
-        navigationController?.pushViewController(nextViewController, animated: false)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            UIView.animate(withDuration: 0.01) {
+                let nextViewController = FifthOnboardingViewController()
+                self.navigationController?.pushViewController(nextViewController, animated: false)
+            }
+        }
     }
 }

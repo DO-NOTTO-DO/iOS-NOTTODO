@@ -50,6 +50,7 @@ extension UIImage {
     static var icGuide: UIImage { UIImage(named: "ic_guide")! }
     static var icMeatball: UIImage { UIImage(named: "ic_meatball")! }
     static var icQuestion: UIImage { UIImage(named: "ic_question")! }
+    static var icQuestion1: UIImage { UIImage(named: "ic_question1")! }
     static var icTrash: UIImage { UIImage(named: "ic_trash")! }
     static var icFlag: UIImage { UIImage(named: "ic_flag")! }
     

@@ -179,10 +179,14 @@ extension FifthOnboardingViewController {
     @objc
     private func ButtonTapped() {
         if let window = view.window?.windowScene?.keyWindow {
-            let TabBarController = AuthViewController()
-            let navigationController = UINavigationController(rootViewController: TabBarController)
-            navigationController.isNavigationBarHidden = true
-            window.rootViewController = navigationController
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                UIView.animate(withDuration: 0.01) {
+                    let TabBarController = AuthViewController()
+                    let navigationController = UINavigationController(rootViewController: TabBarController)
+                    navigationController.isNavigationBarHidden = true
+                    window.rootViewController = navigationController
+                }
+            }
         }
     }
 }

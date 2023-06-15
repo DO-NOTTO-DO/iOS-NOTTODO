@@ -50,7 +50,7 @@ extension MissionDetailCollectionViewCell {
         missionTagLabel.do {
             $0.backgroundColor = .bg
             $0.layer.masksToBounds = true
-            $0.layer.cornerRadius = 10
+            $0.layer.cornerRadius = 12.5
             $0.font = .Pretendard(.medium, size: 14)
             $0.textColor = .gray1
         }
@@ -126,6 +126,7 @@ extension MissionDetailCollectionViewCell {
             let actionNames = model.actions.map { $0.name }
             let joinedActionNames = actionNames.joined(separator: "\n")
             action.titleLabel.text = joinedActionNames
+            action.titleLabel.setLineSpacing(lineSpacing: 7.0)
             action.verticalStackView.removeArrangedSubview(action.emptyIcon)
             action.emptyIcon.removeFromSuperview()
         }

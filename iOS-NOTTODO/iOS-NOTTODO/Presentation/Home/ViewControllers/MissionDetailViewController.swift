@@ -30,8 +30,6 @@ class MissionDetailViewController: UIViewController {
     
     private let deleteButton = UIButton(configuration: .filled())
     private lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout())
-    
-    private let subView = UIView()
     private let completeButton = UIButton()
     
     // MARK: - Life Cycle
@@ -40,6 +38,7 @@ class MissionDetailViewController: UIViewController {
         guard let id = self.userId else { return }
         requestDailyMissionAPI(id: id)
     }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         register()
@@ -53,21 +52,18 @@ class MissionDetailViewController: UIViewController {
 // MARK: - Methods
 
 extension MissionDetailViewController {
-    func setupBlurEffect() {
-           let blurEffect = UIBlurEffect(style: .dark)
-           let visualEffectView = UIVisualEffectView(effect: blurEffect)
-           visualEffectView.frame = view.frame
-           view.addSubview(visualEffectView)
-           collectionView.addSubview(visualEffectView)
-       }
-    
+
     private func register() {
         collectionView.register(MissionDetailCollectionViewCell.self, forCellWithReuseIdentifier: MissionDetailCollectionViewCell.identifier)
         collectionView.register(DetailHeaderReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: DetailHeaderReusableView.identifier)
         collectionView.register(DetailFooterReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: DetailFooterReusableView.identifier)
     }
     private func setUI() {
-        view.backgroundColor = .black.withAlphaComponent(0.6)
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.25) {
+            UIView.animate(withDuration: 0.5) {
+                self.view.backgroundColor = .black.withAlphaComponent(0.6)
+            }
+        }
         
         deleteButton.do {
             $0.configuration?.title = I18N.detailDelete
