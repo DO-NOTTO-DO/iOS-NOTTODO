@@ -23,7 +23,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         KakaoSDK.initSDK(appKey: "f06c671df540ff4a8f8275f453368748")
         
-        if KeychainUtil.getSocialToken() != "" {
+        // 낫투두 서버로부터 받은 토큰이 유효할 경우
+        // 토큰이 유효한지 확인할 방법이 없으므로 UserDefaults에 값이 있는 경우로 대체
+        if KeychainUtil.getAccessToken() != "" {
             self.skipAuthView()
             print("토큰유효!!!!!")
         } else {
