@@ -6,14 +6,14 @@
 //
 
 import UIKit
+
+import AuthenticationServices
+import SafariServices
 import SnapKit
 import Then
-
 import KakaoSDKCommon
 import KakaoSDKAuth
 import KakaoSDKUser
-
-import AuthenticationServices
 
 class AuthViewController: UIViewController {
     
@@ -28,7 +28,7 @@ class AuthViewController: UIViewController {
     private var kakaoLoginButton = UIButton()
     private var appleLoginButton = UIButton()
     
-    private var moreLabel = UILabel()
+    private var moreButton = UIButton()
     private var conditionButton = UIButton()
     private var personalInfoButton = UIButton()
     
@@ -63,10 +63,10 @@ extension AuthViewController {
         kakaoLoginButton.addTarget(self, action: #selector(kakaoLoginButtonClicked), for: .touchUpInside)
         appleLoginButton.addTarget(self, action: #selector(appleLoginButtonClicked), for: .touchUpInside)
         
-        moreLabel.do {
-            $0.text = I18N.moreAuth
-            $0.textColor = .gray4
-            $0.font = .Pretendard(.regular, size: 12)
+        moreButton.do {
+            $0.setTitle(I18N.moreAuth, for: .normal)
+            $0.setTitleColor(.gray4, for: .normal)
+            $0.titleLabel?.font = .Pretendard(.regular, size: 12)
         }
         
         conditionButton.do {
@@ -74,6 +74,7 @@ extension AuthViewController {
             $0.setTitleColor(.gray4, for: .normal)
             $0.titleLabel?.font = .Pretendard(.regular, size: 12)
             $0.setUnderline()
+            $0.addTarget(self, action: #selector(moreButtonTapped), for: .touchUpInside)
         }
         
         personalInfoButton.do {
@@ -81,13 +82,14 @@ extension AuthViewController {
             $0.setTitleColor(.gray4, for: .normal)
             $0.titleLabel?.font = .Pretendard(.regular, size: 12)
             $0.setUnderline()
+            $0.addTarget(self, action: #selector(moreButtonTapped), for: .touchUpInside)
         }
     }
     
     private func setLayout() {
         
-        view.addSubviews(loginMainLabel, loginSubLabel, kakaoLoginImageView, kakaoLoginButtonView, appleLoginButtonView, kakaoLoginButton, appleLoginButton, moreLabel)
-        moreLabel.addSubviews(conditionButton, personalInfoButton)
+        view.addSubviews(loginMainLabel, loginSubLabel, kakaoLoginImageView, kakaoLoginButtonView, appleLoginButtonView, kakaoLoginButton, appleLoginButton, moreButton)
+        moreButton.addSubviews(conditionButton, personalInfoButton)
         
         loginMainLabel.snp.makeConstraints {
             $0.top.equalToSuperview().offset(155)
@@ -99,14 +101,14 @@ extension AuthViewController {
             $0.leading.equalTo(loginMainLabel.snp.leading)
         }
         
-        moreLabel.snp.makeConstraints {
+        moreButton.snp.makeConstraints {
             $0.bottom.equalToSuperview().offset(-65)
             $0.centerX.equalToSuperview()
         }
         
         appleLoginButtonView.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview()
-            $0.bottom.equalTo(moreLabel.snp.top).offset(-14)
+            $0.bottom.equalTo(moreButton.snp.top).offset(-14)
         }
         
         kakaoLoginButtonView.snp.makeConstraints {
@@ -152,6 +154,10 @@ extension AuthViewController {
     
     // MARK: - @objc Methods
     
+    @objc func moreButtonTapped() {
+        Utils.myInfoUrl(vc: self, url: MyInfoURL.service.url)
+    }
+    
     @objc func kakaoLoginButtonClicked() {
         if UserApi.isKakaoTalkLoginAvailable() {
             kakaoLoginWithApp()
@@ -183,7 +189,6 @@ extension AuthViewController {
                 print("kakaoLoginWithApp() success.")
                 
                 if let accessToken = oauthToken?.accessToken {
-                  //  UserDefaults.standard.set(accessToken, forKey: "KakaoAccessToken")
                     KeychainUtil.setSocialToken(accessToken)
                     self.getUserInfo()
                 }
@@ -199,7 +204,6 @@ extension AuthViewController {
                 print("kakaoLoginWithAccount() success.")
                 
                 if let accessToken = oauthToken?.accessToken {
-                 //   UserDefaults.standard.set(accessToken, forKey: "KakaoAccessToken")
                     KeychainUtil.setSocialToken(accessToken)
                     
                     self.getUserInfo()
@@ -219,16 +223,6 @@ extension AuthViewController {
                 KeychainUtil.setString(name, forKey: DefaultKeys.name)
                 KeychainUtil.setString(email, forKey: DefaultKeys.email)
                 KeychainUtil.setBool(false, forKey: DefaultKeys.isAppleLogin)
-                
-//                UserDefaults.standard.set(name, forKey: "KakaoName")
-//                UserDefaults.standard.set(email, forKey: "KakaoEmail")
-//                UserDefaults.standard.set(false, forKey: "isAppleLogin")
-                
-//                self.requestAuthAPI(social: "KAKAO",
-//                               socialToken: UserDefaults.standard.string(forKey: "KakaoAccessToken") ?? "",
-//                               fcmToken: "1", name: UserDefaults.standard.string(forKey: "KakaoName") ?? "익명의 도전자",
-//                                    email: UserDefaults.standard.string(forKey: "KakaoEmail") ?? "연동된 이메일 정보가 없습니다")
-               // self.presentToHomeViewController()
                 
                 self.requestAuthAPI(social: LoginType.Kakao.social, socialToken: KeychainUtil.getSocialToken(), fcmToken: DefaultKeys.fcmToken, name: KeychainUtil.getUsername(), email: KeychainUtil.getEmail())
             }
@@ -259,13 +253,11 @@ extension AuthViewController: ASAuthorizationControllerDelegate, ASAuthorization
             
             if let accessToken = appleIDCredential.identityToken {
                 if let accessTokenString = String(data: accessToken, encoding: .utf8) {
-                    // UserDefaults.standard.setValue(accessTokenString, forKey: "AppleAccessToken")
                     KeychainUtil.setSocialToken(accessTokenString)
                 }
             }
             
             if let email = appleIDCredential.email {
-              //  UserDefaults.standard.setValue(email, forKey: "AppleUserEmail")
                 KeychainUtil.setString(email, forKey: DefaultKeys.email)
             }
             
@@ -273,18 +265,11 @@ extension AuthViewController: ASAuthorizationControllerDelegate, ASAuthorization
             let lastName = appleIDCredential.fullName?.familyName
             if let firstName = firstName, let lastName = lastName {
                 let fullName = "\(lastName)\(firstName)"
-               // UserDefaults.standard.setValue(fullName, forKey: "AppleUserName")
                 KeychainUtil.setString(fullName, forKey: DefaultKeys.name)
-
             }
             
-           // UserDefaults.standard.set(true, forKey: "isAppleLogin")
             KeychainUtil.setBool(true, forKey: DefaultKeys.isAppleLogin)
-        
-//            self.requestAuthAPI(social: "APPLE",
-//                           socialToken: UserDefaults.standard.string(forKey: "AppleAccessToken") ?? "",
-//                                fcmToken: "1", name: UserDefaults.standard.string(forKey: "AppleUserName") ?? "익명의 도전자", email: UserDefaults.standard.string(forKey: "AppleUserEmail") ?? "연동된 이메일 정보가 없습니다")
-//            self.presentToHomeViewController()
+
             self.requestAuthAPI(social: LoginType.Apple.social, socialToken: KeychainUtil.getSocialToken(), fcmToken: DefaultKeys.fcmToken, name: KeychainUtil.getUsername(), email: KeychainUtil.getEmail())
         default:
             break

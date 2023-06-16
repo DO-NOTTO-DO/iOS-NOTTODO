@@ -20,66 +20,44 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-
+        
         KakaoSDK.initSDK(appKey: "f06c671df540ff4a8f8275f453368748")
         
-//        if UserDefaults.standard.string(forKey: "KakaoAccessToken") != nil {
-//            UserApi.shared.accessTokenInfo { (_, error) in
-//                if let _ = error {
-//                    // 카카오 로그인 정보가 유효하지 않은 경우
-//                    self.checkAppleLoginStatus()
-//                } else {
-//                    // 카카오 로그인 정보가 유효한 경우
-//                    self.skipAuthView()
-//                }
-//            }
-//        } else {
-//            // 카카오 로그인 정보가 없는 경우
-//            checkAppleLoginStatus()
-//        }
-
+        // 낫투두 서버로부터 받은 토큰이 유효할 경우
+        // 토큰이 유효한지 확인할 방법이 없으므로 UserDefaults에 값이 있는 경우로 대체
+        if KeychainUtil.getAccessToken() != "" {
+            self.skipAuthView()
+            print("토큰유효!!!!!")
+        } else {
+            // self.showAuthView()
+            // 토큰이 유효하지 않을 경우 일단은 온보딩->로그인->홈 이렇게만 가도록
+            print("토큰없넹!!!!!")
+        }
         return true
     }
-
-//    func checkAppleLoginStatus() {
-//        if UserDefaults.standard.bool(forKey: "isAppleLogin") {
-//            let appleIDProvider = ASAuthorizationAppleIDProvider()
-//            appleIDProvider.getCredentialState(forUserID: UserDefaults.standard.string(forKey: "AppleAccessToken") ?? "") { credentialState, _ in
-//                switch credentialState {
-//                case .authorized:
-//                    // 애플 로그인 정보가 유효한 경우
-//                    self.skipAuthView()
-//                case .revoked, .notFound:
-//                    // 애플 로그인 정보가 유효하지 않은 경우
-//                    self.showAuthView()
-//                default:
-//                    break
-//                }
-//            }
-//        } else {
-//            // 애플 로그인 정보가 없는 경우
-//            showAuthView()
-//        }
-//    }
-//
-//    func showAuthView() {
-//        DispatchQueue.main.async {
-//            let authViewController = AuthViewController()
-//            self.window = UIWindow(frame: UIScreen.main.bounds)
-//            self.window?.rootViewController = authViewController
-//            self.window?.makeKeyAndVisible()
-//        }
-//    }
-//
-//    func skipAuthView() {
-//        // 홈 화면으로 바로 이동
-//        DispatchQueue.main.async {
-//            let homeViewController = HomeViewController()
-//            self.window = UIWindow(frame: UIScreen.main.bounds)
-//            self.window?.rootViewController = homeViewController
-//            self.window?.makeKeyAndVisible()
-//        }
-//    }
+    
+    func showAuthView() {
+        DispatchQueue.main.async {
+            if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+               let window = windowScene.windows.first {
+                let authViewController = AuthViewController()
+                window.rootViewController = authViewController
+                window.makeKeyAndVisible()
+            }
+        }
+    }
+    
+    func skipAuthView() {
+        // 홈 화면으로 바로 이동
+        DispatchQueue.main.async {
+            if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+               let window = windowScene.windows.first {
+                let tabBarController = TabBarController()
+                window.rootViewController = tabBarController
+                window.makeKeyAndVisible()
+            }
+        }
+    }
 }
 
 // MARK: UISceneSession Lifecycle
