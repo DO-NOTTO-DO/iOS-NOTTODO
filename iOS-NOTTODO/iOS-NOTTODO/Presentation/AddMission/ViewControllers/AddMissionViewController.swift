@@ -10,7 +10,6 @@ import UIKit
 import SnapKit
 import Then
 
-// 유저매니저에 isSE2 상태 저장해두고 갖다 쓰는건?
 enum FoldState {
     case folded, unfolded
     
@@ -21,13 +20,8 @@ enum FoldState {
 
 final class AddMissionViewController: UIViewController {
     
-    enum Size {
-        static let 변수명 = isSE2 ? 0 : 1
-    }
-    
     // MARK: Properties
     
-    static var isSE2: Bool = false
     var isAdd: Bool = false {
         didSet {
             setAddButtonUI()
@@ -36,6 +30,10 @@ final class AddMissionViewController: UIViewController {
     private var foldStateList: [FoldState] = [.folded, .folded, .folded, .folded, .folded]
     
     private var heightList: [CGFloat] = [54, 54, 54, 54, 54]
+    private var nottodoLabel: String?
+    private var situationLabel: String?
+    private var actionLabel: String?
+    private var goalLabel: String?
     
     // MARK: - UI Components
     
@@ -57,6 +55,14 @@ final class AddMissionViewController: UIViewController {
         registerCell()
         setDelegate()
         hideKeyboardWhenTappedAround()
+    }
+    
+    func setNottodoLabel(_ text: String) {
+        nottodoLabel = text
+    }
+    
+    func setActionLabel(_ text: String) {
+        actionLabel = text
     }
 }
 

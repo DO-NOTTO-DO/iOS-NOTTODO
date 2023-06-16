@@ -136,4 +136,8 @@ extension RecommendActionHeaderView {
         self.bodyImage.image = image
         self.titleLabel.text = title
     }
+    
+    func getTitle() -> String {
+        return titleLabel.text ?? ""
+    }
 }

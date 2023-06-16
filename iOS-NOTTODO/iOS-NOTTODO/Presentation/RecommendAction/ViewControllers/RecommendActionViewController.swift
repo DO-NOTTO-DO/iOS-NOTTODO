@@ -16,6 +16,8 @@ class RecommendActionViewController: UIViewController {
     var selectedIndex: Int = 0
     var tagLabelText: String?
     var bodyImageUrl: UIImage?
+    var nottodoTitle: String?
+    var actionLabel: String?
     
     // MARK: - UI Components
     
@@ -29,7 +31,7 @@ class RecommendActionViewController: UIViewController {
     private let recommendActionInset: UIEdgeInsets = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 15)
     
     // MARK: - View Life Cycle
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setUI()
@@ -45,11 +47,13 @@ class RecommendActionViewController: UIViewController {
 }
 
 // MARK: - @objc
-// 데이터 넘겨주는 코드 추가 필요
+
 extension RecommendActionViewController {
     @objc
     private func pushToAddMission() {
         let nextViewController = AddMissionViewController()
+        nextViewController.setNottodoLabel(nottodoTitle ?? "")
+        nextViewController.setActionLabel(actionLabel ?? "")
         navigationController?.pushViewController(nextViewController, animated: true)
     }
 }
@@ -64,7 +68,7 @@ private extension RecommendActionViewController {
         recommendActionCollectionView.do {
             $0.backgroundColor = .clear
             $0.bounces = false
-            $0.allowsMultipleSelection = true
+            //            $0.allowsMultipleSelection = true  생성뷰 이슈 해결 후 주석 해제
         }
         
         backButton.do {
@@ -207,13 +211,15 @@ extension RecommendActionViewController: UICollectionViewDataSource {
                 guard let response = response else { return }
                 guard let data = response.data else { return }
                 headerView.configure(tag: self?.tagLabelText, title: data.title, image: self?.bodyImageUrl)
+                self?.nottodoTitle = headerView.getTitle()
             }
-    
+            
             return headerView
         } else {
             guard let footerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: RecommendActionFooterView.identifier, for: indexPath) as? RecommendActionFooterView else { return UICollectionReusableView() }
             footerView.clickedNextButton = { [weak self] in
                 let nextViewContoller = AddMissionViewController()
+                nextViewContoller.setNottodoLabel(self?.nottodoTitle ?? "")
                 self?.navigationController?.pushViewController(nextViewContoller, animated: true)
             }
             return footerView
@@ -230,6 +236,8 @@ extension RecommendActionViewController: UICollectionViewDelegate {
                 setDelegate()
             }
         }
+        guard let cell = collectionView.cellForItem(at: indexPath) as? RecommendActionCollectionViewCell else { fatalError() }
+        actionLabel = cell.titleLabel.text
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
@@ -240,5 +248,6 @@ extension RecommendActionViewController: UICollectionViewDelegate {
                 setDelegate()
             }
         }
+        actionLabel = ""
     }
 }
