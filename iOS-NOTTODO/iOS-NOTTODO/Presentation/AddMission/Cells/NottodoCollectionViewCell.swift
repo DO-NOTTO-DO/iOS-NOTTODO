@@ -25,7 +25,13 @@ final class NottodoCollectionViewCell: UICollectionViewCell, AddMissionMenu {
                                               colorText: I18N.nottodo)
     private var addMissionTextField = AddMissionTextFieldView(textMaxCount: 20)
     private let historyLabel = UILabel()
+    private let stackView = UIStackView()
+    private let foldStackView = UIStackView()
+    private let paddingView = UIView()
     private lazy var historyCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout())
+    
+    private var currentValue: String?
+    private let enterMessage = UILabel()
     
     // MARK: Life Cycle
     
@@ -36,7 +42,7 @@ final class NottodoCollectionViewCell: UICollectionViewCell, AddMissionMenu {
         registerCell()
         setLayout()
     }
-
+    
     @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -45,87 +51,82 @@ final class NottodoCollectionViewCell: UICollectionViewCell, AddMissionMenu {
     func setFoldState(_ state: FoldState) {
         fold = state
         missionCellHeight?(state == .folded ? 54 : 347)
-        updateLayout()
         updateUI()
-        contentView.layoutIfNeeded()
+        layoutIfNeeded()
     }
     
-//    func calculateCellHeight(in state: FoldState) -> CGFloat {
-//        var cellHeight: CGFloat = 0
-//
-//        let itemWidth = self.bounds.width
-//        let titleLabelHeight = calculateLabelHeight(titleLabel.text, font: titleLabel.font, width: itemWidth)
-//        let subTitleLabelHeight = calculateLabelHeight(subTitleLabel.text, font: subTitleLabel.font, width: itemWidth)
-//        let textFieldViewHeight: CGFloat = 48
-//        let historyLabelHeight = calculateLabelHeight(historyLabel.text, font: historyLabel.font, width: itemWidth)
-//        var historyCollectionViewHeight: CGFloat = CGFloat(37 * MissionHistoryModel.items.count)
-//        historyCollectionViewHeight = historyCollectionViewHeight > 134 ? 134 : historyCollectionViewHeight
-//        let spacing: CGFloat = 16 + 10 + 24 + 11 + 6 + 32
-//
-//        cellHeight = titleLabelHeight + subTitleLabelHeight + textFieldViewHeight + historyLabelHeight + historyCollectionViewHeight + spacing
- //       return state == .folded ? 200 : 500
- //   }
-
+    func getText() -> String {
+        return addMissionTextField.getTextFieldText()
+    }
 }
 
 extension NottodoCollectionViewCell {
-    func setUI() {
+    private func setUI() {
         backgroundColor = .gray1
         layer.borderColor = UIColor.gray3?.cgColor
         layer.cornerRadius = 12
         layer.borderWidth = 1
         historyCollectionView.backgroundColor = .clear
         historyCollectionView.indicatorStyle = .white
+        stackView.axis = .vertical
+        foldStackView.do {
+            $0.axis = .horizontal
+            $0.distribution = .fill
+            $0.spacing = 22
+        }
         
         historyLabel.do {
             $0.font = .Pretendard(.regular, size: 14)
             $0.text = I18N.missionHistoryLabel
             $0.textColor = .gray4
         }
+        
+        enterMessage.do {
+            $0.text = I18N.enterMessage
+            $0.textColor = .gray3
+            $0.font = .Pretendard(.regular, size: 15)
+        }
     }
     
     private func setLayout() {
-        contentView.addSubviews(titleLabel, subTitleLabel, addMissionTextField,
-                    historyLabel, historyCollectionView)
+        foldStackView.addArrangedSubviews(titleLabel, enterMessage, paddingView)
+        stackView.addArrangedSubviews(foldStackView, subTitleLabel, addMissionTextField,
+                                      historyLabel, historyCollectionView)
         
-        updateUI()
-        updateLayout()
-    }
-    
-    private func updateLayout() {
-        titleLabel.snp.remakeConstraints {
+        contentView.addSubviews(stackView)
+        
+        stackView.snp.makeConstraints {
             $0.top.equalToSuperview().inset(16)
-            $0.leading.equalToSuperview().inset(21)
+            $0.leading.trailing.equalToSuperview().inset(22)
         }
         
-        subTitleLabel.snp.remakeConstraints {
-            $0.top.equalTo(titleLabel.snp.bottom).offset(10)
-            $0.leading.equalToSuperview().inset(23)
+        stackView.do {
+            $0.setCustomSpacing(10, after: foldStackView)
+            $0.setCustomSpacing(19, after: subTitleLabel)
+            $0.setCustomSpacing(11, after: addMissionTextField)
+            $0.setCustomSpacing(6, after: historyLabel)
+            $0.setCustomSpacing(32, after: historyCollectionView)
+        }
+    
+        subTitleLabel.snp.makeConstraints {
+            $0.height.equalTo(30)
         }
         
-//        let textFieldHeight = (fold == .folded) ? 0 : 48
-        addMissionTextField.snp.remakeConstraints {
-            $0.top.equalTo(subTitleLabel.snp.bottom).offset(25)
-            $0.directionalHorizontalEdges.equalToSuperview().inset(23)
-            $0.height.equalTo(48)
+        addMissionTextField.snp.makeConstraints {
+            $0.height.equalTo(49)
         }
 
-        historyLabel.snp.remakeConstraints {
-            $0.top.equalTo(addMissionTextField.snp.bottom).offset(11)
-            $0.leading.equalToSuperview().inset(24)
-        }
-
-        historyCollectionView.snp.remakeConstraints {
-            $0.top.equalTo(historyLabel.snp.bottom).offset(6)
-            $0.directionalHorizontalEdges.equalToSuperview().inset(28)
-            $0.bottom.equalToSuperview().inset(32)
+        historyCollectionView.snp.makeConstraints {
+            $0.height.equalTo(134)
         }
     }
     
     private func updateUI() {
         let isHidden: Bool = (fold == .folded)
         
-        [titleLabel, subTitleLabel, addMissionTextField, historyLabel, historyCollectionView].forEach { $0.isHidden = isHidden }
+        [subTitleLabel, addMissionTextField, historyLabel, historyCollectionView].forEach { $0.isHidden = isHidden }
+        enterMessage.isHidden = !isHidden
+        titleLabel.setTitleColor(isHidden)
     }
     
     private func layout() -> UICollectionViewFlowLayout {

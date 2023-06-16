@@ -64,6 +64,10 @@ final class AddMissionViewController: UIViewController {
     func setActionLabel(_ text: String) {
         actionLabel = text
     }
+    
+    func setSituationLabel(_ text: String) {
+        situationLabel = text
+    }
 }
 
 private extension AddMissionViewController {

@@ -26,6 +26,7 @@ final class DateCollectionViewCell: UICollectionViewCell, AddMissionMenu {
     // 캘린더뷰가 들어갈 공간
     let calendarView = CalendarView(calendarScope: .month, scrollDirection: .horizontal)
     private let warningLabel = UILabel()
+    private let stackView = UIStackView()
     
     // MARK: - Life Cycle
     override init(frame: CGRect) {
@@ -42,7 +43,6 @@ final class DateCollectionViewCell: UICollectionViewCell, AddMissionMenu {
     func setFoldState(_ state: FoldState) {
         fold = state
         missionCellHeight?(state == .folded ? 54 : 470)
-        updateLayout()
         updateUI()
         contentView.layoutIfNeeded()
     }
@@ -55,6 +55,7 @@ private extension DateCollectionViewCell {
         layer.borderColor = UIColor.gray3?.cgColor
         layer.cornerRadius = 12
         layer.borderWidth = 1
+        stackView.axis = .vertical
         
         warningLabel.do {
             $0.text = I18N.dateWarning
@@ -70,9 +71,38 @@ private extension DateCollectionViewCell {
     }
     
     private func setLayout() {
-        contentView.addSubviews(titleLabel, subTitleLabel, calendarView, warningLabel)
-        updateLayout()
-        updateUI()
+        stackView.addArrangedSubviews(titleLabel, subTitleLabel, calendarView, warningLabel)
+        contentView.addSubviews(stackView)
+        
+        stackView.snp.makeConstraints {
+            $0.top.equalToSuperview().inset(16)
+            $0.leading.trailing.equalToSuperview().inset(16)
+        }
+        
+        stackView.do {
+            $0.setCustomSpacing(10, after: titleLabel)
+            $0.setCustomSpacing(0, after: subTitleLabel)
+            $0.setCustomSpacing(13, after: calendarView)
+        }
+        
+        titleLabel.snp.makeConstraints {
+            $0.leading.equalToSuperview().inset(6)
+        }
+        
+        subTitleLabel.snp.makeConstraints {
+            $0.height.equalTo(30)
+            $0.leading.equalTo(titleLabel.snp.leading)
+        }
+        
+        calendarView.snp.makeConstraints {
+            $0.height.equalTo((UIScreen.main.bounds.size.width-60)*1.05)
+            $0.directionalHorizontalEdges.equalToSuperview()
+        }
+        
+        calendarView.calendar.snp.updateConstraints {
+            $0.bottom.equalToSuperview()
+            $0.directionalHorizontalEdges.equalToSuperview().inset(13)
+        }
     }
     
     private func updateLayout() {
@@ -93,21 +123,18 @@ private extension DateCollectionViewCell {
         
         calendarView.snp.makeConstraints {
             $0.top.equalTo(subTitleLabel.snp.bottom)
-            $0.directionalHorizontalEdges.equalToSuperview()
+
             $0.height.equalTo((UIScreen.main.bounds.size.width-60)*1.05)
-        }
-        
-        calendarView.calendar.snp.updateConstraints {
-            $0.bottom.equalToSuperview()
-            $0.directionalHorizontalEdges.equalToSuperview().inset(13)
         }
     }
 
     private func updateUI() {
         let isHidden: Bool = ( fold == .folded )
-        [titleLabel, subTitleLabel, calendarView, warningLabel].forEach {
+        [subTitleLabel, calendarView, warningLabel].forEach {
             $0.isHidden = isHidden
         }
+        
+        titleLabel.setTitleColor(isHidden)
     }
 }
 

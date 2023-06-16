@@ -28,6 +28,13 @@ final class ActionCollectionViewCell: UICollectionViewCell, AddMissionMenu {
     private let exampleNottodo = UILabel()
     private let exampleActionOne = UILabel()
     private let exampleActionTwo = UILabel()
+    private let stackView = UIStackView()
+    private let exampleStackView = UIStackView()
+    
+    private let foldStackView = UIStackView()
+    private let enterMessage = UILabel()
+    private let paddingView = UIView()
+    private let optionLabel = UILabel()
     
     // MARK: - Life Cycle
     override init(frame: CGRect) {
@@ -44,7 +51,6 @@ final class ActionCollectionViewCell: UICollectionViewCell, AddMissionMenu {
     func setFoldState(_ state: FoldState) {
         fold = state
         missionCellHeight?(state == .folded ? 54 : 289)
-        updateLayout()
         updateUI()
         setKeyboardReturnType()
         contentView.layoutIfNeeded()
@@ -57,6 +63,17 @@ extension ActionCollectionViewCell {
         layer.borderColor = UIColor.gray3?.cgColor
         layer.cornerRadius = 12
         layer.borderWidth = 1
+        stackView.axis = .vertical
+        foldStackView.do {
+            $0.axis = .horizontal
+            $0.distribution = .fill
+            $0.spacing = 9
+        }
+        
+        exampleStackView.do {
+            $0.axis = .horizontal
+            $0.spacing = 8
+        }
         
         exampleLabel.do {
             $0.text = I18N.example
@@ -77,60 +94,62 @@ extension ActionCollectionViewCell {
         
         exampleActionOne.text = I18N.exampleGoal
         exampleActionTwo.text = I18N.exampleAction
+        
+        enterMessage.do {
+            $0.text = I18N.enterMessage
+            $0.textColor = .gray3
+            $0.font = .Pretendard(.regular, size: 15)
+        }
+        
+        optionLabel.do {
+            $0.text = I18N.option
+            $0.textColor = .green1
+            $0.font = .Pretendard(.regular, size: 15)
+        }
     }
     
     private func setLayout() {
-        contentView.addSubviews(titleLabel, subTitleLabel, addMissionTextField, exampleLabel,
-                    exampleNottodo, exampleActionOne, exampleActionTwo)
-        updateLayout()
-        updateUI()
-    }
-    
-    private func updateLayout() {
+        foldStackView.addArrangedSubviews(titleLabel, enterMessage, paddingView, optionLabel)
+        exampleStackView.addArrangedSubviews(exampleLabel, exampleNottodo)
+        stackView.addArrangedSubviews(foldStackView, subTitleLabel, addMissionTextField, exampleStackView, exampleActionOne, exampleActionTwo)
+        contentView.addSubviews(stackView)
         
-        titleLabel.snp.makeConstraints {
+        stackView.snp.makeConstraints {
             $0.top.equalToSuperview().inset(16)
-            $0.leading.equalToSuperview().inset(21)
+            $0.leading.trailing.equalToSuperview().inset(22)
+        }
+        
+        stackView.do {
+            $0.setCustomSpacing(10, after: foldStackView)
+            $0.setCustomSpacing(25, after: subTitleLabel)
+            $0.setCustomSpacing(12, after: addMissionTextField)
+            $0.setCustomSpacing(8, after: exampleStackView)
+            $0.setCustomSpacing(6, after: exampleActionOne)
+            $0.setCustomSpacing(31, after: exampleActionTwo)
         }
         
         subTitleLabel.snp.makeConstraints {
-            $0.top.equalTo(titleLabel.snp.bottom).offset(10)
-            $0.leading.equalToSuperview().inset(23)
+            $0.height.equalTo(60)
         }
         
-//        let textFieldHeight: CGFloat = fold == .folded ? 0 : 48
         addMissionTextField.snp.makeConstraints {
-            $0.top.equalTo(subTitleLabel.snp.bottom).offset(25)
-            $0.directionalHorizontalEdges.equalToSuperview().inset(23)
-            $0.height.equalTo(48)
+            $0.height.equalTo(49)
         }
         
-        exampleLabel.snp.makeConstraints {
-            $0.top.equalTo(addMissionTextField.snp.bottom).offset(12)
-            $0.leading.equalToSuperview().inset(23)
-        }
-        
-        exampleNottodo.snp.makeConstraints {
-            $0.centerY.equalTo(exampleLabel)
-            $0.leading.equalTo(exampleLabel.snp.trailing).offset(8)
-        }
-        
-        exampleActionOne.snp.makeConstraints {
-            $0.top.equalTo(exampleNottodo.snp.bottom).offset(8)
-            $0.leading.equalTo(exampleNottodo.snp.leading)
-        }
-        
-        exampleActionTwo.snp.makeConstraints {
-            $0.top.equalTo(exampleActionOne.snp.bottom).offset(6)
-            $0.leading.equalTo(exampleNottodo.snp.leading)
+        [exampleActionOne, exampleActionTwo, exampleNottodo].forEach {
+            $0.snp.makeConstraints {
+                $0.leading.equalToSuperview().inset(37)
+            }
         }
     }
     
     private func updateUI() {
         let isHidden: Bool = (fold == .folded)
         
-        [titleLabel, subTitleLabel, addMissionTextField, exampleLabel, exampleNottodo,
+        [subTitleLabel, addMissionTextField, exampleLabel, exampleNottodo,
          exampleActionOne, exampleActionTwo].forEach { $0.isHidden = isHidden }
+        [enterMessage, optionLabel].forEach { $0.isHidden = !isHidden }
+        titleLabel.setTitleColor(isHidden)
     }
     
     private func setKeyboardReturnType() {

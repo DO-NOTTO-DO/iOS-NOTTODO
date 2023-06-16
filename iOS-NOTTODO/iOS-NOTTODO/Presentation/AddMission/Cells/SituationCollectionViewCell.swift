@@ -26,6 +26,10 @@ final class SituationCollectionViewCell: UICollectionViewCell, AddMissionMenu {
                                               colorText: I18N.situation)
     private var addMissionTextField = AddMissionTextFieldView(textMaxCount: 10)
     private let recommendKeywordLabel = UILabel()
+    private let stackView = UIStackView()
+    private let foldStackView = UIStackView()
+    private let enterMessage = UILabel()
+    private let paddingView = UIView()
     private lazy var recommendCollectionView = UICollectionView(frame: .zero, collectionViewLayout: CollectionViewLeftAlignLayout())
     
     // MARK: Life Cycle
@@ -47,11 +51,9 @@ final class SituationCollectionViewCell: UICollectionViewCell, AddMissionMenu {
     func setFoldState(_ state: FoldState) {
         fold = state
         missionCellHeight?(state == .folded ? 54 : 314)
-        updateLayout()
         updateUI()
         contentView.layoutIfNeeded()
     }
-
 }
 
 private extension SituationCollectionViewCell {
@@ -60,6 +62,12 @@ private extension SituationCollectionViewCell {
         layer.borderColor = UIColor.gray3?.cgColor
         layer.cornerRadius = 12
         layer.borderWidth = 1
+        stackView.axis = .vertical
+        foldStackView.do {
+            $0.axis = .horizontal
+            $0.distribution = .fill
+            $0.spacing = 35
+        }
         
         recommendCollectionView.do {
             $0.backgroundColor = .clear
@@ -71,48 +79,52 @@ private extension SituationCollectionViewCell {
             $0.textColor = .white
             $0.font = .Pretendard(.medium, size: 14)
         }
+        
+        enterMessage.do {
+            $0.text = I18N.enterMessage
+            $0.textColor = .gray3
+            $0.font = .Pretendard(.regular, size: 15)
+        }
     }
     
     func setLayout() {
-        contentView.addSubviews(titleLabel, subTitleLabel, addMissionTextField,
-                    recommendKeywordLabel, recommendCollectionView)
-        updateLayout()
-        updateUI()
-    }
-    
-    private func updateLayout() {
-        titleLabel.snp.remakeConstraints {
+        foldStackView.addArrangedSubviews(titleLabel, enterMessage, paddingView)
+        stackView.addArrangedSubviews(foldStackView, subTitleLabel, addMissionTextField,
+                                      recommendKeywordLabel, recommendCollectionView)
+        contentView.addSubviews(stackView)
+        
+        stackView.snp.makeConstraints {
             $0.top.equalToSuperview().inset(16)
-            $0.leading.equalToSuperview().inset(21)
+            $0.leading.trailing.equalToSuperview().inset(22)
         }
         
-        subTitleLabel.snp.remakeConstraints {
-            $0.top.equalTo(titleLabel.snp.bottom).offset(10)
-            $0.leading.equalToSuperview().inset(23)
+        stackView.do {
+            $0.setCustomSpacing(10, after: foldStackView)
+            $0.setCustomSpacing(25, after: subTitleLabel)
+            $0.setCustomSpacing(14, after: addMissionTextField)
+            $0.setCustomSpacing(10, after: recommendKeywordLabel)
+            $0.setCustomSpacing(29, after: recommendCollectionView)
         }
         
-        addMissionTextField.snp.remakeConstraints {
-            $0.top.equalTo(subTitleLabel.snp.bottom).offset(25)
-            $0.directionalHorizontalEdges.equalToSuperview().inset(23)
-            $0.height.equalTo(48)
+        subTitleLabel.snp.makeConstraints {
+            $0.height.equalTo(60)
         }
-
-        recommendKeywordLabel.snp.remakeConstraints {
-            $0.top.equalTo(addMissionTextField.snp.bottom).offset(14)
-            $0.leading.equalToSuperview().inset(25)
+        
+        addMissionTextField.snp.makeConstraints {
+            $0.height.equalTo(49)
         }
-
-        recommendCollectionView.snp.remakeConstraints {
-            $0.top.equalTo(recommendKeywordLabel.snp.bottom).offset(10)
-            $0.directionalHorizontalEdges.equalToSuperview().inset(23)
-            $0.bottom.equalToSuperview().inset(29)
+        
+        recommendCollectionView.snp.makeConstraints {
+            $0.height.equalTo(60)
         }
     }
     
     private func updateUI() {
         let isHidden: Bool = (fold == .folded)
         
-        [titleLabel, subTitleLabel, addMissionTextField, recommendKeywordLabel, recommendCollectionView].forEach { $0.isHidden = isHidden }
+        [subTitleLabel, addMissionTextField, recommendKeywordLabel, recommendCollectionView].forEach { $0.isHidden = isHidden }
+        enterMessage.isHidden = !isHidden
+        titleLabel.setTitleColor(isHidden)
     }
     
     func registerCell() {

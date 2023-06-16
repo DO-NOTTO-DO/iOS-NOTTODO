@@ -18,6 +18,7 @@ class RecommendActionViewController: UIViewController {
     var bodyImageUrl: UIImage?
     var nottodoTitle: String?
     var actionLabel: String?
+    var situationLabel: String?
     
     // MARK: - UI Components
     
@@ -54,6 +55,7 @@ extension RecommendActionViewController {
         let nextViewController = AddMissionViewController()
         nextViewController.setNottodoLabel(nottodoTitle ?? "")
         nextViewController.setActionLabel(actionLabel ?? "")
+        nextViewController.setSituationLabel(situationLabel ?? "")
         navigationController?.pushViewController(nextViewController, animated: true)
     }
 }
@@ -212,6 +214,7 @@ extension RecommendActionViewController: UICollectionViewDataSource {
                 guard let data = response.data else { return }
                 headerView.configure(tag: self?.tagLabelText, title: data.title, image: self?.bodyImageUrl)
                 self?.nottodoTitle = headerView.getTitle()
+                self?.situationLabel = headerView.getSituation()
             }
             
             return headerView
@@ -220,6 +223,7 @@ extension RecommendActionViewController: UICollectionViewDataSource {
             footerView.clickedNextButton = { [weak self] in
                 let nextViewContoller = AddMissionViewController()
                 nextViewContoller.setNottodoLabel(self?.nottodoTitle ?? "")
+                nextViewContoller.setSituationLabel(self?.situationLabel ?? "")
                 self?.navigationController?.pushViewController(nextViewContoller, animated: true)
             }
             return footerView

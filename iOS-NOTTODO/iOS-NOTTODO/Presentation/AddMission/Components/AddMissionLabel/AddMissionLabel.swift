@@ -31,6 +31,10 @@ final class TitleLabel: UILabel {
         font = .Pretendard(.regular, size: 15)
         textColor = .green1
     }
+    
+    func setTitleColor(_ isFold: Bool) {
+        textColor = isFold ? .gray4 : .green1
+    }
 }
 
 final class SubTitleLabel: UILabel {

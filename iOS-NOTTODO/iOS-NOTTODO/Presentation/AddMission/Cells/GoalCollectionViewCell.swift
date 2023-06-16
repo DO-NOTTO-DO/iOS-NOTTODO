@@ -27,8 +27,18 @@ final class GoalCollectionViewCell: UICollectionViewCell, AddMissionMenu {
     private let exampleLabel = UILabel()
     private let exampleNottodoLabel = UILabel()
     private let exampleGoalLabel = UILabel()
+    private let stackView = UIStackView()
+    private let nottodoStackView = UIStackView()
+    private let goalStackView = UIStackView()
+    private let nottodoPaddingView = UIView()
+    private let goalPaddingView = UIView()
     private let nottodoTag = PaddingLabel(padding: UIEdgeInsets(top: 3, left: 13, bottom: 3, right: 13))
     private let goalTag = PaddingLabel(padding: UIEdgeInsets(top: 3, left: 13, bottom: 3, right: 13))
+    
+    private let foldStackView = UIStackView()
+    private let enterMessage = UILabel()
+    private let paddingView = UIView()
+    private let optionLabel = UILabel()
     
     // MARK: - Life Cycle
     override init(frame: CGRect) {
@@ -45,7 +55,6 @@ final class GoalCollectionViewCell: UICollectionViewCell, AddMissionMenu {
     func setFoldState(_ state: FoldState) {
         fold = state
         missionCellHeight?(state == .folded ? 54 : 307)
-        updateLayout()
         updateUI()
         contentView.layoutIfNeeded()
     }
@@ -57,6 +66,18 @@ private extension GoalCollectionViewCell {
         layer.borderColor = UIColor.gray3?.cgColor
         layer.cornerRadius = 12
         layer.borderWidth = 1
+        stackView.axis = .vertical
+        [nottodoStackView, goalStackView].forEach {
+            $0.axis = .horizontal
+            $0.spacing = 5
+            $0.distribution = .fill
+        }
+        
+        foldStackView.do {
+            $0.axis = .horizontal
+            $0.distribution = .fill
+            $0.spacing = 39
+        }
         
         exampleLabel.do {
             $0.text = I18N.example
@@ -86,65 +107,58 @@ private extension GoalCollectionViewCell {
             $0.textColor = .gray4
             $0.font = .Pretendard(.medium, size: 13)
         }
+        
+        enterMessage.do {
+            $0.text = I18N.enterMessage
+            $0.textColor = .gray3
+            $0.font = .Pretendard(.regular, size: 15)
+        }
+        
+        optionLabel.do {
+            $0.text = I18N.option
+            $0.textColor = .green1
+            $0.font = .Pretendard(.regular, size: 15)
+        }
     }
     
     func setLayout() {
-        contentView.addSubviews(titleLabel, subTitleLabel, addMissionTextField,
-                    exampleLabel, nottodoTag, exampleNottodoLabel,
-                    goalTag, exampleGoalLabel)
+        stackView.addArrangedSubviews(foldStackView, subTitleLabel, addMissionTextField, exampleLabel, nottodoStackView, goalStackView)
+        nottodoStackView.addArrangedSubviews(nottodoTag, exampleNottodoLabel, nottodoPaddingView)
+        goalStackView.addArrangedSubviews(goalTag, exampleGoalLabel, goalPaddingView)
+        foldStackView.addArrangedSubviews(titleLabel, enterMessage, paddingView, optionLabel)
+        contentView.addSubviews(stackView)
         
-        updateLayout()
-        updateUI()
-    }
-    
-    private func updateLayout() {
-        titleLabel.snp.makeConstraints {
+        stackView.snp.makeConstraints {
             $0.top.equalToSuperview().inset(16)
-            $0.leading.equalToSuperview().inset(21)
+            $0.leading.trailing.equalToSuperview().inset(22)
+        }
+        
+        goalStackView.snp.makeConstraints {
+            $0.width.equalTo(186)
+        }
+        
+        stackView.do {
+            $0.setCustomSpacing(10, after: foldStackView)
+            $0.setCustomSpacing(25, after: subTitleLabel)
+            $0.setCustomSpacing(13, after: addMissionTextField)
+            $0.setCustomSpacing(8, after: exampleLabel)
+            $0.setCustomSpacing(5, after: nottodoStackView)
         }
         
         subTitleLabel.snp.makeConstraints {
-            $0.top.equalTo(titleLabel.snp.bottom).offset(10)
-            $0.leading.equalToSuperview().inset(23)
+            $0.height.equalTo(60)
         }
         
-//        let textFieldHeight = fold == .folded ? 0 : 48
         addMissionTextField.snp.makeConstraints {
-            $0.top.equalTo(subTitleLabel.snp.bottom).offset(25)
-            $0.directionalHorizontalEdges.equalToSuperview().inset(23)
-            $0.height.equalTo(48)
-        }
-        
-        exampleLabel.snp.makeConstraints {
-            $0.top.equalTo(addMissionTextField.snp.bottom).offset(13)
-            $0.leading.equalToSuperview().inset(25)
-        }
-        
-        nottodoTag.snp.makeConstraints {
-            $0.top.equalTo(exampleLabel.snp.bottom).offset(8)
-            $0.leading.equalToSuperview().inset(23)
-        }
-        
-        exampleNottodoLabel.snp.makeConstraints {
-            $0.centerY.equalTo(nottodoTag.snp.centerY)
-            $0.leading.equalTo(nottodoTag.snp.trailing).offset(5)
-        }
-        
-        goalTag.snp.makeConstraints {
-            $0.top.equalTo(nottodoTag.snp.bottom).offset(5)
-            $0.leading.equalTo(nottodoTag.snp.leading)
-        }
-        
-        exampleGoalLabel.snp.makeConstraints {
-            $0.centerY.equalTo(goalTag.snp.centerY)
-            $0.leading.equalTo(goalTag.snp.trailing).offset(5)
+            $0.height.equalTo(49)
         }
     }
     
     private func updateUI() {
         let isHidden: Bool = (fold == .folded)
         
-        [titleLabel, subTitleLabel, addMissionTextField, exampleLabel, nottodoTag,
-         exampleNottodoLabel, goalTag, exampleGoalLabel].forEach { $0.isHidden = isHidden }
+        [subTitleLabel, addMissionTextField, exampleLabel, nottodoStackView, goalStackView].forEach { $0.isHidden = isHidden }
+        [enterMessage, optionLabel].forEach { $0.isHidden = !isHidden }
+        titleLabel.setTitleColor(isHidden)
     }
 }
