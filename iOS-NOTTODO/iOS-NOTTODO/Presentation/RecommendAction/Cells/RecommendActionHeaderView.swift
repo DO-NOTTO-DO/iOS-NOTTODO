@@ -140,4 +140,8 @@ extension RecommendActionHeaderView {
     func getTitle() -> String {
         return titleLabel.text ?? ""
     }
+    
+    func getSituation() -> String {
+        return tagLabel.text ?? ""
+    }
 }

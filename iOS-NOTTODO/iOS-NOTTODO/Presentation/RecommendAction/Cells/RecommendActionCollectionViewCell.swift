@@ -101,5 +101,4 @@ extension RecommendActionCollectionViewCell {
     func configure(model: RecommendActions) {
         titleLabel.text = model.name
     }
-    
 }
