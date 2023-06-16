@@ -26,7 +26,12 @@ final class NottodoCollectionViewCell: UICollectionViewCell, AddMissionMenu {
     private var addMissionTextField = AddMissionTextFieldView(textMaxCount: 20)
     private let historyLabel = UILabel()
     private let stackView = UIStackView()
+    private let foldStackView = UIStackView()
+    private let paddingView = UIView()
     private lazy var historyCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout())
+    
+    private var currentValue: String?
+    private let enterMessage = UILabel()
     
     // MARK: Life Cycle
     
@@ -64,16 +69,28 @@ extension NottodoCollectionViewCell {
         historyCollectionView.backgroundColor = .clear
         historyCollectionView.indicatorStyle = .white
         stackView.axis = .vertical
+        foldStackView.do {
+            $0.axis = .horizontal
+            $0.distribution = .fill
+            $0.spacing = 22
+        }
         
         historyLabel.do {
             $0.font = .Pretendard(.regular, size: 14)
             $0.text = I18N.missionHistoryLabel
             $0.textColor = .gray4
         }
+        
+        enterMessage.do {
+            $0.text = I18N.enterMessage
+            $0.textColor = .gray3
+            $0.font = .Pretendard(.regular, size: 15)
+        }
     }
     
     private func setLayout() {
-        stackView.addArrangedSubviews(titleLabel, subTitleLabel, addMissionTextField,
+        foldStackView.addArrangedSubviews(titleLabel, enterMessage, paddingView)
+        stackView.addArrangedSubviews(foldStackView, subTitleLabel, addMissionTextField,
                                       historyLabel, historyCollectionView)
         
         contentView.addSubviews(stackView)
@@ -84,13 +101,13 @@ extension NottodoCollectionViewCell {
         }
         
         stackView.do {
-            $0.setCustomSpacing(10, after: titleLabel)
+            $0.setCustomSpacing(10, after: foldStackView)
             $0.setCustomSpacing(19, after: subTitleLabel)
             $0.setCustomSpacing(11, after: addMissionTextField)
             $0.setCustomSpacing(6, after: historyLabel)
             $0.setCustomSpacing(32, after: historyCollectionView)
         }
-        
+    
         subTitleLabel.snp.makeConstraints {
             $0.height.equalTo(30)
         }
@@ -108,7 +125,7 @@ extension NottodoCollectionViewCell {
         let isHidden: Bool = (fold == .folded)
         
         [subTitleLabel, addMissionTextField, historyLabel, historyCollectionView].forEach { $0.isHidden = isHidden }
-        
+        enterMessage.isHidden = !isHidden
         titleLabel.setTitleColor(isHidden)
     }
     

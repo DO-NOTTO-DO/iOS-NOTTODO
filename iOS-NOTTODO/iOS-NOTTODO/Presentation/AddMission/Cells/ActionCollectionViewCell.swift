@@ -31,6 +31,11 @@ final class ActionCollectionViewCell: UICollectionViewCell, AddMissionMenu {
     private let stackView = UIStackView()
     private let exampleStackView = UIStackView()
     
+    private let foldStackView = UIStackView()
+    private let enterMessage = UILabel()
+    private let paddingView = UIView()
+    private let optionLabel = UILabel()
+    
     // MARK: - Life Cycle
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -59,6 +64,11 @@ extension ActionCollectionViewCell {
         layer.cornerRadius = 12
         layer.borderWidth = 1
         stackView.axis = .vertical
+        foldStackView.do {
+            $0.axis = .horizontal
+            $0.distribution = .fill
+            $0.spacing = 9
+        }
         
         exampleStackView.do {
             $0.axis = .horizontal
@@ -84,11 +94,24 @@ extension ActionCollectionViewCell {
         
         exampleActionOne.text = I18N.exampleGoal
         exampleActionTwo.text = I18N.exampleAction
+        
+        enterMessage.do {
+            $0.text = I18N.enterMessage
+            $0.textColor = .gray3
+            $0.font = .Pretendard(.regular, size: 15)
+        }
+        
+        optionLabel.do {
+            $0.text = I18N.option
+            $0.textColor = .green1
+            $0.font = .Pretendard(.regular, size: 15)
+        }
     }
     
     private func setLayout() {
+        foldStackView.addArrangedSubviews(titleLabel, enterMessage, paddingView, optionLabel)
         exampleStackView.addArrangedSubviews(exampleLabel, exampleNottodo)
-        stackView.addArrangedSubviews(titleLabel, subTitleLabel, addMissionTextField, exampleStackView, exampleActionOne, exampleActionTwo)
+        stackView.addArrangedSubviews(foldStackView, subTitleLabel, addMissionTextField, exampleStackView, exampleActionOne, exampleActionTwo)
         contentView.addSubviews(stackView)
         
         stackView.snp.makeConstraints {
@@ -97,7 +120,7 @@ extension ActionCollectionViewCell {
         }
         
         stackView.do {
-            $0.setCustomSpacing(10, after: titleLabel)
+            $0.setCustomSpacing(10, after: foldStackView)
             $0.setCustomSpacing(25, after: subTitleLabel)
             $0.setCustomSpacing(12, after: addMissionTextField)
             $0.setCustomSpacing(8, after: exampleStackView)
@@ -125,7 +148,7 @@ extension ActionCollectionViewCell {
         
         [subTitleLabel, addMissionTextField, exampleLabel, exampleNottodo,
          exampleActionOne, exampleActionTwo].forEach { $0.isHidden = isHidden }
-        
+        [enterMessage, optionLabel].forEach { $0.isHidden = !isHidden }
         titleLabel.setTitleColor(isHidden)
     }
     

@@ -27,6 +27,9 @@ final class SituationCollectionViewCell: UICollectionViewCell, AddMissionMenu {
     private var addMissionTextField = AddMissionTextFieldView(textMaxCount: 10)
     private let recommendKeywordLabel = UILabel()
     private let stackView = UIStackView()
+    private let foldStackView = UIStackView()
+    private let enterMessage = UILabel()
+    private let paddingView = UIView()
     private lazy var recommendCollectionView = UICollectionView(frame: .zero, collectionViewLayout: CollectionViewLeftAlignLayout())
     
     // MARK: Life Cycle
@@ -60,6 +63,11 @@ private extension SituationCollectionViewCell {
         layer.cornerRadius = 12
         layer.borderWidth = 1
         stackView.axis = .vertical
+        foldStackView.do {
+            $0.axis = .horizontal
+            $0.distribution = .fill
+            $0.spacing = 35
+        }
         
         recommendCollectionView.do {
             $0.backgroundColor = .clear
@@ -71,10 +79,17 @@ private extension SituationCollectionViewCell {
             $0.textColor = .white
             $0.font = .Pretendard(.medium, size: 14)
         }
+        
+        enterMessage.do {
+            $0.text = I18N.enterMessage
+            $0.textColor = .gray3
+            $0.font = .Pretendard(.regular, size: 15)
+        }
     }
     
     func setLayout() {
-        stackView.addArrangedSubviews(titleLabel, subTitleLabel, addMissionTextField,
+        foldStackView.addArrangedSubviews(titleLabel, enterMessage, paddingView)
+        stackView.addArrangedSubviews(foldStackView, subTitleLabel, addMissionTextField,
                                       recommendKeywordLabel, recommendCollectionView)
         contentView.addSubviews(stackView)
         
@@ -84,7 +99,7 @@ private extension SituationCollectionViewCell {
         }
         
         stackView.do {
-            $0.setCustomSpacing(10, after: titleLabel)
+            $0.setCustomSpacing(10, after: foldStackView)
             $0.setCustomSpacing(25, after: subTitleLabel)
             $0.setCustomSpacing(14, after: addMissionTextField)
             $0.setCustomSpacing(10, after: recommendKeywordLabel)
@@ -108,7 +123,7 @@ private extension SituationCollectionViewCell {
         let isHidden: Bool = (fold == .folded)
         
         [subTitleLabel, addMissionTextField, recommendKeywordLabel, recommendCollectionView].forEach { $0.isHidden = isHidden }
-        
+        enterMessage.isHidden = !isHidden
         titleLabel.setTitleColor(isHidden)
     }
     

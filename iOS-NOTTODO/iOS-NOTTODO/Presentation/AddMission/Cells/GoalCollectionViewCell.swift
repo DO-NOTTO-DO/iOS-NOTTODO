@@ -30,8 +30,15 @@ final class GoalCollectionViewCell: UICollectionViewCell, AddMissionMenu {
     private let stackView = UIStackView()
     private let nottodoStackView = UIStackView()
     private let goalStackView = UIStackView()
+    private let nottodoPaddingView = UIView()
+    private let goalPaddingView = UIView()
     private let nottodoTag = PaddingLabel(padding: UIEdgeInsets(top: 3, left: 13, bottom: 3, right: 13))
     private let goalTag = PaddingLabel(padding: UIEdgeInsets(top: 3, left: 13, bottom: 3, right: 13))
+    
+    private let foldStackView = UIStackView()
+    private let enterMessage = UILabel()
+    private let paddingView = UIView()
+    private let optionLabel = UILabel()
     
     // MARK: - Life Cycle
     override init(frame: CGRect) {
@@ -63,6 +70,13 @@ private extension GoalCollectionViewCell {
         [nottodoStackView, goalStackView].forEach {
             $0.axis = .horizontal
             $0.spacing = 5
+            $0.distribution = .fill
+        }
+        
+        foldStackView.do {
+            $0.axis = .horizontal
+            $0.distribution = .fill
+            $0.spacing = 39
         }
         
         exampleLabel.do {
@@ -93,12 +107,25 @@ private extension GoalCollectionViewCell {
             $0.textColor = .gray4
             $0.font = .Pretendard(.medium, size: 13)
         }
+        
+        enterMessage.do {
+            $0.text = I18N.enterMessage
+            $0.textColor = .gray3
+            $0.font = .Pretendard(.regular, size: 15)
+        }
+        
+        optionLabel.do {
+            $0.text = I18N.option
+            $0.textColor = .green1
+            $0.font = .Pretendard(.regular, size: 15)
+        }
     }
     
     func setLayout() {
-        stackView.addArrangedSubviews(titleLabel, subTitleLabel, addMissionTextField, exampleLabel, nottodoStackView, goalStackView)
-        nottodoStackView.addArrangedSubviews(nottodoTag, exampleNottodoLabel)
-        goalStackView.addArrangedSubviews(goalTag, exampleGoalLabel)
+        stackView.addArrangedSubviews(foldStackView, subTitleLabel, addMissionTextField, exampleLabel, nottodoStackView, goalStackView)
+        nottodoStackView.addArrangedSubviews(nottodoTag, exampleNottodoLabel, nottodoPaddingView)
+        goalStackView.addArrangedSubviews(goalTag, exampleGoalLabel, goalPaddingView)
+        foldStackView.addArrangedSubviews(titleLabel, enterMessage, paddingView, optionLabel)
         contentView.addSubviews(stackView)
         
         stackView.snp.makeConstraints {
@@ -111,19 +138,11 @@ private extension GoalCollectionViewCell {
         }
         
         stackView.do {
-            $0.setCustomSpacing(10, after: titleLabel)
+            $0.setCustomSpacing(10, after: foldStackView)
             $0.setCustomSpacing(25, after: subTitleLabel)
             $0.setCustomSpacing(13, after: addMissionTextField)
             $0.setCustomSpacing(8, after: exampleLabel)
             $0.setCustomSpacing(5, after: nottodoStackView)
-        }
-        
-        nottodoTag.snp.makeConstraints {
-            $0.width.equalTo(58)
-        }
-        
-        goalTag.snp.makeConstraints {
-            $0.width.equalTo(47)
         }
         
         subTitleLabel.snp.makeConstraints {
@@ -139,7 +158,7 @@ private extension GoalCollectionViewCell {
         let isHidden: Bool = (fold == .folded)
         
         [subTitleLabel, addMissionTextField, exampleLabel, nottodoStackView, goalStackView].forEach { $0.isHidden = isHidden }
-        
+        [enterMessage, optionLabel].forEach { $0.isHidden = !isHidden }
         titleLabel.setTitleColor(isHidden)
     }
 }
