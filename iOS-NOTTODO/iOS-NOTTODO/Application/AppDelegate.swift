@@ -41,7 +41,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
                let window = windowScene.windows.first {
                 let authViewController = AuthViewController()
-                window.rootViewController = authViewController
+                let navigationController = UINavigationController(rootViewController: authViewController)
+                window.rootViewController = navigationController
                 window.makeKeyAndVisible()
             }
         }
@@ -53,7 +54,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
                let window = windowScene.windows.first {
                 let tabBarController = TabBarController()
-                window.rootViewController = tabBarController
+                let navigationController = UINavigationController(rootViewController: tabBarController)
+                navigationController.isNavigationBarHidden = true
+                window.rootViewController = navigationController
                 window.makeKeyAndVisible()
             }
         }
