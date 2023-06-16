@@ -92,6 +92,8 @@ struct I18N {
                           실천방법과 목표를 입력하면
                           낫투두 성공 확률이 더욱 올라가요!
                           """
+    static let enterMessage = "입력하세요..."
+    static let option = "*선택"
     
     /// MyInfo
 
