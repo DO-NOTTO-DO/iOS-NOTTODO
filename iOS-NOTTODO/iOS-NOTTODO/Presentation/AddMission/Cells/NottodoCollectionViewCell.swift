@@ -62,7 +62,7 @@ final class NottodoCollectionViewCell: UICollectionViewCell, AddMissionMenu {
 
 extension NottodoCollectionViewCell {
     private func setUI() {
-        backgroundColor = .gray1
+        backgroundColor = .clear
         layer.borderColor = UIColor.gray3?.cgColor
         layer.cornerRadius = 12
         layer.borderWidth = 1
@@ -127,6 +127,9 @@ extension NottodoCollectionViewCell {
         [subTitleLabel, addMissionTextField, historyLabel, historyCollectionView].forEach { $0.isHidden = isHidden }
         enterMessage.isHidden = !isHidden
         titleLabel.setTitleColor(isHidden)
+        
+        backgroundColor = isHidden ? .clear : .gray1
+        layer.borderColor = isHidden ? UIColor.gray2?.cgColor : UIColor.gray3?.cgColor
     }
     
     private func layout() -> UICollectionViewFlowLayout {

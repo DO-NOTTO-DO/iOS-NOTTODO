@@ -62,7 +62,7 @@ final class GoalCollectionViewCell: UICollectionViewCell, AddMissionMenu {
 
 private extension GoalCollectionViewCell {
     func setUI() {
-        backgroundColor = .gray1
+        backgroundColor = .clear
         layer.borderColor = UIColor.gray3?.cgColor
         layer.cornerRadius = 12
         layer.borderWidth = 1
@@ -160,5 +160,8 @@ private extension GoalCollectionViewCell {
         [subTitleLabel, addMissionTextField, exampleLabel, nottodoStackView, goalStackView].forEach { $0.isHidden = isHidden }
         [enterMessage, optionLabel].forEach { $0.isHidden = !isHidden }
         titleLabel.setTitleColor(isHidden)
+        
+        backgroundColor = isHidden ? .clear : .gray1
+        layer.borderColor = isHidden ? UIColor.gray2?.cgColor : UIColor.gray3?.cgColor
     }
 }

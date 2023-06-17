@@ -59,7 +59,7 @@ final class ActionCollectionViewCell: UICollectionViewCell, AddMissionMenu {
 
 extension ActionCollectionViewCell {
     private func setUI() {
-        backgroundColor = .gray1
+        backgroundColor = .clear
         layer.borderColor = UIColor.gray3?.cgColor
         layer.cornerRadius = 12
         layer.borderWidth = 1
@@ -150,6 +150,9 @@ extension ActionCollectionViewCell {
          exampleActionOne, exampleActionTwo].forEach { $0.isHidden = isHidden }
         [enterMessage, optionLabel].forEach { $0.isHidden = !isHidden }
         titleLabel.setTitleColor(isHidden)
+        
+        backgroundColor = isHidden ? .clear : .gray1
+        layer.borderColor = isHidden ? UIColor.gray2?.cgColor : UIColor.gray3?.cgColor
     }
     
     private func setKeyboardReturnType() {

@@ -58,7 +58,7 @@ final class SituationCollectionViewCell: UICollectionViewCell, AddMissionMenu {
 
 private extension SituationCollectionViewCell {
     func setUI() {
-        backgroundColor = .gray1
+        backgroundColor = .clear
         layer.borderColor = UIColor.gray3?.cgColor
         layer.cornerRadius = 12
         layer.borderWidth = 1
@@ -125,6 +125,9 @@ private extension SituationCollectionViewCell {
         [subTitleLabel, addMissionTextField, recommendKeywordLabel, recommendCollectionView].forEach { $0.isHidden = isHidden }
         enterMessage.isHidden = !isHidden
         titleLabel.setTitleColor(isHidden)
+        
+        backgroundColor = isHidden ? .clear : .gray1
+        layer.borderColor = isHidden ? UIColor.gray2?.cgColor : UIColor.gray3?.cgColor
     }
     
     func registerCell() {
