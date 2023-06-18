@@ -55,9 +55,9 @@ final class NottodoCollectionViewCell: UICollectionViewCell, AddMissionMenu {
         layoutIfNeeded()
     }
     
-    func getText() -> String {
-        return addMissionTextField.getTextFieldText()
-    }
+//    func getText() -> String {
+//        return addMissionTextField.getTextFieldText()
+//    }
 }
 
 extension NottodoCollectionViewCell {
@@ -161,7 +161,7 @@ extension NottodoCollectionViewCell: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let cell = collectionView.cellForItem(at: indexPath) as? MissionHistoryCollectionViewCell else { fatalError() }
-        addMissionTextField.setText(cell.getText())
+        // addMissionTextField.setText(cell.getText())
     }
 }
 
