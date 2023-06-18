@@ -30,10 +30,7 @@ final class AddMissionViewController: UIViewController {
     private var foldStateList: [FoldState] = [.folded, .folded, .folded, .folded, .folded]
     
     private var heightList: [CGFloat] = [54, 54, 54, 54, 54]
-    private var nottodoLabel: String?
-    private var situationLabel: String?
-    private var actionLabel: String?
-    private var goalLabel: String?
+    private var nottodoInfoList: [String] = ["", "", "", "", ""]
     
     // MARK: - UI Components
     
@@ -58,20 +55,21 @@ final class AddMissionViewController: UIViewController {
     }
     
     func setNottodoLabel(_ text: String) {
-        nottodoLabel = text
-    }
-    
-    func setActionLabel(_ text: String) {
-        actionLabel = text
+        nottodoInfoList[1] = text
     }
     
     func setSituationLabel(_ text: String) {
-        situationLabel = text
+        nottodoInfoList[2] = text
     }
+    
+    func setActionLabel(_ text: String) {
+        nottodoInfoList[3] = text
+    }
+    
 }
 
-private extension AddMissionViewController {
-    func setUI() {
+extension AddMissionViewController {
+    private func setUI() {
         setAddButtonUI()
         view.backgroundColor = .ntdBlack
         separateView.backgroundColor = .gray2
@@ -100,14 +98,14 @@ private extension AddMissionViewController {
         }
     }
     
-    func setAddButtonUI() {
+    private func setAddButtonUI() {
         addButton.do {
             $0.isEnabled = isAdd
             $0.backgroundColor = isAdd ? .green2 : .gray2
         }
     }
     
-    func setLayout() {
+    private func setLayout() {
         navigationView.addSubviews(dismissButton, navigationTitle, addButton)
         view.addSubviews(navigationView, separateView, addMissionCollectionView)
         
@@ -145,7 +143,7 @@ private extension AddMissionViewController {
         }
     }
     
-    func layout() -> UICollectionViewFlowLayout {
+    private func layout() -> UICollectionViewFlowLayout {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
         layout.minimumLineSpacing = 14
@@ -153,12 +151,12 @@ private extension AddMissionViewController {
         return layout
     }
     
-    func setDelegate() {
+    private func setDelegate() {
         addMissionCollectionView.delegate = self
         addMissionCollectionView.dataSource = self
     }
     
-    func registerCell() {
+    private func registerCell() {
         addMissionCollectionView.register(DateCollectionViewCell.self, forCellWithReuseIdentifier: DateCollectionViewCell.identifier)
         addMissionCollectionView.register(NottodoCollectionViewCell.self,
                                           forCellWithReuseIdentifier: NottodoCollectionViewCell.identifier)
@@ -185,16 +183,15 @@ extension AddMissionViewController: UICollectionViewDataSource {
         guard var missionMenuCell = cell as? AddMissionMenu else {
             return UICollectionViewCell()
         }
+        missionMenuCell.missionTextData = { [weak self] string in
+            self?.nottodoInfoList[indexPath.row] = string
+        }
         
+        let currentCellInfo = nottodoInfoList[indexPath.row]
         let currentFoldState = foldStateList[indexPath.row]
         
-        missionMenuCell.missionCellHeight = { [weak self] height in
-            
-            self?.heightList[indexPath.row] = height
-            self?.addMissionCollectionView.collectionViewLayout.collectionView?.reloadItems(at: [indexPath])
-        }
-                
         missionMenuCell.setFoldState(currentFoldState)
+        missionMenuCell.setCellData(currentCellInfo)
 
         return cell
     }
@@ -218,7 +215,19 @@ extension AddMissionViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         addMissionCollectionView.scrollToItem(at: indexPath, at: .top, animated: true)
         foldStateList[indexPath.row].toggle()
-        addMissionCollectionView.reloadData()
+        
+        let cell = makeCollectionCell(collectionView: collectionView, for: indexPath)
+        guard var missionMenuCell = cell as? AddMissionMenu else {
+            return
+        }
+        
+        missionMenuCell.missionCellHeight = { [weak self] height in
+            self?.heightList[indexPath.row] = height
+        }
+        let currentFoldState = foldStateList[indexPath.row]
+        
+        missionMenuCell.setFoldState(currentFoldState)
+        addMissionCollectionView.collectionViewLayout.collectionView?.reloadItems(at: [indexPath])
     }
 }
 
