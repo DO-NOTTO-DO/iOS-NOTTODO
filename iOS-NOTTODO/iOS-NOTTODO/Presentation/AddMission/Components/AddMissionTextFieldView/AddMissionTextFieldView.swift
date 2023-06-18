@@ -23,7 +23,7 @@ final class AddMissionTextFieldView: UIView {
     private let textFieldUnderLineView = UIView()
     
     // MARK: - Life Cycle
-  
+    
     init(textMaxCount: Int) {
         self.textMaxCount = textMaxCount
         super.init(frame: .zero)
@@ -56,6 +56,10 @@ final class AddMissionTextFieldView: UIView {
     
     func setReturnType( _ type: UIKeyboardType) {
         addMissionTextField.keyboardType = type
+    }
+    
+    func getTextFieldText() -> String {
+        return addMissionTextField.text ?? ""
     }
 }
 
@@ -106,9 +110,9 @@ extension AddMissionTextFieldView: UITextFieldDelegate {
     }
     
     func textFieldDidChangeSelection(_ textField: UITextField) {
-            guard let text = addMissionTextField.text else { return }
-            textCountLabel.text = "\(text.count)/\(textMaxCount)"
-        }
+        guard let text = addMissionTextField.text else { return }
+        textCountLabel.text = "\(text.count)/\(textMaxCount)"
+    }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         let currentText = textField.text ?? ""
@@ -119,7 +123,7 @@ extension AddMissionTextFieldView: UITextFieldDelegate {
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-            textField.resignFirstResponder()
-            return true
+        textField.resignFirstResponder()
+        return true
     }
 }
