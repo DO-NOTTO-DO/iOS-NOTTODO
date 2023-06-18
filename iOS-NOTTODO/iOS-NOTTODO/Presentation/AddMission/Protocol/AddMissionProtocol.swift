@@ -13,3 +13,7 @@ protocol AddMissionMenu {
     var missionCellHeight: ((CGFloat) -> Void)? { get set }
     var missionTextData: ((String) -> Void)? { get set }
 }
+
+protocol textFiledDelegateProtocol {
+    var textFieldData: ((String) -> Void)? { get set }
+}
