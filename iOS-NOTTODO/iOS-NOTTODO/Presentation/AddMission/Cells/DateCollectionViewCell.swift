@@ -12,6 +12,10 @@ import Then
 import FSCalendar
 
 final class DateCollectionViewCell: UICollectionViewCell, AddMissionMenu {
+    var missionTextData: ((String) -> Void)?
+    func setCellData(_ text: String) {
+        return
+    }
     
     // MARK: - Properties
     
@@ -51,7 +55,7 @@ final class DateCollectionViewCell: UICollectionViewCell, AddMissionMenu {
 private extension DateCollectionViewCell {
     
     private func setUI() {
-        backgroundColor = .gray1
+        backgroundColor = .clear
         layer.borderColor = UIColor.gray3?.cgColor
         layer.cornerRadius = 12
         layer.borderWidth = 1
@@ -104,29 +108,6 @@ private extension DateCollectionViewCell {
             $0.directionalHorizontalEdges.equalToSuperview().inset(13)
         }
     }
-    
-    private func updateLayout() {
-        titleLabel.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(16)
-            $0.leading.equalToSuperview().inset(21)
-        }
-        
-        subTitleLabel.snp.makeConstraints {
-            $0.top.equalTo(titleLabel.snp.bottom).offset(10)
-            $0.leading.equalToSuperview().inset(23)
-        }
-        
-        warningLabel.snp.makeConstraints {
-            $0.leading.equalToSuperview().inset(22)
-            $0.bottom.equalToSuperview().inset(18)
-        }
-        
-        calendarView.snp.makeConstraints {
-            $0.top.equalTo(subTitleLabel.snp.bottom)
-
-            $0.height.equalTo((UIScreen.main.bounds.size.width-60)*1.05)
-        }
-    }
 
     private func updateUI() {
         let isHidden: Bool = ( fold == .folded )
@@ -135,6 +116,9 @@ private extension DateCollectionViewCell {
         }
         
         titleLabel.setTitleColor(isHidden)
+        
+        backgroundColor = isHidden ? .clear : .gray1
+        layer.borderColor = isHidden ? UIColor.gray2?.cgColor : UIColor.gray3?.cgColor
     }
 }
 

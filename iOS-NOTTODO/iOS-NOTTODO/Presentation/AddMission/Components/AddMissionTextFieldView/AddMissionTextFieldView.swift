@@ -10,11 +10,12 @@ import UIKit
 import SnapKit
 import Then
 
-final class AddMissionTextFieldView: UIView {
+final class AddMissionTextFieldView: UIView, textFiledDelegateProtocol {
     
     // MARK: - Properties
     
     private var textMaxCount: Int
+    var textFieldData: ((String) -> Void)?
     
     // MARK: - UI Components
     
@@ -23,7 +24,7 @@ final class AddMissionTextFieldView: UIView {
     private let textFieldUnderLineView = UIView()
     
     // MARK: - Life Cycle
-  
+    
     init(textMaxCount: Int) {
         self.textMaxCount = textMaxCount
         super.init(frame: .zero)
@@ -51,11 +52,16 @@ final class AddMissionTextFieldView: UIView {
     }
     
     func downKeyboard() {
+        textFieldData?(getTextFieldText())
         addMissionTextField.resignFirstResponder()
     }
     
     func setReturnType( _ type: UIKeyboardType) {
         addMissionTextField.keyboardType = type
+    }
+    
+    func getTextFieldText() -> String {
+        return addMissionTextField.text ?? ""
     }
 }
 
@@ -106,9 +112,9 @@ extension AddMissionTextFieldView: UITextFieldDelegate {
     }
     
     func textFieldDidChangeSelection(_ textField: UITextField) {
-            guard let text = addMissionTextField.text else { return }
-            textCountLabel.text = "\(text.count)/\(textMaxCount)"
-        }
+        guard let text = addMissionTextField.text else { return }
+        textCountLabel.text = "\(text.count)/\(textMaxCount)"
+    }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         let currentText = textField.text ?? ""
@@ -119,7 +125,8 @@ extension AddMissionTextFieldView: UITextFieldDelegate {
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-            textField.resignFirstResponder()
-            return true
+        textFieldData?(getTextFieldText())
+        textField.resignFirstResponder()
+        return true
     }
 }
