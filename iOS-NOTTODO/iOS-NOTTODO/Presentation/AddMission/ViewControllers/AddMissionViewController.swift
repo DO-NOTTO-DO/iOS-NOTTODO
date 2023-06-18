@@ -30,7 +30,13 @@ final class AddMissionViewController: UIViewController {
     private var foldStateList: [FoldState] = [.folded, .folded, .folded, .folded, .folded]
     
     private var heightList: [CGFloat] = [54, 54, 54, 54, 54]
-    private var nottodoInfoList: [String] = ["", "", "", "", ""]
+    private var nottodoInfoList: [String] = ["test", "", "", "", ""] {
+        didSet {
+            isAdd =  !nottodoInfoList[0].isEmpty &&
+                !nottodoInfoList[1].isEmpty &&
+                !nottodoInfoList[2].isEmpty
+        }
+    }
     
     // MARK: - UI Components
     
