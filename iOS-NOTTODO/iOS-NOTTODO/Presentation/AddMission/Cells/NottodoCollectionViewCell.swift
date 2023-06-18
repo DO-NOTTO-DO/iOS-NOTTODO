@@ -147,6 +147,10 @@ extension NottodoCollectionViewCell {
         
         backgroundColor = isHidden ? .clear : .gray1
         layer.borderColor = isHidden ? UIColor.gray2?.cgColor : UIColor.gray3?.cgColor
+        
+        addMissionTextField.textFieldData = { string in
+            self.missionTextData?((string))
+        }
     }
     
     private func layout() -> UICollectionViewFlowLayout {
