@@ -30,7 +30,7 @@ final class AddMissionViewController: UIViewController {
     private var foldStateList: [FoldState] = [.folded, .folded, .folded, .folded, .folded]
     
     private var heightList: [CGFloat] = [54, 54, 54, 54, 54]
-    private var nottodoInfoList: [String] = ["test", "", "", "", ""] {
+    private var nottodoInfoList: [String] = ["", "", "", "", ""] {
         didSet {
             isAdd =  !nottodoInfoList[0].isEmpty &&
                 !nottodoInfoList[1].isEmpty &&
@@ -58,6 +58,10 @@ final class AddMissionViewController: UIViewController {
         registerCell()
         setDelegate()
         hideKeyboardWhenTappedAround()
+    }
+    
+    func setDate(_ date: String) {
+        nottodoInfoList[0] = date
     }
     
     func setNottodoLabel(_ text: String) {

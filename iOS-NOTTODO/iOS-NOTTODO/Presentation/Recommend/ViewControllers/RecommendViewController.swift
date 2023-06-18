@@ -13,6 +13,7 @@ class RecommendViewController: UIViewController {
     
     var recommendResponse: RecommendResponseDTO?
     var recommendList: [RecommendResponseDTO] = []
+    private var selectDay: String?
 
     // MARK: - UI Components
     
@@ -39,6 +40,10 @@ class RecommendViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         requestRecommendAPI()
+    }
+    
+    func setSelectDate(_ date: String) {
+        selectDay = date
     }
 }
 
@@ -143,6 +148,7 @@ private extension RecommendViewController {
     @objc
     private func buttonTapped() {
         let nextViewController = AddMissionViewController()
+        nextViewController.setDate(selectDay ?? "")
         navigationController?.pushViewController(nextViewController, animated: true)
     }
 }
@@ -183,6 +189,7 @@ extension RecommendViewController: UICollectionViewDelegate {
             viewController.selectedIndex = selectedCell.id
             viewController.tagLabelText = selectedCell.tagLabel.text
             viewController.bodyImageUrl = selectedCell.bodyImage.image
+            viewController.setSelectDate(self.selectDay ?? "")
             
             self.navigationController?.pushViewController(viewController, animated: false)
         }
