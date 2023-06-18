@@ -12,6 +12,11 @@ import Then
 import FSCalendar
 
 final class DateCollectionViewCell: UICollectionViewCell, AddMissionMenu {
+    var missionTextData: ((String) -> Void)?
+    func setCellData(_ text: String) {
+        return
+    }
+    
     
     // MARK: - Properties
     

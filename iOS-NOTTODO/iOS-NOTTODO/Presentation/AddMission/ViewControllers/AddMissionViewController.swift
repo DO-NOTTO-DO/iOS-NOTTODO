@@ -65,7 +65,6 @@ final class AddMissionViewController: UIViewController {
     func setActionLabel(_ text: String) {
         nottodoInfoList[3] = text
     }
-    
 }
 
 extension AddMissionViewController {
