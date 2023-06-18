@@ -10,11 +10,12 @@ import UIKit
 import SnapKit
 import Then
 
-final class AddMissionTextFieldView: UIView {
+final class AddMissionTextFieldView: UIView, textFiledDelegateProtocol {
     
     // MARK: - Properties
     
     private var textMaxCount: Int
+    var textFieldData: ((String) -> Void)?
     
     // MARK: - UI Components
     
@@ -51,6 +52,7 @@ final class AddMissionTextFieldView: UIView {
     }
     
     func downKeyboard() {
+        textFieldData?(getTextFieldText())
         addMissionTextField.resignFirstResponder()
     }
     
@@ -123,6 +125,7 @@ extension AddMissionTextFieldView: UITextFieldDelegate {
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textFieldData?(getTextFieldText())
         textField.resignFirstResponder()
         return true
     }
