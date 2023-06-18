@@ -22,6 +22,7 @@ final class DateCollectionViewCell: UICollectionViewCell, AddMissionMenu {
     var missionCellHeight: ((CGFloat) -> Void)?
     static let identifier = "DateCollectionViewCell"
     private var fold: FoldState = .folded
+    private lazy var today: Date = { return Date() }()
     
     // MARK: - UI Components
     
@@ -108,7 +109,7 @@ private extension DateCollectionViewCell {
             $0.directionalHorizontalEdges.equalToSuperview().inset(13)
         }
     }
-
+    
     private func updateUI() {
         let isHidden: Bool = ( fold == .folded )
         [subTitleLabel, calendarView, warningLabel].forEach {
@@ -124,6 +125,32 @@ private extension DateCollectionViewCell {
 
 extension DateCollectionViewCell: FSCalendarDelegate {
     func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
-        calendarView.yearMonthLabel.text = Utils.dateFormatterString(format: I18N.yearMonthTitle, date: calendar.currentPage)        
+        calendarView.yearMonthLabel.text = Utils.dateFormatterString(format: I18N.yearMonthTitle, date: calendar.currentPage)
+    }
+    
+    func calendar(_ calendar: FSCalendar, shouldSelect date: Date, at monthPosition: FSCalendarMonthPosition) -> Bool {
+        switch Calendar.current.compare(today, to: date, toGranularity: .day) {
+        case .orderedSame:
+            print("\(date) is the same as \(today)")
+            return true
+        case .orderedDescending:
+            print("\(date) is before \(today)")
+            return false
+        case .orderedAscending:
+            print("\(date) is after \(today)")
+            let sevenDays = Calendar.current.date(byAdding: .day, value: +6, to: Date())!
+            if date < sevenDays {
+                return true
+            }
+            return false
+        }
+    }
+    
+    func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleSelectionColorFor date: Date) -> UIColor? {
+        Utils.calendarTitleColor(today: today, date: date, selected: true)
+    }
+    
+    func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleDefaultColorFor date: Date) -> UIColor? {
+        Utils.calendarTitleColor(today: today, date: date, selected: false)
     }
 }
