@@ -17,7 +17,6 @@ final class DateCollectionViewCell: UICollectionViewCell, AddMissionMenu {
         return
     }
     
-    
     // MARK: - Properties
     
     var missionCellHeight: ((CGFloat) -> Void)?
