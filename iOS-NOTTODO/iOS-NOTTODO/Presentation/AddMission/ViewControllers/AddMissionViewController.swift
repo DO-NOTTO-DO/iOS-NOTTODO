@@ -28,7 +28,6 @@ final class AddMissionViewController: UIViewController {
         }
     }
     private var foldStateList: [FoldState] = [.folded, .folded, .folded, .folded, .folded]
-    
     private var heightList: [CGFloat] = [54, 54, 54, 54, 54]
     private var dateList: [String] = []
     private var nottodoInfoList: [String] = ["", "", "", "", ""] {
