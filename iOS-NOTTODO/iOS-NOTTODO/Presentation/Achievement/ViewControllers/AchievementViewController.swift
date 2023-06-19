@@ -16,7 +16,6 @@ final class AchievementViewController: UIViewController {
     // MARK: - Properties
     
     private lazy var safeArea = self.view.safeAreaLayoutGuide
-   // private lazy var today: Date = { return Date() }()
     private var currentPage: Date? = Date()
     var count: Int?
     var dataSource: [String: Float] = [:] {
@@ -37,9 +36,10 @@ final class AchievementViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        setUI()
-        setLayout()
+
         if let today = monthCalendar.calendar.today {
+            monthCalendar.yearMonthLabel.text = Utils.dateFormatterString(format: I18N.yearMonthTitle, date: today)
+            monthCalendar.calendar.currentPage = today
             requestMonthAPI(month: Utils.dateFormatterString(format: "yyyy-MM", date: today))
         }
     }
@@ -137,7 +137,6 @@ extension AchievementViewController: FSCalendarDelegate, FSCalendarDataSource, F
         self.currentPage = calendar.currentPage
         monthCalendar.yearMonthLabel.text = Utils.dateFormatterString(format: I18N.yearMonthTitle, date: calendar.currentPage)
         reloadMonthData(month: Utils.dateFormatterString(format: "yyyy-MM", date: calendar.currentPage))
-        
     }
         
     func calendar(_ calendar: FSCalendar, titleFor date: Date) -> String? {
