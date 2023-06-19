@@ -30,11 +30,10 @@ final class AddMissionViewController: UIViewController {
     private var foldStateList: [FoldState] = [.folded, .folded, .folded, .folded, .folded]
     
     private var heightList: [CGFloat] = [54, 54, 54, 54, 54]
+    private var dateList: [String] = []
     private var nottodoInfoList: [String] = ["", "", "", "", ""] {
         didSet {
-            isAdd =  !nottodoInfoList[0].isEmpty &&
-                !nottodoInfoList[1].isEmpty &&
-                !nottodoInfoList[2].isEmpty
+            isAdd = !nottodoInfoList[1].isEmpty && !nottodoInfoList[2].isEmpty
         }
     }
     
@@ -61,7 +60,7 @@ final class AddMissionViewController: UIViewController {
     }
     
     func setDate(_ date: String) {
-        nottodoInfoList[0] = date
+        dateList.append(date)
     }
     
     func setNottodoLabel(_ text: String) {
@@ -196,11 +195,16 @@ extension AddMissionViewController: UICollectionViewDataSource {
             self?.nottodoInfoList[indexPath.row] = string
         }
         
-        let currentCellInfo = nottodoInfoList[indexPath.row]
         let currentFoldState = foldStateList[indexPath.row]
+        let currentDateList = dateList
         
         missionMenuCell.setFoldState(currentFoldState)
-        missionMenuCell.setCellData(currentCellInfo)
+        if indexPath.row == 0 {
+            missionMenuCell.setCellData(currentDateList)
+        } else {
+            let currentCellInfo = nottodoInfoList[indexPath.row]
+            missionMenuCell.setCellData([currentCellInfo])
+        }
 
         return cell
     }

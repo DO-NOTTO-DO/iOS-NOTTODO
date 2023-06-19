@@ -59,18 +59,18 @@ final class SituationCollectionViewCell: UICollectionViewCell, AddMissionMenu {
         contentView.layoutIfNeeded()
     }
     
-    func setCellData(_ text: String) {
-        if text.isEmpty {
+    func setCellData(_ text: [String]) {
+        if text.first!.isEmpty {
             enterMessage.text = I18N.enterMessage
             enterMessage.textColor = .gray3
             enterMessage.font = .Pretendard(.regular, size: 15)
         } else {
-            enterMessage.text = text
+            enterMessage.text = text.first
             enterMessage.textColor = .white
             enterMessage.font = .Pretendard(.medium, size: 15)
         }
-        checkImage.isHidden = text.isEmpty || fold == .unfolded
-        addMissionTextField.setText(text)
+        checkImage.isHidden = text.first!.isEmpty || fold == .unfolded
+        addMissionTextField.setText(text.first!)
     }
 }
 

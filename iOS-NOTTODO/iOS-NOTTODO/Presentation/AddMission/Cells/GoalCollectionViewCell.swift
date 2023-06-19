@@ -64,13 +64,13 @@ final class GoalCollectionViewCell: UICollectionViewCell, AddMissionMenu {
         contentView.layoutIfNeeded()
     }
     
-    func setCellData(_ text: String) {
-        if text.isEmpty {
+    func setCellData(_ text: [String]) {
+        if text.first!.isEmpty {
             enterMessage.text = I18N.enterMessage
             enterMessage.textColor = .gray3
             enterMessage.font = .Pretendard(.regular, size: 15)
         } else {
-            enterMessage.text = text
+            enterMessage.text = text.first!
             enterMessage.textColor = .white
             enterMessage.font = .Pretendard(.medium, size: 15)
         }
@@ -78,10 +78,10 @@ final class GoalCollectionViewCell: UICollectionViewCell, AddMissionMenu {
         if fold == .unfolded {
             [checkImage, optionLabel].forEach { $0.isHidden = true }
         } else {
-            checkImage.isHidden = text.isEmpty
-            optionLabel.isHidden = !text.isEmpty
+            checkImage.isHidden = text.first!.isEmpty
+            optionLabel.isHidden = !text.first!.isEmpty
         }
-        addMissionTextField.setText(text)
+        addMissionTextField.setText(text.first!)
     }
 }
 

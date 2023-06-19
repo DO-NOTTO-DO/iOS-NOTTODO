@@ -57,18 +57,18 @@ final class NottodoCollectionViewCell: UICollectionViewCell, AddMissionMenu {
         layoutIfNeeded()
     }
     
-    func setCellData(_ text: String) {
-        if text.isEmpty {
+    func setCellData(_ text: [String]) {
+        if text.first!.isEmpty {
             enterMessage.text = I18N.enterMessage
             enterMessage.textColor = .gray3
             enterMessage.font = .Pretendard(.regular, size: 15)
         } else {
-            enterMessage.text = text
+            enterMessage.text = text.first
             enterMessage.textColor = .white
             enterMessage.font = .Pretendard(.medium, size: 15)
         }
-        checkImage.isHidden = text.isEmpty || fold == .unfolded
-        addMissionTextField.setText(text)
+        checkImage.isHidden = text.first!.isEmpty || fold == .unfolded
+        addMissionTextField.setText(text.first!)
     }
 }
 
@@ -85,7 +85,6 @@ extension NottodoCollectionViewCell {
         foldStackView.do {
             $0.axis = .horizontal
             $0.distribution = .fill
-            $0.spacing = 22
         }
         
         historyLabel.do {
@@ -119,6 +118,10 @@ extension NottodoCollectionViewCell {
             $0.setCustomSpacing(11, after: addMissionTextField)
             $0.setCustomSpacing(6, after: historyLabel)
             $0.setCustomSpacing(32, after: historyCollectionView)
+        }
+        
+        foldStackView.do {
+            $0.setCustomSpacing(22, after: titleLabel)
         }
         
         checkImage.snp.makeConstraints {
