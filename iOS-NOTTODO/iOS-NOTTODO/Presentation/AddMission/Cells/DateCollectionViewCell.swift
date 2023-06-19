@@ -28,10 +28,12 @@ final class DateCollectionViewCell: UICollectionViewCell, AddMissionMenu {
     
     private let titleLabel = TitleLabel(title: I18N.date)
     private let subTitleLabel = SubTitleLabel(subTitle: I18N.subDateTitle, colorText: nil)
-    // 캘린더뷰가 들어갈 공간
     let calendarView = CalendarView(calendarScope: .month, scrollDirection: .horizontal)
     private let warningLabel = UILabel()
     private let stackView = UIStackView()
+    
+    private var calendarImage = UIImageView()
+    private var dateLabel = UILabel()
     
     // MARK: - Life Cycle
     override init(frame: CGRect) {
@@ -60,12 +62,14 @@ private extension DateCollectionViewCell {
         layer.borderColor = UIColor.gray3?.cgColor
         layer.cornerRadius = 12
         layer.borderWidth = 1
+        calendarImage.image = .icCalendar
         stackView.axis = .vertical
         
         warningLabel.do {
             $0.text = I18N.dateWarning
             $0.font = .Pretendard(.regular, size: 13)
             $0.textColor = .gray4
+            $0.numberOfLines = 0
         }
         
         calendarView.do {
