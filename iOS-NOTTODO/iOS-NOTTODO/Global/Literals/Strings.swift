@@ -87,13 +87,15 @@ struct I18N {
     static let exampleNottodo = "유튜브 보지 않기"
     static let exampleGoal = "유튜브 프리미엄 구독 취소"
     static let exampleAction = "공부 중에 가방 안에 핸드폰 넣기"
-    static let dateWarning = "*일주일 이내의 일자만 선택 가능합니다"
+    static let dateWarning = "*달성 가능한 계획을 위해 다가올 일주일만 선택할 수 있어요"
     static let tipMessage = """
                           실천방법과 목표를 입력하면
                           낫투두 성공 확률이 더욱 올라가요!
                           """
     static let enterMessage = "입력하세요..."
     static let option = "*선택"
+    static let today = "오늘"
+    static let tomorrow = "내일"
     
     /// MyInfo
 

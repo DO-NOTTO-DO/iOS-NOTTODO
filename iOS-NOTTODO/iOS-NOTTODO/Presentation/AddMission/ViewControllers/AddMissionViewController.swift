@@ -30,7 +30,12 @@ final class AddMissionViewController: UIViewController {
     private var foldStateList: [FoldState] = [.folded, .folded, .folded, .folded, .folded]
     
     private var heightList: [CGFloat] = [54, 54, 54, 54, 54]
-    private var nottodoInfoList: [String] = ["", "", "", "", ""]
+    private var dateList: [String] = []
+    private var nottodoInfoList: [String] = ["", "", "", "", ""] {
+        didSet {
+            isAdd = !nottodoInfoList[1].isEmpty && !nottodoInfoList[2].isEmpty
+        }
+    }
     
     // MARK: - UI Components
     
@@ -52,6 +57,10 @@ final class AddMissionViewController: UIViewController {
         registerCell()
         setDelegate()
         hideKeyboardWhenTappedAround()
+    }
+    
+    func setDate(_ date: String) {
+        dateList.append(date)
     }
     
     func setNottodoLabel(_ text: String) {
@@ -182,15 +191,23 @@ extension AddMissionViewController: UICollectionViewDataSource {
         guard var missionMenuCell = cell as? AddMissionMenu else {
             return UICollectionViewCell()
         }
-        missionMenuCell.missionTextData = { [weak self] string in
-            self?.nottodoInfoList[indexPath.row] = string
-        }
         
-        let currentCellInfo = nottodoInfoList[indexPath.row]
         let currentFoldState = foldStateList[indexPath.row]
+        let currentDateList = dateList
         
         missionMenuCell.setFoldState(currentFoldState)
-        missionMenuCell.setCellData(currentCellInfo)
+        if indexPath.row == 0 {
+            missionMenuCell.setCellData(currentDateList)
+            missionMenuCell.missionTextData = { [weak self] string in
+                self?.dateList = string
+            }
+        } else {
+            let currentCellInfo = nottodoInfoList[indexPath.row]
+            missionMenuCell.missionTextData = { [weak self] string in
+                self?.nottodoInfoList[indexPath.row] = string.first!
+            }
+            missionMenuCell.setCellData([currentCellInfo])
+        }
 
         return cell
     }

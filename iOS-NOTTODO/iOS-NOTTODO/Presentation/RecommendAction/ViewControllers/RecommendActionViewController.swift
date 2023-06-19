@@ -19,6 +19,7 @@ class RecommendActionViewController: UIViewController {
     var nottodoTitle: String?
     var actionLabel: String?
     var situationLabel: String?
+    private var selectDay: String?
     
     // MARK: - UI Components
     
@@ -45,6 +46,10 @@ class RecommendActionViewController: UIViewController {
         super.viewWillAppear(animated)
         requestRecommendActionAPI()
     }
+    
+    func setSelectDate(_ date: String) {
+        selectDay = date
+    }
 }
 
 // MARK: - @objc
@@ -56,6 +61,7 @@ extension RecommendActionViewController {
         nextViewController.setNottodoLabel(nottodoTitle ?? "")
         nextViewController.setActionLabel(actionLabel ?? "")
         nextViewController.setSituationLabel(situationLabel ?? "")
+        nextViewController.setDate(selectDay ?? "")
         navigationController?.pushViewController(nextViewController, animated: true)
     }
 }
@@ -224,6 +230,7 @@ extension RecommendActionViewController: UICollectionViewDataSource {
                 let nextViewContoller = AddMissionViewController()
                 nextViewContoller.setNottodoLabel(self?.nottodoTitle ?? "")
                 nextViewContoller.setSituationLabel(self?.situationLabel ?? "")
+                nextViewContoller.setDate(self?.selectDay ?? "")
                 self?.navigationController?.pushViewController(nextViewContoller, animated: true)
             }
             return footerView

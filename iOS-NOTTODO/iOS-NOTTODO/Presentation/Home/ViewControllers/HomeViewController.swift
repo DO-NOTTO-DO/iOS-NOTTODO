@@ -17,6 +17,7 @@ class HomeViewController: UIViewController {
     
     private var missionList: [DailyMissionResponseDTO] = []
     private var selectedDate: Date? // 눌렀을 떄 date - dailymissionAPI 호출 시 사용
+    private let dateFormatter = DateFormatter()
     private var percentage: Float?
     private var moveDate: String?
     private var current: Date? // 스와이프했을 때 일요일 date 구하기 위함 - weeklyAPI 호출 시 사용
@@ -82,6 +83,7 @@ extension HomeViewController {
     
     private func setUI() {
         view.backgroundColor = .ntdBlack
+        dateFormatter.dateFormat = "yyyy.MM.dd"
         
         weekCalendar.do {
             $0.calendar.delegate = self
@@ -259,7 +261,9 @@ extension HomeViewController: UICollectionViewDelegate {
 extension HomeViewController {
     @objc
     func addBtnTapped(_sender: UIButton) {
-        Utils.push(navigationController, RecommendViewController())
+        let nextViewController = RecommendViewController()
+        nextViewController.setSelectDate(dateFormatter.string(from: selectedDate ?? Date()))
+        Utils.push(navigationController, nextViewController)
     }
     @objc
     func todayBtnTapped(_sender: UIButton) {
