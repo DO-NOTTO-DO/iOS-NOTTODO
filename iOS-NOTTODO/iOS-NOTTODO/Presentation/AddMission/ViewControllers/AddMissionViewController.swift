@@ -191,9 +191,6 @@ extension AddMissionViewController: UICollectionViewDataSource {
         guard var missionMenuCell = cell as? AddMissionMenu else {
             return UICollectionViewCell()
         }
-        missionMenuCell.missionTextData = { [weak self] string in
-            self?.nottodoInfoList[indexPath.row] = string
-        }
         
         let currentFoldState = foldStateList[indexPath.row]
         let currentDateList = dateList
@@ -201,8 +198,14 @@ extension AddMissionViewController: UICollectionViewDataSource {
         missionMenuCell.setFoldState(currentFoldState)
         if indexPath.row == 0 {
             missionMenuCell.setCellData(currentDateList)
+            missionMenuCell.missionTextData = { [weak self] string in
+                self?.dateList = string
+            }
         } else {
             let currentCellInfo = nottodoInfoList[indexPath.row]
+            missionMenuCell.missionTextData = { [weak self] string in
+                self?.nottodoInfoList[indexPath.row] = string.first!
+            }
             missionMenuCell.setCellData([currentCellInfo])
         }
 

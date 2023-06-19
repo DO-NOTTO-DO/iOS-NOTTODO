@@ -16,7 +16,7 @@ final class NottodoCollectionViewCell: UICollectionViewCell, AddMissionMenu {
     
     static let identifier = "NottodoCollectionViewCell"
     var missionCellHeight: ((CGFloat) -> Void)?
-    var missionTextData: ((String) -> Void)?
+    var missionTextData: (([String]) -> Void)?
     private var fold: FoldState = .folded
     
     // MARK: - UI Components
@@ -152,7 +152,7 @@ extension NottodoCollectionViewCell {
         layer.borderColor = isHidden ? UIColor.gray2?.cgColor : UIColor.gray3?.cgColor
         
         addMissionTextField.textFieldData = { string in
-            self.missionTextData?((string))
+            self.missionTextData?(([string]))
         }
     }
     
@@ -189,7 +189,7 @@ extension NottodoCollectionViewCell: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let cell = collectionView.cellForItem(at: indexPath) as? MissionHistoryCollectionViewCell else { fatalError() }
         addMissionTextField.setText(cell.getText())
-        missionTextData?((addMissionTextField.getTextFieldText()))
+        missionTextData?(([addMissionTextField.getTextFieldText()]))
     }
 }
 

@@ -16,7 +16,7 @@ final class SituationCollectionViewCell: UICollectionViewCell, AddMissionMenu {
     
     static let identifier = "SituationCollectionViewCell"
     var missionCellHeight: ((CGFloat) -> Void)?
-    var missionTextData: ((String) -> Void)?
+    var missionTextData: (([String]) -> Void)?
     private var fold: FoldState = .folded
     private var recommendSituatoinList: [RecommendSituationResponseDTO] = []
     
@@ -153,7 +153,7 @@ private extension SituationCollectionViewCell {
         layer.borderColor = isHidden ? UIColor.gray2?.cgColor : UIColor.gray3?.cgColor
         
         addMissionTextField.textFieldData = { string in
-            self.missionTextData?((string))
+            self.missionTextData?(([string]))
         }
     }
     
@@ -199,7 +199,7 @@ extension SituationCollectionViewCell: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let cell = collectionView.cellForItem(at: indexPath) as? RecommendKeywordCollectionViewCell else { fatalError() }
         addMissionTextField.setText(cell.getText())
-        missionTextData?((addMissionTextField.getTextFieldText()))
+        missionTextData?(([addMissionTextField.getTextFieldText()]))
     }
 }
 

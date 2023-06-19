@@ -16,7 +16,7 @@ final class ActionCollectionViewCell: UICollectionViewCell, AddMissionMenu {
     
     static let identifier = "ActionCollectionViewCell"
     var missionCellHeight: ((CGFloat) -> Void)?
-    var missionTextData: ((String) -> Void)?
+    var missionTextData: (([String]) -> Void)?
     private var fold: FoldState = .folded
     
     // MARK: - UI Components
@@ -183,7 +183,7 @@ extension ActionCollectionViewCell {
         layer.borderColor = isHidden ? UIColor.gray2?.cgColor : UIColor.gray3?.cgColor
         
         addMissionTextField.textFieldData = { string in
-            self.missionTextData?((string))
+            self.missionTextData?(([string]))
         }
     }
     
