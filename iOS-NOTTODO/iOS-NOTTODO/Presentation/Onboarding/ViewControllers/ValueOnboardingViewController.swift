@@ -11,7 +11,11 @@ import Lottie
 
 class ValueOnboardingViewController: UIViewController {
     
+    // MARK: - Properties
+    
     let animationView = LottieAnimationView()
+    
+    // MARK: - Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,6 +23,11 @@ class ValueOnboardingViewController: UIViewController {
             self?.pushToNextViewController()
         }
     }
+}
+
+// MARK: - Methods
+
+extension ValueOnboardingViewController {
     
     func playAnimation(named name: String, completion: @escaping () -> Void) {
         let animation = LottieAnimation.named(name)
