@@ -88,6 +88,7 @@
 		3B4E12F62A27C0BE001D1EC1 /* QuitModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B4E12F52A27C0BE001D1EC1 /* QuitModalView.swift */; };
 		3B4E12F82A27C12F001D1EC1 /* WithdrawModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B4E12F72A27C12F001D1EC1 /* WithdrawModalView.swift */; };
 		3B4E12FA2A27C4DD001D1EC1 /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3B4E12F92A27C4DD001D1EC1 /* Pretendard-Bold.otf */; };
+		3B50CB212A40E75400F2E761 /* AddMissionResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B50CB202A40E75400F2E761 /* AddMissionResponseDTO.swift */; };
 		3B5F8F7A29BF8E8D0063A7F8 /* AddMissionProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5F8F7929BF8E8D0063A7F8 /* AddMissionProtocol.swift */; };
 		3B5F8F7F29BF900A0063A7F8 /* DateCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5F8F7E29BF900A0063A7F8 /* DateCollectionViewCell.swift */; };
 		3B5F8F8129BF90190063A7F8 /* NottodoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5F8F8029BF90190063A7F8 /* NottodoCollectionViewCell.swift */; };
@@ -232,6 +233,7 @@
 		3B4E12F52A27C0BE001D1EC1 /* QuitModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuitModalView.swift; sourceTree = "<group>"; };
 		3B4E12F72A27C12F001D1EC1 /* WithdrawModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithdrawModalView.swift; sourceTree = "<group>"; };
 		3B4E12F92A27C4DD001D1EC1 /* Pretendard-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Bold.otf"; sourceTree = "<group>"; };
+		3B50CB202A40E75400F2E761 /* AddMissionResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMissionResponseDTO.swift; sourceTree = "<group>"; };
 		3B5F8F7929BF8E8D0063A7F8 /* AddMissionProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMissionProtocol.swift; sourceTree = "<group>"; };
 		3B5F8F7E29BF900A0063A7F8 /* DateCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateCollectionViewCell.swift; sourceTree = "<group>"; };
 		3B5F8F8029BF90190063A7F8 /* NottodoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NottodoCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -844,6 +846,7 @@
 			isa = PBXGroup;
 			children = (
 				3B892ABA2A2FBD4C00A316BC /* RecommendSituationResponseDTO.swift */,
+				3B50CB202A40E75400F2E761 /* AddMissionResponseDTO.swift */,
 			);
 			path = AddMission;
 			sourceTree = "<group>";
@@ -1175,6 +1178,7 @@
 				6CA208272A18FFCF001C4247 /* RecommendResponseDTO.swift in Sources */,
 				3B4E12F22A27B621001D1EC1 /* NottodoModalViewController.swift in Sources */,
 				3B027A78299C31B500BEB65C /* AppDelegate.swift in Sources */,
+				3B50CB212A40E75400F2E761 /* AddMissionResponseDTO.swift in Sources */,
 				3B37AE2929C8821600AB7587 /* GoalCollectionViewCell.swift in Sources */,
 				3B14A14329A6FEE400F92897 /* UITextField+.swift in Sources */,
 				09022D4629C44BC300DE6E49 /* MissionCalendarCell.swift in Sources */,

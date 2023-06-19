@@ -74,6 +74,13 @@ final class AddMissionViewController: UIViewController {
     func setActionLabel(_ text: String) {
         nottodoInfoList[3] = text
     }
+    
+    @objc
+    private func addMissionDidTap() {
+        requestPostAddMission(title: nottodoInfoList[1], situation: nottodoInfoList[2],
+                              actions: [nottodoInfoList[3]], goal: nottodoInfoList[4], dates: dateList)
+        self.popViewController()
+    }
 }
 
 extension AddMissionViewController {
@@ -99,6 +106,7 @@ extension AddMissionViewController {
             $0.setTitle(I18N.add, for: .normal)
             $0.setTitleColor(.gray3, for: .disabled)
             $0.setTitleColor(.gray1, for: .normal)
+            $0.addTarget(self, action: #selector(addMissionDidTap), for: .touchUpInside)
         }
         
         addMissionCollectionView.do {
@@ -177,6 +185,15 @@ extension AddMissionViewController {
         addMissionCollectionView.register(AddMissionFooterCollectionReusableView.self,
                                           forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter,
                                           withReuseIdentifier: AddMissionFooterCollectionReusableView.identifier)
+    }
+}
+
+extension AddMissionViewController {
+    private func requestPostAddMission(title: String, situation: String,
+                                       actions: [String]?, goal: String?, dates: [String]?) {
+        AddMissionAPI.shared.postAddMission(title: title, situation: situation, actions: actions, goal: goal, dates: dates ?? [""]) { response in
+            guard response != nil else { return }
+        }
     }
 }
 
