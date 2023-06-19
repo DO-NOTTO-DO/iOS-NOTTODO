@@ -12,17 +12,15 @@ import Then
 import FSCalendar
 
 final class DateCollectionViewCell: UICollectionViewCell, AddMissionMenu {
-    var missionTextData: ((String) -> Void)?
-    func setCellData(_ text: String) {
-        return
-    }
     
     // MARK: - Properties
     
-    var missionCellHeight: ((CGFloat) -> Void)?
     static let identifier = "DateCollectionViewCell"
+    var missionCellHeight: ((CGFloat) -> Void)?
+    var missionTextData: ((String) -> Void)?
     private var fold: FoldState = .folded
     private lazy var today: Date = { return Date() }()
+    private lazy var tomorrow = Calendar.current.date(byAdding: .day, value: 1, to: today)!
     
     // MARK: - UI Components
     
@@ -30,10 +28,15 @@ final class DateCollectionViewCell: UICollectionViewCell, AddMissionMenu {
     private let subTitleLabel = SubTitleLabel(subTitle: I18N.subDateTitle, colorText: nil)
     let calendarView = CalendarView(calendarScope: .month, scrollDirection: .horizontal)
     private let warningLabel = UILabel()
+    
     private let stackView = UIStackView()
+    private let foldStackView = UIStackView()
+    private let paddingView = UIView()
     
     private var calendarImage = UIImageView()
     private var dateLabel = UILabel()
+    private var dayLabel = UILabel()
+    private let foldStackViewPadding = UIView()
     
     // MARK: - Life Cycle
     override init(frame: CGRect) {
@@ -53,6 +56,20 @@ final class DateCollectionViewCell: UICollectionViewCell, AddMissionMenu {
         updateUI()
         contentView.layoutIfNeeded()
     }
+    
+    func setCellData(_ text: [String]) {
+        let checkToday = text.first == Utils.dateFormatterString(format: "yyyy.MM.dd", date: today)
+        let checkTomorrow = text.first == Utils.dateFormatterString(format: "yyyy.MM.dd", date: tomorrow)
+        dateLabel.text = text.first
+        if checkToday {
+            dayLabel.text = I18N.today
+        } else if checkTomorrow {
+            dayLabel.text = I18N.tomorrow
+        } else {
+            dayLabel.isHidden = checkToday && checkTomorrow
+            paddingView.isHidden = !(checkToday && checkTomorrow)
+        }
+    }
 }
 
 private extension DateCollectionViewCell {
@@ -64,6 +81,20 @@ private extension DateCollectionViewCell {
         layer.borderWidth = 1
         calendarImage.image = .icCalendar
         stackView.axis = .vertical
+        foldStackView.do {
+            $0.axis = .horizontal
+            $0.distribution = .fill
+        }
+        
+        dayLabel.do {
+            $0.font = .Pretendard(.medium, size: 15)
+            $0.textColor = .white
+        }
+        
+        dateLabel.do {
+            $0.font = .Pretendard(.medium, size: 15)
+            $0.textColor = .gray4
+        }
         
         warningLabel.do {
             $0.text = I18N.dateWarning
@@ -80,7 +111,8 @@ private extension DateCollectionViewCell {
     }
     
     private func setLayout() {
-        stackView.addArrangedSubviews(titleLabel, subTitleLabel, calendarView, warningLabel)
+        foldStackView.addArrangedSubviews(titleLabel, dayLabel, paddingView, dateLabel, foldStackViewPadding, calendarImage)
+        stackView.addArrangedSubviews(foldStackView, subTitleLabel, calendarView, warningLabel)
         contentView.addSubviews(stackView)
         
         stackView.snp.makeConstraints {
@@ -89,13 +121,26 @@ private extension DateCollectionViewCell {
         }
         
         stackView.do {
-            $0.setCustomSpacing(10, after: titleLabel)
+            $0.setCustomSpacing(10, after: foldStackView)
             $0.setCustomSpacing(0, after: subTitleLabel)
             $0.setCustomSpacing(13, after: calendarView)
         }
         
-        titleLabel.snp.makeConstraints {
+        foldStackView.do {
+            $0.setCustomSpacing(36, after: titleLabel)
+        }
+        
+        foldStackView.snp.makeConstraints {
             $0.leading.equalToSuperview().inset(6)
+        }
+        
+        paddingView.snp.makeConstraints {
+            $0.width.equalTo(9)
+        }
+        
+        calendarImage.snp.makeConstraints {
+            $0.trailing.equalToSuperview().inset(24).priority(.high)
+            $0.size.equalTo(18)
         }
         
         subTitleLabel.snp.makeConstraints {
