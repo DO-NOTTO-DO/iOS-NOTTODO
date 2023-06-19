@@ -117,7 +117,8 @@ private extension DateCollectionViewCell {
         
         stackView.snp.makeConstraints {
             $0.top.equalToSuperview().inset(16)
-            $0.leading.trailing.equalToSuperview().inset(16)
+            $0.leading.equalToSuperview().inset(16)
+            $0.trailing.equalToSuperview().inset(24)
         }
         
         stackView.do {
@@ -130,16 +131,11 @@ private extension DateCollectionViewCell {
             $0.setCustomSpacing(36, after: titleLabel)
         }
         
-        foldStackView.snp.makeConstraints {
-            $0.leading.equalToSuperview().inset(6)
-        }
-        
         paddingView.snp.makeConstraints {
             $0.width.equalTo(9)
         }
         
         calendarImage.snp.makeConstraints {
-            $0.trailing.equalToSuperview().inset(24).priority(.high)
             $0.size.equalTo(18)
         }
         
@@ -154,8 +150,7 @@ private extension DateCollectionViewCell {
         }
         
         calendarView.calendar.snp.updateConstraints {
-            $0.bottom.equalToSuperview()
-            $0.directionalHorizontalEdges.equalToSuperview().inset(13)
+            $0.bottom.directionalHorizontalEdges.equalToSuperview()
         }
     }
     
@@ -164,6 +159,7 @@ private extension DateCollectionViewCell {
         [subTitleLabel, calendarView, warningLabel].forEach {
             $0.isHidden = isHidden
         }
+        [dayLabel, dateLabel, calendarImage].forEach { $0.isHidden = !isHidden }
         
         titleLabel.setTitleColor(isHidden)
         
