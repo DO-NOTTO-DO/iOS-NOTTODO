@@ -76,7 +76,6 @@ final class DateCollectionViewCell: UICollectionViewCell, AddMissionMenu {
         if text.count == 1 {
             otherLabel.isHidden = true
         } else {
-            otherLabel.isHidden = false
             otherLabel.text = "외 \(text.count - 1)일"
         }
     }
@@ -175,7 +174,7 @@ private extension DateCollectionViewCell {
         [subTitleLabel, calendarView, warningLabel].forEach {
             $0.isHidden = isHidden
         }
-        [dayLabel, dateLabel, calendarImage].forEach { $0.isHidden = !isHidden }
+        [dayLabel, dateLabel, calendarImage, otherLabel].forEach { $0.isHidden = !isHidden }
         
         titleLabel.setTitleColor(isHidden)
         
