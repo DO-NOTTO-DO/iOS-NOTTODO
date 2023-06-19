@@ -17,10 +17,11 @@ final class DateCollectionViewCell: UICollectionViewCell, AddMissionMenu {
     
     static let identifier = "DateCollectionViewCell"
     var missionCellHeight: ((CGFloat) -> Void)?
-    var missionTextData: ((String) -> Void)?
+    var missionTextData: (([String]) -> Void)?
     private var fold: FoldState = .folded
     private lazy var today: Date = { return Date() }()
     private lazy var tomorrow = Calendar.current.date(byAdding: .day, value: 1, to: today)!
+    private var dateList: [String] = []
     
     // MARK: - UI Components
     
@@ -36,6 +37,7 @@ final class DateCollectionViewCell: UICollectionViewCell, AddMissionMenu {
     private var calendarImage = UIImageView()
     private var dateLabel = UILabel()
     private var dayLabel = UILabel()
+    private var otherLabel = UILabel()
     private let foldStackViewPadding = UIView()
     
     // MARK: - Life Cycle
@@ -61,6 +63,7 @@ final class DateCollectionViewCell: UICollectionViewCell, AddMissionMenu {
         let checkToday = text.first == Utils.dateFormatterString(format: "yyyy.MM.dd", date: today)
         let checkTomorrow = text.first == Utils.dateFormatterString(format: "yyyy.MM.dd", date: tomorrow)
         dateLabel.text = text.first
+        
         if checkToday {
             dayLabel.text = I18N.today
         } else if checkTomorrow {
@@ -68,6 +71,13 @@ final class DateCollectionViewCell: UICollectionViewCell, AddMissionMenu {
         } else {
             dayLabel.isHidden = checkToday && checkTomorrow
             paddingView.isHidden = !(checkToday && checkTomorrow)
+        }
+        
+        if text.count == 1 {
+            otherLabel.isHidden = true
+        } else {
+            otherLabel.isHidden = false
+            otherLabel.text = "외 \(text.count - 1)일"
         }
     }
 }
@@ -96,6 +106,11 @@ private extension DateCollectionViewCell {
             $0.textColor = .gray4
         }
         
+        otherLabel.do {
+            $0.font = .Pretendard(.regular, size: 15)
+            $0.textColor = .white
+        }
+        
         warningLabel.do {
             $0.text = I18N.dateWarning
             $0.font = .Pretendard(.regular, size: 13)
@@ -111,7 +126,7 @@ private extension DateCollectionViewCell {
     }
     
     private func setLayout() {
-        foldStackView.addArrangedSubviews(titleLabel, dayLabel, paddingView, dateLabel, foldStackViewPadding, calendarImage)
+        foldStackView.addArrangedSubviews(titleLabel, dayLabel, paddingView, dateLabel, otherLabel, foldStackViewPadding, calendarImage)
         stackView.addArrangedSubviews(foldStackView, subTitleLabel, calendarView, warningLabel)
         contentView.addSubviews(stackView)
         
@@ -129,6 +144,7 @@ private extension DateCollectionViewCell {
         
         foldStackView.do {
             $0.setCustomSpacing(36, after: titleLabel)
+            $0.setCustomSpacing(10, after: dateLabel)
         }
         
         paddingView.snp.makeConstraints {
@@ -197,5 +213,18 @@ extension DateCollectionViewCell: FSCalendarDelegate {
     
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleDefaultColorFor date: Date) -> UIColor? {
         Utils.calendarTitleColor(today: today, date: date, selected: false)
+    }
+    
+    func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
+        dateList.append(Utils.dateFormatterString(format: "yyyy.MM.dd", date: date))
+        missionTextData?((dateList))
+    }
+    
+    func calendar(_ calendar: FSCalendar, didDeselect date: Date, at monthPosition: FSCalendarMonthPosition) {
+        let selectDate = Utils.dateFormatterString(format: "yyyy.MM.dd", date: date)
+        if let index = dateList.firstIndex(of: selectDate) {
+            dateList.remove(at: index)
+        }
+        missionTextData?((dateList))
     }
 }
