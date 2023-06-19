@@ -11,6 +11,7 @@ import Moya
 
 enum AddMissionService {
     case recommendSituation
+    case addMission(title: String, situation: String, actions: [String]?, goal: String?, dates: [String])
 }
 
 extension AddMissionService: TargetType {
@@ -22,6 +23,8 @@ extension AddMissionService: TargetType {
         switch self {
         case .recommendSituation:
             return URLConstant.recommendSituation
+        case .addMission:
+            return URLConstant.addMission
         }
     }
     
@@ -29,6 +32,8 @@ extension AddMissionService: TargetType {
         switch self {
         case .recommendSituation:
             return .get
+        case .addMission:
+            return .post
         }
     }
     
@@ -36,12 +41,17 @@ extension AddMissionService: TargetType {
         switch self {
         case .recommendSituation:
             return .requestPlain
+        case .addMission(let title, let situation, let actions, let goal, let dates):
+            return .requestParameters(
+                parameters: ["title": title, "situation": situation, "actions": actions ?? "",
+                             "goal": goal ?? "", "dates": dates],
+                encoding: JSONEncoding.default)
         }
     }
     
     var headers: [String: String]? {
         switch self {
-        case .recommendSituation:
+        default:
             return NetworkConstant.hasTokenHeader
         }
     }
