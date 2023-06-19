@@ -49,7 +49,7 @@ final class AddMissionAPI {
         addMissionProvider.request(.addMission(title: title, situation: situation, actions: actions, goal: goal, dates: dates)) { result in
             switch result {
             case .success(let response):
-                do{
+                do {
                     self.addMissionData = try response.map(GeneralResponse<AddMissionResponseDTO>?.self)
                     guard let addMission = self.addMissionData else { return }
                     completion(addMission)
