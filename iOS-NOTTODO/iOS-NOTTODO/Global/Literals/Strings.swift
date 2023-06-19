@@ -94,6 +94,8 @@ struct I18N {
                           """
     static let enterMessage = "입력하세요..."
     static let option = "*선택"
+    static let today = "오늘"
+    static let tomorrow = "내일"
     
     /// MyInfo
 
