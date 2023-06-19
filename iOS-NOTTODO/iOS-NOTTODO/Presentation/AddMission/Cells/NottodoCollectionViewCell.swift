@@ -14,9 +14,10 @@ final class NottodoCollectionViewCell: UICollectionViewCell, AddMissionMenu {
     
     // MARK: - Properties
     
-    var missionCellHeight: ((CGFloat) -> Void)?
-    private var fold: FoldState = .folded
     static let identifier = "NottodoCollectionViewCell"
+    var missionCellHeight: ((CGFloat) -> Void)?
+    var missionTextData: ((String) -> Void)?
+    private var fold: FoldState = .folded
     
     // MARK: - UI Components
     
@@ -25,12 +26,13 @@ final class NottodoCollectionViewCell: UICollectionViewCell, AddMissionMenu {
                                               colorText: I18N.nottodo)
     private var addMissionTextField = AddMissionTextFieldView(textMaxCount: 20)
     private let historyLabel = UILabel()
+    private lazy var historyCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout())
+    
     private let stackView = UIStackView()
     private let foldStackView = UIStackView()
     private let paddingView = UIView()
-    private lazy var historyCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout())
     
-    private var currentValue: String?
+    private let checkImage = UIImageView()
     private let enterMessage = UILabel()
     
     // MARK: Life Cycle
@@ -55,19 +57,30 @@ final class NottodoCollectionViewCell: UICollectionViewCell, AddMissionMenu {
         layoutIfNeeded()
     }
     
-//    func getText() -> String {
-//        return addMissionTextField.getTextFieldText()
-//    }
+    func setCellData(_ text: String) {
+        if text.isEmpty {
+            enterMessage.text = I18N.enterMessage
+            enterMessage.textColor = .gray3
+            enterMessage.font = .Pretendard(.regular, size: 15)
+        } else {
+            enterMessage.text = text
+            enterMessage.textColor = .white
+            enterMessage.font = .Pretendard(.medium, size: 15)
+        }
+        checkImage.isHidden = text.isEmpty || fold == .unfolded
+        addMissionTextField.setText(text)
+    }
 }
 
 extension NottodoCollectionViewCell {
     private func setUI() {
-        backgroundColor = .gray1
+        backgroundColor = .clear
         layer.borderColor = UIColor.gray3?.cgColor
         layer.cornerRadius = 12
         layer.borderWidth = 1
         historyCollectionView.backgroundColor = .clear
         historyCollectionView.indicatorStyle = .white
+        checkImage.image = .icChecked
         stackView.axis = .vertical
         foldStackView.do {
             $0.axis = .horizontal
@@ -89,7 +102,7 @@ extension NottodoCollectionViewCell {
     }
     
     private func setLayout() {
-        foldStackView.addArrangedSubviews(titleLabel, enterMessage, paddingView)
+        foldStackView.addArrangedSubviews(titleLabel, enterMessage, paddingView, checkImage)
         stackView.addArrangedSubviews(foldStackView, subTitleLabel, addMissionTextField,
                                       historyLabel, historyCollectionView)
         
@@ -107,7 +120,11 @@ extension NottodoCollectionViewCell {
             $0.setCustomSpacing(6, after: historyLabel)
             $0.setCustomSpacing(32, after: historyCollectionView)
         }
-    
+        
+        checkImage.snp.makeConstraints {
+            $0.trailing.equalToSuperview().inset(18).priority(.high)
+        }
+        
         subTitleLabel.snp.makeConstraints {
             $0.height.equalTo(30)
         }
@@ -115,7 +132,7 @@ extension NottodoCollectionViewCell {
         addMissionTextField.snp.makeConstraints {
             $0.height.equalTo(49)
         }
-
+        
         historyCollectionView.snp.makeConstraints {
             $0.height.equalTo(134)
         }
@@ -127,6 +144,13 @@ extension NottodoCollectionViewCell {
         [subTitleLabel, addMissionTextField, historyLabel, historyCollectionView].forEach { $0.isHidden = isHidden }
         enterMessage.isHidden = !isHidden
         titleLabel.setTitleColor(isHidden)
+        
+        backgroundColor = isHidden ? .clear : .gray1
+        layer.borderColor = isHidden ? UIColor.gray2?.cgColor : UIColor.gray3?.cgColor
+        
+        addMissionTextField.textFieldData = { string in
+            self.missionTextData?((string))
+        }
     }
     
     private func layout() -> UICollectionViewFlowLayout {
@@ -161,7 +185,8 @@ extension NottodoCollectionViewCell: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let cell = collectionView.cellForItem(at: indexPath) as? MissionHistoryCollectionViewCell else { fatalError() }
-        // addMissionTextField.setText(cell.getText())
+        addMissionTextField.setText(cell.getText())
+        missionTextData?((addMissionTextField.getTextFieldText()))
     }
 }
 

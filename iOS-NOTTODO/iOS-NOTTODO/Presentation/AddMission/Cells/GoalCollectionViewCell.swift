@@ -11,12 +11,13 @@ import SnapKit
 import Then
 
 final class GoalCollectionViewCell: UICollectionViewCell, AddMissionMenu {
-    
+
     // MARK: - Properties
     
-    var missionCellHeight: ((CGFloat) -> Void)?
-    private var fold: FoldState = .folded
     static let identifier = "GoalCollectionViewCell"
+    var missionCellHeight: ((CGFloat) -> Void)?
+    var missionTextData: ((String) -> Void)?
+    private var fold: FoldState = .folded
     
     // MARK: - UI Components
     
@@ -27,17 +28,21 @@ final class GoalCollectionViewCell: UICollectionViewCell, AddMissionMenu {
     private let exampleLabel = UILabel()
     private let exampleNottodoLabel = UILabel()
     private let exampleGoalLabel = UILabel()
+    
     private let stackView = UIStackView()
     private let nottodoStackView = UIStackView()
     private let goalStackView = UIStackView()
     private let nottodoPaddingView = UIView()
     private let goalPaddingView = UIView()
+    
     private let nottodoTag = PaddingLabel(padding: UIEdgeInsets(top: 3, left: 13, bottom: 3, right: 13))
     private let goalTag = PaddingLabel(padding: UIEdgeInsets(top: 3, left: 13, bottom: 3, right: 13))
     
     private let foldStackView = UIStackView()
-    private let enterMessage = UILabel()
     private let paddingView = UIView()
+    
+    private let checkImage = UIImageView()
+    private let enterMessage = UILabel()
     private let optionLabel = UILabel()
     
     // MARK: - Life Cycle
@@ -58,14 +63,35 @@ final class GoalCollectionViewCell: UICollectionViewCell, AddMissionMenu {
         updateUI()
         contentView.layoutIfNeeded()
     }
+    
+    func setCellData(_ text: String) {
+        if text.isEmpty {
+            enterMessage.text = I18N.enterMessage
+            enterMessage.textColor = .gray3
+            enterMessage.font = .Pretendard(.regular, size: 15)
+        } else {
+            enterMessage.text = text
+            enterMessage.textColor = .white
+            enterMessage.font = .Pretendard(.medium, size: 15)
+        }
+        
+        if fold == .unfolded {
+            [checkImage, optionLabel].forEach { $0.isHidden = true }
+        } else {
+            checkImage.isHidden = text.isEmpty
+            optionLabel.isHidden = !text.isEmpty
+        }
+        addMissionTextField.setText(text)
+    }
 }
 
 private extension GoalCollectionViewCell {
     func setUI() {
-        backgroundColor = .gray1
+        backgroundColor = .clear
         layer.borderColor = UIColor.gray3?.cgColor
         layer.cornerRadius = 12
         layer.borderWidth = 1
+        checkImage.image = .icChecked
         stackView.axis = .vertical
         [nottodoStackView, goalStackView].forEach {
             $0.axis = .horizontal
@@ -125,7 +151,7 @@ private extension GoalCollectionViewCell {
         stackView.addArrangedSubviews(foldStackView, subTitleLabel, addMissionTextField, exampleLabel, nottodoStackView, goalStackView)
         nottodoStackView.addArrangedSubviews(nottodoTag, exampleNottodoLabel, nottodoPaddingView)
         goalStackView.addArrangedSubviews(goalTag, exampleGoalLabel, goalPaddingView)
-        foldStackView.addArrangedSubviews(titleLabel, enterMessage, paddingView, optionLabel)
+        foldStackView.addArrangedSubviews(titleLabel, enterMessage, paddingView, optionLabel, checkImage)
         contentView.addSubviews(stackView)
         
         stackView.snp.makeConstraints {
@@ -145,6 +171,10 @@ private extension GoalCollectionViewCell {
             $0.setCustomSpacing(5, after: nottodoStackView)
         }
         
+        checkImage.snp.makeConstraints {
+            $0.trailing.equalToSuperview().inset(18).priority(.high)
+        }
+        
         subTitleLabel.snp.makeConstraints {
             $0.height.equalTo(60)
         }
@@ -160,5 +190,12 @@ private extension GoalCollectionViewCell {
         [subTitleLabel, addMissionTextField, exampleLabel, nottodoStackView, goalStackView].forEach { $0.isHidden = isHidden }
         [enterMessage, optionLabel].forEach { $0.isHidden = !isHidden }
         titleLabel.setTitleColor(isHidden)
+        
+        backgroundColor = isHidden ? .clear : .gray1
+        layer.borderColor = isHidden ? UIColor.gray2?.cgColor : UIColor.gray3?.cgColor
+        
+        addMissionTextField.textFieldData = { string in
+            self.missionTextData?((string))
+        }
     }
 }
