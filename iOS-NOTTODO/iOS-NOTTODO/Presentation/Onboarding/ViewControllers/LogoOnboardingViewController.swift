@@ -41,6 +41,9 @@ extension LogoOnboardingViewController {
         DispatchQueue.main.async { [weak self] in
             self?.playVideo(with: "logo")
         }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 7) { [weak self] in
+            self?.nextButton.isHidden = false
+        }
     }
     
     private func playVideo(with resourceName: String) {
@@ -56,6 +59,8 @@ extension LogoOnboardingViewController {
     }
     
     private func setUI() {
+        view.backgroundColor = .ntdBlack
+        
         nextButton.do {
             $0.isHidden = true
             $0.backgroundColor = .white
