@@ -16,7 +16,8 @@ struct URLConstant {
     // MARK: - Auth
     
     static let auth = "/auth/login"
-    
+    static let authLogout = "/auth/logout"
+    static let authWithdrawal = "/auth/withdrawal"
     // MARK: - Achieve
     
     static let achieveCalendar = "/mission/month"
