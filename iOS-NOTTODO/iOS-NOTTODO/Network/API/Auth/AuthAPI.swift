@@ -18,7 +18,7 @@ final class AuthAPI {
     private init() { }
     
     // MARK: - POST
-
+    
     func postAuth(social: String, socialToken: String, fcmToken: String, name: String, email: String, completion: @escaping (GeneralResponse<AuthResponseDTO>?) -> Void) {
         authProvider.request(.auth(social: social, socialToken: socialToken, fcmToken: fcmToken, name: name, email: email)) { result in
             switch result {
@@ -33,6 +33,22 @@ final class AuthAPI {
                 print(err.localizedDescription)
                 completion(nil)
             }
+        }
+    }
+    
+    // MARK: - Delete
+    
+    func deleteAuth(completion: @escaping (GeneralResponse<VoidType>?) -> Void) {
+        authProvider.request(.logout) { _ in
+            completion(nil)
+        }
+    }
+    
+    // MARK: - Withdrawal
+    
+    func withdrawalAuth(completion: @escaping (GeneralResponse<VoidType>?) -> Void) {
+        authProvider.request(.withdrawal) { _ in
+            completion(nil)
         }
     }
 }

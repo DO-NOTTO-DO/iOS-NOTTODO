@@ -11,6 +11,8 @@ import Moya
 
 enum AuthService {
     case auth(social: String, socialToken: String, fcmToken: String, name: String, email: String)
+    case logout
+    case withdrawal
 }
 
 extension AuthService: TargetType {
@@ -22,6 +24,10 @@ extension AuthService: TargetType {
         switch self {
         case .auth(let social, _, _, _, _):
             return URLConstant.auth + "/\(social)"
+        case .logout:
+            return URLConstant.authLogout
+        case .withdrawal:
+            return URLConstant.authWithdrawal
         }
     }
     
@@ -29,6 +35,10 @@ extension AuthService: TargetType {
         switch self {
         case .auth:
             return .post
+        case .logout:
+            return .delete
+        case .withdrawal:
+            return .delete
         }
     }
     var task: Moya.Task {
@@ -36,6 +46,8 @@ extension AuthService: TargetType {
         case .auth(_, let socialToken, let fcmToken, let name, let email):
             return .requestParameters(parameters: ["socialToken": socialToken, "fcmToken": fcmToken, "name": name, "email": email],
                                       encoding: JSONEncoding.default)
+        case .logout, .withdrawal:
+            return .requestPlain
         }
     }
     
@@ -43,6 +55,8 @@ extension AuthService: TargetType {
         switch self {
         case .auth:
             return NetworkConstant.noTokenHeader
+        case .logout, .withdrawal:
+            return NetworkConstant.hasTokenHeader
         }
     }
 }

@@ -349,8 +349,8 @@
 				3B892ABC2A2FBDC800A316BC /* AddMission */,
 				3B892AB52A2FB69200A316BC /* Auth */,
 				3B892AB22A2FB67000A316BC /* Recommend */,
-				093DB0382A15F6CE00ECA5F6 /* AchieveAPI.swift */,
-				09DCCD222A18EFB0003DCF8A /* HomeAPI.swift */,
+				09A363D02A45F085003F8DB5 /* Achieve */,
+				09A363D12A45F08B003F8DB5 /* Home */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -361,11 +361,8 @@
 				3B892AB92A2FBD3500A316BC /* AddMission */,
 				3B892AB42A2FB68700A316BC /* Auth */,
 				3B892AB12A2FB66100A316BC /* Recommend */,
-				09A1465E2A192C4900DDC308 /* WeekMissionResponseDTO.swift */,
-				09A146642A19649A00DDC308 /* AddAnotherDayResponseDTO.swift */,
-				09DCCD1E2A18ED76003DCF8A /* DailyMissionResponseDTO.swift */,
-				093DB03E2A15FCC100ECA5F6 /* MissionDetailResponseDTO.swift */,
-				093DB03C2A15FC7800ECA5F6 /* AchieveCalendarResponseDTO.swift */,
+				09A363CE2A45F06C003F8DB5 /* Home */,
+				09A363CF2A45F074003F8DB5 /* Achieve */,
 			);
 			path = DataModel;
 			sourceTree = "<group>";
@@ -376,8 +373,8 @@
 				3B892AB62A2FBB9B00A316BC /* AddMission */,
 				3B892AB32A2FB67B00A316BC /* Auth */,
 				3B892AB02A2FB63E00A316BC /* Recommend */,
-				09DCCD202A18EF43003DCF8A /* HomeSevice.swift */,
-				093DB03A2A15F6E700ECA5F6 /* AchieveService.swift */,
+				09A363CC2A45F050003F8DB5 /* Home */,
+				09A363CD2A45F05B003F8DB5 /* Achieve */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -438,6 +435,57 @@
 				09582B4C29BE277800EF3207 /* DetailHeaderReusableView.swift */,
 			);
 			path = Cells;
+			sourceTree = "<group>";
+		};
+		09A363CC2A45F050003F8DB5 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				09DCCD202A18EF43003DCF8A /* HomeSevice.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		09A363CD2A45F05B003F8DB5 /* Achieve */ = {
+			isa = PBXGroup;
+			children = (
+				093DB03A2A15F6E700ECA5F6 /* AchieveService.swift */,
+			);
+			path = Achieve;
+			sourceTree = "<group>";
+		};
+		09A363CE2A45F06C003F8DB5 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				09A1465E2A192C4900DDC308 /* WeekMissionResponseDTO.swift */,
+				09A146642A19649A00DDC308 /* AddAnotherDayResponseDTO.swift */,
+				09DCCD1E2A18ED76003DCF8A /* DailyMissionResponseDTO.swift */,
+				093DB03E2A15FCC100ECA5F6 /* MissionDetailResponseDTO.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		09A363CF2A45F074003F8DB5 /* Achieve */ = {
+			isa = PBXGroup;
+			children = (
+				093DB03C2A15FC7800ECA5F6 /* AchieveCalendarResponseDTO.swift */,
+			);
+			path = Achieve;
+			sourceTree = "<group>";
+		};
+		09A363D02A45F085003F8DB5 /* Achieve */ = {
+			isa = PBXGroup;
+			children = (
+				093DB0382A15F6CE00ECA5F6 /* AchieveAPI.swift */,
+			);
+			path = Achieve;
+			sourceTree = "<group>";
+		};
+		09A363D12A45F08B003F8DB5 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				09DCCD222A18EFB0003DCF8A /* HomeAPI.swift */,
+			);
+			path = Home;
 			sourceTree = "<group>";
 		};
 		09F6717E29CAD68100708725 /* Onboarding */ = {
