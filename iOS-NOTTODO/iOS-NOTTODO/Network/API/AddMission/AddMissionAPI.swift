@@ -19,6 +19,7 @@ final class AddMissionAPI {
     
     public private(set) var recommendSituationData: GeneralArrayResponse<RecommendSituationResponseDTO>?
     public private(set) var addMissionData: GeneralResponse<AddMissionResponseDTO>?
+    public private(set) var updateMissionData: GeneralResponse<UpdateMissionResponseDTO>?
     
     // MARK: - GET
     
@@ -53,6 +54,26 @@ final class AddMissionAPI {
                     self.addMissionData = try response.map(GeneralResponse<AddMissionResponseDTO>?.self)
                     guard let addMission = self.addMissionData else { return }
                     completion(addMission)
+                } catch let err {
+                    print(err.localizedDescription, 500)
+                }
+            case .failure(let err):
+                print(err.localizedDescription)
+                completion(nil)
+            }
+        }
+    }
+    
+    // MARK: PUT
+    
+    func putUpdateMission(id: Int, title: String, situation: String, actions: [String]?, goal: String?, completion: @escaping(GeneralResponse<UpdateMissionResponseDTO>?) -> Void) {
+        addMissionProvider.request(.updateMission(id: id, title: title, situation: situation, actions: actions, goal: goal)) { result in
+            switch result {
+            case .success(let response):
+                do {
+                    self.updateMissionData = try response.map(GeneralResponse<UpdateMissionResponseDTO>?.self)
+                    guard let updateMission = self.updateMissionData else { return }
+                    completion(updateMission)
                 } catch let err {
                     print(err.localizedDescription, 500)
                 }

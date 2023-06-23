@@ -18,6 +18,10 @@ enum FoldState {
     }
 }
 
+enum MissionType {
+    case add, update
+}
+
 final class AddMissionViewController: UIViewController {
     
     // MARK: Properties
@@ -27,6 +31,8 @@ final class AddMissionViewController: UIViewController {
             setAddButtonUI()
         }
     }
+    private var missionId: Int?
+    private var missionType: MissionType? = .add
     private var foldStateList: [FoldState] = [.folded, .folded, .folded, .folded, .folded]
     private var heightList: [CGFloat] = [54, 54, 54, 54, 54]
     private var dateList: [String] = []
@@ -74,10 +80,28 @@ final class AddMissionViewController: UIViewController {
         nottodoInfoList[3] = text
     }
     
+    func setGoalLabel(_ text: String) {
+        nottodoInfoList[4] = text
+    }
+    
+    func setViewType(_ type: MissionType) {
+        missionType = type
+    }
+    
+    func setMissionId(_ id: Int) {
+        missionId = id
+    }
+    
     @objc
     private func addMissionDidTap() {
         requestPostAddMission(title: nottodoInfoList[1], situation: nottodoInfoList[2],
                               actions: [nottodoInfoList[3]], goal: nottodoInfoList[4], dates: dateList)
+        self.popViewController()
+    }
+    
+    @objc
+    private func updateMissionDidTap() {
+        requestPutUpdateMission(id: missionId ?? -1, title: nottodoInfoList[1], situation: nottodoInfoList[2], actions: [nottodoInfoList[3]], goal: nottodoInfoList[4])
         self.popViewController()
     }
 }
@@ -102,10 +126,8 @@ extension AddMissionViewController {
         addButton.do {
             $0.layer.cornerRadius = 26 / 2
             $0.titleLabel?.font = .Pretendard(.medium, size: 15)
-            $0.setTitle(I18N.add, for: .normal)
             $0.setTitleColor(.gray3, for: .disabled)
             $0.setTitleColor(.gray1, for: .normal)
-            $0.addTarget(self, action: #selector(addMissionDidTap), for: .touchUpInside)
         }
         
         addMissionCollectionView.do {
@@ -117,6 +139,14 @@ extension AddMissionViewController {
         addButton.do {
             $0.isEnabled = isAdd
             $0.backgroundColor = isAdd ? .green2 : .gray2
+        }
+        
+        if missionType == .add {
+            addButton.setTitle(I18N.add, for: .normal)
+            addButton.addTarget(self, action: #selector(addMissionDidTap), for: .touchUpInside)
+        } else {
+            addButton.setTitle(I18N.finish, for: .normal)
+            addButton.addTarget(self, action: #selector(updateMissionDidTap), for: .touchUpInside)
         }
     }
     
@@ -191,6 +221,12 @@ extension AddMissionViewController {
     private func requestPostAddMission(title: String, situation: String,
                                        actions: [String]?, goal: String?, dates: [String]?) {
         AddMissionAPI.shared.postAddMission(title: title, situation: situation, actions: actions, goal: goal, dates: dates ?? [""]) { response in
+            guard response != nil else { return }
+        }
+    }
+    
+    private func requestPutUpdateMission(id: Int, title: String, situation: String, actions: [String]?, goal: String?) {
+        AddMissionAPI.shared.putUpdateMission(id: id, title: title, situation: situation, actions: actions, goal: goal) { response in
             guard response != nil else { return }
         }
     }
