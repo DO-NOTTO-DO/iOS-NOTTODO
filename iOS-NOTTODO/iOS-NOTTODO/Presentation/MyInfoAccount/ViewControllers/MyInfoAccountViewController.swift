@@ -7,6 +7,8 @@
 
 import UIKit
 
+import KakaoSDKUser
+
 class MyInfoAccountViewController: UIViewController {
     
     // MARK: - UI Components
@@ -78,6 +80,7 @@ private extension MyInfoAccountViewController {
             $0.setTitle(I18N.logout, for: .normal)
             $0.setTitleColor(.ntdRed, for: .normal)
             $0.titleLabel?.font = .Pretendard(.medium, size: 14)
+            $0.addTarget(self, action: #selector(tappedLogout), for: .touchUpInside)
         }
         
         withdrawButton.do {
@@ -149,5 +152,35 @@ private extension MyInfoAccountViewController {
         nextView.modalPresentationStyle = .overFullScreen
         nextView.modalTransitionStyle = .crossDissolve
         self.present(nextView, animated: true)
+    }
+    @objc
+    private func tappedLogout() {
+        logout()
+    }
+}
+
+extension MyInfoAccountViewController {
+    func logout() {
+        if !UserDefaults.standard.bool(forKey: DefaultKeys.isAppleLogin) {
+            kakaoLogout()
+        }
+        AuthAPI.shared.deleteAuth { [weak self] _ in
+            let authViewController = AuthViewController()
+            if let window = self?.view.window?.windowScene?.keyWindow {
+                let navigationController = UINavigationController(rootViewController: authViewController)
+                navigationController.isNavigationBarHidden = true
+                window.rootViewController = navigationController
+            }
+        }
+    }
+    
+    func kakaoLogout() {
+        UserApi.shared.logout {(error) in
+            if let error = error {
+                print(error)
+            } else {
+                print("logout() success.")
+            }
+        }
     }
 }
