@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import ImageIO
+import AVFoundation
 
 class LogoOnboardingViewController: UIViewController {
 
@@ -16,7 +16,7 @@ class LogoOnboardingViewController: UIViewController {
 
     // MARK: - UI Components
     
-    let gifImageView = UIImageView()
+    private let animationView = UIImageView()
     private let nextButton = UIButton()
     
     // MARK: - Life Cycle
@@ -25,7 +25,11 @@ class LogoOnboardingViewController: UIViewController {
         super.viewDidLoad()
         setUI()
         setLayout()
-        playGif()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        playMp4Video()
     }
 }
 
@@ -33,43 +37,30 @@ class LogoOnboardingViewController: UIViewController {
 
 extension LogoOnboardingViewController {
 
-    func playGif() {
-        guard let gifURL = Bundle.main.url(forResource: "logo", withExtension: "gif") else {
-            return
-        }
-        
-        guard let source = CGImageSourceCreateWithURL(gifURL as CFURL, nil) else {
-            return
-        }
-        
-        let count = CGImageSourceGetCount(source)
-        var images: [UIImage] = []
-        
-        for i in 0..<count {
-            guard let cgImage = CGImageSourceCreateImageAtIndex(source, i, nil) else {
-                continue
-            }
-            
-            let image = UIImage(cgImage: cgImage)
-            images.append(image)
-        }
-        
-        gifImageView.animationImages = images
-        gifImageView.animationDuration = TimeInterval(count) / 30.0
-        gifImageView.animationRepeatCount = 1
-        gifImageView.image = images.first
-        
-        DispatchQueue.main.async {
-            self.gifImageView.startAnimating()
-        }
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 7) { [weak self] in
-            self?.nextButton.isHidden = false
-            self?.gifImageView.image = images.last
+    private func playMp4Video() {
+        DispatchQueue.main.async { [weak self] in
+            self?.playVideo(with: "logo")
         }
     }
     
+    private func playVideo(with resourceName: String) {
+        guard let path = Bundle.main.path(forResource: resourceName, ofType: "mp4") else {
+            return
+        }
+        let player = AVPlayer(url: URL(fileURLWithPath: path))
+        let playerLayer = AVPlayerLayer(player: player)
+        playerLayer.frame = animationView.bounds
+        animationView.layer.addSublayer(playerLayer)
+        playerLayer.videoGravity = .resizeAspectFill
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(videoDidFinishPlaying), name: .AVPlayerItemDidPlayToEndTime, object: player.currentItem)
+        
+        player.play()
+    }
+    
     private func setUI() {
+        view.backgroundColor = .ntdBlack
+        
         nextButton.do {
             $0.isHidden = true
             $0.backgroundColor = .white
@@ -82,18 +73,21 @@ extension LogoOnboardingViewController {
     }
     
     private func setLayout() {
-        view.addSubviews(gifImageView, nextButton)
+        view.addSubviews(animationView, nextButton)
         
-        gifImageView.snp.makeConstraints {
+        animationView.snp.makeConstraints {
             $0.top.leading.trailing.bottom.equalToSuperview()
         }
         
-        view.addSubview(nextButton)
         nextButton.snp.makeConstraints {
             $0.bottom.equalTo(safeArea).inset(10)
             $0.directionalHorizontalEdges.equalTo(safeArea).inset(15)
             $0.height.equalTo(50)
         }
+    }
+    
+    @objc private func videoDidFinishPlaying(notification: NSNotification) {
+        nextButton.isHidden = false
     }
 
     @objc
