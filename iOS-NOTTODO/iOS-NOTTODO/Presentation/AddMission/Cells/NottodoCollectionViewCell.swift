@@ -18,6 +18,7 @@ final class NottodoCollectionViewCell: UICollectionViewCell, AddMissionMenu {
     var missionCellHeight: ((CGFloat) -> Void)?
     var missionTextData: (([String]) -> Void)?
     private var fold: FoldState = .folded
+    private var recentMissionList: [RecentMissionResponseDTO] = []
     
     // MARK: - UI Components
     
@@ -43,6 +44,7 @@ final class NottodoCollectionViewCell: UICollectionViewCell, AddMissionMenu {
         setDelegate()
         registerCell()
         setLayout()
+        requestRecentMissionAPI()
     }
     
     @available(*, unavailable)
@@ -173,16 +175,26 @@ extension NottodoCollectionViewCell {
         historyCollectionView.delegate = self
         historyCollectionView.dataSource = self
     }
+    
+    func requestRecentMissionAPI() {
+        AddMissionAPI.shared.getRecentMission { [weak self] response in
+            guard self != nil else { return }
+            guard let response = response else { return }
+            guard let data = response.data else { return }
+            self?.recentMissionList = data
+            self?.historyCollectionView.reloadData()
+        }
+    }
 }
 
 extension NottodoCollectionViewCell: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return MissionHistoryModel.items.count
+        return recentMissionList.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MissionHistoryCollectionViewCell.identifier, for: indexPath) as? MissionHistoryCollectionViewCell else { return UICollectionViewCell() }
-        cell.configure(MissionHistoryModel.items[indexPath.row])
+        cell.configure(recentMissionList[indexPath.row].title)
         return cell
     }
     
