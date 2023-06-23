@@ -72,7 +72,7 @@ private extension MissionHistoryCollectionViewCell {
 }
 
 extension MissionHistoryCollectionViewCell {
-    func configure(_ item: MissionHistoryModel) {
-        missionHistoryLabel.text = item.missionTitle
+    func configure(_ title: String) {
+        missionHistoryLabel.text = title
     }
 }
