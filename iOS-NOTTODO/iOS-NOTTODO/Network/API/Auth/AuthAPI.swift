@@ -39,25 +39,16 @@ final class AuthAPI {
     // MARK: - Delete
     
     func deleteAuth(completion: @escaping (GeneralResponse<VoidType>?) -> Void) {
-        authProvider.request(.logout) { result in
-            switch result {
-            case .success(_):
-              completion(nil)
-            case .failure(let err):
-                print(err.localizedDescription)
-                completion(nil)
-            }
+        authProvider.request(.logout) { _ in
+            completion(nil)
         }
     }
+    
+    // MARK: - Withdrawal
+    
     func withdrawalAuth(completion: @escaping (GeneralResponse<VoidType>?) -> Void) {
-        authProvider.request(.withdrawal) { result in
-            switch result {
-            case .success(_):
-              completion(nil)
-            case .failure(let err):
-                print(err.localizedDescription)
-                completion(nil)
-            }
+        authProvider.request(.withdrawal) { _ in
+            completion(nil)
         }
     }
 }
