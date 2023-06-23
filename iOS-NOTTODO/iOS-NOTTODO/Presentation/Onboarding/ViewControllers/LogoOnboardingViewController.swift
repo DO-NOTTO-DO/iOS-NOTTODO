@@ -41,9 +41,6 @@ extension LogoOnboardingViewController {
         DispatchQueue.main.async { [weak self] in
             self?.playVideo(with: "logo")
         }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 7) { [weak self] in
-            self?.nextButton.isHidden = false
-        }
     }
     
     private func playVideo(with resourceName: String) {
@@ -55,6 +52,9 @@ extension LogoOnboardingViewController {
         playerLayer.frame = animationView.bounds
         animationView.layer.addSublayer(playerLayer)
         playerLayer.videoGravity = .resizeAspectFill
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(videoDidFinishPlaying), name: .AVPlayerItemDidPlayToEndTime, object: player.currentItem)
+        
         player.play()
     }
     
@@ -84,6 +84,10 @@ extension LogoOnboardingViewController {
             $0.directionalHorizontalEdges.equalTo(safeArea).inset(15)
             $0.height.equalTo(50)
         }
+    }
+    
+    @objc private func videoDidFinishPlaying(notification: NSNotification) {
+        nextButton.isHidden = false
     }
 
     @objc
