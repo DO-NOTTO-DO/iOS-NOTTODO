@@ -13,6 +13,7 @@ enum AddMissionService {
     case recommendSituation
     case addMission(title: String, situation: String, actions: [String]?, goal: String?, dates: [String])
     case updateMission(id: Int, title: String, situation: String, actions: [String]?, goal: String?)
+    case recentMission
 }
 
 extension AddMissionService: TargetType {
@@ -28,12 +29,14 @@ extension AddMissionService: TargetType {
             return URLConstant.mission
         case .updateMission(let id, _, _, _, _):
             return URLConstant.mission + "/\(id)"
+        case .recentMission:
+            return URLConstant.recentMission
         }
     }
     
     var method: Moya.Method {
         switch self {
-        case .recommendSituation:
+        case .recommendSituation, .recentMission:
             return .get
         case .addMission:
             return .post
@@ -44,7 +47,7 @@ extension AddMissionService: TargetType {
     
     var task: Moya.Task {
         switch self {
-        case .recommendSituation:
+        case .recommendSituation, .recentMission:
             return .requestPlain
         case .addMission(let title, let situation, let actions, let goal, let dates):
             return .requestParameters(
