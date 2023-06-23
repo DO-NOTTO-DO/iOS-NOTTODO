@@ -72,7 +72,7 @@ extension MissionCalendarCell {
     
     private func setLayout() {
         iconView.snp.makeConstraints {
-            $0.height.width.equalTo(contentView.bounds.width - 10)
+            $0.height.width.equalTo(contentView.bounds.width - 8)
             $0.centerX.equalToSuperview()
             $0.bottom.equalToSuperview().inset(5)
         }
