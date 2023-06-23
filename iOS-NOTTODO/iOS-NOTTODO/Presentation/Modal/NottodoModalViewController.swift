@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import KakaoSDKUser
 
 enum ViewType {
     case quit
@@ -88,12 +89,7 @@ extension NottodoModalViewController: ModalDelegate {
             viewType = .quit
             withdrawView.isHidden = true
         case .quit:
-            let authViewController = AuthViewController()
-            if let window = view.window?.windowScene?.keyWindow {
-                let navigationController = UINavigationController(rootViewController: authViewController)
-                navigationController.isNavigationBarHidden = true
-                window.rootViewController = navigationController
-            }
+            withdrawal()
         default:
             viewType = .quit
         }
@@ -102,5 +98,32 @@ extension NottodoModalViewController: ModalDelegate {
     func modalDismiss() {
         dismiss(animated: true)
         self.dimissAction?()
+    }
+}
+
+extension NottodoModalViewController {
+    func withdrawal() {
+        if !UserDefaults.standard.bool(forKey: DefaultKeys.isAppleLogin) {
+            kakaoWithdrawal()
+        }
+        AuthAPI.shared.withdrawalAuth { _ in
+            UserDefaults.standard.removeObject(forKey: DefaultKeys.accessToken)
+            let authViewController = AuthViewController()
+            if let window = self.view.window?.windowScene?.keyWindow {
+                let navigationController = UINavigationController(rootViewController: authViewController)
+                navigationController.isNavigationBarHidden = true
+                window.rootViewController = navigationController
+            }
+        }
+    }
+    
+    func kakaoWithdrawal() {
+        UserApi.shared.unlink {(error) in
+            if let error = error {
+                print(error)
+            } else {
+                print("unlink() success.")
+            }
+        }
     }
 }
