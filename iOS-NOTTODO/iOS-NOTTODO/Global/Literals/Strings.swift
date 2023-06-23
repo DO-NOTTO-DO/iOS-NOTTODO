@@ -96,6 +96,7 @@ struct I18N {
     static let option = "*선택"
     static let today = "오늘"
     static let tomorrow = "내일"
+    static let finish = "완료"
     
     /// MyInfo
 
