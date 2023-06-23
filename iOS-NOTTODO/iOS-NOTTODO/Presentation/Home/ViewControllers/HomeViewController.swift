@@ -243,6 +243,7 @@ extension HomeViewController: UICollectionViewDelegate {
             let modalViewController = MissionDetailViewController()
             modalViewController.modalPresentationStyle = .overFullScreen
             modalViewController.userId = missionList[indexPath.item].id
+            modalViewController.setMissionDate(dateFormatter.string(from: selectedDate ?? Date()))
             modalViewController.deleteClosure = { [weak self] in
                 self?.dailyLoadData()
                 self?.weeklyLoadData()

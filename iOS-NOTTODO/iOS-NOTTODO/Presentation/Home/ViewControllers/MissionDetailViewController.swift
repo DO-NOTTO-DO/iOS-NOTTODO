@@ -10,12 +10,13 @@ import UIKit
 import Then
 import SnapKit
 
-class MissionDetailViewController: UIViewController {
+final class MissionDetailViewController: UIViewController {
     
     // MARK: - Properties
     
     var deleteClosure: (() -> Void)?
     var moveDateClosure: ((_ date: String) -> Void)?
+    private var missionDate: String?
 
     private lazy var safeArea = self.view.safeAreaLayoutGuide
     enum Section {
@@ -47,12 +48,15 @@ class MissionDetailViewController: UIViewController {
         setupDataSource()
         reloadData()
     }
+    
+    func setMissionDate(_ text: String) {
+        missionDate = text
+    }
 }
 
 // MARK: - Methods
 
 extension MissionDetailViewController {
-
     private func register() {
         collectionView.register(MissionDetailCollectionViewCell.self, forCellWithReuseIdentifier: MissionDetailCollectionViewCell.identifier)
         collectionView.register(DetailHeaderReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: DetailHeaderReusableView.identifier)
@@ -123,7 +127,18 @@ extension MissionDetailViewController {
                     self.dismiss(animated: true)
                 }
                 header.editClosure = {
-                    print("edit")
+                    let updateMissionViewController = AddMissionViewController()
+                    guard let rootViewController = self.presentingViewController as? UINavigationController else { return }
+                    updateMissionViewController.setMissionId(self.userId ?? 0)
+                    updateMissionViewController.setViewType(.update)
+                    updateMissionViewController.setDate(self.missionDate ?? "")
+                    updateMissionViewController.setNottodoLabel(self.detailModel.first!.title)
+                    updateMissionViewController.setSituationLabel(self.detailModel.first!.situation)
+                    updateMissionViewController.setGoalLabel(self.detailModel.first!.goal)
+                    updateMissionViewController.setActionLabel(self.detailModel.first!.actions.first!.name)
+                    self.dismiss(animated: true) {
+                        rootViewController.pushViewController(updateMissionViewController, animated: true)
+                    }
                 }
                 return header
             } else {
