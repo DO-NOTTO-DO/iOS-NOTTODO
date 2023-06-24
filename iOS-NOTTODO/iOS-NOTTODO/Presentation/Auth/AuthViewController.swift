@@ -33,7 +33,7 @@ class AuthViewController: UIViewController {
     private var personalInfoButton = UIButton()
     
     // MARK: - Life Cycle
-    
+   
     override func viewDidLoad() {
         super.viewDidLoad()
         setUI()
@@ -205,7 +205,6 @@ extension AuthViewController {
                 
                 if let accessToken = oauthToken?.accessToken {
                     KeychainUtil.setSocialToken(accessToken)
-                    
                     self.getUserInfo()
                 }
             }

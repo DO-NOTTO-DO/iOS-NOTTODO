@@ -163,8 +163,9 @@ extension MyInfoAccountViewController {
     func logout() {
         if !UserDefaults.standard.bool(forKey: DefaultKeys.isAppleLogin) {
             kakaoLogout()
-        }
+        } 
         AuthAPI.shared.deleteAuth { [weak self] _ in
+            UserDefaults.standard.removeObject(forKey: DefaultKeys.accessToken)
             let authViewController = AuthViewController()
             if let window = self?.view.window?.windowScene?.keyWindow {
                 let navigationController = UINavigationController(rootViewController: authViewController)
