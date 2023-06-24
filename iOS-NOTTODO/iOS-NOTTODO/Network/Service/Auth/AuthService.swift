@@ -56,7 +56,8 @@ extension AuthService: TargetType {
         case .auth:
             return NetworkConstant.noTokenHeader
         case .logout, .withdrawal:
-            return NetworkConstant.hasTokenHeader
+            return ["Content-Type": "application/json",
+                    "Authorization": "\(KeychainUtil.getAccessToken())"]
         }
     }
 }

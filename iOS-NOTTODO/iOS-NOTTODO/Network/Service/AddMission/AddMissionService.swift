@@ -65,7 +65,8 @@ extension AddMissionService: TargetType {
     var headers: [String: String]? {
         switch self {
         default:
-            return NetworkConstant.hasTokenHeader
+            return ["Content-Type": "application/json",
+                    "Authorization": "\(KeychainUtil.getAccessToken())"]
         }
     }
 }
