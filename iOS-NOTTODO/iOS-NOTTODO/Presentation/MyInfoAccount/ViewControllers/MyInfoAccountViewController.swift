@@ -166,6 +166,8 @@ extension MyInfoAccountViewController {
         } 
         AuthAPI.shared.deleteAuth { [weak self] _ in
             UserDefaults.standard.removeObject(forKey: DefaultKeys.accessToken)
+            UserDefaults.standard.removeObject(forKey: DefaultKeys.socialToken)
+
             let authViewController = AuthViewController()
             if let window = self?.view.window?.windowScene?.keyWindow {
                 let navigationController = UINavigationController(rootViewController: authViewController)
