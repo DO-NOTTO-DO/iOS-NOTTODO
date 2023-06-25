@@ -140,18 +140,7 @@ extension AuthViewController {
         }
         
     }
-    
-    private func requestAuthAPI(social: String, socialToken: String, fcmToken: String, name: String, email: String) {
-        AuthAPI.shared.postAuth(social: social, socialToken: socialToken, fcmToken: fcmToken, name: name, email: email) { [weak self] result in
-            guard self != nil else { return }
-            guard result != nil else { return }
-            // accessToken userDefault에 저장
-            guard let accessToken = result?.data?.accessToken else { return }
-            KeychainUtil.setAccessToken(accessToken)
-            self?.presentToHomeViewController()
-        }
-    }
-    
+        
     // MARK: - @objc Methods
     
     @objc func moreButtonTapped() {
@@ -223,7 +212,14 @@ extension AuthViewController {
                 KeychainUtil.setString(email, forKey: DefaultKeys.email)
                 KeychainUtil.setBool(false, forKey: DefaultKeys.isAppleLogin)
                 
-                self.requestAuthAPI(social: LoginType.Kakao.social, socialToken: KeychainUtil.getSocialToken(), fcmToken: DefaultKeys.fcmToken, name: KeychainUtil.getUsername(), email: KeychainUtil.getEmail())
+                AuthAPI.shared.postKakaoAuth(social: LoginType.Kakao.social, socialToken: KeychainUtil.getSocialToken(), fcmToken: DefaultKeys.fcmToken) { [weak self] result in
+                    guard self != nil else { return }
+                    guard result != nil else { return }
+                    
+                    guard let accessToken = result?.data?.accessToken else { return }
+                    KeychainUtil.setAccessToken(accessToken)
+                    self?.presentToHomeViewController()
+                }
             }
         }
     }
@@ -269,7 +265,14 @@ extension AuthViewController: ASAuthorizationControllerDelegate, ASAuthorization
             
             KeychainUtil.setBool(true, forKey: DefaultKeys.isAppleLogin)
 
-            self.requestAuthAPI(social: LoginType.Apple.social, socialToken: KeychainUtil.getSocialToken(), fcmToken: DefaultKeys.fcmToken, name: KeychainUtil.getUsername(), email: KeychainUtil.getEmail())
+            AuthAPI.shared.postAppleAuth(social: LoginType.Apple.social, socialToken: KeychainUtil.getSocialToken(), fcmToken: DefaultKeys.fcmToken, name: KeychainUtil.getUsername()) { [weak self] result in
+                guard self != nil else { return }
+                guard result != nil else { return }
+                
+                guard let accessToken = result?.data?.accessToken else { return }
+                KeychainUtil.setAccessToken(accessToken)
+                self?.presentToHomeViewController()
+            }
         default:
             break
         }
