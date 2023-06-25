@@ -46,7 +46,7 @@ struct I18N {
     /// Achievement
     
     static let achievement = "성취"
-    static let total = "더욱 나은 낫투두를 위해\n노력중에 있어요, 기다려주세요."
+    static let total = "SNS에 오늘의 낫투두를 공유하고\n낫투더들과 이야기 나눠보세요."
     
     /// Detail
     
