@@ -12,9 +12,6 @@ struct InfoModelOne: Hashable {
     var user: String
     var email: String
 }
-//extension InfoModelOne {
-//    static var item: [InfoModelOne] = [InfoModelOne(image: .imgUser, user: KeychainUtil.getUsername(), email: KeychainUtil.getEmail())]
-//}
 
 struct InfoModelTwo: Hashable {
     var image: UIImage
