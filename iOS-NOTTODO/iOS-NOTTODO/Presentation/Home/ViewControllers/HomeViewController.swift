@@ -216,7 +216,13 @@ extension HomeViewController {
     private func makeSwipeActions(for indexPath: IndexPath?) -> UISwipeActionsConfiguration? {
         let deleteAction = UIContextualAction(style: .normal, title: "") { [unowned self] _, _, completion in
             guard let index = indexPath?.item else { return }
-            requestDeleteMission(index: index)
+            let modalViewController = HomeDeleteViewController()
+            modalViewController.modalPresentationStyle = .overFullScreen
+            modalViewController.modalTransitionStyle = .crossDissolve
+            modalViewController.deleteClosure = {
+                self.requestDeleteMission(index: index)
+            }
+            present(modalViewController, animated: false)
             completion(true)
         }
         
