@@ -19,8 +19,25 @@ final class AuthAPI {
     
     // MARK: - POST
     
-    func postAuth(social: String, socialToken: String, fcmToken: String, name: String, email: String, completion: @escaping (GeneralResponse<AuthResponseDTO>?) -> Void) {
-        authProvider.request(.auth(social: social, socialToken: socialToken, fcmToken: fcmToken, name: name, email: email)) { result in
+    func postKakaoAuth(social: String, socialToken: String, fcmToken: String, completion: @escaping (GeneralResponse<AuthResponseDTO>?) -> Void) {
+        authProvider.request(.kakaoAuth(social: social, socialToken: socialToken, fcmToken: fcmToken)) { result in
+            switch result {
+            case .success(let response):
+                do {
+                    guard let authData = try response.map(GeneralResponse<AuthResponseDTO>?.self) else { return }
+                    completion(authData)
+                } catch let err {
+                    print(err.localizedDescription, 500)
+                }
+            case .failure(let err):
+                print(err.localizedDescription)
+                completion(nil)
+            }
+        }
+    }
+    
+    func postAppleAuth(social: String, socialToken: String, fcmToken: String, name: String, completion: @escaping (GeneralResponse<AuthResponseDTO>?) -> Void) {
+        authProvider.request(.appleAuth(social: social, socialToken: socialToken, fcmToken: fcmToken, name: name)) { result in
             switch result {
             case .success(let response):
                 do {
