@@ -22,13 +22,13 @@ enum MyInfoURL {
         case .contact:
             return "http://pf.kakao.com/_fUIQxj/chat"
         case .service:
-            return "https://teamnottodo.notion.site/0c3c7c02857b46e1b16307ce7a8f6ca9"
+            return "https://teamnottodo.notion.site/81594da775614d23900cdb2475eadb73?pvs=4"
         case .personalInfo:
             return "https://teamnottodo.notion.site/5af34df7da3649fc941312c5f533c1eb"
         case .googleForm:
             return "https://forms.gle/gwBJ4hL4bCTjXRTP6"
         case .opensource:
-            return "https://www.notion.so/teamnottodo/a391274a627643f6a4d1f2412d4cf170?pvs=4"
+            return "https://teamnottodo.notion.site/a391274a627643f6a4d1f2412d4cf170?pvs=4"
         }
     }
     

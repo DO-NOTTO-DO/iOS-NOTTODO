@@ -118,8 +118,8 @@ extension MissionListCollectionViewCell {
     
     func configure(model: DailyMissionResponseDTO) {
         self.userId = model.id
-        tagLabel.text = model.title
-        missionLabel.text = model.situationName
+        tagLabel.text = model.situationName
+        missionLabel.text = model.title
         switch model.completionStatus {
         case .UNCHECKED:  isTapped = false
         case .CHECKED: isTapped = true

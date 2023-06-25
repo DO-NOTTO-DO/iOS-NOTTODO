@@ -9,6 +9,6 @@ import Foundation
 
 struct NetworkConstant {
     static let noTokenHeader = ["Content-Type": "application/json"]
-    static let hasTokenHeader = ["Content-Type": "application/json",
+    static var hasTokenHeader = ["Content-Type": "application/json",
                                  "Authorization": "\(KeychainUtil.getAccessToken())"]
 }

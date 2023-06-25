@@ -107,7 +107,11 @@ extension NottodoModalViewController {
             kakaoWithdrawal()
         }
         AuthAPI.shared.withdrawalAuth { _ in
+            for key in UserDefaults.standard.dictionaryRepresentation().keys {
+                UserDefaults.standard.removeObject(forKey: key.description)
+            }
             UserDefaults.standard.removeObject(forKey: DefaultKeys.accessToken)
+            UserDefaults.standard.removeObject(forKey: DefaultKeys.socialToken)
             let authViewController = AuthViewController()
             if let window = self.view.window?.windowScene?.keyWindow {
                 let navigationController = UINavigationController(rootViewController: authViewController)

@@ -42,7 +42,8 @@ extension RecommendActionService: TargetType {
     var headers: [String: String]? {
         switch self {
         case .recommendAction:
-            return NetworkConstant.hasTokenHeader
+            return ["Content-Type": "application/json",
+                    "Authorization": "\(KeychainUtil.getAccessToken())"]
         }
     }
 }

@@ -45,7 +45,8 @@ extension AchieveService: TargetType {
     var headers: [String: String]? {
         switch self {
         case .achieveCalendar, .achieveDetail:
-            return NetworkConstant.hasTokenHeader
+            return ["Content-Type": "application/json",
+                    "Authorization": "\(KeychainUtil.getAccessToken())"]
         }
     }
 }

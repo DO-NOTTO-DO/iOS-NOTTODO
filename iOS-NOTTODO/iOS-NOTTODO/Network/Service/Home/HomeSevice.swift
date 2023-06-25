@@ -67,6 +67,7 @@ extension HomeService: TargetType {
     }
     
     var headers: [String: String]? {
-        return NetworkConstant.hasTokenHeader
+        return ["Content-Type": "application/json",
+                "Authorization": "\(KeychainUtil.getAccessToken())"]
     }
 }
