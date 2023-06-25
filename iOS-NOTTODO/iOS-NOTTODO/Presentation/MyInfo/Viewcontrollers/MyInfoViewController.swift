@@ -138,6 +138,7 @@ extension MyInfoViewController: UICollectionViewDelegate {
         switch indexPath.section {
         case 0:
             let nextViewController = MyInfoAccountViewController()
+            nextViewController.hidesBottomBarWhenPushed = false
             navigationController?.pushViewController(nextViewController, animated: true)
         case 1:
             switch indexPath.item {

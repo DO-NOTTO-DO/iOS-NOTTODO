@@ -106,7 +106,7 @@ struct I18N {
     /// MyInfoAccount
     
     static let myInfoAccount = "계정 정보"
-    static let nickname = "닉네임"
+    static let nickname = "유저명"
     static let email = "이메일"
     static let account = "연결된 계정"
     static let notification = "푸시 알림 설정"
