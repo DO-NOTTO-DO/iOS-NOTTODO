@@ -24,7 +24,6 @@ struct DefaultKeys {
     static let appleEmail = "appleEmail"
     static let appleName = "appleName"
     static let isAppleLogin = "isAppleLogin"
-    static let isKakaoLogin = "isKakaoLogin"
     static let socialToken = "socialToken"
     static let accessToken = "accessToken"
     static let fcmToken = "1"
