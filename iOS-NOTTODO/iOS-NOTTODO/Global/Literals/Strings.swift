@@ -111,6 +111,8 @@ struct I18N {
     static let notification = "푸시 알림 설정"
     static let logout = "로그아웃"
     static let withdraw = "회원 탈퇴"
+    static let logoutAlertTitle = "로그아웃 하시겠습니까?"
+    static let logoutAlertmessage = "로그아웃을 하면\n다른 기기와 낫투두 기록을 연동하지 못해요."
     
     /// Onboarding
     
