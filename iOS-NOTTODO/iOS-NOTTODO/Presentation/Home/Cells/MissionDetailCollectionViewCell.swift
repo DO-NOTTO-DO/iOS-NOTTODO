@@ -116,8 +116,8 @@ extension MissionDetailCollectionViewCell {
     }
     
     func configure(model: MissionDetailResponseDTO) {
-        missionTagLabel.text = model.title
-        missionLabel.text = model.situation
+        missionTagLabel.text = model.situation
+        missionLabel.text = model.title
         accumulateLabel.text = "\(model.count)회\n달성"
         if model.actions.isEmpty {
             action.titleLabel.isHidden = true
