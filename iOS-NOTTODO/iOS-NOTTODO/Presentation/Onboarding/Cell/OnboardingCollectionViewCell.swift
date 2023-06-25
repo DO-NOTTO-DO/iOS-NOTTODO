@@ -18,7 +18,8 @@ class OnboardingCollectionViewCell: UICollectionViewCell {
     
     override var isSelected: Bool {
         didSet {
-            contentView.layer.borderColor = isSelected ? UIColor.gray3?.cgColor : UIColor.clear.cgColor
+            contentView.layer.borderColor = isSelected ? UIColor.green1?.cgColor : UIColor.clear.cgColor
+            contentView.backgroundColor = isSelected ? .gray2 : .gray1
         }
     }
     
@@ -43,7 +44,7 @@ class OnboardingCollectionViewCell: UICollectionViewCell {
 
 extension OnboardingCollectionViewCell {
     private func setUI() {
-        contentView.backgroundColor = .gray2
+        contentView.backgroundColor = .gray1
         contentView.layer.cornerRadius = 10
         contentView.layer.masksToBounds = true
         contentView.layer.borderWidth = 1
