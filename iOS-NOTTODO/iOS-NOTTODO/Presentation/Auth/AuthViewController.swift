@@ -208,8 +208,8 @@ extension AuthViewController {
                 let name = user?.kakaoAccount?.name
                 let email = user?.kakaoAccount?.email
                 
-                KeychainUtil.setString(name, forKey: DefaultKeys.name)
-                KeychainUtil.setString(email, forKey: DefaultKeys.email)
+                KeychainUtil.setString(name, forKey: DefaultKeys.kakaoName)
+                KeychainUtil.setString(email, forKey: DefaultKeys.kakaoEmail)
                 KeychainUtil.setBool(false, forKey: DefaultKeys.isAppleLogin)
                 
                 AuthAPI.shared.postKakaoAuth(social: LoginType.Kakao.social, socialToken: KeychainUtil.getSocialToken(), fcmToken: DefaultKeys.fcmToken) { [weak self] result in
@@ -252,15 +252,15 @@ extension AuthViewController: ASAuthorizationControllerDelegate, ASAuthorization
                 }
             }
             
-            if let email = appleIDCredential.email {
-                KeychainUtil.setString(email, forKey: DefaultKeys.email)
-            }
-            
             let firstName = appleIDCredential.fullName?.givenName
             let lastName = appleIDCredential.fullName?.familyName
             if let firstName = firstName, let lastName = lastName {
                 let fullName = "\(lastName)\(firstName)"
-                KeychainUtil.setString(fullName, forKey: DefaultKeys.name)
+                KeychainUtil.setString(fullName, forKey: DefaultKeys.appleName)
+            }
+            
+            if let email = appleIDCredential.email {
+                KeychainUtil.setString(email, forKey: DefaultKeys.appleEmail)
             }
             
             KeychainUtil.setBool(true, forKey: DefaultKeys.isAppleLogin)
