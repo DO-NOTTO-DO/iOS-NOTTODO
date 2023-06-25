@@ -186,9 +186,7 @@ extension HomeViewController {
         }
         dataSource.apply(snapshot)
     }
-    
-    // MARK: - Layout
-    
+
     private func layout() -> UICollectionViewLayout {
         let layout = UICollectionViewCompositionalLayout { sectionIndex, layoutEnvirnment  in
             let section = self.dataSource.snapshot().sectionIdentifiers[sectionIndex]
@@ -230,7 +228,6 @@ extension HomeViewController {
             print("modify")
             completionHandler(true)
         }
-        
         deleteAction.backgroundColor = .ntdRed
         modifyAction.backgroundColor = .ntdBlue
         deleteAction.image = .icTrash
@@ -238,7 +235,6 @@ extension HomeViewController {
         
         let swipeConfiguration = UISwipeActionsConfiguration(actions: [deleteAction, modifyAction])
         swipeConfiguration.performsFirstActionWithFullSwipe = false
-
         return swipeConfiguration
     }
 }
