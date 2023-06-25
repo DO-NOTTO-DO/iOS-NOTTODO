@@ -53,6 +53,7 @@ extension UIImage {
     static var icQuestion1: UIImage { UIImage(named: "ic_question1")! }
     static var icTrash: UIImage { UIImage(named: "ic_trash")! }
     static var icFlag: UIImage { UIImage(named: "ic_flag")! }
+    static var icSNS: UIImage { UIImage(named: "ic_snsmessage")! }
     
     // image
     
