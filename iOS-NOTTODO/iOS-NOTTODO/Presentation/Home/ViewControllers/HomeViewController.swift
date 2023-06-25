@@ -186,9 +186,7 @@ extension HomeViewController {
         }
         dataSource.apply(snapshot)
     }
-    
-    // MARK: - Layout
-    
+
     private func layout() -> UICollectionViewLayout {
         let layout = UICollectionViewCompositionalLayout { sectionIndex, layoutEnvirnment  in
             let section = self.dataSource.snapshot().sectionIdentifiers[sectionIndex]
@@ -216,7 +214,13 @@ extension HomeViewController {
     private func makeSwipeActions(for indexPath: IndexPath?) -> UISwipeActionsConfiguration? {
         let deleteAction = UIContextualAction(style: .normal, title: "") { [unowned self] _, _, completion in
             guard let index = indexPath?.item else { return }
-            requestDeleteMission(index: index)
+            let modalViewController = HomeDeleteViewController()
+            modalViewController.modalPresentationStyle = .overFullScreen
+            modalViewController.modalTransitionStyle = .crossDissolve
+            modalViewController.deleteClosure = {
+                self.requestDeleteMission(index: index)
+            }
+            present(modalViewController, animated: false)
             completion(true)
         }
         
@@ -224,7 +228,6 @@ extension HomeViewController {
             print("modify")
             completionHandler(true)
         }
-        
         deleteAction.backgroundColor = .ntdRed
         modifyAction.backgroundColor = .ntdBlue
         deleteAction.image = .icTrash
@@ -232,7 +235,6 @@ extension HomeViewController {
         
         let swipeConfiguration = UISwipeActionsConfiguration(actions: [deleteAction, modifyAction])
         swipeConfiguration.performsFirstActionWithFullSwipe = false
-
         return swipeConfiguration
     }
 }
