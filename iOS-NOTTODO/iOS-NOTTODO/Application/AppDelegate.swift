@@ -24,7 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         KakaoSDK.initSDK(appKey: "f06c671df540ff4a8f8275f453368748")
         
         if KeychainUtil.getAccessToken() != "" {
-            self.skipAuthView()
+            // self.skipAuthView()
             print("토큰유효!!!!!")
         } else {
             // self.showAuthView()
