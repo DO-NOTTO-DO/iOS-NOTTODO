@@ -33,7 +33,7 @@ class MyInfoAccountViewController: UIViewController {
         setUI()
         setLayout()
 //        configure(model: MyInfoAccountModel(nickname: UserDefaults.standard.string(forKey: "KakaoName") ?? "익명의 도전자", email: UserDefaults.standard.string(forKey: "KakaoEmail") ?? "연동된 이메일 정보가 없습니다", account: UserDefaults.standard.bool(forKey: "isAppleLogin") ? "apple" : "kakao", notification: true))
-        configure(model: MyInfoAccountModel(nickname: KeychainUtil.getUsername(), email: KeychainUtil.getEmail(), account: UserDefaults.standard.bool(forKey: DefaultKeys.isAppleLogin) ? "apple" : "kakao", notification: true))
+        configure(model: MyInfoAccountModel(nickname: UserDefaults.standard.bool(forKey: "isAppleLogin") ? KeychainUtil.getAppleUsername() : KeychainUtil.getKakaoUsername(), email: UserDefaults.standard.bool(forKey: "isAppleLogin") ? KeychainUtil.getAppleEmail() : KeychainUtil.getKakaoEmail(), account: UserDefaults.standard.bool(forKey: DefaultKeys.isAppleLogin) ? "apple" : "kakao", notification: true))
     }
 }
 
@@ -155,7 +155,15 @@ private extension MyInfoAccountViewController {
     }
     @objc
     private func tappedLogout() {
-        logout()
+        let logoutAlert = UIAlertController(title: I18N.logoutAlertTitle, message: I18N.logoutAlertmessage, preferredStyle: UIAlertController.Style.alert)
+        let logoutAction = UIAlertAction(title: I18N.logout, style: UIAlertAction.Style.default, handler: {_ in
+            self.logout()
+        })
+        let cancelAlert = UIAlertAction(title: I18N.cancel, style: UIAlertAction.Style.default, handler: nil)
+        logoutAlert.addAction(cancelAlert)
+        logoutAlert.addAction(logoutAction)
+        present(logoutAlert, animated: true, completion: nil)
+        
     }
 }
 
