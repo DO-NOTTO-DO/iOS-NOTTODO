@@ -49,13 +49,25 @@ extension AuthViewController {
             $0.textColor = .white
             $0.text = I18N.loginMain
             $0.numberOfLines = 2
+            
+            let paragraphStyle = NSMutableParagraphStyle()
+            paragraphStyle.lineSpacing = $0.font.lineHeight * 0.2
+
+            let attributedText = NSAttributedString(string: $0.text ?? "", attributes: [NSAttributedString.Key.paragraphStyle: paragraphStyle])
+            $0.attributedText = attributedText
         }
         
         loginSubLabel.do {
             $0.font = .Pretendard(.medium, size: 16)
             $0.textColor = .gray4
             $0.text = I18N.loginSub
-            $0.numberOfLines = 2
+            $0.numberOfLines = 3
+            
+            let paragraphStyle = NSMutableParagraphStyle()
+            paragraphStyle.lineSpacing = $0.font.lineHeight * 0.2
+
+            let attributedText = NSAttributedString(string: $0.text ?? "", attributes: [NSAttributedString.Key.paragraphStyle: paragraphStyle])
+            $0.attributedText = attributedText
         }
         
         kakaoLoginImageView.image = .kakaoLoginLabel
