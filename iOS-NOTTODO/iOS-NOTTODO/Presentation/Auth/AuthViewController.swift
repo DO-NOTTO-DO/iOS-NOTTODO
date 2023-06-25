@@ -265,7 +265,7 @@ extension AuthViewController: ASAuthorizationControllerDelegate, ASAuthorization
             
             KeychainUtil.setBool(true, forKey: DefaultKeys.isAppleLogin)
 
-            AuthAPI.shared.postAppleAuth(social: LoginType.Apple.social, socialToken: KeychainUtil.getSocialToken(), fcmToken: DefaultKeys.fcmToken, name: KeychainUtil.getUsername()) { [weak self] result in
+            AuthAPI.shared.postAppleAuth(social: LoginType.Apple.social, socialToken: KeychainUtil.getSocialToken(), fcmToken: DefaultKeys.fcmToken, name: KeychainUtil.getAppleUsername()) { [weak self] result in
                 guard self != nil else { return }
                 guard result != nil else { return }
                 

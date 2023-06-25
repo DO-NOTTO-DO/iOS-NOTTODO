@@ -14,7 +14,7 @@ import MessageUI
 final class MyInfoViewController: UIViewController {
     
     // MARK: - Properties
-    
+
     private var infoOne: [InfoModelOne] = [InfoModelOne(image: .imgUser, user: KeychainUtil.getUsername(), email: KeychainUtil.getEmail())]
     private let infoTwo: [InfoModelTwo] = InfoModelTwo.items
     private let infoThree: [InfoModelThree] = InfoModelThree.items
