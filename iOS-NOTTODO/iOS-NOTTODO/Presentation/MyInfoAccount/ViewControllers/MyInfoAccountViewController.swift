@@ -155,7 +155,15 @@ private extension MyInfoAccountViewController {
     }
     @objc
     private func tappedLogout() {
-        logout()
+        let logoutAlert = UIAlertController(title: I18N.logoutAlertTitle, message: I18N.logoutAlertmessage, preferredStyle: UIAlertController.Style.alert)
+        let logoutAction = UIAlertAction(title: I18N.logout, style: UIAlertAction.Style.default, handler: {_ in
+            self.logout()
+        })
+        let cancelAlert = UIAlertAction(title: I18N.cancel, style: UIAlertAction.Style.default, handler: nil)
+        logoutAlert.addAction(cancelAlert)
+        logoutAlert.addAction(logoutAction)
+        present(logoutAlert, animated: true, completion: nil)
+        
     }
 }
 
