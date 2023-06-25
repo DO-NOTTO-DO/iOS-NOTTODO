@@ -19,9 +19,10 @@ enum LoginType {
 }
 
 struct DefaultKeys {
-    static let userId = "userId"
-    static let email = "email"
-    static let name = "name"
+    static let kakaoEmail = "kakaoEmail"
+    static let kakaoName = "kakaoName"
+    static let appleEmail = "appleEmail"
+    static let appleName = "appleName"
     static let isAppleLogin = "isAppleLogin"
     static let isKakaoLogin = "isKakaoLogin"
     static let socialToken = "socialToken"
