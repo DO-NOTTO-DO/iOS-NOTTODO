@@ -27,10 +27,16 @@ public final class KeychainUtil {
     static func getAccessToken() -> String {
         UserDefaults.standard.string(forKey: DefaultKeys.accessToken) ?? ""
     }
-    static func getUsername() -> String {
-        UserDefaults.standard.string(forKey: DefaultKeys.name) ?? "익명의 도전자"
+    static func getKakaoUsername() -> String {
+        UserDefaults.standard.string(forKey: DefaultKeys.kakaoName) ?? "익명의 도전자"
     }
-    static func getEmail() -> String {
-        UserDefaults.standard.string(forKey: DefaultKeys.email) ?? "연동된 이메일 정보가 없습니다"
+    static func getKakaoEmail() -> String {
+        UserDefaults.standard.string(forKey: DefaultKeys.kakaoEmail) ?? "연동된 이메일 정보가 없습니다"
+    }
+    static func getAppleUsername() -> String {
+        UserDefaults.standard.string(forKey: DefaultKeys.appleName) ?? "익명의 도전자"
+    }
+    static func getAppleEmail() -> String {
+        UserDefaults.standard.string(forKey: DefaultKeys.appleEmail) ?? "연동된 이메일 정보가 없습니다"
     }
 }

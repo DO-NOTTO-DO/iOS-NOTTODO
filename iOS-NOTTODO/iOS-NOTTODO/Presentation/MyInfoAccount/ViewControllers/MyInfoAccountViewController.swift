@@ -32,7 +32,7 @@ class MyInfoAccountViewController: UIViewController {
         super.viewDidLoad()
         setUI()
         setLayout()
-        configure(model: MyInfoAccountModel(nickname: KeychainUtil.getUsername(), email: KeychainUtil.getEmail(), account: UserDefaults.standard.bool(forKey: DefaultKeys.isAppleLogin) ? "apple" : "kakao", notification: true))
+        configure(model: MyInfoAccountModel(nickname: UserDefaults.standard.bool(forKey: DefaultKeys.isAppleLogin) ? KeychainUtil.getAppleUsername() : KeychainUtil.getKakaoUsername(), email: UserDefaults.standard.bool(forKey: DefaultKeys.isAppleLogin) ? KeychainUtil.getAppleEmail() : KeychainUtil.getKakaoEmail(), account: UserDefaults.standard.bool(forKey: DefaultKeys.isAppleLogin) ? "apple" : "kakao", notification: true))
     }
 }
 
@@ -160,7 +160,15 @@ private extension MyInfoAccountViewController {
     }
     @objc
     private func tappedLogout() {
-        logout()
+        let logoutAlert = UIAlertController(title: I18N.logoutAlertTitle, message: I18N.logoutAlertmessage, preferredStyle: UIAlertController.Style.alert)
+        let logoutAction = UIAlertAction(title: I18N.logout, style: UIAlertAction.Style.default, handler: {_ in
+            self.logout()
+        })
+        let cancelAlert = UIAlertAction(title: I18N.cancel, style: UIAlertAction.Style.default, handler: nil)
+        logoutAlert.addAction(cancelAlert)
+        logoutAlert.addAction(logoutAction)
+        present(logoutAlert, animated: true, completion: nil)
+        
     }
 }
 
@@ -168,8 +176,11 @@ extension MyInfoAccountViewController {
     func logout() {
         if !UserDefaults.standard.bool(forKey: DefaultKeys.isAppleLogin) {
             kakaoLogout()
-        }
+        } 
         AuthAPI.shared.deleteAuth { [weak self] _ in
+            UserDefaults.standard.removeObject(forKey: DefaultKeys.accessToken)
+            UserDefaults.standard.removeObject(forKey: DefaultKeys.socialToken)
+
             let authViewController = AuthViewController()
             if let window = self?.view.window?.windowScene?.keyWindow {
                 let navigationController = UINavigationController(rootViewController: authViewController)

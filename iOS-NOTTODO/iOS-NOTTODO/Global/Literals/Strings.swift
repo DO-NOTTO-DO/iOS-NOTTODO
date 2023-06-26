@@ -10,12 +10,13 @@ struct I18N {
     /// Auth
     
     static let loginMain = """
-                        나만을 위한 추천과
-                        안전한 데이터 보관의 시작!
+                        이제 오늘의 낫투두를 세우고
+                        변화된 삶을 느껴보세요!
                         """
     static let loginSub = """
-                        계정을 연동하면 언제 어디서든
-                        낫투두 기록을 관리할 수 있어요.
+                        계정을 연동하면
+                        안전하게 데이터를 보관하고
+                        어디서든 낫투두 기록을 관리할 수 있어요.
                         """
     static let kakaoLogin = "카카오 로그인"
     static let appleLogin = "Apple로 로그인"
@@ -46,7 +47,7 @@ struct I18N {
     /// Achievement
     
     static let achievement = "성취"
-    static let total = "더욱 나은 낫투두를 위해\n노력중에 있어요, 기다려주세요."
+    static let total = "SNS에 오늘의 낫투두를 공유하고\n낫투더들과 이야기 나눠보세요."
     
     /// Detail
     
@@ -111,6 +112,8 @@ struct I18N {
     static let notification = "푸시 알림 설정"
     static let logout = "로그아웃"
     static let withdraw = "회원 탈퇴"
+    static let logoutAlertTitle = "로그아웃 하시겠습니까?"
+    static let logoutAlertmessage = "로그아웃을 하면\n다른 기기와 낫투두 기록을 연동하지 못해요."
     
     /// Onboarding
     
@@ -152,6 +155,9 @@ struct I18N {
                                      """
     static let surveyButton = "이런 점이 아쉬웠어요.."
     static let cancel = "취소"
+    static let delete = "삭제하기"
+    static let deleteModalTitle = "삭제하시겠습니까?"
+    static let deleteModalSubtitle = "한 번 삭제하면 되돌릴 수 없어요."
 
     /// home
     static let subText = "*달성 가능한 계획을 위해 다가올 일주일만 선택할 수 있어요"

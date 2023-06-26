@@ -100,7 +100,7 @@ extension AchievementViewController {
         }
         
         statisticsView.snp.makeConstraints {
-            $0.top.equalTo(monthCalendar.snp.bottom).offset(20)
+            $0.top.equalTo(monthCalendar.snp.bottom)
             $0.directionalHorizontalEdges.equalTo(safeArea).inset(15)
             $0.height.equalTo((getDeviceWidth()-30)*0.6)
             $0.bottom.equalTo(scrollView.snp.bottom).inset(20)

@@ -34,12 +34,8 @@ class StatisticsView: UIView {
 
 extension StatisticsView {
     private func setUI() {
-        layer.cornerRadius = 12
-        layer.borderWidth = 1
-        layer.borderColor = UIColor.gray4?.cgColor
-        
         totalImage.do {
-            $0.image = .imgTotal
+            $0.image = .icSNS
         }
         titleLabel.do {
             $0.text = I18N.total
@@ -53,12 +49,14 @@ extension StatisticsView {
         addSubviews(totalImage, titleLabel)
         
         totalImage.snp.makeConstraints {
-            $0.edges.equalToSuperview()
+            $0.top.equalToSuperview().offset(69)
+            $0.centerX.equalToSuperview()
+            $0.size.equalTo(CGSize(width: 63, height: 51))
         }
         
         titleLabel.snp.makeConstraints {
+            $0.top.equalTo(totalImage.snp.bottom).offset(26)
             $0.centerX.equalToSuperview()
-            $0.centerY.equalToSuperview().offset(20)
         }
     }
 }

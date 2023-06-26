@@ -10,7 +10,8 @@ import Foundation
 import Moya
 
 enum AuthService {
-    case auth(social: String, socialToken: String, fcmToken: String, name: String, email: String)
+    case kakaoAuth(social: String, socialToken: String, fcmToken: String)
+    case appleAuth(social: String, socialToken: String, fcmToken: String, name: String)
     case logout
     case withdrawal
 }
@@ -22,7 +23,7 @@ extension AuthService: TargetType {
     
     var path: String {
         switch self {
-        case .auth(let social, _, _, _, _):
+        case .kakaoAuth(let social, _, _), .appleAuth(let social, _, _, _):
             return URLConstant.auth + "/\(social)"
         case .logout:
             return URLConstant.authLogout
@@ -33,7 +34,7 @@ extension AuthService: TargetType {
     
     var method: Moya.Method {
         switch self {
-        case .auth:
+        case .kakaoAuth, .appleAuth:
             return .post
         case .logout:
             return .delete
@@ -43,8 +44,11 @@ extension AuthService: TargetType {
     }
     var task: Moya.Task {
         switch self {
-        case .auth(_, let socialToken, let fcmToken, let name, let email):
-            return .requestParameters(parameters: ["socialToken": socialToken, "fcmToken": fcmToken, "name": name, "email": email],
+        case .kakaoAuth(_, let socialToken, let fcmToken):
+            return .requestParameters(parameters: ["socialToken": socialToken, "fcmToken": fcmToken],
+                                      encoding: JSONEncoding.default)
+        case .appleAuth(_, let socialToken, let fcmToken, let name):
+            return .requestParameters(parameters: ["socialToken": socialToken, "fcmToken": fcmToken, "name": name],
                                       encoding: JSONEncoding.default)
         case .logout, .withdrawal:
             return .requestPlain
@@ -53,10 +57,11 @@ extension AuthService: TargetType {
     
     var headers: [String: String]? {
         switch self {
-        case .auth:
+        case .kakaoAuth, .appleAuth:
             return NetworkConstant.noTokenHeader
         case .logout, .withdrawal:
-            return NetworkConstant.hasTokenHeader
+            return ["Content-Type": "application/json",
+                    "Authorization": "\(KeychainUtil.getAccessToken())"]
         }
     }
 }

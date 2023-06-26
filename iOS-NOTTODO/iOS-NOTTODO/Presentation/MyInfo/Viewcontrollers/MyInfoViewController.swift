@@ -15,7 +15,7 @@ final class MyInfoViewController: UIViewController {
     
     // MARK: - Properties
     
-    private let infoOne: [InfoModelOne] = InfoModelOne.item
+    private var infoOne: [InfoModelOne] = [InfoModelOne(image: .imgUser, user: UserDefaults.standard.bool(forKey: DefaultKeys.isAppleLogin) ? KeychainUtil.getAppleUsername() : KeychainUtil.getKakaoUsername(), email: UserDefaults.standard.bool(forKey: DefaultKeys.isAppleLogin) ? KeychainUtil.getAppleEmail() : KeychainUtil.getKakaoEmail())]
     private let infoTwo: [InfoModelTwo] = InfoModelTwo.items
     private let infoThree: [InfoModelThree] = InfoModelThree.items
     private let infoFour: [InfoModelFour] = InfoModelFour.item
@@ -32,7 +32,7 @@ final class MyInfoViewController: UIViewController {
     private lazy var myInfoCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout())
     
     // MARK: - Life Cycle
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setUI()

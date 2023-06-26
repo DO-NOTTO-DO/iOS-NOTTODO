@@ -112,6 +112,9 @@ extension NottodoModalViewController {
             kakaoWithdrawal()
         }
         AuthAPI.shared.withdrawalAuth { _ in
+            for key in UserDefaults.standard.dictionaryRepresentation().keys {
+                UserDefaults.standard.removeObject(forKey: key.description)
+            }
             UserDefaults.standard.removeObject(forKey: DefaultKeys.accessToken)
         }
     }
