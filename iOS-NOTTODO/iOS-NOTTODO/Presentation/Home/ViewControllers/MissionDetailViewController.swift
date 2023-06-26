@@ -173,8 +173,14 @@ extension MissionDetailViewController {
 extension MissionDetailViewController {
     @objc
     func deleteBtnTapped() {
-        guard let id = userId else { return }
-        requestDeleteMission(id: id)
+        let modalViewController = HomeDeleteViewController()
+        modalViewController.modalPresentationStyle = .overFullScreen
+        modalViewController.modalTransitionStyle = .crossDissolve
+        modalViewController.deleteClosure = {
+            guard let id = self.userId else { return }
+            self.requestDeleteMission(id: id)
+        }
+        present(modalViewController, animated: false)
     }
     @objc
     func completeBtnTapped(sender: UIButton) {
