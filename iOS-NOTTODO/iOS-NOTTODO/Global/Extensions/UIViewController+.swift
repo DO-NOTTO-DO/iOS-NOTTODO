@@ -33,6 +33,16 @@ extension UIViewController {
         return (convert / 812) * getDeviceHeight()
     }
     
+    func changeRootViewController(_ viewControllerToPresent: UIViewController) {
+        if let window = view.window?.windowScene?.keyWindow {
+            window.rootViewController = viewControllerToPresent
+            UIView.transition(with: window, duration: 0.5, options: .transitionCrossDissolve, animations: nil)
+        } else {
+            viewControllerToPresent.modalPresentationStyle = .overFullScreen
+            self.present(viewControllerToPresent, animated: true, completion: nil)
+        }
+    }
+    
     /// 화면 터치시 작성 종료하는 메서드
     open override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
