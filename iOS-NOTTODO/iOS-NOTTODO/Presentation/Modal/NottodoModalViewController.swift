@@ -8,6 +8,7 @@
 import UIKit
 import SnapKit
 import KakaoSDKUser
+import SafariServices
 
 enum ViewType {
     case quit
@@ -18,19 +19,21 @@ final class NottodoModalViewController: UIViewController {
     
     // MARK: - Properties
     
-    private var viewType: ViewType? = .quitSurvey {
+    private var viewType: ViewType? = .quit {
         didSet {
             setUI()
             setLayout()
         }
     }
     var dimissAction: (() -> Void)?
+    var pushToRootAction: (() -> Void)?
     
     // MARK: - UI Components
     
     private var modalView = UIView()
     private let withdrawView = WithdrawModalView()
     private let quitView = QuitModalView()
+    private lazy var safariViewController = SFSafariViewController(url: URL(string: MyInfoURL.googleForm.url)!)
     
     // MARK: - Life Cycle
     
@@ -78,6 +81,7 @@ extension NottodoModalViewController {
     private func setDelegate() {
         quitView.delegate = self
         withdrawView.delegate = self
+        safariViewController.delegate = self
     }
 }
 
@@ -85,11 +89,12 @@ extension NottodoModalViewController: ModalDelegate {
     func modalAction() {
         switch viewType {
         case .quitSurvey:
-            Utils.myInfoUrl(vc: self, url: MyInfoURL.googleForm.url)
-            viewType = .quit
-            withdrawView.isHidden = true
+            self.present(safariViewController, animated: true) {
+                self.withdrawal()
+            }
         case .quit:
-            withdrawal()
+            viewType = .quitSurvey
+            quitView.isHidden = true
         default:
             viewType = .quit
         }
@@ -108,12 +113,6 @@ extension NottodoModalViewController {
         }
         AuthAPI.shared.withdrawalAuth { _ in
             UserDefaults.standard.removeObject(forKey: DefaultKeys.accessToken)
-            let authViewController = AuthViewController()
-            if let window = self.view.window?.windowScene?.keyWindow {
-                let navigationController = UINavigationController(rootViewController: authViewController)
-                navigationController.isNavigationBarHidden = true
-                window.rootViewController = navigationController
-            }
         }
     }
     
@@ -125,5 +124,12 @@ extension NottodoModalViewController {
                 print("unlink() success.")
             }
         }
+    }
+}
+
+extension NottodoModalViewController: SFSafariViewControllerDelegate {
+    func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
+        dismissViewController()
+        self.pushToRootAction?()
     }
 }
