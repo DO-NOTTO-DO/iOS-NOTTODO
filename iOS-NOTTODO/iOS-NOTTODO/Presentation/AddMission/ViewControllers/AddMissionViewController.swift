@@ -54,9 +54,22 @@ final class AddMissionViewController: UIViewController {
                                                                  collectionViewLayout: layout())
 
     // MARK: - Life Cycle
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if self.missionId != nil {
+            guard let missionId = self.missionId else { return }
+            requestGetMissionDates(id: missionId)
+            requestDailyMissionAPI(id: missionId)
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        if self.missionId != nil {
+            guard let missionId = self.missionId else { return }
+            requestGetMissionDates(id: missionId)
+            requestDailyMissionAPI(id: missionId)
+        }
         setUI()
         setLayout()
         registerCell()
@@ -230,6 +243,44 @@ extension AddMissionViewController {
             guard response != nil else { return }
         }
     }
+    private func requestGetMissionDates(id: Int) {
+        AddMissionAPI.shared.getMissionDates(id: id) { [weak self] response in
+            guard self != nil else { return }
+            guard let response = response else { return }
+            guard let data = response.data else { return }
+            for item in data {
+                self?.dateList.append(item)
+            }
+            self?.addMissionCollectionView.reloadData()
+        }
+    }
+    
+    func requestDailyMissionAPI(id: Int) {
+        HomeAPI.shared.getDailyDetailMission(id: id) { [weak self] result in
+            switch result {
+            case let .success(data):
+                if let missionData = data as? MissionDetailResponseDTO {
+                    print("🤍data🤍: \(missionData)")
+                    self?.nottodoInfoList[1] = missionData.title
+                    self?.nottodoInfoList[2] = missionData.situation
+                    self?.nottodoInfoList[3] = missionData.goal
+                    self?.nottodoInfoList[4] = missionData.actions.first!.name
+                    self?.addMissionCollectionView.reloadData()
+                } else {
+                    print("Failed to cast data to MissionDetailResponseDTO")
+                }
+            case .pathErr:
+                print("pathErr")
+            case .serverErr:
+                print("serverErr")
+            case .networkFail:
+                print("networkFail")
+            case .requestErr:
+                print("networkFail")
+            }
+        }
+    }
+    
 }
 
 extension AddMissionViewController: UICollectionViewDataSource {
