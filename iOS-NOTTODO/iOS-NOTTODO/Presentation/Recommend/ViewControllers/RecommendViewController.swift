@@ -148,7 +148,7 @@ private extension RecommendViewController {
     @objc
     private func buttonTapped() {
         let nextViewController = AddMissionViewController()
-        nextViewController.setDate(selectDay ?? "")
+        nextViewController.setDate([selectDay ?? ""])
         navigationController?.pushViewController(nextViewController, animated: true)
     }
 }

@@ -16,7 +16,7 @@ final class MissionDetailViewController: UIViewController {
     
     var deleteClosure: (() -> Void)?
     var moveDateClosure: ((_ date: String) -> Void)?
-    private var missionDate: String?
+    private var missionDate: [String]?
 
     private lazy var safeArea = self.view.safeAreaLayoutGuide
     enum Section {
@@ -45,12 +45,13 @@ final class MissionDetailViewController: UIViewController {
         register()
         setUI()
         setLayout()
+        requestGetMissionDates(id: userId ?? 0)
         setupDataSource()
         reloadData()
     }
     
     func setMissionDate(_ text: String) {
-        missionDate = text
+        missionDate = [text]
     }
 }
 
@@ -131,7 +132,7 @@ extension MissionDetailViewController {
                     guard let rootViewController = self.presentingViewController as? UINavigationController else { return }
                     updateMissionViewController.setMissionId(self.userId ?? 0)
                     updateMissionViewController.setViewType(.update)
-                    updateMissionViewController.setDate(self.missionDate ?? "")
+                    updateMissionViewController.setDate(self.missionDate ?? [])
                     updateMissionViewController.setNottodoLabel(self.detailModel.first!.title)
                     updateMissionViewController.setSituationLabel(self.detailModel.first!.situation)
                     updateMissionViewController.setGoalLabel(self.detailModel.first!.goal)
@@ -219,6 +220,16 @@ extension MissionDetailViewController {
                     self?.dismiss(animated: true)
                 } else {}
             }
+        }
+    }
+    
+    private func requestGetMissionDates(id: Int) {
+        AddMissionAPI.shared.getMissionDates(id: id) { [weak self] response in
+            guard self != nil else { return }
+            guard let response = response else { return }
+            
+            guard let data = response.data else { return }
+            self?.missionDate = data
         }
     }
 }
