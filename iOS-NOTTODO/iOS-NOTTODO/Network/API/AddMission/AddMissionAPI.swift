@@ -13,7 +13,7 @@ final class AddMissionAPI {
     
     static let shared: AddMissionAPI = AddMissionAPI()
     
-    private let addMissionProvider = MoyaProvider<AddMissionService>(plugins: [NetworkLoggerPlugin()])
+    private let addMissionProvider = MoyaProvider<AddMissionService>(plugins: [MoyaLoggingPlugin()])
     
     private init() { }
     
