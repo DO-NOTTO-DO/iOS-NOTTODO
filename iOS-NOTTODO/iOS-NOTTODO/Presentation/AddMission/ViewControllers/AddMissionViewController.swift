@@ -65,11 +65,6 @@ final class AddMissionViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        if self.missionId != nil {
-            guard let missionId = self.missionId else { return }
-            requestGetMissionDates(id: missionId)
-            requestDailyMissionAPI(id: missionId)
-        }
         setUI()
         setLayout()
         registerCell()
@@ -270,7 +265,6 @@ extension AddMissionViewController {
             switch result {
             case let .success(data):
                 if let missionData = data as? MissionDetailResponseDTO {
-                    print("🤍data🤍: \(missionData)")
                     self?.nottodoInfoList[1] = missionData.title
                     self?.nottodoInfoList[2] = missionData.situation
                     self?.nottodoInfoList[3] = missionData.actions.first!.name
