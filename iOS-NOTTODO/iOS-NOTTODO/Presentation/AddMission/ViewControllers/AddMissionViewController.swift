@@ -96,13 +96,11 @@ final class AddMissionViewController: UIViewController {
     private func addMissionDidTap() {
         requestPostAddMission(title: nottodoInfoList[1], situation: nottodoInfoList[2],
                               actions: [nottodoInfoList[3]], goal: nottodoInfoList[4], dates: dateList)
-        self.popViewController()
     }
     
     @objc
     private func updateMissionDidTap() {
         requestPutUpdateMission(id: missionId ?? -1, title: nottodoInfoList[1], situation: nottodoInfoList[2], actions: [nottodoInfoList[3]], goal: nottodoInfoList[4])
-        self.popViewController()
     }
 }
 
@@ -221,13 +219,25 @@ extension AddMissionViewController {
     private func requestPostAddMission(title: String, situation: String,
                                        actions: [String]?, goal: String?, dates: [String]?) {
         AddMissionAPI.shared.postAddMission(title: title, situation: situation, actions: actions, goal: goal, dates: dates ?? [""]) { response in
-            guard response != nil else { return }
+            guard let response = response else { return }
+            switch response.status {
+            case 200:
+                self.popViewController()
+            default:
+                self.showToast(message: self.htmlToString(response.message ?? "")?.string ?? "", controller: self)
+            }
         }
     }
     
     private func requestPutUpdateMission(id: Int, title: String, situation: String, actions: [String]?, goal: String?) {
         AddMissionAPI.shared.putUpdateMission(id: id, title: title, situation: situation, actions: actions, goal: goal) { response in
-            guard response != nil else { return }
+            guard let response = response else { return }
+            switch response.status {
+            case 200:
+                self.popViewController()
+            default:
+                self.showToast(message: self.htmlToString(response.message ?? "")?.string ?? "", controller: self)
+            }
         }
     }
 }
