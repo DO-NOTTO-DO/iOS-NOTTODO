@@ -10,8 +10,16 @@ disabled_rules:
 - nesting
 - cyclomatic_complexity
 
+
 opt_in_rules:
 - mark
+type_body_length:
+    - 1000
+    - 1500
 
+file_length:
+    warning: 3000
+    error: 4000
+    
 excluded:
 - iOS-NOTTODO/Application

@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 import Then
 
-class OnboardingFooterView: UICollectionReusableView {
+final class OnboardingFooterView: UICollectionReusableView {
     
     // MARK: - Properties
     

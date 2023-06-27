@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 import Then
 
-class OnboardingHeaderView: UICollectionReusableView {
+final class OnboardingHeaderView: UICollectionReusableView {
     
     static let identifier = "OnboardingHeaderView"
     

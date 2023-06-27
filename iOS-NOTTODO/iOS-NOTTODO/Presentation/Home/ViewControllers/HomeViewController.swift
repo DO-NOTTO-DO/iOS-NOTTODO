@@ -11,25 +11,22 @@ import FSCalendar
 import SnapKit
 import Then
 
-class HomeViewController: UIViewController {
+final class HomeViewController: UIViewController {
     
     // MARK: - Properties
     
     private var missionList: [DailyMissionResponseDTO] = []
+    private lazy var today: Date = { return Date() }()
     private var selectedDate: Date? // 눌렀을 떄 date - dailymissionAPI 호출 시 사용
-    private let dateFormatter = DateFormatter()
-    private var percentage: Float?
-    private var moveDate: String?
     private var current: Date? // 스와이프했을 때 일요일 date 구하기 위함 - weeklyAPI 호출 시 사용
     private var count: Int?
-    private var userId: Int = 0
-    var calendarDataSource: [String: Float] = [:]
+    private var calendarDataSource: [String: Float] = [:]
+    private lazy var safeArea = self.view.safeAreaLayoutGuide
+
     enum Sections: Int, Hashable {
         case mission, empty
     }
     var dataSource: UICollectionViewDiffableDataSource<Sections, AnyHashable>! = nil
-    private lazy var safeArea = self.view.safeAreaLayoutGuide
-    private lazy var today: Date = { return Date() }()
     
     // MARK: - UI Components
     
@@ -83,7 +80,6 @@ extension HomeViewController {
     
     private func setUI() {
         view.backgroundColor = .ntdBlack
-        dateFormatter.dateFormat = "yyyy.MM.dd"
         
         weekCalendar.do {
             $0.calendar.delegate = self
@@ -91,17 +87,20 @@ extension HomeViewController {
             $0.calendar.register(MissionCalendarCell.self, forCellReuseIdentifier: MissionCalendarCell.identifier)
             $0.todayButton.addTarget(self, action: #selector(todayBtnTapped), for: .touchUpInside)
         }
+        
         missionCollectionView.do {
             $0.backgroundColor = .bg
             $0.bounces = false
             $0.autoresizingMask = [.flexibleWidth, .flexibleHeight]
             $0.delegate = self
         }
+        
         addButton.do {
             $0.setImage(.addMission, for: .normal)
             $0.addTarget(self, action: #selector(addBtnTapped), for: .touchUpInside)
         }
     }
+    
     private func setLayout() {
         view.addSubviews(weekCalendar, missionCollectionView, addButton)
         weekCalendar.calendar.select(today)
@@ -122,6 +121,7 @@ extension HomeViewController {
             $0.bottom.equalTo(safeArea).inset(20)
         }
     }
+    
     private func setupDataSource() {
         dataSource = UICollectionViewDiffableDataSource<Sections, AnyHashable>(collectionView: missionCollectionView, cellProvider: { collectionView, indexPath, item in
             let section = self.dataSource.snapshot().sectionIdentifiers[indexPath.section]
@@ -130,12 +130,11 @@ extension HomeViewController {
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MissionListCollectionViewCell.identifier, for: indexPath) as! MissionListCollectionViewCell
                 cell.configure(model: item as! DailyMissionResponseDTO )
                 cell.isTappedClosure = { result, id in
-                    self.userId = id
                     if result {
-                        self.requestPatchUpdateMissionAPI(id: self.userId, status: CompletionStatus.UNCHECKED )
+                        self.requestPatchUpdateMissionAPI(id: id, status: CompletionStatus.UNCHECKED )
                         cell.setUI()
                     } else {
-                        self.requestPatchUpdateMissionAPI(id: self.userId, status: CompletionStatus.CHECKED )
+                        self.requestPatchUpdateMissionAPI(id: id, status: CompletionStatus.CHECKED )
                         cell.setUI()
                     }
                 }
@@ -225,7 +224,12 @@ extension HomeViewController {
         }
         
         let modifyAction = UIContextualAction(style: .normal, title: "") { _, _, completionHandler in
-            print("modify")
+            guard let index = indexPath?.item else { return }
+            let id = self.missionList[index].id
+            let updateMissionViewController = AddMissionViewController()
+            updateMissionViewController.setMissionId(id)
+            updateMissionViewController.setViewType(.update)
+            Utils.push(self.navigationController, updateMissionViewController)
             completionHandler(true)
         }
         deleteAction.backgroundColor = .ntdRed
@@ -239,13 +243,15 @@ extension HomeViewController {
     }
 }
 
+// MARK: - Collectionview Delegate
+
 extension HomeViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if !missionList.isEmpty {
             let modalViewController = MissionDetailViewController()
             modalViewController.modalPresentationStyle = .overFullScreen
             modalViewController.userId = missionList[indexPath.item].id
-            modalViewController.setMissionDate(dateFormatter.string(from: selectedDate ?? Date()))
+//            modalViewController.setMissionDate(Utils.dateFormatterString(format: "yyyy.MM.dd", date: selectedDate ?? Date()))
             modalViewController.deleteClosure = { [weak self] in
                 self?.dailyLoadData()
                 self?.weeklyLoadData()
@@ -262,12 +268,14 @@ extension HomeViewController: UICollectionViewDelegate {
 }
 
 extension HomeViewController {
+    
     @objc
     func addBtnTapped(_sender: UIButton) {
         let nextViewController = RecommendViewController()
-        nextViewController.setSelectDate(dateFormatter.string(from: selectedDate ?? Date()))
+        nextViewController.setSelectDate(Utils.dateFormatterString(format: "yyyy.MM.dd", date: selectedDate ?? Date()))
         Utils.push(navigationController, nextViewController)
     }
+    
     @objc
     func todayBtnTapped(_sender: UIButton) {
         weekCalendar.calendar.select(today)
@@ -275,6 +283,8 @@ extension HomeViewController {
         requestDailyMissionAPI(date: Utils.dateFormatterString(format: nil, date: today))
     }
 }
+
+// MARK: - FSCalendar Delegate, DataSource, DelegateAppearance
 
 extension HomeViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalendarDelegateAppearance {
     func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
@@ -333,7 +343,10 @@ extension HomeViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalend
     }
 }
 
+// MARK: - Network
+
 extension HomeViewController {
+    
     func requestDailyMissionAPI(date: String) {
         HomeAPI.shared.getDailyMission(date: date) { [weak self] result in
             switch result {
@@ -341,12 +354,10 @@ extension HomeViewController {
                 guard let data = data as? [DailyMissionResponseDTO] else {return}
                 self?.missionList = []
                 if !data.isEmpty {
-                    for item in data {
-                        self?.missionList = data
-                        self?.userId = item.id
-                    }
+                    self?.missionList = data
                 }
                 self?.updateData()
+
             case .pathErr: print("pathErr")
             case .serverErr: print("serverErr")
             case .networkFail: print("networkFail")

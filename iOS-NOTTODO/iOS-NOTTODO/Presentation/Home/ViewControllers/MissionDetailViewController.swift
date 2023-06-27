@@ -16,8 +16,7 @@ final class MissionDetailViewController: UIViewController {
     
     var deleteClosure: (() -> Void)?
     var moveDateClosure: ((_ date: String) -> Void)?
-    private var missionDate: [String]?
-
+    
     private lazy var safeArea = self.view.safeAreaLayoutGuide
     enum Section {
         case mission
@@ -34,24 +33,20 @@ final class MissionDetailViewController: UIViewController {
     private let completeButton = UIButton()
     
     // MARK: - Life Cycle
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         guard let id = self.userId else { return }
         requestDailyMissionAPI(id: id)
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         register()
         setUI()
         setLayout()
-        requestGetMissionDates(id: userId ?? 0)
         setupDataSource()
         reloadData()
-    }
-    
-    func setMissionDate(_ text: String) {
-        missionDate = [text]
     }
 }
 
@@ -132,11 +127,6 @@ extension MissionDetailViewController {
                     guard let rootViewController = self.presentingViewController as? UINavigationController else { return }
                     updateMissionViewController.setMissionId(self.userId ?? 0)
                     updateMissionViewController.setViewType(.update)
-                    updateMissionViewController.setDate(self.missionDate ?? [])
-                    updateMissionViewController.setNottodoLabel(self.detailModel.first!.title)
-                    updateMissionViewController.setSituationLabel(self.detailModel.first!.situation)
-                    updateMissionViewController.setGoalLabel(self.detailModel.first!.goal)
-                    updateMissionViewController.setActionLabel(self.detailModel.first!.actions.first!.name)
                     self.dismiss(animated: true) {
                         rootViewController.pushViewController(updateMissionViewController, animated: true)
                     }
@@ -155,7 +145,6 @@ extension MissionDetailViewController {
                         self?.moveDateClosure?(date)
                     }
                     self.present(modalViewController, animated: false)
-                    print("tapped")
                 }
                 return footer
             }
@@ -172,6 +161,7 @@ extension MissionDetailViewController {
 }
 
 extension MissionDetailViewController {
+    
     @objc
     func deleteBtnTapped() {
         let modalViewController = HomeDeleteViewController()
@@ -183,11 +173,8 @@ extension MissionDetailViewController {
         }
         present(modalViewController, animated: false)
     }
-    @objc
-    func completeBtnTapped(sender: UIButton) {
-        print("완료")
-    }
 }
+
 extension MissionDetailViewController {
     func requestDailyMissionAPI(id: Int) {
         HomeAPI.shared.getDailyDetailMission(id: id) { [weak self] result in
@@ -211,6 +198,7 @@ extension MissionDetailViewController {
             }
         }
     }
+    
     private func requestDeleteMission(id: Int) {
         HomeAPI.shared.deleteMission(id: id) { [weak self] _ in
             for index in 0..<(self?.detailModel.count ?? 0) {
@@ -220,16 +208,6 @@ extension MissionDetailViewController {
                     self?.dismiss(animated: true)
                 } else {}
             }
-        }
-    }
-    
-    private func requestGetMissionDates(id: Int) {
-        AddMissionAPI.shared.getMissionDates(id: id) { [weak self] response in
-            guard self != nil else { return }
-            guard let response = response else { return }
-            
-            guard let data = response.data else { return }
-            self?.missionDate = data
         }
     }
 }

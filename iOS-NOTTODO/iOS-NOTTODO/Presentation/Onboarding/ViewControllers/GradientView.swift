@@ -10,7 +10,7 @@ import UIKit
 import Then
 import SnapKit
 
-class GradientView: UIView {
+final class GradientView: UIView {
     let gradient: CAGradientLayer = CAGradientLayer()
     
     init(color: UIColor, color1: UIColor ) {

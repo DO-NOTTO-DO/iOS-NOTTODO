@@ -11,7 +11,7 @@ import FSCalendar
 import Then
 import SnapKit
 
-class DetailCalendarViewController: UIViewController {
+final class DetailCalendarViewController: UIViewController {
     
     // MARK: - Properties
     
