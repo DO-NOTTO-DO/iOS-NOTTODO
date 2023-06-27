@@ -273,8 +273,8 @@ extension AddMissionViewController {
                     print("🤍data🤍: \(missionData)")
                     self?.nottodoInfoList[1] = missionData.title
                     self?.nottodoInfoList[2] = missionData.situation
-                    self?.nottodoInfoList[3] = missionData.goal
-                    self?.nottodoInfoList[4] = missionData.actions.first!.name
+                    self?.nottodoInfoList[3] = missionData.actions.first!.name
+                    self?.nottodoInfoList[4] = missionData.goal
                     self?.addMissionCollectionView.reloadData()
                 } else {
                     print("Failed to cast data to MissionDetailResponseDTO")
