@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 import Then
 
-class MissionListCollectionViewCell: UICollectionViewCell {
+final class MissionListCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Properties
     

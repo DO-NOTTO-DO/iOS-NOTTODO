@@ -7,7 +7,10 @@
 
 import UIKit
 
-class DetailFooterReusableView: UICollectionReusableView {
+import SnapKit
+import Then
+
+final class DetailFooterReusableView: UICollectionReusableView {
     
     // MARK: - Properties
     
