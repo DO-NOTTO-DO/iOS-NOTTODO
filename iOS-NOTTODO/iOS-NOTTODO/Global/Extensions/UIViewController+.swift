@@ -43,6 +43,7 @@ extension UIViewController {
         }
     }
     
+    /// toastMessage를 호출하는 메소드
     func showToast(message: String, controller: UIViewController) {
         let toastView = NottodoToastView(message: message, viewController: controller)
         view.addSubview(toastView)
@@ -61,6 +62,22 @@ extension UIViewController {
             } completion: { _ in
                 toastView.removeFromSuperview()
             }
+        }
+    }
+    
+    /// html을 string으로 변환하는 메소드
+    func htmlToString(_ targetString: String) -> NSAttributedString? {
+        let text = targetString
+
+        guard let data = text.data(using: .utf8) else {
+            return NSAttributedString()
+        }
+        do {
+            return try NSAttributedString(data: data,
+                                          options: [.documentType: NSAttributedString.DocumentType.html, .characterEncoding:String.Encoding.utf8.rawValue],
+                                          documentAttributes: nil)
+        } catch {
+          return NSAttributedString()
         }
     }
     
