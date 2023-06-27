@@ -21,6 +21,7 @@ final class AddMissionAPI {
     public private(set) var addMissionData: GeneralResponse<AddMissionResponseDTO>?
     public private(set) var updateMissionData: GeneralResponse<UpdateMissionResponseDTO>?
     public private(set) var recentMissionData: GeneralArrayResponse<RecentMissionResponseDTO>?
+    public private(set) var missionDatesData: GeneralArrayResponse<String>?
     
     // MARK: - GET
     
@@ -51,6 +52,24 @@ final class AddMissionAPI {
                     self.recentMissionData = try response.map(GeneralArrayResponse<RecentMissionResponseDTO>?.self)
                     guard let recentMissionData = self.recentMissionData else { return }
                     completion(recentMissionData)
+                } catch let err {
+                    print(err.localizedDescription, 500)
+                }
+            case .failure(let err):
+                print(err.localizedDescription)
+                completion(nil)
+            }
+        }
+    }
+    
+    func getMissionDates(id: Int, completion: @escaping (GeneralArrayResponse<String>?) -> Void) {
+        addMissionProvider.request(.missionDates(id: id)) { result in
+            switch result {
+            case .success(let response):
+                do {
+                    self.missionDatesData = try response.map(GeneralArrayResponse<String>?.self)
+                    guard let missionDatesData = self.missionDatesData else { return }
+                    completion(missionDatesData)
                 } catch let err {
                     print(err.localizedDescription, 500)
                 }
