@@ -17,7 +17,7 @@ final class MissionDetailViewController: UIViewController {
     var deleteClosure: (() -> Void)?
     var moveDateClosure: ((_ date: String) -> Void)?
     private var missionDate: [String]?
-
+    
     private lazy var safeArea = self.view.safeAreaLayoutGuide
     enum Section {
         case mission
@@ -39,7 +39,7 @@ final class MissionDetailViewController: UIViewController {
         guard let id = self.userId else { return }
         requestDailyMissionAPI(id: id)
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         register()
@@ -183,11 +183,8 @@ extension MissionDetailViewController {
         }
         present(modalViewController, animated: false)
     }
-    @objc
-    func completeBtnTapped(sender: UIButton) {
-        print("완료")
-    }
 }
+
 extension MissionDetailViewController {
     func requestDailyMissionAPI(id: Int) {
         HomeAPI.shared.getDailyDetailMission(id: id) { [weak self] result in
@@ -211,6 +208,7 @@ extension MissionDetailViewController {
             }
         }
     }
+    
     private func requestDeleteMission(id: Int) {
         HomeAPI.shared.deleteMission(id: id) { [weak self] _ in
             for index in 0..<(self?.detailModel.count ?? 0) {
@@ -227,7 +225,6 @@ extension MissionDetailViewController {
         AddMissionAPI.shared.getMissionDates(id: id) { [weak self] response in
             guard self != nil else { return }
             guard let response = response else { return }
-            
             guard let data = response.data else { return }
             self?.missionDate = data
         }
