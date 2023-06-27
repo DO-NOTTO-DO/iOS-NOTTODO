@@ -64,8 +64,8 @@ final class AddMissionViewController: UIViewController {
         hideKeyboardWhenTappedAround()
     }
     
-    func setDate(_ date: String) {
-        dateList.append(date)
+    func setDate(_ date: [String]) {
+        dateList = date
     }
     
     func setNottodoLabel(_ text: String) {
