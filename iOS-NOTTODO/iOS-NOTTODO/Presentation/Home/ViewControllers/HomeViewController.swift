@@ -16,7 +16,10 @@ class HomeViewController: UIViewController {
     // MARK: - Properties
     
     private var missionList: [DailyMissionResponseDTO] = []
+    private var detailModel: [MissionDetailResponseDTO] = []
+
     private var selectedDate: Date? // 눌렀을 떄 date - dailymissionAPI 호출 시 사용
+    private var missionDate: [String]?
     private let dateFormatter = DateFormatter()
     private var percentage: Float?
     private var moveDate: String?
@@ -225,8 +228,18 @@ extension HomeViewController {
         }
         
         let modifyAction = UIContextualAction(style: .normal, title: "") { _, _, completionHandler in
-            print("modify")
-            completionHandler(true)
+            let updateMissionViewController = AddMissionViewController()
+            
+            updateMissionViewController.setMissionId(self.userId)
+            updateMissionViewController.setViewType(.update)
+            updateMissionViewController.setDate(self.missionDate ?? [])
+            updateMissionViewController.setNottodoLabel(self.detailModel.first!.title)
+            updateMissionViewController.setSituationLabel(self.detailModel.first!.situation)
+            updateMissionViewController.setGoalLabel(self.detailModel.first!.goal)
+            updateMissionViewController.setActionLabel(self.detailModel.first!.actions.first!.name)
+            Utils.push(self.navigationController, updateMissionViewController)
+        
+                completionHandler(true)
         }
         deleteAction.backgroundColor = .ntdRed
         modifyAction.backgroundColor = .ntdBlue
@@ -334,6 +347,7 @@ extension HomeViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalend
 }
 
 extension HomeViewController {
+    
     func requestDailyMissionAPI(date: String) {
         HomeAPI.shared.getDailyMission(date: date) { [weak self] result in
             switch result {
@@ -344,9 +358,12 @@ extension HomeViewController {
                     for item in data {
                         self?.missionList = data
                         self?.userId = item.id
+                        self?.requestDailyMissionAPI(id: item.id)
+                        self?.requestGetMissionDates(id: item.id)
                     }
                 }
                 self?.updateData()
+
             case .pathErr: print("pathErr")
             case .serverErr: print("serverErr")
             case .networkFail: print("networkFail")
@@ -364,6 +381,7 @@ extension HomeViewController {
                 for item in data {
                     self.calendarDataSource[item.actionDate] = item.percentage
                     self.count = self.calendarDataSource.count
+                    
                 }
                 self.weekCalendar.calendar.reloadData()
             case .requestErr: print("requestErr")
@@ -394,6 +412,35 @@ extension HomeViewController {
             self?.dailyLoadData()
             self?.weeklyLoadData()
             self?.updateData()
+        }
+    }
+    
+    func requestDailyMissionAPI(id: Int) {
+        HomeAPI.shared.getDailyDetailMission(id: id) { [weak self] result in
+            switch result {
+            case let .success(data):
+                if let missionData = data as? MissionDetailResponseDTO {
+                    self?.detailModel = [missionData]
+                } else {
+                    print("Failed to cast data to MissionDetailResponseDTO")
+                }
+            case .pathErr:
+                print("pathErr")
+            case .serverErr:
+                print("serverErr")
+            case .networkFail:
+                print("networkFail")
+            case .requestErr:
+                print("networkFail")
+            }
+        }
+    }
+    private func requestGetMissionDates(id: Int) {
+        AddMissionAPI.shared.getMissionDates(id: id) { [weak self] response in
+            guard self != nil else { return }
+            guard let response = response else { return }
+            guard let data = response.data else { return }
+            self?.missionDate = data
         }
     }
 }
