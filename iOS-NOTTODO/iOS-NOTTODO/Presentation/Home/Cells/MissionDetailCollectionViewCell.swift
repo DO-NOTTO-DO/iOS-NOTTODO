@@ -119,7 +119,7 @@ extension MissionDetailCollectionViewCell {
         missionTagLabel.text = model.situation
         missionLabel.text = model.title
         accumulateLabel.text = "\(model.count)회\n달성"
-        if model.actions.isEmpty {
+        if model.actions.isEmpty || model.actions.contains(where: { $0.name.isEmpty }) {
             action.titleLabel.isHidden = true
             action.emptyIcon.isHidden = false
         } else {
