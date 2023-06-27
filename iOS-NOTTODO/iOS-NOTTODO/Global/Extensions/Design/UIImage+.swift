@@ -55,6 +55,7 @@ extension UIImage {
     static var icFlag: UIImage { UIImage(named: "ic_flag")! }
     static var icSNS: UIImage { UIImage(named: "ic_snsmessage")! }
     static var icTrashbin: UIImage { UIImage(named: "ic_trashbin")! }
+    static var icToastError: UIImage { UIImage(named: "ic_toast_error")! }
     
     // image
     

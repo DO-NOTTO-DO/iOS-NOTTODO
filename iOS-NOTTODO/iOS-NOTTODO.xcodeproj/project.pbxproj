@@ -69,6 +69,7 @@
 		3B027AAC299C35E500BEB65C /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3B027AAB299C35E500BEB65C /* Colors.xcassets */; };
 		3B0CBA222A45FC170004F2DB /* UpdateMissionResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0CBA212A45FC170004F2DB /* UpdateMissionResponseDTO.swift */; };
 		3B0CBA242A461B1C0004F2DB /* RecentMissionResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0CBA232A461B1C0004F2DB /* RecentMissionResponseDTO.swift */; };
+		3B11740D2A4B574B0033DDF3 /* CALayer+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B11740C2A4B574B0033DDF3 /* CALayer+.swift */; };
 		3B14518629C618920013DFB4 /* ActionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B14518529C618920013DFB4 /* ActionCollectionViewCell.swift */; };
 		3B146D98299D077800B17B62 /* Pretendard-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3B146D97299D077800B17B62 /* Pretendard-Medium.otf */; };
 		3B146D9A299D079D00B17B62 /* Pretendard-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3B146D99299D079D00B17B62 /* Pretendard-Light.otf */; };
@@ -108,6 +109,7 @@
 		3BC1A27429C9AF500088376B /* MissionHistoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC1A27329C9AF500088376B /* MissionHistoryCollectionViewCell.swift */; };
 		3BC1A27929C9BE6C0088376B /* AddMissionFooterCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC1A27829C9BE6C0088376B /* AddMissionFooterCollectionReusableView.swift */; };
 		3BD3B5C829B8F82C00D3575B /* AddMissionTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD3B5C729B8F82C00D3575B /* AddMissionTextFieldView.swift */; };
+		3BEEBE972A4B048A0081C936 /* NottodoToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BEEBE962A4B048A0081C936 /* NottodoToastView.swift */; };
 		6C16015829C40112005AE3F5 /* AuthButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C16015729C40112005AE3F5 /* AuthButtonView.swift */; };
 		6C16015C29C56DBA005AE3F5 /* MyInfoAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C16015B29C56DBA005AE3F5 /* MyInfoAccountViewController.swift */; };
 		6C16016229C59EFD005AE3F5 /* MyInfoAccountModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C16016129C59EFD005AE3F5 /* MyInfoAccountModel.swift */; };
@@ -220,6 +222,7 @@
 		3B027AAB299C35E500BEB65C /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		3B0CBA212A45FC170004F2DB /* UpdateMissionResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateMissionResponseDTO.swift; sourceTree = "<group>"; };
 		3B0CBA232A461B1C0004F2DB /* RecentMissionResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentMissionResponseDTO.swift; sourceTree = "<group>"; };
+		3B11740C2A4B574B0033DDF3 /* CALayer+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CALayer+.swift"; sourceTree = "<group>"; };
 		3B14518529C618920013DFB4 /* ActionCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionCollectionViewCell.swift; sourceTree = "<group>"; };
 		3B146D97299D077800B17B62 /* Pretendard-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Medium.otf"; sourceTree = "<group>"; };
 		3B146D99299D079D00B17B62 /* Pretendard-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Light.otf"; sourceTree = "<group>"; };
@@ -257,6 +260,7 @@
 		3BC1A27829C9BE6C0088376B /* AddMissionFooterCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMissionFooterCollectionReusableView.swift; sourceTree = "<group>"; };
 		3BD3B5C729B8F82C00D3575B /* AddMissionTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMissionTextFieldView.swift; sourceTree = "<group>"; };
 		3BDE6157299EDD02001CCEA9 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
+		3BEEBE962A4B048A0081C936 /* NottodoToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NottodoToastView.swift; sourceTree = "<group>"; };
 		6C16015729C40112005AE3F5 /* AuthButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthButtonView.swift; sourceTree = "<group>"; };
 		6C16015B29C56DBA005AE3F5 /* MyInfoAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInfoAccountViewController.swift; sourceTree = "<group>"; };
 		6C16016129C59EFD005AE3F5 /* MyInfoAccountModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInfoAccountModel.swift; sourceTree = "<group>"; };
@@ -620,6 +624,7 @@
 				3BC19A9229CA1CA800C02803 /* UICollectionViewCell+.swift */,
 				6CA208282A191185001C4247 /* UIImageView+.swift */,
 				097568352A2FEF3F0001EC46 /* String+.swift */,
+				3B11740C2A4B574B0033DDF3 /* CALayer+.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -648,7 +653,6 @@
 		3B027A97299C343D00BEB65C /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
-				3B4E12F02A27B60B001D1EC1 /* Modal */,
 				09F6717E29CAD68100708725 /* Onboarding */,
 				3B027A9B299C348800BEB65C /* Achievement */,
 				3B027A9C299C349A00BEB65C /* AddMission */,
@@ -932,6 +936,14 @@
 			path = AddMissionTextFieldView;
 			sourceTree = "<group>";
 		};
+		3BEEBE952A4AF6840081C936 /* Toast */ = {
+			isa = PBXGroup;
+			children = (
+				3BEEBE962A4B048A0081C936 /* NottodoToastView.swift */,
+			);
+			path = Toast;
+			sourceTree = "<group>";
+		};
 		6C16015929C56CE8005AE3F5 /* MyInfoAccount */ = {
 			isa = PBXGroup;
 			children = (
@@ -1061,6 +1073,8 @@
 		6CF4707729A7AAD1008D145C /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				3BEEBE952A4AF6840081C936 /* Toast */,
+				3B4E12F02A27B60B001D1EC1 /* Modal */,
 				6CF4707829A7AADB008D145C /* PaddingLabel */,
 				0917F2B029C9799100009324 /* Layout */,
 				099FC98229B30A2E005B37E6 /* Utils.swift */,
@@ -1263,6 +1277,7 @@
 				0960C0D42A38BC6500A3D8DB /* KeychainUtil.swift in Sources */,
 				6CA208302A1925EE001C4247 /* RecommendActionResponseDTO.swift in Sources */,
 				09F6718629CB26E400708725 /* OnboardingHeaderView.swift in Sources */,
+				3B11740D2A4B574B0033DDF3 /* CALayer+.swift in Sources */,
 				3B14A13D29A6FBD300F92897 /* UIView+.swift in Sources */,
 				09F6719529CBFCD200708725 /* GradientView.swift in Sources */,
 				3B4E12F82A27C12F001D1EC1 /* WithdrawModalView.swift in Sources */,
@@ -1310,6 +1325,7 @@
 				09F6718229CAD86100708725 /* OnboardingCollectionViewCell.swift in Sources */,
 				6CF4707029A73A15008D145C /* RecommendActionViewController.swift in Sources */,
 				0982DE5429ADCCE000D933D2 /* HomeEmptyCollectionViewCell.swift in Sources */,
+				3BEEBE972A4B048A0081C936 /* NottodoToastView.swift in Sources */,
 				3B027AA2299C355800BEB65C /* AchievementViewController.swift in Sources */,
 				3B5F8F8929BF9EFE0063A7F8 /* AddMissionLabel.swift in Sources */,
 				09582B4F29BEBAFA00EF3207 /* DetailCalendarViewController.swift in Sources */,
