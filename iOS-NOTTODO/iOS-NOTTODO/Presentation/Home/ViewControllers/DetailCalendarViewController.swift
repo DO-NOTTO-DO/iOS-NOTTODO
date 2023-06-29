@@ -190,16 +190,19 @@ extension DetailCalendarViewController {
     private func requestAddAnotherDay(id: Int, dates: [String]) {
         HomeAPI.shared.postAnotherDay(id: id, dates: dates) { response in
             guard response != nil else { return }
-            self.setUI()
-            self.dismiss(animated: true)
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "yyyy.MM.dd"
-            if let earliestDate = dateFormatter.date(from: self.anotherDate.min() ?? "") {
-                let earliestDateString = dateFormatter.string(from: earliestDate)
-                print("The earliest date is \(earliestDateString)")
-                self.movedateClosure?(earliestDateString)
-            } else {
-                print("Invalid date strings")
+            guard let statusCode = response?.status else { return }
+            switch statusCode {
+            case 200..<204:
+                self.setUI()
+                self.dismiss(animated: true)
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "yyyy.MM.dd"
+                if let earliestDate = dateFormatter.date(from: self.anotherDate.min() ?? "") {
+                    let earliestDateString = dateFormatter.string(from: earliestDate)
+                    self.movedateClosure?(earliestDateString)
+                }
+            default:
+                self.showToast(message: self.htmlToString(response?.message ?? "")?.string ?? "", controller: self)
             }
         }
     }
