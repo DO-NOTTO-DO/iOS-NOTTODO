@@ -30,6 +30,7 @@ class MyInfoAccountViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.AccountInfo.viewAccountInfo)
         setUI()
         setLayout()
         configure(model: MyInfoAccountModel(nickname: UserDefaults.standard.bool(forKey: DefaultKeys.isAppleLogin) ? KeychainUtil.getAppleUsername() : KeychainUtil.getKakaoUsername(), email: UserDefaults.standard.bool(forKey: DefaultKeys.isAppleLogin) ? KeychainUtil.getAppleEmail() : KeychainUtil.getKakaoEmail(), account: UserDefaults.standard.bool(forKey: DefaultKeys.isAppleLogin) ? "apple" : "kakao", notification: true))
@@ -160,6 +161,8 @@ private extension MyInfoAccountViewController {
     }
     @objc
     private func tappedLogout() {
+        AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.AccountInfo.appearLogoutModal)
+        
         let logoutAlert = UIAlertController(title: I18N.logoutAlertTitle, message: I18N.logoutAlertmessage, preferredStyle: UIAlertController.Style.alert)
         let logoutAction = UIAlertAction(title: I18N.logout, style: UIAlertAction.Style.default, handler: {_ in
             self.logout()
@@ -180,7 +183,7 @@ extension MyInfoAccountViewController {
         AuthAPI.shared.deleteAuth { [weak self] _ in
             UserDefaults.standard.removeObject(forKey: DefaultKeys.accessToken)
             UserDefaults.standard.removeObject(forKey: DefaultKeys.socialToken)
-
+            AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.AccountInfo.completeLogout)
             let authViewController = AuthViewController()
             if let window = self?.view.window?.windowScene?.keyWindow {
                 let navigationController = UINavigationController(rootViewController: authViewController)

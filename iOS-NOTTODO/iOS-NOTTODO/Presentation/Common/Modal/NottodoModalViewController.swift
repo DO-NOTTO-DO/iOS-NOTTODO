@@ -39,6 +39,7 @@ final class NottodoModalViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.AccountInfo.appearWithdrawalModal)
         setUI()
         setLayout()
         setDelegate()
@@ -116,6 +117,7 @@ extension NottodoModalViewController {
                 UserDefaults.standard.removeObject(forKey: key.description)
             }
             UserDefaults.standard.removeObject(forKey: DefaultKeys.accessToken)
+            AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.AccountInfo.completeWithdrawal)
         }
     }
     

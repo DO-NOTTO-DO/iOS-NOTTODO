@@ -7,10 +7,11 @@
 
 import UIKit
 
-import AuthenticationServices
-import SafariServices
 import SnapKit
 import Then
+
+import AuthenticationServices
+import SafariServices
 import KakaoSDKCommon
 import KakaoSDKAuth
 import KakaoSDKUser
@@ -36,6 +37,7 @@ class AuthViewController: UIViewController {
    
     override func viewDidLoad() {
         super.viewDidLoad()
+        AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.Login.viewSignIn)
         setUI()
         setLayout()
     }
@@ -160,6 +162,8 @@ extension AuthViewController {
     }
     
     @objc func kakaoLoginButtonClicked() {
+        AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.Login.clickSignIn(provider: "kakao"))
+
         if UserApi.isKakaoTalkLoginAvailable() {
             kakaoLoginWithApp()
         } else {
@@ -169,6 +173,8 @@ extension AuthViewController {
     
     @objc
     func appleLoginButtonClicked() {
+        AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.Login.clickSignIn(provider: "apple"))
+
         let appleIDProvider = ASAuthorizationAppleIDProvider()
         let request = appleIDProvider.createRequest()
         request.requestedScopes = [.fullName, .email]
@@ -228,9 +234,12 @@ extension AuthViewController {
                     guard self != nil else { return }
                     guard result != nil else { return }
                     
+                    AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.Login.completeSignIn(provider: "kakao"))
+                    
                     guard let accessToken = result?.data?.accessToken else { return }
                     KeychainUtil.setAccessToken(accessToken)
                     self?.presentToHomeViewController()
+                    
                 }
             }
         }
@@ -280,6 +289,8 @@ extension AuthViewController: ASAuthorizationControllerDelegate, ASAuthorization
             AuthAPI.shared.postAppleAuth(social: LoginType.Apple.social, socialToken: KeychainUtil.getSocialToken(), fcmToken: DefaultKeys.fcmToken, name: KeychainUtil.getAppleUsername()) { [weak self] result in
                 guard self != nil else { return }
                 guard result != nil else { return }
+                
+                AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.Login.completeSignIn(provider: "apple"))
                 
                 guard let accessToken = result?.data?.accessToken else { return }
                 KeychainUtil.setAccessToken(accessToken)

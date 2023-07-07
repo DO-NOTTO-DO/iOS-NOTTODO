@@ -92,6 +92,8 @@ extension LogoOnboardingViewController {
 
     @objc
     private func buttonTapped() {
+        AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.OnboardingClick.clickOnboardingStart)
+       
         let nextViewController = SecondOnboardingViewController()
         navigationController?.pushViewController(nextViewController, animated: false)
     }

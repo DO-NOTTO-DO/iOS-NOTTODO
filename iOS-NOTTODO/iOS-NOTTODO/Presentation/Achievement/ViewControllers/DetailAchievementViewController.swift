@@ -35,6 +35,7 @@ class DetailAchievementViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.Achieve.appearDailyMissionModal(total: self.missionList.count))
         if let selectedDate = selectedDate {
             requestDetailAPI(date: Utils.dateFormatterString(format: "YYYY-MM-dd", date: selectedDate))
         }
@@ -54,6 +55,7 @@ class DetailAchievementViewController: UIViewController {
         let location = touch.location(in: self.view)
         
         if !backGroundView.frame.contains(location) {
+            AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.Achieve.closeDailyMissionModal)
             self.dismiss(animated: true)
         }
     }

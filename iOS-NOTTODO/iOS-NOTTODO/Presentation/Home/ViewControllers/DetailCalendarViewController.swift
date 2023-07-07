@@ -18,6 +18,7 @@ final class DetailCalendarViewController: UIViewController {
     var anotherDate: [String] = []
     var invalidDate: [String] = []
     var dataSource: [String: Float] = [:]
+    var detailModel: [MissionDetailResponseDTO] = []
     var userId: Int?
     var count: Int?
     var movedateClosure: ((_ date: String) -> Void)?
@@ -34,6 +35,7 @@ final class DetailCalendarViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.SelectDate.appearAnotherDayModal)
         if let id = self.userId {
             requestParticualrDatesAPI(id: id)
         }
@@ -121,6 +123,7 @@ extension DetailCalendarViewController {
     func completeBtnTapped(sender: UIButton) {
         if let id = self.userId {
             requestAddAnotherDay(id: id, dates: anotherDate)
+            AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.SelectDate.completeAddMissionAnotherDay(title: self.detailModel[0].title, situation: self.detailModel[0].situation, goal: self.detailModel[0].goal, action: self.detailModel[0].actions[0].name, date: anotherDate))
         }
     }
 }
@@ -195,6 +198,7 @@ extension DetailCalendarViewController {
             case 200..<204:
                 self.setUI()
                 self.dismiss(animated: true)
+                AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.SelectDate.closeAnotherDayModal)
                 let dateFormatter = DateFormatter()
                 dateFormatter.dateFormat = "yyyy.MM.dd"
                 if let earliestDate = dateFormatter.date(from: self.anotherDate.min() ?? "") {
