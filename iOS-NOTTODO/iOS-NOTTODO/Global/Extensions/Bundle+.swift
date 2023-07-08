@@ -28,7 +28,19 @@ extension Bundle {
         let plist = NSDictionary(contentsOfFile: filePath)
         
         guard let value = plist?.object(forKey: "KAKAO_API_KEY") as? String else {
-            fatalError("Couldn't find key 'AMPLITUDE_API_KEY' in 'API_KEY.plist'.")
+            fatalError("Couldn't find key 'KAKAO_API_KEY' in 'API_KEY.plist'.")
+        }
+        return value
+    }
+    
+    var baseURL: String {
+        guard let filePath = Bundle.main.path(forResource: "API_KEY", ofType: "plist") else {
+            fatalError("Couldn't find file 'AMPLITUDE_API_KEY.plist'.")
+        }
+        let plist = NSDictionary(contentsOfFile: filePath)
+        
+        guard let value = plist?.object(forKey: "BASE_URL") as? String else {
+            fatalError("Couldn't find key 'BASE_URL' in 'API_KEY.plist'.")
         }
         return value
     }
