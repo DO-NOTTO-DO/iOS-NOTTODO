@@ -168,7 +168,7 @@ extension MissionDetailViewController {
     
     @objc
     func deleteBtnTapped() {
-        AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.Detail.clickDeleteMission(section:"detail", title: self.detailModel[0].title, situation: self.detailModel[0].situation, goal: self.detailModel[0].goal, action: [self.detailModel[0].actions[0].name]))
+        AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.Detail.clickDeleteMission(section: "detail", title: self.detailModel[0].title, situation: self.detailModel[0].situation, goal: self.detailModel[0].goal, action: [self.detailModel[0].actions[0].name]))
         let modalViewController = HomeDeleteViewController()
         modalViewController.modalPresentationStyle = .overFullScreen
         modalViewController.modalTransitionStyle = .crossDissolve
