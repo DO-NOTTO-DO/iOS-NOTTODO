@@ -33,6 +33,54 @@ extension UIViewController {
         return (convert / 812) * getDeviceHeight()
     }
     
+    func changeRootViewController(_ viewControllerToPresent: UIViewController) {
+        if let window = view.window?.windowScene?.keyWindow {
+            window.rootViewController = viewControllerToPresent
+            UIView.transition(with: window, duration: 0.5, options: .transitionCrossDissolve, animations: nil)
+        } else {
+            viewControllerToPresent.modalPresentationStyle = .overFullScreen
+            self.present(viewControllerToPresent, animated: true, completion: nil)
+        }
+    }
+    
+    /// toastMessage를 호출하는 메소드
+    func showToast(message: String, controller: UIViewController) {
+        let toastView = NottodoToastView(message: message, viewController: controller)
+        view.addSubview(toastView)
+        
+        toastView.snp.makeConstraints {
+            $0.bottom.equalTo(view.safeAreaLayoutGuide).inset(6)
+            $0.directionalHorizontalEdges.equalToSuperview().inset(23)
+            $0.height.equalTo(61)
+        }
+        
+        UIView.animate(withDuration: 0.4, delay: 0.0, options: .curveEaseIn) {
+            toastView.alpha = 1.0
+        } completion: { _ in
+            UIView.animate(withDuration: 0.4, delay: 1.0, options: .curveEaseOut) {
+                toastView.alpha = 0.0
+            } completion: { _ in
+                toastView.removeFromSuperview()
+            }
+        }
+    }
+    
+    /// html을 string으로 변환하는 메소드
+    func htmlToString(_ targetString: String) -> NSAttributedString? {
+        let text = targetString
+
+        guard let data = text.data(using: .utf8) else {
+            return NSAttributedString()
+        }
+        do {
+            return try NSAttributedString(data: data,
+                                          options: [.documentType: NSAttributedString.DocumentType.html, .characterEncoding: String.Encoding.utf8.rawValue],
+                                          documentAttributes: nil)
+        } catch {
+          return NSAttributedString()
+        }
+    }
+    
     /// 화면 터치시 작성 종료하는 메서드
     open override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)

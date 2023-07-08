@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 import Then
 
-class FourthOnboardingViewController: UIViewController {
+final class FourthOnboardingViewController: UIViewController {
     
     // MARK: - Properties
     
@@ -31,6 +31,7 @@ class FourthOnboardingViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.Onboarding.viewOnboarding4)
         setUI()
         register()
         setLayout()
@@ -128,6 +129,8 @@ extension FourthOnboardingViewController {
 extension FourthOnboardingViewController {
     @objc
     private func ButtonTapped() {
+        AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.OnboardingClick.clickOnboardingNext4)
+
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
             UIView.animate(withDuration: 0.01) {
                 let nextViewController = FifthOnboardingViewController()

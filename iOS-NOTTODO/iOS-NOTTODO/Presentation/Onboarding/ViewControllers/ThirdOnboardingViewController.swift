@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 import Then
 
-class ThirdOnboardingViewController: UIViewController {
+final class ThirdOnboardingViewController: UIViewController {
     
     // MARK: - Properties
     
@@ -21,6 +21,7 @@ class ThirdOnboardingViewController: UIViewController {
     private let onboardingModel: [ThirdOnboardingModel] = ThirdOnboardingModel.titles
     private var dataSource: UICollectionViewDiffableDataSource<Section, ThirdOnboardingModel>! = nil
     private lazy var safeArea = self.view.safeAreaLayoutGuide
+    private var selectList: [String] = []
 
     // MARK: - UI Components
     
@@ -32,6 +33,7 @@ class ThirdOnboardingViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.Onboarding.viewOnboarding3)
         setUI()
         register()
         setLayout()
@@ -65,6 +67,14 @@ extension ThirdOnboardingViewController {
             $0.setTitleColor(isTapped ? .black :.gray4, for: .normal)
             $0.setTitle(I18N.thirdButton, for: .normal)
             $0.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
+        }
+    }
+    
+    private func updateButton(isTapped: Bool) {
+        nextButton.do {
+            $0.backgroundColor = isTapped ? .white : .gray2
+            $0.isUserInteractionEnabled = isTapped ? true : false
+            $0.setTitleColor(isTapped ? .black :.gray4, for: .normal)
         }
     }
     
@@ -127,6 +137,8 @@ extension ThirdOnboardingViewController {
     private func buttonTapped() {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
             UIView.animate(withDuration: 0.01) {
+                AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.OnboardingClick.clickOnboardingNext3(select: self.selectList))
+
                 let nextViewController = FourthOnboardingViewController()
                 self.navigationController?.pushViewController(nextViewController, animated: false)
             }
@@ -138,8 +150,9 @@ extension ThirdOnboardingViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let select = collectionView.indexPathsForSelectedItems {
             if select.count > 0 {
+                selectList.append(ThirdOnboardingModel.titles[indexPath.row].title)
                 self.isTapped = true
-                setUI()
+                updateButton(isTapped: self.isTapped)
             }
         }
     }
@@ -147,8 +160,12 @@ extension ThirdOnboardingViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         if let deSelect = collectionView.indexPathsForSelectedItems {
             if deSelect.count == 0 {
+                if let index = selectList.firstIndex(of: ThirdOnboardingModel.titles[indexPath.row].title) {
+                    selectList.remove(at: index)
+                }
                 self.isTapped = false
-                setUI()
+                updateButton(isTapped: self.isTapped)
+
             }
         }
     }

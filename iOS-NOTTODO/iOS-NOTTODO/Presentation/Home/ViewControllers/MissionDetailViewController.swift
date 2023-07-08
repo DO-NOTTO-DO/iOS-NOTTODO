@@ -16,8 +16,7 @@ final class MissionDetailViewController: UIViewController {
     
     var deleteClosure: (() -> Void)?
     var moveDateClosure: ((_ date: String) -> Void)?
-    private var missionDate: String?
-
+    
     private lazy var safeArea = self.view.safeAreaLayoutGuide
     enum Section {
         case mission
@@ -34,12 +33,14 @@ final class MissionDetailViewController: UIViewController {
     private let completeButton = UIButton()
     
     // MARK: - Life Cycle
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.Detail.closeDetailMission)
         guard let id = self.userId else { return }
         requestDailyMissionAPI(id: id)
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         register()
@@ -47,10 +48,6 @@ final class MissionDetailViewController: UIViewController {
         setLayout()
         setupDataSource()
         reloadData()
-    }
-    
-    func setMissionDate(_ text: String) {
-        missionDate = text
     }
 }
 
@@ -127,15 +124,12 @@ extension MissionDetailViewController {
                     self.dismiss(animated: true)
                 }
                 header.editClosure = {
+                    AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.Detail.clickEditMission)
+                    
                     let updateMissionViewController = AddMissionViewController()
                     guard let rootViewController = self.presentingViewController as? UINavigationController else { return }
                     updateMissionViewController.setMissionId(self.userId ?? 0)
                     updateMissionViewController.setViewType(.update)
-                    updateMissionViewController.setDate(self.missionDate ?? "")
-                    updateMissionViewController.setNottodoLabel(self.detailModel.first!.title)
-                    updateMissionViewController.setSituationLabel(self.detailModel.first!.situation)
-                    updateMissionViewController.setGoalLabel(self.detailModel.first!.goal)
-                    updateMissionViewController.setActionLabel(self.detailModel.first!.actions.first!.name)
                     self.dismiss(animated: true) {
                         rootViewController.pushViewController(updateMissionViewController, animated: true)
                     }
@@ -145,6 +139,7 @@ extension MissionDetailViewController {
                 guard let footer = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: DetailFooterReusableView.identifier, for: indexPath) as? DetailFooterReusableView else { return UICollectionReusableView() }
                 footer.footerClosure = {
                     let modalViewController = DetailCalendarViewController()
+                    modalViewController.detailModel = self.detailModel
                     modalViewController.modalPresentationStyle = .overFullScreen
                     modalViewController.modalTransitionStyle = .crossDissolve
                     guard let id = self.userId else {return}
@@ -154,7 +149,6 @@ extension MissionDetailViewController {
                         self?.moveDateClosure?(date)
                     }
                     self.present(modalViewController, animated: false)
-                    print("tapped")
                 }
                 return footer
             }
@@ -171,16 +165,22 @@ extension MissionDetailViewController {
 }
 
 extension MissionDetailViewController {
+    
     @objc
     func deleteBtnTapped() {
-        guard let id = userId else { return }
-        requestDeleteMission(id: id)
-    }
-    @objc
-    func completeBtnTapped(sender: UIButton) {
-        print("완료")
+        AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.Detail.clickDeleteMission(title: self.detailModel[0].title, situation: self.detailModel[0].situation, goal: self.detailModel[0].goal, action: self.detailModel[0].actions[0].name))
+        let modalViewController = HomeDeleteViewController()
+        modalViewController.modalPresentationStyle = .overFullScreen
+        modalViewController.modalTransitionStyle = .crossDissolve
+        modalViewController.deleteClosure = {
+            guard let id = self.userId else { return }
+            
+            self.requestDeleteMission(id: id)
+        }
+        present(modalViewController, animated: false)
     }
 }
+
 extension MissionDetailViewController {
     func requestDailyMissionAPI(id: Int) {
         HomeAPI.shared.getDailyDetailMission(id: id) { [weak self] result in
@@ -204,13 +204,16 @@ extension MissionDetailViewController {
             }
         }
     }
+    
     private func requestDeleteMission(id: Int) {
         HomeAPI.shared.deleteMission(id: id) { [weak self] _ in
             for index in 0..<(self?.detailModel.count ?? 0) {
                 if self?.detailModel[index].id == id {
                     self?.deleteClosure?()
                     self?.reloadData()
+                    AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.Detail.completeDeleteMission(title: (self?.detailModel[index].title)!, situation: (self?.detailModel[index].situation)!, goal: self?.detailModel[index].goal ?? "", action: self?.detailModel[index].actions[index].name ?? ""))
                     self?.dismiss(animated: true)
+                    AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.Detail.closeDetailMission)
                 } else {}
             }
         }

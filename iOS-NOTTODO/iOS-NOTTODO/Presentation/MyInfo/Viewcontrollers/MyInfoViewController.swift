@@ -9,13 +9,12 @@ import UIKit
 
 import Then
 import SnapKit
-import MessageUI
 
 final class MyInfoViewController: UIViewController {
     
     // MARK: - Properties
     
-    private var infoOne: [InfoModelOne] = [InfoModelOne(image: .imgUser, user: UserDefaults.standard.bool(forKey: "isAppleLogin") ? KeychainUtil.getAppleUsername() : KeychainUtil.getKakaoUsername(), email: UserDefaults.standard.bool(forKey: "isAppleLogin") ? KeychainUtil.getAppleEmail() : KeychainUtil.getKakaoEmail())]
+    private var infoOne: [InfoModelOne] = [InfoModelOne(image: .imgUser, user: UserDefaults.standard.bool(forKey: DefaultKeys.isAppleLogin) ? KeychainUtil.getAppleUsername() : KeychainUtil.getKakaoUsername(), email: UserDefaults.standard.bool(forKey: DefaultKeys.isAppleLogin) ? KeychainUtil.getAppleEmail() : KeychainUtil.getKakaoEmail())]
     private let infoTwo: [InfoModelTwo] = InfoModelTwo.items
     private let infoThree: [InfoModelThree] = InfoModelThree.items
     private let infoFour: [InfoModelFour] = InfoModelFour.item
@@ -35,6 +34,7 @@ final class MyInfoViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.MyInfo.viewMyInfo)
         setUI()
         register()
         setLayout()
@@ -137,25 +137,32 @@ extension MyInfoViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         switch indexPath.section {
         case 0:
+            AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.MyInfo.clickMyInfo)
             let nextViewController = MyInfoAccountViewController()
             nextViewController.hidesBottomBarWhenPushed = false
             navigationController?.pushViewController(nextViewController, animated: true)
         case 1:
             switch indexPath.item {
             case 0:
+                AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.MyInfo.clickGuide)
                 Utils.myInfoUrl(vc: self, url: MyInfoURL.guid.url)
             default:
+                AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.MyInfo.clickFaq)
                 Utils.myInfoUrl(vc: self, url: MyInfoURL.quesition.url)
             }
         case 2:
             switch indexPath.item {
             case 0:
+                AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.MyInfo.clickNotice)
                 Utils.myInfoUrl(vc: self, url: MyInfoURL.notice.url)
             case 1:
+                AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.MyInfo.clickQuestion)
                 Utils.myInfoUrl(vc: self, url: MyInfoURL.contact.url)
             case 2:
+                AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.MyInfo.clickTerms)
                 Utils.myInfoUrl(vc: self, url: MyInfoURL.service.url)
             default:
+                AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.MyInfo.clickOpenSource)
                 Utils.myInfoUrl(vc: self, url: MyInfoURL.opensource.url)
             }
         default:

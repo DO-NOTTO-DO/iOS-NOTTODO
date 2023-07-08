@@ -61,7 +61,7 @@ extension RecommendActionViewController {
         nextViewController.setNottodoLabel(nottodoTitle ?? "")
         nextViewController.setActionLabel(actionLabel ?? "")
         nextViewController.setSituationLabel(situationLabel ?? "")
-        nextViewController.setDate(selectDay ?? "")
+        nextViewController.setDate([selectDay ?? ""])
         navigationController?.pushViewController(nextViewController, animated: true)
     }
 }
@@ -230,7 +230,7 @@ extension RecommendActionViewController: UICollectionViewDataSource {
                 let nextViewContoller = AddMissionViewController()
                 nextViewContoller.setNottodoLabel(self?.nottodoTitle ?? "")
                 nextViewContoller.setSituationLabel(self?.situationLabel ?? "")
-                nextViewContoller.setDate(self?.selectDay ?? "")
+                nextViewContoller.setDate([self?.selectDay ?? ""])
                 self?.navigationController?.pushViewController(nextViewContoller, animated: true)
             }
             return footerView

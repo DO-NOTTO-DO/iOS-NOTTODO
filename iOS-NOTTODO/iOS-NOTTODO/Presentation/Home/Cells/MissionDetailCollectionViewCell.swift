@@ -10,7 +10,7 @@ import UIKit
 import Then
 import SnapKit
 
-class MissionDetailCollectionViewCell: UICollectionViewCell {
+final class MissionDetailCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Properties
 
@@ -23,7 +23,6 @@ class MissionDetailCollectionViewCell: UICollectionViewCell {
     private let accumulateView = UIView()
     private let accumulateSubView = UIView()
     private let accumulateLabel = UILabel()
-    
     private let verticalStackView = UIStackView()
     private let action = DetailStackView(tag: I18N.detailAction, isTop: true, empty: .actionEmpty)
     private let goal = DetailStackView(tag: I18N.detailGoal, isTop: false, empty: .goalEmpty)
@@ -54,9 +53,11 @@ extension MissionDetailCollectionViewCell {
             $0.font = .Pretendard(.medium, size: 14)
             $0.textColor = .gray1
         }
+        
         missionLabel.do {
             $0.font = .Pretendard(.semiBold, size: 20)
             $0.textColor = .gray2
+            $0.numberOfLines = 0
         }
         
         accumulateView.do {
@@ -64,17 +65,20 @@ extension MissionDetailCollectionViewCell {
             $0.layer.masksToBounds = true
             $0.layer.cornerRadius = 34
         }
+        
         accumulateSubView.do {
             $0.backgroundColor = .green2
             $0.layer.masksToBounds = true
             $0.layer.cornerRadius = 28
         }
+        
         accumulateLabel.do {
             $0.textAlignment = .center
             $0.textColor = .white
             $0.font = .Pretendard(.semiBold, size: 14)
             $0.numberOfLines = 2
         }
+        
         verticalStackView.do {
             $0.addArrangedSubviews(action, goal)
             $0.axis = .vertical
@@ -84,16 +88,12 @@ extension MissionDetailCollectionViewCell {
     }
     
     private func setLayout() {
-        contentView.addSubviews(missionTagLabel, missionLabel, accumulateView, verticalStackView)
+        contentView.addSubviews(missionTagLabel, accumulateView, missionLabel, verticalStackView)
         accumulateView.addSubviews(accumulateSubView, accumulateLabel)
         
         missionTagLabel.snp.makeConstraints {
             $0.top.equalToSuperview().offset(30)
             $0.leading.equalToSuperview().offset(29)
-        }
-        missionLabel.snp.makeConstraints {
-            $0.top.equalTo(missionTagLabel.snp.bottom).offset(10)
-            $0.leading.equalTo(missionTagLabel.snp.leading)
         }
         
         accumulateView.snp.makeConstraints {
@@ -101,13 +101,22 @@ extension MissionDetailCollectionViewCell {
             $0.trailing.equalToSuperview().inset(19)
             $0.width.height.equalTo(68)
         }
+        
         accumulateSubView.snp.makeConstraints {
             $0.center.centerY.equalToSuperview()
             $0.width.height.equalTo(56)
         }
+        
+        missionLabel.snp.makeConstraints {
+            $0.top.equalTo(missionTagLabel.snp.bottom).offset(10)
+            $0.leading.equalTo(missionTagLabel.snp.leading)
+            $0.trailing.equalTo(accumulateView.snp.leading).offset(-30)
+        }
+        
         accumulateLabel.snp.makeConstraints {
             $0.centerX.centerY.equalToSuperview()
         }
+        
         verticalStackView.snp.makeConstraints {
             $0.top.equalTo(missionLabel.snp.bottom).offset(56)
             $0.directionalHorizontalEdges.equalToSuperview().inset(29)
@@ -118,8 +127,10 @@ extension MissionDetailCollectionViewCell {
     func configure(model: MissionDetailResponseDTO) {
         missionTagLabel.text = model.situation
         missionLabel.text = model.title
+        missionLabel.setLineSpacing(lineSpacing: 6.0)
         accumulateLabel.text = "\(model.count)회\n달성"
-        if model.actions.isEmpty {
+        
+        if model.actions.isEmpty || model.actions.contains(where: { $0.name.isEmpty }) {
             action.titleLabel.isHidden = true
             action.emptyIcon.isHidden = false
         } else {
@@ -130,6 +141,7 @@ extension MissionDetailCollectionViewCell {
             action.verticalStackView.removeArrangedSubview(action.emptyIcon)
             action.emptyIcon.removeFromSuperview()
         }
+        
         if model.goal.isEmpty {
             goal.titleLabel.isHidden = true
             goal.emptyIcon.isHidden = false
