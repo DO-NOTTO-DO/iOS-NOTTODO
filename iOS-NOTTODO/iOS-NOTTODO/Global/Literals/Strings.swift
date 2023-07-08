@@ -98,6 +98,7 @@ struct I18N {
     static let today = "오늘"
     static let tomorrow = "내일"
     static let finish = "완료"
+    static let updateTitle = "낫투두 수정"
     
     /// MyInfo
 
