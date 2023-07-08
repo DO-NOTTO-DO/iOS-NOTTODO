@@ -304,7 +304,6 @@ extension AddMissionViewController: UICollectionViewDataSource {
         let currentFoldState = foldStateList[indexPath.row]
         let currentDateList = dateList
         
-        missionMenuCell.setFoldState(currentFoldState)
         if indexPath.row == 0 {
             missionMenuCell.setCellData(currentDateList)
             missionMenuCell.missionTextData = { [weak self] string in
@@ -317,6 +316,12 @@ extension AddMissionViewController: UICollectionViewDataSource {
             }
             missionMenuCell.setCellData([currentCellInfo])
         }
+
+        if let missionDateCell = cell as? DateCollectionViewCell {
+            missionDateCell.setDateList(dateList)
+        }
+        
+        missionMenuCell.setFoldState(currentFoldState)
 
         return cell
     }
