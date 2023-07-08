@@ -126,7 +126,6 @@ extension AddMissionViewController {
         navigationTitle.do {
             $0.font = .Pretendard(.semiBold, size: 18)
             $0.textColor = .white
-            $0.text = I18N.recommendNavTitle
         }
         
         addButton.do {
@@ -150,9 +149,11 @@ extension AddMissionViewController {
         if missionType == .add {
             addButton.setTitle(I18N.add, for: .normal)
             addButton.addTarget(self, action: #selector(addMissionDidTap), for: .touchUpInside)
+            navigationTitle.text = I18N.recommendNavTitle
         } else {
             addButton.setTitle(I18N.finish, for: .normal)
             addButton.addTarget(self, action: #selector(updateMissionDidTap), for: .touchUpInside)
+            navigationTitle.text = I18N.updateTitle
         }
     }
     
@@ -229,7 +230,7 @@ extension AddMissionViewController {
         AddMissionAPI.shared.postAddMission(title: title, situation: situation, actions: actions, goal: goal, dates: dates ?? [""]) { response in
             guard let response = response else { return }
             switch response.status {
-            case 200:
+            case 200..<300:
                 self.popViewController()
             default:
                 self.showToast(message: self.htmlToString(response.message ?? "")?.string ?? "", controller: self)
@@ -240,8 +241,9 @@ extension AddMissionViewController {
     private func requestPutUpdateMission(id: Int, title: String, situation: String, actions: [String]?, goal: String?) {
         AddMissionAPI.shared.putUpdateMission(id: id, title: title, situation: situation, actions: actions, goal: goal) { response in
             guard let response = response else { return }
+            print(response.status)
             switch response.status {
-            case 200:
+            case 200..<300:
                 self.popViewController()
             default:
                 self.showToast(message: self.htmlToString(response.message ?? "")?.string ?? "", controller: self)
