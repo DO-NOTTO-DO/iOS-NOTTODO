@@ -38,6 +38,7 @@ final class HomeViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.Home.viewHome)
         dailyLoadData()
         weeklyLoadData()
     }
@@ -129,12 +130,14 @@ extension HomeViewController {
             case .mission:
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MissionListCollectionViewCell.identifier, for: indexPath) as! MissionListCollectionViewCell
                 cell.configure(model: item as! DailyMissionResponseDTO )
-                cell.isTappedClosure = { result, id in
+                cell.isTappedClosure = { [self] result, id in
                     if result {
                         self.requestPatchUpdateMissionAPI(id: id, status: CompletionStatus.UNCHECKED )
+                        AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.Home.completeCheckMission(title: self.missionList[indexPath.row].title, situation: self.missionList[indexPath.row].situationName))
                         cell.setUI()
                     } else {
                         self.requestPatchUpdateMissionAPI(id: id, status: CompletionStatus.CHECKED )
+                        AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.Home.completeCheckMission(title: self.missionList[indexPath.row].title, situation: self.missionList[indexPath.row].situationName))
                         cell.setUI()
                     }
                 }
@@ -212,7 +215,11 @@ extension HomeViewController {
     
     private func makeSwipeActions(for indexPath: IndexPath?) -> UISwipeActionsConfiguration? {
         let deleteAction = UIContextualAction(style: .normal, title: "") { [unowned self] _, _, completion in
+            
             guard let index = indexPath?.item else { return }
+            
+            AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.Detail.clickDeleteMission(title: self.missionList[index].title, situation: self.missionList[index].situationName, goal: "", action: ""))
+            
             let modalViewController = HomeDeleteViewController()
             modalViewController.modalPresentationStyle = .overFullScreen
             modalViewController.modalTransitionStyle = .crossDissolve
@@ -224,6 +231,7 @@ extension HomeViewController {
         }
         
         let modifyAction = UIContextualAction(style: .normal, title: "") { _, _, completionHandler in
+            AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.Detail.clickEditMission)
             guard let index = indexPath?.item else { return }
             let id = self.missionList[index].id
             let updateMissionViewController = AddMissionViewController()
@@ -251,7 +259,7 @@ extension HomeViewController: UICollectionViewDelegate {
             let modalViewController = MissionDetailViewController()
             modalViewController.modalPresentationStyle = .overFullScreen
             modalViewController.userId = missionList[indexPath.item].id
-//            modalViewController.setMissionDate(Utils.dateFormatterString(format: "yyyy.MM.dd", date: selectedDate ?? Date()))
+
             modalViewController.deleteClosure = { [weak self] in
                 self?.dailyLoadData()
                 self?.weeklyLoadData()
@@ -278,6 +286,8 @@ extension HomeViewController {
     
     @objc
     func todayBtnTapped(_sender: UIButton) {
+        AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.Home.clickReturnToday)
+
         weekCalendar.calendar.select(today)
         weekCalendar.yearMonthLabel.text = Utils.dateFormatterString(format: I18N.yearMonthTitle, date: today)
         requestDailyMissionAPI(date: Utils.dateFormatterString(format: nil, date: today))
@@ -293,17 +303,22 @@ extension HomeViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalend
         let sunday = getSunday(date: calendar.currentPage)
         requestWeeklyMissoinAPI(startDate: Utils.dateFormatterString(format: nil, date: sunday))
     }
+    
     func  calendar(_ calendar: FSCalendar, titleFor date: Date) -> String? {
         Utils.dateFormatterString(format: "EEEEEE", date: date)
     }
+    
     func calendar(_ calendar: FSCalendar, subtitleFor date: Date) -> String? {
         Utils.dateFormatterString(format: "dd", date: date)
     }
+    
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         self.selectedDate = date
         weekCalendar.yearMonthLabel.text = Utils.dateFormatterString(format: I18N.yearMonthTitle, date: date)
         requestDailyMissionAPI(date: Utils.dateFormatterString(format: nil, date: date))
+        AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.Home.clickWeeklyDate(date: Utils.dateFormatterString(format: nil, date: date)))
     }
+    
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, subtitleSelectionColorFor date: Date) -> UIColor? {
         guard let count = self.count else { return .white }
         let dateString = Utils.dateFormatterString(format: nil, date: date)
@@ -405,6 +420,8 @@ extension HomeViewController {
             self?.dailyLoadData()
             self?.weeklyLoadData()
             self?.updateData()
+            
+            AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.Detail.clickDeleteMission(title: (self?.missionList[index].title)!, situation: (self?.missionList[index].situationName)!, goal: "", action: ""))
         }
     }
 }

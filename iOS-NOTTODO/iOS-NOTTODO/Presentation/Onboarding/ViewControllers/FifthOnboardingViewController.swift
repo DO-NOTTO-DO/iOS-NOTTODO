@@ -34,6 +34,7 @@ final class FifthOnboardingViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.Onboarding.viewOnboarding5)
         setUI()
         register()
         setLayout()
@@ -178,6 +179,8 @@ extension FifthOnboardingViewController {
 extension FifthOnboardingViewController {
     @objc
     private func ButtonTapped() {
+        AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.OnboardingClick.clickOnboardingNext5)
+        
         if let window = view.window?.windowScene?.keyWindow {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                 UIView.animate(withDuration: 0.01) {

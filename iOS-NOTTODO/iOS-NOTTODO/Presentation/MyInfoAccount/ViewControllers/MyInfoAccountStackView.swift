@@ -107,5 +107,7 @@ extension MyInfoAccountStackView {
     @objc func switchTapped(_ sender: Any) {
         isTapped.toggle()
         switchClosure?(isTapped)
+        
+        AmplitudeAnalyticsService.shared.send(event: isTapped ? AnalyticsEvent.AccountInfo.completePushOn :  AnalyticsEvent.AccountInfo.completePushOff)
     }
 }

@@ -12,6 +12,7 @@ import KakaoSDKAuth
 import KakaoSDKUser
 
 import AuthenticationServices
+import Amplitude
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -19,9 +20,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
         
-        KakaoSDK.initSDK(appKey: "f06c671df540ff4a8f8275f453368748")
+        Amplitude.instance().initializeApiKey(Bundle.main.amplitudeAPIKey)
+        
+        KakaoSDK.initSDK(appKey: Bundle.main.kakaoAPIKey)
         
         if KeychainUtil.getAccessToken() != "" {
             // self.skipAuthView()

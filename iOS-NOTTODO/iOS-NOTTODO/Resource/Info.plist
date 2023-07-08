@@ -10,9 +10,7 @@
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>kakaof06c671df540ff4a8f8275f453368748</string>
-			</array>
+			<array/>
 		</dict>
 	</array>
 	<key>LSApplicatioonQueriesSchemes</key>
