@@ -258,7 +258,7 @@ extension AddMissionViewController {
             for item in data {
                 self?.dateList.append(item)
             }
-            self?.addMissionCollectionView.reloadData()
+            self?.setDateString(collectionView: self?.addMissionCollectionView ?? UICollectionView())
         }
     }
     
@@ -382,5 +382,10 @@ extension AddMissionViewController {
         default:
             return UICollectionViewCell()
         }
+    }
+    
+    private func setDateString(collectionView: UICollectionView) {
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DateCollectionViewCell.identifier, for: IndexPath(index: 0)) as? DateCollectionViewCell else { return }
+            cell.setDateList(dateList)
     }
 }
