@@ -178,9 +178,7 @@ extension AchievementViewController: FSCalendarDelegate, FSCalendarDataSource, F
         guard let currentPage = self.currentPage else { return .white }
         let currentMonth = Calendar.current.component(.month, from: currentPage)
         let dateMonth = Calendar.current.component(.month, from: date)
-        print("🧐\(dateMonth)")
-        print("🧐🧐\(currentMonth)")
-
+       
         guard let count = self.count else { return .white }
         let dateString = Utils.dateFormatterString(format: nil, date: date)
         if let percentage = self.dataSource[dateString] {
