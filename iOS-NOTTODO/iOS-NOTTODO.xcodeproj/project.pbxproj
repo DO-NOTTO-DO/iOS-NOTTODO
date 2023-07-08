@@ -35,7 +35,6 @@
 		0982DE5429ADCCE000D933D2 /* HomeEmptyCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0982DE5329ADCCE000D933D2 /* HomeEmptyCollectionViewCell.swift */; };
 		0982DE5829AE40FB00D933D2 /* UITabBar+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0982DE5729AE40FB00D933D2 /* UITabBar+.swift */; };
 		0982DE5A29AE5E6000D933D2 /* CompositionalLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0982DE5929AE5E6000D933D2 /* CompositionalLayout.swift */; };
-		098AA88A2A596593008DCE2B /* API_KEY.plist in Resources */ = {isa = PBXBuildFile; fileRef = 098AA8892A596454008DCE2B /* API_KEY.plist */; };
 		098BFD5929B7999E008E80F9 /* MyProfileCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098BFD5829B7999E008E80F9 /* MyProfileCollectionViewCell.swift */; };
 		098BFD5B29B79B6A008E80F9 /* MyInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098BFD5A29B79B6A008E80F9 /* MyInfoModel.swift */; };
 		098BFD5D29B79CE3008E80F9 /* InfoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098BFD5C29B79CE3008E80F9 /* InfoCollectionViewCell.swift */; };
@@ -115,6 +114,7 @@
 		3BC1A27429C9AF500088376B /* MissionHistoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC1A27329C9AF500088376B /* MissionHistoryCollectionViewCell.swift */; };
 		3BC1A27929C9BE6C0088376B /* AddMissionFooterCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC1A27829C9BE6C0088376B /* AddMissionFooterCollectionReusableView.swift */; };
 		3BD3B5C829B8F82C00D3575B /* AddMissionTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD3B5C729B8F82C00D3575B /* AddMissionTextFieldView.swift */; };
+		3BDC16E42A59A2000053CBF2 /* API_KEY.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3BDC16E32A59A2000053CBF2 /* API_KEY.plist */; };
 		3BEEBE972A4B048A0081C936 /* NottodoToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BEEBE962A4B048A0081C936 /* NottodoToastView.swift */; };
 		6C16015829C40112005AE3F5 /* AuthButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C16015729C40112005AE3F5 /* AuthButtonView.swift */; };
 		6C16015C29C56DBA005AE3F5 /* MyInfoAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C16015B29C56DBA005AE3F5 /* MyInfoAccountViewController.swift */; };
@@ -192,7 +192,6 @@
 		0982DE5329ADCCE000D933D2 /* HomeEmptyCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeEmptyCollectionViewCell.swift; sourceTree = "<group>"; };
 		0982DE5729AE40FB00D933D2 /* UITabBar+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITabBar+.swift"; sourceTree = "<group>"; };
 		0982DE5929AE5E6000D933D2 /* CompositionalLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositionalLayout.swift; sourceTree = "<group>"; };
-		098AA8892A596454008DCE2B /* API_KEY.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = API_KEY.plist; sourceTree = "<group>"; };
 		098BFD5829B7999E008E80F9 /* MyProfileCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileCollectionViewCell.swift; sourceTree = "<group>"; };
 		098BFD5A29B79B6A008E80F9 /* MyInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInfoModel.swift; sourceTree = "<group>"; };
 		098BFD5C29B79CE3008E80F9 /* InfoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -270,6 +269,7 @@
 		3BC1A27329C9AF500088376B /* MissionHistoryCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MissionHistoryCollectionViewCell.swift; sourceTree = "<group>"; };
 		3BC1A27829C9BE6C0088376B /* AddMissionFooterCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMissionFooterCollectionReusableView.swift; sourceTree = "<group>"; };
 		3BD3B5C729B8F82C00D3575B /* AddMissionTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMissionTextFieldView.swift; sourceTree = "<group>"; };
+		3BDC16E32A59A2000053CBF2 /* API_KEY.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = API_KEY.plist; sourceTree = "<group>"; };
 		3BDE6157299EDD02001CCEA9 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		3BEEBE962A4B048A0081C936 /* NottodoToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NottodoToastView.swift; sourceTree = "<group>"; };
 		6C16015729C40112005AE3F5 /* AuthButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthButtonView.swift; sourceTree = "<group>"; };
@@ -753,7 +753,7 @@
 		3B027AA6299C359900BEB65C /* Resource */ = {
 			isa = PBXGroup;
 			children = (
-				098AA8892A596454008DCE2B /* API_KEY.plist */,
+				3BDC16E32A59A2000053CBF2 /* API_KEY.plist */,
 				3B027A85299C31B600BEB65C /* Info.plist */,
 				3B027AAA299C35D000BEB65C /* Assets */,
 				3B027AA9299C35CB00BEB65C /* Colors */,
@@ -1208,7 +1208,7 @@
 				3B027AAC299C35E500BEB65C /* Colors.xcassets in Resources */,
 				3B4E12FA2A27C4DD001D1EC1 /* Pretendard-Bold.otf in Resources */,
 				3B146D9C299D07D500B17B62 /* Pretendard-Regular.otf in Resources */,
-				098AA88A2A596593008DCE2B /* API_KEY.plist in Resources */,
+				3BDC16E42A59A2000053CBF2 /* API_KEY.plist in Resources */,
 				3B146D9E299D081400B17B62 /* Pretendard-SemiBold.otf in Resources */,
 				3B027A84299C31B600BEB65C /* LaunchScreen.storyboard in Resources */,
 				6CC54C1A2A28C3AE00AAD76D /* value.json in Resources */,
@@ -1529,7 +1529,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.0.5;
+				MARKETING_VERSION = 0.0.6;
 				PRODUCT_BUNDLE_IDENTIFIER = "nottodo.iOS-NOTTODO";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1562,7 +1562,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.0.5;
+				MARKETING_VERSION = 0.0.6;
 				PRODUCT_BUNDLE_IDENTIFIER = "nottodo.iOS-NOTTODO";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
