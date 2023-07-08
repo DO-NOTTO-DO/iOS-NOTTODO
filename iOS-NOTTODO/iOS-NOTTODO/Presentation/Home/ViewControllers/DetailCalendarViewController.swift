@@ -209,6 +209,7 @@ extension DetailCalendarViewController {
                 }
             default:
                 self.showToast(message: self.htmlToString(response?.message ?? "")?.string ?? "", controller: self)
+                AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.SelectDate.appearMaxedIssueMessage)
             }
         }
     }
