@@ -191,7 +191,7 @@ extension RecommendViewController: UICollectionViewDelegate {
             viewController.bodyImageUrl = selectedCell.bodyImage.image
             viewController.setSelectDate(self.selectDay ?? "")
             
-            self.navigationController?.pushViewController(viewController, animated: false)
+            self.navigationController?.pushViewController(viewController, animated: true)
         }
     }
 }
