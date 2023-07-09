@@ -15,7 +15,7 @@ enum RecommendActionService {
 
 extension RecommendActionService: TargetType {
     var baseURL: URL {
-        return URL(string: URLConstant.baseURL)!
+        return URL(string: Bundle.main.baseURL)!
     }
     
     var path: String {

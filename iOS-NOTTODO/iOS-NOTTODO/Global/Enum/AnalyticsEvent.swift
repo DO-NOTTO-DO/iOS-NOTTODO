@@ -103,11 +103,11 @@ enum AnalyticsEvent {
     
     enum Detail: AnalyticsEventProtocol {
         
-        case appearDetailMission(title: String, situation: String, goal: String, action: String)
+        case appearDetailMission(title: String, situation: String, goal: String, action: [String])
         case closeDetailMission
-        case clickDeleteMission(title: String, situation: String, goal: String, action: String)
-        case completeDeleteMission(title: String, situation: String, goal: String, action: String)
-        case clickEditMission
+        case clickDeleteMission(section: String, title: String, situation: String, goal: String, action: [String])
+        case completeDeleteMission(section: String, title: String, situation: String, goal: String, action: [String])
+        case clickEditMission(section: String)
         
         var name: String {
             switch self {
@@ -123,9 +123,10 @@ enum AnalyticsEvent {
             switch self {
             case .appearDetailMission(title: let title, situation: let situation, goal: let goal, action: let action): return ["title": title, "situation": situation, "goal": goal, "action": action]
             case .closeDetailMission: return nil
-            case .clickDeleteMission(title: let title, situation: let situation, goal: let goal, action: let action): return ["title": title, "situation": situation, "goal": goal, "action": action]
-            case .completeDeleteMission(title: let title, situation: let situation, goal: let goal, action: let action): return ["title": title, "situation": situation, "goal": goal, "action": action]
-            case .clickEditMission: return nil
+            case .clickDeleteMission(section: let section, title: let title, situation: let situation, goal: let goal, action: let action): return ["section": section, "title": title, "situation": situation, "goal": goal, "action": action]
+            case .completeDeleteMission(section: let section, title: let title, situation: let situation, goal: let goal, action: let action): return ["section": section, "title": title, "situation": situation, "goal": goal, "action": action]
+            case .clickEditMission(section: let section): return ["section": section]
+                
             }
         }
     }
@@ -134,13 +135,15 @@ enum AnalyticsEvent {
         
         case appearAnotherDayModal
         case closeAnotherDayModal
-        case completeAddMissionAnotherDay(title: String, situation: String, goal: String, action: String, date: [String])
+        case completeAddMissionAnotherDay(title: String, situation: String, goal: String, action: [String], date: [String])
+        case appearMaxedIssueMessage
         
         var name: String {
             switch self {
             case .appearAnotherDayModal: return "appear_another_day_modal"
             case .closeAnotherDayModal: return "close_another_day_modal"
             case .completeAddMissionAnotherDay: return "complete_add_mission_another_day"
+            case .appearMaxedIssueMessage: return "appear_maxed_issue_message"
             }
         }
         
@@ -149,6 +152,7 @@ enum AnalyticsEvent {
             case .appearAnotherDayModal: return nil
             case .closeAnotherDayModal: return nil
             case .completeAddMissionAnotherDay(title: let title, situation: let situation, goal: let goal, action: let action, date: let date): return ["title": title, "situation": situation, "goal": goal, "action": action, "date": date]
+            case .appearMaxedIssueMessage: return nil
             }
         }
     }

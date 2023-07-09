@@ -10,7 +10,7 @@ import UIKit
 import Then
 import SnapKit
 
-class DetailAchievementViewController: UIViewController {
+final class DetailAchievementViewController: UIViewController {
     
     // MARK: - Properties
     
@@ -35,7 +35,6 @@ class DetailAchievementViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.Achieve.appearDailyMissionModal(total: self.missionList.count))
         if let selectedDate = selectedDate {
             requestDetailAPI(date: Utils.dateFormatterString(format: "YYYY-MM-dd", date: selectedDate))
         }
@@ -134,6 +133,7 @@ extension DetailAchievementViewController {
         var snapshot = dataSource.snapshot()
         snapshot.appendItems(item, toSection: .main)
         dataSource.apply(snapshot)
+        AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.Achieve.appearDailyMissionModal(total: item.count))
     }
     
     private func layout() -> UICollectionViewCompositionalLayout {

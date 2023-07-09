@@ -81,8 +81,7 @@ final class DateCollectionViewCell: UICollectionViewCell, AddMissionMenu {
     }
 }
 
-private extension DateCollectionViewCell {
-    
+extension DateCollectionViewCell {
     private func setUI() {
         backgroundColor = .clear
         layer.borderColor = UIColor.gray3?.cgColor
@@ -180,10 +179,34 @@ private extension DateCollectionViewCell {
         
         backgroundColor = isHidden ? .clear : .gray1
         layer.borderColor = isHidden ? UIColor.gray2?.cgColor : UIColor.gray3?.cgColor
+        stringToDate(dateList)
+    }
+    
+    func stringToDate(_ dates: [String]) {
+        var dateList: [Date] = []
+        let dateFormatter = DateFormatter()
+        
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        for i in 0..<dates.count {
+            if let date = dateFormatter.date(from: dates[i]) {
+                dateList.append(date)
+            } else {
+                print("날짜 변환 실패")
+            }
+        }
+        setDate(dateList)
+    }
+    
+    private func setDate(_ dates: [Date]) {
+        calendarView.setCalendarSelectedDate(dates)
+    }
+    
+    func setDateList(_ dates: [String]) {
+        dateList = dates
     }
 }
 
-extension DateCollectionViewCell: FSCalendarDelegate {
+extension DateCollectionViewCell: FSCalendarDelegate, FSCalendarDelegateAppearance {
     func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
         calendarView.yearMonthLabel.text = Utils.dateFormatterString(format: I18N.yearMonthTitle, date: calendar.currentPage)
     }

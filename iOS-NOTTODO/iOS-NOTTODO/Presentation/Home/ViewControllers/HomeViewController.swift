@@ -167,7 +167,7 @@ extension HomeViewController {
                 snapshot.appendSections([.empty])
                 snapshot.appendItems([0], toSection: .empty)
             } else if snapshot.sectionIdentifiers.contains(.empty) {
-                
+               
             } else {
                 snapshot.appendSections([.empty])
                 snapshot.appendItems([0], toSection: .empty)
@@ -218,8 +218,8 @@ extension HomeViewController {
             
             guard let index = indexPath?.item else { return }
             
-            AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.Detail.clickDeleteMission(title: self.missionList[index].title, situation: self.missionList[index].situationName, goal: "", action: ""))
-            
+            AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.Detail.clickDeleteMission(section: "home", title: self.missionList[index].title, situation: self.missionList[index].situationName, goal: "", action: []))
+     
             let modalViewController = HomeDeleteViewController()
             modalViewController.modalPresentationStyle = .overFullScreen
             modalViewController.modalTransitionStyle = .crossDissolve
@@ -231,7 +231,8 @@ extension HomeViewController {
         }
         
         let modifyAction = UIContextualAction(style: .normal, title: "") { _, _, completionHandler in
-            AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.Detail.clickEditMission)
+            AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.Detail.clickEditMission(section: "home"))
+            
             guard let index = indexPath?.item else { return }
             let id = self.missionList[index].id
             let updateMissionViewController = AddMissionViewController()
@@ -421,7 +422,7 @@ extension HomeViewController {
             self?.weeklyLoadData()
             self?.updateData()
             
-            AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.Detail.clickDeleteMission(title: (self?.missionList[index].title)!, situation: (self?.missionList[index].situationName)!, goal: "", action: ""))
+            AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.Detail.clickDeleteMission(section: "home", title: (self?.missionList[index].title)!, situation: (self?.missionList[index].situationName)!, goal: "", action: []))
         }
     }
 }

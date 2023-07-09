@@ -124,7 +124,7 @@ extension MissionDetailViewController {
                     self.dismiss(animated: true)
                 }
                 header.editClosure = {
-                    AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.Detail.clickEditMission)
+                    AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.Detail.clickEditMission(section: "detail"))
                     
                     let updateMissionViewController = AddMissionViewController()
                     guard let rootViewController = self.presentingViewController as? UINavigationController else { return }
@@ -168,7 +168,7 @@ extension MissionDetailViewController {
     
     @objc
     func deleteBtnTapped() {
-        AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.Detail.clickDeleteMission(title: self.detailModel[0].title, situation: self.detailModel[0].situation, goal: self.detailModel[0].goal, action: self.detailModel[0].actions[0].name))
+        AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.Detail.clickDeleteMission(section: "detail", title: self.detailModel[0].title, situation: self.detailModel[0].situation, goal: self.detailModel[0].goal, action: [self.detailModel[0].actions[0].name]))
         let modalViewController = HomeDeleteViewController()
         modalViewController.modalPresentationStyle = .overFullScreen
         modalViewController.modalTransitionStyle = .crossDissolve
@@ -211,7 +211,7 @@ extension MissionDetailViewController {
                 if self?.detailModel[index].id == id {
                     self?.deleteClosure?()
                     self?.reloadData()
-                    AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.Detail.completeDeleteMission(title: (self?.detailModel[index].title)!, situation: (self?.detailModel[index].situation)!, goal: self?.detailModel[index].goal ?? "", action: self?.detailModel[index].actions[index].name ?? ""))
+                    AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.Detail.completeDeleteMission(section: "detail", title: (self?.detailModel[index].title)!, situation: (self?.detailModel[index].situation)!, goal: self?.detailModel[index].goal ?? "", action: [self?.detailModel[index].actions[index].name ?? ""]))
                     self?.dismiss(animated: true)
                     AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.Detail.closeDetailMission)
                 } else {}

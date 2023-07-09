@@ -65,11 +65,6 @@ final class AddMissionViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        if self.missionId != nil {
-            guard let missionId = self.missionId else { return }
-            requestGetMissionDates(id: missionId)
-            requestDailyMissionAPI(id: missionId)
-        }
         setUI()
         setLayout()
         registerCell()
@@ -131,7 +126,6 @@ extension AddMissionViewController {
         navigationTitle.do {
             $0.font = .Pretendard(.semiBold, size: 18)
             $0.textColor = .white
-            $0.text = I18N.recommendNavTitle
         }
         
         addButton.do {
@@ -155,9 +149,11 @@ extension AddMissionViewController {
         if missionType == .add {
             addButton.setTitle(I18N.add, for: .normal)
             addButton.addTarget(self, action: #selector(addMissionDidTap), for: .touchUpInside)
+            navigationTitle.text = I18N.recommendNavTitle
         } else {
             addButton.setTitle(I18N.finish, for: .normal)
             addButton.addTarget(self, action: #selector(updateMissionDidTap), for: .touchUpInside)
+            navigationTitle.text = I18N.updateTitle
         }
     }
     
@@ -234,7 +230,7 @@ extension AddMissionViewController {
         AddMissionAPI.shared.postAddMission(title: title, situation: situation, actions: actions, goal: goal, dates: dates ?? [""]) { response in
             guard let response = response else { return }
             switch response.status {
-            case 200:
+            case 200..<300:
                 self.popViewController()
             default:
                 self.showToast(message: self.htmlToString(response.message ?? "")?.string ?? "", controller: self)
@@ -245,8 +241,9 @@ extension AddMissionViewController {
     private func requestPutUpdateMission(id: Int, title: String, situation: String, actions: [String]?, goal: String?) {
         AddMissionAPI.shared.putUpdateMission(id: id, title: title, situation: situation, actions: actions, goal: goal) { response in
             guard let response = response else { return }
+            print(response.status)
             switch response.status {
-            case 200:
+            case 200..<300:
                 self.popViewController()
             default:
                 self.showToast(message: self.htmlToString(response.message ?? "")?.string ?? "", controller: self)
@@ -261,7 +258,7 @@ extension AddMissionViewController {
             for item in data {
                 self?.dateList.append(item)
             }
-            self?.addMissionCollectionView.reloadData()
+            self?.setDateString(collectionView: self?.addMissionCollectionView ?? UICollectionView())
         }
     }
     
@@ -270,7 +267,6 @@ extension AddMissionViewController {
             switch result {
             case let .success(data):
                 if let missionData = data as? MissionDetailResponseDTO {
-                    print("🤍data🤍: \(missionData)")
                     self?.nottodoInfoList[1] = missionData.title
                     self?.nottodoInfoList[2] = missionData.situation
                     self?.nottodoInfoList[3] = missionData.actions.first!.name
@@ -308,7 +304,6 @@ extension AddMissionViewController: UICollectionViewDataSource {
         let currentFoldState = foldStateList[indexPath.row]
         let currentDateList = dateList
         
-        missionMenuCell.setFoldState(currentFoldState)
         if indexPath.row == 0 {
             missionMenuCell.setCellData(currentDateList)
             missionMenuCell.missionTextData = { [weak self] string in
@@ -321,6 +316,12 @@ extension AddMissionViewController: UICollectionViewDataSource {
             }
             missionMenuCell.setCellData([currentCellInfo])
         }
+
+        if let missionDateCell = cell as? DateCollectionViewCell {
+            missionDateCell.setDateList(dateList)
+        }
+        
+        missionMenuCell.setFoldState(currentFoldState)
 
         return cell
     }
@@ -381,5 +382,10 @@ extension AddMissionViewController {
         default:
             return UICollectionViewCell()
         }
+    }
+    
+    private func setDateString(collectionView: UICollectionView) {
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DateCollectionViewCell.identifier, for: IndexPath(index: 0)) as? DateCollectionViewCell else { return }
+            cell.setDateList(dateList)
     }
 }
