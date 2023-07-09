@@ -359,6 +359,13 @@ extension AddMissionViewController: UICollectionViewDelegateFlowLayout {
         missionMenuCell.setFoldState(currentFoldState)
         addMissionCollectionView.collectionViewLayout.collectionView?.reloadItems(at: [indexPath])
     }
+    
+    func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
+        if indexPath.row == 0 && missionType == .update {
+            return false
+        }
+        return true
+    }
 }
 
 extension AddMissionViewController {
