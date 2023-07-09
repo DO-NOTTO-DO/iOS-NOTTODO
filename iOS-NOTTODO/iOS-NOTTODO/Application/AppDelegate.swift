@@ -26,12 +26,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         KakaoSDK.initSDK(appKey: Bundle.main.kakaoAPIKey)
         
         if KeychainUtil.getAccessToken() != "" {
-            // self.skipAuthView()
-            print("토큰유효!!!!!")
+            self.skipAuthView()
+            print("토큰 유효")
         } else {
             // self.showAuthView()
             // 토큰이 유효하지 않을 경우 일단은 온보딩->로그인->홈 이렇게만 가도록
-            print("토큰없넹!!!!!")
         }
         return true
     }

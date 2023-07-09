@@ -139,6 +139,7 @@ extension MyInfoViewController: UICollectionViewDelegate {
         case 0:
             AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.MyInfo.clickMyInfo)
             let nextViewController = MyInfoAccountViewController()
+            nextViewController.hidesBottomBarWhenPushed = false
             navigationController?.pushViewController(nextViewController, animated: true)
         case 1:
             switch indexPath.item {
