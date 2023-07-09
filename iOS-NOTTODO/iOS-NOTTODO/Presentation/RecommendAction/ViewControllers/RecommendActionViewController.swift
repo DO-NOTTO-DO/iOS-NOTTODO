@@ -7,12 +7,15 @@
 
 import UIKit
 
-class RecommendActionViewController: UIViewController {
+import SnapKit
+import Then
+
+final class RecommendActionViewController: UIViewController {
     
     // MARK: - Properties
     
-    var recommendActionResponse: RecommendActionResponseDTO?
-    var recommendActionList: [RecommendActions] = []
+    private var recommendActionResponse: RecommendActionResponseDTO?
+    private var recommendActionList: [RecommendActions] = []
     var selectedIndex: Int = 0
     var tagLabelText: String?
     var bodyImageUrl: UIImage?
@@ -81,7 +84,7 @@ private extension RecommendActionViewController {
         
         backButton.do {
             $0.setBackgroundImage(.back, for: .normal)
-            $0.addTarget(self, action: #selector(self.popViewController), for: .touchUpInside)
+            $0.addTarget(self, action: #selector(backButtonDidTapped), for: .touchUpInside)
         }
         
         navigationTitle.do {
@@ -132,13 +135,13 @@ private extension RecommendActionViewController {
         }
     }
     
-    private func layout() -> UICollectionViewFlowLayout {
+    func layout() -> UICollectionViewFlowLayout {
         let layout = UICollectionViewFlowLayout()
         layout.minimumLineSpacing = 11
         return layout
     }
     
-    private func register() {
+    func register() {
         recommendActionCollectionView.register(RecommendActionHeaderView.self,
                                                forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
                                                withReuseIdentifier: RecommendActionHeaderView.identifier)
@@ -164,6 +167,11 @@ private extension RecommendActionViewController {
             self?.recommendActionList = data.recommendActions
             self?.recommendActionCollectionView.reloadData()
         }
+    }
+    
+    @objc
+    func backButtonDidTapped() {
+        self.navigationController?.popViewController(animated: true)
     }
 }
 
