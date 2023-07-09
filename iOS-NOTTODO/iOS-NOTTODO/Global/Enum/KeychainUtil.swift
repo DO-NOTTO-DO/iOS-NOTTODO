@@ -27,8 +27,8 @@ public final class KeychainUtil {
     static func getAccessToken() -> String {
         UserDefaults.standard.string(forKey: DefaultKeys.accessToken) ?? ""
     }
-    static func getKakaoUsername() -> String {
-        UserDefaults.standard.string(forKey: DefaultKeys.kakaoName) ?? "익명의 도전자"
+    static func getKakaoNickname() -> String {
+        UserDefaults.standard.string(forKey: DefaultKeys.kakaoNickname) ?? "익명의 도전자"
     }
     static func getKakaoEmail() -> String {
         UserDefaults.standard.string(forKey: DefaultKeys.kakaoEmail) ?? "연동된 이메일 정보가 없습니다"
