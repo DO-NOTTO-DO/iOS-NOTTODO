@@ -10,10 +10,12 @@
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
-			<array/>
+			<array>
+				<string>kakaof06c671df540ff4a8f8275f453368748</string>
+			</array>
 		</dict>
 	</array>
-	<key>LSApplicatioonQueriesSchemes</key>
+	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>kakaokompassauth</string>
 		<string>kakaolink</string>
