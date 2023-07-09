@@ -15,7 +15,11 @@ final class DetailCalendarViewController: UIViewController {
     
     // MARK: - Properties
     
-    var anotherDate: [String] = []
+    var anotherDate: [String] = [] {
+        didSet {
+            updateUI()
+        }
+    }
     var invalidDate: [String] = []
     var dataSource: [String: Float] = [:]
     var detailModel: [MissionDetailResponseDTO] = []
@@ -24,7 +28,7 @@ final class DetailCalendarViewController: UIViewController {
     var movedateClosure: ((_ date: String) -> Void)?
     private lazy var safeArea = self.view.safeAreaLayoutGuide
     private lazy var today: Date = { return Date() }()
-    
+
     // MARK: - UI Components
     
     private let monthCalendar = CalendarView(calendarScope: .month, scrollDirection: .horizontal)
@@ -68,13 +72,6 @@ extension DetailCalendarViewController {
         completeButton.do {
             $0.setTitle(I18N.detailComplete, for: .normal)
             $0.titleLabel?.font = .Pretendard(.medium, size: 16)
-            if anotherDate.count == 0 {
-                $0.isEnabled = false
-                $0.setTitleColor(.gray4, for: .normal)
-            } else {
-                $0.isEnabled = true
-                $0.setTitleColor(.white, for: .normal)
-            }
             $0.addTarget(self, action: #selector(completeBtnTapped(sender:)), for: .touchUpInside)
         }
         monthCalendar.do {
@@ -86,6 +83,20 @@ extension DetailCalendarViewController {
             $0.text = I18N.subText
             $0.font = .Pretendard(.regular, size: 12)
             $0.textColor = .gray4
+        }
+        
+        updateUI()
+    }
+    
+    private func updateUI() {
+        completeButton.do {
+            if anotherDate.count == 0 {
+                $0.isEnabled = false
+                $0.setTitleColor(.gray4, for: .normal)
+            } else {
+                $0.isEnabled = true
+                $0.setTitleColor(.white, for: .normal)
+            }
         }
     }
     
@@ -123,7 +134,7 @@ extension DetailCalendarViewController {
     func completeBtnTapped(sender: UIButton) {
         if let id = self.userId {
             requestAddAnotherDay(id: id, dates: anotherDate)
-            AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.SelectDate.completeAddMissionAnotherDay(title: self.detailModel[0].title, situation: self.detailModel[0].situation, goal: self.detailModel[0].goal, action: self.detailModel[0].actions[0].name, date: anotherDate))
+            AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.SelectDate.completeAddMissionAnotherDay(title: self.detailModel[0].title, situation: self.detailModel[0].situation, goal: self.detailModel[0].goal, action: [self.detailModel[0].actions[0].name], date: anotherDate))
         }
     }
 }
@@ -153,23 +164,14 @@ extension DetailCalendarViewController: FSCalendarDelegate, FSCalendarDataSource
     }
     
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
-        let selectedDateString = Utils.dateFormatterString(format: "YYYY.MM.dd", date: date)
-        
-        if !anotherDate.contains(selectedDateString) {
-            anotherDate.append(selectedDateString)
-        } else {
-            anotherDate.removeAll { $0 == selectedDateString }
-        }
-        setUI()
+        anotherDate.append(Utils.dateFormatterString(format: "yyyy.MM.dd", date: date))
     }
     
     func calendar(_ calendar: FSCalendar, didDeselect date: Date, at monthPosition: FSCalendarMonthPosition) {
-        let selectedDateString = Utils.dateFormatterString(format: "YYYY.MM.dd", date: date)
-        
-        if anotherDate.contains(selectedDateString) {
-            anotherDate.removeAll { $0 == selectedDateString }
+        let selectDate = Utils.dateFormatterString(format: "yyyy.MM.dd", date: date)
+        if let index = anotherDate.firstIndex(of: selectDate) {
+            anotherDate.remove(at: index)
         }
-        setUI()
     }
     
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, fillDefaultColorFor date: Date) -> UIColor? {
@@ -207,6 +209,7 @@ extension DetailCalendarViewController {
                 }
             default:
                 self.showToast(message: self.htmlToString(response?.message ?? "")?.string ?? "", controller: self)
+                AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.SelectDate.appearMaxedIssueMessage)
             }
         }
     }
