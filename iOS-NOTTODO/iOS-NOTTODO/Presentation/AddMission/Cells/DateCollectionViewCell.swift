@@ -203,6 +203,7 @@ extension DateCollectionViewCell {
     
     func setDateList(_ dates: [String]) {
         dateList = dates
+        setCellData(dates)
     }
 }
 
