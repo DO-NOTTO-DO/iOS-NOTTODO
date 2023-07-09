@@ -20,7 +20,7 @@ enum LoginType {
 
 struct DefaultKeys {
     static let kakaoEmail = "kakaoEmail"
-    static let kakaoName = "kakaoName"
+    static let kakaoNickname = "kakaoNickname"
     static let appleEmail = "appleEmail"
     static let appleName = "appleName"
     static let isAppleLogin = "isAppleLogin"
