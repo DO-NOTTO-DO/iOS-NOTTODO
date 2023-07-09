@@ -39,6 +39,7 @@ final class AddMissionTextFieldView: UIView, textFiledDelegateProtocol {
     }
     
     func setText(_ text: String) {
+        textFieldData?(text)
         addMissionTextField.text = text
         textCountLabel.text = "\(text.count)/\(textMaxCount)"
     }
@@ -121,6 +122,7 @@ extension AddMissionTextFieldView: UITextFieldDelegate {
         guard let stringRange = Range(range, in: currentText) else { return false }
         let changeText = currentText.replacingCharacters(in: stringRange, with: string)
         textFieldUnderLineView.backgroundColor = changeText.count == 0 ? .gray3 : .white
+        textFieldData?(changeText)
         return changeText.count < textMaxCount + 1
     }
     
