@@ -223,10 +223,10 @@ extension AuthViewController {
             if let error = error {
                 print(error)
             } else {
-                let name = user?.kakaoAccount?.name
+                let nickname = user?.kakaoAccount?.profile?.nickname
                 let email = user?.kakaoAccount?.email
                 
-                KeychainUtil.setString(name, forKey: DefaultKeys.kakaoName)
+                KeychainUtil.setString(nickname, forKey: DefaultKeys.kakaoNickname)
                 KeychainUtil.setString(email, forKey: DefaultKeys.kakaoEmail)
                 KeychainUtil.setBool(false, forKey: DefaultKeys.isAppleLogin)
                 

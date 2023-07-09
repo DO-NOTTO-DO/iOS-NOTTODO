@@ -33,7 +33,7 @@ class MyInfoAccountViewController: UIViewController {
         AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.AccountInfo.viewAccountInfo)
         setUI()
         setLayout()
-        configure(model: MyInfoAccountModel(nickname: UserDefaults.standard.bool(forKey: DefaultKeys.isAppleLogin) ? KeychainUtil.getAppleUsername() : KeychainUtil.getKakaoUsername(), email: UserDefaults.standard.bool(forKey: DefaultKeys.isAppleLogin) ? KeychainUtil.getAppleEmail() : KeychainUtil.getKakaoEmail(), account: UserDefaults.standard.bool(forKey: DefaultKeys.isAppleLogin) ? "apple" : "kakao", notification: true))
+        configure(model: MyInfoAccountModel(nickname: UserDefaults.standard.bool(forKey: DefaultKeys.isAppleLogin) ? KeychainUtil.getAppleUsername() : KeychainUtil.getKakaoNickname(), email: UserDefaults.standard.bool(forKey: DefaultKeys.isAppleLogin) ? KeychainUtil.getAppleEmail() : KeychainUtil.getKakaoEmail(), account: UserDefaults.standard.bool(forKey: DefaultKeys.isAppleLogin) ? "apple" : "kakao", notification: true))
     }
 }
 
