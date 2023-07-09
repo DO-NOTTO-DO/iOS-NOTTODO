@@ -305,10 +305,10 @@ extension AddMissionViewController: UICollectionViewDataSource {
         let currentDateList = dateList
         
         if indexPath.row == 0 {
-            missionMenuCell.setCellData(currentDateList)
             missionMenuCell.missionTextData = { [weak self] string in
                 self?.dateList = string
             }
+            missionMenuCell.setCellData(dateList)
         } else {
             let currentCellInfo = nottodoInfoList[indexPath.row]
             missionMenuCell.missionTextData = { [weak self] string in
