@@ -60,10 +60,15 @@ final class DateCollectionViewCell: UICollectionViewCell, AddMissionMenu {
         contentView.layoutIfNeeded()
     }
     
-    func setCellData(_ text: [String]) {
-        let checkToday = text.first == Utils.dateFormatterString(format: "yyyy.MM.dd", date: today)
-        let checkTomorrow = text.first == Utils.dateFormatterString(format: "yyyy.MM.dd", date: tomorrow)
-        dateLabel.text = text.first
+    func setCellData(_ dateArray: [String]) {
+        let todayText = Utils.dateFormatterString(format: "yyyy.MM.dd", date: today)
+        let tomorrowText = Utils.dateFormatterString(format: "yyyy.MM.dd", date: tomorrow)
+        var dateArray = dateArray
+        let checkToday = dateArray.contains(todayText)
+        let checkTomorrow = dateArray.contains(tomorrowText)
+        
+        dateArray.sort(by: <)
+        dateLabel.text = dateArray.first
         
         if checkToday {
             dayLabel.text = I18N.today
@@ -74,10 +79,10 @@ final class DateCollectionViewCell: UICollectionViewCell, AddMissionMenu {
             paddingView.isHidden = !(checkToday && checkTomorrow)
         }
         
-        if text.count == 1 {
+        if dateArray.count == 1 {
             otherLabel.isHidden = true
         } else {
-            otherLabel.text = "외 \(text.count - 1)일"
+            otherLabel.text = "외 \(dateArray.count - 1)일"
         }
     }
 }

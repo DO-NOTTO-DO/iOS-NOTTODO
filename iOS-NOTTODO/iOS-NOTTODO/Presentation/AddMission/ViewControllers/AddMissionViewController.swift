@@ -315,7 +315,7 @@ extension AddMissionViewController: UICollectionViewDataSource {
             }
             missionMenuCell.setCellData([currentCellInfo])
         }
-        
+
         if let missionDateCell = cell as? DateCollectionViewCell {
             missionDateCell.setDateList(dateList)
         }
