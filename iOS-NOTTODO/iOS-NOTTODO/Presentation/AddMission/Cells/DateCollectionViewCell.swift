@@ -22,6 +22,7 @@ final class DateCollectionViewCell: UICollectionViewCell, AddMissionMenu {
     private lazy var today: Date = { return Date() }()
     private lazy var tomorrow = Calendar.current.date(byAdding: .day, value: 1, to: today)!
     private var dateList: [String] = []
+    private var missionType: MissionType?
     
     // MARK: - UI Components
     
@@ -88,15 +89,11 @@ extension DateCollectionViewCell {
         layer.cornerRadius = 12
         layer.borderWidth = 1
         calendarImage.image = .icCalendar
+        dayLabel.font = .Pretendard(.medium, size: 15)
         stackView.axis = .vertical
         foldStackView.do {
             $0.axis = .horizontal
             $0.distribution = .fill
-        }
-        
-        dayLabel.do {
-            $0.font = .Pretendard(.medium, size: 15)
-            $0.textColor = .white
         }
         
         dateLabel.do {
@@ -174,8 +171,9 @@ extension DateCollectionViewCell {
             $0.isHidden = isHidden
         }
         [dayLabel, dateLabel, calendarImage, otherLabel].forEach { $0.isHidden = !isHidden }
-        
         titleLabel.setTitleColor(isHidden)
+        
+        calendarImage.isHidden = missionType == .update
         
         backgroundColor = isHidden ? .clear : .gray1
         layer.borderColor = isHidden ? UIColor.gray2?.cgColor : UIColor.gray3?.cgColor
@@ -203,6 +201,13 @@ extension DateCollectionViewCell {
     
     func setDateList(_ dates: [String]) {
         dateList = dates
+    }
+    
+    func setMissionType(_ type: MissionType) {
+        missionType = type
+        [dayLabel, otherLabel].forEach {
+            $0.textColor = type == .update ? .gray4 : .white
+        }
     }
 }
 

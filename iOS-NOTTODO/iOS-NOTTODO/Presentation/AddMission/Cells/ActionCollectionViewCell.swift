@@ -69,13 +69,6 @@ final class ActionCollectionViewCell: UICollectionViewCell, AddMissionMenu {
             enterMessage.textColor = .white
             enterMessage.font = .Pretendard(.medium, size: 15)
         }
-        
-        if fold == .unfolded {
-            [checkImage, optionLabel].forEach { $0.isHidden = true }
-        } else {
-            checkImage.isHidden = text.first!.isEmpty
-            optionLabel.isHidden = !text.first!.isEmpty
-        }
         addMissionTextField.setText(text.first!)
     }
 }
@@ -176,7 +169,9 @@ extension ActionCollectionViewCell {
         
         [subTitleLabel, addMissionTextField, exampleLabel, exampleNottodo,
          exampleActionOne, exampleActionTwo].forEach { $0.isHidden = isHidden }
-        [enterMessage, optionLabel].forEach { $0.isHidden = !isHidden }
+        enterMessage.isHidden = !isHidden
+        checkImage.isHidden = !isHidden ? true : addMissionTextField.getTextFieldText().isEmpty
+        optionLabel.isHidden = !isHidden ? true : !addMissionTextField.getTextFieldText().isEmpty
         titleLabel.setTitleColor(isHidden)
         
         backgroundColor = isHidden ? .clear : .gray1

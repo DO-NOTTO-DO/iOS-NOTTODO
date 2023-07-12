@@ -115,6 +115,7 @@ extension AddMissionTextFieldView: UITextFieldDelegate {
     func textFieldDidChangeSelection(_ textField: UITextField) {
         guard let text = addMissionTextField.text else { return }
         textCountLabel.text = "\(text.count)/\(textMaxCount)"
+        textFieldData?(text)
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
@@ -122,7 +123,6 @@ extension AddMissionTextFieldView: UITextFieldDelegate {
         guard let stringRange = Range(range, in: currentText) else { return false }
         let changeText = currentText.replacingCharacters(in: stringRange, with: string)
         textFieldUnderLineView.backgroundColor = changeText.count == 0 ? .gray3 : .white
-        textFieldData?(changeText)
         return changeText.count < textMaxCount + 1
     }
     

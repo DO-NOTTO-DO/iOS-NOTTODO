@@ -74,13 +74,6 @@ final class GoalCollectionViewCell: UICollectionViewCell, AddMissionMenu {
             enterMessage.textColor = .white
             enterMessage.font = .Pretendard(.medium, size: 15)
         }
-        
-        if fold == .unfolded {
-            [checkImage, optionLabel].forEach { $0.isHidden = true }
-        } else {
-            checkImage.isHidden = text.first!.isEmpty
-            optionLabel.isHidden = !text.first!.isEmpty
-        }
         addMissionTextField.setText(text.first!)
     }
 }
@@ -102,7 +95,7 @@ private extension GoalCollectionViewCell {
         foldStackView.do {
             $0.axis = .horizontal
             $0.distribution = .fill
-            $0.spacing = 39
+            $0.spacing = 9
         }
         
         exampleLabel.do {
@@ -163,6 +156,10 @@ private extension GoalCollectionViewCell {
             $0.width.equalTo(186)
         }
         
+        foldStackView.do {
+            $0.setCustomSpacing(39, after: titleLabel)
+        }
+        
         stackView.do {
             $0.setCustomSpacing(10, after: foldStackView)
             $0.setCustomSpacing(25, after: subTitleLabel)
@@ -188,7 +185,9 @@ private extension GoalCollectionViewCell {
         let isHidden: Bool = (fold == .folded)
         
         [subTitleLabel, addMissionTextField, exampleLabel, nottodoStackView, goalStackView].forEach { $0.isHidden = isHidden }
-        [enterMessage, optionLabel].forEach { $0.isHidden = !isHidden }
+        enterMessage.isHidden = !isHidden
+        checkImage.isHidden = !isHidden ? true : addMissionTextField.getTextFieldText().isEmpty
+        optionLabel.isHidden = !isHidden ? true : !addMissionTextField.getTextFieldText().isEmpty
         titleLabel.setTitleColor(isHidden)
         
         backgroundColor = isHidden ? .clear : .gray1

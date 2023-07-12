@@ -69,7 +69,6 @@ final class NottodoCollectionViewCell: UICollectionViewCell, AddMissionMenu {
             enterMessage.textColor = .white
             enterMessage.font = .Pretendard(.medium, size: 15)
         }
-        checkImage.isHidden = text.first!.isEmpty || fold == .unfolded
         addMissionTextField.setText(text.first!)
     }
 }
@@ -148,6 +147,7 @@ extension NottodoCollectionViewCell {
         
         [subTitleLabel, addMissionTextField, historyLabel, historyCollectionView].forEach { $0.isHidden = isHidden }
         enterMessage.isHidden = !isHidden
+        checkImage.isHidden = !isHidden ? true : addMissionTextField.getTextFieldText().isEmpty
         titleLabel.setTitleColor(isHidden)
         
         backgroundColor = isHidden ? .clear : .gray1
