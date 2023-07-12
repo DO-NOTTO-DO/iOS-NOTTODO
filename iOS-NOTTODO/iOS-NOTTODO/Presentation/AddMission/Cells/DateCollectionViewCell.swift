@@ -79,9 +79,8 @@ final class DateCollectionViewCell: UICollectionViewCell, AddMissionMenu {
             paddingView.isHidden = !(checkToday && checkTomorrow)
         }
         
-        if dateArray.count == 1 {
-            otherLabel.isHidden = true
-        } else {
+        otherLabel.isHidden = dateArray.count == 1 ? true : false
+        if dateArray.count > 1 {
             otherLabel.text = "외 \(dateArray.count - 1)일"
         }
     }
