@@ -52,7 +52,7 @@ final class AddMissionViewController: UIViewController {
     
     private lazy var addMissionCollectionView = UICollectionView(frame: .zero,
                                                                  collectionViewLayout: layout())
-
+    
     // MARK: - Life Cycle
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -302,7 +302,6 @@ extension AddMissionViewController: UICollectionViewDataSource {
         }
         
         let currentFoldState = foldStateList[indexPath.row]
-        let currentDateList = dateList
         
         if indexPath.row == 0 {
             missionMenuCell.missionTextData = { [weak self] string in
@@ -316,13 +315,13 @@ extension AddMissionViewController: UICollectionViewDataSource {
             }
             missionMenuCell.setCellData([currentCellInfo])
         }
-
+        
         if let missionDateCell = cell as? DateCollectionViewCell {
             missionDateCell.setDateList(dateList)
         }
         
         missionMenuCell.setFoldState(currentFoldState)
-
+        
         return cell
     }
 }
@@ -331,7 +330,7 @@ extension AddMissionViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let cellWidth: CGFloat = UIScreen.main.bounds.width - 40
         let height = heightList[indexPath.row]
-
+        
         return CGSize(width: cellWidth, height: height)
     }
     
@@ -373,6 +372,9 @@ extension AddMissionViewController {
         switch indexPath.row {
         case 0:
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DateCollectionViewCell.identifier, for: indexPath) as? DateCollectionViewCell else { return UICollectionViewCell() }
+            if let missionType = self.missionType {
+                cell.setMissionType(missionType)
+            }
             return cell
         case 1:
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NottodoCollectionViewCell.identifier, for: indexPath) as? NottodoCollectionViewCell else { return UICollectionViewCell() }
@@ -392,7 +394,7 @@ extension AddMissionViewController {
     }
     
     private func setDateString(collectionView: UICollectionView) {
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DateCollectionViewCell.identifier, for: IndexPath(index: 0)) as? DateCollectionViewCell else { return }
-            cell.setDateList(dateList)
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DateCollectionViewCell.identifier, for: IndexPath(index: 0)) as? DateCollectionViewCell else { return }
+        cell.setDateList(dateList)
     }
 }

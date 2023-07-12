@@ -95,7 +95,7 @@ private extension GoalCollectionViewCell {
         foldStackView.do {
             $0.axis = .horizontal
             $0.distribution = .fill
-            $0.spacing = 5
+            $0.spacing = 9
         }
         
         exampleLabel.do {
