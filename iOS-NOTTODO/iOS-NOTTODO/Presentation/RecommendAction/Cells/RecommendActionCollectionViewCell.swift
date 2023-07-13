@@ -25,7 +25,6 @@ class RecommendActionCollectionViewCell: UICollectionViewCell {
 
     // MARK: - UI Components
     
-    private let dotIcon = UIImageView()
     let titleLabel = UILabel()
     let bodyLabel = UILabel()
     private let checkIcon = UIImageView()
@@ -54,18 +53,17 @@ extension RecommendActionCollectionViewCell {
         contentView.layer.cornerRadius = 10
         contentView.layer.borderWidth = 1
         contentView.layer.borderColor = UIColor.clear.cgColor
-        dotIcon.image = .dot
         
         titleLabel.do {
             $0.font = .Pretendard(.regular, size: 15)
-            $0.textColor = .gray4
+            $0.textColor = .white
         }
         
-//        bodyLabel.do {
-//            $0.font = .Pretendard(.regular, size: 12)
-//            $0.textColor = .gray4
-//            $0.numberOfLines = 0
-//        }
+        bodyLabel.do {
+            $0.font = .Pretendard(.regular, size: 12)
+            $0.textColor = .gray4
+            $0.numberOfLines = 0
+        }
         
         checkIcon.do {
             $0.image = .icChecked
@@ -74,23 +72,18 @@ extension RecommendActionCollectionViewCell {
     }
     
     private func setLayout() {
-        contentView.addSubviews(dotIcon, titleLabel, checkIcon)
+        contentView.addSubviews(titleLabel, bodyLabel, checkIcon)
         
-        dotIcon.snp.makeConstraints {
+        titleLabel.snp.makeConstraints {
             $0.centerY.equalToSuperview()
             $0.leading.equalToSuperview().offset(16)
         }
         
-        titleLabel.snp.makeConstraints {
-            $0.centerY.equalTo(dotIcon.snp.centerY)
-            $0.leading.equalTo(dotIcon.snp.leading).offset(8)
+        bodyLabel.snp.makeConstraints {
+            $0.top.equalTo(titleLabel.snp.bottom).offset(7)
+            $0.leading.equalTo(titleLabel.snp.leading)
+            $0.trailing.equalToSuperview().offset(-40)
         }
-        
-//        bodyLabel.snp.makeConstraints {
-//            $0.top.equalTo(titleLabel.snp.bottom).offset(7)
-//            $0.leading.equalTo(titleLabel.snp.leading)
-//            $0.trailing.equalToSuperview().offset(-40)
-//        }
         
         checkIcon.snp.makeConstraints {
             $0.centerY.equalToSuperview()
@@ -100,5 +93,6 @@ extension RecommendActionCollectionViewCell {
     
     func configure(model: RecommendActions) {
         titleLabel.text = model.name
+        bodyLabel.text = model.description
     }
 }

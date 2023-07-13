@@ -15,4 +15,5 @@ struct RecommendActionResponseDTO: Codable {
 
 struct RecommendActions: Codable {
     let name: String
+    let description: String
 }
