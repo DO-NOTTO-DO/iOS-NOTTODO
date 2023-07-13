@@ -18,7 +18,6 @@ class RecommendActionCollectionViewCell: UICollectionViewCell {
     override var isSelected: Bool {
         didSet {
             contentView.layer.borderColor = isSelected ? UIColor.gray3?.cgColor : UIColor.clear.cgColor
-            titleLabel.textColor = isSelected ? .white : .gray4
             checkIcon.isHidden = isSelected ? false : true
         }
     }
@@ -75,14 +74,15 @@ extension RecommendActionCollectionViewCell {
         contentView.addSubviews(titleLabel, bodyLabel, checkIcon)
         
         titleLabel.snp.makeConstraints {
-            $0.centerY.equalToSuperview()
+            $0.top.equalToSuperview().offset(16)
             $0.leading.equalToSuperview().offset(16)
         }
         
         bodyLabel.snp.makeConstraints {
             $0.top.equalTo(titleLabel.snp.bottom).offset(7)
             $0.leading.equalTo(titleLabel.snp.leading)
-            $0.trailing.equalToSuperview().offset(-80)
+            $0.trailing.equalToSuperview().offset(-16)
+            $0.bottom.equalToSuperview().offset(-16)
         }
         
         checkIcon.snp.makeConstraints {
@@ -93,6 +93,6 @@ extension RecommendActionCollectionViewCell {
     
     func configure(model: RecommendActions) {
         titleLabel.text = model.name
-        bodyLabel.text = model.description
+        bodyLabel.text = model.description == nil ? "" : model.description
     }
 }

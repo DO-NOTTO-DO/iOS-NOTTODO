@@ -180,10 +180,8 @@ extension RecommendActionViewController: UICollectionViewDelegateFlowLayout {
         guard let cell = recommendActionCollectionView.dequeueReusableCell(withReuseIdentifier: RecommendActionCollectionViewCell.identifier, for: indexPath) as? RecommendActionCollectionViewCell else {
             return .zero
         }
-        cell.titleLabel.text = recommendActionList[indexPath.row].name
-        cell.titleLabel.sizeToFit()
         
-        let cellHeight = cell.bodyLabel.frame.height + 56
+        var cellHeight = cell.bodyLabel.frame.height + 80
         
         return CGSize(width: collectionView.bounds.width - 30, height: cellHeight)
     }
