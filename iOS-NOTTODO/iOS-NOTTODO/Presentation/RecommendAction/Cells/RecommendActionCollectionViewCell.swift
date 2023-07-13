@@ -82,12 +82,12 @@ extension RecommendActionCollectionViewCell {
         bodyLabel.snp.makeConstraints {
             $0.top.equalTo(titleLabel.snp.bottom).offset(7)
             $0.leading.equalTo(titleLabel.snp.leading)
-            $0.trailing.equalToSuperview().offset(-40)
+            $0.trailing.equalToSuperview().offset(-80)
         }
         
         checkIcon.snp.makeConstraints {
             $0.centerY.equalToSuperview()
-            $0.trailing.equalToSuperview().offset(-17)
+            $0.trailing.equalToSuperview().offset(-27)
         }
     }
     
