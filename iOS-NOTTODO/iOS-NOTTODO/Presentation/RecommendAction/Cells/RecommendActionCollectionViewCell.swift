@@ -18,14 +18,13 @@ class RecommendActionCollectionViewCell: UICollectionViewCell {
     override var isSelected: Bool {
         didSet {
             contentView.layer.borderColor = isSelected ? UIColor.gray3?.cgColor : UIColor.clear.cgColor
-            titleLabel.textColor = isSelected ? .white : .gray4
             checkIcon.isHidden = isSelected ? false : true
         }
     }
 
     // MARK: - UI Components
     
-    private let dotIcon = UIImageView()
+    private let stackView = UIStackView()
     let titleLabel = UILabel()
     let bodyLabel = UILabel()
     private let checkIcon = UIImageView()
@@ -54,18 +53,18 @@ extension RecommendActionCollectionViewCell {
         contentView.layer.cornerRadius = 10
         contentView.layer.borderWidth = 1
         contentView.layer.borderColor = UIColor.clear.cgColor
-        dotIcon.image = .dot
+        stackView.axis = .vertical
         
         titleLabel.do {
             $0.font = .Pretendard(.regular, size: 15)
-            $0.textColor = .gray4
+            $0.textColor = .white
         }
         
-//        bodyLabel.do {
-//            $0.font = .Pretendard(.regular, size: 12)
-//            $0.textColor = .gray4
-//            $0.numberOfLines = 0
-//        }
+        bodyLabel.do {
+            $0.font = .Pretendard(.regular, size: 12)
+            $0.textColor = .gray4
+            $0.numberOfLines = 0
+        }
         
         checkIcon.do {
             $0.image = .icChecked
@@ -74,31 +73,27 @@ extension RecommendActionCollectionViewCell {
     }
     
     private func setLayout() {
-        contentView.addSubviews(dotIcon, titleLabel, checkIcon)
+        stackView.addArrangedSubviews(titleLabel, bodyLabel)
+        contentView.addSubviews(stackView, checkIcon)
         
-        dotIcon.snp.makeConstraints {
-            $0.centerY.equalToSuperview()
-            $0.leading.equalToSuperview().offset(16)
+        stackView.snp.makeConstraints {
+            $0.top.equalToSuperview().inset(16)
+            $0.leading.trailing.equalToSuperview().inset(16)
         }
         
-        titleLabel.snp.makeConstraints {
-            $0.centerY.equalTo(dotIcon.snp.centerY)
-            $0.leading.equalTo(dotIcon.snp.leading).offset(8)
+        stackView.do {
+            $0.setCustomSpacing(7, after: titleLabel)
+            $0.setCustomSpacing(16, after: bodyLabel)
         }
-        
-//        bodyLabel.snp.makeConstraints {
-//            $0.top.equalTo(titleLabel.snp.bottom).offset(7)
-//            $0.leading.equalTo(titleLabel.snp.leading)
-//            $0.trailing.equalToSuperview().offset(-40)
-//        }
-        
+                
         checkIcon.snp.makeConstraints {
             $0.centerY.equalToSuperview()
-            $0.trailing.equalToSuperview().offset(-17)
+            $0.trailing.equalToSuperview().offset(-16)
         }
     }
     
     func configure(model: RecommendActions) {
         titleLabel.text = model.name
+        bodyLabel.text = model.description == nil ? "" : model.description
     }
 }

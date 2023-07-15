@@ -180,10 +180,15 @@ extension RecommendActionViewController: UICollectionViewDelegateFlowLayout {
         guard let cell = recommendActionCollectionView.dequeueReusableCell(withReuseIdentifier: RecommendActionCollectionViewCell.identifier, for: indexPath) as? RecommendActionCollectionViewCell else {
             return .zero
         }
-        cell.titleLabel.text = recommendActionList[indexPath.row].name
-        cell.titleLabel.sizeToFit()
         
-        let cellHeight = cell.bodyLabel.frame.height + 56
+        cell.bodyLabel.text = recommendActionList[indexPath.row].description
+        cell.bodyLabel.sizeToFit()
+        
+        var cellHeight = cell.bodyLabel.frame.height + 56
+        
+        if cell.bodyLabel.text == nil {
+            cellHeight = 49
+        }
         
         return CGSize(width: collectionView.bounds.width - 30, height: cellHeight)
     }
@@ -196,7 +201,7 @@ extension RecommendActionViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout,
                         referenceSizeForHeaderInSection section: Int) -> CGSize {
         let width = collectionView.frame.width
-        return CGSize(width: width, height: 260)
+        return CGSize(width: width, height: 227)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {

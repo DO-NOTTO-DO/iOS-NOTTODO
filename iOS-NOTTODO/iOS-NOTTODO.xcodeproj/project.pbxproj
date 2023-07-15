@@ -148,7 +148,6 @@
 		6CD4F8BA29AA493600CCC740 /* RecommendActionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CD4F8B929AA493600CCC740 /* RecommendActionHeaderView.swift */; };
 		6CD4F8BC29AA494300CCC740 /* RecommendActionFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CD4F8BB29AA494300CCC740 /* RecommendActionFooterView.swift */; };
 		6CD4F8BE29AA495900CCC740 /* RecommendActionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CD4F8BD29AA495900CCC740 /* RecommendActionCollectionViewCell.swift */; };
-		6CD4F8C029AA497A00CCC740 /* RecommendActionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CD4F8BF29AA497A00CCC740 /* RecommendActionModel.swift */; };
 		6CD4F8C229AA5AF200CCC740 /* UIButton+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CD4F8C129AA5AF200CCC740 /* UIButton+.swift */; };
 		6CF4705B29A68EA9008D145C /* URLConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CF4705A29A68EA9008D145C /* URLConstant.swift */; };
 		6CF4705D29A68F5C008D145C /* NetworkLoggerPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CF4705C29A68F5C008D145C /* NetworkLoggerPlugin.swift */; };
@@ -160,7 +159,6 @@
 		6CF4706D29A739D9008D145C /* RecommendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CF4706C29A739D9008D145C /* RecommendViewController.swift */; };
 		6CF4707029A73A15008D145C /* RecommendActionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CF4706F29A73A15008D145C /* RecommendActionViewController.swift */; };
 		6CF4707429A73D4C008D145C /* RecommendCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CF4707329A73D4C008D145C /* RecommendCollectionViewCell.swift */; };
-		6CF4707629A73D62008D145C /* RecommendModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CF4707529A73D62008D145C /* RecommendModel.swift */; };
 		6CF4707A29A7AAFF008D145C /* PaddingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CF4707929A7AAFF008D145C /* PaddingLabel.swift */; };
 /* End PBXBuildFile section */
 
@@ -293,7 +291,6 @@
 		6CD4F8B929AA493600CCC740 /* RecommendActionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendActionHeaderView.swift; sourceTree = "<group>"; };
 		6CD4F8BB29AA494300CCC740 /* RecommendActionFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendActionFooterView.swift; sourceTree = "<group>"; };
 		6CD4F8BD29AA495900CCC740 /* RecommendActionCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendActionCollectionViewCell.swift; sourceTree = "<group>"; };
-		6CD4F8BF29AA497A00CCC740 /* RecommendActionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendActionModel.swift; sourceTree = "<group>"; };
 		6CD4F8C129AA5AF200CCC740 /* UIButton+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+.swift"; sourceTree = "<group>"; };
 		6CF4705829A60A79008D145C /* iOS-NOTTODO.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "iOS-NOTTODO.entitlements"; sourceTree = "<group>"; };
 		6CF4705A29A68EA9008D145C /* URLConstant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLConstant.swift; sourceTree = "<group>"; };
@@ -306,7 +303,6 @@
 		6CF4706C29A739D9008D145C /* RecommendViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendViewController.swift; sourceTree = "<group>"; };
 		6CF4706F29A73A15008D145C /* RecommendActionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendActionViewController.swift; sourceTree = "<group>"; };
 		6CF4707329A73D4C008D145C /* RecommendCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendCollectionViewCell.swift; sourceTree = "<group>"; };
-		6CF4707529A73D62008D145C /* RecommendModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendModel.swift; sourceTree = "<group>"; };
 		6CF4707929A7AAFF008D145C /* PaddingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddingLabel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -1008,7 +1004,6 @@
 			isa = PBXGroup;
 			children = (
 				6CD4F8B629AA48F500CCC740 /* Cells */,
-				6CD4F8B729AA48F900CCC740 /* Models */,
 				6CD4F8B829AA490300CCC740 /* ViewControllers */,
 			);
 			path = RecommendAction;
@@ -1022,14 +1017,6 @@
 				6CD4F8BD29AA495900CCC740 /* RecommendActionCollectionViewCell.swift */,
 			);
 			path = Cells;
-			sourceTree = "<group>";
-		};
-		6CD4F8B729AA48F900CCC740 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				6CD4F8BF29AA497A00CCC740 /* RecommendActionModel.swift */,
-			);
-			path = Models;
 			sourceTree = "<group>";
 		};
 		6CD4F8B829AA490300CCC740 /* ViewControllers */ = {
@@ -1065,7 +1052,6 @@
 			isa = PBXGroup;
 			children = (
 				6CF4707229A73D17008D145C /* Cells */,
-				6CF4707129A73CFD008D145C /* Models */,
 				6CF4706E29A739DE008D145C /* ViewControllers */,
 			);
 			path = Recommend;
@@ -1077,14 +1063,6 @@
 				6CF4706C29A739D9008D145C /* RecommendViewController.swift */,
 			);
 			path = ViewControllers;
-			sourceTree = "<group>";
-		};
-		6CF4707129A73CFD008D145C /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				6CF4707529A73D62008D145C /* RecommendModel.swift */,
-			);
-			path = Models;
 			sourceTree = "<group>";
 		};
 		6CF4707229A73D17008D145C /* Cells */ = {
@@ -1286,8 +1264,6 @@
 				09022D4629C44BC300DE6E49 /* MissionCalendarCell.swift in Sources */,
 				6CA2083A2A195906001C4247 /* AuthResponseDTO.swift in Sources */,
 				09582B4B29BDE37C00EF3207 /* DetailFooterReusableView.swift in Sources */,
-				6CF4707629A73D62008D145C /* RecommendModel.swift in Sources */,
-				6CD4F8C029AA497A00CCC740 /* RecommendActionModel.swift in Sources */,
 				093DB03F2A15FCC100ECA5F6 /* MissionDetailResponseDTO.swift in Sources */,
 				6CF4705B29A68EA9008D145C /* URLConstant.swift in Sources */,
 				3BD3B5C829B8F82C00D3575B /* AddMissionTextFieldView.swift in Sources */,

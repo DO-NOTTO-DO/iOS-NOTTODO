@@ -66,21 +66,21 @@ extension RecommendActionHeaderView {
         
         recommendLabel.do {
             $0.text = I18N.recommendAction
-            $0.font = .Pretendard(.semiBold, size: 18)
+            $0.font = .Pretendard(.semiBold, size: 20)
             $0.textColor = .white
         }
         
         recommendSubLabel.do {
             $0.text = I18N.recommendActionSub
-            $0.font = .Pretendard(.regular, size: 15)
+            $0.font = .Pretendard(.regular, size: 13)
             $0.textColor = .gray4
         }
     }
     
     private func setLayout() {
         addSubviews(topView, arrowIcon, infoView)
-        infoView.addSubviews(recommendLabel, infoIcon, recommendSubLabel)
         topView.addSubviews(tagLabel, titleLabel, bodyImage)
+        infoView.addSubviews(recommendLabel, infoIcon, recommendSubLabel)
         
         topView.snp.makeConstraints {
             $0.top.leading.trailing.equalToSuperview()
@@ -90,7 +90,7 @@ extension RecommendActionHeaderView {
         infoView.snp.makeConstraints {
             $0.top.equalTo(topView.snp.bottom)
             $0.leading.trailing.equalToSuperview()
-            $0.height.equalTo(138)
+            $0.height.equalTo(105)
         }
         
         tagLabel.snp.makeConstraints {
@@ -115,8 +115,8 @@ extension RecommendActionHeaderView {
         }
         
         recommendLabel.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(47)
-            $0.leading.equalToSuperview().offset(28)
+            $0.top.equalToSuperview().offset(45)
+            $0.leading.equalToSuperview().offset(34)
         }
         
         infoIcon.snp.makeConstraints {
@@ -131,7 +131,6 @@ extension RecommendActionHeaderView {
     }
     
     func configure(tag: String?, title: String?, image: UIImage?) {
-        // titleLabel.text = model.title
         self.tagLabel.text = tag
         self.bodyImage.image = image
         self.titleLabel.text = title
