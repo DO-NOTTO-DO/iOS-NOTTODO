@@ -104,6 +104,7 @@
 		3B5F8F8129BF90190063A7F8 /* NottodoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5F8F8029BF90190063A7F8 /* NottodoCollectionViewCell.swift */; };
 		3B5F8F8329BF90290063A7F8 /* SituationCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5F8F8229BF90290063A7F8 /* SituationCollectionViewCell.swift */; };
 		3B5F8F8929BF9EFE0063A7F8 /* AddMissionLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5F8F8829BF9EFE0063A7F8 /* AddMissionLabel.swift */; };
+		3B710A5C2A62D4AB00E95620 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 3B710A5B2A62D4AB00E95620 /* Settings.bundle */; };
 		3B892AB82A2FBBAD00A316BC /* AddMissionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B892AB72A2FBBAD00A316BC /* AddMissionService.swift */; };
 		3B892ABB2A2FBD4C00A316BC /* RecommendSituationResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B892ABA2A2FBD4C00A316BC /* RecommendSituationResponseDTO.swift */; };
 		3B892ABE2A2FBDDE00A316BC /* AddMissionAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B892ABD2A2FBDDE00A316BC /* AddMissionAPI.swift */; };
@@ -257,6 +258,7 @@
 		3B5F8F8029BF90190063A7F8 /* NottodoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NottodoCollectionViewCell.swift; sourceTree = "<group>"; };
 		3B5F8F8229BF90290063A7F8 /* SituationCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SituationCollectionViewCell.swift; sourceTree = "<group>"; };
 		3B5F8F8829BF9EFE0063A7F8 /* AddMissionLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMissionLabel.swift; sourceTree = "<group>"; };
+		3B710A5B2A62D4AB00E95620 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		3B892AB72A2FBBAD00A316BC /* AddMissionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMissionService.swift; sourceTree = "<group>"; };
 		3B892ABA2A2FBD4C00A316BC /* RecommendSituationResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendSituationResponseDTO.swift; sourceTree = "<group>"; };
 		3B892ABD2A2FBDDE00A316BC /* AddMissionAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMissionAPI.swift; sourceTree = "<group>"; };
@@ -580,6 +582,7 @@
 		3B027A6B299C31B500BEB65C = {
 			isa = PBXGroup;
 			children = (
+				3B710A5B2A62D4AB00E95620 /* Settings.bundle */,
 				3BDE6157299EDD02001CCEA9 /* .swiftlint.yml */,
 				3B027A76299C31B500BEB65C /* iOS-NOTTODO */,
 				3B027A75299C31B500BEB65C /* Products */,
@@ -1187,6 +1190,7 @@
 				3B4E12FA2A27C4DD001D1EC1 /* Pretendard-Bold.otf in Resources */,
 				3B146D9C299D07D500B17B62 /* Pretendard-Regular.otf in Resources */,
 				3B146D9E299D081400B17B62 /* Pretendard-SemiBold.otf in Resources */,
+				3B710A5C2A62D4AB00E95620 /* Settings.bundle in Resources */,
 				3B027A84299C31B600BEB65C /* LaunchScreen.storyboard in Resources */,
 				6CC54C1A2A28C3AE00AAD76D /* value.json in Resources */,
 				6C049A312A595C670085E40B /* logo.mp4 in Resources */,
@@ -1505,7 +1509,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.0.8;
+				MARKETING_VERSION = 0.0.9;
 				PRODUCT_BUNDLE_IDENTIFIER = "nottodo.iOS-NOTTODO";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1538,7 +1542,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.0.8;
+				MARKETING_VERSION = 0.0.9;
 				PRODUCT_BUNDLE_IDENTIFIER = "nottodo.iOS-NOTTODO";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

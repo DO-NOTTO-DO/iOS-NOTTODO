@@ -29,8 +29,7 @@ struct InfoModelThree: Hashable {
 extension InfoModelThree {
     static let items: [InfoModelThree] = [InfoModelThree(title: "공지사항"),
                                           InfoModelThree(title: "문의하기"),
-                                          InfoModelThree(title: "약관 및 정책"),
-                                          InfoModelThree(title: "오픈소스 라이선스")
+                                          InfoModelThree(title: "약관 및 정책")
     ]
 }
 
