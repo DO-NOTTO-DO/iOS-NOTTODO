@@ -80,10 +80,10 @@ final class DateCollectionViewCell: UICollectionViewCell, AddMissionMenu {
         } else if checkTomorrow {
             dayLabel.text = I18N.tomorrow
         } else {
-            dayLabel.isHidden = checkToday && checkTomorrow
-            paddingView.isHidden = !(checkToday && checkTomorrow)
+            dayLabel.isHidden = checkToday || checkTomorrow
         }
         
+        paddingView.isHidden = !(checkToday || checkTomorrow)
         otherLabel.isHidden = dateArray.count == 1 ? true : false
         if dateArray.count > 1 {
             otherLabel.text = "외 \(dateArray.count - 1)일"
