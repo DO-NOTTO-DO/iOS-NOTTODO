@@ -116,7 +116,7 @@ private extension GoalCollectionViewCell {
         }
         
         exampleNottodoLabel.do {
-            $0.text = I18N.exampleNottodo
+            $0.text = I18N.exampleGoalNottodo
             $0.textColor = .bg
             $0.font = .Pretendard(.medium, size: 14)
         }

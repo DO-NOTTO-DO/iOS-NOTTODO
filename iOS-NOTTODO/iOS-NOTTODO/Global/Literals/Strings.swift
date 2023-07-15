@@ -39,7 +39,7 @@ struct I18N {
     
     /// Home Empty
     
-    static let emptyTitle = "새로운 낫투두를 추가하고\n오늘 하루를 더 잘 살아보세요!"
+    static let emptyTitle = "새로운 낫투두를 추가하고\n목표 달성을 위한 환경을 만들어보세요!"
     static let todayButton = "오늘"
     static let yearMonthTitle = "YYYY년 MM월"
     static let weekDay = ["일", "월", "화", "수", "목", "금", "토"]
@@ -47,7 +47,7 @@ struct I18N {
     /// Achievement
     
     static let achievement = "성취"
-    static let total = "SNS에 오늘의 낫투두를 공유하고\n낫투더들과 이야기 나눠보세요."
+    static let total = "<매달 낫투두 성취 공유하고 선물받자!>\n인스타 @nottodo_official을 확인해주세요 :)"
     
     /// Detail
     
@@ -65,29 +65,32 @@ struct I18N {
     static let date = "날짜"
     static let nottodo = "낫투두"
     static let situation = "상황"
-    static let doAction = "실천행동"
+    static let doAction = "실천방법"
     static let goal = "목표"
-    static let action = "행동"
+    static let action = "방법"
     static let subDateTitle = "언제 낫투두를 실천할까요?"
-    static let subNottodo = "어떤 낫투두를 설정해볼까요?"
+    static let subNottodo = "어떤 낫투두를 실천할까요?"
+    static let nottodoPlaceholder = "낫투두는 ‘~않기'로 작성하면 더 쉬워요."
     static let subSituation = """
-                            어떤 상황에서
-                            낫투두를 실천하고 싶나요?
+                            위 낫투두를
+                            어떤 상황에서 실천할까요?
                             """
     static let subAction = """
-                        낫투두를 이루기 위해서
-                        어떤 행동이 필요한가요?
+                        어떤 방법으로
+                        낫투두에 도전할까요?
                         """
     static let subGoal = """
                         낫투두를 통해서
                         어떤 목표를 이루려 하나요?
                         """
     static let missionHistoryLabel = "낫투두 입력 기록"
-    static let recommendKeyword = "추천 키워드"
+    static let recommendKeyword = "추천 상황"
     static let example = "예시)"
-    static let exampleNottodo = "유튜브 보지 않기"
-    static let exampleGoal = "유튜브 프리미엄 구독 취소"
-    static let exampleAction = "공부 중에 가방 안에 핸드폰 넣기"
+    static let exampleNottodo = "낫투두 - 유튜브 보지 않기"
+    static let exampleAction1 = "실천방법 - 유튜브 프리미엄 구독 취소"
+    static let exampleAction2 = "실천방법 - 공부 중에 가방 안에 핸드폰 넣기"
+    static let exampleGoalNottodo = "운동 중 20분 이상 쉬지 않기"
+    static let exampleGoal = "근손실 막고 근육량 늘리기"
     static let dateWarning = "*달성 가능한 계획을 위해 다가올 일주일만 선택할 수 있어요"
     static let tipMessage = """
                           실천방법과 목표를 입력하면
