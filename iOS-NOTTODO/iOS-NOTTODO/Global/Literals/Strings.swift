@@ -70,6 +70,7 @@ struct I18N {
     static let action = "방법"
     static let subDateTitle = "언제 낫투두를 실천할까요?"
     static let subNottodo = "어떤 낫투두를 실천할까요?"
+    static let nottodoPlaceholder = "낫투두는 ‘~않기'로 작성하면 더 쉬워요."
     static let subSituation = """
                             위 낫투두를
                             어떤 상황에서 실천할까요?
