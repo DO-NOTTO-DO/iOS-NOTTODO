@@ -23,6 +23,7 @@ final class DateCollectionViewCell: UICollectionViewCell, AddMissionMenu {
     private lazy var tomorrow = Calendar.current.date(byAdding: .day, value: 1, to: today)!
     private var dateList: [String] = []
     private var missionType: MissionType?
+    private var deviceWidth = UIScreen.main.bounds.width
     
     // MARK: - UI Components
     
@@ -55,7 +56,11 @@ final class DateCollectionViewCell: UICollectionViewCell, AddMissionMenu {
     
     func setFoldState(_ state: FoldState) {
         fold = state
-        missionCellHeight?(state == .folded ? 54 : 470)
+        
+        let deviceWidth = UIScreen.main.bounds.width
+        let cellWidth = deviceWidth * (345/375)
+        let cellHeight = cellWidth * (470/345)
+        missionCellHeight?(state == .folded ? 54 : cellHeight)
         updateUI()
         contentView.layoutIfNeeded()
     }
@@ -75,10 +80,10 @@ final class DateCollectionViewCell: UICollectionViewCell, AddMissionMenu {
         } else if checkTomorrow {
             dayLabel.text = I18N.tomorrow
         } else {
-            dayLabel.isHidden = checkToday && checkTomorrow
-            paddingView.isHidden = !(checkToday && checkTomorrow)
+            dayLabel.isHidden = checkToday || checkTomorrow
         }
         
+        paddingView.isHidden = !(checkToday || checkTomorrow)
         otherLabel.isHidden = dateArray.count == 1 ? true : false
         if dateArray.count > 1 {
             otherLabel.text = "외 \(dateArray.count - 1)일"
@@ -112,7 +117,7 @@ extension DateCollectionViewCell {
         
         warningLabel.do {
             $0.text = I18N.dateWarning
-            $0.font = .Pretendard(.regular, size: 13)
+            $0.font = .Pretendard(.regular, size: 12)
             $0.textColor = .gray4
             $0.numberOfLines = 0
         }
@@ -177,7 +182,7 @@ extension DateCollectionViewCell {
         [dayLabel, dateLabel, calendarImage, otherLabel].forEach { $0.isHidden = !isHidden }
         titleLabel.setTitleColor(isHidden)
         
-        calendarImage.isHidden = missionType == .update
+        calendarImage.isHidden = missionType == .update || !isHidden
         
         backgroundColor = isHidden ? .clear : .gray1
         layer.borderColor = isHidden ? UIColor.gray2?.cgColor : UIColor.gray3?.cgColor
