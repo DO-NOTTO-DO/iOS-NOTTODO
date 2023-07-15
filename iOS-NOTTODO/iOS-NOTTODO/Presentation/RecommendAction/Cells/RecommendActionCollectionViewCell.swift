@@ -24,6 +24,7 @@ class RecommendActionCollectionViewCell: UICollectionViewCell {
 
     // MARK: - UI Components
     
+    private let stackView = UIStackView()
     let titleLabel = UILabel()
     let bodyLabel = UILabel()
     private let checkIcon = UIImageView()
@@ -52,6 +53,7 @@ extension RecommendActionCollectionViewCell {
         contentView.layer.cornerRadius = 10
         contentView.layer.borderWidth = 1
         contentView.layer.borderColor = UIColor.clear.cgColor
+        stackView.axis = .vertical
         
         titleLabel.do {
             $0.font = .Pretendard(.regular, size: 15)
@@ -71,23 +73,22 @@ extension RecommendActionCollectionViewCell {
     }
     
     private func setLayout() {
-        contentView.addSubviews(titleLabel, bodyLabel, checkIcon)
+        stackView.addArrangedSubviews(titleLabel, bodyLabel)
+        contentView.addSubviews(stackView, checkIcon)
         
-        titleLabel.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(16)
-            $0.leading.equalToSuperview().offset(16)
+        stackView.snp.makeConstraints {
+            $0.top.equalToSuperview().inset(16)
+            $0.leading.trailing.equalToSuperview().inset(16)
         }
         
-        bodyLabel.snp.makeConstraints {
-            $0.top.equalTo(titleLabel.snp.bottom).offset(7)
-            $0.leading.equalTo(titleLabel.snp.leading)
-            $0.trailing.equalToSuperview().offset(-16)
-            $0.bottom.equalToSuperview().offset(-16)
+        stackView.do {
+            $0.setCustomSpacing(7, after: titleLabel)
+            // $0.setCustomSpacing(16, after: bodyLabel)
         }
-        
+                
         checkIcon.snp.makeConstraints {
             $0.centerY.equalToSuperview()
-            $0.trailing.equalToSuperview().offset(-27)
+            $0.trailing.equalToSuperview().offset(-16)
         }
     }
     

@@ -181,7 +181,14 @@ extension RecommendActionViewController: UICollectionViewDelegateFlowLayout {
             return .zero
         }
         
-        var cellHeight = cell.bodyLabel.frame.height + 80
+        cell.bodyLabel.text = recommendActionList[indexPath.row].description
+        cell.bodyLabel.sizeToFit()
+        
+        var cellHeight = cell.bodyLabel.frame.height + 56
+        
+        if cell.bodyLabel.text == nil {
+            cellHeight = 49
+        }
         
         return CGSize(width: collectionView.bounds.width - 30, height: cellHeight)
     }
