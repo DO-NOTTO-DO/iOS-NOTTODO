@@ -83,6 +83,7 @@ extension NottodoCollectionViewCell {
         historyCollectionView.indicatorStyle = .white
         checkImage.image = .icChecked
         stackView.axis = .vertical
+        addMissionTextField.setPlaceholder(I18N.nottodoPlaceholder)
         foldStackView.do {
             $0.axis = .horizontal
             $0.distribution = .fill

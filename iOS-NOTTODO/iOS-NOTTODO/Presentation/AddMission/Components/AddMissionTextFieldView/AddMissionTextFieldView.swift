@@ -48,6 +48,16 @@ final class AddMissionTextFieldView: UIView, textFiledDelegateProtocol {
         textMaxCount = max
     }
     
+    func setPlaceholder(_ text: String) {
+        addMissionTextField.attributedPlaceholder = NSAttributedString(
+            string: text,
+            attributes: [
+                NSAttributedString.Key.foregroundColor: UIColor.gray4 ?? .gray,
+                NSAttributedString.Key.font: UIFont.Pretendard(.regular, size: 15)
+            ]
+        )
+    }
+    
     func upKeyboard() {
         addMissionTextField.becomeFirstResponder()
     }

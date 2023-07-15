@@ -109,8 +109,8 @@ extension ActionCollectionViewCell {
             $0.textColor = .gray4
         }
         
-        exampleActionOne.text = I18N.exampleGoal
-        exampleActionTwo.text = I18N.exampleAction
+        exampleActionOne.text = I18N.exampleAction1
+        exampleActionTwo.text = I18N.exampleAction2
         
         enterMessage.do {
             $0.text = I18N.enterMessage
