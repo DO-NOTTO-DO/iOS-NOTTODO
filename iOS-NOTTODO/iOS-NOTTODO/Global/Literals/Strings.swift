@@ -32,8 +32,8 @@ struct I18N {
     
     /// RecommendAction
     
-    static let recommendAction = "실천행동 추천"
-    static let recommendActionSub = "아래 추천 항목을 선택해 실천행동을 추가하세요"
+    static let recommendAction = "실천방법 추천"
+    static let recommendActionSub = "아래 추천 항목을 선택해 실천방법을 추가하세요"
     static let more = "필요 없어요 or 직접 입력할게요!"
     static let next = "계속하기"
     

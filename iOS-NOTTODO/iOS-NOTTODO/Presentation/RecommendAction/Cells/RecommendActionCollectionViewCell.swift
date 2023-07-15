@@ -83,7 +83,7 @@ extension RecommendActionCollectionViewCell {
         
         stackView.do {
             $0.setCustomSpacing(7, after: titleLabel)
-            // $0.setCustomSpacing(16, after: bodyLabel)
+            $0.setCustomSpacing(16, after: bodyLabel)
         }
                 
         checkIcon.snp.makeConstraints {
