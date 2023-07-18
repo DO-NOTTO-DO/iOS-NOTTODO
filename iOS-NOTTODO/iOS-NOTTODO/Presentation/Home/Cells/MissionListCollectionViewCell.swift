@@ -17,7 +17,11 @@ final class MissionListCollectionViewCell: UICollectionViewCell {
     static let identifier = "MissionListCollectionViewCell"
     
     var isTappedClosure: ((_ result: Bool, _ userId: Int) -> Void)?
-    var isTapped: Bool = false
+    var isTapped: Bool = false {
+        didSet {
+            setUI()
+        }
+    }
     var userId: Int = 0
     
     // MARK: - UI Components
@@ -37,6 +41,7 @@ final class MissionListCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: .zero)
         
+        setUI()
         setLayout()
     }
     
@@ -61,11 +66,9 @@ extension MissionListCollectionViewCell {
         contentView.layer.cornerRadius = 10
 
         checkButton.do {
-            $0.backgroundColor = isTapped ? .clear : .white
-            $0.layer.cornerRadius = 6
-            $0.layer.borderWidth = isTapped ? 0 : 0.5
-            $0.layer.borderColor = isTapped ? UIColor.clear.cgColor : UIColor.gray4?.cgColor
-            $0.setImage(isTapped ? UIImage.checkboxFill : nil, for: .normal)
+            $0.backgroundColor = .clear
+            $0.setImage(UIImage.checkbox, for: .normal)
+            $0.setImage(UIImage.checkboxFill, for: .selected)
             $0.addTarget(self, action: #selector(checkBoxButton), for: .touchUpInside)
         }
         
@@ -95,7 +98,7 @@ extension MissionListCollectionViewCell {
         checkButton.snp.makeConstraints {
             $0.leading.equalToSuperview().offset(20)
             $0.centerY.equalToSuperview()
-            $0.size.equalTo(CGSize(width: 21, height: 21))
+            $0.size.equalTo(41)
         }
         
         tagLabel.snp.makeConstraints {
@@ -124,7 +127,7 @@ extension MissionListCollectionViewCell {
         case .UNCHECKED:  isTapped = false
         case .CHECKED: isTapped = true
         }
-        setUI()
+        checkButton.isSelected = isTapped
     }
     
     @objc
