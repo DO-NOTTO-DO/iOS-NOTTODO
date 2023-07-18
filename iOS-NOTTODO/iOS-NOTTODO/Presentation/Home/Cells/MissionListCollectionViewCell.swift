@@ -103,7 +103,7 @@ extension MissionListCollectionViewCell {
         
         tagLabel.snp.makeConstraints {
             $0.top.equalToSuperview().offset(18)
-            $0.leading.equalTo(checkButton.snp.trailing).offset(18)
+            $0.leading.equalTo(checkButton.snp.trailing).offset(8)
         }
         
         missionLabel.snp.makeConstraints {
