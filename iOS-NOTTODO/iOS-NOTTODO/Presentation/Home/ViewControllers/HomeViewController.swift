@@ -134,11 +134,9 @@ extension HomeViewController {
                     if result {
                         self.requestPatchUpdateMissionAPI(id: id, status: CompletionStatus.UNCHECKED )
                         AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.Home.completeCheckMission(title: self.missionList[indexPath.row].title, situation: self.missionList[indexPath.row].situationName))
-                        cell.setUI()
                     } else {
                         self.requestPatchUpdateMissionAPI(id: id, status: CompletionStatus.CHECKED )
                         AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.Home.completeCheckMission(title: self.missionList[indexPath.row].title, situation: self.missionList[indexPath.row].situationName))
-                        cell.setUI()
                     }
                 }
                 return cell
