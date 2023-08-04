@@ -65,6 +65,7 @@ extension RecommendActionFooterView {
 
 extension RecommendActionFooterView {
     @objc func moreButtonButtonTapped(_ sender: UIButton) {
+        AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.RecommendDetail.clickSelfCreateAction)
         clickedNextButton?()
     }
 }

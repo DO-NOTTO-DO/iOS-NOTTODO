@@ -210,4 +210,50 @@ enum AnalyticsEvent {
             return self.rawValue
         }
     }
+    
+    enum Recommend: AnalyticsEventProtocol {
+        
+        case viewRecommendMission
+        case clickRecommendMission(situation: String, title: String)
+        case clickSelfCreateMission
+        
+        var name: String {
+            switch self {
+            case .viewRecommendMission: return "view_recommend_mission"
+            case .clickRecommendMission: return "click_recommend_mission"
+            case .clickSelfCreateMission: return "click_self_create_mission"
+            }
+        }
+        
+        var parameters: [String: Any]? {
+            switch self {
+            case .viewRecommendMission: return nil
+            case .clickRecommendMission(situation: let situation, title: let title): return ["situation": situation, "title": title]
+            case .clickSelfCreateMission: return nil
+            }
+        }
+    }
+    
+    enum RecommendDetail: AnalyticsEventProtocol {
+        
+        case viewRecommendMissionDetail(situation: String, title: String)
+        case clickCreateRecommendMission(action: String, situation: String, title: String)
+        case clickSelfCreateAction
+        
+        var name: String {
+            switch self {
+            case .viewRecommendMissionDetail: return "view_recommend_mission_detail"
+            case .clickCreateRecommendMission: return "click_create_recommend_mission"
+            case .clickSelfCreateAction: return "click_self_create_action"
+            }
+        }
+        
+        var parameters: [String: Any]? {
+            switch self {
+            case .viewRecommendMissionDetail(situation: let situation, title: let title): return ["situation": situation, "title": title]
+            case .clickCreateRecommendMission(action: let action, situation: let situation, title: let title): return ["action": action, "situation": situation, "title": title]
+            case .clickSelfCreateAction: return nil
+            }
+        }
+    }
 }
