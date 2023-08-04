@@ -16,6 +16,7 @@ final class RecommendActionViewController: UIViewController {
     
     private var recommendActionResponse: RecommendActionResponseDTO?
     private var recommendActionList: [RecommendActions] = []
+    var recommendList: [RecommendResponseDTO] = []
     var selectedIndex: Int = 0
     var tagLabelText: String?
     var bodyImageUrl: UIImage?
@@ -39,6 +40,7 @@ final class RecommendActionViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.RecommendDetail.viewRecommendMissionDetail(situation: situationLabel ?? "", title: nottodoTitle ?? ""))
         setUI()
         setLayout()
         register()
@@ -253,6 +255,8 @@ extension RecommendActionViewController: UICollectionViewDataSource {
 
 extension RecommendActionViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.RecommendDetail.clickCreateRecommendMission(action: recommendActionList[indexPath.row].name, situation: recommendList[indexPath.row].situation, title: recommendList[indexPath.row].title))
+        
         if let select = collectionView.indexPathsForSelectedItems {
             if select.count > 0 {
                 self.isTapped = true
