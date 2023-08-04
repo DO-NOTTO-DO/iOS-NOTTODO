@@ -31,6 +31,7 @@ class RecommendViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.Recommend.viewRecommendMission)
         setUI()
         setLayout()
         register()
@@ -147,6 +148,8 @@ private extension RecommendViewController {
     
     @objc
     private func buttonTapped() {
+        AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.Recommend.clickSelfCreateMission)
+        
         let nextViewController = AddMissionViewController()
         nextViewController.setDate([selectDay ?? ""])
         navigationController?.pushViewController(nextViewController, animated: true)
@@ -182,6 +185,8 @@ extension RecommendViewController: UICollectionViewDataSource {
 
 extension RecommendViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.Recommend.clickRecommendMission(situation: recommendList[indexPath.row].situation, title: recommendList[indexPath.row].title))
+        
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.1) {
             let selectedCell = collectionView.cellForItem(at: indexPath) as! RecommendCollectionViewCell
             let viewController = RecommendActionViewController()
