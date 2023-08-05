@@ -255,7 +255,7 @@ extension RecommendActionViewController: UICollectionViewDataSource {
 
 extension RecommendActionViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.RecommendDetail.clickCreateRecommendMission(action: recommendActionList[indexPath.row].name, situation: recommendList[indexPath.row].situation, title: recommendList[indexPath.row].title))
+        AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.RecommendDetail.clickCreateRecommendMission(action: recommendActionList[indexPath.row].name, situation: situationLabel ?? "", title: nottodoTitle ?? ""))
         
         if let select = collectionView.indexPathsForSelectedItems {
             if select.count > 0 {
