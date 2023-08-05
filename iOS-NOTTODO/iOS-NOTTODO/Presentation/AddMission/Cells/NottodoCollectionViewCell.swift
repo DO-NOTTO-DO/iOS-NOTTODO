@@ -177,7 +177,7 @@ extension NottodoCollectionViewCell {
         historyCollectionView.dataSource = self
     }
     
-    func requestRecentMissionAPI() {
+    private func requestRecentMissionAPI() {
         AddMissionAPI.shared.getRecentMission { [weak self] response in
             guard self != nil else { return }
             guard let response = response else { return }
@@ -203,6 +203,7 @@ extension NottodoCollectionViewCell: UICollectionViewDataSource {
         guard let cell = collectionView.cellForItem(at: indexPath) as? MissionHistoryCollectionViewCell else { fatalError() }
         addMissionTextField.setText(cell.getText())
         missionTextData?(([addMissionTextField.getTextFieldText()]))
+        AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.CreateAndUpdateMissionCommon.clickMissionHistory(title: cell.getText()))
     }
 }
 

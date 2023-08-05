@@ -260,71 +260,74 @@ enum AnalyticsEvent {
     enum CreateMission: AnalyticsEventProtocol {
         
         case viewCreateMission
-        case clickMissionHistory(title: String)
-        case clickRecommendSituation(situation: String)
-        case clickCreateMission(date: String, goal: String, title: String, situation: String, action: String)
-        case completeCreateMission(date: String, goal: String, title: String, situation: String, action: String)
-        case appearSameMissionIssueMessage
-        case appearMaxedIssueMessage
+        case clickCreateMission(date: [String], goal: String, title: String, situation: String, action: String)
+        case completeCreateMission(date: [String], goal: String, title: String, situation: String, action: String)
         
         var name: String {
             switch self {
             case .viewCreateMission: return "view_create_mission"
-            case .clickMissionHistory: return "click_mission_history"
-            case .clickRecommendSituation: return "click_recommend_situation"
             case .clickCreateMission: return "click_create_mission"
             case .completeCreateMission: return "complete_create_mission"
-            case .appearSameMissionIssueMessage: return "appear_same_mission_issue_message"
-            case .appearMaxedIssueMessage: return "appear_maxed_issue_message"
             }
         }
         
-        var parameters: [String : Any]? {
+        var parameters: [String: Any]? {
             switch self {
             case .viewCreateMission: return nil
-            case .clickMissionHistory(title: let title): return ["title": title]
-            case .clickRecommendSituation(situation: let situation): return ["situation": situation]
             case .clickCreateMission(date: let date, goal: let goal, title: let title, situation: let situation, action: let action):
                 return ["date": date, "goal": goal, "title": title, "situation": situation, "action": action]
             case .completeCreateMission(date: let date, goal: let goal, title: let title, situation: let situation, action: let action):
                 return ["date": date, "goal": goal, "title": title, "situation": situation, "action": action]
-            case .appearSameMissionIssueMessage: return nil
-            case .appearMaxedIssueMessage: return nil
             }
         }
     }
     
     enum UpdateMission: AnalyticsEventProtocol {
-        case viewUpdateMission(date: String, goal: String, title: String, situation: String, action: String)
+        
+        case viewUpdateMission(date: [String], goal: String, title: String, situation: String, action: String)
+        case clickUpdateMission(date: [String], goal: String, title: String, situation: String, action: String)
+        case completeUpdateMission(date: [String], goal: String, title: String, situation: String, action: String)
+        
+        var name: String {
+            switch self {
+            case .viewUpdateMission: return "view_update_mission"
+            case .clickUpdateMission: return "click_update_mission"
+            case .completeUpdateMission: return "complete_update_mission"
+            }
+        }
+        
+        var parameters: [String: Any]? {
+            switch self {
+            case .viewUpdateMission(date: let date, goal: let goal, title: let title, situation: let situation, action: let action):
+                return ["date": date, "goal": goal, "title": title, "situation": situation, "action": action]
+            case .clickUpdateMission(date: let date, goal: let goal, title: let title, situation: let situation, action: let action):
+                return ["date": date, "goal": goal, "title": title, "situation": situation, "action": action]
+            case .completeUpdateMission(date: let date, goal: let goal, title: let title, situation: let situation, action: let action):
+                return ["date": date, "goal": goal, "title": title, "situation": situation, "action": action]
+            }
+        }
+    }
+    
+    enum CreateAndUpdateMissionCommon: AnalyticsEventProtocol {
+        
         case clickMissionHistory(title: String)
         case clickRecommendSituation(situation: String)
-        case clickUpdateMission(date: String, goal: String, title: String, situation: String, action: String)
-        case completeUpdateMission(date: String, goal: String, title: String, situation: String, action: String)
         case appearSameMissionIssueMessage
         case appearMaxedIssueMessage
         
         var name: String {
             switch self {
-            case .viewUpdateMission: return "view_update_mission"
             case .clickMissionHistory: return "click_mission_history"
             case .clickRecommendSituation: return "click_recommend_situation"
-            case .clickUpdateMission: return "click_update_mission"
-            case .completeUpdateMission: return "complete_update_mission"
             case .appearSameMissionIssueMessage: return "appear_same_mission_issue_message"
             case .appearMaxedIssueMessage: return "appear_maxed_issue_message"
             }
         }
         
-        var parameters: [String : Any]? {
+        var parameters: [String: Any]? {
             switch self {
-            case .viewUpdateMission(date: let date, goal: let goal, title: let title, situation: let situation, action: let action):
-                return ["date": date, "goal": goal, "title": title, "situation": situation, "action": action]
             case .clickMissionHistory(title: let title): return ["title": title]
             case .clickRecommendSituation(situation: let situation): return ["situation": situation]
-            case .clickUpdateMission(date: let date, goal: let goal, title: let title, situation: let situation, action: let action):
-                return ["date": date, "goal": goal, "title": title, "situation": situation, "action": action]
-            case .completeUpdateMission(date: let date, goal: let goal, title: let title, situation: let situation, action: let action):
-                return ["date": date, "goal": goal, "title": title, "situation": situation, "action": action]
             case .appearSameMissionIssueMessage: return nil
             case .appearMaxedIssueMessage: return nil
             }
