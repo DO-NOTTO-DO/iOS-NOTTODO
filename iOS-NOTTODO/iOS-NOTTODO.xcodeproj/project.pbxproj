@@ -1500,6 +1500,7 @@
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = CQJ9UKUU35;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "iOS-NOTTODO/Resource/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "낫투두";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -1536,6 +1537,7 @@
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = CQJ9UKUU35;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "iOS-NOTTODO/Resource/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "낫투두";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
