@@ -70,6 +70,7 @@ final class AddMissionViewController: UIViewController {
         registerCell()
         setDelegate()
         hideKeyboardWhenTappedAround()
+        checkViewTypeInViewLoad()
     }
     
     func setDate(_ date: [String]) {
@@ -104,11 +105,27 @@ final class AddMissionViewController: UIViewController {
     private func addMissionDidTap() {
         requestPostAddMission(title: nottodoInfoList[1], situation: nottodoInfoList[2],
                               actions: [nottodoInfoList[3]], goal: nottodoInfoList[4], dates: dateList)
+        AmplitudeAnalyticsService.shared.send(
+            event: AnalyticsEvent.CreateMission.clickCreateMission(
+                date: dateList,
+                goal: nottodoInfoList[4],
+                title: nottodoInfoList[1],
+                situation: nottodoInfoList[2],
+                action: nottodoInfoList[3])
+        )
     }
     
     @objc
     private func updateMissionDidTap() {
         requestPutUpdateMission(id: missionId ?? -1, title: nottodoInfoList[1], situation: nottodoInfoList[2], actions: [nottodoInfoList[3]], goal: nottodoInfoList[4])
+        AmplitudeAnalyticsService.shared.send(
+            event: AnalyticsEvent.UpdateMission.clickUpdateMission(
+                date: dateList,
+                goal: nottodoInfoList[4],
+                title: nottodoInfoList[1],
+                situation: nottodoInfoList[2],
+                action: nottodoInfoList[3])
+        )
     }
 }
 
@@ -222,7 +239,24 @@ extension AddMissionViewController {
                                           forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter,
                                           withReuseIdentifier: AddMissionFooterCollectionReusableView.identifier)
     }
+    
+    private func checkViewTypeInViewLoad() {
+        switch missionType {
+        case .add:
+            AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.CreateMission.viewCreateMission)
+        default:
+            AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.UpdateMission.viewUpdateMission(
+                date: dateList,
+                goal: nottodoInfoList[4],
+                title: nottodoInfoList[1],
+                situation: nottodoInfoList[2],
+                action: nottodoInfoList[3])
+            )
+        }
+    }
 }
+
+// MARK: API func
 
 extension AddMissionViewController {
     private func requestPostAddMission(title: String, situation: String,
@@ -233,7 +267,9 @@ extension AddMissionViewController {
             case 200..<300:
                 self.popViewController()
             default:
-                self.showToast(message: self.htmlToString(response.message ?? "")?.string ?? "", controller: self)
+                let toastMessage = self.htmlToString(response.message ?? "")?.string ?? ""
+                self.checkToastMessage(toastMessage)
+                self.showToast(message: toastMessage, controller: self)
             }
         }
     }
@@ -244,12 +280,23 @@ extension AddMissionViewController {
             print(response.status)
             switch response.status {
             case 200..<300:
+                AmplitudeAnalyticsService.shared.send(
+                    event: AnalyticsEvent.UpdateMission.completeUpdateMission(
+                        date: self.dateList,
+                        goal: self.nottodoInfoList[4],
+                        title: self.nottodoInfoList[1],
+                        situation: self.nottodoInfoList[2],
+                        action: self.nottodoInfoList[3])
+                )
                 self.popViewController()
             default:
-                self.showToast(message: self.htmlToString(response.message ?? "")?.string ?? "", controller: self)
+                let toastMessage = self.htmlToString(response.message ?? "")?.string ?? ""
+                self.checkToastMessage(toastMessage)
+                self.showToast(message: toastMessage, controller: self)
             }
         }
     }
+    
     private func requestGetMissionDates(id: Int) {
         AddMissionAPI.shared.getMissionDates(id: id) { [weak self] response in
             guard self != nil else { return }
@@ -262,7 +309,7 @@ extension AddMissionViewController {
         }
     }
     
-    func requestDailyMissionAPI(id: Int) {
+    private func requestDailyMissionAPI(id: Int) {
         HomeAPI.shared.getDailyDetailMission(id: id) { [weak self] result in
             switch result {
             case let .success(data):
@@ -287,6 +334,13 @@ extension AddMissionViewController {
         }
     }
     
+    private func checkToastMessage(_ toastMessage: String) {
+        if toastMessage.contains("같은") {
+            AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.CreateAndUpdateMissionCommon.appearSameMissionIssueMessage)
+        } else if toastMessage.contains("하루") {
+            AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.CreateAndUpdateMissionCommon.appearMaxedIssueMessage)
+        }
+    }
 }
 
 extension AddMissionViewController: UICollectionViewDataSource {
@@ -366,6 +420,8 @@ extension AddMissionViewController: UICollectionViewDelegateFlowLayout {
         return true
     }
 }
+
+// MARK: CollectionViewCell func
 
 extension AddMissionViewController {
     private func makeCollectionCell(collectionView: UICollectionView, for indexPath: IndexPath) -> UICollectionViewCell {

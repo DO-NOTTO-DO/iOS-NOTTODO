@@ -200,6 +200,7 @@ extension SituationCollectionViewCell: UICollectionViewDataSource {
         guard let cell = collectionView.cellForItem(at: indexPath) as? RecommendKeywordCollectionViewCell else { fatalError() }
         addMissionTextField.setText(cell.getText())
         missionTextData?(([addMissionTextField.getTextFieldText()]))
+        AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.CreateAndUpdateMissionCommon.clickRecommendSituation(situation: cell.getText()))
     }
 }
 
