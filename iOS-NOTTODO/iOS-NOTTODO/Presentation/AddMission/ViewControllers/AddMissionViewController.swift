@@ -267,7 +267,7 @@ extension AddMissionViewController {
             case 200..<300:
                 self.popViewController()
             default:
-                var toastMessage = self.htmlToString(response.message ?? "")?.string ?? ""
+                let toastMessage = self.htmlToString(response.message ?? "")?.string ?? ""
                 self.checkToastMessage(toastMessage)
                 self.showToast(message: toastMessage, controller: self)
             }
@@ -290,7 +290,7 @@ extension AddMissionViewController {
                 )
                 self.popViewController()
             default:
-                var toastMessage = self.htmlToString(response.message ?? "")?.string ?? ""
+                let toastMessage = self.htmlToString(response.message ?? "")?.string ?? ""
                 self.checkToastMessage(toastMessage)
                 self.showToast(message: toastMessage, controller: self)
             }
