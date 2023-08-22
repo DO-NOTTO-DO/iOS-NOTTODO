@@ -11,6 +11,7 @@ import SnapKit
 import Then
 
 import AuthenticationServices
+import Amplitude
 import SafariServices
 import KakaoSDKCommon
 import KakaoSDKAuth
@@ -237,7 +238,9 @@ extension AuthViewController {
                     AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.Login.completeSignIn(provider: "kakao"))
                     
                     guard let accessToken = result?.data?.accessToken else { return }
+                    guard let userId = result?.data?.userId else { return }
                     KeychainUtil.setAccessToken(accessToken)
+                    Amplitude.instance().setUserId(result?.data?.userId)
                     self?.presentToHomeViewController()
                     
                 }
@@ -291,9 +294,10 @@ extension AuthViewController: ASAuthorizationControllerDelegate, ASAuthorization
                 guard result != nil else { return }
                 
                 AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.Login.completeSignIn(provider: "apple"))
-                
                 guard let accessToken = result?.data?.accessToken else { return }
+                guard let userId = result?.data?.userId else { return }
                 KeychainUtil.setAccessToken(accessToken)
+                Amplitude.instance().setUserId(userId)
                 self?.presentToHomeViewController()
             }
         default:
