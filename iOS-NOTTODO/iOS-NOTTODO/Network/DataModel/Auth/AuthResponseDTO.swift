@@ -9,4 +9,5 @@ import Foundation
 
 struct AuthResponseDTO: Codable {
     let accessToken: String
+    let userId: String
 }
