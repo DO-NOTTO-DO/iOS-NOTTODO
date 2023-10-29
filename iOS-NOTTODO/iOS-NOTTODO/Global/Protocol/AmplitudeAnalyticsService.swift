@@ -20,5 +20,14 @@ class AmplitudeAnalyticsService: AnalyticsServiceProtocol {
         } else {
             Amplitude.instance().logEvent(event.name)
         }
+        
+        #if DEBUG
+        if let parameters = event.parameters {
+            let params = parameters.compactMap { $0 }
+            print("🍥🍥🍥🍥🍥 \(event.name) \(params) 🍥🍥🍥🍥🍥")
+            return
+        }
+        print("🍥🍥🍥🍥🍥🍥 \(event.name) 🍥🍥🍥🍥🍥")
+        #endif
     }
 }
