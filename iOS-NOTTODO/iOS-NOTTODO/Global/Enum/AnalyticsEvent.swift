@@ -261,7 +261,7 @@ enum AnalyticsEvent {
         
         case viewCreateMission
         case clickCreateMission(date: [String], goal: String, title: String, situation: String, action: String)
-        case completeCreateMission(date: [String], goal: String, title: String, situation: String, action: String)
+        case completeCreateMission(date: [String], goal: String, title: String, situation: String, action: [String])
         
         var name: String {
             switch self {
