@@ -220,4 +220,3 @@ extension MissionDetailViewController {
         }
     }
 }
-
