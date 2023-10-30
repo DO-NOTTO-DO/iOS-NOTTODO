@@ -113,10 +113,8 @@ extension NottodoModalViewController {
             kakaoWithdrawal()
         }
         AuthAPI.shared.withdrawalAuth { _ in
-            for key in UserDefaults.standard.dictionaryRepresentation().keys {
-                if key != DefaultKeys.fcmToken {
-                    UserDefaults.standard.removeObject(forKey: key.description)
-                }
+            for key in UserDefaults.standard.dictionaryRepresentation().keys where key != DefaultKeys.fcmToken {
+                UserDefaults.standard.removeObject(forKey: key.description)
             }
             UserDefaults.standard.removeObject(forKey: DefaultKeys.accessToken)
             AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.AccountInfo.completeWithdrawal)
