@@ -26,5 +26,5 @@ struct DefaultKeys {
     static let isAppleLogin = "isAppleLogin"
     static let socialToken = "socialToken"
     static let accessToken = "accessToken"
-    static let fcmToken = "1"
+    static let fcmToken = "fcmToken"
 }

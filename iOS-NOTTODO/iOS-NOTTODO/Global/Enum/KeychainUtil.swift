@@ -15,6 +15,9 @@ public final class KeychainUtil {
     static func setAccessToken(_ token: String) {
         UserDefaults.standard.setValue(token, forKey: DefaultKeys.accessToken)
     }
+    static func setFcmToken(_ token: String) {
+        UserDefaults.standard.setValue(token, forKey: DefaultKeys.fcmToken)
+    }
     static func setString(_ value: String?, forKey key: String) {
         UserDefaults.standard.setValue(value, forKey: key)
     }
@@ -26,6 +29,9 @@ public final class KeychainUtil {
     }
     static func getAccessToken() -> String {
         UserDefaults.standard.string(forKey: DefaultKeys.accessToken) ?? ""
+    }
+    static func getFcmToken() -> String {
+        UserDefaults.standard.string(forKey: DefaultKeys.fcmToken) ?? ""
     }
     static func getKakaoNickname() -> String {
         UserDefaults.standard.string(forKey: DefaultKeys.kakaoNickname) ?? "익명의 도전자"

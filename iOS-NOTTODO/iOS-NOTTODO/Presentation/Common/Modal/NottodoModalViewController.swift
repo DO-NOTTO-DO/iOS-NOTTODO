@@ -114,7 +114,9 @@ extension NottodoModalViewController {
         }
         AuthAPI.shared.withdrawalAuth { _ in
             for key in UserDefaults.standard.dictionaryRepresentation().keys {
-                UserDefaults.standard.removeObject(forKey: key.description)
+                if key != DefaultKeys.fcmToken {
+                    UserDefaults.standard.removeObject(forKey: key.description)
+                }
             }
             UserDefaults.standard.removeObject(forKey: DefaultKeys.accessToken)
             AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.AccountInfo.completeWithdrawal)
