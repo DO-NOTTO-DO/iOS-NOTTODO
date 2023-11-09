@@ -265,6 +265,15 @@ extension AddMissionViewController {
             guard let response = response else { return }
             switch response.status {
             case 200..<300:
+                AmplitudeAnalyticsService.shared.send(
+                    event: AnalyticsEvent.CreateMission.completeCreateMission(
+                        date: dates ?? [],
+                        goal: goal ?? "",
+                        title: title,
+                        situation: situation,
+                        action: actions ?? []
+                    )
+                )
                 self.popViewController()
             default:
                 let toastMessage = self.htmlToString(response.message ?? "")?.string ?? ""
