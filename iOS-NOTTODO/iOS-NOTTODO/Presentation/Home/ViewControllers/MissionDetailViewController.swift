@@ -36,7 +36,6 @@ final class MissionDetailViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.Detail.closeDetailMission)
         guard let id = self.userId else { return }
         requestDailyMissionAPI(id: id)
     }
@@ -120,8 +119,10 @@ extension MissionDetailViewController {
             if kind == UICollectionView.elementKindSectionHeader {
                 guard let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: DetailHeaderReusableView.identifier, for: indexPath) as? DetailHeaderReusableView else {return UICollectionReusableView()}
                 header.cancelClosure = {
+
                     self.view.alpha = 0
                     self.dismiss(animated: true)
+                    AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.Detail.closeDetailMission)
                 }
                 header.editClosure = {
                     AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.Detail.clickEditMission(section: "detail"))
