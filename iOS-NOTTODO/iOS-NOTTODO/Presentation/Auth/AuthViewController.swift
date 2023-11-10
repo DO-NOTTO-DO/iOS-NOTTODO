@@ -240,7 +240,7 @@ extension AuthViewController {
                     guard let accessToken = result?.data?.accessToken else { return }
                     guard let userId = result?.data?.userId else { return }
                     KeychainUtil.setAccessToken(accessToken)
-                    Amplitude.instance().setUserId(result?.data?.userId)
+                    Amplitude.instance().setUserId(userId)
                     self?.presentToHomeViewController()
                     
                 }
