@@ -37,5 +37,6 @@ struct InfoModelFour: Hashable {
     var title: String
 }
 extension InfoModelFour {
-    static let item: [InfoModelFour] = [InfoModelFour(title: "버전 정보 1.0.0")]
+
+    static let item: [InfoModelFour] = [InfoModelFour(title: "버전 정보 "+(Utils.version ?? "1.0.0"))]
 }
