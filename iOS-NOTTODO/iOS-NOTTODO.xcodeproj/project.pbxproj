@@ -88,8 +88,10 @@
 		3B14A13F29A6FCB300F92897 /* UIStackView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B14A13E29A6FCB300F92897 /* UIStackView+.swift */; };
 		3B14A14129A6FDA900F92897 /* UILabel+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B14A14029A6FDA900F92897 /* UILabel+.swift */; };
 		3B14A14329A6FEE400F92897 /* UITextField+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B14A14229A6FEE400F92897 /* UITextField+.swift */; };
+		3B2B59442AEB814B00B4619A /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 3B2B59432AEB814B00B4619A /* FirebaseMessaging */; };
 		3B37AE2929C8821600AB7587 /* GoalCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B37AE2829C8821600AB7587 /* GoalCollectionViewCell.swift */; };
 		3B37AE2B29C8904800AB7587 /* RecommendKeywordCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B37AE2A29C8904800AB7587 /* RecommendKeywordCollectionViewCell.swift */; };
+		3B3EF2F82AF35C90001F79BC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3B3EF2F72AF35C90001F79BC /* GoogleService-Info.plist */; };
 		3B482FA3299EA9CB00BCF424 /* TabBarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B482FA2299EA9CB00BCF424 /* TabBarItem.swift */; };
 		3B482FA5299EAB8800BCF424 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B482FA4299EAB8800BCF424 /* TabBarController.swift */; };
 		3B482FA7299EB8FD00BCF424 /* UIViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B482FA6299EB8FD00BCF424 /* UIViewController+.swift */; };
@@ -244,6 +246,7 @@
 		3B14A14229A6FEE400F92897 /* UITextField+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+.swift"; sourceTree = "<group>"; };
 		3B37AE2829C8821600AB7587 /* GoalCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalCollectionViewCell.swift; sourceTree = "<group>"; };
 		3B37AE2A29C8904800AB7587 /* RecommendKeywordCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendKeywordCollectionViewCell.swift; sourceTree = "<group>"; };
+		3B3EF2F72AF35C90001F79BC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		3B482FA2299EA9CB00BCF424 /* TabBarItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarItem.swift; sourceTree = "<group>"; };
 		3B482FA4299EAB8800BCF424 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		3B482FA6299EB8FD00BCF424 /* UIViewController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+.swift"; sourceTree = "<group>"; };
@@ -322,6 +325,7 @@
 				6C44127129A35A1000313C3F /* KakaoSDK in Frameworks */,
 				3B146DA4299D0A8600B17B62 /* Then in Frameworks */,
 				3B146DA7299D0AA300B17B62 /* Moya in Frameworks */,
+				3B2B59442AEB814B00B4619A /* FirebaseMessaging in Frameworks */,
 				6C44127729A35A1000313C3F /* KakaoSDKNavi in Frameworks */,
 				6C44128129A35A1000313C3F /* KakaoSDKUser in Frameworks */,
 				6C44127D29A35A1000313C3F /* KakaoSDKTalk in Frameworks */,
@@ -753,6 +757,7 @@
 			isa = PBXGroup;
 			children = (
 				6CBE702C2A5AA29E00A7EC30 /* API_KEY.plist */,
+				3B3EF2F72AF35C90001F79BC /* GoogleService-Info.plist */,
 				3B027A85299C31B600BEB65C /* Info.plist */,
 				3B027AAA299C35D000BEB65C /* Assets */,
 				3B027AA9299C35CB00BEB65C /* Colors */,
@@ -1133,6 +1138,7 @@
 				6C9628A62A22208F003ADE25 /* Lottie */,
 				0943A9F42A531D0000614761 /* Amplitude */,
 				09C8602C2AB14B4800C4F4B1 /* FSCalendar */,
+				3B2B59432AEB814B00B4619A /* FirebaseMessaging */,
 			);
 			productName = "iOS-NOTTODO";
 			productReference = 3B027A74299C31B500BEB65C /* iOS-NOTTODO.app */;
@@ -1171,6 +1177,7 @@
 				6C9628A52A22208F003ADE25 /* XCRemoteSwiftPackageReference "lottie-ios" */,
 				0943A9F32A531D0000614761 /* XCRemoteSwiftPackageReference "Amplitude-iOS" */,
 				09C8602B2AB14B4700C4F4B1 /* XCRemoteSwiftPackageReference "FSCalendar" */,
+				3B2B59422AEB814B00B4619A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = 3B027A75299C31B500BEB65C /* Products */;
 			projectDirPath = "";
@@ -1193,6 +1200,7 @@
 				3B710A5C2A62D4AB00E95620 /* Settings.bundle in Resources */,
 				3B027A84299C31B600BEB65C /* LaunchScreen.storyboard in Resources */,
 				6CC54C1A2A28C3AE00AAD76D /* value.json in Resources */,
+				3B3EF2F82AF35C90001F79BC /* GoogleService-Info.plist in Resources */,
 				6C049A312A595C670085E40B /* logo.mp4 in Resources */,
 				3B027A81299C31B600BEB65C /* Assets.xcassets in Resources */,
 				3B146D9A299D079D00B17B62 /* Pretendard-Light.otf in Resources */,
@@ -1511,7 +1519,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "nottodo.iOS-NOTTODO";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1549,7 +1557,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "nottodo.iOS-NOTTODO";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1627,6 +1635,14 @@
 				kind = branch;
 			};
 		};
+		3B2B59422AEB814B00B4619A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 10.0.0;
+			};
+		};
 		6C44126F29A35A1000313C3F /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/kakao/kakao-ios-sdk";
@@ -1678,6 +1694,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 3B146DA5299D0AA300B17B62 /* XCRemoteSwiftPackageReference "Moya" */;
 			productName = Moya;
+		};
+		3B2B59432AEB814B00B4619A /* FirebaseMessaging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3B2B59422AEB814B00B4619A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseMessaging;
 		};
 		6C44127029A35A1000313C3F /* KakaoSDK */ = {
 			isa = XCSwiftPackageProductDependency;

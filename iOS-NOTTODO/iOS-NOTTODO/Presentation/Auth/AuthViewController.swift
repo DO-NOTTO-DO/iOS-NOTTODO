@@ -231,7 +231,7 @@ extension AuthViewController {
                 KeychainUtil.setString(email, forKey: DefaultKeys.kakaoEmail)
                 KeychainUtil.setBool(false, forKey: DefaultKeys.isAppleLogin)
                 
-                AuthAPI.shared.postKakaoAuth(social: LoginType.Kakao.social, socialToken: KeychainUtil.getSocialToken(), fcmToken: DefaultKeys.fcmToken) { [weak self] result in
+                AuthAPI.shared.postKakaoAuth(social: LoginType.Kakao.social, socialToken: KeychainUtil.getSocialToken(), fcmToken: KeychainUtil.getFcmToken()) { [weak self] result in
                     guard self != nil else { return }
                     guard result != nil else { return }
                     
@@ -289,7 +289,7 @@ extension AuthViewController: ASAuthorizationControllerDelegate, ASAuthorization
             
             KeychainUtil.setBool(true, forKey: DefaultKeys.isAppleLogin)
 
-            AuthAPI.shared.postAppleAuth(social: LoginType.Apple.social, socialToken: KeychainUtil.getSocialToken(), fcmToken: DefaultKeys.fcmToken, name: KeychainUtil.getAppleUsername()) { [weak self] result in
+            AuthAPI.shared.postAppleAuth(social: LoginType.Apple.social, socialToken: KeychainUtil.getSocialToken(), fcmToken: KeychainUtil.getFcmToken(), name: KeychainUtil.getAppleUsername()) { [weak self] result in
                 guard self != nil else { return }
                 guard result != nil else { return }
                 
