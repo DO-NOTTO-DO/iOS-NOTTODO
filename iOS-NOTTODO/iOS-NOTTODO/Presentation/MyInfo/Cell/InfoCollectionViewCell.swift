@@ -27,6 +27,7 @@ final class InfoCollectionViewCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: .zero)
+        
         setUI()
         setLayout()
     }

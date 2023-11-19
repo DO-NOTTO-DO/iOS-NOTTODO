@@ -20,10 +20,10 @@ struct InfoModel: Hashable {
     
     static let support: [InfoModel] = [InfoModel(image: .icGuide, title: "낫투두 가이드"),
                                        InfoModel(image: .icQuestion1, title: "자주 묻는 질문")
-                                       ]
+    ]
     static let info: [InfoModel] = [InfoModel(title: "공지사항"),
                                     InfoModel(title: "문의하기"),
                                     InfoModel(title: "약관 및 정책")
-                                    ]
+    ]
     static func version() -> [InfoModel] { return  [InfoModel(title: "버전 정보 "+(Utils.version ?? "1.0.0"))] }
 }

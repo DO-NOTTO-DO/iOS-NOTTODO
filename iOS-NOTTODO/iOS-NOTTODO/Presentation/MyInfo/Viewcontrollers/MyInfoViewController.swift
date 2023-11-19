@@ -134,7 +134,7 @@ extension MyInfoViewController {
         
         let layout = UICollectionViewCompositionalLayout { sectionIndex, env  in
             
-            let section = Sections(rawValue: sectionIndex)
+            guard let section = Sections(rawValue: sectionIndex) else { return nil }
             switch section {
             case .profile:
                 return CompositionalLayout.setUpSection(layoutEnvironment: env,
@@ -143,7 +143,7 @@ extension MyInfoViewController {
             case .support, .info:
                 return CompositionalLayout.setUpSection(layoutEnvironment: env,
                                                         topContentInset: 18)
-            case .version, .none:
+            case .version:
                 return CompositionalLayout.setUpSection(layoutEnvironment: env,
                                                         topContentInset: 18,
                                                         bottomContentInset: 60)

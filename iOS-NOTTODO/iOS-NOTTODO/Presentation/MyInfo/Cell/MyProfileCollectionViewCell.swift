@@ -13,9 +13,9 @@ import Then
 final class MyProfileCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Properties
-
+    
     static let identifier = "MyProfileCollectionViewCell"
-
+    
     // MARK: - UI Components
     
     private let logoImage = UIImageView()
@@ -24,13 +24,14 @@ final class MyProfileCollectionViewCell: UICollectionViewCell {
     private let emailLabel = UILabel()
     
     // MARK: - Life Cycle
-
+    
     override init(frame: CGRect) {
         super.init(frame: .zero)
+        
         setUI()
         setLayout()
     }
-
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
