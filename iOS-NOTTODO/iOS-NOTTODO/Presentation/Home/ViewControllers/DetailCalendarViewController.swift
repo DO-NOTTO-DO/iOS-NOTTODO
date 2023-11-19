@@ -109,23 +109,19 @@ extension DetailCalendarViewController {
             $0.trailing.equalToSuperview().inset(16)
             $0.size.equalTo(CGSize(width: 44, height: 35))
         }
-        
-        monthCalendar.horizonStackView.snp.updateConstraints {
-            $0.top.equalToSuperview().offset(54)
-        }
-        
+
         monthCalendar.snp.makeConstraints {
             $0.centerY.equalTo(safeArea)
             $0.directionalHorizontalEdges.equalTo(safeArea).inset(15)
             $0.height.equalTo((getDeviceWidth()-30)*1.2)
         }
-        monthCalendar.calendar.snp.updateConstraints {
-            $0.bottom.equalToSuperview().inset(45)
-        }
+
         subLabel.snp.makeConstraints {
             $0.bottom.equalToSuperview().inset(25)
             $0.left.equalToSuperview().offset(17)
         }
+        
+        monthCalendar.updateConstraints()
     }
 }
 
@@ -142,7 +138,7 @@ extension DetailCalendarViewController {
 extension DetailCalendarViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalendarDelegateAppearance {
     
     func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
-        monthCalendar.yearMonthLabel.text = Utils.dateFormatterString(format: I18N.yearMonthTitle, date: calendar.currentPage)
+        monthCalendar.configureYearMonth(to: Utils.dateFormatterString(format: I18N.yearMonthTitle, date: calendar.currentPage))
         guard let id = self.userId else { return }
         requestParticualrDatesAPI(id: id)
     }

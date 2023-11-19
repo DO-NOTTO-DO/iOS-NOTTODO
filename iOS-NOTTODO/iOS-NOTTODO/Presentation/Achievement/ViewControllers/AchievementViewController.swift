@@ -39,7 +39,7 @@ final class AchievementViewController: UIViewController {
         AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.Achieve.viewAccomplish)
         
         if let today = monthCalendar.calendar.today {
-            monthCalendar.yearMonthLabel.text = Utils.dateFormatterString(format: I18N.yearMonthTitle, date: today)
+            monthCalendar.configureYearMonth(to: Utils.dateFormatterString(format: I18N.yearMonthTitle, date: today))
             monthCalendar.calendar.currentPage = today
             requestMonthAPI(month: Utils.dateFormatterString(format: "yyyy-MM", date: today))
         }
@@ -136,7 +136,7 @@ extension AchievementViewController {
 extension AchievementViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalendarDelegateAppearance {
     func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
         self.currentPage = calendar.currentPage
-        monthCalendar.yearMonthLabel.text = Utils.dateFormatterString(format: I18N.yearMonthTitle, date: calendar.currentPage)
+        monthCalendar.configureYearMonth(to: Utils.dateFormatterString(format: I18N.yearMonthTitle, date: calendar.currentPage))
         reloadMonthData(month: Utils.dateFormatterString(format: "yyyy-MM", date: calendar.currentPage))
     }
         
