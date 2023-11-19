@@ -92,7 +92,7 @@ extension MissionDetailCollectionViewCell {
         accumulateView.addSubviews(accumulateSubView, accumulateLabel)
         
         missionTagLabel.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(30)
+            $0.top.equalToSuperview()
             $0.leading.equalToSuperview().offset(29)
         }
         
