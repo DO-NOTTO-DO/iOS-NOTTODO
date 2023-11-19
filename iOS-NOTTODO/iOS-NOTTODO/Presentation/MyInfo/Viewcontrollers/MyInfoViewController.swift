@@ -14,48 +14,45 @@ final class MyInfoViewController: UIViewController {
     
     // MARK: - Properties
     
-    private var infoOne: [InfoModelOne] = [InfoModelOne(image: .imgUser, user: UserDefaults.standard.bool(forKey: DefaultKeys.isAppleLogin) ? KeychainUtil.getAppleUsername() : KeychainUtil.getKakaoNickname(), email: UserDefaults.standard.bool(forKey: DefaultKeys.isAppleLogin) ? KeychainUtil.getAppleEmail() : KeychainUtil.getKakaoEmail())]
-    private let infoTwo: [InfoModelTwo] = InfoModelTwo.items
-    private let infoThree: [InfoModelThree] = InfoModelThree.items
-    private let infoFour: [InfoModelFour] = InfoModelFour.item
+    typealias CellRegistration = UICollectionView.CellRegistration
+    typealias HeaderRegistration = UICollectionView.SupplementaryRegistration
+    typealias DataSource = UICollectionViewDiffableDataSource<Sections, InfoModel>
+    typealias SnapShot = NSDiffableDataSourceSnapshot<Sections, InfoModel>
     
-    enum Sections: Int, Hashable {
-        case one, two, three, four
+    enum Sections: Int, CaseIterable {
+        case profile, support, info, version
     }
-    typealias DataSource = UICollectionViewDiffableDataSource<Sections, AnyHashable>
-    var dataSource: DataSource?
+    
+    private var dataSource: DataSource?
+    
     private lazy var safeArea = self.view.safeAreaLayoutGuide
     
     // MARK: - UI Components
     
-    private lazy var myInfoCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout())
+    private let myInfoCollectionView = UICollectionView(frame: .zero, collectionViewLayout: .init())
     
     // MARK: - Life Cycle
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.MyInfo.viewMyInfo)
         setUI()
-        register()
         setLayout()
         setupDataSource()
-        reloadData()
+        setSanpShot()
     }
 }
 
 // MARK: - Methods
 
 extension MyInfoViewController {
-    private func register() {
-        myInfoCollectionView.register(MyProfileCollectionViewCell.self, forCellWithReuseIdentifier: MyProfileCollectionViewCell.identifier)
-        myInfoCollectionView.register(InfoCollectionViewCell.self, forCellWithReuseIdentifier: InfoCollectionViewCell.identifier)
-        myInfoCollectionView.register(MyInfoHeaderReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: MyInfoHeaderReusableView.identifier)
-    }
     
     private func setUI() {
         view.backgroundColor = .ntdBlack
         
         myInfoCollectionView.do {
+            $0.collectionViewLayout = layout()
             $0.backgroundColor = .clear
             $0.bounces = false
             $0.autoresizingMask = [.flexibleWidth, .flexibleHeight]
@@ -73,100 +70,136 @@ extension MyInfoViewController {
         }
     }
     
-    // MARK: - Data
-    
     private func setupDataSource() {
-        dataSource = DataSource(collectionView: myInfoCollectionView, cellProvider: { collectionView, indexPath, item in
-            let section = self.dataSource?.snapshot().sectionIdentifiers[indexPath.section]
+        
+        let profileCellRegistration = CellRegistration<MyProfileCollectionViewCell, InfoModel> {cell, _, item in
+            cell.configure(model: item)
+        }
+        
+        let infoCellRegistration = CellRegistration<InfoCollectionViewCell, InfoModel> {cell, indexPath, item in
+            
+            guard let section = Sections(rawValue: indexPath.section) else { return }
+            
             switch section {
-            case .one:
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MyProfileCollectionViewCell.identifier, for: indexPath) as! MyProfileCollectionViewCell
-                cell.configure(model: item as! InfoModelOne )
-                return cell
-            case .two:
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: InfoCollectionViewCell.identifier, for: indexPath) as! InfoCollectionViewCell
-                cell.configureWithIcon(model: item as! InfoModelTwo )
-                return cell
-            case .three:
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: InfoCollectionViewCell.identifier, for: indexPath) as! InfoCollectionViewCell
-                cell.configureWithArrow(model: item as! InfoModelThree)
-                return cell
-            case .four, .none:
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: InfoCollectionViewCell.identifier, for: indexPath) as! InfoCollectionViewCell
-                cell.configure(model: item as! InfoModelFour)
-                return cell
+            case .support:
+                cell.configureWithIcon(with: item)
+            case .info:
+                cell.configure(with: item, isHidden: false)
+            default:
+                cell.configure(with: item, isHidden: true)
+            }
+        }
+        
+        let headerRegistration = HeaderRegistration<MyInfoHeaderView>(elementKind: UICollectionView.elementKindSectionHeader) { _, _, _  in }
+        
+        dataSource = DataSource(collectionView: myInfoCollectionView, cellProvider: { collectionView, indexPath, item in
+            
+            guard let section = Sections(rawValue: indexPath.section) else { return UICollectionViewCell() }
+            
+            switch section {
+            case .profile:
+                return collectionView.dequeueConfiguredReusableCell(using: profileCellRegistration,
+                                                                    for: indexPath,
+                                                                    item: item)
+            case  .support, .info, .version:
+                return collectionView.dequeueConfiguredReusableCell(using: infoCellRegistration,
+                                                                    for: indexPath,
+                                                                    item: item)
             }
         })
+        
+        dataSource?.supplementaryViewProvider = { collectionView, _, indexPath in
+            return collectionView.dequeueConfiguredReusableSupplementary(using: headerRegistration,
+                                                                         for: indexPath)
+        }
     }
     
-    private func reloadData() {
-        var snapShot = NSDiffableDataSourceSnapshot<Sections, AnyHashable>()
+    private func setSanpShot() {
+        
+        var snapShot = SnapShot()
+        
         defer {
             dataSource?.apply(snapShot, animatingDifferences: false)
         }
-        snapShot.appendSections([.one, .two, .three, .four])
-        snapShot.appendItems(infoOne, toSection: .one)
-        snapShot.appendItems(infoTwo, toSection: .two)
-        snapShot.appendItems(infoThree, toSection: .three)
-        snapShot.appendItems(infoFour, toSection: .four)
         
-        dataSource?.supplementaryViewProvider = { (collectionView, _, indexPath) in
-            guard let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: MyInfoHeaderReusableView.identifier, for: indexPath) as? MyInfoHeaderReusableView else { return UICollectionReusableView() }
-            return header
-        }
+        snapShot.appendSections(Sections.allCases)
+        snapShot.appendItems(InfoModel.profile, toSection: .profile)
+        snapShot.appendItems(InfoModel.support, toSection: .support)
+        snapShot.appendItems(InfoModel.info, toSection: .info)
+        snapShot.appendItems(InfoModel.version(), toSection: .version)
+        
     }
     
-    // MARK: - Layout
-    
     private func layout() -> UICollectionViewLayout {
+        
         let layout = UICollectionViewCompositionalLayout { sectionIndex, env  in
-            let section = self.dataSource?.snapshot().sectionIdentifiers[sectionIndex]
+            
+            let section = Sections(rawValue: sectionIndex)
             switch section {
-            case .one:
-                return CompositionalLayout.setUpSection(layoutEnvironment: env, mode: .supplementary, 24, 0)
-            case .two, .three:
-                return CompositionalLayout.setUpSection(layoutEnvironment: env, mode: .none, 18, 0)
-            case .four, .none:
-                return CompositionalLayout.setUpSection(layoutEnvironment: env, mode: .none, 18, 60)
+            case .profile:
+                return CompositionalLayout.setUpSection(layoutEnvironment: env,
+                                                        mode: .supplementary,
+                                                        topContentInset: 24)
+            case .support, .info:
+                return CompositionalLayout.setUpSection(layoutEnvironment: env,
+                                                        topContentInset: 18)
+            case .version, .none:
+                return CompositionalLayout.setUpSection(layoutEnvironment: env,
+                                                        topContentInset: 18,
+                                                        bottomContentInset: 60)
+                
             }
+            
         }
         return layout
     }
 }
+
+// MARK: - CollectionViewDelegate
+
 extension MyInfoViewController: UICollectionViewDelegate {
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         switch indexPath.section {
         case 0:
-            AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.MyInfo.clickMyInfo)
-            let nextViewController = MyInfoAccountViewController()
-            nextViewController.hidesBottomBarWhenPushed = false
-            navigationController?.pushViewController(nextViewController, animated: true)
+            ProfileSectionSelection()
         case 1:
-            switch indexPath.item {
-            case 0:
-                AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.MyInfo.clickGuide)
-                Utils.myInfoUrl(vc: self, url: MyInfoURL.guid.url)
-            default:
-                AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.MyInfo.clickFaq)
-                Utils.myInfoUrl(vc: self, url: MyInfoURL.quesition.url)
-            }
+            InfoSectionSelection(for: indexPath,
+                                 events: [.clickGuide, .clickFaq],
+                                 urls: [.guid, .faq])
         case 2:
-            switch indexPath.item {
-            case 0:
-                AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.MyInfo.clickNotice)
-                Utils.myInfoUrl(vc: self, url: MyInfoURL.notice.url)
-            case 1:
-                AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.MyInfo.clickQuestion)
-                Utils.myInfoUrl(vc: self, url: MyInfoURL.contact.url)
-            case 2:
-                AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.MyInfo.clickTerms)
-                Utils.myInfoUrl(vc: self, url: MyInfoURL.service.url)
-            default:
-                AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.MyInfo.clickOpenSource)
-                Utils.myInfoUrl(vc: self, url: MyInfoURL.opensource.url)
-            }
+            InfoSectionSelection(for: indexPath,
+                                 events: [.clickNotice, .clickQuestion, .clickTerms],
+                                 urls: [.notice, .question, .service])
         default:
             return
         }
+    }
+    
+    private func ProfileSectionSelection() {
+        sendAnalyticsEvent(.clickMyInfo) {
+            
+            let nextViewController = MyInfoAccountViewController()
+            nextViewController.hidesBottomBarWhenPushed = false
+            navigationController?.pushViewController(nextViewController, animated: true)
+        }
+    }
+    
+    private func InfoSectionSelection(for indexPath: IndexPath,
+                                      events: [AnalyticsEvent.MyInfo],
+                                      urls: [MyInfoURL]) {
+        guard let item = urls.indices.contains(indexPath.item) ? urls[indexPath.item] : nil,
+              let event = events.indices.contains(indexPath.item) ? events[indexPath.item] : nil else {
+            return
+        }
+        
+        sendAnalyticsEvent(event) {
+            Utils.myInfoUrl(vc: self, url: item.url)
+        }
+    }
+    
+    private func sendAnalyticsEvent(_ event: AnalyticsEvent.MyInfo, action: () -> Void) {
+        AmplitudeAnalyticsService.shared.send(event: event)
+        action()
     }
 }
