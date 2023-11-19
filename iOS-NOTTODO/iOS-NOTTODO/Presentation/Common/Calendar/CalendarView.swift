@@ -140,6 +140,8 @@ extension CalendarView {
     }
 }
 
+// MARK: - Action
+
 extension CalendarView {
 
     @objc
@@ -151,10 +153,36 @@ extension CalendarView {
     func nextBtnTapped(_sender: UIButton) {
         scrollCurrentPage(calendar: calendar, isPrev: false)
     }
+}
+
+extension CalendarView {
     
     func setCalendarSelectedDate(_ dates: [Date]) {
         dates.forEach {
             calendar.select($0)
         }
     }
+    
+    func configure(delegate: FSCalendarDelegate, datasource: FSCalendarDataSource) {
+        calendar.delegate = delegate
+        calendar.dataSource = datasource
+    }
+    
+    func configureYearMonth(to text: String) {
+        yearMonthLabel.text = text
+    }
+    
+    func reloadCollectionView() {
+        calendar.collectionView.reloadData()
+    }
+    
+    func updateDetailConstraints() {
+        horizonStackView.snp.updateConstraints {
+            $0.top.equalToSuperview().offset(54)
+        }
+        calendar.snp.updateConstraints {
+            $0.bottom.equalToSuperview().inset(45)
+        }
+    }
+    
 }
