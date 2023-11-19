@@ -23,7 +23,6 @@ final class InfoCollectionViewCell: UICollectionViewCell {
     private let titleLabel = UILabel()
     private let arrowImage = UIImageView()
     
-    
     // MARK: - Life Cycle
     
     override init(frame: CGRect) {
