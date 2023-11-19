@@ -205,7 +205,7 @@ extension HomeViewController {
                 return layoutSection
                 
             case .empty:
-                return CompositionalLayout._vertical(.fractionalWidth(1), .fractionalWidth(1), .fractionalWidth(1), .fractionalWidth(1), count: 1, edge: .init(top: 30, leading: 0, bottom: 0, trailing: 0))
+                return CompositionalLayout.vertical(itemWidth: .fractionalWidth(1), itemHeight: .fractionalWidth(1), groupWidth: .fractionalWidth(1), groupHeight: .fractionalWidth(1), count: 1, edge: .init(top: 30, leading: 0, bottom: 0, trailing: 0))
             }
         }
         return layout

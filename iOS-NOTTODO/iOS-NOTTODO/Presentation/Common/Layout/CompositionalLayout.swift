@@ -7,31 +7,41 @@
 
 import UIKit
 
-final class CompositionalLayout {
+struct CompositionalLayout {
     
-    class func _vertical(_ itemWidth: NSCollectionLayoutDimension, _ itemHeight: NSCollectionLayoutDimension, _ groupWidth: NSCollectionLayoutDimension, _ groupHeight: NSCollectionLayoutDimension, count: Int, edge: NSDirectionalEdgeInsets?) -> NSCollectionLayoutSection {
+    static func vertical(itemWidth: NSCollectionLayoutDimension = .fractionalWidth(1),
+                         itemHeight: NSCollectionLayoutDimension = .fractionalHeight(1),
+                         groupWidth: NSCollectionLayoutDimension = .fractionalWidth(1),
+                         groupHeight: NSCollectionLayoutDimension = .fractionalHeight(1),
+                         count: Int,
+                         edge: NSDirectionalEdgeInsets = .zero) -> NSCollectionLayoutSection {
         let item = NSCollectionLayoutItem(layoutSize: .init(widthDimension: itemWidth, heightDimension: itemHeight))
-        let group = NSCollectionLayoutGroup.vertical(layoutSize: .init(widthDimension: groupWidth, heightDimension: groupHeight), subitem: item, count: count )
-        return section(group, edge ?? NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
+        let group = NSCollectionLayoutGroup.vertical(layoutSize: .init(widthDimension: groupWidth, heightDimension: groupHeight), subitem: item, count: count)
+        return createSection(group, edge)
     }
     
-    class func section(_ group: NSCollectionLayoutGroup, _ edge: NSDirectionalEdgeInsets) -> NSCollectionLayoutSection {
+    static func createSection(_ group: NSCollectionLayoutGroup, _ edge: NSDirectionalEdgeInsets) -> NSCollectionLayoutSection {
         let section = NSCollectionLayoutSection(group: group)
         section.contentInsets = edge
         return section
     }
     
-    class func setUpSection(layoutEnvironment: NSCollectionLayoutEnvironment, mode: UICollectionLayoutListConfiguration.HeaderMode, _ top: CGFloat, _ bottom: CGFloat) -> NSCollectionLayoutSection {
-        var config = UICollectionLayoutListConfiguration(appearance: .insetGrouped)
-        config.headerMode = mode
-        config.showsSeparators = true
-        config.separatorConfiguration.color = UIColor.gray2!
-        config.backgroundColor = .clear
-        config.headerTopPadding = 22
+    static func setUpSection(layoutEnvironment: NSCollectionLayoutEnvironment,
+                             mode: UICollectionLayoutListConfiguration.HeaderMode = .none,
+                             topContentInset: CGFloat = 0,
+                             bottomContentInset: CGFloat = 0)
+    -> NSCollectionLayoutSection {
+        var listConfig = UICollectionLayoutListConfiguration(appearance: .insetGrouped)
+        listConfig.headerMode = mode
+        listConfig.showsSeparators = true
+        listConfig.separatorConfiguration.color = UIColor.gray2!
+        listConfig.backgroundColor = .clear
+        listConfig.headerTopPadding = 22
         
-        let section = NSCollectionLayoutSection.list(using: config, layoutEnvironment: layoutEnvironment)
-        section.contentInsets = NSDirectionalEdgeInsets(top: top, leading: 0, bottom: bottom, trailing: 0)
-        if config.headerMode == .supplementary {
+        let section = NSCollectionLayoutSection.list(using: listConfig, layoutEnvironment: layoutEnvironment)
+        section.contentInsets = NSDirectionalEdgeInsets(top: topContentInset, leading: 0, bottom: bottomContentInset, trailing: 0)
+        
+        if listConfig.headerMode == .supplementary {
             let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(22))
             let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
             section.boundarySupplementaryItems = [header]
