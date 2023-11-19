@@ -40,7 +40,7 @@ final class MyInfoViewController: UIViewController {
         setUI()
         setLayout()
         setupDataSource()
-        setSanpShot()
+        setSnapShot()
     }
 }
 
@@ -114,7 +114,7 @@ extension MyInfoViewController {
         }
     }
     
-    private func setSanpShot() {
+    private func setSnapShot() {
         
         var snapShot = SnapShot()
         
@@ -162,9 +162,9 @@ extension MyInfoViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         switch indexPath.section {
         case 0:
-            ProfileSectionSelection()
+            profileSectionSelection()
         case 1:
-            InfoSectionSelection(for: indexPath,
+            infoSectionSelection(for: indexPath,
                                  events: [.clickGuide, .clickFaq],
                                  urls: [.guid, .faq])
         case 2:
@@ -176,7 +176,7 @@ extension MyInfoViewController: UICollectionViewDelegate {
         }
     }
     
-    private func ProfileSectionSelection() {
+    private func profileSectionSelection() {
         sendAnalyticsEvent(.clickMyInfo) {
             
             let nextViewController = MyInfoAccountViewController()
@@ -185,7 +185,7 @@ extension MyInfoViewController: UICollectionViewDelegate {
         }
     }
     
-    private func InfoSectionSelection(for indexPath: IndexPath,
+    private func infoSectionSelection(for indexPath: IndexPath,
                                       events: [AnalyticsEvent.MyInfo],
                                       urls: [MyInfoURL]) {
         guard let item = urls.indices.contains(indexPath.item) ? urls[indexPath.item] : nil,
