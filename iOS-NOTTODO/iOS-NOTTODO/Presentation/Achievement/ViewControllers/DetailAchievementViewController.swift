@@ -50,7 +50,7 @@ final class DetailAchievementViewController: UIViewController {
        
         setUI()
         setLayout()
-        setupDataSource()
+        setDataSource()
         setSnapShot()
     }
     
@@ -92,7 +92,7 @@ extension DetailAchievementViewController {
         }
     }
     
-    private func setupDataSource() {
+    private func setDataSource() {
         
         let cellRegistration = CellRegistration<DetailAchievementCollectionViewCell, Item> {cell, _, item in
             cell.configure(model: item)
