@@ -168,7 +168,7 @@ extension MyInfoViewController: UICollectionViewDelegate {
                                  events: [.clickGuide, .clickFaq],
                                  urls: [.guid, .faq])
         case 2:
-            InfoSectionSelection(for: indexPath,
+            infoSectionSelection(for: indexPath,
                                  events: [.clickNotice, .clickQuestion, .clickTerms],
                                  urls: [.notice, .question, .service])
         default:
