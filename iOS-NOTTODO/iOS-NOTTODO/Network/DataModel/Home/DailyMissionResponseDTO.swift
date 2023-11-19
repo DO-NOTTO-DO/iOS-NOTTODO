@@ -14,8 +14,23 @@ enum CompletionStatus: String, Codable, Hashable {
 // MARK: - DailyMissionResponseDTO
 
 struct DailyMissionResponseDTO: Codable, Hashable {
-    var id: Int
-    var title: String
-    var situationName: String
-    var completionStatus: CompletionStatus
+    
+    var uuid =  UUID()
+    let id: Int
+    let title: String
+    let situationName: String
+    let completionStatus: CompletionStatus
+    
+    enum CodingKeys: String, CodingKey {
+        
+        case id = "id"
+        case title = "title"
+        case situationName = "situationName"
+        case completionStatus = "completionStatus"
+    }
+    
+    static func == (lhs: DailyMissionResponseDTO, rhs: DailyMissionResponseDTO) -> Bool {
+        lhs.uuid == rhs.uuid
+    }
+    
 }
