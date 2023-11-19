@@ -15,15 +15,16 @@ final class AchievementViewController: UIViewController {
     
     // MARK: - Properties
     
-    private lazy var safeArea = self.view.safeAreaLayoutGuide
-    private var currentPage: Date? = Date()
-    var count: Int?
-    var dataSource: [String: Float] = [:] {
+    var selectDate: Date?
+    private var count: Int?
+    private var currentPage = Date()
+    private var dataSource: [String: Float] = [:] {
         didSet {
             self.monthCalendar.calendar.reloadData()
         }
     }
-    var selectDate: Date?
+    
+    private lazy var safeArea = self.view.safeAreaLayoutGuide
     
     // MARK: - UI Components
     
@@ -39,14 +40,15 @@ final class AchievementViewController: UIViewController {
         AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.Achieve.viewAccomplish)
         
         if let today = monthCalendar.calendar.today {
-            monthCalendar.yearMonthLabel.text = Utils.dateFormatterString(format: I18N.yearMonthTitle, date: today)
             monthCalendar.calendar.currentPage = today
+            monthCalendar.yearMonthLabel.text = Utils.dateFormatterString(format: I18N.yearMonthTitle, date: today)
             requestMonthAPI(month: Utils.dateFormatterString(format: "yyyy-MM", date: today))
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         setUI()
         setLayout()
     }
@@ -62,13 +64,18 @@ extension AchievementViewController {
     
     private func setUI() {
         view.backgroundColor = .ntdBlack
-        scrollView.backgroundColor = .clear
+        
+        scrollView.do {
+            $0.backgroundColor = .clear
+            $0.showsVerticalScrollIndicator = false
+        }
         
         achievementLabel.do {
             $0.text = I18N.achievement
             $0.font = .Pretendard(.semiBold, size: 18)
             $0.textColor = .white
         }
+        
         monthCalendar.do {
             $0.layer.cornerRadius = 12
             $0.layer.borderWidth = 1
@@ -76,19 +83,22 @@ extension AchievementViewController {
             $0.calendar.register(MissionCalendarCell.self, forCellReuseIdentifier: MissionCalendarCell.identifier)
             $0.calendar.delegate = self
             $0.calendar.dataSource = self
-            $0.monthCalendarClosure = { [self] result in
-                let month = result
+            $0.monthCalendarClosure = { [weak self] month in
+                guard let self else { return }
                 self.reloadMonthData(month: month)
             }
         }
     }
+    
     private func setLayout() {
         view.addSubview(scrollView)
+        
         scrollView.addSubviews(achievementLabel, monthCalendar, statisticsView)
         
         scrollView.snp.makeConstraints {
             $0.edges.equalTo(safeArea)
         }
+        
         achievementLabel.snp.makeConstraints {
             $0.top.equalToSuperview().offset(23)
             $0.leading.equalTo(safeArea).offset(21)
@@ -107,11 +117,12 @@ extension AchievementViewController {
             $0.bottom.equalTo(scrollView.snp.bottom).inset(20)
         }
     }
+    
     func requestMonthAPI(month: String) {
         AchieveAPI.shared.getAchieveCalendar(month: month) { [weak self] result in
+            guard let self else { return }
             guard let result = result?.data else { return }
-            self?.dataSource = [:]
-            guard let currentPage = self?.currentPage else { return }
+            self.dataSource = [:]
             let currentMonth = Calendar.current.component(.month, from: currentPage)
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "yyyy-MM-dd"
@@ -124,19 +135,21 @@ extension AchievementViewController {
             }
 
             actionDate.forEach {
-                self?.dataSource[$0.actionDate] = $0.percentage
-                               self?.count = self?.dataSource.count
+                self.dataSource[$0.actionDate] = $0.percentage
+                               self.count = self.dataSource.count
             }
       
-            self?.monthCalendar.calendar.reloadData()
+            self.monthCalendar.calendar.collectionView.reloadData()
         }
     }
 }
 
 extension AchievementViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalendarDelegateAppearance {
+    
     func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
         self.currentPage = calendar.currentPage
-        monthCalendar.yearMonthLabel.text = Utils.dateFormatterString(format: I18N.yearMonthTitle, date: calendar.currentPage)
+        monthCalendar.yearMonthLabel.text = Utils.dateFormatterString(format: I18N.yearMonthTitle,
+                                                                       date: calendar.currentPage)
         reloadMonthData(month: Utils.dateFormatterString(format: "yyyy-MM", date: calendar.currentPage))
     }
         
@@ -160,6 +173,7 @@ extension AchievementViewController: FSCalendarDelegate, FSCalendarDataSource, F
     func calendar(_ calendar: FSCalendar, shouldSelect date: Date, at monthPosition: FSCalendarMonthPosition) -> Bool {
         Calendar.current.isDate(date, equalTo: calendar.currentPage, toGranularity: .month)
     }
+    
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleSelectionColorFor date: Date) -> UIColor? {
         
         guard let count = self.count else { return .white }
@@ -175,7 +189,6 @@ extension AchievementViewController: FSCalendarDelegate, FSCalendarDataSource, F
     }
     
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleDefaultColorFor date: Date) -> UIColor? {
-        guard let currentPage = self.currentPage else { return .white }
         let currentMonth = Calendar.current.component(.month, from: currentPage)
         let dateMonth = Calendar.current.component(.month, from: date)
        
@@ -197,22 +210,14 @@ extension AchievementViewController: FSCalendarDelegate, FSCalendarDataSource, F
     
     func calendar(_ calendar: FSCalendar, cellFor date: Date, at position: FSCalendarMonthPosition) -> FSCalendarCell {
         let cell = calendar.dequeueReusableCell(withIdentifier: MissionCalendarCell.identifier, for: date, at: position) as! MissionCalendarCell
-        cell.iconView.contentMode = .scaleAspectFit
-        cell.iconView.snp.remakeConstraints {
-            $0.edges.equalToSuperview()
-            $0.center.equalToSuperview()
-        }
-        cell.titleLabel.snp.remakeConstraints {
-            $0.centerY.equalToSuperview().offset(-1)
-            $0.centerX.equalToSuperview()
-        }
+        
         guard let count = self.count else { return cell }
         let dateString = Utils.dateFormatterString(format: nil, date: date)
         if let percentage = self.dataSource[dateString] {
             switch (count, percentage) {
-            case (_, 1.0): cell.configure(.rateFull, .week)
-            case (_, 0.0): cell.configure(.none, .week)
-            case (2, 0.5), (3, 0.0..<1.0), (_, _): cell.configure(.rateHalf, .week)
+            case (_, 1.0): cell.configure(.rateFull, .month)
+            case (_, 0.0): cell.configure(.none, .month)
+            case (2, 0.5), (3, 0.0..<1.0), (_, _): cell.configure(.rateHalf, .month)
             }
         }
         return cell

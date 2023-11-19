@@ -15,7 +15,7 @@ final class CalendarView: UIView {
     
     // MARK: - UI Components
 
-    let yearMonthLabel = UILabel()
+    var yearMonthLabel = UILabel()
     let todayButton = UIButton(configuration: .filled())
     let horizonStackView = UIStackView()
     let leftButton = UIButton()
