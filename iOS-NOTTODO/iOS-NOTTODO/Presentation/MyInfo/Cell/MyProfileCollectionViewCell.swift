@@ -7,7 +7,10 @@
 
 import UIKit
 
-class MyProfileCollectionViewCell: UICollectionViewCell {
+import SnapKit
+import Then
+
+final class MyProfileCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Properties
 
@@ -19,6 +22,8 @@ class MyProfileCollectionViewCell: UICollectionViewCell {
     private let verticalStackView = UIStackView()
     private let userLabel = UILabel()
     private let emailLabel = UILabel()
+    
+    // MARK: - Life Cycle
 
     override init(frame: CGRect) {
         super.init(frame: .zero)
@@ -34,6 +39,7 @@ class MyProfileCollectionViewCell: UICollectionViewCell {
 // MARK: - Methods
 
 extension MyProfileCollectionViewCell {
+    
     private func setUI() {
         backgroundColor = .gray1
         
@@ -43,12 +49,14 @@ extension MyProfileCollectionViewCell {
             $0.textColor = .white
             $0.font = .Pretendard(.regular, size: 15)
         }
+        
         emailLabel.do {
             $0.textAlignment = .left
             $0.numberOfLines = 1
             $0.textColor = .gray4
             $0.font = .Pretendard(.regular, size: 12)
         }
+        
         verticalStackView.do {
             $0.addArrangedSubviews(userLabel, emailLabel)
             $0.axis = .vertical
@@ -73,7 +81,7 @@ extension MyProfileCollectionViewCell {
         }
     }
     
-    func configure(model: InfoModelOne) {
+    func configure(model: InfoModel) {
         logoImage.image = model.image
         userLabel.text = model.user
         emailLabel.text = model.email
