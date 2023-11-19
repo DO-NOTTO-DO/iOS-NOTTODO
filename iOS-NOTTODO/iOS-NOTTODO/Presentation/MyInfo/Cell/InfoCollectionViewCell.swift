@@ -7,7 +7,10 @@
 
 import UIKit
 
-class InfoCollectionViewCell: UICollectionViewCell {
+import SnapKit
+import Then
+
+final class InfoCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Properties
     
@@ -19,6 +22,9 @@ class InfoCollectionViewCell: UICollectionViewCell {
     private let iconImage = UIImageView()
     private let titleLabel = UILabel()
     private let arrowImage = UIImageView()
+    
+    
+    // MARK: - Life Cycle
     
     override init(frame: CGRect) {
         super.init(frame: .zero)
@@ -34,6 +40,7 @@ class InfoCollectionViewCell: UICollectionViewCell {
 // MARK: - Methods
 
 extension InfoCollectionViewCell {
+    
     private func setUI() {
         backgroundColor = .gray1
         
@@ -47,6 +54,7 @@ extension InfoCollectionViewCell {
             $0.axis = .horizontal
             $0.spacing = 6
         }
+        
         arrowImage.do {
             $0.isHidden = true
             $0.image = .icRightArrow
@@ -73,7 +81,8 @@ extension InfoCollectionViewCell {
         }
     }
     
-    func configureWithIcon(model: InfoModelTwo) {
+    func configureWithIcon(with model: InfoModel) {
+        
         iconImage.image = model.image
         titleLabel.text = model.title
         
@@ -82,17 +91,10 @@ extension InfoCollectionViewCell {
         }
     }
     
-    func configureWithArrow(model: InfoModelThree) {
+    func configure(with model: InfoModel, isHidden: Bool) {
         horizontalStackView.removeArrangedSubview(iconImage)
         iconImage.removeFromSuperview()
         titleLabel.text = model.title
-        arrowImage.isHidden = false
-    }
-    
-    func configure(model: InfoModelFour) {
-        horizontalStackView.removeArrangedSubview(iconImage)
-        iconImage.removeFromSuperview()
-        titleLabel.text = model.title
-        arrowImage.isHidden = true
+        arrowImage.isHidden = isHidden
     }
 }
