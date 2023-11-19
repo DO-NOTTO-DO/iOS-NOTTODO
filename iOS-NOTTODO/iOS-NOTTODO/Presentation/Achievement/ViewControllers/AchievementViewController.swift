@@ -159,7 +159,6 @@ extension AchievementViewController: FSCalendarDelegate, FSCalendarDataSource, F
         let currentMonth = Calendar.current.component(.month, from: currentPage)
         let dateMonth = Calendar.current.component(.month, from: date)
         
-        
         if let percentage = getPercentage(for: date) {
             return percentage == 1.0 ? .black : .white
         } else {
