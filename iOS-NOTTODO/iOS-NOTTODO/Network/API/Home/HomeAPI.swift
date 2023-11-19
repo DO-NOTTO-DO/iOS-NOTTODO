@@ -20,37 +20,44 @@ final class HomeAPI {
     public private(set) var missionDailyData: GeneralArrayResponse<DailyMissionResponseDTO>?
     public private(set) var missionDetailDailyData: GeneralResponse<MissionDetailResponseDTO>?
     public private(set) var updateMissionStatus: GeneralResponse<DailyMissionResponseDTO>?
-    public private(set) var missionWeekly: GeneralResponse<WeekMissionResponseDTO>?
+    public private(set) var missionWeekly: GeneralArrayResponse<WeekMissionResponseDTO>?
     public private(set) var addAnotherDay: GeneralResponse<AddAnotherDayResponseDTO>?
     public private(set) var particularDays: GeneralArrayResponse<String>?
     
     // MARK: - GET
     
-    func getDailyMission(date: String, completion: @escaping (NetworkResult<Any>) -> Void) {
-        homeProvider.request(.dailyMission(date: date)) { response in
-            switch response {
-            case let .success(response):
-                let statusCode = response.statusCode
-                let data = response.data
-                let networkResult = NetworkBase.judgeStatus(by: statusCode, data, [DailyMissionResponseDTO].self)
-                completion(networkResult)
-            case let .failure(err):
-                print(err)
+    func getDailyMission(date: String, completion: @escaping (GeneralArrayResponse<DailyMissionResponseDTO>?) -> Void) {
+        homeProvider.request(.dailyMission(date: date)) { result in
+            switch result {
+            case .success(let response):
+                do {
+                    self.missionDailyData = try response.map(GeneralArrayResponse<DailyMissionResponseDTO>?.self)
+                    guard let missionDailtData = self.missionDailyData else { return }
+                    completion(missionDailtData)
+                } catch let err {
+                    print(err.localizedDescription, 500)
+                }
+            case .failure(let err):
+                print(err.localizedDescription)
+                completion(nil)
             }
         }
     }
     
-    func getWeeklyMissoin(startDate: String, completion: @escaping (NetworkResult<Any>) -> Void) {
-        homeProvider.request(.missionWeekly(startDate: startDate)) { response in
-            switch response {
-            case let .success(response):
-                let statusCode = response.statusCode
-                let data = response.data
-                let networkResult = NetworkBase.judgeStatus(by: statusCode, data,
-                                                            [WeekMissionResponseDTO].self)
-                completion(networkResult)
-            case let .failure(err):
-                print(err)
+    func getWeeklyMissoin(startDate: String, completion: @escaping (GeneralArrayResponse<WeekMissionResponseDTO>?) -> Void) {
+        homeProvider.request(.missionWeekly(startDate: startDate)) { result in
+            switch result {
+            case .success(let response):
+                do {
+                    self.missionWeekly = try response.map(GeneralArrayResponse<WeekMissionResponseDTO>?.self)
+                    guard let missionWeekly = self.missionWeekly else { return }
+                    completion(missionWeekly)
+                } catch let err {
+                    print(err.localizedDescription, 500)
+                }
+            case .failure(let err):
+                print(err.localizedDescription)
+                completion(nil)
             }
         }
     }
