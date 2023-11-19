@@ -360,23 +360,14 @@ extension HomeViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalend
 // MARK: - Network
 
 extension HomeViewController {
-    
-    func requestDailyMissionAPI(date: String) {
-        HomeAPI.shared.getDailyMission(date: date) { [weak self] result in
-            switch result {
-            case let .success(data):
-                guard let data = data as? [DailyMissionResponseDTO] else {return}
-                self?.missionList = []
-                if !data.isEmpty {
-                    self?.missionList = data
-                }
-                self?.updateData()
 
-            case .pathErr: print("pathErr")
-            case .serverErr: print("serverErr")
-            case .networkFail: print("networkFail")
-            case .requestErr: print("networkFail")
-            }
+    func requestDailyMissionAPI(date: String) {
+        
+        HomeAPI.shared.getDailyMission(date: date) { [weak self] response in
+            guard let self, let response = response, let data = response.data else { return }
+            
+            self.missionList = data
+            self.updateData()
         }
     }
     
