@@ -14,17 +14,6 @@ protocol HomeModalDelegate {
     func deleteMission(index: Int, id: Int)
 }
 
-enum Sections: Int, Hashable {
-    
-    case mission, empty
-}
-
-enum Item: Hashable {
-    
-    case mission(DailyMissionResponseDTO)
-    case empty
-}
-
 final class HomeDataSource {
     
     // MARK: - Properties
@@ -33,6 +22,17 @@ final class HomeDataSource {
     typealias DataSource = UICollectionViewDiffableDataSource<Sections, Item>
     typealias SnapShot = NSDiffableDataSourceSnapshot<Sections, Item>
     
+    enum Sections: Int, Hashable {
+        
+        case mission, empty
+    }
+
+    enum Item: Hashable {
+        
+        case mission(DailyMissionResponseDTO)
+        case empty
+    }
+    
     private var currentSection: [Sections] = [.empty]
     private var missionList: [DailyMissionResponseDTO]
     
@@ -40,7 +40,7 @@ final class HomeDataSource {
     var modalDelegate: HomeModalDelegate?
     
     // MARK: - UI Components
-        
+    
     private let collectionView: UICollectionView
     
     init(collectionView: UICollectionView, missionList: [DailyMissionResponseDTO]) {
@@ -63,7 +63,7 @@ final class HomeDataSource {
         let emptyRegistration = createEmptyCellRegistration()
         
         dataSource = DataSource(collectionView: collectionView, cellProvider: { collectionView, indexPath, item in
-
+            
             switch item {
             case .mission:
                 return collectionView.dequeueConfiguredReusableCell(using: cellRegistration,
@@ -101,7 +101,7 @@ final class HomeDataSource {
     
     private func setSnapShot() {
         
-        var snapshot = NSDiffableDataSourceSnapshot<Sections, Item>()
+        var snapshot = SnapShot()
         
         defer {
             dataSource?.apply(snapshot, animatingDifferences: false)
@@ -118,7 +118,7 @@ final class HomeDataSource {
         
         let newSections: [Sections] = self.missionList.isEmpty ? [.empty] : [.mission]
         let item: [Item] = self.missionList.isEmpty ? [.empty] : missioList.map { .mission($0) }
-                
+        
         snapshot.deleteSections(currentSection)
         snapshot.appendSections(newSections)
         snapshot.appendItems(item, toSection: newSections.first)
@@ -131,7 +131,8 @@ final class HomeDataSource {
         
         let layout = UICollectionViewCompositionalLayout { sectionIndex, env in
             
-            guard let section = Sections(rawValue: sectionIndex) else { return nil }
+            guard let section = self.dataSource?.snapshot().sectionIdentifiers[sectionIndex] else { return nil }
+            
             switch section {
             case .mission:
                 return self.missionSection(env: env)
@@ -158,7 +159,7 @@ final class HomeDataSource {
     }
     
     private func makeSwipeActions(for indexPath: IndexPath?) -> UISwipeActionsConfiguration? {
-
+        
         guard let index = indexPath?.item,
               let result = findMissionItem(with: missionList[index].uuid) else { return nil }
         
@@ -196,7 +197,7 @@ final class HomeDataSource {
         
         return swipeConfiguration
     }
-  
+    
     private func getMissionItem(from item: Item) -> DailyMissionResponseDTO? {
         if case let .mission(missionItem) = item {
             return missionItem
