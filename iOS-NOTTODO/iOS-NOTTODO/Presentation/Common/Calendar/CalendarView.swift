@@ -100,8 +100,6 @@ extension CalendarView {
             $0.collectionView.register(MissionCalendarCell.self,
                                        forCellWithReuseIdentifier: MissionCalendarCell.identifier)
         }
-        
- 
     }
     
     private func setLayout(scope: FSCalendarScope) {
