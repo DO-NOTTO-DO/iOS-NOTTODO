@@ -72,6 +72,7 @@
 		3B027AA2299C355800BEB65C /* AchievementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B027AA1299C355800BEB65C /* AchievementViewController.swift */; };
 		3B027AA4299C357000BEB65C /* MyInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B027AA3299C357000BEB65C /* MyInfoViewController.swift */; };
 		3B027AAC299C35E500BEB65C /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3B027AAB299C35E500BEB65C /* Colors.xcassets */; };
+		3B03D0D62B0F15AA00302872 /* NotificationDialogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B03D0D52B0F15AA00302872 /* NotificationDialogViewController.swift */; };
 		3B0CBA222A45FC170004F2DB /* UpdateMissionResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0CBA212A45FC170004F2DB /* UpdateMissionResponseDTO.swift */; };
 		3B0CBA242A461B1C0004F2DB /* RecentMissionResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0CBA232A461B1C0004F2DB /* RecentMissionResponseDTO.swift */; };
 		3B11740D2A4B574B0033DDF3 /* CALayer+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B11740C2A4B574B0033DDF3 /* CALayer+.swift */; };
@@ -231,6 +232,7 @@
 		3B027AA1299C355800BEB65C /* AchievementViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementViewController.swift; sourceTree = "<group>"; };
 		3B027AA3299C357000BEB65C /* MyInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInfoViewController.swift; sourceTree = "<group>"; };
 		3B027AAB299C35E500BEB65C /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
+		3B03D0D52B0F15AA00302872 /* NotificationDialogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationDialogViewController.swift; sourceTree = "<group>"; };
 		3B0CBA212A45FC170004F2DB /* UpdateMissionResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateMissionResponseDTO.swift; sourceTree = "<group>"; };
 		3B0CBA232A461B1C0004F2DB /* RecentMissionResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentMissionResponseDTO.swift; sourceTree = "<group>"; };
 		3B11740C2A4B574B0033DDF3 /* CALayer+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CALayer+.swift"; sourceTree = "<group>"; };
@@ -680,6 +682,7 @@
 		3B027A97299C343D00BEB65C /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				3B03D0D32B0F157700302872 /* NotificatoinDialog */,
 				09F6717E29CAD68100708725 /* Onboarding */,
 				3B027A9B299C348800BEB65C /* Achievement */,
 				3B027A9C299C349A00BEB65C /* AddMission */,
@@ -801,6 +804,22 @@
 				3B027A80299C31B600BEB65C /* Assets.xcassets */,
 			);
 			path = Assets;
+			sourceTree = "<group>";
+		};
+		3B03D0D32B0F157700302872 /* NotificatoinDialog */ = {
+			isa = PBXGroup;
+			children = (
+				3B03D0D42B0F159100302872 /* ViewControllers */,
+			);
+			path = NotificatoinDialog;
+			sourceTree = "<group>";
+		};
+		3B03D0D42B0F159100302872 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				3B03D0D52B0F15AA00302872 /* NotificationDialogViewController.swift */,
+			);
+			path = ViewControllers;
 			sourceTree = "<group>";
 		};
 		3B3C89DB29C0EF6A00B1D56D /* Models */ = {
@@ -1238,6 +1257,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3B03D0D62B0F15AA00302872 /* NotificationDialogViewController.swift in Sources */,
 				09F6719729CC81B500708725 /* DetailAchievementCollectionViewCell.swift in Sources */,
 				0960C0D62A38BC8100A3D8DB /* DefaultKeys.swift in Sources */,
 				3B14A14129A6FDA900F92897 /* UILabel+.swift in Sources */,
