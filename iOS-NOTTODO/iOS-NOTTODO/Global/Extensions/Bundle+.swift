@@ -44,4 +44,16 @@ extension Bundle {
         }
         return value
     }
+    
+    var appleId: String {
+        guard let filePath = Bundle.main.path(forResource: "API_KEY", ofType: "plist") else {
+            fatalError("Could't find file 'API_KEY.plist'.")
+        }
+        let plist = NSDictionary(contentsOfFile: filePath)
+        
+        guard let value = plist?.object(forKey: "APPLE_ID") as? String else {
+            fatalError("Couldn't find key 'APPLE_ID' in 'API_KEY.plist'.")
+        }
+        return value
+    }
 }
