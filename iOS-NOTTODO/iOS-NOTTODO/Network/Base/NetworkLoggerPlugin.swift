@@ -56,15 +56,6 @@ final class MoyaLoggingPlugin: PluginType {
         }
         log.append("------------------- END HTTP (\(response.data.count)-byte body) -------------------")
         print(log)
-        
-        switch statusCode {
-        case 200..<300:
-            return
-        default:
-            
-            let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as! SceneDelegate
-            sceneDelegate.window?.rootViewController = UINavigationController(rootViewController: AuthViewController())
-        }
     }
     
     func onFail(_ error: MoyaError, target: TargetType) {
