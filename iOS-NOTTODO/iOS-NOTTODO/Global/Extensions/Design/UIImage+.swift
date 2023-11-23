@@ -57,6 +57,7 @@ extension UIImage {
     static var icTrashbin: UIImage { UIImage(named: "ic_trashbin")! }
     static var icToastError: UIImage { UIImage(named: "ic_toast_error")! }
     static var icBell: UIImage { UIImage(named: "ic_bell")! }
+    static var icCircle: UIImage { UIImage(named: "acceptCircle")! }
     
     // image
     

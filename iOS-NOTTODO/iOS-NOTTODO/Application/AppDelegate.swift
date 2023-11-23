@@ -70,7 +70,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         DispatchQueue.main.async {
             if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
                let window = windowScene.windows.first {
-                let tabBarController = TabBarController()
+                let tabBarController = NotificationDialogViewController()
                 let navigationController = UINavigationController(rootViewController: tabBarController)
                 navigationController.isNavigationBarHidden = true
                 window.rootViewController = navigationController
