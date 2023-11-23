@@ -30,6 +30,7 @@
 		09582B5129C0BC3600EF3207 /* DetailAchievementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09582B5029C0BC3600EF3207 /* DetailAchievementViewController.swift */; };
 		0960C0D42A38BC6500A3D8DB /* KeychainUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0960C0D32A38BC6500A3D8DB /* KeychainUtil.swift */; };
 		0960C0D62A38BC8100A3D8DB /* DefaultKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0960C0D52A38BC8100A3D8DB /* DefaultKeys.swift */; };
+		0964BA4A2B0F6BFB00A8984B /* AuthInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0964BA492B0F6BFB00A8984B /* AuthInterceptor.swift */; };
 		097568362A2FEF630001EC46 /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097568352A2FEF3F0001EC46 /* String+.swift */; };
 		097C003629AB8270008CAEF3 /* MissionListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097C003529AB8270008CAEF3 /* MissionListCollectionViewCell.swift */; };
 		0982DE5429ADCCE000D933D2 /* HomeEmptyCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0982DE5329ADCCE000D933D2 /* HomeEmptyCollectionViewCell.swift */; };
@@ -188,6 +189,7 @@
 		09582B5029C0BC3600EF3207 /* DetailAchievementViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailAchievementViewController.swift; sourceTree = "<group>"; };
 		0960C0D32A38BC6500A3D8DB /* KeychainUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainUtil.swift; sourceTree = "<group>"; };
 		0960C0D52A38BC8100A3D8DB /* DefaultKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultKeys.swift; sourceTree = "<group>"; };
+		0964BA492B0F6BFB00A8984B /* AuthInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthInterceptor.swift; sourceTree = "<group>"; };
 		097568352A2FEF3F0001EC46 /* String+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+.swift"; sourceTree = "<group>"; };
 		097C003529AB8270008CAEF3 /* MissionListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionListCollectionViewCell.swift; sourceTree = "<group>"; };
 		0982DE5329ADCCE000D933D2 /* HomeEmptyCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeEmptyCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -1039,6 +1041,7 @@
 			isa = PBXGroup;
 			children = (
 				6CF4705A29A68EA9008D145C /* URLConstant.swift */,
+				0964BA492B0F6BFB00A8984B /* AuthInterceptor.swift */,
 				6CF4705C29A68F5C008D145C /* NetworkLoggerPlugin.swift */,
 				6CF4705E29A69025008D145C /* GeneralResponse.swift */,
 				6CF4706029A69096008D145C /* NetworkConstant.swift */,
@@ -1307,6 +1310,7 @@
 				09582B4829BDA7F600EF3207 /* DetailStackView.swift in Sources */,
 				09F6718429CADB1100708725 /* OnboardingModel.swift in Sources */,
 				3B027A7A299C31B500BEB65C /* SceneDelegate.swift in Sources */,
+				0964BA4A2B0F6BFB00A8984B /* AuthInterceptor.swift in Sources */,
 				09582B5129C0BC3600EF3207 /* DetailAchievementViewController.swift in Sources */,
 				0982DE5829AE40FB00D933D2 /* UITabBar+.swift in Sources */,
 				3BC1A27929C9BE6C0088376B /* AddMissionFooterCollectionReusableView.swift in Sources */,
