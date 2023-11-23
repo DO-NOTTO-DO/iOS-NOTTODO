@@ -54,15 +54,24 @@ extension UIViewController {
             $0.height.equalTo(61)
         }
         
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(deleteToast(_:)))
+        toastView.addGestureRecognizer(tapGestureRecognizer)
+        toastView.isUserInteractionEnabled = true
+        
         UIView.animate(withDuration: 0.4, delay: 0.0, options: .curveEaseIn) {
             toastView.alpha = 1.0
         } completion: { _ in
-            UIView.animate(withDuration: 0.4, delay: 1.0, options: .curveEaseOut) {
+            UIView.animate(withDuration: 0.4, delay: 1.5, options: .curveEaseOut) {
                 toastView.alpha = 0.0
             } completion: { _ in
                 toastView.removeFromSuperview()
             }
         }
+    }
+    
+    @objc
+    private func deleteToast(_ sender: UITapGestureRecognizer) {
+        sender.view?.removeFromSuperview()
     }
     
     /// html을 string으로 변환하는 메소드
