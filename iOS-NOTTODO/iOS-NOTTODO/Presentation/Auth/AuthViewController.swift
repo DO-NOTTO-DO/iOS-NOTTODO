@@ -241,7 +241,7 @@ extension AuthViewController {
                     guard let userId = result?.data?.userId else { return }
                     KeychainUtil.setAccessToken(accessToken)
                     Amplitude.instance().setUserId(userId)
-                    self?.presentToHomeViewController()
+                    self?.checkNotificationSettings()
                     
                 }
             }
@@ -249,12 +249,52 @@ extension AuthViewController {
     }
     
     func presentToHomeViewController() {
-        if let window = view.window?.windowScene?.keyWindow {
-            let tabBarController = TabBarController()
-            let navigationController = UINavigationController(rootViewController: tabBarController)
-            navigationController.isNavigationBarHidden = true
-            window.rootViewController = navigationController
+        DispatchQueue.main.async {
+            if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+               let window = windowScene.windows.first {
+                let tabBarController = TabBarController()
+                let navigationController = UINavigationController(rootViewController: tabBarController)
+                navigationController.isNavigationBarHidden = true
+                window.rootViewController = navigationController
+                window.makeKeyAndVisible()
+            }
         }
+    }
+    
+    func checkNotificationSettings() {
+        UNUserNotificationCenter.current().getNotificationSettings { settings in
+            switch settings.authorizationStatus {
+            case .notDetermined:
+                self.showNotiDialogView()
+            default:
+                break
+            }
+        }
+    }
+    
+    func showNotiDialogView() {
+        DispatchQueue.main.async {
+            if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+               let window = windowScene.windows.first {
+                let notiDialogViewController = NotificationDialogViewController()
+                notiDialogViewController.buttonHandler = {
+                    self.requestNotification()
+                }
+                let navigationController = UINavigationController(rootViewController: notiDialogViewController)
+                navigationController.isNavigationBarHidden = true
+                window.rootViewController = navigationController
+                window.makeKeyAndVisible()
+            }
+        }
+    }
+    
+    func requestNotification() {
+//        UNUserNotificationCenter.current().delegate = self
+        let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
+        UNUserNotificationCenter.current().requestAuthorization(options: authOptions, completionHandler: { _, _ in
+            self.presentToHomeViewController()
+            
+        })
     }
 }
 
@@ -298,7 +338,7 @@ extension AuthViewController: ASAuthorizationControllerDelegate, ASAuthorization
                 guard let userId = result?.data?.userId else { return }
                 KeychainUtil.setAccessToken(accessToken)
                 Amplitude.instance().setUserId(userId)
-                self?.presentToHomeViewController()
+                self?.checkNotificationSettings()
             }
         default:
             break
