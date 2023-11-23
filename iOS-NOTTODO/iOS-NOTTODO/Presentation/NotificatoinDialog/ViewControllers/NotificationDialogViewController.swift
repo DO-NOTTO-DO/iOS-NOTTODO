@@ -12,6 +12,10 @@ import Then
 
 final class NotificationDialogViewController: UIViewController {
 
+    // MARK: - Properties
+    
+    var buttonHandler: (() -> Void)?
+    
     // MARK: - UI Components
     
     private let bellImage = UIImageView()
@@ -79,12 +83,14 @@ extension NotificationDialogViewController {
             $0.setTitle(I18N.allow, for: .normal)
             $0.setTitleColor(.notiBlue, for: .normal)
             $0.titleLabel?.font = .Pretendard(.semiBold, size: 18)
+            $0.isEnabled = false
         }
         
         notAllowButton.do {
             $0.setTitle(I18N.notAllow, for: .normal)
             $0.setTitleColor(.gray4, for: .normal)
             $0.titleLabel?.font = .Pretendard(.medium, size: 15)
+            $0.isEnabled = false
         }
         
         bottomButton.do {
@@ -178,6 +184,6 @@ extension NotificationDialogViewController {
     
     @objc
     private func buttonTapped() {
-        print("버튼 클릭")
+        buttonHandler?()
     }
 }
