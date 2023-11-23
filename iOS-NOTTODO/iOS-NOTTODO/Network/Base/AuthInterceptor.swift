@@ -5,7 +5,7 @@
 //  Created by JEONGEUN KIM on 11/23/23.
 //
 
-import UIKit
+import Foundation
 
 import Alamofire
 
@@ -16,7 +16,7 @@ final class AuthInterceptor: RequestInterceptor {
     private init() {}
     
     func retry(_ request: Request, for session: Session, dueTo error: Error, completion: @escaping (RetryResult) -> Void) {
-        print("retry")
+        
         guard let response = request.task?.response as? HTTPURLResponse, response.statusCode == 401
         else {
             completion(.doNotRetry)
@@ -24,8 +24,7 @@ final class AuthInterceptor: RequestInterceptor {
         }
         
         DispatchQueue.main.async {
-            let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as! SceneDelegate
-            sceneDelegate.window?.rootViewController = UINavigationController(rootViewController: AuthViewController())
-        } 
+            SceneDelegate.shared?.changeRootViewControllerTo(AuthViewController())
+        }
     }
 }
