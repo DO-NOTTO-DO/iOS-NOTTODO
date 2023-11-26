@@ -71,11 +71,14 @@ extension CalendarView {
             config.image = .icBackToday
             config.title = I18N.todayButton
             config.imagePadding = 2
-            config.contentInsets = NSDirectionalEdgeInsets.init(top: 3, leading: 6, bottom: 2, trailing:7)
             config.cornerStyle = .capsule
             config.attributedTitle?.font = .Pretendard(.regular, size: 14)
             config.baseBackgroundColor = .gray2
             config.baseForegroundColor = .gray5
+            config.contentInsets = NSDirectionalEdgeInsets.init(top: 3,
+                                                                leading: 6,
+                                                                bottom: 2,
+                                                                trailing: 7)
             
             $0.configuration = config
             $0.addTarget(self, action: #selector(todayBtnTapped), for: .touchUpInside)

@@ -22,15 +22,10 @@ struct DailyMissionResponseDTO: Codable, Hashable {
     let completionStatus: CompletionStatus
     
     enum CodingKeys: String, CodingKey {
-        
-        case id = "id"
-        case title = "title"
-        case situationName = "situationName"
-        case completionStatus = "completionStatus"
+        case id, title, situationName, completionStatus
     }
     
     static func == (lhs: DailyMissionResponseDTO, rhs: DailyMissionResponseDTO) -> Bool {
         lhs.uuid == rhs.uuid
     }
-    
 }
