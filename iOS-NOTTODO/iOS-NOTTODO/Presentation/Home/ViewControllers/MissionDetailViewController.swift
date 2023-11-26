@@ -43,7 +43,7 @@ final class MissionDetailViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+                
         guard let id = self.userId else { return }
         requestDailyMissionAPI(id: id)
     }
@@ -207,7 +207,11 @@ extension MissionDetailViewController {
     func deleteBtnTapped() {
         
         guard let data = detailModel else { return }
-        AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.Detail.clickDeleteMission(section: "detail", title: data.title, situation: data.situation, goal: data.goal, action: [data.actions[0].name]))
+        AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.Detail.clickDeleteMission(section: "detail", 
+                                                                                              title: data.title,
+                                                                                              situation: data.situation,
+                                                                                              goal: data.goal,
+                                                                                              action: data.actions.map { $0.name }))
         
         let modalViewController = HomeDeleteViewController()
         modalViewController.modalPresentationStyle = .overFullScreen
@@ -231,6 +235,11 @@ extension MissionDetailViewController {
             
             self.detailModel = data
             self.setSnapShot()
+            
+            AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.Detail.appearDetailMission(title: data.title,
+                                                                                                   situation: data.situation,
+                                                                                                   goal: data.goal,
+                                                                                                   action: data.actions.map { $0.name }))
         }
     }
     
