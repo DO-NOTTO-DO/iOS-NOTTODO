@@ -148,7 +148,8 @@ extension DetailAchievementViewController {
 extension DetailAchievementViewController {
     
     private func requestDetailAPI(date: String) {
-        HomeAPI.shared.getDailyMission(date: date) { response in
+        HomeAPI.shared.getDailyMission(date: date) { [weak self] response in
+            guard let self else { return }
             guard let response = response else { return }
             guard let data = response.data else { return }
             let missionList = data
