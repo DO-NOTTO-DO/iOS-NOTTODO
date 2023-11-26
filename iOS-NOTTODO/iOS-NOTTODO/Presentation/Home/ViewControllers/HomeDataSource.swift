@@ -111,13 +111,13 @@ final class HomeDataSource {
         snapshot.appendItems([.empty], toSection: .empty)
     }
     
-    func updateSnapShot(missioList: [DailyMissionResponseDTO]) {
+    func updateSnapShot(missionList: [DailyMissionResponseDTO]) {
         
-        self.missionList = missioList
+        self.missionList = missionList
         guard var snapshot = dataSource?.snapshot() else { return }
         
         let newSections: [Sections] = self.missionList.isEmpty ? [.empty] : [.mission]
-        let item: [Item] = self.missionList.isEmpty ? [.empty] : missioList.map { .mission($0) }
+        let item: [Item] = self.missionList.isEmpty ? [.empty] : missionList.map { .mission($0) }
         
         snapshot.deleteSections(currentSection)
         snapshot.appendSections(newSections)

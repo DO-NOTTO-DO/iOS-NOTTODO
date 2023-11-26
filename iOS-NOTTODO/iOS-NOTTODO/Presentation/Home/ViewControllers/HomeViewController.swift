@@ -180,7 +180,7 @@ extension HomeViewController: UICollectionViewDelegate {
                 
                 self.dailyLoadData()
                 self.weeklyLoadData()
-                self.missionDataSource.updateSnapShot(missioList: self.missionList)
+                self.missionDataSource.updateSnapShot(missionList: self.missionList)
             }
             
             modalViewController.moveDateClosure = { [weak self] date in
@@ -256,7 +256,7 @@ extension HomeViewController {
             guard let self, let response = response, let data = response.data else { return }
             
             self.missionList = data
-            self.missionDataSource.updateSnapShot(missioList: data)
+            self.missionDataSource.updateSnapShot(missionList: data)
         }
     }
     
@@ -280,7 +280,7 @@ extension HomeViewController {
             if let index = self.missionList.firstIndex(where: { $0.id == id }) {
                 self.missionList[index] = data
                 self.weeklyLoadData()
-                self.missionDataSource.updateSnapShot(missioList: self.missionList)
+                self.missionDataSource.updateSnapShot(missionList: self.missionList)
             }
         }
     }
@@ -291,7 +291,7 @@ extension HomeViewController {
                 
             self.dailyLoadData()
             self.weeklyLoadData()
-            self.missionDataSource.updateSnapShot(missioList: self.missionList)
+            self.missionDataSource.updateSnapShot(missionList: self.missionList)
             
             let data = self.missionList[index]
             AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.Detail.clickDeleteMission(section: "home",
