@@ -25,13 +25,13 @@ final class CalendarView: UIView {
     var delegate: CalendarViewDelegate?
     
     // MARK: - UI Components
-
+    
     private let yearMonthLabel = UILabel()
     let todayButton = UIButton(configuration: .filled())
     private let horizonStackView = UIStackView()
     private let leftButton = UIButton()
     private let rightButton = UIButton()
-     var calendar = WeekMonthFSCalendar()
+    var calendar = WeekMonthFSCalendar()
     
     // MARK: - Life Cycle
     
@@ -163,7 +163,7 @@ extension CalendarView {
 }
 
 extension CalendarView {
-
+    
     @objc
     func prevBtnTapped(_sender: UIButton) {
         scrollCurrentPage(calendar: calendar, isPrev: true)
@@ -178,7 +178,7 @@ extension CalendarView {
     func todayBtnTapped(_sender: UIButton) {
         delegate?.todayBtnTapped()
     }
-
+    
 }
 
 extension CalendarView {
@@ -210,5 +210,4 @@ extension CalendarView {
             $0.bottom.equalToSuperview().inset(45)
         }
     }
-    
 }
