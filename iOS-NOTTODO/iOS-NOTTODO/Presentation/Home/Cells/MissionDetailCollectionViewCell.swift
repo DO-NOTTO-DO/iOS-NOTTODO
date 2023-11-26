@@ -13,9 +13,9 @@ import SnapKit
 final class MissionDetailCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Properties
-
+    
     static let identifier = "MissionDetailCollectionViewCell"
-
+    
     // MARK: - UI Components
     
     private let missionTagLabel = PaddingLabel(padding: UIEdgeInsets(top: 4, left: 12, bottom: 4, right: 12))
@@ -26,9 +26,9 @@ final class MissionDetailCollectionViewCell: UICollectionViewCell {
     private let verticalStackView = UIStackView()
     private let action = DetailStackView(tag: I18N.detailAction, isTop: true, empty: .actionEmpty)
     private let goal = DetailStackView(tag: I18N.detailGoal, isTop: false, empty: .goalEmpty)
-        
+    
     // MARK: - Life Cycle
-
+    
     override init(frame: CGRect) {
         super.init(frame: .zero)
         setUI()
@@ -43,6 +43,7 @@ final class MissionDetailCollectionViewCell: UICollectionViewCell {
 // MARK: - Methods
 
 extension MissionDetailCollectionViewCell {
+    
     private func setUI() {
         backgroundColor = .clear
         
@@ -84,7 +85,7 @@ extension MissionDetailCollectionViewCell {
             $0.axis = .vertical
             $0.spacing = 22
         }
-
+        
     }
     
     private func setLayout() {
@@ -130,11 +131,13 @@ extension MissionDetailCollectionViewCell {
         missionLabel.setLineSpacing(lineSpacing: 6.0)
         accumulateLabel.text = "\(model.count)회\n달성"
         
-        if model.actions.isEmpty || model.actions.contains(where: { $0.name.isEmpty }) {
+        let nonEmptyActions = model.actions.filter { !$0.name.isEmpty }
+        
+        if nonEmptyActions.isEmpty {
             action.titleLabel.isHidden = true
             action.emptyIcon.isHidden = false
         } else {
-            let actionNames = model.actions.map { $0.name }
+            let actionNames = nonEmptyActions.map { $0.name }
             let joinedActionNames = actionNames.joined(separator: "\n")
             action.titleLabel.text = joinedActionNames
             action.titleLabel.setLineSpacing(lineSpacing: 7.0)
@@ -145,7 +148,7 @@ extension MissionDetailCollectionViewCell {
         if model.goal.isEmpty {
             goal.titleLabel.isHidden = true
             goal.emptyIcon.isHidden = false
-
+            
         } else {
             goal.verticalStackView.removeArrangedSubview(action.emptyIcon)
             goal.emptyIcon.removeFromSuperview()
