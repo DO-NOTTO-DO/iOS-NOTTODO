@@ -32,7 +32,7 @@ final class HomeAPI {
             case .success(let response):
                 do {
                     self.missionDailyData = try response.map(GeneralArrayResponse<DailyMissionResponseDTO>?.self)
-                    guard let missionDailtData = self.missionDailyData else { return }
+                    guard let missionDailtData = self.missionDailyData else { return completion(nil) }
                     completion(missionDailtData)
                 } catch let err {
                     print(err.localizedDescription, 500)
@@ -50,7 +50,7 @@ final class HomeAPI {
             case .success(let response):
                 do {
                     self.missionWeekly = try response.map(GeneralArrayResponse<WeekMissionResponseDTO>?.self)
-                    guard let missionWeekly = self.missionWeekly else { return }
+                    guard let missionWeekly = self.missionWeekly else { return completion(nil) }
                     completion(missionWeekly)
                 } catch let err {
                     print(err.localizedDescription, 500)
@@ -120,7 +120,7 @@ final class HomeAPI {
             case .success(let response):
                 do {
                     self.updateMissionStatus = try response.map(GeneralResponse<DailyMissionResponseDTO>?.self)
-                    guard self.updateMissionStatus != nil else { return }
+                    guard self.updateMissionStatus != nil else { return completion(nil) }
                     completion(self.updateMissionStatus)
                 } catch let err {
                     print(err.localizedDescription, 500)
@@ -140,7 +140,7 @@ final class HomeAPI {
             case .success(let response):
                 do {
                     self.addAnotherDay = try response.map(GeneralResponse<AddAnotherDayResponseDTO>?.self)
-                    guard let addAnotherDay = self.addAnotherDay else { return }
+                    guard let addAnotherDay = self.addAnotherDay else { return completion(nil) }
                     completion(addAnotherDay)
                 } catch let err {
                     print(err.localizedDescription, 500)
