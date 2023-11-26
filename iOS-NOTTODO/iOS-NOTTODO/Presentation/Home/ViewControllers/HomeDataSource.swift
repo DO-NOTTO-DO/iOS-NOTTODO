@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol HomeModalDelegate {
+protocol HomeModalDelegate: AnyObject {
     
     func updateMissionStatus(id: Int, status: CompletionStatus)
     func modifyMission(id: Int, type: MissionType)
@@ -37,7 +37,7 @@ final class HomeDataSource {
     private var missionList: [DailyMissionResponseDTO]
     
     var dataSource: DataSource?
-    var modalDelegate: HomeModalDelegate?
+    weak var modalDelegate: HomeModalDelegate?
     
     // MARK: - UI Components
     

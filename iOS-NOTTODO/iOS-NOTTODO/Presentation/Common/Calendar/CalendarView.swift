@@ -11,7 +11,7 @@ import FSCalendar
 import Then
 import SnapKit
 
-protocol CalendarViewDelegate {
+protocol CalendarViewDelegate: AnyObject {
     
     func todayBtnTapped()
 }
@@ -22,7 +22,7 @@ final class CalendarView: UIView {
     
     let today = Date()
     var monthCalendarClosure: ((_ month: String) -> Void)?
-    var delegate: CalendarViewDelegate?
+    weak var delegate: CalendarViewDelegate?
     
     // MARK: - UI Components
     
