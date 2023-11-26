@@ -5,7 +5,7 @@
 //  Created by 김민서 on 2023/02/23.
 //
 
-import UIKit
+import Foundation
 
 import Moya
 
