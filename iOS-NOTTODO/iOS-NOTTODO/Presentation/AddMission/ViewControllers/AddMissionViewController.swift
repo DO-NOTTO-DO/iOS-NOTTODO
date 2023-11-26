@@ -320,14 +320,17 @@ extension AddMissionViewController {
     
     private func requestDailyMissionAPI(id: Int) {
         HomeAPI.shared.getDailyDetailMission(id: id) { [weak self] response in
-            guard let self else { return }
-            guard let response = response else { return }
-            guard let data = response.data else { return }
-            self.nottodoInfoList[1] = data.title
-            self.nottodoInfoList[2] = data.situation
-            self.nottodoInfoList[3] = data.actions.first!.name
-            self.nottodoInfoList[4] = data.goal
-            self.addMissionCollectionView.reloadData()
+            guard let self = self, let response = response else { return }
+            
+            if let data = response.data {
+                self.nottodoInfoList[1] = data.title
+                self.nottodoInfoList[2] = data.situation
+                self.nottodoInfoList[3] = data.actions.first?.name ?? ""
+                self.nottodoInfoList[4] = data.goal
+                self.addMissionCollectionView.reloadData()
+            } else {
+                self.nottodoInfoList = ["", "", "", ""]
+            }
         }
     }
     
@@ -366,7 +369,7 @@ extension AddMissionViewController: UICollectionViewDataSource {
             }
             missionMenuCell.setCellData([currentCellInfo])
         }
-
+        
         if let missionDateCell = cell as? DateCollectionViewCell {
             missionDateCell.setDateList(dateList)
         }
