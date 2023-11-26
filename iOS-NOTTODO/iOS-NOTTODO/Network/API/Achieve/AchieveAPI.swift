@@ -45,7 +45,7 @@ final class AchieveAPI {
             case .success(let response):
                 do {
                     self.achieveCalendarData = try response.map(GeneralArrayResponse<AchieveCalendarResponseDTO>?.self)
-                    guard let achieveCalendarData = self.achieveCalendarData else { return }
+                    guard let achieveCalendarData = self.achieveCalendarData else { return completion(nil) }
                     completion(achieveCalendarData)
                 } catch let err {
                     print(err.localizedDescription, 500)
