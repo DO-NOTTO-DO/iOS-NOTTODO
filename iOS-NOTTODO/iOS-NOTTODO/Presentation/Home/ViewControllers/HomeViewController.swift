@@ -343,16 +343,12 @@ extension HomeViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalend
     }
     
     func calendar(_ calendar: FSCalendar, cellFor date: Date, at position: FSCalendarMonthPosition) -> FSCalendarCell {
+
         let cell = calendar.dequeueReusableCell(withIdentifier: MissionCalendarCell.identifier, for: date, at: position) as! MissionCalendarCell
-        guard let count = self.count else { return cell }
-        let dateString = Utils.dateFormatterString(format: nil, date: date)
-        if let percentage = self.calendarDataSource[dateString] {
-            switch (count, percentage) {
-            case (_, 1.0): cell.configure(.rateFull, .week)
-            case (_, 0.0): cell.configure(.none, .week)
-            case (2, 0.5), (3, 0.0..<1.0), (_, _): cell.configure(.rateHalf, .week)
-            }
-        }
+        
+//        guard let percentage = getPercentage(for: date) else { return cell }
+//        cell.configure(percent: percentage)
+//        
         return cell
     }
 }

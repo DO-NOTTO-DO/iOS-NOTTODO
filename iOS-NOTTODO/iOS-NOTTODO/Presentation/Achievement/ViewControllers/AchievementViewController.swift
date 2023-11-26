@@ -170,12 +170,7 @@ extension AchievementViewController: FSCalendarDelegate, FSCalendarDataSource, F
         let cell = calendar.dequeueReusableCell(withIdentifier: MissionCalendarCell.identifier, for: date, at: position) as! MissionCalendarCell
         
         guard let percentage = getPercentage(for: date) else { return cell }
-        
-        switch percentage {
-        case 0.0: cell.configure(.none, .week)
-        case 1.0: cell.configure(.rateFull, .week)
-        default: cell.configure(.rateHalf, .week)
-        }
+        cell.configure(percent: percentage)
         
         return cell
     }

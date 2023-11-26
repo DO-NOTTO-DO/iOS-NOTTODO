@@ -49,7 +49,6 @@ final class MissionCalendarCell: FSCalendarCell {
     // MARK: - UI Components
     
     private let iconView = UIImageView()
-    private let padding = 8
     
     // MARK: - Life Cycle
     
@@ -111,8 +110,14 @@ extension MissionCalendarCell {
         iconView.image = state.icon
     }
     
-    func configure(_ state: ToDoState, _ mode: FSCalendarScope) {
-        self.mode = mode
-        self.state = state
+    func configure(percent: Float) {
+        switch percent {
+        case 0.0:
+            self.state = .none
+        case 1.0:
+            self.state = .rateFull
+        default:
+            self.state = .rateHalf
+        }
     }
 }
