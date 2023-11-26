@@ -32,7 +32,7 @@ final class HomeAPI {
             case .success(let response):
                 do {
                     self.missionDailyData = try response.map(GeneralArrayResponse<DailyMissionResponseDTO>?.self)
-                    guard let missionDailtData = self.missionDailyData else { return }
+                    guard let missionDailtData = self.missionDailyData else { return completion(nil) }
                     completion(missionDailtData)
                 } catch let err {
                     print(err.localizedDescription, 500)
