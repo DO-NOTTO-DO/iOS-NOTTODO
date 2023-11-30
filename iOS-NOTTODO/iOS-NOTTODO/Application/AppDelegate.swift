@@ -138,7 +138,7 @@ extension AppDelegate {
     }
     
     /// 버전 비교하는 메서드
-    func compareVersion(userVersion: String, appstoreVersion:String) -> Bool {
+    func compareVersion(userVersion: String, appstoreVersion: String) -> Bool {
         let userMajor = userVersion.split(separator: ".").map {Int($0)!}[0]
         let appstoreMajor = appstoreVersion.split(separator: ".").map {Int($0)!}[0]
         
