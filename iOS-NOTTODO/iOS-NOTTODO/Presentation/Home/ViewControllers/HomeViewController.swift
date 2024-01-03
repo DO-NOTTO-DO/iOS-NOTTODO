@@ -133,7 +133,7 @@ extension HomeViewController {
                 cell.isTappedClosure = { [self] result, id in
                     if result {
                         self.requestPatchUpdateMissionAPI(id: id, status: CompletionStatus.UNCHECKED )
-                        AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.Home.completeCheckMission(title: self.missionList[indexPath.row].title, situation: self.missionList[indexPath.row].situationName))
+                        AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.Home.completeUncheckMission(title: self.missionList[indexPath.row].title, situation: self.missionList[indexPath.row].situationName))
                     } else {
                         self.requestPatchUpdateMissionAPI(id: id, status: CompletionStatus.CHECKED )
                         AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.Home.completeCheckMission(title: self.missionList[indexPath.row].title, situation: self.missionList[indexPath.row].situationName))
