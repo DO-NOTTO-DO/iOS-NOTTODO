@@ -13,7 +13,7 @@ final class AchieveAPI {
     
     static let shared: AchieveAPI = AchieveAPI()
     
-    private let achieveProvider = MoyaProvider<AchieveService>(plugins: [MoyaLoggingPlugin()])
+    private let achieveProvider = MoyaProvider<AchieveService>(session: Session(interceptor: AuthInterceptor.shared), plugins: [MoyaLoggingPlugin()])
     
     private init() { }
     

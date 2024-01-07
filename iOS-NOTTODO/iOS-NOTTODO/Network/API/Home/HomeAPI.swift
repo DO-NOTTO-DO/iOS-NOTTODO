@@ -13,7 +13,7 @@ final class HomeAPI {
     
     static let shared: HomeAPI = HomeAPI()
     
-    var homeProvider = MoyaProvider<HomeService>(plugins: [MoyaLoggingPlugin()])
+    var homeProvider = MoyaProvider<HomeService>(session: Session(interceptor: AuthInterceptor.shared), plugins: [MoyaLoggingPlugin()])
     
     private init() { }
     

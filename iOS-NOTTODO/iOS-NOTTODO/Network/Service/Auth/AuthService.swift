@@ -42,6 +42,11 @@ extension AuthService: TargetType {
             return .delete
         }
     }
+    
+    var validationType: ValidationType {
+        return .successCodes
+    }
+    
     var task: Moya.Task {
         switch self {
         case .kakaoAuth(_, let socialToken, let fcmToken):

@@ -13,7 +13,7 @@ final class AddMissionAPI {
     
     static let shared: AddMissionAPI = AddMissionAPI()
     
-    private let addMissionProvider = MoyaProvider<AddMissionService>(plugins: [MoyaLoggingPlugin()])
+    private let addMissionProvider = MoyaProvider<AddMissionService>(session: Session(interceptor: AuthInterceptor.shared), plugins: [MoyaLoggingPlugin()])
     
     private init() { }
     
