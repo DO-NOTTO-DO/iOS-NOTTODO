@@ -30,7 +30,11 @@ class DetailStackView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 }
+
+// MARK: - Methods
+
 extension DetailStackView {
+    
     private func setUI(empty: UIImage) {
         verticalStackView.do {
             $0.addArrangedSubviews(tagLabel, titleLabel, emptyIcon)
@@ -48,21 +52,25 @@ extension DetailStackView {
             $0.font = .Pretendard(.medium, size: 16)
             $0.numberOfLines = 0
         }
+        
         lineView.do {
             $0.backgroundColor = .gray5
         }
+        
         emptyIcon.do {
             $0.contentMode = .scaleAspectFit
             $0.isHidden = true
             $0.image = empty
         }
     }
+    
     private func setLayout(isTop: Bool) {
         addSubviews(verticalStackView, lineView)
         
         verticalStackView.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
+        
         lineView.snp.makeConstraints {
             if isTop {
                 $0.top.equalTo(verticalStackView.snp.top).offset(-25)

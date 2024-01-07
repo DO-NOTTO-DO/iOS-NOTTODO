@@ -165,6 +165,8 @@ extension CalendarView {
     }
 }
 
+// MARK: - Action
+
 extension CalendarView {
     
     @objc
@@ -176,6 +178,9 @@ extension CalendarView {
     func nextBtnTapped(_sender: UIButton) {
         scrollCurrentPage(calendar: calendar, isPrev: false)
     }
+}
+
+extension CalendarView {
     
     @objc
     func todayBtnTapped(_sender: UIButton) {

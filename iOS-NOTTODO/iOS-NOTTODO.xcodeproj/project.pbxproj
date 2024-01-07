@@ -25,7 +25,7 @@
 		0943A9F92A53239200614761 /* Bundle+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0943A9F82A53239200614761 /* Bundle+.swift */; };
 		09582B4829BDA7F600EF3207 /* DetailStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09582B4729BDA7F600EF3207 /* DetailStackView.swift */; };
 		09582B4B29BDE37C00EF3207 /* DetailFooterReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09582B4A29BDE37C00EF3207 /* DetailFooterReusableView.swift */; };
-		09582B4D29BE277800EF3207 /* DetailHeaderReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09582B4C29BE277800EF3207 /* DetailHeaderReusableView.swift */; };
+		09582B4D29BE277800EF3207 /* DetailHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09582B4C29BE277800EF3207 /* DetailHeaderView.swift */; };
 		09582B4F29BEBAFA00EF3207 /* DetailCalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09582B4E29BEBAFA00EF3207 /* DetailCalendarViewController.swift */; };
 		09582B5129C0BC3600EF3207 /* DetailAchievementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09582B5029C0BC3600EF3207 /* DetailAchievementViewController.swift */; };
 		0960C0D42A38BC6500A3D8DB /* KeychainUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0960C0D32A38BC6500A3D8DB /* KeychainUtil.swift */; };
@@ -184,7 +184,7 @@
 		0943A9F82A53239200614761 /* Bundle+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+.swift"; sourceTree = "<group>"; };
 		09582B4729BDA7F600EF3207 /* DetailStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailStackView.swift; sourceTree = "<group>"; };
 		09582B4A29BDE37C00EF3207 /* DetailFooterReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailFooterReusableView.swift; sourceTree = "<group>"; };
-		09582B4C29BE277800EF3207 /* DetailHeaderReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailHeaderReusableView.swift; sourceTree = "<group>"; };
+		09582B4C29BE277800EF3207 /* DetailHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailHeaderView.swift; sourceTree = "<group>"; };
 		09582B4E29BEBAFA00EF3207 /* DetailCalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailCalendarViewController.swift; sourceTree = "<group>"; };
 		09582B5029C0BC3600EF3207 /* DetailAchievementViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailAchievementViewController.swift; sourceTree = "<group>"; };
 		0960C0D32A38BC6500A3D8DB /* KeychainUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainUtil.swift; sourceTree = "<group>"; };
@@ -468,7 +468,7 @@
 				097C003529AB8270008CAEF3 /* MissionListCollectionViewCell.swift */,
 				092E04B029BD9C86008A5892 /* MissionDetailCollectionViewCell.swift */,
 				09582B4A29BDE37C00EF3207 /* DetailFooterReusableView.swift */,
-				09582B4C29BE277800EF3207 /* DetailHeaderReusableView.swift */,
+				09582B4C29BE277800EF3207 /* DetailHeaderView.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -1331,7 +1331,7 @@
 				3BBB6C8F2A1E7BEA00B8745A /* CollectionViewLeftAlignLayout.swift in Sources */,
 				09A1465F2A192C4900DDC308 /* WeekMissionResponseDTO.swift in Sources */,
 				0930D37329B4FCAE0000C4AE /* StatisticsView.swift in Sources */,
-				09582B4D29BE277800EF3207 /* DetailHeaderReusableView.swift in Sources */,
+				09582B4D29BE277800EF3207 /* DetailHeaderView.swift in Sources */,
 				6CF4706A29A71D71008D145C /* Strings.swift in Sources */,
 				6CF4705F29A69025008D145C /* GeneralResponse.swift in Sources */,
 				097C003629AB8270008CAEF3 /* MissionListCollectionViewCell.swift in Sources */,

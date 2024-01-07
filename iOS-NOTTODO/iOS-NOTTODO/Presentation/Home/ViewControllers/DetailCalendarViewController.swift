@@ -22,10 +22,11 @@ final class DetailCalendarViewController: UIViewController {
     }
     var invalidDate: [String] = []
     var dataSource: [String: Float] = [:]
-    var detailModel: [MissionDetailResponseDTO] = []
+    var detailModel: MissionDetailResponseDTO?
     var userId: Int?
     var count: Int?
     var movedateClosure: ((_ date: String) -> Void)?
+    
     private lazy var safeArea = self.view.safeAreaLayoutGuide
     private lazy var today: Date = { return Date() }()
 
@@ -40,6 +41,7 @@ final class DetailCalendarViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.SelectDate.appearAnotherDayModal)
+        
         if let id = self.userId {
             requestParticualrDatesAPI(id: id)
         }
@@ -47,6 +49,7 @@ final class DetailCalendarViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         setUI()
         setLayout()
     }
@@ -73,12 +76,14 @@ extension DetailCalendarViewController {
             $0.setTitle(I18N.detailComplete, for: .normal)
             $0.titleLabel?.font = .Pretendard(.medium, size: 16)
             $0.addTarget(self, action: #selector(completeBtnTapped(sender:)), for: .touchUpInside)
+
         }
+        
         monthCalendar.do {
             $0.layer.cornerRadius = 12
-            $0.calendar.delegate = self
-            $0.calendar.dataSource = self
+            $0.configure(delegate: self, datasource: self)
         }
+        
         subLabel.do {
             $0.text = I18N.subText
             $0.font = .Pretendard(.regular, size: 12)
@@ -126,11 +131,17 @@ extension DetailCalendarViewController {
 }
 
 extension DetailCalendarViewController {
+    
     @objc
     func completeBtnTapped(sender: UIButton) {
+        guard let data = self.detailModel else { return }
         if let id = self.userId {
             requestAddAnotherDay(id: id, dates: anotherDate)
-            AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.SelectDate.completeAddMissionAnotherDay(title: self.detailModel[0].title, situation: self.detailModel[0].situation, goal: self.detailModel[0].goal, action: [self.detailModel[0].actions[0].name], date: anotherDate))
+            AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.SelectDate.completeAddMissionAnotherDay(title: data.title,
+                                                                                                                situation: data.situation,
+                                                                                                                goal: data.goal,
+                                                                                                                action: data.actions.map { $0.name }
+                                                                                                                , date: anotherDate))
         }
     }
 }
@@ -214,7 +225,7 @@ extension DetailCalendarViewController {
         HomeAPI.shared.particularMissionDates(id: id) { [weak self] response in
             guard let dates = response.data else { return }
             self?.invalidDate = dates
-            self?.monthCalendar.calendar.reloadData()
+            self?.monthCalendar.reloadCollectionView()
         }
     }
 }
