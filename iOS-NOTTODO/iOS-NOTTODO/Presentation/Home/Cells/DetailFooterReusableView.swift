@@ -10,11 +10,12 @@ import UIKit
 import SnapKit
 import Then
 
-final class DetailFooterReusableView: UICollectionReusableView {
+final class DetailFooterView: UICollectionReusableView {
     
     // MARK: - Properties
     
     static let identifier = "DetailFooterReusableView"
+    
     var footerClosure: (() -> Void)?
     
     // MARK: - UI Components
@@ -23,6 +24,7 @@ final class DetailFooterReusableView: UICollectionReusableView {
     private let dateButton = UIButton(configuration: .plain())
     
     // MARK: - Life Cycle
+    
     override init(frame: CGRect) {
         super.init(frame: .zero)
         setUI()
@@ -37,7 +39,7 @@ final class DetailFooterReusableView: UICollectionReusableView {
 
 // MARK: - Method
 
-extension DetailFooterReusableView {
+extension DetailFooterView {
     private func setUI() {
         dateLabel.do {
             $0.text = I18N.detailDate

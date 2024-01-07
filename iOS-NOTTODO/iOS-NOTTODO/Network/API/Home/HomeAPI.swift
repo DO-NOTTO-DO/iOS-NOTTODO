@@ -55,16 +55,20 @@ final class HomeAPI {
         }
     }
     
-    func getDailyDetailMission(id: Int, completion: @escaping (NetworkResult<Any>) -> Void) {
-        homeProvider.request(.dailyDetailMission(id: id)) { response in
-            switch response {
-            case let .success(response):
-                let statusCode = response.statusCode
-                let data = response.data
-                let networkResult = NetworkBase.judgeStatus(by: statusCode, data, MissionDetailResponseDTO.self)
-                completion(networkResult)
-            case let .failure(err):
-                print(err)
+    func getDailyDetailMission(id: Int, completion: @escaping (GeneralResponse<MissionDetailResponseDTO>?) -> Void) {
+        homeProvider.request(.dailyDetailMission(id: id)) { result in
+            switch result {
+            case .success(let response):
+                do {
+                    self.missionDetailDailyData = try response.map(GeneralResponse<MissionDetailResponseDTO>?.self)
+                    guard let missionDetailDailyData = self.missionDetailDailyData else { return completion(nil) }
+                    completion(missionDetailDailyData)
+                } catch let err {
+                    print(err.localizedDescription, 500)
+                }
+            case .failure(let err):
+                print(err.localizedDescription)
+                completion(nil)
             }
         }
     }
