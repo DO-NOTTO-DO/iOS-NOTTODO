@@ -214,21 +214,7 @@ extension HomeViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalend
         
         AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.Home.clickWeeklyDate(date: Utils.dateFormatterString(format: nil, date: date)))
     }
-    
-    func calendar(_ calendar: FSCalendar, cellFor date: Date, at position: FSCalendarMonthPosition) -> FSCalendarCell {
-        let cell = calendar.dequeueReusableCell(withIdentifier: MissionCalendarCell.identifier, for: date, at: position) as! MissionCalendarCell
-        
-        guard let percentage = getPercentage(for: date) else { return cell }
-        
-        switch percentage {
-        case 0.0: cell.configure(.none, .week)
-        case 1.0: cell.configure(.rateFull, .week)
-        default: cell.configure(.rateHalf, .week)
-        }
-        
-        return cell
-    }
-    
+
     func  calendar(_ calendar: FSCalendar, titleFor date: Date) -> String? {
         Utils.dateFormatterString(format: "EEEEEE", date: date)
     }
@@ -243,6 +229,16 @@ extension HomeViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalend
     
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, subtitleDefaultColorFor date: Date) -> UIColor? {
         return subtitleColorFor(date: date)
+    }
+    
+    func calendar(_ calendar: FSCalendar, cellFor date: Date, at position: FSCalendarMonthPosition) -> FSCalendarCell {
+
+        let cell = calendar.dequeueReusableCell(withIdentifier: MissionCalendarCell.identifier, for: date, at: position) as! MissionCalendarCell
+        
+        guard let percentage = getPercentage(for: date) else { return cell }
+        cell.configure(percent: percentage)
+    
+        return cell
     }
 }
 
