@@ -21,6 +21,8 @@ final class HomeEmptyCollectionViewCell: UICollectionViewCell {
     private let logoImage = UIImageView()
     private let emptyLabel = UILabel()
     
+    // MARK: - Life Cycle
+    
     override init(frame: CGRect) {
         super.init(frame: .zero)
         setUI()
@@ -35,6 +37,7 @@ final class HomeEmptyCollectionViewCell: UICollectionViewCell {
 // MARK: - Methods
 
 extension HomeEmptyCollectionViewCell {
+    
     private func setUI() {
         backgroundColor = .clear
         

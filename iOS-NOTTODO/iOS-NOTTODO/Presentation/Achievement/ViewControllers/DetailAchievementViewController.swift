@@ -146,22 +146,14 @@ extension DetailAchievementViewController {
 }
 
 extension DetailAchievementViewController {
-    func requestDetailAPI(date: String) {
-        HomeAPI.shared.getDailyMission(date: date) { [self] result in
-            switch result {
-            case let .success(data):
-                guard let data = data as? [DailyMissionResponseDTO] else { return }
-                self.missionList = data
-                updateData(item: missionList)
-            case .requestErr:
-                print("requestErr")
-            case .pathErr:
-                print("pathErr")
-            case .serverErr:
-                print("serverErr")
-            case .networkFail:
-                print("networkFail")
-            }
+    
+    private func requestDetailAPI(date: String) {
+        HomeAPI.shared.getDailyMission(date: date) { [weak self] response in
+            guard let self else { return }
+            guard let response = response else { return }
+            guard let data = response.data else { return }
+            let missionList = data
+            self.updateData(item: missionList)
         }
     }
 }
