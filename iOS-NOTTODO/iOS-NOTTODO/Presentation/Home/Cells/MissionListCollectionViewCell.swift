@@ -16,13 +16,13 @@ final class MissionListCollectionViewCell: UICollectionViewCell {
     
     static let identifier = "MissionListCollectionViewCell"
     
+    var userId: Int = 0
     var isTappedClosure: ((_ result: Bool, _ userId: Int) -> Void)?
     var isTapped: Bool = false {
         didSet {
             setUI()
         }
     }
-    var userId: Int = 0
     
     // MARK: - UI Components
     
@@ -121,12 +121,16 @@ extension MissionListCollectionViewCell {
     
     func configure(model: DailyMissionResponseDTO) {
         self.userId = model.id
+        
         tagLabel.text = model.situationName
         missionLabel.text = model.title
+        missionLabel.lineBreakMode = .byTruncatingTail
+        
         switch model.completionStatus {
         case .UNCHECKED:  isTapped = false
         case .CHECKED: isTapped = true
         }
+        
         checkButton.isSelected = isTapped
     }
     
