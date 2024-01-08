@@ -31,9 +31,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if KeychainUtil.getAccessToken() != "" {
             self.skipAuthView()
             print("토큰 유효")
-        } else {
-            // self.showAuthView()
-            // 토큰이 유효하지 않을 경우 일단은 온보딩->로그인->홈 이렇게만 가도록
         }
         
         // 메시지 대리자 설정
@@ -41,28 +38,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // FCM 다시 사용 설정
         Messaging.messaging().isAutoInitEnabled = true
-        
-        // 푸시 알림 권한 설정 및 푸시 알림에 앱 등록
-        UNUserNotificationCenter.current().delegate = self
-        let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
-        UNUserNotificationCenter.current().requestAuthorization(options: authOptions, completionHandler: { _, _ in })
-        
+    
         // device token 요청.
         application.registerForRemoteNotifications()
         
         return true
-    }
-    
-    func showAuthView() {
-        DispatchQueue.main.async {
-            if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-               let window = windowScene.windows.first {
-                let authViewController = AuthViewController()
-                let navigationController = UINavigationController(rootViewController: authViewController)
-                window.rootViewController = navigationController
-                window.makeKeyAndVisible()
-            }
-        }
     }
     
     func skipAuthView() {
