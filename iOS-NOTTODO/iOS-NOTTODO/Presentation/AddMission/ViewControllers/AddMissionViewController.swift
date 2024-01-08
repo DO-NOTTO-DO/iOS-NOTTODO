@@ -319,26 +319,17 @@ extension AddMissionViewController {
     }
     
     private func requestDailyMissionAPI(id: Int) {
-        HomeAPI.shared.getDailyDetailMission(id: id) { [weak self] result in
-            switch result {
-            case let .success(data):
-                if let missionData = data as? MissionDetailResponseDTO {
-                    self?.nottodoInfoList[1] = missionData.title
-                    self?.nottodoInfoList[2] = missionData.situation
-                    self?.nottodoInfoList[3] = missionData.actions.first!.name
-                    self?.nottodoInfoList[4] = missionData.goal
-                    self?.addMissionCollectionView.reloadData()
-                } else {
-                    print("Failed to cast data to MissionDetailResponseDTO")
-                }
-            case .pathErr:
-                print("pathErr")
-            case .serverErr:
-                print("serverErr")
-            case .networkFail:
-                print("networkFail")
-            case .requestErr:
-                print("networkFail")
+        HomeAPI.shared.getDailyDetailMission(id: id) { [weak self] response in
+            guard let self = self, let response = response else { return }
+            
+            if let data = response.data {
+                self.nottodoInfoList[1] = data.title
+                self.nottodoInfoList[2] = data.situation
+                self.nottodoInfoList[3] = data.actions.first?.name ?? ""
+                self.nottodoInfoList[4] = data.goal
+                self.addMissionCollectionView.reloadData()
+            } else {
+                self.nottodoInfoList = ["", "", "", ""]
             }
         }
     }
@@ -378,7 +369,7 @@ extension AddMissionViewController: UICollectionViewDataSource {
             }
             missionMenuCell.setCellData([currentCellInfo])
         }
-
+        
         if let missionDateCell = cell as? DateCollectionViewCell {
             missionDateCell.setDateList(dateList)
         }

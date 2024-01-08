@@ -32,6 +32,10 @@ extension RecommendActionService: TargetType {
         }
     }
     
+    var validationType: ValidationType {
+        return .successCodes
+    }
+    
     var task: Moya.Task {
         switch self {
         case .recommendAction:

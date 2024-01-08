@@ -13,7 +13,7 @@ final class RecommendAPI {
     
     static let shared: RecommendAPI = RecommendAPI()
     
-    private let recommendProvider = MoyaProvider<RecommendService>(plugins: [MoyaLoggingPlugin()])
+    private let recommendProvider = MoyaProvider<RecommendService>(session: Session(interceptor: AuthInterceptor.shared), plugins: [MoyaLoggingPlugin()])
     
     private init() { }
     
