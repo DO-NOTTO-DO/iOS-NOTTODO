@@ -24,4 +24,8 @@ extension UIColor {
     static let green2 = UIColor(named: "green2")
     static let systemBlack = UIColor(named: "systemBlack")
     static let kakaoYellow = UIColor(named: "yellow")
+    static let notiBlack = UIColor(named: "notiBlack")
+    static let notiGreen = UIColor(named: "notiGreen")
+    static let notiBlue = UIColor(named: "notiBlue")
+    static let notiBg = UIColor(named: "notiBg")
 }

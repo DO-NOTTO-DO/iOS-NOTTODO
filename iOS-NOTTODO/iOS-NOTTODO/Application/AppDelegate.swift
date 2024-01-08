@@ -35,29 +35,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // FCM 다시 사용 설정
         Messaging.messaging().isAutoInitEnabled = true
-        
-        // 푸시 알림 권한 설정 및 푸시 알림에 앱 등록
-        //        UNUserNotificationCenter.current().delegate = self
-        //        let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
-        //        UNUserNotificationCenter.current().requestAuthorization(options: authOptions, completionHandler: { _, _ in })
-        
+
         // device token 요청.
         application.registerForRemoteNotifications()
         
         return true
     }
-    
-//    func showAuthView() {
-//        DispatchQueue.main.async {
-//            if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-//               let window = windowScene.windows.first {
-//                let authViewController = AuthViewController()
-//                let navigationController = UINavigationController(rootViewController: authViewController)
-//                window.rootViewController = navigationController
-//                window.makeKeyAndVisible()
-//            }
-//        }
-//    }
     
     func skipAuthView() {
         // 홈 화면으로 바로 이동
