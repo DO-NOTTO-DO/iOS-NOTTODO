@@ -180,12 +180,9 @@ extension FifthOnboardingViewController {
     @objc
     private func ButtonTapped() {
         AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.OnboardingClick.clickOnboardingNext5)
-        
-        if let window = view.window?.windowScene?.keyWindow {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                UIView.animate(withDuration: 0.01) {
-                    SceneDelegate.shared?.changeRootViewControllerTo(AuthViewController())
-                }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            UIView.animate(withDuration: 0.01) {
+                SceneDelegate.shared?.changeRootViewControllerTo(AuthViewController())
             }
         }
     }

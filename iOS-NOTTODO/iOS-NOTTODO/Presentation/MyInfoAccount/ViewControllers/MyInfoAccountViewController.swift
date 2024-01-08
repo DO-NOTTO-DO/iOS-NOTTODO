@@ -152,10 +152,7 @@ private extension MyInfoAccountViewController {
         nextView.modalPresentationStyle = .overFullScreen
         nextView.modalTransitionStyle = .crossDissolve
         nextView.pushToRootAction = { [weak self] in
-            if let window = self?.view.window?.windowScene?.keyWindow {
-                let rootViewController = AuthViewController()
-                self?.navigationController?.changeRootViewController(rootViewController)
-            }
+            self?.navigationController?.changeRootViewController(AuthViewController())
         }
         self.present(nextView, animated: true)
     }
