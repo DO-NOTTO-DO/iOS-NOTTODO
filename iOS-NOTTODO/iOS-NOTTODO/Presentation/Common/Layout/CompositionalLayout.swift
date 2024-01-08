@@ -9,13 +9,18 @@ import UIKit
 
 final class CompositionalLayout {
     
-    class func _vertical(_ itemWidth: NSCollectionLayoutDimension, _ itemHeight: NSCollectionLayoutDimension, _ groupWidth: NSCollectionLayoutDimension, _ groupHeight: NSCollectionLayoutDimension, count: Int, edge: NSDirectionalEdgeInsets?) -> NSCollectionLayoutSection {
+    class func vertical(itemWidth: NSCollectionLayoutDimension = .fractionalWidth(1),
+                        itemHeight: NSCollectionLayoutDimension = .fractionalWidth(1),
+                        groupWidth: NSCollectionLayoutDimension = .fractionalWidth(1),
+                        groupHeight: NSCollectionLayoutDimension = .fractionalWidth(1),
+                        count: Int,
+                        edge: NSDirectionalEdgeInsets = .zero) -> NSCollectionLayoutSection {
         let item = NSCollectionLayoutItem(layoutSize: .init(widthDimension: itemWidth, heightDimension: itemHeight))
-        let group = NSCollectionLayoutGroup.vertical(layoutSize: .init(widthDimension: groupWidth, heightDimension: groupHeight), subitem: item, count: count )
-        return section(group, edge ?? NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
+        let group = NSCollectionLayoutGroup.vertical(layoutSize: .init(widthDimension: groupWidth, heightDimension: groupHeight), subitem: item, count: count)
+        return createSection(group, edge)
     }
     
-    class func section(_ group: NSCollectionLayoutGroup, _ edge: NSDirectionalEdgeInsets) -> NSCollectionLayoutSection {
+    class func createSection(_ group: NSCollectionLayoutGroup, _ edge: NSDirectionalEdgeInsets) -> NSCollectionLayoutSection {
         let section = NSCollectionLayoutSection(group: group)
         section.contentInsets = edge
         return section

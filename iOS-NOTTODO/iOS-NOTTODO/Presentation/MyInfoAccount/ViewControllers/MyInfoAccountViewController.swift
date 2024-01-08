@@ -152,10 +152,7 @@ private extension MyInfoAccountViewController {
         nextView.modalPresentationStyle = .overFullScreen
         nextView.modalTransitionStyle = .crossDissolve
         nextView.pushToRootAction = { [weak self] in
-            if let window = self?.view.window?.windowScene?.keyWindow {
-                let rootViewController = AuthViewController()
-                self?.navigationController?.changeRootViewController(rootViewController)
-            }
+            self?.navigationController?.changeRootViewController(AuthViewController())
         }
         self.present(nextView, animated: true)
     }
@@ -180,16 +177,11 @@ extension MyInfoAccountViewController {
         if !UserDefaults.standard.bool(forKey: DefaultKeys.isAppleLogin) {
             kakaoLogout()
         } 
-        AuthAPI.shared.deleteAuth { [weak self] _ in
+        AuthAPI.shared.deleteAuth { _ in
             UserDefaults.standard.removeObject(forKey: DefaultKeys.accessToken)
             UserDefaults.standard.removeObject(forKey: DefaultKeys.socialToken)
             AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.AccountInfo.completeLogout)
-            let authViewController = AuthViewController()
-            if let window = self?.view.window?.windowScene?.keyWindow {
-                let navigationController = UINavigationController(rootViewController: authViewController)
-                navigationController.isNavigationBarHidden = true
-                window.rootViewController = navigationController
-            }
+            SceneDelegate.shared?.changeRootViewControllerTo(AuthViewController())
         }
     }
     

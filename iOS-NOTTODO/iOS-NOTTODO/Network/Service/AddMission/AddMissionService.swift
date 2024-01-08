@@ -48,6 +48,10 @@ extension AddMissionService: TargetType {
         }
     }
     
+    var validationType: ValidationType {
+        return .successCodes
+    }
+    
     var task: Moya.Task {
         switch self {
         case .recommendSituation, .recentMission, .missionDates:
@@ -64,7 +68,7 @@ extension AddMissionService: TargetType {
                 encoding: JSONEncoding.default)
         }
     }
-    
+
     var headers: [String: String]? {
         switch self {
         default:

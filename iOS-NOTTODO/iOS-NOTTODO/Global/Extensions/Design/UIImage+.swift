@@ -58,6 +58,8 @@ extension UIImage {
     static var icSNS: UIImage { UIImage(named: "ic_snsmessage")! }
     static var icTrashbin: UIImage { UIImage(named: "ic_trashbin")! }
     static var icToastError: UIImage { UIImage(named: "ic_toast_error")! }
+    static var icBell: UIImage { UIImage(named: "ic_bell")! }
+    static var icCircle: UIImage { UIImage(named: "acceptCircle")! }
     static var icStarbucks: UIImage { UIImage(named: "ic_starbucks")! }
     
     // image
@@ -113,4 +115,5 @@ extension UIImage {
     
     static var quit1: UIImage { UIImage(named: "img_quit1")! }
     static var quit2: UIImage { UIImage(named: "img_quit2")! }
+    static var notificationDialog: UIImage { UIImage(named: "NotificationDialog")! }
 }
