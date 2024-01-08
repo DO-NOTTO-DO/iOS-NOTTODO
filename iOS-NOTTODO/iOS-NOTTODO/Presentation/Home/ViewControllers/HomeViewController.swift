@@ -23,12 +23,16 @@ final class HomeViewController: UIViewController {
     private var current: Date?
     
     private lazy var safeArea = self.view.safeAreaLayoutGuide
+    private var isSelected: Bool {
+        return KeychainUtil.isSelected()
+        }
     
     // MARK: - UI Components
     
     private var missionCollectionView = UICollectionView(frame: .zero, collectionViewLayout: .init())
     private lazy var missionDataSource = HomeDataSource(collectionView: missionCollectionView, missionList: missionList)
     
+    private lazy var alertViewContrilelr = CommonNotificationViewController()
     private let weekCalendar = CalendarView(calendarScope: .week, scrollDirection: .horizontal)
     private let addButton = UIButton()
     
@@ -36,6 +40,8 @@ final class HomeViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+   
+        showPopup(isSelected: isSelected)
         AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.Home.viewHome)
         
         dailyLoadData()
@@ -344,5 +350,17 @@ extension HomeViewController {
         }
         
         return .white
+    }
+}
+
+extension HomeViewController {
+    
+    private func showPopup(isSelected: Bool) {
+        if !isSelected {
+            let nextView = CommonNotificationViewController()
+            nextView.modalPresentationStyle = .overFullScreen
+            nextView.modalTransitionStyle = .crossDissolve
+            self.present(nextView, animated: true)
+        }
     }
 }

@@ -50,6 +50,7 @@
 		09DCCD1F2A18ED76003DCF8A /* DailyMissionResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09DCCD1E2A18ED76003DCF8A /* DailyMissionResponseDTO.swift */; };
 		09DCCD212A18EF43003DCF8A /* HomeSevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09DCCD202A18EF43003DCF8A /* HomeSevice.swift */; };
 		09DCCD232A18EFB0003DCF8A /* HomeAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09DCCD222A18EFB0003DCF8A /* HomeAPI.swift */; };
+		09ED941B2B2ABAB7001864EF /* CommonNotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09ED941A2B2ABAB7001864EF /* CommonNotificationViewController.swift */; };
 		09F6718029CAD76C00708725 /* SecondOnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F6717F29CAD76C00708725 /* SecondOnboardingViewController.swift */; };
 		09F6718229CAD86100708725 /* OnboardingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F6718129CAD86100708725 /* OnboardingCollectionViewCell.swift */; };
 		09F6718429CADB1100708725 /* OnboardingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F6718329CADB1100708725 /* OnboardingModel.swift */; };
@@ -211,6 +212,7 @@
 		09DCCD1E2A18ED76003DCF8A /* DailyMissionResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyMissionResponseDTO.swift; sourceTree = "<group>"; };
 		09DCCD202A18EF43003DCF8A /* HomeSevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeSevice.swift; sourceTree = "<group>"; };
 		09DCCD222A18EFB0003DCF8A /* HomeAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeAPI.swift; sourceTree = "<group>"; };
+		09ED941A2B2ABAB7001864EF /* CommonNotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonNotificationViewController.swift; sourceTree = "<group>"; };
 		09F6717F29CAD76C00708725 /* SecondOnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondOnboardingViewController.swift; sourceTree = "<group>"; };
 		09F6718129CAD86100708725 /* OnboardingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCollectionViewCell.swift; sourceTree = "<group>"; };
 		09F6718329CADB1100708725 /* OnboardingModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingModel.swift; sourceTree = "<group>"; };
@@ -843,6 +845,7 @@
 			children = (
 				3B9532F22A284CAD006510F8 /* Protocol */,
 				3B4E12F12A27B621001D1EC1 /* NottodoModalViewController.swift */,
+				09ED941A2B2ABAB7001864EF /* CommonNotificationViewController.swift */,
 				3B4E12F52A27C0BE001D1EC1 /* QuitModalView.swift */,
 				3B4E12F72A27C12F001D1EC1 /* WithdrawModalView.swift */,
 				092C09B62A48596500E9B06B /* DeleteModalView.swift */,
@@ -1383,6 +1386,7 @@
 				09F6718829CB383800708725 /* ThirdOnboardingViewController.swift in Sources */,
 				3B37AE2B29C8904800AB7587 /* RecommendKeywordCollectionViewCell.swift in Sources */,
 				099FC98929B3233D005B37E6 /* CalendarView.swift in Sources */,
+				09ED941B2B2ABAB7001864EF /* CommonNotificationViewController.swift in Sources */,
 				6C9628A92A22209E003ADE25 /* LogoOnboardingViewController.swift in Sources */,
 				09F6718029CAD76C00708725 /* SecondOnboardingViewController.swift in Sources */,
 				098BFD5D29B79CE3008E80F9 /* InfoCollectionViewCell.swift in Sources */,
