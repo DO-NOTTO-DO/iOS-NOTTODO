@@ -242,7 +242,6 @@ extension AuthViewController {
                     KeychainUtil.setAccessToken(accessToken)
                     Amplitude.instance().setUserId(userId)
                     self?.checkNotificationSettings()
-                    
                 }
             }
         }
@@ -250,16 +249,9 @@ extension AuthViewController {
     
     func presentToHomeViewController() {
         DispatchQueue.main.async {
-            if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-               let window = windowScene.windows.first {
-                let tabBarController = TabBarController()
-                let navigationController = UINavigationController(rootViewController: tabBarController)
-                navigationController.isNavigationBarHidden = true
-                window.rootViewController = navigationController
-                window.makeKeyAndVisible()
-            }
+            SceneDelegate.shared?.changeRootViewControllerTo(TabBarController())
         }
-    }
+    }   
     
     func checkNotificationSettings() {
         UNUserNotificationCenter.current().getNotificationSettings { settings in
@@ -274,26 +266,18 @@ extension AuthViewController {
     
     func showNotiDialogView() {
         DispatchQueue.main.async {
-            if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-               let window = windowScene.windows.first {
-                let notiDialogViewController = NotificationDialogViewController()
-                notiDialogViewController.buttonHandler = {
-                    self.requestNotification()
-                }
-                let navigationController = UINavigationController(rootViewController: notiDialogViewController)
-                navigationController.isNavigationBarHidden = true
-                window.rootViewController = navigationController
-                window.makeKeyAndVisible()
+            let notiDialogViewController = NotificationDialogViewController()
+            notiDialogViewController.buttonHandler = {
+                self.requestNotification()
             }
+            SceneDelegate.shared?.changeRootViewControllerTo(notiDialogViewController)
         }
     }
     
     func requestNotification() {
-//        UNUserNotificationCenter.current().delegate = self
         let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
         UNUserNotificationCenter.current().requestAuthorization(options: authOptions, completionHandler: { _, _ in
             self.presentToHomeViewController()
-            
         })
     }
 }

@@ -184,10 +184,7 @@ extension FifthOnboardingViewController {
         if let window = view.window?.windowScene?.keyWindow {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                 UIView.animate(withDuration: 0.01) {
-                    let TabBarController = AuthViewController()
-                    let navigationController = UINavigationController(rootViewController: TabBarController)
-                    navigationController.isNavigationBarHidden = true
-                    window.rootViewController = navigationController
+                    SceneDelegate.shared?.changeRootViewControllerTo(AuthViewController())
                 }
             }
         }
