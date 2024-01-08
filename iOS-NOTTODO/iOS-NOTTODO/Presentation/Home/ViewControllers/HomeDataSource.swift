@@ -90,7 +90,12 @@ final class HomeDataSource {
                 let status = result ? CompletionStatus.UNCHECKED : CompletionStatus.CHECKED
                 self.modalDelegate?.updateMissionStatus(id: id, status: status)
                 
-                AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.Home.completeCheckMission(title: missionItem.title, situation: missionItem.situationName))
+                switch status {
+                case .CHECKED:
+                    AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.Home.completeCheckMission(title: missionItem.title, situation: missionItem.situationName))
+                case .UNCHECKED:
+                    AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.Home.completeUncheckMission(title: missionItem.title, situation: missionItem.situationName))
+                }
             }
         }
     }
