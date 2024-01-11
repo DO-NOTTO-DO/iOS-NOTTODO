@@ -9,7 +9,7 @@ import UIKit
 
 import KakaoSDKUser
 
-class MyInfoAccountViewController: UIViewController {
+final class MyInfoAccountViewController: UIViewController {
     
     // MARK: - UI Components
     
@@ -41,11 +41,8 @@ class MyInfoAccountViewController: UIViewController {
 
 private extension MyInfoAccountViewController {
     func setUI() {
-        
         self.notificationView.switchClosure = { result in
-           if result {
-               self.notificationView.notificationSwitch.setOn(result, animated: true)
-           }
+            self.notificationView.notificationSwitch.setOn(result, animated: true)
         }
         
         view.backgroundColor = .ntdBlack
