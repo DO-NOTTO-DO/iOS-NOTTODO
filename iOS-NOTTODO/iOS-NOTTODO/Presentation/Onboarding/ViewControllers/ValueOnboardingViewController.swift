@@ -9,7 +9,7 @@ import UIKit
 
 import Lottie
 
-class ValueOnboardingViewController: UIViewController {
+final class ValueOnboardingViewController: UIViewController {
     
     // MARK: - Properties
     

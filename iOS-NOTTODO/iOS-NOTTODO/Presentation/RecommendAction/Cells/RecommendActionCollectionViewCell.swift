@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 import Then
 
-class RecommendActionCollectionViewCell: UICollectionViewCell {
+final class RecommendActionCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Properties
     

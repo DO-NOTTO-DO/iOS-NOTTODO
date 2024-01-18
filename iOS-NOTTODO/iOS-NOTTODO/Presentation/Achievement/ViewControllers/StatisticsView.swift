@@ -10,7 +10,7 @@ import UIKit
 import Then
 import SnapKit
 
-class StatisticsView: UIView {
+final class StatisticsView: UIView {
     
     // MARK: - UI Components
     

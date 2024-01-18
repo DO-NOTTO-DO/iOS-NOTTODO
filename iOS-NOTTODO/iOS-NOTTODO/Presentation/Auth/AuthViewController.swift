@@ -17,7 +17,7 @@ import KakaoSDKCommon
 import KakaoSDKAuth
 import KakaoSDKUser
 
-class AuthViewController: UIViewController {
+final class AuthViewController: UIViewController {
     
     // MARK: - UI Components
     

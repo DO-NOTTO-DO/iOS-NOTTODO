@@ -8,7 +8,7 @@
 import UIKit
 import AVFoundation
 
-class LogoOnboardingViewController: UIViewController {
+final class LogoOnboardingViewController: UIViewController {
 
     // MARK: - Properties
     

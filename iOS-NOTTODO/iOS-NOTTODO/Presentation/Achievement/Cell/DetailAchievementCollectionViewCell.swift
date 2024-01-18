@@ -7,7 +7,7 @@
 
 import UIKit
 
-class DetailAchievementCollectionViewCell: UICollectionViewCell {
+final class DetailAchievementCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Properties
     

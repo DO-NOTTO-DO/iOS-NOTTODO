@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 import Then
 
-class RecommendActionHeaderView: UICollectionReusableView {
+final class RecommendActionHeaderView: UICollectionReusableView {
     
     // MARK: - Identifier
     
