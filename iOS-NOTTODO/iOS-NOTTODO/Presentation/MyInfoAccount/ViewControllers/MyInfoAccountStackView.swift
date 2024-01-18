@@ -20,9 +20,10 @@ final class MyInfoAccountStackView: UIView {
     let contentLabel = UILabel()
     let notificationSwitch = UISwitch()
     private let lineView = UIView()
-    var isTapped: Bool = false
-    private var notificationSettings: UNNotificationSettings?
     var switchClosure: ((_ isTapped: Bool) -> Void)?
+    private var isNotificationAllowed: Bool {
+        return KeychainUtil.getBool(DefaultKeys.isNotificationAccepted)
+    }
     
     // MARK: - View Life Cycle
     
@@ -30,9 +31,6 @@ final class MyInfoAccountStackView: UIView {
         super.init(frame: .zero)
         setUI(title: title, isHidden: isHidden)
         setLayout(isHidden: isHidden)
-        UNUserNotificationCenter.current().getNotificationSettings { settings in
-            self.isTapped = settings.authorizationStatus == .authorized
-        }
         
         NotificationCenter.default.addObserver(
             self,
@@ -75,7 +73,7 @@ extension MyInfoAccountStackView {
         }
         
         notificationSwitch.do {
-            $0.isOn = isTapped
+            $0.isOn = isNotificationAllowed
             $0.onTintColor = .green2
             $0.addTarget(self, action: #selector(switchTapped), for: .valueChanged)
         }
@@ -123,7 +121,6 @@ extension MyInfoAccountStackView {
     }
     
     @objc func switchTapped(_ sender: Any) {
-        AmplitudeAnalyticsService.shared.send(event: isTapped ? AnalyticsEvent.AccountInfo.completePushOn :  AnalyticsEvent.AccountInfo.completePushOff)
         
         DispatchQueue.main.async {
             do {
@@ -161,9 +158,10 @@ extension MyInfoAccountStackView {
     private func appWillEnterForeground() {
         UNUserNotificationCenter.current().getNotificationSettings { [weak self] settings in
             DispatchQueue.main.async {
-                self?.notificationSettings = settings
-                self?.isTapped = settings.authorizationStatus == .authorized
-                self?.switchClosure?(self!.isTapped)
+                KeychainUtil.setBool(settings.authorizationStatus == .authorized, forKey: DefaultKeys.isNotificationAccepted)
+                if let isNotificationAllowed = self?.isNotificationAllowed {
+                    self?.switchClosure?(isNotificationAllowed)
+                }
             }
         }
     }
