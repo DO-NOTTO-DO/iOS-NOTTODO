@@ -162,6 +162,12 @@ extension MyInfoAccountStackView {
                 if let isNotificationAllowed = self?.isNotificationAllowed {
                     self?.switchClosure?(isNotificationAllowed)
                 }
+                
+                if KeychainUtil.getBool(DefaultKeys.isNotificationAccepted) {
+                    AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.AccountInfo.completePushOn)
+                } else {
+                    AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.AccountInfo.completePushOff)
+                }
             }
         }
     }
