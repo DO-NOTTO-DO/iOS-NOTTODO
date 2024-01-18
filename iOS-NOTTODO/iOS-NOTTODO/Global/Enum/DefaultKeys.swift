@@ -28,4 +28,5 @@ struct DefaultKeys {
     static let accessToken = "accessToken"
     static let fcmToken = "fcmToken"
     static let isSelected = "isSelected"
+    static let isNotificationAccepted = "isNotificationAccepted"
 }
