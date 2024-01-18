@@ -278,6 +278,12 @@ extension AuthViewController {
         let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
         UNUserNotificationCenter.current().requestAuthorization(options: authOptions, completionHandler: { isAllowed, _ in
             KeychainUtil.setBool(isAllowed, forKey: DefaultKeys.isNotificationAccepted)
+            if isAllowed {
+                AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.OnboardingClick.clickPushAllow(section: isAllowed))
+            } else {
+                AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.OnboardingClick.clickPushReject(section: isAllowed))
+            }
+            
             self.presentToHomeViewController()
         })
     }
