@@ -14,7 +14,7 @@ final class MyInfoViewController: UIViewController {
     
     // MARK: - Properties
     
-    private var infoOne: [InfoModelOne] = [InfoModelOne(image: .imgUser, user: UserDefaults.standard.bool(forKey: DefaultKeys.isAppleLogin) ? KeychainUtil.getAppleUsername() : KeychainUtil.getKakaoNickname(), email: UserDefaults.standard.bool(forKey: DefaultKeys.isAppleLogin) ? KeychainUtil.getAppleEmail() : KeychainUtil.getKakaoEmail())]
+    private var infoOne: [InfoModelOne] = [InfoModelOne(image: .imgUser, user: KeychainUtil.getBool(DefaultKeys.isAppleLogin) ? KeychainUtil.getAppleUsername() : KeychainUtil.getKakaoNickname(), email: KeychainUtil.getBool(DefaultKeys.isAppleLogin) ? KeychainUtil.getAppleEmail() : KeychainUtil.getKakaoEmail())]
     private let infoTwo: [InfoModelTwo] = InfoModelTwo.items
     private let infoThree: [InfoModelThree] = InfoModelThree.items
     private let infoFour: [InfoModelFour] = InfoModelFour.item

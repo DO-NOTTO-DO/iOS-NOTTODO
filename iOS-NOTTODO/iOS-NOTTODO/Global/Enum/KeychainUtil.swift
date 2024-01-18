@@ -53,7 +53,7 @@ public final class KeychainUtil {
     }
         
     static func removeUserInfo() {
-        if UserDefaults.standard.bool(forKey: DefaultKeys.isAppleLogin) {
+        if getBool(DefaultKeys.isAppleLogin) {
             UserDefaults.standard.removeObject(forKey: DefaultKeys.appleName)
             UserDefaults.standard.removeObject(forKey: DefaultKeys.appleEmail)
         } else {

@@ -109,7 +109,7 @@ extension NottodoModalViewController: ModalDelegate {
 
 extension NottodoModalViewController {
     func withdrawal() {
-        if !UserDefaults.standard.bool(forKey: DefaultKeys.isAppleLogin) {
+        if !KeychainUtil.getBool(DefaultKeys.isAppleLogin) {
             kakaoWithdrawal()
         }
         AuthAPI.shared.withdrawalAuth { _ in

@@ -276,7 +276,8 @@ extension AuthViewController {
     
     func requestNotification() {
         let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
-        UNUserNotificationCenter.current().requestAuthorization(options: authOptions, completionHandler: { _, _ in
+        UNUserNotificationCenter.current().requestAuthorization(options: authOptions, completionHandler: { isAllowed, _ in
+            KeychainUtil.setBool(isAllowed, forKey: DefaultKeys.isNotificationAccepted)
             self.presentToHomeViewController()
         })
     }

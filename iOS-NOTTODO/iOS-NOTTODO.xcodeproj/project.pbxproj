@@ -101,6 +101,7 @@
 		3B482FA5299EAB8800BCF424 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B482FA4299EAB8800BCF424 /* TabBarController.swift */; };
 		3B482FA7299EB8FD00BCF424 /* UIViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B482FA6299EB8FD00BCF424 /* UIViewController+.swift */; };
 		3B482FA9299EB95400BCF424 /* UIScreen+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B482FA8299EB95400BCF424 /* UIScreen+.swift */; };
+		3B49204D2B58ECC100F53B19 /* API_KEY.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3B49204C2B58ECC100F53B19 /* API_KEY.plist */; };
 		3B4E12F22A27B621001D1EC1 /* NottodoModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B4E12F12A27B621001D1EC1 /* NottodoModalViewController.swift */; };
 		3B4E12F62A27C0BE001D1EC1 /* QuitModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B4E12F52A27C0BE001D1EC1 /* QuitModalView.swift */; };
 		3B4E12F82A27C12F001D1EC1 /* WithdrawModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B4E12F72A27C12F001D1EC1 /* WithdrawModalView.swift */; };
@@ -151,7 +152,6 @@
 		6CA208362A1957CA001C4247 /* AuthAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA208352A1957CA001C4247 /* AuthAPI.swift */; };
 		6CA2083A2A195906001C4247 /* AuthResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA208392A195906001C4247 /* AuthResponseDTO.swift */; };
 		6CA2B7BB2A222D2300A9E549 /* ValueOnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA2B7BA2A222D2300A9E549 /* ValueOnboardingViewController.swift */; };
-		6CBE702D2A5AA29E00A7EC30 /* API_KEY.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6CBE702C2A5AA29E00A7EC30 /* API_KEY.plist */; };
 		6CC54C1A2A28C3AE00AAD76D /* value.json in Resources */ = {isa = PBXBuildFile; fileRef = 6CC54C192A28C3AE00AAD76D /* value.json */; };
 		6CD4F8BA29AA493600CCC740 /* RecommendActionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CD4F8B929AA493600CCC740 /* RecommendActionHeaderView.swift */; };
 		6CD4F8BC29AA494300CCC740 /* RecommendActionFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CD4F8BB29AA494300CCC740 /* RecommendActionFooterView.swift */; };
@@ -261,6 +261,7 @@
 		3B482FA4299EAB8800BCF424 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		3B482FA6299EB8FD00BCF424 /* UIViewController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+.swift"; sourceTree = "<group>"; };
 		3B482FA8299EB95400BCF424 /* UIScreen+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScreen+.swift"; sourceTree = "<group>"; };
+		3B49204C2B58ECC100F53B19 /* API_KEY.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = API_KEY.plist; sourceTree = "<group>"; };
 		3B4E12F12A27B621001D1EC1 /* NottodoModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NottodoModalViewController.swift; sourceTree = "<group>"; };
 		3B4E12F52A27C0BE001D1EC1 /* QuitModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuitModalView.swift; sourceTree = "<group>"; };
 		3B4E12F72A27C12F001D1EC1 /* WithdrawModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithdrawModalView.swift; sourceTree = "<group>"; };
@@ -301,7 +302,6 @@
 		6CA208352A1957CA001C4247 /* AuthAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthAPI.swift; sourceTree = "<group>"; };
 		6CA208392A195906001C4247 /* AuthResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthResponseDTO.swift; sourceTree = "<group>"; };
 		6CA2B7BA2A222D2300A9E549 /* ValueOnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValueOnboardingViewController.swift; sourceTree = "<group>"; };
-		6CBE702C2A5AA29E00A7EC30 /* API_KEY.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = API_KEY.plist; sourceTree = "<group>"; };
 		6CC54C192A28C3AE00AAD76D /* value.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = value.json; sourceTree = "<group>"; };
 		6CD4F8B929AA493600CCC740 /* RecommendActionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendActionHeaderView.swift; sourceTree = "<group>"; };
 		6CD4F8BB29AA494300CCC740 /* RecommendActionFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendActionFooterView.swift; sourceTree = "<group>"; };
@@ -769,7 +769,7 @@
 		3B027AA6299C359900BEB65C /* Resource */ = {
 			isa = PBXGroup;
 			children = (
-				6CBE702C2A5AA29E00A7EC30 /* API_KEY.plist */,
+				3B49204C2B58ECC100F53B19 /* API_KEY.plist */,
 				3B3EF2F72AF35C90001F79BC /* GoogleService-Info.plist */,
 				3B027A85299C31B600BEB65C /* Info.plist */,
 				3B027AAA299C35D000BEB65C /* Assets */,
@@ -1231,11 +1231,11 @@
 				3B710A5C2A62D4AB00E95620 /* Settings.bundle in Resources */,
 				3B027A84299C31B600BEB65C /* LaunchScreen.storyboard in Resources */,
 				6CC54C1A2A28C3AE00AAD76D /* value.json in Resources */,
+				3B49204D2B58ECC100F53B19 /* API_KEY.plist in Resources */,
 				3B3EF2F82AF35C90001F79BC /* GoogleService-Info.plist in Resources */,
 				6C049A312A595C670085E40B /* logo.mp4 in Resources */,
 				3B027A81299C31B600BEB65C /* Assets.xcassets in Resources */,
 				3B146D9A299D079D00B17B62 /* Pretendard-Light.otf in Resources */,
-				6CBE702D2A5AA29E00A7EC30 /* API_KEY.plist in Resources */,
 				3B146D98299D077800B17B62 /* Pretendard-Medium.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
