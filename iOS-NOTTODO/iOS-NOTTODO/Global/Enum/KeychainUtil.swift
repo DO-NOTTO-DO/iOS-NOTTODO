@@ -45,7 +45,9 @@ public final class KeychainUtil {
     static func getAppleEmail() -> String {
         UserDefaults.standard.string(forKey: DefaultKeys.appleEmail) ?? "연동된 이메일 정보가 없습니다"
     }
-    
+    static func getBool(_ key: String) -> Bool {
+        UserDefaults.standard.bool(forKey: key)
+    }
     static func isSelected() -> Bool {
         UserDefaults.standard.bool(forKey: DefaultKeys.isSelected)
     }
