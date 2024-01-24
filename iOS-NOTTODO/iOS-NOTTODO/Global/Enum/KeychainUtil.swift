@@ -46,10 +46,10 @@ public final class KeychainUtil {
         UserDefaults.standard.string(forKey: DefaultKeys.appleEmail) ?? "연동된 이메일 정보가 없습니다"
     }
     
-    static func isSelected() -> Bool {
-        UserDefaults.standard.bool(forKey: DefaultKeys.isSelected)
+    static func isDeprecatedBtnClicked() -> Bool {
+        UserDefaults.standard.bool(forKey: DefaultKeys.isDeprecatedBtnClicked)
     }
-        
+      
     static func removeUserInfo() {
         if UserDefaults.standard.bool(forKey: DefaultKeys.isAppleLogin) {
             UserDefaults.standard.removeObject(forKey: DefaultKeys.appleName)

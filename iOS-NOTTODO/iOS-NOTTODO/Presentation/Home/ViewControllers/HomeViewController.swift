@@ -23,16 +23,14 @@ final class HomeViewController: UIViewController {
     private var current: Date?
     
     private lazy var safeArea = self.view.safeAreaLayoutGuide
-    private var isSelected: Bool {
-        return KeychainUtil.isSelected()
-        }
+    private var isSelected: Bool = false
+    private var didDeprecatedButtonTap: Bool { return KeychainUtil.isDeprecatedBtnClicked() }
     
     // MARK: - UI Components
     
     private var missionCollectionView = UICollectionView(frame: .zero, collectionViewLayout: .init())
     private lazy var missionDataSource = HomeDataSource(collectionView: missionCollectionView, missionList: missionList)
     
-    private lazy var alertViewContrilelr = CommonNotificationViewController()
     private let weekCalendar = CalendarView(calendarScope: .week, scrollDirection: .horizontal)
     private let addButton = UIButton()
     
@@ -40,7 +38,7 @@ final class HomeViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-   
+        
         showPopup(isSelected: isSelected)
         AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.Home.viewHome)
         
@@ -53,7 +51,6 @@ final class HomeViewController: UIViewController {
         
         setUI()
         setLayout()
-        
     }
 }
 
@@ -88,7 +85,7 @@ extension HomeViewController {
     }
     
     private func setLayout() {
-
+        
         view.addSubviews(weekCalendar, missionCollectionView, addButton)
         weekCalendar.calendar.select(today)
         
@@ -220,7 +217,7 @@ extension HomeViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalend
         
         AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.Home.clickWeeklyDate(date: Utils.dateFormatterString(format: nil, date: date)))
     }
-
+    
     func  calendar(_ calendar: FSCalendar, titleFor date: Date) -> String? {
         Utils.dateFormatterString(format: "EEEEEE", date: date)
     }
@@ -238,12 +235,12 @@ extension HomeViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalend
     }
     
     func calendar(_ calendar: FSCalendar, cellFor date: Date, at position: FSCalendarMonthPosition) -> FSCalendarCell {
-
+        
         let cell = calendar.dequeueReusableCell(withIdentifier: MissionCalendarCell.identifier, for: date, at: position) as! MissionCalendarCell
         
         guard let percentage = getPercentage(for: date) else { return cell }
         cell.configure(percent: percentage)
-    
+        
         return cell
     }
 }
@@ -288,9 +285,9 @@ extension HomeViewController {
     }
     
     private func requestDeleteMission(index: Int, id: Int) {
-            HomeAPI.shared.deleteMission(id: id) { [weak self] _ in
+        HomeAPI.shared.deleteMission(id: id) { [weak self] _ in
             guard let self else { return }
-                
+            
             self.dailyLoadData()
             self.weeklyLoadData()
             self.missionDataSource.updateSnapShot(missionList: self.missionList)
@@ -356,11 +353,17 @@ extension HomeViewController {
 extension HomeViewController {
     
     private func showPopup(isSelected: Bool) {
-        if !isSelected {
+        
+        if !(isSelected || didDeprecatedButtonTap) {
             let nextView = CommonNotificationViewController()
             nextView.modalPresentationStyle = .overFullScreen
             nextView.modalTransitionStyle = .crossDissolve
             self.present(nextView, animated: true)
+            
+            nextView.tapCloseButton = {
+                self.isSelected = true
+                AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.Login.clickAdModalClose(again: self.didDeprecatedButtonTap ? "yes": "no" ))
+            }
         }
     }
 }
