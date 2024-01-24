@@ -23,6 +23,8 @@ extension UIImage {
     static var calendarRight: UIImage { UIImage(named: "btn_calendar_right")! }
     static var checkboxFill: UIImage { UIImage(named: "btn_checkbox_active")! }
     static var checkbox: UIImage { UIImage(named: "btn_checkbox_inactive")! }
+    static var deprecatedCheckBoxFill: UIImage { UIImage(named: "btn_common_active")! }
+    static var deprecatedCheckBox: UIImage { UIImage(named: "btn_common_inactive")! }
     
     // home
     
@@ -56,6 +58,9 @@ extension UIImage {
     static var icSNS: UIImage { UIImage(named: "ic_snsmessage")! }
     static var icTrashbin: UIImage { UIImage(named: "ic_trashbin")! }
     static var icToastError: UIImage { UIImage(named: "ic_toast_error")! }
+    static var icBell: UIImage { UIImage(named: "ic_bell")! }
+    static var icCircle: UIImage { UIImage(named: "acceptCircle")! }
+    static var icStarbucks: UIImage { UIImage(named: "ic_starbucks")! }
     
     // image
     
@@ -110,4 +115,5 @@ extension UIImage {
     
     static var quit1: UIImage { UIImage(named: "img_quit1")! }
     static var quit2: UIImage { UIImage(named: "img_quit2")! }
+    static var notificationDialog: UIImage { UIImage(named: "NotificationDialog")! }
 }

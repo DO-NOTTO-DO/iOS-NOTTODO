@@ -35,13 +35,20 @@ final class MissionCalendarCell: FSCalendarCell {
     
     static let identifier = "MissionCalendarCell"
     
-    var mode: FSCalendarScope = .week
-    var state: ToDoState = .none
+    var mode: FSCalendarScope = .week {
+        didSet {
+            setLayout()
+        }
+    }
+    var state: ToDoState = .none {
+        didSet {
+            updateUI(state: self.state)
+        }
+    }
     
     // MARK: - UI Components
     
-    let iconView = UIImageView()
-    private var padding = 8
+    private let iconView = UIImageView()
     
     // MARK: - Life Cycle
     
@@ -71,24 +78,46 @@ extension MissionCalendarCell {
     }
     
     private func setLayout() {
-        iconView.snp.makeConstraints {
-            $0.height.width.equalTo(contentView.bounds.width - 8)
-            $0.centerX.equalToSuperview()
-            $0.bottom.equalToSuperview().inset(5)
+        switch mode {
+        case .month:
+            iconView.snp.remakeConstraints {
+                $0.height.equalToSuperview()
+                $0.width.equalTo(contentView.bounds.size.height)
+                $0.center.equalToSuperview()
+            }
+            
+            titleLabel.snp.remakeConstraints {
+                $0.centerY.equalToSuperview().offset(-1)
+                $0.centerX.equalToSuperview()
+            }
+        case .week:
+            iconView.snp.remakeConstraints {
+                $0.height.width.equalTo(contentView.bounds.width - 8)
+                $0.centerX.equalToSuperview()
+                $0.bottom.equalToSuperview().inset(5)
+            }
+            subtitleLabel.snp.updateConstraints {
+                $0.centerY.equalTo(iconView.snp.centerY)
+            }
+            
+        @unknown default:
+            break
         }
-        subtitleLabel.snp.updateConstraints {
-            $0.centerY.equalTo(iconView.snp.centerY)
-        }
+        
     }
     
     private func updateUI(state: ToDoState) {
         iconView.image = state.icon
     }
     
-    func configure(_ state: ToDoState, _ mode: FSCalendarScope) {
-        self.mode = mode
-        self.state = state
-        setLayout()
-        updateUI(state: state)
+    func configure(percent: Float) {
+        switch percent {
+        case 0.0:
+            self.state = .none
+        case 1.0:
+            self.state = .rateFull
+        default:
+            self.state = .rateHalf
+        }
     }
 }

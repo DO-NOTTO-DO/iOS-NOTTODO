@@ -13,14 +13,14 @@ final class HomeAPI {
     
     static let shared: HomeAPI = HomeAPI()
     
-    var homeProvider = MoyaProvider<HomeService>(plugins: [MoyaLoggingPlugin()])
+    var homeProvider = MoyaProvider<HomeService>(session: Session(interceptor: AuthInterceptor.shared), plugins: [MoyaLoggingPlugin()])
     
     private init() { }
     
     public private(set) var missionDailyData: GeneralArrayResponse<DailyMissionResponseDTO>?
     public private(set) var missionDetailDailyData: GeneralResponse<MissionDetailResponseDTO>?
     public private(set) var updateMissionStatus: GeneralResponse<DailyMissionResponseDTO>?
-    public private(set) var missionWeekly: GeneralResponse<WeekMissionResponseDTO>?
+    public private(set) var missionWeekly: GeneralArrayResponse<WeekMissionResponseDTO>?
     public private(set) var addAnotherDay: GeneralResponse<AddAnotherDayResponseDTO>?
     public private(set) var particularDays: GeneralArrayResponse<String>?
     
@@ -44,31 +44,38 @@ final class HomeAPI {
         }
     }
     
-    func getWeeklyMissoin(startDate: String, completion: @escaping (NetworkResult<Any>) -> Void) {
-        homeProvider.request(.missionWeekly(startDate: startDate)) { response in
-            switch response {
-            case let .success(response):
-                let statusCode = response.statusCode
-                let data = response.data
-                let networkResult = NetworkBase.judgeStatus(by: statusCode, data,
-                                                            [WeekMissionResponseDTO].self)
-                completion(networkResult)
-            case let .failure(err):
-                print(err)
+    func getWeeklyMissoin(startDate: String, completion: @escaping (GeneralArrayResponse<WeekMissionResponseDTO>?) -> Void) {
+        homeProvider.request(.missionWeekly(startDate: startDate)) { result in
+            switch result {
+            case .success(let response):
+                do {
+                    self.missionWeekly = try response.map(GeneralArrayResponse<WeekMissionResponseDTO>?.self)
+                    guard let missionWeekly = self.missionWeekly else { return completion(nil) }
+                    completion(missionWeekly)
+                } catch let err {
+                    print(err.localizedDescription, 500)
+                }
+            case .failure(let err):
+                print(err.localizedDescription)
+                completion(nil)
             }
         }
     }
     
-    func getDailyDetailMission(id: Int, completion: @escaping (NetworkResult<Any>) -> Void) {
-        homeProvider.request(.dailyDetailMission(id: id)) { response in
-            switch response {
-            case let .success(response):
-                let statusCode = response.statusCode
-                let data = response.data
-                let networkResult = NetworkBase.judgeStatus(by: statusCode, data, MissionDetailResponseDTO.self)
-                completion(networkResult)
-            case let .failure(err):
-                print(err)
+    func getDailyDetailMission(id: Int, completion: @escaping (GeneralResponse<MissionDetailResponseDTO>?) -> Void) {
+        homeProvider.request(.dailyDetailMission(id: id)) { result in
+            switch result {
+            case .success(let response):
+                do {
+                    self.missionDetailDailyData = try response.map(GeneralResponse<MissionDetailResponseDTO>?.self)
+                    guard let missionDetailDailyData = self.missionDetailDailyData else { return completion(nil) }
+                    completion(missionDetailDailyData)
+                } catch let err {
+                    print(err.localizedDescription, 500)
+                }
+            case .failure(let err):
+                print(err.localizedDescription)
+                completion(nil)
             }
         }
     }
@@ -117,7 +124,7 @@ final class HomeAPI {
             case .success(let response):
                 do {
                     self.updateMissionStatus = try response.map(GeneralResponse<DailyMissionResponseDTO>?.self)
-                    guard self.updateMissionStatus != nil else { return }
+                    guard self.updateMissionStatus != nil else { return completion(nil) }
                     completion(self.updateMissionStatus)
                 } catch let err {
                     print(err.localizedDescription, 500)
@@ -137,7 +144,7 @@ final class HomeAPI {
             case .success(let response):
                 do {
                     self.addAnotherDay = try response.map(GeneralResponse<AddAnotherDayResponseDTO>?.self)
-                    guard let addAnotherDay = self.addAnotherDay else { return }
+                    guard let addAnotherDay = self.addAnotherDay else { return completion(nil) }
                     completion(addAnotherDay)
                 } catch let err {
                     print(err.localizedDescription, 500)

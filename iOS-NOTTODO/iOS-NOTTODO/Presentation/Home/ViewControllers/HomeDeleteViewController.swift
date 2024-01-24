@@ -14,15 +14,19 @@ final class HomeDeleteViewController: UIViewController {
     
     // MARK: - Properties
     
-    private lazy var safeArea = self.view.safeAreaLayoutGuide
     var deleteClosure: (() -> Void)?
+    
+    private lazy var safeArea = self.view.safeAreaLayoutGuide
     
     // MARK: - UI Components
     
     private let deleteModalView = DeleteModalView()
     
+    // MARK: - Life Cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         setUI()
         setLayout()
     }
@@ -32,7 +36,7 @@ final class HomeDeleteViewController: UIViewController {
         let touch = touches.first!
         let location = touch.location(in: self.view)
         
-        if !self.view.frame.contains(location) {
+        if !view.frame.contains(location) {
             dismiss(animated: true)
         }
     }
@@ -47,7 +51,7 @@ extension HomeDeleteViewController {
         deleteModalView.do {
             $0.deleteClosure = {
                 self.deleteClosure?()
-                self.dismiss(animated: true) 
+                self.dismiss(animated: true)
             }
             $0.cancelClosure = {
                 self.dismiss(animated: true)
