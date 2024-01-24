@@ -162,6 +162,31 @@ struct I18N {
     static let delete = "삭제하기"
     static let deleteModalTitle = "삭제하시겠습니까?"
     static let deleteModalSubtitle = "한 번 삭제하면 되돌릴 수 없어요."
+    static let update = "업데이트"
+    static let updateAlert = """
+                            최신 업데이트가 있습니다.
+                            업데이트하시겠습니까?
+                            """
+    static let later = "나중에"
+    static let notiDialogTitle = """
+                                알림을 허용하면
+                                낫투두가 더 잘 도울 수 있어요!
+                                """
+    static let notiAllowTitle = """
+                                '낫투두'에서 알림을
+                                보내고자 합니다.
+                              """
+    static let notiAllowSubTitle = """
+                                알림 기능이 꺼져있으면
+                                알람이 울릴 때까지 확인하기 어려워요
+                                """
+    static let notAllow = "허용 안 함"
+    static let allow = "허용"
+    static let notiDialogButton = "네, 알겠어요 :)"
+    
+    static let formButton = "이정도야 쉽지!"
+    static let deprecatedTitle = "더 이상 보지 않기"
+    static let close = "닫기"
 
     /// home
     static let subText = "*달성 가능한 계획을 위해 다가올 일주일만 선택할 수 있어요"

@@ -9,9 +9,10 @@ import UIKit
 
 import SnapKit
 import Then
+import UserNotifications
 
-class MyInfoAccountStackView: UIView {
-        
+final class MyInfoAccountStackView: UIView {
+    
     // MARK: - UI Components
     
     private let stackView = UIView()
@@ -20,6 +21,7 @@ class MyInfoAccountStackView: UIView {
     let notificationSwitch = UISwitch()
     private let lineView = UIView()
     var isTapped: Bool = false
+    private var notificationSettings: UNNotificationSettings?
     var switchClosure: ((_ isTapped: Bool) -> Void)?
     
     // MARK: - View Life Cycle
@@ -28,10 +30,26 @@ class MyInfoAccountStackView: UIView {
         super.init(frame: .zero)
         setUI(title: title, isHidden: isHidden)
         setLayout(isHidden: isHidden)
+        UNUserNotificationCenter.current().getNotificationSettings { settings in
+            self.isTapped = settings.authorizationStatus == .authorized
+        }
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(appWillEnterForeground),
+            name: UIApplication.willEnterForegroundNotification,
+            object: nil)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(
+            self,
+            name: UIApplication.willEnterForegroundNotification,
+            object: nil)
     }
 }
 
@@ -57,7 +75,7 @@ extension MyInfoAccountStackView {
         }
         
         notificationSwitch.do {
-            $0.isOn = true
+            $0.isOn = isTapped
             $0.onTintColor = .green2
             $0.addTarget(self, action: #selector(switchTapped), for: .valueChanged)
         }
@@ -67,7 +85,7 @@ extension MyInfoAccountStackView {
             $0.isHidden = isHidden ? true : false
         }
     }
-        
+    
     private func setLayout(isHidden: Bool) {
         addSubviews(lineView, stackView)
         stackView.addSubviews(titleLabel, isHidden ? notificationSwitch : contentLabel)
@@ -82,7 +100,7 @@ extension MyInfoAccountStackView {
         titleLabel.snp.makeConstraints {
             $0.centerY.equalToSuperview()
         }
-
+        
         if !isHidden {
             contentLabel.snp.makeConstraints {
                 $0.centerY.equalToSuperview()
@@ -105,9 +123,48 @@ extension MyInfoAccountStackView {
     }
     
     @objc func switchTapped(_ sender: Any) {
-        isTapped.toggle()
-        switchClosure?(isTapped)
-        
         AmplitudeAnalyticsService.shared.send(event: isTapped ? AnalyticsEvent.AccountInfo.completePushOn :  AnalyticsEvent.AccountInfo.completePushOff)
+        
+        DispatchQueue.main.async {
+            do {
+                try self.toggleNotificationPermission()
+            } catch {
+                print("Error toggling notification permission: \(error)")
+            }
+        }
+    }
+    
+    private func toggleNotificationPermission() throws {
+        do {
+            try self.openAppSettings()
+        } catch {
+            throw error
+        }
+    }
+    
+    private func openAppSettings() throws {
+        let settingsUrl: URL
+        if #available(iOS 16.0, *) {
+            settingsUrl = URL(string: UIApplication.openNotificationSettingsURLString) ?? URL(string: "")!
+        } else {
+            settingsUrl = URL(string: UIApplication.openSettingsURLString) ?? URL(string: "")!
+        }
+        
+        if UIApplication.shared.canOpenURL(settingsUrl) {
+            UIApplication.shared.open(settingsUrl, completionHandler: { success in
+                print("iOS 설정 앱 열기: \(success)")
+            })
+        }
+    }
+    
+    @objc
+    private func appWillEnterForeground() {
+        UNUserNotificationCenter.current().getNotificationSettings { [weak self] settings in
+            DispatchQueue.main.async {
+                self?.notificationSettings = settings
+                self?.isTapped = settings.authorizationStatus == .authorized
+                self?.switchClosure?(self!.isTapped)
+            }
+        }
     }
 }
