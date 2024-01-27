@@ -10,18 +10,21 @@ import UIKit
 import Then
 import SnapKit
 
-class MyInfoHeaderReusableView: UICollectionReusableView {
+final class MyInfoHeaderView: UICollectionReusableView {
     
     // MARK: - Properties
     
-    static let identifier = "MyInfoHeaderReusableView"
+    static let identifier = "MyInfoHeaderView"
     
     // MARK: - UI Components
     
     private let myInfoLabel = UILabel()
     
+    // MARK: - Life Cycle
+    
     override init(frame: CGRect) {
         super.init(frame: .zero)
+        
         setUI()
         setLayout()
     }
@@ -33,7 +36,8 @@ class MyInfoHeaderReusableView: UICollectionReusableView {
 
 // MARK: - Methods
 
-extension MyInfoHeaderReusableView {
+extension MyInfoHeaderView {
+    
     private func setUI() {
         myInfoLabel.do {
             $0.text = I18N.myInfo
@@ -41,6 +45,7 @@ extension MyInfoHeaderReusableView {
             $0.textColor = .white
         }
     }
+    
     private func setLayout() {
         addSubview(myInfoLabel)
         
