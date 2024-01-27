@@ -47,7 +47,7 @@ final class DetailAchievementViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-       
+        
         setUI()
         setLayout()
         setDataSource()
@@ -69,10 +69,10 @@ final class DetailAchievementViewController: UIViewController {
 // MARK: - Methods
 
 extension DetailAchievementViewController {
-
+    
     private func setUI() {
         view.backgroundColor = .black.withAlphaComponent(0.6)
-
+        
         collectionView.do {
             $0.collectionViewLayout = layout()
             $0.layer.cornerRadius = 15
@@ -81,10 +81,10 @@ extension DetailAchievementViewController {
             $0.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         }
     }
-
+    
     private func setLayout() {
         view.addSubview(collectionView)
-
+        
         collectionView.snp.makeConstraints {
             $0.center.equalTo(safeArea)
             $0.directionalHorizontalEdges.equalTo(safeArea).inset(15)
@@ -149,6 +149,13 @@ extension DetailAchievementViewController {
                                                                     leading: 20,
                                                                     bottom: 0,
                                                                     trailing: 20)
+        config.itemSeparatorHandler = { indexPath, config in
+            var config = config
+            guard let itemCount = self.dataSource?.snapshot().itemIdentifiers(inSection: .main).count else { return config }
+            let isLastItem = indexPath.item == itemCount - 1
+            config.bottomSeparatorVisibility = isLastItem ? .hidden : .visible
+            return config
+        }
         
         return UICollectionViewCompositionalLayout.list(using: config)
     }
