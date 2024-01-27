@@ -10,7 +10,7 @@ import UIKit
 import Then
 import SnapKit
 
-class StatisticsView: UIView {
+final class StatisticsView: UIView {
     
     // MARK: - UI Components
     
@@ -21,6 +21,7 @@ class StatisticsView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: .zero)
+        
         setUI()
         setLayout()
     }
@@ -33,10 +34,13 @@ class StatisticsView: UIView {
 // MARK: - Methods
 
 extension StatisticsView {
+    
     private func setUI() {
+        
         totalImage.do {
             $0.image = .icSNS
         }
+        
         titleLabel.do {
             $0.text = I18N.total
             $0.font = .Pretendard(.regular, size: 14)
@@ -45,6 +49,7 @@ extension StatisticsView {
             $0.textAlignment = .center
         }
     }
+    
     private func setLayout() {
         addSubviews(totalImage, titleLabel)
         
