@@ -23,7 +23,7 @@ final class HomeViewController: UIViewController {
     private var current: Date?
     
     private lazy var safeArea = self.view.safeAreaLayoutGuide
-    private var isSelected: Bool = false
+    private var didCloseButtonTap: Bool = false
     private var didDeprecatedButtonTap: Bool { return KeychainUtil.isDeprecatedBtnClicked() }
     
     // MARK: - UI Components
@@ -39,7 +39,7 @@ final class HomeViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        showPopup(isSelected: isSelected)
+        showPopup(isSelected: didCloseButtonTap)
         AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.Home.viewHome)
         
         dailyLoadData()
@@ -361,7 +361,7 @@ extension HomeViewController {
             self.present(nextView, animated: true)
             
             nextView.tapCloseButton = {
-                self.isSelected = true
+                self.didCloseButtonTap = true
                 AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.Login.clickAdModalClose(again: self.didDeprecatedButtonTap ? "yes": "no" ))
             }
         }
