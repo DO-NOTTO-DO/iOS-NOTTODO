@@ -254,12 +254,12 @@ extension AuthViewController {
     }   
     
     func checkNotificationSettings() {
-        UNUserNotificationCenter.current().getNotificationSettings { settings in
+        UNUserNotificationCenter.current().getNotificationSettings { [weak self] settings in
             switch settings.authorizationStatus {
             case .notDetermined:
-                self.showNotiDialogView()
+                self?.showNotiDialogView()
             default:
-                break
+                self?.presentToHomeViewController()
             }
         }
     }
