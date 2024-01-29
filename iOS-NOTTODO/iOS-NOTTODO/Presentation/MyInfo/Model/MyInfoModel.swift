@@ -7,36 +7,23 @@
 
 import UIKit
 
-struct InfoModelOne: Hashable {
-    var image: UIImage
-    var user: String
-    var email: String
-}
-
-struct InfoModelTwo: Hashable {
-    var image: UIImage
-    var title: String
-}
-extension InfoModelTwo {
-    static let items: [InfoModelTwo] = [InfoModelTwo(image: .icGuide, title: "낫투두 가이드"),
-                                        InfoModelTwo(image: .icQuestion1, title: "자주 묻는 질문")
+struct InfoModel: Hashable {
+    
+    var image: UIImage?
+    var user: String?
+    var email: String?
+    var title: String?
+    
+    static var profile: [InfoModel] = [InfoModel(image: .imgUser,
+                                                 user: UserDefaults.standard.bool(forKey: DefaultKeys.isAppleLogin) ? KeychainUtil.getAppleUsername() : KeychainUtil.getKakaoNickname(),
+                                                 email: UserDefaults.standard.bool(forKey: DefaultKeys.isAppleLogin) ? KeychainUtil.getAppleEmail() : KeychainUtil.getKakaoEmail())]
+    
+    static let support: [InfoModel] = [InfoModel(image: .icGuide, title: "낫투두 가이드"),
+                                       InfoModel(image: .icQuestion1, title: "자주 묻는 질문")
     ]
-}
-
-struct InfoModelThree: Hashable {
-    var title: String
-}
-extension InfoModelThree {
-    static let items: [InfoModelThree] = [InfoModelThree(title: "공지사항"),
-                                          InfoModelThree(title: "문의하기"),
-                                          InfoModelThree(title: "약관 및 정책")
+    static let info: [InfoModel] = [InfoModel(title: "공지사항"),
+                                    InfoModel(title: "문의하기"),
+                                    InfoModel(title: "약관 및 정책")
     ]
-}
-
-struct InfoModelFour: Hashable {
-    var title: String
-}
-extension InfoModelFour {
-
-    static let item: [InfoModelFour] = [InfoModelFour(title: "버전 정보 "+(Utils.version ?? "1.0.0"))]
+    static func version() -> [InfoModel] { return  [InfoModel(title: "버전 정보 "+(Utils.version ?? "1.0.0"))] }
 }

@@ -26,17 +26,22 @@ final class CompositionalLayout {
         return section
     }
     
-    class func setUpSection(layoutEnvironment: NSCollectionLayoutEnvironment, mode: UICollectionLayoutListConfiguration.HeaderMode, _ top: CGFloat, _ bottom: CGFloat) -> NSCollectionLayoutSection {
-        var config = UICollectionLayoutListConfiguration(appearance: .insetGrouped)
-        config.headerMode = mode
-        config.showsSeparators = true
-        config.separatorConfiguration.color = UIColor.gray2!
-        config.backgroundColor = .clear
-        config.headerTopPadding = 22
+    static func setUpSection(layoutEnvironment: NSCollectionLayoutEnvironment,
+                             mode: UICollectionLayoutListConfiguration.HeaderMode = .none,
+                             topContentInset: CGFloat = 0,
+                             bottomContentInset: CGFloat = 0)
+    -> NSCollectionLayoutSection {
+        var listConfig = UICollectionLayoutListConfiguration(appearance: .insetGrouped)
+        listConfig.headerMode = mode
+        listConfig.showsSeparators = true
+        listConfig.separatorConfiguration.color = UIColor.gray2!
+        listConfig.backgroundColor = .clear
+        listConfig.headerTopPadding = 22
         
-        let section = NSCollectionLayoutSection.list(using: config, layoutEnvironment: layoutEnvironment)
-        section.contentInsets = NSDirectionalEdgeInsets(top: top, leading: 0, bottom: bottom, trailing: 0)
-        if config.headerMode == .supplementary {
+        let section = NSCollectionLayoutSection.list(using: listConfig, layoutEnvironment: layoutEnvironment)
+        section.contentInsets = NSDirectionalEdgeInsets(top: topContentInset, leading: 0, bottom: bottomContentInset, trailing: 0)
+        
+        if listConfig.headerMode == .supplementary {
             let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(22))
             let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
             section.boundarySupplementaryItems = [header]
