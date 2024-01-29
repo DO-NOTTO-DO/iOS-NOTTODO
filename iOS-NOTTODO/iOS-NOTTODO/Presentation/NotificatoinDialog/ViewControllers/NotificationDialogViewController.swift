@@ -183,5 +183,6 @@ extension NotificationDialogViewController {
     @objc
     private func buttonTapped() {
         buttonHandler?()
+        AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.OnboardingClick.clickOnboardingNext6)
     }
 }
