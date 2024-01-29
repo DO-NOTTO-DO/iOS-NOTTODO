@@ -167,6 +167,9 @@ struct I18N {
                             최신 업데이트가 있습니다.
                             업데이트하시겠습니까?
                             """
+    static func forceUpdateAlert(newVersion: String) -> String {
+        return "낫투두의 새로운 버전이 있습니다. \(newVersion)버전 으로 업데이트 해주세요."
+    }
     static let later = "나중에"
     static let notiDialogTitle = """
                                 알림을 허용하면

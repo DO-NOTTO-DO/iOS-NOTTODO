@@ -29,6 +29,7 @@ enum AnalyticsEvent {
         case clickOnboardingNext5
         case clickPushAllow(section: Bool)
         case clickPushReject(section: Bool)
+        case clickOnboardingNext6
                 
         var name: String {
             switch self {
@@ -39,6 +40,7 @@ enum AnalyticsEvent {
             case .clickOnboardingNext5: return "click_onboarding_next_5"
             case .clickPushAllow: return "click_push_allow"
             case .clickPushReject: return "click_push_reject"
+            case .clickOnboardingNext6: return "click_onboarding_next_6"
             }
         }
         
@@ -51,6 +53,7 @@ enum AnalyticsEvent {
             case .clickOnboardingNext5: return nil
             case .clickPushAllow(section: let section): return ["section": section]
             case .clickPushReject(section: let section): return ["section": section]
+            case .clickOnboardingNext6: return nil
             }
         }
     }
@@ -60,20 +63,25 @@ enum AnalyticsEvent {
         case viewSignIn
         case clickSignIn(provider: String)
         case completeSignIn(provider: String)
+        case clickAdModalCta
+        case clickAdModalClose(again: String)
         
         var name: String {
             switch self {
             case .viewSignIn: return "view_signin"
             case .clickSignIn: return  "click_signin"
             case .completeSignIn: return "complete_signin"
+            case .clickAdModalCta: return "click_ad_modal_cta"
+            case .clickAdModalClose: return "click_ad_modal_close"
             }
         }
         
         var parameters: [String: Any]? {
             switch self {
-            case .viewSignIn: return nil
+            case .viewSignIn, .clickAdModalCta: return nil
             case .clickSignIn(provider: let provider ): return ["provider": provider]
             case .completeSignIn(provider: let provider): return ["provider": provider]
+            case .clickAdModalClose(again: let again): return ["again": again]
             }
         }
     }

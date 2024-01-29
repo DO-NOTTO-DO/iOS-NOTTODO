@@ -13,6 +13,10 @@ import SafariServices
 
 final class CommonNotificationViewController: UIViewController {
     
+    // MARK: - Property
+    
+    var tapCloseButton: (() -> Void)?
+    
     // MARK: - UI Components
     
     private let backgroundView = UIView()
@@ -24,7 +28,7 @@ final class CommonNotificationViewController: UIViewController {
     private lazy var formButton = UIButton()
     private lazy var closeButton = UIButton()
     private lazy var deprecatedButton = UIButton()
-
+    
     // MARK: - View Life Cycle
     
     override func viewDidLoad() {
@@ -161,15 +165,18 @@ extension CommonNotificationViewController {
     
     @objc
     func didFormButtonTap() {
-
+        
         guard let url = URL(string: MyInfoURL.googleForm.url) else { return }
         let safariView: SFSafariViewController = SFSafariViewController(url: url)
         safariView.delegate = self
         self.present(safariView, animated: true, completion: nil)
+        
+        AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.Login.clickAdModalCta)
     }
     
     @objc
     func didCancelButtonTap() {
+        self.tapCloseButton?()
         dismissViewController()
     }
     
@@ -177,7 +184,7 @@ extension CommonNotificationViewController {
     func didDeprecatedButtonTap() {
         deprecatedButton.isSelected.toggle()
         KeychainUtil.setBool(deprecatedButton.isSelected,
-                             forKey: DefaultKeys.isSelected)
+                             forKey: DefaultKeys.isDeprecatedBtnClicked)
     }
 }
 

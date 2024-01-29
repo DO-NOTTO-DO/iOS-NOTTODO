@@ -48,10 +48,10 @@ public final class KeychainUtil {
     static func getBool(_ key: String) -> Bool {
         UserDefaults.standard.bool(forKey: key)
     }
-    static func isSelected() -> Bool {
-        UserDefaults.standard.bool(forKey: DefaultKeys.isSelected)
+    static func isDeprecatedBtnClicked() -> Bool {
+        UserDefaults.standard.bool(forKey: DefaultKeys.isDeprecatedBtnClicked)
     }
-        
+      
     static func removeUserInfo() {
         if getBool(DefaultKeys.isAppleLogin) {
             UserDefaults.standard.removeObject(forKey: DefaultKeys.appleName)

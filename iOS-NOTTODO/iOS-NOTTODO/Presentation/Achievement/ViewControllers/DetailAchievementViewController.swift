@@ -14,38 +14,44 @@ final class DetailAchievementViewController: UIViewController {
     
     // MARK: - Properties
     
-    var missionList: [DailyMissionResponseDTO] = []
-    private var mission: String?
-    private var goal: String?
-    var selectedDate: Date?
+    typealias CellRegistration = UICollectionView.CellRegistration
+    typealias HeaderRegistration = UICollectionView.SupplementaryRegistration
+    typealias Item = DailyMissionResponseDTO
+    typealias DataSource = UICollectionViewDiffableDataSource<Section, Item>
+    typealias SnapShot = NSDiffableDataSourceSnapshot<Section, Item>
+    
     enum Section: Int, Hashable {
         case main
     }
-    typealias Item = AnyHashable
-    var dataSource: UICollectionViewDiffableDataSource<Section, Item>! = nil
+    
+    var selectedDate: Date?
+    
+    private var dataSource: DataSource?
+    
     private lazy var safeArea = self.view.safeAreaLayoutGuide
     
     // MARK: - UI Components
     
-    private let backGroundView = UIView()
-    private let dateLabel = UILabel()
-    private lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout())
+    private var collectionView = UICollectionView(frame: .zero, collectionViewLayout: .init())
     
     // MARK: - Life Cycle
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
         if let selectedDate = selectedDate {
-            requestDetailAPI(date: Utils.dateFormatterString(format: "YYYY-MM-dd", date: selectedDate))
+            requestDetailAPI(date: Utils.dateFormatterString(format: "YYYY-MM-dd",
+                                                             date: selectedDate))
         }
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        register()
+        
         setUI()
         setLayout()
-        setupDataSource()
-        reloadData()
+        setDataSource()
+        setSnapShot()
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -53,7 +59,7 @@ final class DetailAchievementViewController: UIViewController {
         let touch = touches.first!
         let location = touch.location(in: self.view)
         
-        if !backGroundView.frame.contains(location) {
+        if !collectionView.frame.contains(location) {
             AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.Achieve.closeDailyMissionModal)
             self.dismiss(animated: true)
         }
@@ -63,66 +69,59 @@ final class DetailAchievementViewController: UIViewController {
 // MARK: - Methods
 
 extension DetailAchievementViewController {
-    private func register() {
-        collectionView.register(DetailAchievementCollectionViewCell.self, forCellWithReuseIdentifier: DetailAchievementCollectionViewCell.identifier)
-    }
     
     private func setUI() {
         view.backgroundColor = .black.withAlphaComponent(0.6)
         
-        backGroundView.do {
+        collectionView.do {
+            $0.collectionViewLayout = layout()
             $0.layer.cornerRadius = 15
             $0.backgroundColor = .white
-            $0.isUserInteractionEnabled = false
-        }
-        dateLabel.do {
-            if let selectedDate = selectedDate {
-                $0.text = Utils.dateFormatterString(format: "YYYY년 MM월 dd일", date: selectedDate)
-            }
-            $0.font = .Pretendard(.semiBold, size: 18)
-            $0.textColor = .gray2
-            $0.textAlignment = .center
-        }
-        collectionView.do {
-            $0.backgroundColor = .clear
             $0.bounces = false
             $0.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         }
     }
-
+    
     private func setLayout() {
-        view.addSubview(backGroundView)
-        backGroundView.addSubviews(dateLabel, collectionView)
+        view.addSubview(collectionView)
         
-        backGroundView.snp.makeConstraints {
+        collectionView.snp.makeConstraints {
             $0.center.equalTo(safeArea)
             $0.directionalHorizontalEdges.equalTo(safeArea).inset(15)
             $0.height.equalTo(getDeviceWidth()*1.1)
         }
-        dateLabel.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(26)
-            $0.centerX.equalToSuperview()
-        }
-        collectionView.snp.makeConstraints {
-            $0.top.equalTo(dateLabel.snp.bottom)
-            $0.leading.equalToSuperview()
-            $0.trailing.equalToSuperview().inset(15)
-            $0.bottom.equalToSuperview()
-        }
     }
     
-    private func setupDataSource() {
-        dataSource = UICollectionViewDiffableDataSource<Section, Item>(collectionView: collectionView, cellProvider: { collectionView, indexPath, item in
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DetailAchievementCollectionViewCell.identifier, for: indexPath) as? DetailAchievementCollectionViewCell else { return UICollectionViewCell() }
-            cell.configure(model: item as! DailyMissionResponseDTO)
-            return cell
+    private func setDataSource() {
+        
+        let cellRegistration = CellRegistration<DetailAchievementCollectionViewCell, Item> {cell, _, item in
+            cell.configure(model: item)
+        }
+        
+        let headerRegistration = HeaderRegistration<DetailAchieveHeaderView>(elementKind: UICollectionView.elementKindSectionHeader) { headerView, _, _ in
+            if let date = self.selectedDate {
+                headerView.configure(text: Utils.dateFormatterString(format: "YYYY년 MM월 dd일",
+                                                                     date: date))
+            }
+        }
+        
+        dataSource = DataSource(collectionView: collectionView, cellProvider: { collectionView, indexPath, item in
+            return collectionView.dequeueConfiguredReusableCell(using: cellRegistration,
+                                                                for: indexPath,
+                                                                item: item)
         })
+        
+        dataSource?.supplementaryViewProvider = { collectionView, _, indexPath in
+            return collectionView.dequeueConfiguredReusableSupplementary(using: headerRegistration,
+                                                                         for: indexPath)
+        }
     }
     
-    private func reloadData() {
-        var snapShot = NSDiffableDataSourceSnapshot<Section, Item>()
+    private func setSnapShot() {
+        
+        var snapShot = SnapShot()
         defer {
-            dataSource.apply(snapShot, animatingDifferences: false)
+            dataSource?.apply(snapShot, animatingDifferences: false)
         }
         
         snapShot.appendSections([.main])
@@ -130,30 +129,45 @@ extension DetailAchievementViewController {
     }
     
     private func updateData(item: [DailyMissionResponseDTO]) {
-        var snapshot = dataSource.snapshot()
+        
+        guard var snapshot = dataSource?.snapshot() else { return }
+        
         snapshot.appendItems(item, toSection: .main)
-        dataSource.apply(snapshot)
+        dataSource?.apply(snapshot)
+        
         AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.Achieve.appearDailyMissionModal(total: item.count))
     }
     
     private func layout() -> UICollectionViewCompositionalLayout {
-        var config = UICollectionLayoutListConfiguration(appearance: .insetGrouped)
+        
+        var config = UICollectionLayoutListConfiguration(appearance: .plain)
+        config.headerMode = .supplementary
         config.backgroundColor = .clear
         config.separatorConfiguration.color = .gray5!
-        let listLayout = UICollectionViewCompositionalLayout.list(using: config)
-        return listLayout
+        config.separatorConfiguration.topSeparatorVisibility = .hidden
+        config.separatorConfiguration.bottomSeparatorInsets = .init(top: 0,
+                                                                    leading: 20,
+                                                                    bottom: 0,
+                                                                    trailing: 20)
+        config.itemSeparatorHandler = { indexPath, config in
+            var config = config
+            guard let itemCount = self.dataSource?.snapshot().itemIdentifiers(inSection: .main).count else { return config }
+            let isLastItem = indexPath.item == itemCount - 1
+            config.bottomSeparatorVisibility = isLastItem ? .hidden : .visible
+            return config
+        }
+        
+        return UICollectionViewCompositionalLayout.list(using: config)
     }
 }
 
 extension DetailAchievementViewController {
-    
     private func requestDetailAPI(date: String) {
         HomeAPI.shared.getDailyMission(date: date) { [weak self] response in
             guard let self else { return }
             guard let response = response else { return }
             guard let data = response.data else { return }
-            let missionList = data
-            self.updateData(item: missionList)
+            self.updateData(item: data)
         }
     }
 }
