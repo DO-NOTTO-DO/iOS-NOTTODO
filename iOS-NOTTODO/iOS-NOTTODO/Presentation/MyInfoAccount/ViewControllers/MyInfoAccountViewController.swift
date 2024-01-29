@@ -33,7 +33,7 @@ final class MyInfoAccountViewController: UIViewController {
         AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.AccountInfo.viewAccountInfo)
         setUI()
         setLayout()
-        configure(model: MyInfoAccountModel(nickname: UserDefaults.standard.bool(forKey: DefaultKeys.isAppleLogin) ? KeychainUtil.getAppleUsername() : KeychainUtil.getKakaoNickname(), email: UserDefaults.standard.bool(forKey: DefaultKeys.isAppleLogin) ? KeychainUtil.getAppleEmail() : KeychainUtil.getKakaoEmail(), account: UserDefaults.standard.bool(forKey: DefaultKeys.isAppleLogin) ? "apple" : "kakao", notification: true))
+        configure(model: MyInfoAccountModel(nickname: KeychainUtil.getBool(DefaultKeys.isAppleLogin) ? KeychainUtil.getAppleUsername() : KeychainUtil.getKakaoNickname(), email: KeychainUtil.getBool(DefaultKeys.isAppleLogin) ? KeychainUtil.getAppleEmail() : KeychainUtil.getKakaoEmail(), account: KeychainUtil.getBool(DefaultKeys.isAppleLogin) ? "apple" : "kakao", notification: true))
     }
 }
 
@@ -171,7 +171,7 @@ private extension MyInfoAccountViewController {
 
 extension MyInfoAccountViewController {
     func logout() {
-        if !UserDefaults.standard.bool(forKey: DefaultKeys.isAppleLogin) {
+        if !KeychainUtil.getBool(DefaultKeys.isAppleLogin) {
             kakaoLogout()
         } 
         AuthAPI.shared.deleteAuth { _ in

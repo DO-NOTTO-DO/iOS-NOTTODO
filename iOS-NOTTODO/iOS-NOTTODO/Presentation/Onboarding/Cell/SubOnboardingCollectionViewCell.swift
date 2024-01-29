@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 import Then
 
-class SubOnboardingCollectionViewCell: UICollectionViewCell {
+final class SubOnboardingCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Properties
     

@@ -27,6 +27,8 @@ enum AnalyticsEvent {
         case clickOnboardingNext3(select: [String])
         case clickOnboardingNext4
         case clickOnboardingNext5
+        case clickPushAllow(section: Bool)
+        case clickPushReject(section: Bool)
         case clickOnboardingNext6
                 
         var name: String {
@@ -36,6 +38,8 @@ enum AnalyticsEvent {
             case .clickOnboardingNext3: return "click_onboarding_next_3"
             case .clickOnboardingNext4: return "click_onboarding_next_4"
             case .clickOnboardingNext5: return "click_onboarding_next_5"
+            case .clickPushAllow: return "click_push_allow"
+            case .clickPushReject: return "click_push_reject"
             case .clickOnboardingNext6: return "click_onboarding_next_6"
             }
         }
@@ -47,6 +51,8 @@ enum AnalyticsEvent {
             case .clickOnboardingNext3(select: let select): return ["onboard_select": select]
             case .clickOnboardingNext4: return nil
             case .clickOnboardingNext5: return nil
+            case .clickPushAllow(section: let section): return ["section": section]
+            case .clickPushReject(section: let section): return ["section": section]
             case .clickOnboardingNext6: return nil
             }
         }

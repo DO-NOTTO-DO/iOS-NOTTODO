@@ -13,7 +13,7 @@ import SnapKit
 final class MyInfoViewController: UIViewController {
     
     // MARK: - Properties
-    
+
     typealias CellRegistration = UICollectionView.CellRegistration
     typealias HeaderRegistration = UICollectionView.SupplementaryRegistration
     typealias DataSource = UICollectionViewDiffableDataSource<Sections, InfoModel>

@@ -9,7 +9,7 @@ import UIKit
 
 import Amplitude
 
-class AmplitudeAnalyticsService: AnalyticsServiceProtocol {
+final class AmplitudeAnalyticsService: AnalyticsServiceProtocol {
     static let shared: AmplitudeAnalyticsService = AmplitudeAnalyticsService()
   
     init() {}

@@ -17,7 +17,7 @@ import KakaoSDKCommon
 import KakaoSDKAuth
 import KakaoSDKUser
 
-class AuthViewController: UIViewController {
+final class AuthViewController: UIViewController {
     
     // MARK: - UI Components
     
@@ -276,7 +276,14 @@ extension AuthViewController {
     
     func requestNotification() {
         let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
-        UNUserNotificationCenter.current().requestAuthorization(options: authOptions, completionHandler: { _, _ in
+        UNUserNotificationCenter.current().requestAuthorization(options: authOptions, completionHandler: { isAllowed, _ in
+            KeychainUtil.setBool(isAllowed, forKey: DefaultKeys.isNotificationAccepted)
+            if isAllowed {
+                AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.OnboardingClick.clickPushAllow(section: isAllowed))
+            } else {
+                AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.OnboardingClick.clickPushReject(section: isAllowed))
+            }
+            
             self.presentToHomeViewController()
         })
     }

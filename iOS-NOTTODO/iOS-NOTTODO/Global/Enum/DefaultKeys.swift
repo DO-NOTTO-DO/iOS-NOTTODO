@@ -27,5 +27,6 @@ struct DefaultKeys {
     static let socialToken = "socialToken"
     static let accessToken = "accessToken"
     static let fcmToken = "fcmToken"
+    static let isNotificationAccepted = "isNotificationAccepted"
     static let isDeprecatedBtnClicked = "isDeprecatedBtnClicked"
 }

@@ -10,7 +10,7 @@ import UIKit
 import Then
 import SnapKit
 
-class DetailStackView: UIView {
+final class DetailStackView: UIView {
     
     let verticalStackView = UIStackView()
     let tagLabel = UILabel()
