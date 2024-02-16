@@ -118,6 +118,13 @@ struct I18N {
     static let withdraw = "회원 탈퇴"
     static let logoutAlertTitle = "로그아웃 하시겠습니까?"
     static let logoutAlertmessage = "로그아웃을 하면\n다른 기기와 낫투두 기록을 연동하지 못해요."
+    static let guide = "낫투두 가이드"
+    static let oftenQuestion = "자주 묻는 질문"
+    static let notice = "공지사항"
+    static let sendFeedback = "의견 보내기"
+    static let inquiry = "1:1 문의"
+    static let version = "버전 정보"
+    static let policies = "약관 및 정책"
     
     /// Onboarding
     

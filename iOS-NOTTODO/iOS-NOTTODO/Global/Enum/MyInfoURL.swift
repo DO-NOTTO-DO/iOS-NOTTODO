@@ -10,7 +10,7 @@ import Foundation
 import SafariServices
 
 enum MyInfoURL {
-    case guid, faq, notice, question, service, personalInfo, googleForm
+    case guid, faq, notice, suggestoin, question, service, personalInfo, googleForm
     var url: String {
         switch self {
         case .guid:
@@ -19,6 +19,8 @@ enum MyInfoURL {
             return "https://teamnottodo.notion.site/a6ef7036bde24e289e576ace099f39dc"
         case .notice:
             return "https://teamnottodo.notion.site/a5dbb310ec1d43baae02b7e9bf0b3411"
+        case .suggestoin:
+            return "https://forms.gle/xKq4oV8u7TQawKtE6"
         case .question:
             return "http://pf.kakao.com/_fUIQxj/chat"
         case .service:

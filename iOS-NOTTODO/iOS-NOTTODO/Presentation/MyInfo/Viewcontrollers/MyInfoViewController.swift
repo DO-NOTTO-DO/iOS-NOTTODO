@@ -109,8 +109,7 @@ extension MyInfoViewController {
         })
         
         dataSource?.supplementaryViewProvider = { collectionView, _, indexPath in
-            return collectionView.dequeueConfiguredReusableSupplementary(using: headerRegistration,
-                                                                         for: indexPath)
+            return collectionView.dequeueConfiguredReusableSupplementary(using: headerRegistration, for: indexPath)
         }
     }
     
@@ -169,8 +168,8 @@ extension MyInfoViewController: UICollectionViewDelegate {
                                  urls: [.guid, .faq])
         case 2:
             infoSectionSelection(for: indexPath,
-                                 events: [.clickNotice, .clickQuestion, .clickTerms],
-                                 urls: [.notice, .question, .service])
+                                 events: [.clickNotice, .clickSuggestion, .clickQuestion, .clickTerms],
+                                 urls: [.notice, .suggestoin, .question, .service])
         default:
             return
         }
@@ -189,9 +188,7 @@ extension MyInfoViewController: UICollectionViewDelegate {
                                       events: [AnalyticsEvent.MyInfo],
                                       urls: [MyInfoURL]) {
         guard let item = urls.indices.contains(indexPath.item) ? urls[indexPath.item] : nil,
-              let event = events.indices.contains(indexPath.item) ? events[indexPath.item] : nil else {
-            return
-        }
+              let event = events.indices.contains(indexPath.item) ? events[indexPath.item] : nil else { return }
         
         sendAnalyticsEvent(event) {
             Utils.myInfoUrl(vc: self, url: item.url)
