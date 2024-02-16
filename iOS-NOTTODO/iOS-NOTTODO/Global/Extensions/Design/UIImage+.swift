@@ -61,6 +61,7 @@ extension UIImage {
     static var icBell: UIImage { UIImage(named: "ic_bell")! }
     static var icCircle: UIImage { UIImage(named: "acceptCircle")! }
     static var icStarbucks: UIImage { UIImage(named: "ic_starbucks")! }
+    static var icFeedback: UIImage { UIImage(named: "ic_feedback")! }
     
     // image
     

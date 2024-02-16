@@ -47,7 +47,7 @@ struct I18N {
     /// Achievement
     
     static let achievement = "성취"
-    static let total = "<매달 낫투두 성취 공유하고 선물받자!>\n인스타 @nottodo_official을 확인해주세요 :)"
+    static let total = "남겨주신 피드백으로\n새로운 기능을 업데이트 할 예정이에요 :)"
     
     /// Detail
     
