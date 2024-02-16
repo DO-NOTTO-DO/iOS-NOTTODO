@@ -38,7 +38,7 @@ extension StatisticsView {
     private func setUI() {
         
         totalImage.do {
-            $0.image = .icSNS
+            $0.image = .icFeedback
         }
         
         titleLabel.do {
@@ -54,13 +54,13 @@ extension StatisticsView {
         addSubviews(totalImage, titleLabel)
         
         totalImage.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(69)
+            $0.top.equalToSuperview().offset(18.adjusted)
             $0.centerX.equalToSuperview()
-            $0.size.equalTo(CGSize(width: 63, height: 51))
+            $0.size.equalTo(127.adjusted)
         }
         
         titleLabel.snp.makeConstraints {
-            $0.top.equalTo(totalImage.snp.bottom).offset(26)
+            $0.top.equalTo(totalImage.snp.bottom).offset(6.adjusted)
             $0.centerX.equalToSuperview()
         }
     }
