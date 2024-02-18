@@ -47,7 +47,7 @@ struct I18N {
     /// Achievement
     
     static let achievement = "성취"
-    static let total = "<매달 낫투두 성취 공유하고 선물받자!>\n인스타 @nottodo_official을 확인해주세요 :)"
+    static let total = "남겨주신 피드백으로\n새로운 기능을 업데이트 할 예정이에요 :)"
     
     /// Detail
     
@@ -194,7 +194,7 @@ struct I18N {
     static let allow = "허용"
     static let notiDialogButton = "네, 알겠어요 :)"
     
-    static let formButton = "이정도야 쉽지!"
+    static let commonModalTitle = "지금 바로 참여하기"
     static let deprecatedTitle = "더 이상 보지 않기"
     static let close = "닫기"
 
