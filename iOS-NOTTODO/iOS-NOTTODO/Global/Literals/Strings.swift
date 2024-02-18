@@ -187,7 +187,7 @@ struct I18N {
     static let allow = "허용"
     static let notiDialogButton = "네, 알겠어요 :)"
     
-    static let formButton = "이정도야 쉽지!"
+    static let commonModalTitle = "지금 바로 참여하기"
     static let deprecatedTitle = "더 이상 보지 않기"
     static let close = "닫기"
 
