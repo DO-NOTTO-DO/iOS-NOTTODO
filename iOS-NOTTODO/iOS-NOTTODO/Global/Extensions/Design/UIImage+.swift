@@ -60,6 +60,8 @@ extension UIImage {
     static var icToastError: UIImage { UIImage(named: "ic_toast_error")! }
     static var icBell: UIImage { UIImage(named: "ic_bell")! }
     static var icCircle: UIImage { UIImage(named: "acceptCircle")! }
+    static var icStarbucks: UIImage { UIImage(named: "ic_starbucks")! }
+    static var icFeedback: UIImage { UIImage(named: "ic_feedback")! }
     
     // image
     

@@ -216,7 +216,7 @@ extension AddMissionViewController {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
         layout.minimumLineSpacing = 14
-        layout.footerReferenceSize = CGSize(width: getDeviceWidth(), height: 319)
+        layout.footerReferenceSize = CGSize(width: Numbers.width, height: 319)
         return layout
     }
     
@@ -382,7 +382,7 @@ extension AddMissionViewController: UICollectionViewDataSource {
 
 extension AddMissionViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let cellWidth: CGFloat = UIScreen.main.bounds.width - 40
+        let cellWidth: CGFloat = Numbers.width - 40
         let height = heightList[indexPath.row]
         
         return CGSize(width: cellWidth, height: height)

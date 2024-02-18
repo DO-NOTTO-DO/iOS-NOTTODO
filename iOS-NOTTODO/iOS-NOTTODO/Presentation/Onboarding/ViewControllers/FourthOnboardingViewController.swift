@@ -83,7 +83,7 @@ extension FourthOnboardingViewController {
         }
         gradientView.snp.makeConstraints {
             $0.bottom.equalTo(nextButton.snp.top)
-            $0.top.equalTo(safeArea).offset(getDeviceHeight()*0.5)
+            $0.top.equalTo(safeArea).offset(Numbers.height*0.5)
             $0.directionalHorizontalEdges.equalTo(safeArea)
         }
     }

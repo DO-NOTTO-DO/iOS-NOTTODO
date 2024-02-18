@@ -97,13 +97,13 @@ extension AchievementViewController {
         monthCalendar.snp.makeConstraints {
             $0.top.equalTo(achievementLabel.snp.bottom).offset(22)
             $0.directionalHorizontalEdges.equalTo(safeArea).inset(15)
-            $0.height.equalTo((getDeviceWidth()-30)*1.1)
+            $0.height.equalTo((Numbers.width-30)*1.1)
         }
         
         statisticsView.snp.makeConstraints {
             $0.top.equalTo(monthCalendar.snp.bottom)
             $0.directionalHorizontalEdges.equalTo(safeArea).inset(15)
-            $0.height.equalTo((getDeviceWidth()-30)*0.6)
+            $0.height.equalTo((Numbers.width-30)*0.6)
             $0.bottom.equalTo(scrollView.snp.bottom).inset(20)
         }
     }
