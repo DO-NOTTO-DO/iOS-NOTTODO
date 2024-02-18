@@ -61,21 +61,7 @@ extension UILabel {
         self.attributedText = attributedString
     }
     
-    func htmlToString(_ targetString: String) -> NSAttributedString? {
-        let text = targetString
-        
-        guard let data = text.data(using: .utf8) else {
-            return NSAttributedString()
-        }
-        do {
-            return try NSAttributedString(data: data,
-                                          options: [.documentType: NSAttributedString.DocumentType.html, .characterEncoding: String.Encoding.utf8.rawValue],
-                                          documentAttributes: nil)
-        } catch {
-          return NSAttributedString()
-        }
-    }
-    
+    /// 라벨 일부 textColor와 font 변경해주는 함수
     func setAttributedText(targetFontList: [String: UIFont],
                            targetColorList: [String: UIColor]) {
         let fullText = self.text ?? ""
@@ -90,5 +76,30 @@ extension UILabel {
             attributedString.addAttribute(.foregroundColor, value: dic.value, range: range)
         }
         self.attributedText = attributedString
+    }
+    
+    /// 라벨에 highlight를 칠해주는 함수
+    func partHighlightText(targetString: String, targetHighlightColor: UIColor) {
+        guard let fullText = self.text else { return }
+        let range = (fullText as NSString).range(of: targetString)
+        let attributedString = NSMutableAttributedString(string: fullText)
+        attributedString.addAttribute(.backgroundColor, value: targetHighlightColor, range: range)
+        self.attributedText = attributedString
+    }
+    
+    /// html을 string으로 변경해주는 함수
+    func htmlToString(_ targetString: String) -> NSAttributedString? {
+        let text = targetString
+        
+        guard let data = text.data(using: .utf8) else {
+            return NSAttributedString()
+        }
+        do {
+            return try NSAttributedString(data: data,
+                                          options: [.documentType: NSAttributedString.DocumentType.html, .characterEncoding: String.Encoding.utf8.rawValue],
+                                          documentAttributes: nil)
+        } catch {
+          return NSAttributedString()
+        }
     }
 }

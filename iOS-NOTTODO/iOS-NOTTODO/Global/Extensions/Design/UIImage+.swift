@@ -68,6 +68,8 @@ extension UIImage {
     static var imgCreateTip: UIImage { UIImage(named: "img_create_tip")! }
     static var imgUser: UIImage { UIImage(named: "img_myinfouser")! }
     static var imgTotal: UIImage { UIImage(named: "img_total")! }
+    static var imgStarbucks: UIImage { UIImage(named: "img_starbucks")! }
+    static var imgOpenChat: UIImage { UIImage(named: "img_openchat")! }
     
     // recommend
     
