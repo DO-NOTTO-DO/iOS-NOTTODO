@@ -49,7 +49,7 @@ extension CommonNotificationViewController {
         
         backgroundView.do {
             $0.backgroundColor = .white
-            $0.layer.cornerRadius = 20
+            $0.layer.cornerRadius = 15
         }
         
         titleLabel.do {
@@ -84,7 +84,7 @@ extension CommonNotificationViewController {
         bottomView.do {
             $0.backgroundColor = .gray5
             $0.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
-            $0.layer.cornerRadius = 20
+            $0.layer.cornerRadius = 15
         }
         
         blackButton.do {
@@ -126,46 +126,46 @@ extension CommonNotificationViewController {
         bottomView.addSubviews(deprecatedButton, deprecatedTitle, closeButton)
         
         backgroundView.snp.makeConstraints {
-            $0.width.equalTo(312)
-            $0.height.equalTo(459)
+            $0.width.equalTo(278.adjusted)
+            $0.height.equalTo(408.adjusted)
             $0.center.equalToSuperview()
         }
         
         titleLabel.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(30)
-            $0.leading.equalToSuperview().inset(32)
+            $0.top.equalToSuperview().inset(17.adjusted)
+            $0.leading.equalToSuperview().inset(15.adjusted)
         }
         
         icon.snp.makeConstraints {
-            $0.top.equalTo(titleLabel.snp.bottom).offset(4)
-            $0.horizontalEdges.equalToSuperview().inset(28)
-            $0.height.equalTo(201)
+            $0.top.equalTo(titleLabel.snp.bottom).offset(6.adjusted)
+            $0.horizontalEdges.equalToSuperview().inset(29.adjusted)
+            $0.height.equalTo(173.adjusted)
         }
         
         greenButton.snp.makeConstraints {
-            $0.top.equalTo(icon.snp.bottom).offset(7)
-            $0.horizontalEdges.equalToSuperview().inset(32)
-            $0.height.equalTo(52)
+            $0.top.equalTo(icon.snp.bottom).offset(9.adjusted)
+            $0.horizontalEdges.equalToSuperview().inset(15.adjusted)
+            $0.height.equalTo(52.adjusted)
         }
         
         bottomView.snp.makeConstraints {
             $0.horizontalEdges.bottom.equalToSuperview()
-            $0.height.equalTo(58)
+            $0.height.equalTo(50.adjusted)
         }
         
         deprecatedButton.snp.makeConstraints {
             $0.centerY.equalToSuperview()
-            $0.leading.equalToSuperview().inset(20)
-            $0.size.equalTo(20)
+            $0.leading.equalToSuperview().inset(10.adjusted)
+            $0.size.equalTo(20.adjusted)
         }
         
         deprecatedTitle.snp.makeConstraints {
-            $0.leading.equalTo(deprecatedButton.snp.trailing).offset(5)
+            $0.leading.equalTo(deprecatedButton.snp.trailing).offset(6.adjusted)
             $0.centerY.equalToSuperview()
         }
         
         closeButton.snp.makeConstraints {
-            $0.trailing.equalToSuperview().inset(33)
+            $0.trailing.equalToSuperview().inset(23.adjusted)
             $0.centerY.equalToSuperview()
         }
     }
