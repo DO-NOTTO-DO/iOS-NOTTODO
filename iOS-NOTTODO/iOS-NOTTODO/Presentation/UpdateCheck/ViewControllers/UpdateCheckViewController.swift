@@ -9,6 +9,8 @@ import UIKit
 
 final class UpdateCheckViewController: UIViewController {
     
+    // MARK: - Properties
+    
     enum UpdateType {
         case optional
         case force(newVersion: String)
@@ -22,6 +24,21 @@ final class UpdateCheckViewController: UIViewController {
     enum Constant {
         static let appstoreURL: String = "itms-apps://itunes.apple.com/app/\(Bundle.main.appleId)"
     }
+    
+    private var coordinator: UpdateCoordinator
+    
+    // MARK: - init
+    
+    init(coordinator: UpdateCoordinator) {
+        self.coordinator = coordinator
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    // MARK: - Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,10 +72,11 @@ extension UpdateCheckViewController {
     }
     
     private func changeMainViewController() {
+       
         if KeychainUtil.getAccessToken().isEmpty {
-            SceneDelegate.shared?.changeRootViewControllerTo(ValueOnboardingViewController())
+            coordinator.showAuthFlow()
         } else {
-            SceneDelegate.shared?.changeRootViewControllerTo(TabBarController())
+            coordinator.showTabFlow(to: .home)
         }
     }
     
