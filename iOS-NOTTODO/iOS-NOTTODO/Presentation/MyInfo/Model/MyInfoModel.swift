@@ -26,5 +26,5 @@ struct InfoModel: Hashable {
                                     InfoModel(title: I18N.inquiry),
                                     InfoModel(title: I18N.policies)
     ]
-    static func version() -> [InfoModel] { return  [InfoModel(title: I18N.version+(Utils.version ?? "1.0.0"))] }
+    static func version() -> [InfoModel] { return  [InfoModel(title: I18N.version + " " + (Utils.version ?? "1.0.0"))] }
 }
