@@ -10,20 +10,36 @@ import UIKit
 import SnapKit
 import Then
 
+struct RecommendActionData {
+    let tag: String
+    let image: String
+    let index: Int
+    let selectedDate: String?
+}
+
+struct AddMissionData {
+    var nottodo: String?
+    var action: String?
+    var situation: String?
+    var date: [String]
+    
+    init(nottodo: String? = nil, action: String? = nil, situation: String? = nil, date: [String] = []) {
+        self.nottodo = nottodo
+        self.action = action
+        self.situation = situation
+        self.date = date
+    }
+}
+
 final class RecommendActionViewController: UIViewController {
     
     // MARK: - Properties
     
-    private var recommendActionResponse: RecommendActionResponseDTO?
     private var recommendActionList: [RecommendActions] = []
-    var recommendList: [RecommendResponseDTO] = []
-    var selectedIndex: Int = 0
-    var tagLabelText: String?
-    var bodyImageUrl: UIImage?
-    var nottodoTitle: String?
-    var actionLabel: String?
-    var situationLabel: String?
-    private var selectDay: String?
+    private var addActionData = AddMissionData()
+    var actionHeaderData: RecommendActionData?
+    
+    private var coordinator: HomeCoordinator
     
     // MARK: - UI Components
     
@@ -31,16 +47,31 @@ final class RecommendActionViewController: UIViewController {
     private let backButton = UIButton()
     private let navigationTitle = UILabel()
     private let nextButton = UIButton()
-    private var isTapped: Bool = false
+    private var isTapped: Bool = false {
+        didSet {
+            setUI()
+        }
+    }
     
     private lazy var recommendActionCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout())
     private let recommendActionInset: UIEdgeInsets = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 15)
+    
+    // MARK: - init
+    
+    init(coordinator: HomeCoordinator) {
+        self.coordinator = coordinator
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     // MARK: - View Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.RecommendDetail.viewRecommendMissionDetail(situation: situationLabel ?? "", title: nottodoTitle ?? ""))
+        
         setUI()
         setLayout()
         register()
@@ -49,11 +80,12 @@ final class RecommendActionViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        requestRecommendActionAPI()
-    }
-    
-    func setSelectDate(_ date: String) {
-        selectDay = date
+        if let index = actionHeaderData?.index {
+            requestRecommendActionAPI(index: index)
+        }
+        
+        AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.RecommendDetail.viewRecommendMissionDetail(situation: addActionData.situation ?? "",
+                                                                                                               title: addActionData.nottodo ?? ""))
     }
 }
 
@@ -62,12 +94,7 @@ final class RecommendActionViewController: UIViewController {
 extension RecommendActionViewController {
     @objc
     private func pushToAddMission() {
-        let nextViewController = AddMissionViewController()
-        nextViewController.setNottodoLabel(nottodoTitle ?? "")
-        nextViewController.setActionLabel(actionLabel ?? "")
-        nextViewController.setSituationLabel(situationLabel ?? "")
-        nextViewController.setDate([selectDay ?? ""])
-        navigationController?.pushViewController(nextViewController, animated: true)
+        coordinator.showAddViewController(data: self.addActionData, type: .add)
     }
 }
 
@@ -96,8 +123,8 @@ private extension RecommendActionViewController {
         }
         
         nextButton.do {
-            $0.isHidden = isTapped ? false : true
-            $0.isUserInteractionEnabled = isTapped ? true : false
+            $0.isHidden = !isTapped
+            $0.isUserInteractionEnabled = isTapped
             $0.setTitle(I18N.next, for: .normal)
             $0.setTitleColor(.gray1, for: .normal)
             $0.titleLabel?.font = .Pretendard(.semiBold, size: 17.18) // 수정 필요
@@ -160,20 +187,9 @@ private extension RecommendActionViewController {
         recommendActionCollectionView.dataSource = self
     }
     
-    func requestRecommendActionAPI() {
-        RecommendActionAPI.shared.getRecommendAction(index: selectedIndex) { [weak self] response in
-            guard self != nil else { return }
-            guard let response = response else { return }
-            guard let data = response.data else { return }
-            
-            self?.recommendActionList = data.recommendActions
-            self?.recommendActionCollectionView.reloadData()
-        }
-    }
-    
     @objc
     func backButtonDidTapped() {
-        self.navigationController?.popViewController(animated: true)
+        coordinator.popViewController()
     }
 }
 
@@ -222,60 +238,64 @@ extension RecommendActionViewController: UICollectionViewDataSource {
         guard let cell = collectionView.dequeueReusableCell(
             withReuseIdentifier: RecommendActionCollectionViewCell.identifier, for: indexPath)
                 as? RecommendActionCollectionViewCell else { return UICollectionViewCell() }
+        
         cell.configure(model: recommendActionList[indexPath.row])
+        
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        if kind == UICollectionView.elementKindSectionHeader {
-            guard let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: RecommendActionHeaderView.identifier, for: indexPath) as? RecommendActionHeaderView else { return UICollectionReusableView() }
-            RecommendActionAPI.shared.getRecommendAction(index: selectedIndex) { [weak self] response in
-                guard self != nil else { return }
-                guard let response = response else { return }
-                guard let data = response.data else { return }
-                headerView.configure(tag: self?.tagLabelText, title: data.title, image: self?.bodyImageUrl)
-                self?.nottodoTitle = headerView.getTitle()
-                self?.situationLabel = headerView.getSituation()
-            }
+        switch kind {
+        case UICollectionView.elementKindSectionHeader:
+            guard let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: RecommendActionHeaderView.identifier, for: indexPath) as? RecommendActionHeaderView
+            else { return UICollectionReusableView() }
+            
+            headerView.configure(data: self.actionHeaderData!, title: self.addActionData.nottodo )
             
             return headerView
-        } else {
-            guard let footerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: RecommendActionFooterView.identifier, for: indexPath) as? RecommendActionFooterView else { return UICollectionReusableView() }
+        case UICollectionView.elementKindSectionFooter:
+            guard let footerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: RecommendActionFooterView.identifier, for: indexPath) as? RecommendActionFooterView
+            else { return UICollectionReusableView() }
+            
             footerView.clickedNextButton = { [weak self] in
-                let nextViewContoller = AddMissionViewController()
-                nextViewContoller.setNottodoLabel(self?.nottodoTitle ?? "")
-                nextViewContoller.setSituationLabel(self?.situationLabel ?? "")
-                nextViewContoller.setDate([self?.selectDay ?? ""])
-                self?.navigationController?.pushViewController(nextViewContoller, animated: true)
+                guard let self else { return }
+                self.addActionData.action = ""
+                coordinator.showAddViewController(data: self.addActionData, type: .add)
             }
+            
             return footerView
+        default:
+            return UICollectionReusableView()
         }
     }
+    
 }
 
 extension RecommendActionViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.RecommendDetail.clickCreateRecommendMission(action: recommendActionList[indexPath.row].name, situation: situationLabel ?? "", title: nottodoTitle ?? ""))
+        self.isTapped = true
+        addActionData.action = recommendActionList[indexPath.item].name
+        AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.RecommendDetail.clickCreateRecommendMission(action: recommendActionList[indexPath.row].name,
+                                                                                                                situation: addActionData.situation ?? "",
+                                                                                                                title: addActionData.nottodo ?? ""))
         
-        if let select = collectionView.indexPathsForSelectedItems {
-            if select.count > 0 {
-                self.isTapped = true
-                setUI()
-                setDelegate()
-            }
-        }
-        guard let cell = collectionView.cellForItem(at: indexPath) as? RecommendActionCollectionViewCell else { fatalError() }
-        actionLabel = cell.titleLabel.text
     }
+}
+
+extension RecommendActionViewController {
     
-    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-        if let deSelect = collectionView.indexPathsForSelectedItems {
-            if deSelect.count == 0 {
-                self.isTapped = false
-                setUI()
-                setDelegate()
-            }
+    func requestRecommendActionAPI(index: Int) {
+        RecommendActionAPI.shared.getRecommendAction(index: index) { [weak self] response in
+            guard let self = self,
+                  let response = response,
+                  let data = response.data,
+                  let selectedDate = self.actionHeaderData?.selectedDate,
+                  let situation = self.actionHeaderData?.tag
+            else { return }
+            
+            self.recommendActionList = data.recommendActions
+            self.addActionData = AddMissionData(nottodo: data.title, situation: situation, date: [selectedDate])
+            self.recommendActionCollectionView.reloadData()
         }
-        actionLabel = ""
     }
 }

@@ -129,10 +129,11 @@ extension RecommendActionHeaderView {
             $0.leading.equalTo(recommendLabel.snp.leading)
         }
     }
-    
-    func configure(tag: String?, title: String?, image: UIImage?) {
-        self.tagLabel.text = tag
-        self.bodyImage.image = image
+
+    func configure(data: RecommendActionData, title: String?) {
+        self.tagLabel.text = data.tag
+        guard let url = URL(string: data.image) else { return }
+        bodyImage.kf.setImage(with: url)
         self.titleLabel.text = title
     }
     

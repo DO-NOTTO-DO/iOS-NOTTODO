@@ -29,12 +29,23 @@ final class DetailCalendarViewController: UIViewController {
     
     private lazy var safeArea = self.view.safeAreaLayoutGuide
     private lazy var today: Date = { return Date() }()
+    private var coordinator: HomeCoordinator
 
     // MARK: - UI Components
     
     private let monthCalendar = CalendarView(calendarScope: .month, scrollDirection: .horizontal)
     private let completeButton = UIButton()
     private let subLabel = UILabel()
+    
+     // MARK: - init
+    init(coordinator: HomeCoordinator) {
+        self.coordinator = coordinator
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     // MARK: - Life Cycle
     
@@ -60,7 +71,7 @@ final class DetailCalendarViewController: UIViewController {
         let location = touch.location(in: self.view)
         
         if !monthCalendar.frame.contains(location) {
-            self.dismiss(animated: true)
+            coordinator.dismissLastPresentedViewController()
         }
     }
 }
@@ -206,7 +217,7 @@ extension DetailCalendarViewController {
             switch statusCode {
             case 200..<204:
                 self.setUI()
-                self.dismiss(animated: true)
+                self.coordinator.dismiss()
                 AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.SelectDate.closeAnotherDayModal)
                 let dateFormatter = DateFormatter()
                 dateFormatter.dateFormat = "yyyy.MM.dd"

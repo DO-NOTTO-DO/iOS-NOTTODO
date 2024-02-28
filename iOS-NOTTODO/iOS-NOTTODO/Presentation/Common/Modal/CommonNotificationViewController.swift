@@ -16,7 +16,8 @@ final class CommonNotificationViewController: UIViewController {
     // MARK: - Property
     
     var tapCloseButton: (() -> Void)?
-    
+    private var coordinator: HomeCoordinator
+
     // MARK: - UI Components
     
     private let backgroundView = UIView()
@@ -28,6 +29,17 @@ final class CommonNotificationViewController: UIViewController {
     private lazy var formButton = UIButton()
     private lazy var closeButton = UIButton()
     private lazy var deprecatedButton = UIButton()
+    
+    // MARK: - init
+    
+    init(coordinator: HomeCoordinator) {
+        self.coordinator = coordinator
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     // MARK: - View Life Cycle
     
@@ -177,7 +189,7 @@ extension CommonNotificationViewController {
     @objc
     func didCancelButtonTap() {
         self.tapCloseButton?()
-        dismissViewController()
+        coordinator.dismiss()
     }
     
     @objc
@@ -191,6 +203,6 @@ extension CommonNotificationViewController {
 extension CommonNotificationViewController: SFSafariViewControllerDelegate {
     
     func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
-        dismissViewController()
+        coordinator.dismiss()
     }
 }
