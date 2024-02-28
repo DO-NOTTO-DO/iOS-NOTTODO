@@ -24,7 +24,7 @@ final class AuthAPI {
             switch result {
             case .success(let response):
                 do {
-                    guard let authData = try response.map(GeneralResponse<AuthResponseDTO>?.self) else { return }
+                    guard let authData = try response.map(GeneralResponse<AuthResponseDTO>?.self) else { completion(nil); return }
                     completion(authData)
                 } catch let err {
                     print(err.localizedDescription, 500)
@@ -41,7 +41,7 @@ final class AuthAPI {
             switch result {
             case .success(let response):
                 do {
-                    guard let authData = try response.map(GeneralResponse<AuthResponseDTO>?.self) else { return }
+                    guard let authData = try response.map(GeneralResponse<AuthResponseDTO>?.self) else { completion(nil); return }
                     completion(authData)
                 } catch let err {
                     print(err.localizedDescription, 500)

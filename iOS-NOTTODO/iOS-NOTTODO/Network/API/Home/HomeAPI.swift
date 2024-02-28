@@ -32,7 +32,7 @@ final class HomeAPI {
             case .success(let response):
                 do {
                     self.missionDailyData = try response.map(GeneralArrayResponse<DailyMissionResponseDTO>?.self)
-                    guard let missionDailtData = self.missionDailyData else { return completion(nil) }
+                    guard let missionDailtData = self.missionDailyData else { completion(nil); return }
                     completion(missionDailtData)
                 } catch let err {
                     print(err.localizedDescription, 500)
@@ -50,7 +50,7 @@ final class HomeAPI {
             case .success(let response):
                 do {
                     self.missionWeekly = try response.map(GeneralArrayResponse<WeekMissionResponseDTO>?.self)
-                    guard let missionWeekly = self.missionWeekly else { return completion(nil) }
+                    guard let missionWeekly = self.missionWeekly else { completion(nil); return }
                     completion(missionWeekly)
                 } catch let err {
                     print(err.localizedDescription, 500)
@@ -68,7 +68,7 @@ final class HomeAPI {
             case .success(let response):
                 do {
                     self.missionDetailDailyData = try response.map(GeneralResponse<MissionDetailResponseDTO>?.self)
-                    guard let missionDetailDailyData = self.missionDetailDailyData else { return completion(nil) }
+                    guard let missionDetailDailyData = self.missionDetailDailyData else { completion(nil); return }
                     completion(missionDetailDailyData)
                 } catch let err {
                     print(err.localizedDescription, 500)
@@ -124,7 +124,7 @@ final class HomeAPI {
             case .success(let response):
                 do {
                     self.updateMissionStatus = try response.map(GeneralResponse<DailyMissionResponseDTO>?.self)
-                    guard self.updateMissionStatus != nil else { return completion(nil) }
+                    guard self.updateMissionStatus != nil else { completion(nil); return }
                     completion(self.updateMissionStatus)
                 } catch let err {
                     print(err.localizedDescription, 500)
@@ -144,7 +144,7 @@ final class HomeAPI {
             case .success(let response):
                 do {
                     self.addAnotherDay = try response.map(GeneralResponse<AddAnotherDayResponseDTO>?.self)
-                    guard let addAnotherDay = self.addAnotherDay else { return completion(nil) }
+                    guard let addAnotherDay = self.addAnotherDay else { completion(nil); return }
                     completion(addAnotherDay)
                 } catch let err {
                     print(err.localizedDescription, 500)

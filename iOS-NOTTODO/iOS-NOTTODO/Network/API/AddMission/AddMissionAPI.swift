@@ -32,7 +32,7 @@ final class AddMissionAPI {
                 do {
                     self.recommendSituationData = try
                     response.map(GeneralArrayResponse<RecommendSituationResponseDTO>?.self)
-                    guard let recommendSituationData = self.recommendSituationData else { return }
+                    guard let recommendSituationData = self.recommendSituationData else { completion(nil); return }
                     completion(recommendSituationData)
                 } catch let err {
                     print(err.localizedDescription, 500)
@@ -50,7 +50,7 @@ final class AddMissionAPI {
             case .success(let response):
                 do {
                     self.recentMissionData = try response.map(GeneralArrayResponse<RecentMissionResponseDTO>?.self)
-                    guard let recentMissionData = self.recentMissionData else { return }
+                    guard let recentMissionData = self.recentMissionData else { completion(nil); return }
                     completion(recentMissionData)
                 } catch let err {
                     print(err.localizedDescription, 500)
@@ -68,7 +68,7 @@ final class AddMissionAPI {
             case .success(let response):
                 do {
                     self.missionDatesData = try response.map(GeneralArrayResponse<String>?.self)
-                    guard let missionDatesData = self.missionDatesData else { return }
+                    guard let missionDatesData = self.missionDatesData else { completion(nil); return }
                     completion(missionDatesData)
                 } catch let err {
                     print(err.localizedDescription, 500)
@@ -90,7 +90,7 @@ final class AddMissionAPI {
             case .success(let response):
                 do {
                     self.addMissionData = try response.map(GeneralResponse<AddMissionResponseDTO>?.self)
-                    guard let addMission = self.addMissionData else { return }
+                    guard let addMission = self.addMissionData else { completion(nil); return }
                     completion(addMission)
                 } catch let err {
                     print(err.localizedDescription, 500)
@@ -110,7 +110,7 @@ final class AddMissionAPI {
             case .success(let response):
                 do {
                     self.updateMissionData = try response.map(GeneralResponse<UpdateMissionResponseDTO>?.self)
-                    guard let updateMission = self.updateMissionData else { return }
+                    guard let updateMission = self.updateMissionData else { completion(nil); return }
                     completion(updateMission)
                 } catch let err {
                     print(err.localizedDescription, 500)

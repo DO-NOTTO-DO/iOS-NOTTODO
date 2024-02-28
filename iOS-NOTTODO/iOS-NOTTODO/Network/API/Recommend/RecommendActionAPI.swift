@@ -27,7 +27,7 @@ final class RecommendActionAPI {
             case .success(let response):
                 do {
                     self.recommendActionData = try response.map(GeneralResponse<RecommendActionResponseDTO>?.self)
-                    guard let recommendActionData = self.recommendActionData else { return }
+                    guard let recommendActionData = self.recommendActionData else { completion(nil); return }
                     completion(recommendActionData)
                 } catch let err {
                     print(err.localizedDescription, 500)
