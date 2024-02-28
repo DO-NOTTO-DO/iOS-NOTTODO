@@ -19,14 +19,14 @@ final class NottodoModalViewController: UIViewController {
     
     // MARK: - Properties
     
+    private var coordinator: MypageCoordinator
+    
     private var viewType: ViewType? = .quit {
         didSet {
             setUI()
             setLayout()
         }
     }
-    var dimissAction: (() -> Void)?
-    var pushToRootAction: (() -> Void)?
     
     // MARK: - UI Components
     
@@ -34,6 +34,17 @@ final class NottodoModalViewController: UIViewController {
     private let withdrawView = WithdrawModalView()
     private let quitView = QuitModalView()
     private lazy var safariViewController = SFSafariViewController(url: URL(string: MyInfoURL.googleForm.url)!)
+    
+    // MARK: - init
+    
+    init(coordinator: MypageCoordinator) {
+        self.coordinator = coordinator
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     // MARK: - Life Cycle
     
@@ -51,7 +62,7 @@ final class NottodoModalViewController: UIViewController {
         let location = touch.location(in: self.view)
         
         if !modalView.frame.contains(location) {
-            dismiss(animated: true)
+            coordinator.dismiss()
         }
     }
 }
@@ -102,8 +113,7 @@ extension NottodoModalViewController: ModalDelegate {
     }
     
     func modalDismiss() {
-        dismiss(animated: true)
-        self.dimissAction?()
+        coordinator.dismiss()
     }
 }
 
@@ -131,7 +141,6 @@ extension NottodoModalViewController {
 
 extension NottodoModalViewController: SFSafariViewControllerDelegate {
     func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
-        dismissViewController()
-        self.pushToRootAction?()
+        coordinator.connectAuthCoordinator()
     }
 }

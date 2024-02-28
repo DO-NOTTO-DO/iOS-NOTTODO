@@ -27,6 +27,19 @@ final class MyInfoViewController: UIViewController {
     
     private lazy var safeArea = self.view.safeAreaLayoutGuide
     
+    private var coordinator: MypageCoordinator
+
+    // MARK: - init
+    
+    init(coordinator: MypageCoordinator) {
+        self.coordinator = coordinator
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     // MARK: - UI Components
     
     private let myInfoCollectionView = UICollectionView(frame: .zero, collectionViewLayout: .init())
@@ -178,10 +191,7 @@ extension MyInfoViewController: UICollectionViewDelegate {
     
     private func profileSectionSelection() {
         sendAnalyticsEvent(.clickMyInfo) {
-            
-            let nextViewController = MyInfoAccountViewController()
-            nextViewController.hidesBottomBarWhenPushed = false
-            navigationController?.pushViewController(nextViewController, animated: true)
+            coordinator.showMyInfoAccountViewController()
         }
     }
     
