@@ -30,9 +30,22 @@ final class DetailAchievementViewController: UIViewController {
     
     private lazy var safeArea = self.view.safeAreaLayoutGuide
     
+    private var coordinator: AchieveCoordinator
+    
     // MARK: - UI Components
     
     private var collectionView = UICollectionView(frame: .zero, collectionViewLayout: .init())
+    
+    // MARK: - init
+    
+    init(coordinator: AchieveCoordinator) {
+        self.coordinator = coordinator
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     // MARK: - Life Cycle
     
@@ -61,7 +74,7 @@ final class DetailAchievementViewController: UIViewController {
         
         if !collectionView.frame.contains(location) {
             AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.Achieve.closeDailyMissionModal)
-            self.dismiss(animated: true)
+            coordinator.dismiss()
         }
     }
 }

@@ -15,6 +15,7 @@ final class AchievementViewController: UIViewController {
     
     // MARK: - Properties
     
+    private var coordinator: AchieveCoordinator
     private var currentPage = Date()
     private var dataSource: [String: Float] = [:]
     
@@ -26,6 +27,16 @@ final class AchievementViewController: UIViewController {
     private let achievementLabel = UILabel()
     private let monthCalendar = CalendarView(calendarScope: .month, scrollDirection: .horizontal)
     private let statisticsView = StatisticsView()
+    
+    // MARK: - init
+    init(coordinator: AchieveCoordinator) {
+        self.coordinator = coordinator
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     // MARK: - Life Cycle
     
@@ -137,11 +148,7 @@ extension AchievementViewController: FSCalendarDelegate, FSCalendarDataSource, F
         calendar.appearance.titleSelectionColor = .white
         let dateString = Utils.dateFormatterString(format: "yyyy-MM-dd", date: date)
         if self.dataSource.contains(where: { $0.key == dateString }) {
-            let vc = DetailAchievementViewController()
-            vc.selectedDate = date
-            vc.modalPresentationStyle = .overFullScreen
-            vc.modalTransitionStyle = .crossDissolve
-            present(vc, animated: false)
+            coordinator.showAchieveDetailViewController(selectedDate: date)
         }
     }
     
