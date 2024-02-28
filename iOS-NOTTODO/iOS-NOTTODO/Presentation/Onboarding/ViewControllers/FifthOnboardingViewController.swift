@@ -22,6 +22,7 @@ final class FifthOnboardingViewController: UIViewController {
     var fiveOnboardingModel: [FifthOnboardingModel] = FifthOnboardingModel.titles
     private var dataSource: UICollectionViewDiffableDataSource<Sections, AnyHashable>! = nil
     private lazy var safeArea = self.view.safeAreaLayoutGuide
+    private var coordinator: AuthCoordinator
     
     // MARK: - UI Components
     
@@ -29,6 +30,16 @@ final class FifthOnboardingViewController: UIViewController {
     private let nextButton = UIButton(configuration: .plain())
     private let arrowImage = UIImageView()
     private let gradientView = GradientView(color: .clear, color1: .ntdBlack!)
+    
+    // MARK: - init
+    init(coordinator: AuthCoordinator) {
+        self.coordinator = coordinator
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     // MARK: - Life Cycle
     
@@ -61,14 +72,16 @@ extension FifthOnboardingViewController {
             $0.isScrollEnabled = false
         }
         nextButton.do {
-            $0.configuration?.image = .kakaoAppleIcon
-            $0.configuration?.title = I18N.fifthButton
-            $0.configuration?.imagePadding = 7
-            $0.configuration?.imagePlacement = NSDirectionalRectEdge.leading
-            $0.configuration?.attributedTitle?.font = .Pretendard(.medium, size: 16)
-            $0.configuration?.baseForegroundColor = .white
-            $0.configuration?.contentInsets = NSDirectionalEdgeInsets.init(top: 0, leading: 0, bottom: 0, trailing: 10)
-            $0.addTarget(self, action: #selector(ButtonTapped), for: .touchUpInside)
+            var configuration = UIButton.Configuration.plain()
+            configuration.image = .kakaoAppleIcon
+            configuration.title = I18N.fifthButton
+            configuration.imagePadding = 7
+            configuration.imagePlacement = NSDirectionalRectEdge.leading
+            configuration.attributedTitle?.font = .Pretendard(.medium, size: 16)
+            configuration.baseForegroundColor = .white
+            configuration.contentInsets = NSDirectionalEdgeInsets.init(top: 0, leading: 0, bottom: 0, trailing: 10)
+            $0.configuration = configuration
+            $0.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
         }
         arrowImage.do {
             $0.image = .splashBack
@@ -144,15 +157,15 @@ extension FifthOnboardingViewController {
             let section = self.dataSource.snapshot().sectionIdentifiers[sectionIndex]
             switch section {
             case .main:
-                return self.MainSection()
+                return self.mainSection()
             default:
-                return self.SubSection()
+                return self.subSection()
             }
         })
         return layout
     }
     
-    private func MainSection() -> NSCollectionLayoutSection {
+    private func mainSection() -> NSCollectionLayoutSection {
         let item = NSCollectionLayoutItem(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .estimated(70)))
         let group = NSCollectionLayoutGroup.vertical(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .estimated(70)), subitems: [item])
         let section = NSCollectionLayoutSection(group: group)
@@ -166,7 +179,7 @@ extension FifthOnboardingViewController {
         return section
     }
     
-    private func SubSection() -> NSCollectionLayoutSection {
+    private func subSection() -> NSCollectionLayoutSection {
         let item = NSCollectionLayoutItem(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .estimated(50)))
         let group = NSCollectionLayoutGroup.vertical(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .estimated(70)), subitems: [item])
         let section = NSCollectionLayoutSection(group: group)
@@ -178,11 +191,11 @@ extension FifthOnboardingViewController {
 
 extension FifthOnboardingViewController {
     @objc
-    private func ButtonTapped() {
+    private func buttonTapped() {
         AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.OnboardingClick.clickOnboardingNext5)
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
             UIView.animate(withDuration: 0.01) {
-                SceneDelegate.shared?.changeRootViewControllerTo(AuthViewController())
+                self.coordinator.showSignUpViewController()
             }
         }
     }

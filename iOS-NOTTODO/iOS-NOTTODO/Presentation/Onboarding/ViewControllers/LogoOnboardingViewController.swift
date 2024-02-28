@@ -13,11 +13,23 @@ final class LogoOnboardingViewController: UIViewController {
     // MARK: - Properties
     
     private lazy var safeArea = self.view.safeAreaLayoutGuide
+    private var coordinator: AuthCoordinator
 
     // MARK: - UI Components
     
     private let animationView = UIImageView()
     private let nextButton = UIButton()
+    
+    // MARK: - init
+    
+    init(coordinator: AuthCoordinator) {
+        self.coordinator = coordinator
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     // MARK: - Life Cycle
     
@@ -93,8 +105,6 @@ extension LogoOnboardingViewController {
     @objc
     private func buttonTapped() {
         AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.OnboardingClick.clickOnboardingStart)
-       
-        let nextViewController = SecondOnboardingViewController()
-        navigationController?.pushViewController(nextViewController, animated: false)
+        coordinator.showSecondOnboardingViewController()
     }
 }

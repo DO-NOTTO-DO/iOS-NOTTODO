@@ -22,12 +22,23 @@ final class ThirdOnboardingViewController: UIViewController {
     private var dataSource: UICollectionViewDiffableDataSource<Section, ThirdOnboardingModel>! = nil
     private lazy var safeArea = self.view.safeAreaLayoutGuide
     private var selectList: [String] = []
+    private var coordinator: AuthCoordinator
 
     // MARK: - UI Components
     
     private lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout())
     private let nextButton = UIButton()
     private var isTapped: Bool = false
+    
+    // MARK: - init
+    init(coordinator: AuthCoordinator) {
+        self.coordinator = coordinator
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     // MARK: - Life Cycle
     
@@ -61,7 +72,7 @@ extension ThirdOnboardingViewController {
         }
         nextButton.do {
             $0.backgroundColor = isTapped ? .white : .gray2
-            $0.isUserInteractionEnabled = isTapped ? true : false
+            $0.isUserInteractionEnabled = isTapped
             $0.layer.cornerRadius = 25
             $0.titleLabel?.font = .Pretendard(.semiBold, size: 16)
             $0.setTitleColor(isTapped ? .black :.gray4, for: .normal)
@@ -73,7 +84,7 @@ extension ThirdOnboardingViewController {
     private func updateButton(isTapped: Bool) {
         nextButton.do {
             $0.backgroundColor = isTapped ? .white : .gray2
-            $0.isUserInteractionEnabled = isTapped ? true : false
+            $0.isUserInteractionEnabled = isTapped
             $0.setTitleColor(isTapped ? .black :.gray4, for: .normal)
         }
     }
@@ -139,8 +150,7 @@ extension ThirdOnboardingViewController {
             UIView.animate(withDuration: 0.01) {
                 AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.OnboardingClick.clickOnboardingNext3(select: self.selectList))
 
-                let nextViewController = FourthOnboardingViewController()
-                self.navigationController?.pushViewController(nextViewController, animated: false)
+                self.coordinator.showFourthOnboardingViewController()
             }
         }
     }

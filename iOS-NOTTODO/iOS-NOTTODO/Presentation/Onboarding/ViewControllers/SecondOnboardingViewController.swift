@@ -20,10 +20,22 @@ final class SecondOnboardingViewController: UIViewController {
     private let onboardingModel: [SecondOnboardingModel] = SecondOnboardingModel.titles
     private var dataSource: UICollectionViewDiffableDataSource<Section, SecondOnboardingModel>! = nil
     private lazy var safeArea = self.view.safeAreaLayoutGuide
-
+    private var coordinator: AuthCoordinator
+    
     // MARK: - UI Components
     
     private lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout())
+    
+    // MARK: - init
+    
+    init(coordinator: AuthCoordinator) {
+        self.coordinator = coordinator
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     // MARK: - Life Cycle
     
@@ -107,11 +119,6 @@ extension SecondOnboardingViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.OnboardingClick.clickOnboardingNext2(select: SecondOnboardingModel.titles[indexPath.row].title))
 
-        let destinationViewController = ThirdOnboardingViewController()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            UIView.animate(withDuration: 0.01) {
-                self.navigationController?.pushViewController(destinationViewController, animated: false)
-            }
-        }
+        coordinator.showThirdOnboardingViewController()
     }
 }

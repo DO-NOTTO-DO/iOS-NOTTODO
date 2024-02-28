@@ -19,6 +19,10 @@ import KakaoSDKUser
 
 final class AuthViewController: UIViewController {
     
+    // MARK: - Property
+    
+    private var coordinator: AuthCoordinator
+    
     // MARK: - UI Components
     
     private var loginMainLabel = UILabel()
@@ -33,6 +37,16 @@ final class AuthViewController: UIViewController {
     private var moreButton = UIButton()
     private var conditionButton = UIButton()
     private var personalInfoButton = UIButton()
+    
+    // MARK: - init
+    init(coordinator: AuthCoordinator) {
+        self.coordinator = coordinator
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     // MARK: - Life Cycle
    
@@ -249,7 +263,7 @@ extension AuthViewController {
     
     func presentToHomeViewController() {
         DispatchQueue.main.async {
-            SceneDelegate.shared?.changeRootViewControllerTo(TabBarController())
+            self.coordinator.connectHomeCoordinator()
         }
     }   
     
@@ -266,11 +280,9 @@ extension AuthViewController {
     
     func showNotiDialogView() {
         DispatchQueue.main.async {
-            let notiDialogViewController = NotificationDialogViewController()
-            notiDialogViewController.buttonHandler = {
+            self.coordinator.showNotificationViewController {
                 self.requestNotification()
             }
-            SceneDelegate.shared?.changeRootViewControllerTo(notiDialogViewController)
         }
     }
     
