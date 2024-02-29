@@ -32,16 +32,16 @@ final class HomeCoordinatorImpl: HomeCoordinator {
         showHomeViewController()
     }
     
+    func showHomeViewController() {
+        let viewController = viewControllerFactory.makeHomeViewController(coordinator: self)
+        navigationController.pushViewController(viewController, animated: false)
+    }
+    
     func showPopupViewController(completion: @escaping () -> Void) {
         let viewController = viewControllerFactory.makePopupViewController(coordinator: self, completion: completion)
         viewController.modalPresentationStyle = .overFullScreen
         viewController.modalTransitionStyle = .crossDissolve
         navigationController.present(viewController, animated: true)
-    }
-    
-    func showHomeViewController() {
-        let viewController = viewControllerFactory.makeHomeViewController(coordinator: self)
-        navigationController.pushViewController(viewController, animated: false)
     }
     
     func showMissionDetailViewController(id: Int, deleteClosure: @escaping () -> Void, moveDateClosure: @escaping (String) -> Void) {

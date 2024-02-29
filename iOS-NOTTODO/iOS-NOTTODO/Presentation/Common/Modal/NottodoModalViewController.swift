@@ -13,6 +13,7 @@ import SafariServices
 enum ViewType {
     case quit
     case quitSurvey
+    case logout
 }
 
 final class NottodoModalViewController: UIViewController {
@@ -113,7 +114,7 @@ extension NottodoModalViewController: ModalDelegate {
     }
     
     func modalDismiss() {
-        coordinator.dismiss()
+        coordinator.dismiss() // 탈퇴 alert 취소
     }
 }
 
@@ -123,7 +124,6 @@ extension NottodoModalViewController {
             kakaoWithdrawal()
         }
         AuthAPI.shared.withdrawalAuth { _ in
-            KeychainUtil.removeUserInfo()
             AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.AccountInfo.completeWithdrawal)
         }
     }
@@ -141,6 +141,6 @@ extension NottodoModalViewController {
 
 extension NottodoModalViewController: SFSafariViewControllerDelegate {
     func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
-        coordinator.connectAuthCoordinator()
+        coordinator.connectAuthCoordinator(type: .quitSurvey)
     }
 }

@@ -10,5 +10,4 @@ import Foundation
 protocol AchieveCoordinator: Coordinator {
     func showAchieveViewController()
     func showAchieveDetailViewController(selectedDate: Date)
-    func dismiss()
 }

@@ -287,6 +287,7 @@ extension HomeViewController {
                                                                                                   situation: data.situationName,
                                                                                                   goal: "",
                                                                                                   action: []))
+            coordinator.dismiss()
         }
     }
 }

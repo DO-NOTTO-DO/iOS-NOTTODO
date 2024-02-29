@@ -15,7 +15,6 @@ final class NotificationDialogViewController: UIViewController {
     // MARK: - Properties
     
     var buttonHandler: (() -> Void)?
- //   private var coordinator: AuthCoordinator
     
     // MARK: - UI Components
     
@@ -32,18 +31,7 @@ final class NotificationDialogViewController: UIViewController {
     private let backgroundImage =  UIImageView()
     private let verticalView = UIView()
     private let horizontalView = UIView()
-    
-    // MARK: - init
-//    
-//    init(coordinator: AuthCoordinator) {
-//        self.coordinator = coordinator
-//        super.init(nibName: nil, bundle: nil)
-//    }
-//    
-//    required init?(coder: NSCoder) {
-//        fatalError("init(coder:) has not been implemented")
-//    }
-    
+
     // MARK: - Life Cycle
     
     override func viewDidLoad() {

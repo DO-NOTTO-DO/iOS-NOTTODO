@@ -17,7 +17,6 @@ protocol HomeCoordinator: Coordinator {
     func showRecommendViewController(selectedDate: String)
     func showRecommendDetailViewController(actionData: RecommendActionData)
     func showDeleteViewController(completion: @escaping () -> Void)
-    func popToRootViewController()
     func popViewController()
     func dismissLastPresentedViewController() 
 }

@@ -94,17 +94,7 @@ extension UIViewController {
     open override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
     }
-    
-    @objc
-    func dismissViewController() {
-        self.dismiss(animated: true)
-    }
-    
-    @objc
-    func popViewController() {
-        self.navigationController?.popToRootViewController(animated: true)
-    }
-    
+
     func hideKeyboardWhenTappedAround() {
         let tap = UITapGestureRecognizer(target: self,
                                          action: #selector(UIViewController.dismissKeyboard))
