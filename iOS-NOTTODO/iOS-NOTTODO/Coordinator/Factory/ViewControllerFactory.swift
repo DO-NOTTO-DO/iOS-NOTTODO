@@ -219,26 +219,12 @@ extension ViewControllerFactoryImpl {
 // tabbar
 extension ViewControllerFactoryImpl {
     func makeTabBarController(_: UINavigationController) -> (UITabBarController, [UINavigationController]) {
-        let tabBarController = UITabBarController()
-        setTabBarAppearance(tabBarController)
-        
-        let tabBarItems = makeTabBarItem()
-        
-        let navigationControllers = tabBarItems.map(makeNavigationController)
+        let tabBarController = TabBarController()
+        let navigationControllers = tabBarController.setTabBarItems().map(makeNavigationController)
+
         return (tabBarController, navigationControllers)
     }
-    
-    private func setTabBarAppearance(_ tabBarController: UITabBarController) {
-        
-        tabBarController.tabBar.setUpUITabBar()
-        tabBarController.tabBar.backgroundColor = .gray1
-    }
-    
-    func makeTabBarItem() -> [UITabBarItem] {
-        let tabBarItems = TabBarItemType.allCases.map { $0.setTabBarItem() }
-        return tabBarItems
-    }
-    
+  
     func makeNavigationController(_ tabBarItem: UITabBarItem) -> UINavigationController {
         let navigationController = UINavigationController()
         navigationController.tabBarItem = tabBarItem

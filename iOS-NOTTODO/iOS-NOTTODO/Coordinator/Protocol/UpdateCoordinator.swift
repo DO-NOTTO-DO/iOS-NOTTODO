@@ -9,6 +9,6 @@ import Foundation
 
 protocol UpdateCoordinator: Coordinator {
     func showUpdateViewController()
-    func showTabFlow(to tab: TabBarItemType)
+    func showTabFlow()
     func showAuthFlow()
 }

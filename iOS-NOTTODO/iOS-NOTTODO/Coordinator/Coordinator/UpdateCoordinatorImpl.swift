@@ -38,7 +38,7 @@ final class UpdateCoordinatorImpl: UpdateCoordinator {
         navigationController.setViewControllers([viewController], animated: true)
     }
     
-    func showTabFlow(to tab: TabBarItemType = .home) {
+    func showTabFlow() {
         let (tabBarController, navigationControllers) = viewControllerFactory.makeTabBarController(navigationController)
         self.tabBarController = tabBarController
         
@@ -53,8 +53,6 @@ final class UpdateCoordinatorImpl: UpdateCoordinator {
         
         navigationController.setNavigationBarHidden(true, animated: false)
         navigationController.pushViewController(tabBarController, animated: false)
-        
-        tabBarController.selectedIndex = tab.rawValue
     }
     
     func showAuthFlow() {

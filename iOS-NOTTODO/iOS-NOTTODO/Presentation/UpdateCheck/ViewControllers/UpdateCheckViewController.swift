@@ -76,7 +76,7 @@ extension UpdateCheckViewController {
         if KeychainUtil.getAccessToken().isEmpty {
             coordinator.showAuthFlow()
         } else {
-            coordinator.showTabFlow(to: .home)
+            coordinator.showTabFlow()
         }
     }
     
