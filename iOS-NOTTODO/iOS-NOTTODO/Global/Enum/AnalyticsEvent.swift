@@ -200,6 +200,7 @@ enum AnalyticsEvent {
         case clickGuide = "click_guide"
         case clickFaq = "click_faq"
         case clickNotice = "click_notice"
+        case clickSuggestion = "click_suggestion"
         case clickQuestion = "click_question"
         case clickTerms = "click_terms"
         case clickOpenSource = "click_opensource"

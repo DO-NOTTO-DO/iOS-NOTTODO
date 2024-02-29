@@ -78,7 +78,7 @@ extension HomeDeleteViewController {
         
         deleteModalView.snp.makeConstraints {
             $0.directionalHorizontalEdges.equalTo(safeArea).inset(52)
-            $0.height.equalTo((getDeviceWidth() - 104)*1.09)
+            $0.height.equalTo((Numbers.width - 104)*1.09)
             $0.center.equalTo(safeArea)
         }
     }

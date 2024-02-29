@@ -101,7 +101,7 @@ extension DetailAchievementViewController {
         collectionView.snp.makeConstraints {
             $0.center.equalTo(safeArea)
             $0.directionalHorizontalEdges.equalTo(safeArea).inset(15)
-            $0.height.equalTo(getDeviceWidth()*1.1)
+            $0.height.equalTo(Numbers.width*1.1)
         }
     }
     

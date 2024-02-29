@@ -18,12 +18,13 @@ struct InfoModel: Hashable {
                                                  user: UserDefaults.standard.bool(forKey: DefaultKeys.isAppleLogin) ? KeychainUtil.getAppleUsername() : KeychainUtil.getKakaoNickname(),
                                                  email: UserDefaults.standard.bool(forKey: DefaultKeys.isAppleLogin) ? KeychainUtil.getAppleEmail() : KeychainUtil.getKakaoEmail())]
     
-    static let support: [InfoModel] = [InfoModel(image: .icGuide, title: "낫투두 가이드"),
-                                       InfoModel(image: .icQuestion1, title: "자주 묻는 질문")
+    static let support: [InfoModel] = [InfoModel(image: .icGuide, title: I18N.guide),
+                                       InfoModel(image: .icQuestion1, title: I18N.oftenQuestion)
     ]
-    static let info: [InfoModel] = [InfoModel(title: "공지사항"),
-                                    InfoModel(title: "문의하기"),
-                                    InfoModel(title: "약관 및 정책")
+    static let info: [InfoModel] = [InfoModel(title: I18N.notice),
+                                    InfoModel(title: I18N.sendFeedback),
+                                    InfoModel(title: I18N.inquiry),
+                                    InfoModel(title: I18N.policies)
     ]
-    static func version() -> [InfoModel] { return  [InfoModel(title: "버전 정보 "+(Utils.version ?? "1.0.0"))] }
+    static func version() -> [InfoModel] { return  [InfoModel(title: I18N.version + " " + (Utils.version ?? "1.0.0"))] }
 }

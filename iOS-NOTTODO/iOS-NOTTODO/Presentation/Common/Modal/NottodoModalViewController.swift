@@ -34,7 +34,7 @@ final class NottodoModalViewController: UIViewController {
     private var modalView = UIView()
     private let withdrawView = WithdrawModalView()
     private let quitView = QuitModalView()
-    private lazy var safariViewController = SFSafariViewController(url: URL(string: MyInfoURL.googleForm.url)!)
+    private lazy var safariViewController = SFSafariViewController(url: URL(string: MyInfoURL.commonAlarmModal.url)!)
     
     // MARK: - init
     

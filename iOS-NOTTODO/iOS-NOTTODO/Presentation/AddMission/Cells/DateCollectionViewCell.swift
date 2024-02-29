@@ -23,7 +23,6 @@ final class DateCollectionViewCell: UICollectionViewCell, AddMissionMenu {
     private lazy var tomorrow = Calendar.current.date(byAdding: .day, value: 1, to: today)!
     private var dateList: [String] = []
     private var missionType: MissionType?
-    private var deviceWidth = UIScreen.main.bounds.width
     
     // MARK: - UI Components
     
@@ -57,8 +56,7 @@ final class DateCollectionViewCell: UICollectionViewCell, AddMissionMenu {
     func setFoldState(_ state: FoldState) {
         fold = state
         
-        let deviceWidth = UIScreen.main.bounds.width
-        let cellWidth = deviceWidth * (345/375)
+        let cellWidth = Numbers.width * (345/375)
         let cellHeight = cellWidth * (470/345)
         missionCellHeight?(state == .folded ? 54 : cellHeight)
         updateUI()

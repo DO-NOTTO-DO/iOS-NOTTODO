@@ -63,5 +63,6 @@ public final class KeychainUtil {
         
         UserDefaults.standard.removeObject(forKey: DefaultKeys.socialToken)
         UserDefaults.standard.removeObject(forKey: DefaultKeys.accessToken)
+        UserDefaults.standard.removeObject(forKey: DefaultKeys.isDeprecatedBtnClicked)
     }
 }
