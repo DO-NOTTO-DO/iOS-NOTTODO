@@ -184,10 +184,9 @@ extension MyInfoAccountViewController {
             kakaoLogout()
         }
         AuthAPI.shared.deleteAuth { _ in
-            UserDefaults.standard.removeObject(forKey: DefaultKeys.accessToken)
-            UserDefaults.standard.removeObject(forKey: DefaultKeys.socialToken)
+            self.coordinator.connectAuthCoordinator(type: .logout )
+
             AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.AccountInfo.completeLogout)
-            self.coordinator.connectAuthCoordinator()
         }
     }
     

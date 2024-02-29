@@ -60,9 +60,18 @@ final class MypageCoordinatorImpl: MypageCoordinator {
         navigationController.present(logoutAlert, animated: true)
     }
     
-    func connectAuthCoordinator() {
+    func connectAuthCoordinator(type: ViewType) {
         navigationController.dismiss(animated: true) { [unowned self] in
             finish()
+            switch type {
+            case .quitSurvey:
+                KeychainUtil.removeUserInfo()
+            case .logout:
+                UserDefaults.standard.removeObject(forKey: DefaultKeys.accessToken)
+                UserDefaults.standard.removeObject(forKey: DefaultKeys.socialToken)
+            default:
+                break
+            }
         }
     }
 }

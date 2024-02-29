@@ -18,8 +18,8 @@ final class AuthCoordinatorImpl: AuthCoordinator {
     private let viewControllerFactory: ViewControllerFactory
     
     deinit {
-            NotificationCenter.default.removeObserver(self)
-        }
+        NotificationCenter.default.removeObserver(self)
+    }
     
     required init(
         _ navigationController: UINavigationController,
@@ -39,11 +39,13 @@ final class AuthCoordinatorImpl: AuthCoordinator {
     }
     
     func start() {
-       // showSignUpViewController()
-       showValueOnboardingViewController()
-        
+        if KeychainUtil.getAccessToken().isEmpty {
+            showValueOnboardingViewController()
+        } else {
+            showSignUpViewController()
+        }
     }
-    
+
     func showValueOnboardingViewController() {
         let viewController = viewControllerFactory.makeValueOnboardingViewController(coordinator: self)
         changeAnimation()
@@ -80,18 +82,6 @@ final class AuthCoordinatorImpl: AuthCoordinator {
         navigationController.pushViewController(viewController, animated: true) // fourth -> fifth
     }
     
-//    func connectHomeCoordinator() {
-//        navigationController.dismiss(animated: true) { [unowned self] in
-//            finish()
-//        }
-//    }
-    
-    func connectHomeCoordinator() {
-         navigationController.dismiss(animated: true) { [unowned self] in
-             delegate?.didFinish(childCoordinator: self)
-         }
-     }
-    
     func showSignUpViewController() { // fifth -> root 변경 -> signup
         let viewController = viewControllerFactory.makeAuthViewController(coordinator: self)
         changeAnimation()
@@ -101,6 +91,12 @@ final class AuthCoordinatorImpl: AuthCoordinator {
     func showNotificationViewController(completion: @escaping () -> Void) {
         let viewController = viewControllerFactory.makeNotificationDialogViewController(coordinator: self, completion: completion)
         navigationController.setViewControllers([viewController], animated: false)
+    }
+    
+    func connectHomeCoordinator() {
+        navigationController.dismiss(animated: true) { [unowned self] in
+            finish()
+        }
     }
     
     @objc
