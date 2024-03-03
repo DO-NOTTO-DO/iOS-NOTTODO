@@ -11,7 +11,7 @@ final class HomeCoordinatorImpl: HomeCoordinator {
     
     weak var delegate: CoordinatorDelegate?
     var navigationController: UINavigationController
-    var recommendNavigationController: UINavigationController = .init()
+    var recommendNavigationController: UINavigationController?
     var childCoordinators = [Coordinator]()
     var type: CoordinatorType { .home }
     
@@ -76,6 +76,7 @@ final class HomeCoordinatorImpl: HomeCoordinator {
     func showRecommendViewController(selectedDate: String) {
         let viewController = viewControllerFactory.makeRecommendViewController(coordinator: self, date: selectedDate)
         let recommendNavigationController = UINavigationController(rootViewController: viewController)
+        recommendNavigationController.setNavigationBarHidden(true, animated: false)
         recommendNavigationController.modalPresentationStyle = .fullScreen
         navigationController.present(recommendNavigationController, animated: true)
         self.recommendNavigationController = recommendNavigationController
@@ -84,8 +85,8 @@ final class HomeCoordinatorImpl: HomeCoordinator {
     func showRecommendDetailViewController(actionData: RecommendActionData) {
         let viewController = viewControllerFactory.makeRecommendDetailViewController(coordinator: self, data: actionData)
         viewController.modalPresentationStyle = .fullScreen
-        recommendNavigationController.navigationBar.isHidden = true
-        recommendNavigationController.pushViewController(viewController, animated: true)
+        recommendNavigationController?.navigationBar.isHidden = true
+        recommendNavigationController?.pushViewController(viewController, animated: true)
     }
     
     func showDeleteViewController(completion: @escaping () -> Void) {
@@ -100,11 +101,17 @@ final class HomeCoordinatorImpl: HomeCoordinator {
         let presentedViewController = navigationController.presentedViewController != nil ? navigationController.presentedViewController : navigationController
         presentedViewController?.dismiss(animated: true, completion: nil)
     }
-    
 }
 
 extension HomeCoordinatorImpl {
+    
     func popViewController() {
-        recommendNavigationController.popViewController(animated: true)
+        recommendNavigationController?.popViewController(animated: true)
+    }
+    
+    func dismissRecommendViewcontroller() {
+        recommendNavigationController?.dismiss(animated: true, completion: { [weak self] in
+            self?.recommendNavigationController?.viewControllers.removeAll()
+        })
     }
 }
