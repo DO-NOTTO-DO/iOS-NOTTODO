@@ -16,7 +16,7 @@ final class CommonNotificationViewController: UIViewController {
     // MARK: - Property
     
     var tapCloseButton: (() -> Void)?
-    private var coordinator: HomeCoordinator
+    private weak var coordinator: HomeCoordinator?
 
     // MARK: - UI Components
     
@@ -201,7 +201,7 @@ extension CommonNotificationViewController {
     @objc
     func didCancelButtonTap() {
         self.tapCloseButton?()
-        coordinator.dismiss()
+        coordinator?.dismiss()
     }
     
     @objc
@@ -215,6 +215,6 @@ extension CommonNotificationViewController {
 extension CommonNotificationViewController: SFSafariViewControllerDelegate {
     
     func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
-        coordinator.dismiss()
+        coordinator?.dismiss()
     }
 }

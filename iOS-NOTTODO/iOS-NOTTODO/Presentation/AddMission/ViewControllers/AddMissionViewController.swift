@@ -42,7 +42,7 @@ final class AddMissionViewController: UIViewController {
         }
     }
     
-    private var coordinator: HomeCoordinator
+    private weak var coordinator: HomeCoordinator?
     
     // MARK: - UI Components
     
@@ -270,7 +270,7 @@ extension AddMissionViewController {
     
     @objc
     private func popVC() {
-        coordinator.dismiss()
+        coordinator?.dismiss()
     }
 }
 
@@ -279,7 +279,8 @@ extension AddMissionViewController {
 extension AddMissionViewController {
     private func requestPostAddMission(title: String, situation: String,
                                        actions: [String]?, goal: String?, dates: [String]?) {
-        AddMissionAPI.shared.postAddMission(title: title, situation: situation, actions: actions, goal: goal, dates: dates ?? [""]) { response in
+        AddMissionAPI.shared.postAddMission(title: title, situation: situation, actions: actions, goal: goal, dates: dates ?? [""]) { [weak self] response in
+            guard let self else { return }
             guard let response = response else { return }
             switch response.status {
             case 200..<300:
@@ -292,7 +293,7 @@ extension AddMissionViewController {
                         action: actions ?? []
                     )
                 )
-                self.coordinator.dismiss()
+                self.coordinator?.dismiss()
             default:
                 let toastMessage = self.htmlToString(response.message ?? "")?.string ?? ""
                 self.checkToastMessage(toastMessage)
@@ -302,7 +303,8 @@ extension AddMissionViewController {
     }
     
     private func requestPutUpdateMission(id: Int, title: String, situation: String, actions: [String]?, goal: String?) {
-        AddMissionAPI.shared.putUpdateMission(id: id, title: title, situation: situation, actions: actions, goal: goal) { response in
+        AddMissionAPI.shared.putUpdateMission(id: id, title: title, situation: situation, actions: actions, goal: goal) { [weak self] response in
+            guard let self else { return }
             guard let response = response else { return }
             print(response.status)
             switch response.status {
@@ -315,7 +317,7 @@ extension AddMissionViewController {
                         situation: self.nottodoInfoList[2],
                         action: self.nottodoInfoList[3])
                 )
-                self.coordinator.dismiss()
+                self.coordinator?.dismiss()
             default:
                 let toastMessage = self.htmlToString(response.message ?? "")?.string ?? ""
                 self.checkToastMessage(toastMessage)

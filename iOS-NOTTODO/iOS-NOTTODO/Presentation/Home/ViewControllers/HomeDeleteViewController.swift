@@ -16,7 +16,7 @@ final class HomeDeleteViewController: UIViewController {
     
     var deleteClosure: (() -> Void)?
     
-    private var coordinator: HomeCoordinator
+    private weak var coordinator: HomeCoordinator?
     
     private lazy var safeArea = self.view.safeAreaLayoutGuide
     
@@ -49,7 +49,7 @@ final class HomeDeleteViewController: UIViewController {
         let location = touch.location(in: self.view)
         
         if !deleteModalView.frame.contains(location) {
-            coordinator.dismissLastPresentedViewController()
+            coordinator?.dismissLastPresentedViewController()
         }
     }
 }
@@ -68,7 +68,7 @@ extension HomeDeleteViewController {
             
             $0.cancelClosure = { [weak self] in
                 guard let self else { return }
-                self.coordinator.dismissLastPresentedViewController()
+                self.coordinator?.dismissLastPresentedViewController()
             }
         }
     }

@@ -20,7 +20,7 @@ final class SecondOnboardingViewController: UIViewController {
     private let onboardingModel: [SecondOnboardingModel] = SecondOnboardingModel.titles
     private var dataSource: UICollectionViewDiffableDataSource<Section, SecondOnboardingModel>! = nil
     private lazy var safeArea = self.view.safeAreaLayoutGuide
-    private var coordinator: AuthCoordinator
+    private weak var coordinator: AuthCoordinator?
     
     // MARK: - UI Components
     
@@ -118,7 +118,7 @@ extension SecondOnboardingViewController {
 extension SecondOnboardingViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.OnboardingClick.clickOnboardingNext2(select: SecondOnboardingModel.titles[indexPath.row].title))
-
-        coordinator.showThirdOnboardingViewController()
+        
+        coordinator?.showThirdOnboardingViewController()
     }
 }

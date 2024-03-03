@@ -13,8 +13,8 @@ final class ValueOnboardingViewController: UIViewController {
     
     // MARK: - Properties
     
-    private var coordinator: AuthCoordinator
-      
+    private weak var coordinator: AuthCoordinator?
+    
     // MARK: - UI Properties
     
     let animationView = LottieAnimationView()
@@ -22,8 +22,8 @@ final class ValueOnboardingViewController: UIViewController {
     // MARK: - init
     
     init(coordinator: AuthCoordinator) {
-      self.coordinator = coordinator
-      super.init(nibName: nil, bundle: nil)
+        self.coordinator = coordinator
+        super.init(nibName: nil, bundle: nil)
     }
     
     required init?(coder: NSCoder) {
@@ -54,12 +54,12 @@ extension ValueOnboardingViewController {
         animationView.frame = view.bounds
         view.addSubview(animationView)
         
-        animationView.play { _ in
+        animationView.play {_ in 
             completion()
         }
     }
     
     func pushToNextViewController() {
-        coordinator.showLogoOnboardingViewController()
+        coordinator?.showLogoOnboardingViewController()
     }
 }

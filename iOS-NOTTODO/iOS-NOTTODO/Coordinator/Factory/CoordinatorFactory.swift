@@ -38,7 +38,7 @@ extension CoordinatorFactory {
             navigationController,
             coordinatorFactory: coordinatorFactory,
             viewControllerFactory: viewControllerFactory
-           )
+        )
         return coordinator
     }
     

@@ -20,7 +20,7 @@ final class NottodoModalViewController: UIViewController {
     
     // MARK: - Properties
     
-    private var coordinator: MypageCoordinator
+    private weak var coordinator: MypageCoordinator?
     
     private var viewType: ViewType? = .quit {
         didSet {
@@ -63,7 +63,7 @@ final class NottodoModalViewController: UIViewController {
         let location = touch.location(in: self.view)
         
         if !modalView.frame.contains(location) {
-            coordinator.dismiss()
+            coordinator?.dismiss()
         }
     }
 }
@@ -114,7 +114,7 @@ extension NottodoModalViewController: ModalDelegate {
     }
     
     func modalDismiss() {
-        coordinator.dismiss() // 탈퇴 alert 취소
+        coordinator?.dismiss() // 탈퇴 alert 취소
     }
 }
 
@@ -141,6 +141,7 @@ extension NottodoModalViewController {
 
 extension NottodoModalViewController: SFSafariViewControllerDelegate {
     func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
-        coordinator.connectAuthCoordinator(type: .quitSurvey)
+        controller.delegate = nil
+        coordinator?.connectAuthCoordinator(type: .quitSurvey)
     }
 }

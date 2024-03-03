@@ -15,7 +15,7 @@ final class AchievementViewController: UIViewController {
     
     // MARK: - Properties
     
-    private var coordinator: AchieveCoordinator
+    private weak var coordinator: AchieveCoordinator?
     private var currentPage = Date()
     private var dataSource: [String: Float] = [:]
     
@@ -118,17 +118,6 @@ extension AchievementViewController {
             $0.bottom.equalTo(scrollView.snp.bottom).inset(20)
         }
     }
-    
-    func requestMonthAPI(month: String) {
-        AchieveAPI.shared.getAchieveCalendar(month: month) { [weak self] response in
-            
-            guard let self, let response = response, let data = response.data else { return }
-            
-            let calendarData = data.compactMap { ($0.actionDate, $0.percentage) }
-            self.dataSource = Dictionary(uniqueKeysWithValues: calendarData)
-            self.monthCalendar.calendar.collectionView.reloadData()
-        }
-    }
 }
 
 extension AchievementViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalendarDelegateAppearance {
@@ -148,7 +137,7 @@ extension AchievementViewController: FSCalendarDelegate, FSCalendarDataSource, F
         calendar.appearance.titleSelectionColor = .white
         let dateString = Utils.dateFormatterString(format: "yyyy-MM-dd", date: date)
         if self.dataSource.contains(where: { $0.key == dateString }) {
-            coordinator.showAchieveDetailViewController(selectedDate: date)
+            coordinator?.showAchieveDetailViewController(selectedDate: date)
         }
     }
     
@@ -185,6 +174,17 @@ extension AchievementViewController: FSCalendarDelegate, FSCalendarDataSource, F
 // MARK: - Others
 
 extension AchievementViewController {
+    
+    func requestMonthAPI(month: String) {
+        AchieveAPI.shared.getAchieveCalendar(month: month) { [weak self] response in
+            
+            guard let self, let response = response, let data = response.data else { return }
+            
+            let calendarData = data.compactMap { ($0.actionDate, $0.percentage) }
+            self.dataSource = Dictionary(uniqueKeysWithValues: calendarData)
+            self.monthCalendar.calendar.collectionView.reloadData()
+        }
+    }
     
     private func getPercentage(for date: Date) -> Float? {
         

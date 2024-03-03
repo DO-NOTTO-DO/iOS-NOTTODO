@@ -9,12 +9,12 @@ import UIKit
 import AVFoundation
 
 final class LogoOnboardingViewController: UIViewController {
-
+    
     // MARK: - Properties
     
     private lazy var safeArea = self.view.safeAreaLayoutGuide
-    private var coordinator: AuthCoordinator
-
+    private weak var coordinator: AuthCoordinator?
+    
     // MARK: - UI Components
     
     private let animationView = UIImageView()
@@ -48,7 +48,7 @@ final class LogoOnboardingViewController: UIViewController {
 // MARK: - Methods
 
 extension LogoOnboardingViewController {
-
+    
     private func playMp4Video() {
         DispatchQueue.main.async { [weak self] in
             self?.playVideo(with: "logo")
@@ -101,10 +101,10 @@ extension LogoOnboardingViewController {
     @objc private func videoDidFinishPlaying(notification: NSNotification) {
         nextButton.isHidden = false
     }
-
+    
     @objc
     private func buttonTapped() {
         AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.OnboardingClick.clickOnboardingStart)
-        coordinator.showSecondOnboardingViewController()
+        coordinator?.showSecondOnboardingViewController()
     }
 }

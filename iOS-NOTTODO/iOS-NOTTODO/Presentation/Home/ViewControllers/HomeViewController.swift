@@ -15,7 +15,7 @@ final class HomeViewController: UIViewController {
     
     // MARK: - Properties
     
-    private var coordinator: HomeCoordinator
+    private weak var coordinator: HomeCoordinator?
     private var missionList: [DailyMissionResponseDTO] = []
     private var calendarDataSource: [String: Float] = [:]
     
@@ -129,7 +129,7 @@ extension HomeViewController: CalendarViewDelegate {
     func addBtnTapped(_sender: UIButton) {
         
         let selectedDate = Utils.dateFormatterString(format: "yyyy.MM.dd", date: selectedDate ?? Date())
-        coordinator.showRecommendViewController(selectedDate: selectedDate)
+        coordinator?.showRecommendViewController(selectedDate: selectedDate)
     }
     
     func todayBtnTapped() {
@@ -154,12 +154,13 @@ extension HomeViewController: HomeModalDelegate {
     
     func modifyMission(id: Int, type: MissionType) {
         
-        coordinator.showModifyViewController(id: id, type: type)
+        coordinator?.showModifyViewController(id: id, type: type)
     }
     
     func deleteMission(index: Int, id: Int) {
         
-        coordinator.showDeleteViewController {
+        coordinator?.showDeleteViewController { [weak self] in
+            guard let self else { return }
             self.requestDeleteMission(index: index, id: id)
         }
     }
@@ -173,7 +174,7 @@ extension HomeViewController: UICollectionViewDelegate {
         if !missionList.isEmpty {
             let id = missionList[indexPath.item].id
             
-            coordinator.showMissionDetailViewController(id: id, deleteClosure: { [weak self] in
+            coordinator?.showMissionDetailViewController(id: id, deleteClosure: { [weak self] in
                 guard let self else { return }
                 self.dailyLoadData()
                 self.weeklyLoadData()
@@ -225,8 +226,7 @@ extension HomeViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalend
     
     func calendar(_ calendar: FSCalendar, cellFor date: Date, at position: FSCalendarMonthPosition) -> FSCalendarCell {
         
-        let cell = calendar.dequeueReusableCell(withIdentifier: MissionCalendarCell.identifier, for: date, at: position) as! MissionCalendarCell
-        
+        guard let cell = calendar.dequeueReusableCell(withIdentifier: MissionCalendarCell.identifier, for: date, at: position) as? MissionCalendarCell else { return FSCalendarCell() }
         guard let percentage = getPercentage(for: date) else { return cell }
         cell.configure(percent: percentage)
         
@@ -287,7 +287,7 @@ extension HomeViewController {
                                                                                                   situation: data.situationName,
                                                                                                   goal: "",
                                                                                                   action: []))
-            coordinator.dismiss()
+            coordinator?.dismiss()
         }
     }
 }
@@ -345,7 +345,8 @@ extension HomeViewController {
     private func showPopup(isSelected: Bool) {
         
         if !(isSelected || didDeprecatedButtonTap) {
-            coordinator.showPopupViewController {
+            coordinator?.showPopupViewController { [weak self] in
+                guard let self else { return }
                 self.didCloseButtonTap = true
                 AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.Login.clickAdModalClose(again: self.didDeprecatedButtonTap ? "yes": "no" ))
             }

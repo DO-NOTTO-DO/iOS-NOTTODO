@@ -33,7 +33,7 @@ final class MissionDetailViewController: UIViewController {
     
     private lazy var safeArea = self.view.safeAreaLayoutGuide
     
-    private var coordinator: HomeCoordinator
+    private weak var coordinator: HomeCoordinator?
     
     // MARK: - UI Components
     
@@ -138,17 +138,17 @@ extension MissionDetailViewController {
     
     private func setupDataSource() {
         
-        let cellRegistration = CellRegistration<MissionDetailCollectionViewCell, Item> {cell, _, item in
+        let cellRegistration = CellRegistration<MissionDetailCollectionViewCell, Item> { cell, _, item in
             cell.configure(model: item)
         }
         
-        let footerRegistration = FooterRegistration<DetailFooterView>(elementKind: UICollectionView.elementKindSectionFooter) { footerView, _, _ in
+        let footerRegistration = FooterRegistration<DetailFooterView>(elementKind: UICollectionView.elementKindSectionFooter) { [weak self] footerView, _, _ in
             footerView.footerClosure = { [weak self] in
                 guard let self = self,
-                        let id = self.userId,
+                      let id = self.userId,
                       let data = self.detailModel
                 else { return }
-                self.coordinator.showSelectDateViewController(data: data, id: id) { date in
+                self.coordinator?.showSelectDateViewController(data: data, id: id) { date in
                     self.moveDateClosure?(date)
                 }
             }
@@ -167,17 +167,18 @@ extension MissionDetailViewController {
     }
     
     private func configureHeaderView() {
-        headerView.cancelClosure = {
+        headerView.cancelClosure = { [weak self] in
+            guard let self else { return }
             self.view.alpha = 0
-            self.dismiss(animated: true) {
-                AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.Detail.closeDetailMission)
-            }
+            coordinator?.dismiss()
+            AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.Detail.closeDetailMission)
         }
         
-        headerView.editClosure = {
-            AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.Detail.clickEditMission(section: "detail"))
+        headerView.editClosure = { [weak self] in
+            guard let self else { return }
             guard let id = self.userId else { return }
-            self.coordinator.showModifyViewController(id: id, type: .update)
+            coordinator?.showModifyViewController(id: id, type: .update)
+            AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.Detail.clickEditMission(section: "detail"))
         }
     }
     
@@ -215,7 +216,8 @@ extension MissionDetailViewController {
                                                                                               situation: data.situation,
                                                                                               goal: data.goal,
                                                                                               action: data.actions.map { $0.name }))
-        coordinator.showDeleteViewController {
+        coordinator?.showDeleteViewController { [weak self] in
+            guard let self else { return }
             guard let id = self.userId else { return }
             self.requestDeleteMission(id: id)
         }
@@ -254,8 +256,7 @@ extension MissionDetailViewController {
                                                                                                          goal: data.goal,
                                                                                                          action: data.actions.map { $0.name }))
                 
-                coordinator.dismiss()
-                
+                coordinator?.dismiss()
                 AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.Detail.closeDetailMission)
                 
             }

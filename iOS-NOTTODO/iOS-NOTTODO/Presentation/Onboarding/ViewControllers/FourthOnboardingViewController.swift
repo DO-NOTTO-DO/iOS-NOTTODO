@@ -20,7 +20,7 @@ final class FourthOnboardingViewController: UIViewController {
     private let onboardingModel: [FourthOnboardingModel] = FourthOnboardingModel.items
     private var dataSource: UICollectionViewDiffableDataSource<Section, FourthOnboardingModel>! = nil
     private lazy var safeArea = self.view.safeAreaLayoutGuide
-    private var coordinator: AuthCoordinator
+    private weak var coordinator: AuthCoordinator?
     
     // MARK: - UI Components
     
@@ -77,7 +77,7 @@ extension FourthOnboardingViewController {
             $0.configuration?.contentInsets = NSDirectionalEdgeInsets.init(top: 0, leading: 0, bottom: 0, trailing: 0)
             $0.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
         }
-
+        
     }
     
     private func setLayout() {
@@ -142,10 +142,10 @@ extension FourthOnboardingViewController {
     @objc
     private func buttonTapped() {
         AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.OnboardingClick.clickOnboardingNext4)
-
+        
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
             UIView.animate(withDuration: 0.01) {
-                self.coordinator.showFifthOnboardingViewController()
+                self.coordinator?.showFifthOnboardingViewController()
             }
         }
     }

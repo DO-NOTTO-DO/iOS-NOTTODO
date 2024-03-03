@@ -13,7 +13,7 @@ final class MyInfoAccountViewController: UIViewController {
     
     // MARK: - Property
     
-    private var coordinator: MypageCoordinator
+    private weak var coordinator: MypageCoordinator?
     
     // MARK: - UI Components
     
@@ -58,8 +58,8 @@ final class MyInfoAccountViewController: UIViewController {
 
 private extension MyInfoAccountViewController {
     func setUI() {
-        self.notificationView.switchClosure = { result in
-            self.notificationView.notificationSwitch.setOn(result, animated: true)
+        self.notificationView.switchClosure = { [weak self] result in
+            self?.notificationView.notificationSwitch.setOn(result, animated: true)
         }
         
         view.backgroundColor = .ntdBlack
@@ -162,19 +162,19 @@ private extension MyInfoAccountViewController {
     
     @objc
     private func presentToWithdraw() {
-        coordinator.showWithdrawViewController()
+        coordinator?.showWithdrawViewController()
     }
     @objc
     private func tappedLogout() {
         AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.AccountInfo.appearLogoutModal)
-        coordinator.showLogoutAlertController {
-            self.logout()
+        coordinator?.showLogoutAlertController { [weak self] in
+            self?.logout()
         }
     }
     
     @objc
     private func popBackbutton() {
-        coordinator.popViewController()
+        coordinator?.popViewController()
     }
 }
 
@@ -183,9 +183,11 @@ extension MyInfoAccountViewController {
         if !KeychainUtil.getBool(DefaultKeys.isAppleLogin) {
             kakaoLogout()
         }
-        AuthAPI.shared.deleteAuth { _ in
-            self.coordinator.connectAuthCoordinator(type: .logout )
-
+        
+        AuthAPI.shared.deleteAuth { [weak self] _ in
+            guard let self else { return }
+            self.coordinator?.connectAuthCoordinator(type: .logout )
+            
             AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.AccountInfo.completeLogout)
         }
     }

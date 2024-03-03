@@ -15,8 +15,8 @@ final class RecommendViewController: UIViewController {
     var recommendList: [RecommendResponseDTO] = []
     private var selectDay: String?
     
-    private var coordinator: HomeCoordinator
-
+    private weak var coordinator: HomeCoordinator?
+    
     // MARK: - UI Components
     
     private let navigationView = UIView()
@@ -124,7 +124,7 @@ private extension RecommendViewController {
             $0.leading.trailing.equalToSuperview().inset(15)
             $0.bottom.equalToSuperview().offset(-45)
         }
-
+        
         recommendCollectionView.snp.makeConstraints {
             $0.top.equalTo(seperateView.snp.bottom).offset(16)
             $0.leading.trailing.equalToSuperview()
@@ -140,7 +140,7 @@ private extension RecommendViewController {
     
     private func register() {
         recommendCollectionView.register(RecommendCollectionViewCell.self,
-                                              forCellWithReuseIdentifier: RecommendCollectionViewCell.identifier)
+                                         forCellWithReuseIdentifier: RecommendCollectionViewCell.identifier)
     }
     
     func setDelegate() {
@@ -150,12 +150,12 @@ private extension RecommendViewController {
     
     func requestRecommendAPI() {
         RecommendAPI.shared.getRecommend { [weak self] response in
-            guard self != nil else { return }
+            guard let self else { return }
             guard let response = response else { return }
             
             guard let data = response.data else { return }
-            self?.recommendList = data
-            self?.recommendCollectionView.reloadData()
+            self.recommendList = data
+            self.recommendCollectionView.reloadData()
         }
     }
     
@@ -163,8 +163,7 @@ private extension RecommendViewController {
     private func buttonTapped() {
         AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.Recommend.clickSelfCreateMission)
         let data: AddMissionData = AddMissionData(date: [selectDay ?? ""])
-        coordinator.dismiss()
-        coordinator.showAddViewController(data: data, type: .add)
+        coordinator?.showAddViewController(data: data, type: .add)
     }
 }
 
@@ -201,11 +200,11 @@ extension RecommendViewController: UICollectionViewDelegate {
         
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.1) {
             let indexPath = self.recommendList[indexPath.item]
-            let data = RecommendActionData(tag: indexPath.situation, 
+            let data = RecommendActionData(tag: indexPath.situation,
                                            image: indexPath.image,
                                            index: indexPath.id,
                                            selectedDate: self.selectDay)
-            self.coordinator.showRecommendDetailViewController(actionData: data)
+            self.coordinator?.showRecommendDetailViewController(actionData: data)
         }
     }
 }
@@ -214,6 +213,6 @@ extension RecommendViewController {
     
     @objc
     private func dismissViewController() {
-        coordinator.dismiss()
+        coordinator?.dismissRecommendViewcontroller()
     }
 }

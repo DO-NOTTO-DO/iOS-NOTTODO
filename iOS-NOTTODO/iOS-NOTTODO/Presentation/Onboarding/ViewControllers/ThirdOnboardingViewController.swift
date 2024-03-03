@@ -22,8 +22,8 @@ final class ThirdOnboardingViewController: UIViewController {
     private var dataSource: UICollectionViewDiffableDataSource<Section, ThirdOnboardingModel>! = nil
     private lazy var safeArea = self.view.safeAreaLayoutGuide
     private var selectList: [String] = []
-    private var coordinator: AuthCoordinator
-
+    private weak var coordinator: AuthCoordinator?
+    
     // MARK: - UI Components
     
     private lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout())
@@ -91,7 +91,7 @@ extension ThirdOnboardingViewController {
     
     private func setLayout() {
         view.addSubviews(collectionView, nextButton)
-    
+        
         nextButton.snp.makeConstraints {
             $0.top.equalTo(collectionView.snp.bottom)
             $0.bottom.equalTo(safeArea).inset(10)
@@ -149,8 +149,8 @@ extension ThirdOnboardingViewController {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
             UIView.animate(withDuration: 0.01) {
                 AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.OnboardingClick.clickOnboardingNext3(select: self.selectList))
-
-                self.coordinator.showFourthOnboardingViewController()
+                
+                self.coordinator?.showFourthOnboardingViewController()
             }
         }
     }
@@ -175,7 +175,7 @@ extension ThirdOnboardingViewController: UICollectionViewDelegate {
                 }
                 self.isTapped = false
                 updateButton(isTapped: self.isTapped)
-
+                
             }
         }
     }

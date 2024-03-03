@@ -51,7 +51,7 @@ final class MypageCoordinatorImpl: MypageCoordinator {
     
     func showLogoutAlertController(completion: @escaping () -> Void) {
         let logoutAlert = UIAlertController(title: I18N.logoutAlertTitle, message: I18N.logoutAlertmessage, preferredStyle: UIAlertController.Style.alert)
-        let logoutAction = UIAlertAction(title: I18N.logout, style: UIAlertAction.Style.default, handler: {_ in
+        let logoutAction = UIAlertAction(title: I18N.logout, style: UIAlertAction.Style.default, handler: { _ in
             completion()
         })
         let cancelAlert = UIAlertAction(title: I18N.cancel, style: UIAlertAction.Style.default, handler: nil)
@@ -61,8 +61,8 @@ final class MypageCoordinatorImpl: MypageCoordinator {
     }
     
     func connectAuthCoordinator(type: ViewType) {
-        navigationController.dismiss(animated: true) { [unowned self] in
-            finish()
+        navigationController.dismiss(animated: true) { [weak self] in
+            self?.finish()
             switch type {
             case .quitSurvey:
                 KeychainUtil.removeUserInfo()

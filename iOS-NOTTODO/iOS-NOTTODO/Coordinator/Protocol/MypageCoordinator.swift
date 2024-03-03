@@ -12,5 +12,5 @@ protocol MypageCoordinator: Coordinator {
     func showMyInfoAccountViewController()
     func showWithdrawViewController()
     func showLogoutAlertController(completion: @escaping () -> Void) // action button 클릭시 이벤트
-    func connectAuthCoordinator(type: ViewType) // type에 따라서 userdefault 비워줌 
+    func connectAuthCoordinator(type: ViewType) // type에 따라서 userdefault 비워줌
 }

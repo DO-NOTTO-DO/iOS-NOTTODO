@@ -45,7 +45,7 @@ final class AuthCoordinatorImpl: AuthCoordinator {
             showSignUpViewController()
         }
     }
-
+    
     func showValueOnboardingViewController() {
         let viewController = viewControllerFactory.makeValueOnboardingViewController(coordinator: self)
         changeAnimation()

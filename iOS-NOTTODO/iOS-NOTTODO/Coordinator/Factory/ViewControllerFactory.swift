@@ -161,8 +161,7 @@ extension ViewControllerFactoryImpl {
         viewController.deleteClosure = {
             deleteClosure()
         }
-        viewController.moveDateClosure = { [weak self] date in
-            guard let self else { return }
+        viewController.moveDateClosure = { date in
             moveDateClosure(date)
         }
         return viewController
@@ -179,8 +178,7 @@ extension ViewControllerFactoryImpl {
         let viewController = DetailCalendarViewController(coordinator: coordinator)
         viewController.detailModel = data
         viewController.userId = id
-        viewController.movedateClosure = { [weak self] date in
-            guard let self else { return }
+        viewController.movedateClosure = { date in
             moveDateClosure(date)
         }
         return viewController
@@ -221,10 +219,10 @@ extension ViewControllerFactoryImpl {
     func makeTabBarController(_: UINavigationController) -> (UITabBarController, [UINavigationController]) {
         let tabBarController = TabBarController()
         let navigationControllers = tabBarController.setTabBarItems().map(makeNavigationController)
-
+        
         return (tabBarController, navigationControllers)
     }
-  
+    
     func makeNavigationController(_ tabBarItem: UITabBarItem) -> UINavigationController {
         let navigationController = UINavigationController()
         navigationController.tabBarItem = tabBarItem

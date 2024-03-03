@@ -39,7 +39,7 @@ final class RecommendActionViewController: UIViewController {
     private var addActionData = AddMissionData()
     var actionHeaderData: RecommendActionData?
     
-    private var coordinator: HomeCoordinator
+    private weak var coordinator: HomeCoordinator?
     
     // MARK: - UI Components
     
@@ -94,7 +94,7 @@ final class RecommendActionViewController: UIViewController {
 extension RecommendActionViewController {
     @objc
     private func pushToAddMission() {
-        coordinator.showAddViewController(data: self.addActionData, type: .add)
+        coordinator?.showAddViewController(data: self.addActionData, type: .add)
     }
 }
 
@@ -189,7 +189,7 @@ private extension RecommendActionViewController {
     
     @objc
     func backButtonDidTapped() {
-        coordinator.popViewController()
+        coordinator?.popViewController()
     }
 }
 
@@ -260,7 +260,7 @@ extension RecommendActionViewController: UICollectionViewDataSource {
             footerView.clickedNextButton = { [weak self] in
                 guard let self else { return }
                 self.addActionData.action = ""
-                coordinator.showAddViewController(data: self.addActionData, type: .add)
+                coordinator?.showAddViewController(data: self.addActionData, type: .add)
             }
             
             return footerView

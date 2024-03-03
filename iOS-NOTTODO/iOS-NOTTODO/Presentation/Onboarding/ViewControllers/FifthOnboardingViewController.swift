@@ -22,7 +22,7 @@ final class FifthOnboardingViewController: UIViewController {
     var fiveOnboardingModel: [FifthOnboardingModel] = FifthOnboardingModel.titles
     private var dataSource: UICollectionViewDiffableDataSource<Sections, AnyHashable>! = nil
     private lazy var safeArea = self.view.safeAreaLayoutGuide
-    private var coordinator: AuthCoordinator
+    private weak var coordinator: AuthCoordinator?
     
     // MARK: - UI Components
     
@@ -195,7 +195,7 @@ extension FifthOnboardingViewController {
         AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.OnboardingClick.clickOnboardingNext5)
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
             UIView.animate(withDuration: 0.01) {
-                self.coordinator.showSignUpViewController()
+                self.coordinator?.showSignUpViewController()
             }
         }
     }

@@ -13,7 +13,7 @@ import SnapKit
 final class MyInfoViewController: UIViewController {
     
     // MARK: - Properties
-
+    
     typealias CellRegistration = UICollectionView.CellRegistration
     typealias HeaderRegistration = UICollectionView.SupplementaryRegistration
     typealias DataSource = UICollectionViewDiffableDataSource<Sections, InfoModel>
@@ -27,8 +27,8 @@ final class MyInfoViewController: UIViewController {
     
     private lazy var safeArea = self.view.safeAreaLayoutGuide
     
-    private var coordinator: MypageCoordinator
-
+    private weak var coordinator: MypageCoordinator?
+    
     // MARK: - init
     
     init(coordinator: MypageCoordinator) {
@@ -190,7 +190,7 @@ extension MyInfoViewController: UICollectionViewDelegate {
     
     private func profileSectionSelection() {
         sendAnalyticsEvent(.clickMyInfo) {
-            coordinator.showMyInfoAccountViewController()
+            coordinator?.showMyInfoAccountViewController()
         }
     }
     

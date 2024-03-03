@@ -108,7 +108,7 @@ extension OnboardingHeaderView {
             horizontalStackView.snp.makeConstraints {
                 $0.bottom.equalTo(titleLabel.snp.top).inset(20)
             }
-
+            
             flagImage.snp.makeConstraints {
                 $0.size.equalTo(20)
             }
@@ -128,6 +128,7 @@ extension OnboardingHeaderView {
         self.titleLabel.text = title
         self.subTitleLabel.text = subTitle
     }
+    
     func configure(isControl: Bool, title: String, subTitle: String) {
         self.isControl = isControl
         updateUI(title: title, subTitle: subTitle)

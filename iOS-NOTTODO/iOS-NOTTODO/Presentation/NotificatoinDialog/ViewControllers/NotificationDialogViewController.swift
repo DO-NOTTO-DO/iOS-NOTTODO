@@ -31,7 +31,7 @@ final class NotificationDialogViewController: UIViewController {
     private let backgroundImage =  UIImageView()
     private let verticalView = UIView()
     private let horizontalView = UIView()
-
+    
     // MARK: - Life Cycle
     
     override func viewDidLoad() {
