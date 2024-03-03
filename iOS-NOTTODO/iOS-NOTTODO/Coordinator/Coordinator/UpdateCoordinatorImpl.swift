@@ -29,6 +29,10 @@ final class UpdateCoordinatorImpl: UpdateCoordinator {
         
     }
     
+    enum Constant {
+        static let appstoreURL: String = "itms-apps://itunes.apple.com/app/\(Bundle.main.appleId)"
+    }
+    
     func start() {
         showUpdateViewController()
     }
@@ -36,6 +40,63 @@ final class UpdateCoordinatorImpl: UpdateCoordinator {
     func showUpdateViewController() {
         let viewController = viewControllerFactory.makeUpdateCheckViewController(coordinator: self)
         navigationController.setViewControllers([viewController], animated: true)
+    }
+    
+    func showUpdateAlertController() {
+        let alertController = UIAlertController(
+            title: I18N.update,
+            message: I18N.updateAlert,
+            preferredStyle: .alert
+        )
+        
+        let updateAction = UIAlertAction(title: I18N.update, style: .default) { _ in
+            // App Store로 이동
+            if let appStoreURL = URL(string: Constant.appstoreURL) {
+                UIApplication.shared.open(appStoreURL, options: [:], completionHandler: { [weak self] _ in
+                    self?.changeMainViewController()
+                })
+            }
+        }
+        
+        let cancelAction = UIAlertAction(title: I18N.later, style: .default) { _ in
+            // App Store로 이동
+            if let appStoreURL = URL(string: Constant.appstoreURL) {
+                UIApplication.shared.open(appStoreURL, options: [:], completionHandler: { [weak self] _ in
+                    self?.changeMainViewController()
+                })
+            }
+        }
+        
+        alertController.addAction(updateAction)
+        alertController.addAction(cancelAction)
+        
+        navigationController.present(alertController, animated: true)
+    }
+    
+    func showForceUpdateAlertController(newVersion: String) {
+        let alertController = UIAlertController(
+            title: I18N.update,
+            message: I18N.forceUpdateAlert(newVersion: newVersion),
+            preferredStyle: .alert
+        )
+        
+        let updateAction = UIAlertAction(title: I18N.update, style: .default) { _ in
+            // App Store로 이동
+            if let appStoreURL = URL(string: Constant.appstoreURL) {
+                UIApplication.shared.open(appStoreURL, options: [:], completionHandler: nil)
+            }
+        }
+        alertController.addAction(updateAction)
+        navigationController.present(alertController, animated: true)
+    }
+    
+    func changeMainViewController() {
+        
+        if KeychainUtil.getAccessToken().isEmpty {
+            self.showAuthFlow()
+        } else {
+            self.showTabFlow()
+        }
     }
     
     func showTabFlow() {
@@ -52,7 +113,7 @@ final class UpdateCoordinatorImpl: UpdateCoordinator {
         }
         
         navigationController.setNavigationBarHidden(true, animated: false)
-        navigationController.pushViewController(tabBarController, animated: false)
+        navigationController.setViewControllers([tabBarController], animated: false)
     }
     
     func showAuthFlow() {
@@ -110,9 +171,7 @@ extension UpdateCoordinatorImpl: CoordinatorDelegate {
      */
     func didFinish(childCoordinator: Coordinator) {
         
-        print("current Child Coordinator: \(childCoordinator)")
         childCoordinators = childCoordinators.filter { $0.type != childCoordinator.type }
-        print("current navigation : \(navigationController.viewControllers)")
         navigationController.viewControllers.removeAll()
         
         switch childCoordinator.type {

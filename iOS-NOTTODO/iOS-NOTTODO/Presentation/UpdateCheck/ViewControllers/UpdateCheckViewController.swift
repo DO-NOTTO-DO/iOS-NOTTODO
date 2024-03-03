@@ -25,7 +25,7 @@ final class UpdateCheckViewController: UIViewController {
         static let appstoreURL: String = "itms-apps://itunes.apple.com/app/\(Bundle.main.appleId)"
     }
     
-    private var coordinator: UpdateCoordinator
+    private weak var coordinator: UpdateCoordinator?
     
     // MARK: - init
     
@@ -37,7 +37,7 @@ final class UpdateCheckViewController: UIViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     // MARK: - Life Cycle
     
     override func viewDidLoad() {
@@ -59,24 +59,15 @@ extension UpdateCheckViewController {
                 let updateType = try await checkUpdateType()
                 switch updateType {
                 case .force(let newVersion):
-                    self.showForceUpdateAlert(newVersion: newVersion)
+                    coordinator?.showForceUpdateAlertController(newVersion: newVersion)
                 case .optional:
-                    self.showUpdateAlert()
+                    coordinator?.showUpdateAlertController()
                 case .none:
-                    self.changeMainViewController()
+                    coordinator?.changeMainViewController()
                 }
             } catch {
-                self.changeMainViewController()
+                coordinator?.changeMainViewController()
             }
-        }
-    }
-    
-    private func changeMainViewController() {
-       
-        if KeychainUtil.getAccessToken().isEmpty {
-            coordinator.showAuthFlow()
-        } else {
-            coordinator.showTabFlow()
         }
     }
     
@@ -144,55 +135,5 @@ extension UpdateCheckViewController {
             return nil
         }
         return appStoreVersion
-    }
-    
-    /// 선택 업데이트 경고창
-    private func showUpdateAlert() {
-        let alertController = UIAlertController(
-            title: I18N.update,
-            message: I18N.updateAlert,
-            preferredStyle: .alert
-        )
-        
-        let updateAction = UIAlertAction(title: I18N.update, style: .default) { _ in
-            // App Store로 이동
-            if let appStoreURL = URL(string: Constant.appstoreURL) {
-                UIApplication.shared.open(appStoreURL, options: [:], completionHandler: { [weak self] _ in
-                    self?.changeMainViewController()
-                })
-            }
-        }
-        
-        let cancelAction = UIAlertAction(title: I18N.later, style: .default) { _ in
-            // App Store로 이동
-            if let appStoreURL = URL(string: Constant.appstoreURL) {
-                UIApplication.shared.open(appStoreURL, options: [:], completionHandler: { [weak self] _ in
-                    self?.changeMainViewController()
-                })
-            }
-        }
-        
-        alertController.addAction(updateAction)
-        alertController.addAction(cancelAction)
-        
-        self.present(alertController, animated: true)
-    }
-    
-    /// 강제 업데이트 경고창
-    private func showForceUpdateAlert(newVersion: String) {
-        let alertController = UIAlertController(
-            title: I18N.update,
-            message: I18N.forceUpdateAlert(newVersion: newVersion),
-            preferredStyle: .alert
-        )
-        
-        let updateAction = UIAlertAction(title: I18N.update, style: .default) { _ in
-            // App Store로 이동
-            if let appStoreURL = URL(string: Constant.appstoreURL) {
-                UIApplication.shared.open(appStoreURL, options: [:], completionHandler: nil)
-            }
-        }
-        alertController.addAction(updateAction)
-        self.present(alertController, animated: true)
     }
 }

@@ -9,6 +9,9 @@ import Foundation
 
 protocol UpdateCoordinator: Coordinator {
     func showUpdateViewController()
+    func showUpdateAlertController()
+    func showForceUpdateAlertController(newVersion: String) 
+    func changeMainViewController()
     func showTabFlow()
     func showAuthFlow()
 }
