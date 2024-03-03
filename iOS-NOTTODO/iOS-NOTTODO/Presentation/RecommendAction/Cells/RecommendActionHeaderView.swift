@@ -132,8 +132,7 @@ extension RecommendActionHeaderView {
 
     func configure(data: RecommendActionData, title: String?) {
         self.tagLabel.text = data.tag
-        guard let url = URL(string: data.image) else { return }
-        bodyImage.kf.setImage(with: url)
+        self.bodyImage.setImage(with: data.image)
         self.titleLabel.text = title
     }
     
