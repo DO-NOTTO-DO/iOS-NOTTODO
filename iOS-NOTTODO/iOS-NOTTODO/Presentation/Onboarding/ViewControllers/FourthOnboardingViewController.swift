@@ -143,10 +143,6 @@ extension FourthOnboardingViewController {
     private func buttonTapped() {
         AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.OnboardingClick.clickOnboardingNext4)
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-            UIView.animate(withDuration: 0.01) {
-                self.coordinator?.showFifthOnboardingViewController()
-            }
-        }
+        self.coordinator?.showFifthOnboardingViewController()
     }
 }

@@ -54,32 +54,31 @@ final class AuthCoordinatorImpl: AuthCoordinator {
     
     func showLogoOnboardingViewController() {
         let viewController = viewControllerFactory.makeLogoOnboardingViewController(coordinator: self)
-        changeAnimation()
-        navigationController.pushViewController(viewController, animated: true) // value -> logo
+        navigationController.pushViewController(viewController, animated: false) // value -> logo
     }
     
     func showSecondOnboardingViewController() {
         let viewController = viewControllerFactory.makeSecondOnboardingViewController(coordinator: self)
         changeAnimation()
-        navigationController.pushViewController(viewController, animated: true) // logo -> second
+        navigationController.pushViewController(viewController, animated: false) // logo -> second
     }
     
     func showThirdOnboardingViewController() {
         let viewController = viewControllerFactory.makeThirdOnboardingViewController(coordinator: self)
         changeAnimation()
-        navigationController.pushViewController(viewController, animated: true) // logo -> third
+        navigationController.setViewControllers([viewController], animated: false) // logo -> third
     }
     
     func showFourthOnboardingViewController() {
         let viewController = viewControllerFactory.makeFourthOnboardingViewController(coordinator: self)
         changeAnimation()
-        navigationController.pushViewController(viewController, animated: true) // third -> fourth
+        navigationController.pushViewController(viewController, animated: false) // third -> fourth
     }
     
     func showFifthOnboardingViewController() {
         let viewController = viewControllerFactory.makeFifthOnboardingViewController(coordinator: self)
         changeAnimation()
-        navigationController.pushViewController(viewController, animated: true) // fourth -> fifth
+        navigationController.pushViewController(viewController, animated: false) // fourth -> fifth
     }
     
     func showSignUpViewController() { // fifth -> root 변경 -> signup

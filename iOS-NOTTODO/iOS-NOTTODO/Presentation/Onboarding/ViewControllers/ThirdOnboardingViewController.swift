@@ -146,13 +146,9 @@ extension ThirdOnboardingViewController {
 extension ThirdOnboardingViewController {
     @objc
     private func buttonTapped() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-            UIView.animate(withDuration: 0.01) {
-                AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.OnboardingClick.clickOnboardingNext3(select: self.selectList))
-                
-                self.coordinator?.showFourthOnboardingViewController()
-            }
-        }
+        
+        AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.OnboardingClick.clickOnboardingNext3(select: self.selectList))
+        self.coordinator?.showFourthOnboardingViewController()
     }
 }
 
