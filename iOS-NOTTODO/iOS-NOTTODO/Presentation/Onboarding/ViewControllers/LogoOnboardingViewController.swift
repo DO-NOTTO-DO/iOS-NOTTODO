@@ -14,6 +14,7 @@ final class LogoOnboardingViewController: UIViewController {
     
     private lazy var safeArea = self.view.safeAreaLayoutGuide
     private weak var coordinator: AuthCoordinator?
+    private var player: AVPlayer?
     
     // MARK: - UI Components
     
@@ -43,6 +44,12 @@ final class LogoOnboardingViewController: UIViewController {
         super.viewWillAppear(animated)
         playMp4Video()
     }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+        player?.pause() // 메모리 해제 전에 player 정지
+        player = nil
+    }
 }
 
 // MARK: - Methods
@@ -56,16 +63,20 @@ extension LogoOnboardingViewController {
     }
     
     private func playVideo(with resourceName: String) {
-        guard let path = Bundle.main.path(forResource: resourceName, ofType: "mp4") else {
-            return
-        }
+        guard let path = Bundle.main.path(forResource: resourceName, ofType: "mp4") 
+        else { return }
+        
         let player = AVPlayer(url: URL(fileURLWithPath: path))
+        self.player = player
+        
         let playerLayer = AVPlayerLayer(player: player)
         playerLayer.frame = animationView.bounds
         animationView.layer.addSublayer(playerLayer)
         playerLayer.videoGravity = .resizeAspectFill
         
-        NotificationCenter.default.addObserver(self, selector: #selector(videoDidFinishPlaying), name: .AVPlayerItemDidPlayToEndTime, object: player.currentItem)
+        NotificationCenter.default.addObserver(self, selector: #selector(videoDidFinishPlaying),
+                                               name: .AVPlayerItemDidPlayToEndTime,
+                                               object: player.currentItem)
         
         player.play()
     }
@@ -98,7 +109,8 @@ extension LogoOnboardingViewController {
         }
     }
     
-    @objc private func videoDidFinishPlaying(notification: NSNotification) {
+    @objc
+    private func videoDidFinishPlaying(notification: NSNotification) {
         nextButton.isHidden = false
     }
     

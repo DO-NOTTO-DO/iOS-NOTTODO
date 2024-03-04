@@ -38,6 +38,11 @@ final class ValueOnboardingViewController: UIViewController {
             self?.pushToNextViewController()
         }
     }
+    
+    deinit {
+        animationView.stop()
+        animationView.removeFromSuperview()
+    }
 }
 
 // MARK: - Methods
@@ -54,7 +59,8 @@ extension ValueOnboardingViewController {
         animationView.frame = view.bounds
         view.addSubview(animationView)
         
-        animationView.play {_ in 
+        animationView.play { [weak self] _ in
+            self?.animationView.removeFromSuperview() // 애니메이션 뷰 제거
             completion()
         }
     }
