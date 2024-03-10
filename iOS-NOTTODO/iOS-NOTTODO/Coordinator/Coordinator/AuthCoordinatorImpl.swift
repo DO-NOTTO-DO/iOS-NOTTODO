@@ -66,7 +66,7 @@ final class AuthCoordinatorImpl: AuthCoordinator {
     func showThirdOnboardingViewController() {
         let viewController = viewControllerFactory.makeThirdOnboardingViewController(coordinator: self)
         changeAnimation()
-        navigationController.setViewControllers([viewController], animated: false) // logo -> third
+        navigationController.pushViewController(viewController, animated: false) // logo -> third
     }
     
     func showFourthOnboardingViewController() {
