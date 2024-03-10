@@ -9,22 +9,28 @@ import Foundation
 
 import Moya
 
+struct AuthRequest: Codable {
+    let socialToken: String
+    let fcmToken: String
+    var name: String?
+}
+
 enum AuthService {
-    case kakaoAuth(social: String, socialToken: String, fcmToken: String)
-    case appleAuth(social: String, socialToken: String, fcmToken: String, name: String)
+    case kakaoAuth(social: LoginType, request: AuthRequest)
+    case appleAuth(social: LoginType, request: AuthRequest)
     case logout
     case withdrawal
 }
 
-extension AuthService: TargetType {
-    var baseURL: URL {
-        return URL(string: Bundle.main.baseURL)!
+extension AuthService: BaseService {
+    var domain: BaseDomain {
+        return .auth
     }
     
-    var path: String {
+    var urlPath: String {
         switch self {
-        case .kakaoAuth(let social, _, _), .appleAuth(let social, _, _, _):
-            return URLConstant.auth + "/\(social)"
+        case .kakaoAuth(let social, _), .appleAuth(let social, _):
+            return URLConstant.auth + "/\(social.rawValue)"
         case .logout:
             return URLConstant.authLogout
         case .withdrawal:
@@ -32,41 +38,33 @@ extension AuthService: TargetType {
         }
     }
     
+    var headerType: HeaderType {
+        
+        switch self {
+        case .kakaoAuth, .appleAuth:
+            return .json
+        case .logout, .withdrawal:
+            return .jsonWithToken
+        }
+    }
+    
     var method: Moya.Method {
         switch self {
         case .kakaoAuth, .appleAuth:
             return .post
-        case .logout:
-            return .delete
-        case .withdrawal:
+        case .logout, .withdrawal:
             return .delete
         }
-    }
-    
-    var validationType: ValidationType {
-        return .successCodes
     }
     
     var task: Moya.Task {
         switch self {
-        case .kakaoAuth(_, let socialToken, let fcmToken):
-            return .requestParameters(parameters: ["socialToken": socialToken, "fcmToken": fcmToken],
-                                      encoding: JSONEncoding.default)
-        case .appleAuth(_, let socialToken, let fcmToken, let name):
-            return .requestParameters(parameters: ["socialToken": socialToken, "fcmToken": fcmToken, "name": name],
-                                      encoding: JSONEncoding.default)
+        case .kakaoAuth(_, let data):
+            return .requestJSONEncodable(data)
+        case .appleAuth(_, let data):
+            return .requestJSONEncodable(data)
         case .logout, .withdrawal:
             return .requestPlain
-        }
-    }
-    
-    var headers: [String: String]? {
-        switch self {
-        case .kakaoAuth, .appleAuth:
-            return NetworkConstant.noTokenHeader
-        case .logout, .withdrawal:
-            return ["Content-Type": "application/json",
-                    "Authorization": "\(KeychainUtil.getAccessToken())"]
         }
     }
 }
