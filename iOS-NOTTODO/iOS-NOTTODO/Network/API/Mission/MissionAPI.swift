@@ -29,7 +29,7 @@ protocol MissionAPIType {
     func deleteMission(id: Int, completion: @escaping (GeneralResponse<VoidType>?) -> Void)
     func patchUpdateMissionStatus(id: Int, status: String, completion: @escaping (UpdateMissionStatus?) -> Void)
     func postAnotherDay(id: Int, dates: [String], completion: @escaping (AddAnotherDay?) -> Void)
-    func postAddMission(request: AddMissionRequest,completion: @escaping(AddMissionData?) -> Void)
+    func postAddMission(request: AddMissionRequest, completion: @escaping(AddMissionData?) -> Void)
     func putUpdateMission(request: UpdateMissionRequest, completion: @escaping(UpdateMissionData?) -> Void)
 }
 
@@ -40,7 +40,6 @@ final class MissionAPI: MissionAPIType {
     var provider = MoyaProvider<MissionService>(session: Session(interceptor: AuthInterceptor.shared), plugins: [MoyaLoggingPlugin()])
     
     private init() {}
-    
     
     func getDailyMission(date: String, completion: @escaping (DailyMissionData?) -> Void) {
         provider.request(.dailyMission(date: date)) { result in

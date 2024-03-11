@@ -34,8 +34,8 @@ enum MissionService {
     case deleteMission(id: Int)
     case addAnotherDay(id: Int, dates: [String])
     case missionWeekly(startDate: String)
-    case detailMission(id: Int) //case achieveDetail(missionId: Int )
-    case particularMission(id: Int) //case missionDates(id: Int)
+    case detailMission(id: Int) // case achieveDetail(missionId: Int )
+    case particularMission(id: Int) // case missionDates(id: Int)
     case achieveCalendar(month: String)
 }
 
