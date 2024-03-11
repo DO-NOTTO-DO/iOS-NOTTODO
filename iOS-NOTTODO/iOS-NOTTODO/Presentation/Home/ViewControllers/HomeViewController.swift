@@ -31,7 +31,7 @@ final class HomeViewController: UIViewController {
     private var missionCollectionView = UICollectionView(frame: .zero, collectionViewLayout: .init())
     private lazy var missionDataSource = HomeDataSource(collectionView: missionCollectionView, missionList: missionList)
     
-    private let weekCalendar = CalendarView(calendarScope: .week, scrollDirection: .horizontal)
+    private let weekCalendar = CalendarView(scope: .week)
     private let addButton = UIButton()
     
     // MARK: - Life Cycle
@@ -87,7 +87,7 @@ extension HomeViewController {
     private func setLayout() {
         
         view.addSubviews(weekCalendar, missionCollectionView, addButton)
-        weekCalendar.calendar.select(today)
+        weekCalendar.select(date: today)
         
         weekCalendar.snp.makeConstraints {
             $0.top.equalTo(safeArea)
@@ -111,7 +111,7 @@ extension HomeViewController {
 
 // MARK: - Action
 
-extension HomeViewController: CalendarViewDelegate {
+extension HomeViewController: WeekCalendarDelegate {
     
     @objc
     func addBtnTapped(_sender: UIButton) {
@@ -126,7 +126,7 @@ extension HomeViewController: CalendarViewDelegate {
         
         AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.Home.clickReturnToday)
         
-        weekCalendar.calendar.select(today)
+        weekCalendar.select(date: today)
         weekCalendar.configureYearMonth(to: Utils.dateFormatterString(format: I18N.yearMonthTitle, date: today))
         requestDailyMissionAPI(date: Utils.dateFormatterString(format: nil, date: today))
     }
@@ -190,7 +190,7 @@ extension HomeViewController: UICollectionViewDelegate {
                 guard let self else { return }
                 
                 let modifiedDate: Date = date.toDate(withFormat: "YYYY.MM.dd")
-                self.weekCalendar.calendar.select(modifiedDate)
+                self.weekCalendar.select(date: modifiedDate)
                 self.requestDailyMissionAPI(date: Utils.dateFormatterString(format: nil, date: modifiedDate))
             }
             

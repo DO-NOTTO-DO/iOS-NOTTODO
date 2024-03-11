@@ -28,7 +28,7 @@ final class DateCollectionViewCell: UICollectionViewCell, AddMissionMenu {
     
     private let titleLabel = TitleLabel(title: I18N.date)
     private let subTitleLabel = SubTitleLabel(subTitle: I18N.subDateTitle, colorText: nil)
-    let calendarView = CalendarView(calendarScope: .month, scrollDirection: .horizontal)
+    let calendarView = CalendarView(scope: .month)
     private let warningLabel = UILabel()
     
     private let stackView = UIStackView()
@@ -121,9 +121,8 @@ extension DateCollectionViewCell {
         }
         
         calendarView.do {
-            $0.calendar.backgroundColor = .clear
             $0.backgroundColor = .clear
-            $0.calendar.delegate = self
+            $0.configure(delegate: self, datasource: nil)
         }
     }
     

@@ -13,16 +13,13 @@ final class WeekMonthFSCalendar: FSCalendar {
     
     // MARK: - Life Cycle
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-    }
-    
-    init(calendarScope: FSCalendarScope, scrollDirection: FSCalendarScrollDirection) {
+    init(calendarScope: FSCalendarScope) {
         super.init(frame: .zero)
         self.scope =  calendarScope
-        self.scrollDirection =  scrollDirection
+        
+        setUI()
         configure(scope: calendarScope)
-        weekdayTitleStyle(scope: calendarScope)
+        weekdayTitleStyle()
     }
     
     required init?(coder: NSCoder) {
@@ -33,15 +30,18 @@ final class WeekMonthFSCalendar: FSCalendar {
 // MARK: - Methods
 
 extension WeekMonthFSCalendar {
-    func configure(scope: FSCalendarScope) {
+    
+    func setUI() {
+       
         locale = Locale(identifier: "ko_KR")
         calendarHeaderView.isHidden = true
         headerHeight = 0
         backgroundColor = .clear
+        scrollDirection = .horizontal
         
         appearance.titleDefaultColor = .white
         appearance.titleFont = .Pretendard(.medium, size: 14)
-
+        
         appearance.subtitleSelectionColor = .white
         appearance.subtitleDefaultColor = .white
         appearance.subtitleFont = .Pretendard(.medium, size: 14)
@@ -49,7 +49,10 @@ extension WeekMonthFSCalendar {
         appearance.todayColor = .clear
         appearance.selectionColor = .clear
         appearance.borderDefaultColor = .clear
-        
+    }
+    
+    func configure(scope: FSCalendarScope) {
+
         switch scope {
         case .week:
             calendarWeekdayView.removeFromSuperview()
@@ -67,17 +70,13 @@ extension WeekMonthFSCalendar {
         }
     }
     
-    func weekdayTitleStyle(scope: FSCalendarScope) {
-        switch self.scope {
-        case .week:
-            return
-        case .month:
-            I18N.weekDay.forEach {
-                calendarWeekdayView.weekdayLabels[Int($0) ?? 0].text = $0
-            }
-            appearance.headerMinimumDissolvedAlpha = 0
-        @unknown default:
-            return
+    func weekdayTitleStyle() {
+        guard self.scope == .month else { return }
+        
+        I18N.weekDay.enumerated().forEach { index, day in
+            calendarWeekdayView.weekdayLabels[index].text = day
         }
+        appearance.headerMinimumDissolvedAlpha = 0
+        
     }
 }

@@ -32,7 +32,7 @@ final class DetailCalendarViewController: UIViewController {
 
     // MARK: - UI Components
     
-    private let monthCalendar = CalendarView(calendarScope: .month, scrollDirection: .horizontal)
+    private let monthCalendar = CalendarView(scope: .month)
     private let completeButton = UIButton()
     private let subLabel = UILabel()
     

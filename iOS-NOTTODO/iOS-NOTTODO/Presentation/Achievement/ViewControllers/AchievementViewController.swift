@@ -24,7 +24,7 @@ final class AchievementViewController: UIViewController {
     
     private let scrollView = UIScrollView()
     private let achievementLabel = UILabel()
-    private let monthCalendar = CalendarView(calendarScope: .month, scrollDirection: .horizontal)
+    private let monthCalendar = CalendarView(scope: .month)
     private let statisticsView = StatisticsView()
     
     // MARK: - Life Cycle
@@ -33,9 +33,9 @@ final class AchievementViewController: UIViewController {
         super.viewWillAppear(animated)
         AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.Achieve.viewAccomplish)
         
-        if let today = monthCalendar.calendar.today {
+        if let today = monthCalendar.today() {
             monthCalendar.configureYearMonth(to: Utils.dateFormatterString(format: I18N.yearMonthTitle, date: today))
-            monthCalendar.calendar.currentPage = today
+            monthCalendar.currentPage(date: today)
             requestMonthAPI(month: Utils.dateFormatterString(format: "yyyy-MM", date: today))
         }
     }
@@ -70,13 +70,7 @@ extension AchievementViewController {
             $0.layer.cornerRadius = 12
             $0.layer.borderWidth = 1
             $0.layer.borderColor = UIColor.gray4?.cgColor
-            $0.calendar.register(MissionCalendarCell.self, forCellReuseIdentifier: MissionCalendarCell.identifier)
-            $0.calendar.delegate = self
-            $0.calendar.dataSource = self
-            $0.monthCalendarClosure = { [weak self] month in
-                guard let self else { return }
-                self.requestMonthAPI(month: month)
-            }
+            $0.configure(delegate: self, datasource: self)
         }
     }
     
@@ -115,7 +109,7 @@ extension AchievementViewController {
             
             let calendarData = data.compactMap { ($0.actionDate, $0.percentage) }
             self.dataSource = Dictionary(uniqueKeysWithValues: calendarData)
-            self.monthCalendar.calendar.collectionView.reloadData()
+            self.monthCalendar.reloadCollectionView()
         }
     }
 }
