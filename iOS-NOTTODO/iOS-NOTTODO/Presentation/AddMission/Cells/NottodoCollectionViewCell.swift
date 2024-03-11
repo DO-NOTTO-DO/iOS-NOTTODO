@@ -178,7 +178,7 @@ extension NottodoCollectionViewCell {
     }
     
     private func requestRecentMissionAPI() {
-        AddMissionAPI.shared.getRecentMission { [weak self] response in
+        MissionAPI.shared.getRecentMission { [weak self] response in
             guard self != nil else { return }
             guard let response = response else { return }
             guard let data = response.data else { return }

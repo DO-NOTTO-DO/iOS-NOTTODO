@@ -175,7 +175,7 @@ private extension SituationCollectionViewCell {
     }
     
     func requestRecommendSituationAPI() {
-        AddMissionAPI.shared.getRecommendSituation { [weak self] response in
+        RecommendAPI.shared.getRecommendSituation { [weak self] response in
             guard self != nil else { return }
             guard let response = response else { return }
             guard let data = response.data else { return }

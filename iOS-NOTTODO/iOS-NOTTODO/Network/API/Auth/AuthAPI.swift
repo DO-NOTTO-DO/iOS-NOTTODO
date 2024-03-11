@@ -9,7 +9,17 @@ import Foundation
 
 import Moya
 
-final class AuthAPI {
+typealias AuthData = GeneralResponse<AuthResponseDTO>
+typealias EmptyData = GeneralResponse<VoidType>
+
+protocol AuthAPIType {
+    func postKakaoAuth(social: LoginType, request: AuthRequest, completion: @escaping (AuthData?) -> Void)
+    func postAppleAuth(social: LoginType, request: AuthRequest, completion: @escaping (AuthData?) -> Void)
+    func deleteAuth(completion: @escaping (EmptyData?) -> Void)
+    func withdrawalAuth(completion: @escaping (EmptyData?) -> Void)
+}
+
+final class AuthAPI: AuthAPIType {
     
     static let shared: AuthAPI = AuthAPI()
     
@@ -19,13 +29,13 @@ final class AuthAPI {
     
     // MARK: - POST
     
-    func postKakaoAuth(social: String, socialToken: String, fcmToken: String, completion: @escaping (GeneralResponse<AuthResponseDTO>?) -> Void) {
-        authProvider.request(.kakaoAuth(social: social, socialToken: socialToken, fcmToken: fcmToken)) { result in
+    func postKakaoAuth(social: LoginType, request: AuthRequest, completion: @escaping (AuthData?) -> Void) {
+        authProvider.request(.kakaoAuth(social: social, request: request)) { result in
             switch result {
             case .success(let response):
                 do {
-                    guard let authData = try response.map(GeneralResponse<AuthResponseDTO>?.self) else { return }
-                    completion(authData)
+                    let response = try response.map(AuthData?.self)
+                    completion(response)
                 } catch let err {
                     print(err.localizedDescription, 500)
                 }
@@ -36,13 +46,13 @@ final class AuthAPI {
         }
     }
     
-    func postAppleAuth(social: String, socialToken: String, fcmToken: String, name: String, completion: @escaping (GeneralResponse<AuthResponseDTO>?) -> Void) {
-        authProvider.request(.appleAuth(social: social, socialToken: socialToken, fcmToken: fcmToken, name: name)) { result in
+    func postAppleAuth(social: LoginType, request: AuthRequest, completion: @escaping (AuthData?) -> Void) {
+        authProvider.request(.appleAuth(social: social, request: request)) { result in
             switch result {
             case .success(let response):
                 do {
-                    guard let authData = try response.map(GeneralResponse<AuthResponseDTO>?.self) else { return }
-                    completion(authData)
+                    let response = try response.map(AuthData?.self)
+                    completion(response)
                 } catch let err {
                     print(err.localizedDescription, 500)
                 }
@@ -55,7 +65,7 @@ final class AuthAPI {
     
     // MARK: - Delete
     
-    func deleteAuth(completion: @escaping (GeneralResponse<VoidType>?) -> Void) {
+    func deleteAuth(completion: @escaping (EmptyData?) -> Void) {
         authProvider.request(.logout) { _ in
             completion(nil)
         }
@@ -63,7 +73,7 @@ final class AuthAPI {
     
     // MARK: - Withdrawal
     
-    func withdrawalAuth(completion: @escaping (GeneralResponse<VoidType>?) -> Void) {
+    func withdrawalAuth(completion: @escaping (EmptyData?) -> Void) {
         authProvider.request(.withdrawal) { _ in
             completion(nil)
         }

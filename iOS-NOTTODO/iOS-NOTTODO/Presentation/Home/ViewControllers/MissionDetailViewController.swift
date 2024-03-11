@@ -228,7 +228,7 @@ extension MissionDetailViewController {
 extension MissionDetailViewController {
     
     func requestDailyMissionAPI(id: Int) {
-        HomeAPI.shared.getDailyDetailMission(id: id) { [weak self] response in
+        MissionAPI.shared.getDetailMission(id: id) { [weak self] response in
             guard let self else { return }
             guard let response = response else { return }
             guard let data = response.data else { return }
@@ -244,7 +244,7 @@ extension MissionDetailViewController {
     }
     
     private func requestDeleteMission(id: Int) {
-        HomeAPI.shared.deleteMission(id: id) { [weak self] _ in
+        MissionAPI.shared.deleteMission(id: id) { [weak self] _ in
             guard let self else { return }
             guard let data = self.detailModel else { return }
             if data.id == id {

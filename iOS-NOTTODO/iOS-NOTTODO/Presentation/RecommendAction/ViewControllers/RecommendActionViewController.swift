@@ -161,7 +161,7 @@ private extension RecommendActionViewController {
     }
     
     func requestRecommendActionAPI() {
-        RecommendActionAPI.shared.getRecommendAction(index: selectedIndex) { [weak self] response in
+        RecommendAPI.shared.getRecommendAction(index: selectedIndex) { [weak self] response in
             guard self != nil else { return }
             guard let response = response else { return }
             guard let data = response.data else { return }
@@ -229,7 +229,7 @@ extension RecommendActionViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         if kind == UICollectionView.elementKindSectionHeader {
             guard let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: RecommendActionHeaderView.identifier, for: indexPath) as? RecommendActionHeaderView else { return UICollectionReusableView() }
-            RecommendActionAPI.shared.getRecommendAction(index: selectedIndex) { [weak self] response in
+            RecommendAPI.shared.getRecommendAction(index: selectedIndex) { [weak self] response in
                 guard self != nil else { return }
                 guard let response = response else { return }
                 guard let data = response.data else { return }
