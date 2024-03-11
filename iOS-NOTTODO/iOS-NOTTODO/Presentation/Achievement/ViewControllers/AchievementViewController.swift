@@ -103,7 +103,7 @@ extension AchievementViewController {
     }
     
     func requestMonthAPI(month: String) {
-        AchieveAPI.shared.getAchieveCalendar(month: month) { [weak self] response in
+        MissionAPI.shared.getAchieveCalendar(month: month) { [weak self] response in
             
             guard let self, let response = response, let data = response.data else { return }
             

@@ -11,25 +11,32 @@ import Moya
 
 enum RecommendService {
     case recommend
+    case action(id: Int)
+    case situdation
 }
 
-extension RecommendService: TargetType {
-    var baseURL: URL {
-        return URL(string: Bundle.main.baseURL)!
+extension RecommendService: BaseService {
+    var domain: BaseDomain {
+        return .recommend
     }
     
-    var path: String {
+    var urlPath: String {
         switch self {
         case .recommend:
             return URLConstant.recommend
+        case .action(id: let id):
+            return URLConstant.recommendAction + "/\(id)" + "/action"
+        case .situdation:
+            return URLConstant.recommendSituation
         }
     }
     
+    var headerType: HeaderType {
+        return .jsonWithToken
+    }
+    
     var method: Moya.Method {
-        switch self {
-        case .recommend:
-            return .get
-        }
+        return .get
     }
     
     var validationType: ValidationType {
@@ -37,17 +44,6 @@ extension RecommendService: TargetType {
     }
     
     var task: Moya.Task {
-        switch self {
-        case .recommend:
-            return .requestPlain
-        }
-    }
-    
-    var headers: [String: String]? {
-        switch self {
-        case .recommend:
-            return ["Content-Type": "application/json",
-                    "Authorization": "\(KeychainUtil.getAccessToken())"]
-        }
+        .requestPlain
     }
 }
