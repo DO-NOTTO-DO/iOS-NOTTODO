@@ -15,12 +15,17 @@ typealias DefaultMissionAPI = BaseAPI<MissionService>
 // 전체 수정 후 - 네이밍 변경 MissionAPI
 protocol MissionAPIProtocol {
     func getDailyMission(date: String) -> AnyPublisher<DailyMissionData, Error>
+    func getAchieveCalendar(month: String) -> AnyPublisher<CalendarData, Error>
 }
 
 extension DefaultMissionAPI: MissionAPIProtocol {
-        
+            
     func getDailyMission(date: String) -> AnyPublisher<DailyMissionData, Error> {
         return requestWithCombine(MissionService.dailyMission(date: date))
+    }
+    
+    func getAchieveCalendar(month: String) -> AnyPublisher<CalendarData, Error> {
+        return requestWithCombine(MissionService.achieveCalendar(month: month))
     }
 }
 
