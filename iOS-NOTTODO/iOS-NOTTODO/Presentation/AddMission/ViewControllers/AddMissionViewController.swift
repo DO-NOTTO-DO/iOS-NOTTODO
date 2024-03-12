@@ -279,8 +279,8 @@ extension AddMissionViewController {
 extension AddMissionViewController {
     private func requestPostAddMission(title: String, situation: String,
                                        actions: [String]?, goal: String?, dates: [String]?) {
-        AddMissionAPI.shared.postAddMission(title: title, situation: situation, actions: actions, goal: goal, dates: dates ?? [""]) { [weak self] response in
-            guard let self else { return }
+        let request = AddMissionRequest(title: title, situation: situation, actions: actions, goal: goal, dates: dates ?? [""])
+        MissionAPI.shared.postAddMission(request: request) { response in
             guard let response = response else { return }
             switch response.status {
             case 200..<300:
@@ -303,8 +303,8 @@ extension AddMissionViewController {
     }
     
     private func requestPutUpdateMission(id: Int, title: String, situation: String, actions: [String]?, goal: String?) {
-        AddMissionAPI.shared.putUpdateMission(id: id, title: title, situation: situation, actions: actions, goal: goal) { [weak self] response in
-            guard let self else { return }
+        let request = UpdateMissionRequest(id: id, title: title, situation: situation, actions: actions, goal: goal)
+        MissionAPI.shared.putUpdateMission(request: request) { response in
             guard let response = response else { return }
             print(response.status)
             switch response.status {
@@ -327,9 +327,7 @@ extension AddMissionViewController {
     }
     
     private func requestGetMissionDates(id: Int) {
-        AddMissionAPI.shared.getMissionDates(id: id) { [weak self] response in
-            guard self != nil else { return }
-            guard let response = response else { return }
+        MissionAPI.shared.particularMissionDates(id: id) { [weak self] response in
             guard let data = response.data else { return }
             for item in data {
                 self?.dateList.append(item)
@@ -339,7 +337,7 @@ extension AddMissionViewController {
     }
     
     private func requestDailyMissionAPI(id: Int) {
-        HomeAPI.shared.getDailyDetailMission(id: id) { [weak self] response in
+        MissionAPI.shared.getDetailMission(id: id) { [weak self] response in
             guard let self = self, let response = response else { return }
             
             if let data = response.data {

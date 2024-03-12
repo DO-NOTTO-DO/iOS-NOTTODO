@@ -11,30 +11,27 @@ struct URLConstant {
             
     // MARK: - Auth
     
-    static let auth = "/auth/login"
-    static let authLogout = "/auth/logout"
-    static let authWithdrawal = "/auth/withdrawal"
-    // MARK: - Achieve
-    
-    static let achieveCalendar = "/mission/month"
-    static let achieveDetail = "/mission"
+    static let auth = "/login"
+    static let authLogout = "/logout"
+    static let authWithdrawal = "/withdrawal"
     
     // MARK: - Recommend
     
-    static let recommend = "/recommend/mission"
+    static let recommend = "/mission"
+    static let recommendAction = ""
+    static let recommendSituation = "/situation"
     
-    // MARK: - RecommendAction
+    // MARK: - Achieve
     
-    static let recommendAction = "/recommend"
+    static let achieveCalendar = "/month"
     
     // MARK: - Home
     
-    static let dailyMission = "/mission/daily"
-    static let missionWeekly = "/mission/week"
-    static let mission = "/mission"
+    static let dailyMission = "/daily"
+    static let missionWeekly = "/week"
+    static let mission = ""
     
     // MARK: - AddMission
     
-    static let recommendSituation = "/recommend/situation"
-    static let recentMission = "mission/recent"
+    static let recentMission = "/recent"
 }

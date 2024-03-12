@@ -240,7 +240,7 @@ extension HomeViewController {
     
     func requestDailyMissionAPI(date: String) {
         
-        HomeAPI.shared.getDailyMission(date: date) { [weak self] response in
+        MissionAPI.shared.getDailyMission(date: date) { [weak self] response in
             guard let self, let response = response, let data = response.data else { return }
             
             self.missionList = data
@@ -250,7 +250,7 @@ extension HomeViewController {
     
     private func requestWeeklyMissoinAPI(startDate: String) {
         
-        HomeAPI.shared.getWeeklyMissoin(startDate: startDate) { [weak self] response in
+        MissionAPI.shared.getWeeklyMissoin(startDate: startDate) { [weak self] response in
             guard let self, let response = response, let data = response.data else { return }
             
             let calendarData = data.compactMap { ($0.actionDate, $0.percentage) }
@@ -262,7 +262,7 @@ extension HomeViewController {
     
     private func requestPatchUpdateMissionAPI(id: Int, status: CompletionStatus) {
         
-        HomeAPI.shared.patchUpdateMissionStatus(id: id, status: status.rawValue) { [weak self] response in
+        MissionAPI.shared.patchUpdateMissionStatus(id: id, status: status.rawValue) { [weak self] response in
             guard let self, let response = response, let data = response.data else { return }
             
             if let index = self.missionList.firstIndex(where: { $0.id == id }) {
@@ -274,7 +274,7 @@ extension HomeViewController {
     }
     
     private func requestDeleteMission(index: Int, id: Int) {
-        HomeAPI.shared.deleteMission(id: id) { [weak self] _ in
+        MissionAPI.shared.deleteMission(id: id) { [weak self] _ in
             guard let self else { return }
             
             self.dailyLoadData()

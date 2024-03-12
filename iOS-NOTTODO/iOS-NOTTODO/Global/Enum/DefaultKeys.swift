@@ -7,15 +7,8 @@
 
 import Foundation
 
-enum LoginType {
-    case Kakao, Apple
-    
-    var social: String {
-        switch self {
-        case .Kakao: return "KAKAO"
-        case .Apple: return "APPLE"
-        }
-    }
+enum LoginType: String, Codable, CaseIterable {
+    case KAKAO, APPLE
 }
 
 struct DefaultKeys {
