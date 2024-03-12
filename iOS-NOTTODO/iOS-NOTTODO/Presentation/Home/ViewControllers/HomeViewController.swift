@@ -15,6 +15,7 @@ final class HomeViewController: UIViewController {
     
     // MARK: - Properties
     
+    private weak var coordinator: HomeCoordinator?
     private var missionList: [DailyMissionResponseDTO] = []
     private var calendarDataSource: [String: Float] = [:]
     
@@ -33,6 +34,17 @@ final class HomeViewController: UIViewController {
     
     private let weekCalendar = CalendarView(scope: .week)
     private let addButton = UIButton()
+    
+    // MARK: - init
+    
+    init(coordinator: HomeCoordinator) {
+        self.coordinator = coordinator
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     // MARK: - Life Cycle
     
@@ -116,10 +128,8 @@ extension HomeViewController: WeekCalendarDelegate {
     @objc
     func addBtnTapped(_sender: UIButton) {
         
-        let nextViewController = RecommendViewController()
-        nextViewController.setSelectDate(Utils.dateFormatterString(format: "yyyy.MM.dd", date: selectedDate ?? Date()))
-        
-        Utils.push(navigationController, nextViewController)
+        let selectedDate = Utils.dateFormatterString(format: "yyyy.MM.dd", date: selectedDate ?? Date())
+        coordinator?.showRecommendViewController(selectedDate: selectedDate)
     }
     
     func todayBtnTapped() {
@@ -144,26 +154,15 @@ extension HomeViewController: HomeModalDelegate {
     
     func modifyMission(id: Int, type: MissionType) {
         
-        let updateMissionViewController = AddMissionViewController()
-        
-        updateMissionViewController.setMissionId(id)
-        updateMissionViewController.setViewType(type)
-        
-        Utils.push(self.navigationController, updateMissionViewController)
+        coordinator?.showModifyViewController(id: id, type: type)
     }
     
     func deleteMission(index: Int, id: Int) {
         
-        let modalViewController = HomeDeleteViewController()
-        
-        modalViewController.modalPresentationStyle = .overFullScreen
-        modalViewController.modalTransitionStyle = .crossDissolve
-        
-        modalViewController.deleteClosure = {
+        coordinator?.showDeleteViewController { [weak self] in
+            guard let self else { return }
             self.requestDeleteMission(index: index, id: id)
         }
-        
-        present(modalViewController, animated: false)
     }
 }
 
@@ -173,28 +172,19 @@ extension HomeViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if !missionList.isEmpty {
+            let id = missionList[indexPath.item].id
             
-            let modalViewController = MissionDetailViewController()
-            modalViewController.modalPresentationStyle = .overFullScreen
-            modalViewController.userId = missionList[indexPath.item].id
-            
-            modalViewController.deleteClosure = { [weak self] in
+            coordinator?.showMissionDetailViewController(id: id, deleteClosure: { [weak self] in
                 guard let self else { return }
-                
                 self.dailyLoadData()
                 self.weeklyLoadData()
-                self.missionDataSource.updateSnapShot(missionList: self.missionList)
-            }
-            
-            modalViewController.moveDateClosure = { [weak self] date in
+                self.missionDataSource.updateSnapShot(missionList: self.missionList )
+            }, moveDateClosure: { [weak self] date in
                 guard let self else { return }
-                
                 let modifiedDate: Date = date.toDate(withFormat: "YYYY.MM.dd")
                 self.weekCalendar.select(date: modifiedDate)
                 self.requestDailyMissionAPI(date: Utils.dateFormatterString(format: nil, date: modifiedDate))
-            }
-            
-            self.present(modalViewController, animated: true)
+            })
         }
     }
 }
@@ -236,8 +226,7 @@ extension HomeViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalend
     
     func calendar(_ calendar: FSCalendar, cellFor date: Date, at position: FSCalendarMonthPosition) -> FSCalendarCell {
         
-        let cell = calendar.dequeueReusableCell(withIdentifier: MissionCalendarCell.identifier, for: date, at: position) as! MissionCalendarCell
-        
+        guard let cell = calendar.dequeueReusableCell(withIdentifier: MissionCalendarCell.identifier, for: date, at: position) as? MissionCalendarCell else { return FSCalendarCell() }
         guard let percentage = getPercentage(for: date) else { return cell }
         cell.configure(percent: percentage)
         
@@ -298,6 +287,7 @@ extension HomeViewController {
                                                                                                   situation: data.situationName,
                                                                                                   goal: "",
                                                                                                   action: []))
+            coordinator?.dismiss()
         }
     }
 }
@@ -355,12 +345,8 @@ extension HomeViewController {
     private func showPopup(isSelected: Bool) {
         
         if !(isSelected || didDeprecatedButtonTap) {
-            let nextView = CommonNotificationViewController()
-            nextView.modalPresentationStyle = .overFullScreen
-            nextView.modalTransitionStyle = .crossDissolve
-            self.present(nextView, animated: true)
-            
-            nextView.tapCloseButton = {
+            coordinator?.showPopupViewController { [weak self] in
+                guard let self else { return }
                 self.didCloseButtonTap = true
                 AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.Login.clickAdModalClose(again: self.didDeprecatedButtonTap ? "yes": "no" ))
             }

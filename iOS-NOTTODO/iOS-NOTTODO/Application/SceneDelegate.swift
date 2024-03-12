@@ -12,14 +12,20 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     var window: UIWindow?
     static var shared: SceneDelegate? { UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate }
+    var appCoordinator: AppCoordinator?
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         if let windowScene = scene as? UIWindowScene {
             let window = UIWindow(windowScene: windowScene)
             window.overrideUserInterfaceStyle = UIUserInterfaceStyle.light
             
-            let rootViewController = UpdateCheckViewController()
-            let navigationController = UINavigationController(rootViewController: rootViewController)
+            let navigationController = UINavigationController()
+            appCoordinator = AppCoordinatorImpl(navigationController,
+                                                coordinatorFactory: CoordinatorFactoryImpl(), viewControllerFactory: ViewControllerFactoryImpl()
+            )
+     
+            appCoordinator?.start()
+
             navigationController.isNavigationBarHidden = true
             window.rootViewController = navigationController
             window.makeKeyAndVisible()

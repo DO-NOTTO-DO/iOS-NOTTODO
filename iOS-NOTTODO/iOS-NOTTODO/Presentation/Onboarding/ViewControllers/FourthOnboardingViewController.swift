@@ -20,12 +20,24 @@ final class FourthOnboardingViewController: UIViewController {
     private let onboardingModel: [FourthOnboardingModel] = FourthOnboardingModel.items
     private var dataSource: UICollectionViewDiffableDataSource<Section, FourthOnboardingModel>! = nil
     private lazy var safeArea = self.view.safeAreaLayoutGuide
+    private weak var coordinator: AuthCoordinator?
     
     // MARK: - UI Components
     
     private lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout())
     private let nextButton = UIButton(configuration: .plain())
     private let gradientView = GradientView(color: .clear, color1: .ntdBlack!)
+    
+    // MARK: - init
+    
+    init(coordinator: AuthCoordinator) {
+        self.coordinator = coordinator
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     // MARK: - Life Cycle
     
@@ -63,9 +75,9 @@ extension FourthOnboardingViewController {
             $0.configuration?.attributedTitle?.font = .Pretendard(.medium, size: 16)
             $0.configuration?.baseForegroundColor = .white
             $0.configuration?.contentInsets = NSDirectionalEdgeInsets.init(top: 0, leading: 0, bottom: 0, trailing: 0)
-            $0.addTarget(self, action: #selector(ButtonTapped), for: .touchUpInside)
+            $0.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
         }
-
+        
     }
     
     private func setLayout() {
@@ -128,14 +140,9 @@ extension FourthOnboardingViewController {
 }
 extension FourthOnboardingViewController {
     @objc
-    private func ButtonTapped() {
+    private func buttonTapped() {
         AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.OnboardingClick.clickOnboardingNext4)
-
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-            UIView.animate(withDuration: 0.01) {
-                let nextViewController = FifthOnboardingViewController()
-                self.navigationController?.pushViewController(nextViewController, animated: false)
-            }
-        }
+        
+        self.coordinator?.showFifthOnboardingViewController()
     }
 }

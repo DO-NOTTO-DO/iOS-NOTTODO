@@ -29,12 +29,23 @@ final class DetailCalendarViewController: UIViewController {
     
     private lazy var safeArea = self.view.safeAreaLayoutGuide
     private lazy var today: Date = { return Date() }()
-
+    private weak var coordinator: HomeCoordinator?
+    
     // MARK: - UI Components
     
     private let monthCalendar = CalendarView(scope: .month)
     private let completeButton = UIButton()
     private let subLabel = UILabel()
+    
+    // MARK: - init
+    init(coordinator: HomeCoordinator) {
+        self.coordinator = coordinator
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     // MARK: - Life Cycle
     
@@ -60,7 +71,7 @@ final class DetailCalendarViewController: UIViewController {
         let location = touch.location(in: self.view)
         
         if !monthCalendar.frame.contains(location) {
-            self.dismiss(animated: true)
+            coordinator?.dismissLastPresentedViewController()
         }
     }
 }
@@ -68,7 +79,7 @@ final class DetailCalendarViewController: UIViewController {
 // MARK: - Methods
 
 extension DetailCalendarViewController {
-
+    
     private func setUI() {
         view.backgroundColor = .black.withAlphaComponent(0.6)
         
@@ -76,7 +87,7 @@ extension DetailCalendarViewController {
             $0.setTitle(I18N.detailComplete, for: .normal)
             $0.titleLabel?.font = .Pretendard(.medium, size: 16)
             $0.addTarget(self, action: #selector(completeBtnTapped(sender:)), for: .touchUpInside)
-
+            
         }
         
         monthCalendar.do {
@@ -114,13 +125,13 @@ extension DetailCalendarViewController {
             $0.trailing.equalToSuperview().inset(16)
             $0.size.equalTo(CGSize(width: 44, height: 35))
         }
-
+        
         monthCalendar.snp.makeConstraints {
             $0.centerY.equalTo(safeArea)
             $0.directionalHorizontalEdges.equalTo(safeArea).inset(15)
             $0.height.equalTo((Numbers.width-30)*1.2)
         }
-
+        
         subLabel.snp.makeConstraints {
             $0.bottom.equalToSuperview().inset(25)
             $0.left.equalToSuperview().offset(17)
@@ -163,10 +174,10 @@ extension DetailCalendarViewController: FSCalendarDelegate, FSCalendarDataSource
             let nextDay = Calendar.current.date(byAdding: .day, value: 1, to: currentDate)
             currentDate = Calendar.current.startOfDay(for: nextDay!)
         }
-
+        
         let formattedDatesArray = datesArray.map { Utils.dateFormatterString(format: "yyyy.MM.dd", date: $0) }
         let formattedDate = Utils.dateFormatterString(format: "yyyy.MM.dd", date: date)
-    
+        
         return (!formattedDatesArray.contains(formattedDate) || !invalidDate.contains(formattedDate)) && Utils.calendarSelected(today: today, date: date)
     }
     
@@ -206,7 +217,7 @@ extension DetailCalendarViewController {
             switch statusCode {
             case 200..<204:
                 self.setUI()
-                self.dismiss(animated: true)
+                self.coordinator?.dismiss()
                 AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.SelectDate.closeAnotherDayModal)
                 let dateFormatter = DateFormatter()
                 dateFormatter.dateFormat = "yyyy.MM.dd"

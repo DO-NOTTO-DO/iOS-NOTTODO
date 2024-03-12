@@ -26,7 +26,7 @@ final class HomeDataSource {
         
         case mission, empty
     }
-
+    
     enum Item: Hashable {
         
         case mission(DailyMissionResponseDTO)
@@ -79,8 +79,8 @@ final class HomeDataSource {
     
     private func createMissionCellRegistration() -> CellRegistration<MissionListCollectionViewCell, Item> {
         
-        return CellRegistration { cell, _, item in
-            guard let missionItem = self.getMissionItem(from: item) else { return }
+        return CellRegistration { [weak self] cell, _, item in
+            guard let missionItem = self?.getMissionItem(from: item) else { return }
             
             cell.configure(model: missionItem)
             
@@ -134,13 +134,12 @@ final class HomeDataSource {
     
     private func createLayout() -> UICollectionViewLayout {
         
-        let layout = UICollectionViewCompositionalLayout { sectionIndex, env in
-            
-            guard let section = self.dataSource?.snapshot().sectionIdentifiers[sectionIndex] else { return nil }
+        let layout = UICollectionViewCompositionalLayout { [weak self] sectionIndex, env in
+            guard let section = self?.dataSource?.snapshot().sectionIdentifiers[sectionIndex] else { return nil }
             
             switch section {
             case .mission:
-                return self.missionSection(env: env)
+                return self?.missionSection(env: env)
             case .empty:
                 return CompositionalLayout.vertical(count: 1, edge: .init(top: 30, leading: 0, bottom: 0, trailing: 0))
             }
@@ -171,7 +170,7 @@ final class HomeDataSource {
         let indexPath = result.index
         let data = result.mission
         
-        let deleteAction = UIContextualAction(style: .normal, title: "") { [unowned self] _, _, completion in
+        let deleteAction = UIContextualAction(style: .normal, title: "") { [weak self] _, _, completion in
             
             AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.Detail.clickDeleteMission(section: "home",
                                                                                                   title: data.title,
@@ -179,15 +178,15 @@ final class HomeDataSource {
                                                                                                   goal: "",
                                                                                                   action: []))
             
-            self.modalDelegate?.deleteMission(index: indexPath, id: data.id)
+            self?.modalDelegate?.deleteMission(index: indexPath, id: data.id)
             completion(true)
         }
         
-        let modifyAction = UIContextualAction(style: .normal, title: "") { _, _, completionHandler in
+        let modifyAction = UIContextualAction(style: .normal, title: "") { [weak self] _, _, completionHandler in
             
             AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.Detail.clickEditMission(section: "home"))
             
-            self.modalDelegate?.modifyMission(id: data.id, type: .update)
+            self?.modalDelegate?.modifyMission(id: data.id, type: .update)
             completionHandler(true)
         }
         

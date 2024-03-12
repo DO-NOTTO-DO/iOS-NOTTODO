@@ -15,14 +15,14 @@ final class RecommendCollectionViewCell: UICollectionViewCell {
     // MARK: - Properties
     
     static let identifier = "RecommendCollectionViewCell"
-    var id: Int = 0
+    private var id: Int = 0
 
     // MARK: - UI Components
     
-    let tagLabel = PaddingLabel(padding: UIEdgeInsets(top: 4, left: 17, bottom: 4, right: 17))
+    private let tagLabel = PaddingLabel(padding: UIEdgeInsets(top: 4, left: 17, bottom: 4, right: 17))
     private let titleLabel = UILabel()
     private let bodyLabel = UILabel()
-    let bodyImage = UIImageView()
+    private let bodyImage = UIImageView()
     
     // MARK: - View Life Cycle
     
@@ -36,7 +36,6 @@ final class RecommendCollectionViewCell: UICollectionViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
 }
 
 // MARK: - Methods
@@ -68,7 +67,6 @@ extension RecommendCollectionViewCell {
             $0.textColor = .gray4
             $0.numberOfLines = 0
         }
-        
     }
     
     private func setLayout() {
@@ -104,5 +102,4 @@ extension RecommendCollectionViewCell {
         bodyLabel.text = model.description
         bodyImage.setImage(with: model.image)
     }
-    
 }

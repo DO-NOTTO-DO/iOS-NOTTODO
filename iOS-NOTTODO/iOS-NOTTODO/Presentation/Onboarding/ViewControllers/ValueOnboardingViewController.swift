@@ -13,7 +13,22 @@ final class ValueOnboardingViewController: UIViewController {
     
     // MARK: - Properties
     
+    private weak var coordinator: AuthCoordinator?
+    
+    // MARK: - UI Properties
+    
     let animationView = LottieAnimationView()
+    
+    // MARK: - init
+    
+    init(coordinator: AuthCoordinator) {
+        self.coordinator = coordinator
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     // MARK: - Life Cycle
     
@@ -22,6 +37,11 @@ final class ValueOnboardingViewController: UIViewController {
         playAnimation(named: "value") { [weak self] in
             self?.pushToNextViewController()
         }
+    }
+    
+    deinit {
+        animationView.stop()
+        animationView.removeFromSuperview()
     }
 }
 
@@ -39,13 +59,13 @@ extension ValueOnboardingViewController {
         animationView.frame = view.bounds
         view.addSubview(animationView)
         
-        animationView.play { _ in
+        animationView.play { [weak self] _ in
+            self?.animationView.removeFromSuperview() // 애니메이션 뷰 제거
             completion()
         }
     }
     
     func pushToNextViewController() {
-        let nextViewController = LogoOnboardingViewController()
-        navigationController?.pushViewController(nextViewController, animated: false)
+        coordinator?.showLogoOnboardingViewController()
     }
 }

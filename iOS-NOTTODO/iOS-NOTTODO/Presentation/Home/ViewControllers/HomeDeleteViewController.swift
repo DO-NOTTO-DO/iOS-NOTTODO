@@ -16,11 +16,23 @@ final class HomeDeleteViewController: UIViewController {
     
     var deleteClosure: (() -> Void)?
     
+    private weak var coordinator: HomeCoordinator?
+    
     private lazy var safeArea = self.view.safeAreaLayoutGuide
     
     // MARK: - UI Components
     
     private let deleteModalView = DeleteModalView()
+    
+    // MARK: - init
+    init(coordinator: HomeCoordinator) {
+        self.coordinator = coordinator
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     // MARK: - Life Cycle
     
@@ -36,8 +48,8 @@ final class HomeDeleteViewController: UIViewController {
         let touch = touches.first!
         let location = touch.location(in: self.view)
         
-        if !view.frame.contains(location) {
-            dismiss(animated: true)
+        if !deleteModalView.frame.contains(location) {
+            coordinator?.dismissLastPresentedViewController()
         }
     }
 }
@@ -49,12 +61,14 @@ extension HomeDeleteViewController {
         view.backgroundColor = .black.withAlphaComponent(0.6)
         
         deleteModalView.do {
-            $0.deleteClosure = {
+            $0.deleteClosure = { [weak self] in
+                guard let self else { return }
                 self.deleteClosure?()
-                self.dismiss(animated: true)
             }
-            $0.cancelClosure = {
-                self.dismiss(animated: true)
+            
+            $0.cancelClosure = { [weak self] in
+                guard let self else { return }
+                self.coordinator?.dismissLastPresentedViewController()
             }
         }
     }

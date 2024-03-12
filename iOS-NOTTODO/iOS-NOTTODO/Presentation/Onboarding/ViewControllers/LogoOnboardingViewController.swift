@@ -9,15 +9,28 @@ import UIKit
 import AVFoundation
 
 final class LogoOnboardingViewController: UIViewController {
-
+    
     // MARK: - Properties
     
     private lazy var safeArea = self.view.safeAreaLayoutGuide
-
+    private weak var coordinator: AuthCoordinator?
+    private var player: AVPlayer?
+    
     // MARK: - UI Components
     
     private let animationView = UIImageView()
     private let nextButton = UIButton()
+    
+    // MARK: - init
+    
+    init(coordinator: AuthCoordinator) {
+        self.coordinator = coordinator
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     // MARK: - Life Cycle
     
@@ -31,12 +44,18 @@ final class LogoOnboardingViewController: UIViewController {
         super.viewWillAppear(animated)
         playMp4Video()
     }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+        player?.pause() // 메모리 해제 전에 player 정지
+        player = nil
+    }
 }
 
 // MARK: - Methods
 
 extension LogoOnboardingViewController {
-
+    
     private func playMp4Video() {
         DispatchQueue.main.async { [weak self] in
             self?.playVideo(with: "logo")
@@ -44,16 +63,20 @@ extension LogoOnboardingViewController {
     }
     
     private func playVideo(with resourceName: String) {
-        guard let path = Bundle.main.path(forResource: resourceName, ofType: "mp4") else {
-            return
-        }
+        guard let path = Bundle.main.path(forResource: resourceName, ofType: "mp4") 
+        else { return }
+        
         let player = AVPlayer(url: URL(fileURLWithPath: path))
+        self.player = player
+        
         let playerLayer = AVPlayerLayer(player: player)
         playerLayer.frame = animationView.bounds
         animationView.layer.addSublayer(playerLayer)
         playerLayer.videoGravity = .resizeAspectFill
         
-        NotificationCenter.default.addObserver(self, selector: #selector(videoDidFinishPlaying), name: .AVPlayerItemDidPlayToEndTime, object: player.currentItem)
+        NotificationCenter.default.addObserver(self, selector: #selector(videoDidFinishPlaying),
+                                               name: .AVPlayerItemDidPlayToEndTime,
+                                               object: player.currentItem)
         
         player.play()
     }
@@ -86,15 +109,14 @@ extension LogoOnboardingViewController {
         }
     }
     
-    @objc private func videoDidFinishPlaying(notification: NSNotification) {
+    @objc
+    private func videoDidFinishPlaying(notification: NSNotification) {
         nextButton.isHidden = false
     }
-
+    
     @objc
     private func buttonTapped() {
         AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.OnboardingClick.clickOnboardingStart)
-       
-        let nextViewController = SecondOnboardingViewController()
-        navigationController?.pushViewController(nextViewController, animated: false)
+        coordinator?.showSecondOnboardingViewController()
     }
 }

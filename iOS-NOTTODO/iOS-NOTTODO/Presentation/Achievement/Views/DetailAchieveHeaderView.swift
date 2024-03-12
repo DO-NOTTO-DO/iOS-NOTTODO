@@ -50,7 +50,7 @@ extension DetailAchieveHeaderView {
     
     private func setLayout() {
         addSubview(dateLabel)
-
+        
         dateLabel.snp.makeConstraints {
             $0.top.equalToSuperview()
             $0.centerX.equalToSuperview()
