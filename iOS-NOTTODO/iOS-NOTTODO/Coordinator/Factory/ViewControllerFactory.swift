@@ -204,14 +204,17 @@ extension ViewControllerFactoryImpl {
 // achieve
 extension ViewControllerFactoryImpl {
     func makeAchieveViewController(coordinator: AchieveCoordinator) -> AchievementViewController {
-        let viewController = AchievementViewController(coordinator: coordinator)
+        let missionAPI = DefaultMissionAPI()
+        let manager = AchieveManagerImpl(missionAPI: missionAPI)
+        let viewModel = AchievementViewModelImpl(coordinator: coordinator, manager: manager)
+        let viewController = AchievementViewController(viewModel: viewModel)
         return viewController
     }
     
     func makeAchieveDetailViewController(coordinator: AchieveCoordinator, date: Date) -> DetailAchievementViewController {
         let missionAPI = DefaultMissionAPI()
         let manager = AchieveManagerImpl(missionAPI: missionAPI)
-        let viewModel = DetailAchievementViewModelImpl(coordinator: coordinator, missionManager: manager)
+        let viewModel = DetailAchievementViewModelImpl(coordinator: coordinator, manager: manager)
         viewModel.selectedDate(date)
         let viewController = DetailAchievementViewController(viewModel: viewModel)
         return viewController
