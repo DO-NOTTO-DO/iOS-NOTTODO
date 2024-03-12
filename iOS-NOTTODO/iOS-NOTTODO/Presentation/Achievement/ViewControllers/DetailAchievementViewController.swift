@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Combine
 
 import Then
 import SnapKit
@@ -16,33 +17,43 @@ final class DetailAchievementViewController: UIViewController {
     
     typealias CellRegistration = UICollectionView.CellRegistration
     typealias HeaderRegistration = UICollectionView.SupplementaryRegistration
-    typealias Item = DailyMissionResponseDTO
+    typealias Item = AchieveDetailData
     typealias DataSource = UICollectionViewDiffableDataSource<Section, Item>
     typealias SnapShot = NSDiffableDataSourceSnapshot<Section, Item>
-    
+
     enum Section: Int, Hashable {
         case main
     }
-    
-    var selectedDate: Date?
-    
+
+    private let viewWillAppearSubject = PassthroughSubject<Void, Never>()
+    private let dismissSubject = PassthroughSubject<Void, Never>()
+    private var cancelBag = Set<AnyCancellable>()
+
     private var dataSource: DataSource?
-    
-    private lazy var safeArea = self.view.safeAreaLayoutGuide
+    private var viewModel: any DetailAchievementViewModel
     
     // MARK: - UI Components
     
+    private lazy var safeArea = self.view.safeAreaLayoutGuide
     private var collectionView = UICollectionView(frame: .zero, collectionViewLayout: .init())
+    
+    // MARK: - init
+    
+    init(viewModel: some DetailAchievementViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     // MARK: - Life Cycle
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        if let selectedDate = selectedDate {
-            requestDetailAPI(date: Utils.dateFormatterString(format: "YYYY-MM-dd",
-                                                             date: selectedDate))
-        }
+        viewWillAppearSubject.send(())
     }
     
     override func viewDidLoad() {
@@ -51,7 +62,8 @@ final class DetailAchievementViewController: UIViewController {
         setUI()
         setLayout()
         setDataSource()
-        setSnapShot()
+        setSnapShot(with: [])
+        setBindings()
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -61,7 +73,7 @@ final class DetailAchievementViewController: UIViewController {
         
         if !collectionView.frame.contains(location) {
             AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.Achieve.closeDailyMissionModal)
-            self.dismiss(animated: true)
+            dismissSubject.send(())
         }
     }
 }
@@ -94,15 +106,13 @@ extension DetailAchievementViewController {
     
     private func setDataSource() {
         
-        let cellRegistration = CellRegistration<DetailAchievementCollectionViewCell, Item> {cell, _, item in
-            cell.configure(model: item)
+        let cellRegistration = CellRegistration<DetailAchievementCollectionViewCell, Item> {cell, index, item in
+            cell.configure(model: item.missionList[index.item])
         }
         
-        let headerRegistration = HeaderRegistration<DetailAchieveHeaderView>(elementKind: UICollectionView.elementKindSectionHeader) { headerView, _, _ in
-            if let date = self.selectedDate {
-                headerView.configure(text: Utils.dateFormatterString(format: "YYYY년 MM월 dd일",
-                                                                     date: date))
-            }
+        let headerRegistration = HeaderRegistration<DetailAchieveHeaderView>(elementKind: UICollectionView.elementKindSectionHeader) { [weak self] headerView, _, indexPath in
+            guard let item = self?.dataSource?.itemIdentifier(for: indexPath) else { return }
+            headerView.configure(text: item.formatDateString())
         }
         
         dataSource = DataSource(collectionView: collectionView, cellProvider: { collectionView, indexPath, item in
@@ -114,28 +124,30 @@ extension DetailAchievementViewController {
         dataSource?.supplementaryViewProvider = { collectionView, _, indexPath in
             return collectionView.dequeueConfiguredReusableSupplementary(using: headerRegistration,
                                                                          for: indexPath)
+            
         }
     }
     
-    private func setSnapShot() {
+    private func setBindings() {
+        let input = DetailAchievementViewModelInput(viewWillAppearSubject: viewWillAppearSubject, dismissSubject: dismissSubject)
         
+        let output = viewModel.transform(input: input)
+        
+        output.viewWillAppearSubject
+            .receive(on: RunLoop.main)
+            .sink { [weak self] item in
+                self?.setSnapShot(with: item)
+                AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.Achieve.appearDailyMissionModal(total: item.count))
+            }
+            .store(in: &cancelBag)
+    }
+    
+    private func setSnapShot(with items: [AchieveDetailData]) {
         var snapShot = SnapShot()
-        defer {
-            dataSource?.apply(snapShot, animatingDifferences: false)
-        }
-        
         snapShot.appendSections([.main])
-        snapShot.appendItems([], toSection: .main)
-    }
-    
-    private func updateData(item: [DailyMissionResponseDTO]) {
+        snapShot.appendItems(items, toSection: .main)
         
-        guard var snapshot = dataSource?.snapshot() else { return }
-        
-        snapshot.appendItems(item, toSection: .main)
-        dataSource?.apply(snapshot)
-        
-        AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.Achieve.appearDailyMissionModal(total: item.count))
+        dataSource?.applySnapshotUsingReloadData(snapShot)
     }
     
     private func layout() -> UICollectionViewCompositionalLayout {
@@ -149,25 +161,14 @@ extension DetailAchievementViewController {
                                                                     leading: 20,
                                                                     bottom: 0,
                                                                     trailing: 20)
-        config.itemSeparatorHandler = { indexPath, config in
+        config.itemSeparatorHandler = { [weak self] indexPath, config in
             var config = config
-            guard let itemCount = self.dataSource?.snapshot().itemIdentifiers(inSection: .main).count else { return config }
+            guard let itemCount = self?.dataSource?.snapshot().itemIdentifiers(inSection: .main).count else { return config }
             let isLastItem = indexPath.item == itemCount - 1
             config.bottomSeparatorVisibility = isLastItem ? .hidden : .visible
             return config
         }
         
         return UICollectionViewCompositionalLayout.list(using: config)
-    }
-}
-
-extension DetailAchievementViewController {
-    private func requestDetailAPI(date: String) {
-        MissionAPI.shared.getDailyMission(date: date) { [weak self] response in
-            guard let self else { return }
-            guard let response = response else { return }
-            guard let data = response.data else { return }
-            self.updateData(item: data)
-        }
     }
 }
