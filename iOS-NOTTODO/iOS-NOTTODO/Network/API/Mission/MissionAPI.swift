@@ -6,15 +6,30 @@
 //
 
 import Foundation
+import Combine
 
 import Moya
+
+typealias DefaultMissionAPI = BaseAPI<MissionService>
+
+// 전체 수정 후 - 네이밍 변경 MissionAPI
+protocol MissionAPIProtocol {
+    func getDailyMission(date: String) -> AnyPublisher<DailyMissionData, Error>
+}
+
+extension DefaultMissionAPI: MissionAPIProtocol {
+        
+    func getDailyMission(date: String) -> AnyPublisher<DailyMissionData, Error> {
+        return requestWithCombine(MissionService.dailyMission(date: date))
+    }
+}
 
 typealias DailyMissionData = GeneralArrayResponse<DailyMissionResponseDTO>
 typealias DetailMissionData = GeneralResponse<MissionDetailResponseDTO>
 typealias CalendarData = GeneralArrayResponse<CalendarReponseDTO>
 typealias RecentMissionData = GeneralArrayResponse<RecentMissionResponseDTO>
 typealias UpdateMissionData = GeneralResponse<UpdateMissionResponseDTO>
-typealias AddMissionData = GeneralResponse<AddMissionResponseDTO>
+typealias AddMissionsData = GeneralResponse<AddMissionResponseDTO>
 typealias AddAnotherDay = GeneralResponse<AddAnotherDayResponseDTO>
 typealias UpdateMissionStatus = GeneralResponse<DailyMissionResponseDTO>
 
@@ -28,7 +43,7 @@ protocol MissionAPIType {
     func deleteMission(id: Int, completion: @escaping (GeneralResponse<VoidType>?) -> Void)
     func patchUpdateMissionStatus(id: Int, status: String, completion: @escaping (UpdateMissionStatus?) -> Void)
     func postAnotherDay(id: Int, dates: [String], completion: @escaping (AddAnotherDay?) -> Void)
-    func postAddMission(request: AddMissionRequest, completion: @escaping(AddMissionData?) -> Void)
+    func postAddMission(request: AddMissionRequest, completion: @escaping(AddMissionsData?) -> Void)
     func putUpdateMission(request: UpdateMissionRequest, completion: @escaping(UpdateMissionData?) -> Void)
 }
 
@@ -200,12 +215,12 @@ final class MissionAPI: MissionAPIType {
     }
     
     func postAddMission(request: AddMissionRequest,
-                        completion: @escaping(AddMissionData?) -> Void) {
+                        completion: @escaping(AddMissionsData?) -> Void) {
         provider.request(.addMission(request: request)) { result in
             switch result {
             case .success(let response):
                 do {
-                    let response = try response.map(AddMissionData?.self)
+                    let response = try response.map(AddMissionsData?.self)
                     completion(response)
                 } catch let err {
                     print(err.localizedDescription, 500)
