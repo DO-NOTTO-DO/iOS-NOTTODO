@@ -15,7 +15,7 @@ typealias DetailMissionData = GeneralResponse<MissionDetailResponseDTO>
 typealias AchieveCalendarData = GeneralArrayResponse<AchieveCalendarResponseDTO>
 typealias RecentMissionData = GeneralArrayResponse<RecentMissionResponseDTO>
 typealias UpdateMissionData = GeneralResponse<UpdateMissionResponseDTO>
-typealias AddMissionData = GeneralResponse<AddMissionResponseDTO>
+typealias AddMissionsData = GeneralResponse<AddMissionResponseDTO>
 typealias AddAnotherDay = GeneralResponse<AddAnotherDayResponseDTO>
 typealias UpdateMissionStatus = GeneralResponse<DailyMissionResponseDTO>
 
@@ -29,7 +29,7 @@ protocol MissionAPIType {
     func deleteMission(id: Int, completion: @escaping (GeneralResponse<VoidType>?) -> Void)
     func patchUpdateMissionStatus(id: Int, status: String, completion: @escaping (UpdateMissionStatus?) -> Void)
     func postAnotherDay(id: Int, dates: [String], completion: @escaping (AddAnotherDay?) -> Void)
-    func postAddMission(request: AddMissionRequest, completion: @escaping(AddMissionData?) -> Void)
+    func postAddMission(request: AddMissionRequest, completion: @escaping(AddMissionsData?) -> Void)
     func putUpdateMission(request: UpdateMissionRequest, completion: @escaping(UpdateMissionData?) -> Void)
 }
 
@@ -201,12 +201,12 @@ final class MissionAPI: MissionAPIType {
     }
     
     func postAddMission(request: AddMissionRequest,
-                        completion: @escaping(AddMissionData?) -> Void) {
+                        completion: @escaping(AddMissionsData?) -> Void) {
         provider.request(.addMission(request: request)) { result in
             switch result {
             case .success(let response):
                 do {
-                    let response = try response.map(AddMissionData?.self)
+                    let response = try response.map(AddMissionsData?.self)
                     completion(response)
                 } catch let err {
                     print(err.localizedDescription, 500)

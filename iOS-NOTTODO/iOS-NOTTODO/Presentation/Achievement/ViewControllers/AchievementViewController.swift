@@ -118,17 +118,6 @@ extension AchievementViewController {
             $0.bottom.equalTo(scrollView.snp.bottom).inset(20)
         }
     }
-    
-    func requestMonthAPI(month: String) {
-        MissionAPI.shared.getAchieveCalendar(month: month) { [weak self] response in
-            
-            guard let self, let response = response, let data = response.data else { return }
-            
-            let calendarData = data.compactMap { ($0.actionDate, $0.percentage) }
-            self.dataSource = Dictionary(uniqueKeysWithValues: calendarData)
-            self.monthCalendar.calendar.collectionView.reloadData()
-        }
-    }
 }
 
 extension AchievementViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalendarDelegateAppearance {
@@ -187,7 +176,7 @@ extension AchievementViewController: FSCalendarDelegate, FSCalendarDataSource, F
 extension AchievementViewController {
     
     func requestMonthAPI(month: String) {
-        AchieveAPI.shared.getAchieveCalendar(month: month) { [weak self] response in
+        MissionAPI.shared.getAchieveCalendar(month: month) { [weak self] response in
             
             guard let self, let response = response, let data = response.data else { return }
             
