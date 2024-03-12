@@ -8,6 +8,6 @@
 import Foundation
 
 struct CalendarEventData {
-    
+    let month: Date
     let percentages: [String: Float]
 }

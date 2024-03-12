@@ -8,11 +8,10 @@
 import Foundation
 import Combine
 
-final class AchievementViewModelImpl: AchievementViewModel, AchievementViewModelPresentable {
+final class AchievementViewModelImpl: AchievementViewModel {
     
     private weak var coordinator: AchieveCoordinator?
     private var manager: AchieveManager
-    private var month: String?
     private var cancelBag = Set<AnyCancellable>()
     
     init(coordinator: AchieveCoordinator, manager: AchieveManager) {
@@ -21,36 +20,41 @@ final class AchievementViewModelImpl: AchievementViewModel, AchievementViewModel
     }
     
     let eventSubject = PassthroughSubject<CalendarEventData, Never>()
+    var dataSource: [String: Float] = [:]
     
     func transform(input: AchievementViewModelInput) -> AchievementViewModelOutput {
         
-        Publishers.CombineLatest(input.viewWillAppearSubject, input.currentMonthSubject)
-            .map { _, month in month }
+        input.viewWillAppearSubject
+            .merge(with: input.currentMonthSubject)
             .removeDuplicates()
             .sink { [weak self] month in
                 guard let self = self else { return }
-                let monthString = month.formattedString(format: "yyyy-MM") 
-                self.month = monthString
-                self.getCalendarEvent(month: monthString)
+                self.getCalendarEvent(month: month)
             }
             .store(in: &cancelBag)
         
         input.calendarCellTapped
+            .compactMap { date -> String? in
+                guard let percentage = self.dataSource[date.formattedString()], percentage != 0.0 else {
+                    return nil
+                }
+                return date.formattedString()
+            }
             .sink { [weak self] date in
                 self?.coordinator?.showAchieveDetailViewController(selectedDate: date)
             }
-            .store(in: &cancelBag)
+        .store(in: &cancelBag)
         
         return Output(viewWillAppearSubject: eventSubject.eraseToAnyPublisher())
     }
     
-    func getCalendarEvent(month: String) {
+    func getCalendarEvent(month: Date) {
         manager.getAchieveCalendar(month: month)
             .sink(receiveCompletion: { event in
                 print("completion: \(event)")
             }, receiveValue: { data in
-                dump(data)
                 self.eventSubject.send(data)
+                self.dataSource = data.percentages
             })
             .store(in: &cancelBag)
     }

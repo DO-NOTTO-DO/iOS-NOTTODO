@@ -8,7 +8,9 @@
 import Foundation
 import Combine
 
-protocol DetailAchievementViewModelPresentable {}
+protocol DetailAchievementViewModelPresentable {
+    func selectedDate(_ date: String)
+}
 protocol DetailAchievementViewModel: ViewModel where Input == DetailAchievementViewModelInput, Output == DetailAchievementViewModelOutput {}
 
 struct DetailAchievementViewModelInput {

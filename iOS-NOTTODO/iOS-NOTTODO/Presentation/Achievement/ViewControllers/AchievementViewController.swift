@@ -12,16 +12,16 @@ import FSCalendar
 import Then
 import SnapKit
 
-final class AchievementViewController: UIViewController {
+final class AchievementViewController: UIViewController, AchievementViewModelPresentable {
     
     // MARK: - Properties
     
-    private let viewWillAppearSubject = PassthroughSubject<Void, Never>()
+    private let viewWillAppearSubject = PassthroughSubject<Date, Never>()
     private let eventCellSubject = PassthroughSubject<Date, Never>()
     private let monthSubject = PassthroughSubject<Date, Never>()
+    private var dataSource: [String: Float] = [:]
     
     private weak var coordinator: AchieveCoordinator?
-    private var dataSource: [String: Float] = [:]
     
     private lazy var safeArea = self.view.safeAreaLayoutGuide
     
@@ -51,10 +51,7 @@ final class AchievementViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        viewWillAppearSubject.send(())
-        monthSubject.send(Date())
-        monthCalendar.currentPage(date: Date())
-        monthCalendar.configureYearMonth(to: Date().formattedString(format: I18N.yearMonthTitle))
+        viewWillAppearSubject.send(Date())
         AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.Achieve.viewAccomplish)
     }
     
@@ -132,6 +129,8 @@ extension AchievementViewController {
             .sink { [weak self] item in
                 self?.dataSource = item.percentages
                 self?.monthCalendar.reloadCollectionView()
+                self?.monthCalendar.currentPage(date: item.month)
+                self?.monthCalendar.configureYearMonth(to: item.month.formattedString(format: I18N.yearMonthTitle))
             }
             .store(in: &cancelBag)
     }
@@ -152,9 +151,7 @@ extension AchievementViewController: FSCalendarDelegate, FSCalendarDataSource, F
         calendar.appearance.selectionColor = .clear
         calendar.appearance.titleSelectionColor = .white
         
-        if self.dataSource.contains(where: { $0.key == date.formattedString() }) {
-            self.eventCellSubject.send(date)
-        }
+        self.eventCellSubject.send(date)
     }
     
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleSelectionColorFor date: Date) -> UIColor? {
@@ -174,9 +171,10 @@ extension AchievementViewController: FSCalendarDelegate, FSCalendarDataSource, F
         }
         return percentage == 1.0 ? .black : .white
     }
-    
+
     func calendar(_ calendar: FSCalendar, cellFor date: Date, at position: FSCalendarMonthPosition) -> FSCalendarCell {
-        let cell = calendar.dequeueReusableCell(withIdentifier: MissionCalendarCell.identifier, for: date, at: position) as! MissionCalendarCell
+        
+        guard let cell = calendar.dequeueReusableCell(withIdentifier: MissionCalendarCell.identifier, for: date, at: position) as? MissionCalendarCell else { return FSCalendarCell() }
         
         guard let percentage = self.dataSource[date.formattedString()] else { return cell }
         cell.configure(percent: percentage)

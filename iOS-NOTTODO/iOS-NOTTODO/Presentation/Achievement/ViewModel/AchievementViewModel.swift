@@ -12,7 +12,7 @@ protocol AchievementViewModelPresentable {}
 protocol AchievementViewModel: ViewModel where Input == AchievementViewModelInput, Output == AchievementViewModelOutput {}
 
 struct AchievementViewModelInput {
-    let viewWillAppearSubject: PassthroughSubject<Void, Never>
+    let viewWillAppearSubject: PassthroughSubject<Date, Never>
     let calendarCellTapped: PassthroughSubject<Date, Never>
     let currentMonthSubject: PassthroughSubject<Date, Never>
 }

@@ -45,7 +45,7 @@ protocol MyPageFlowControllerFactory {
 
 protocol AchieveFlowControllerFactory {
     func makeAchieveViewController(coordinator: AchieveCoordinator) -> AchievementViewController
-    func makeAchieveDetailViewController(coordinator: AchieveCoordinator, date: Date) -> DetailAchievementViewController
+    func makeAchieveDetailViewController(coordinator: AchieveCoordinator, date: String) -> DetailAchievementViewController
 }
 
 protocol TabBarControllerFactory {
@@ -211,7 +211,7 @@ extension ViewControllerFactoryImpl {
         return viewController
     }
     
-    func makeAchieveDetailViewController(coordinator: AchieveCoordinator, date: Date) -> DetailAchievementViewController {
+    func makeAchieveDetailViewController(coordinator: AchieveCoordinator, date: String) -> DetailAchievementViewController {
         let missionAPI = DefaultMissionAPI()
         let manager = AchieveManagerImpl(missionAPI: missionAPI)
         let viewModel = DetailAchievementViewModelImpl(coordinator: coordinator, manager: manager)

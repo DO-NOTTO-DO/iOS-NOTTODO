@@ -25,18 +25,19 @@ final class AchieveManagerImpl: AchieveManager {
             .eraseToAnyPublisher()
     }
     
-    func getAchieveCalendar(month: String) -> AnyPublisher<CalendarEventData, Error> {
-        return missionAPI.getAchieveCalendar(month: month)
+    func getAchieveCalendar(month: Date) -> AnyPublisher<CalendarEventData, Error> {
+        return missionAPI.getAchieveCalendar(month: month.formattedString(format: "yyyy-MM"))
             .map { response in
-                self.convertResponseToCalendarEventData(response)
+                
+                self.convertResponseToCalendarEventData(response, month: month)
             }
             .compactMap { $0 }
             .eraseToAnyPublisher()
     }
     
-    private func convertResponseToCalendarEventData(_ response: CalendarData) -> CalendarEventData? {
+    private func convertResponseToCalendarEventData(_ response: CalendarData, month: Date) -> CalendarEventData? {
         guard let data = response.data else { return nil }
         let calendarData = Dictionary(uniqueKeysWithValues: data.map { ($0.actionDate, $0.percentage) })
-        return CalendarEventData(percentages: calendarData)
+        return CalendarEventData(month: month, percentages: calendarData)
     }
 }

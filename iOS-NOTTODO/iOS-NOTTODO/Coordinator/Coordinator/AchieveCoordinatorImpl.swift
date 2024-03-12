@@ -36,7 +36,7 @@ final class AchieveCoordinatorImpl: AchieveCoordinator {
         navigationController.setViewControllers([viewController], animated: false)
     }
     
-    func showAchieveDetailViewController(selectedDate: Date) {
+    func showAchieveDetailViewController(selectedDate: String) {
         let viewController = viewControllerFactory.makeAchieveDetailViewController(coordinator: self, date: selectedDate)
         viewController.modalTransitionStyle = .crossDissolve
         viewController.modalPresentationStyle = .overFullScreen

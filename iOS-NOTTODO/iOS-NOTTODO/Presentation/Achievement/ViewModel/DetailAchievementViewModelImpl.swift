@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 
-final class DetailAchievementViewModelImpl: DetailAchievementViewModel, DetailAchievementViewModelPresentable {
+final class DetailAchievementViewModelImpl: DetailAchievementViewModel {
     
     private weak var coordinator: AchieveCoordinator?
     private var manager: AchieveManager
@@ -50,8 +50,10 @@ final class DetailAchievementViewModelImpl: DetailAchievementViewModel, DetailAc
             })
             .store(in: &cancelBag)
         }
-    
-    func selectedDate(_ date: Date) {
-        self.selectedDate = date.formattedString(format: "YYYY-MM-dd")
+}
+
+extension DetailAchievementViewModelImpl: DetailAchievementViewModelPresentable {
+    func selectedDate(_ date: String) {
+        self.selectedDate = date
     }
 }
