@@ -11,13 +11,13 @@ import Combine
 final class DetailAchievementViewModelImpl: DetailAchievementViewModel, DetailAchievementViewModelPresentable {
     
     private weak var coordinator: AchieveCoordinator?
-    private var missionManager: AchieveManagerImpl
+    private var manager: AchieveManager
     private var selectedDate: String?
     private var cancelBag = Set<AnyCancellable>()
     
-    init(coordinator: AchieveCoordinator, missionManager: AchieveManagerImpl) {
+    init(coordinator: AchieveCoordinator, manager: AchieveManager) {
         self.coordinator = coordinator
-        self.missionManager = missionManager
+        self.manager = manager
     }
     
     let missionsSubject = PassthroughSubject<[AchieveDetailData], Never>()
@@ -42,7 +42,7 @@ final class DetailAchievementViewModelImpl: DetailAchievementViewModel, DetailAc
     }
     
     func getDailyMission(date: String) {
-        missionManager.getDailyMission(date: date)
+        manager.getDailyMission(date: date)
             .sink(receiveCompletion: { event in
                 print("completion: \(event)")
             }, receiveValue: { data in
@@ -52,7 +52,6 @@ final class DetailAchievementViewModelImpl: DetailAchievementViewModel, DetailAc
         }
     
     func selectedDate(_ date: Date) {
-        let dateString = Utils.dateFormatterString(format: "YYYY-MM-dd", date: date)
-        self.selectedDate = dateString
+        self.selectedDate = date.formattedString(format: "YYYY-MM-dd")
     }
 }
