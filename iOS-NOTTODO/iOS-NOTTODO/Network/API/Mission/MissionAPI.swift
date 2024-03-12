@@ -10,9 +10,8 @@ import Foundation
 import Moya
 
 typealias DailyMissionData = GeneralArrayResponse<DailyMissionResponseDTO>
-typealias WeekMissionData = GeneralArrayResponse<WeekMissionResponseDTO>
 typealias DetailMissionData = GeneralResponse<MissionDetailResponseDTO>
-typealias AchieveCalendarData = GeneralArrayResponse<AchieveCalendarResponseDTO>
+typealias CalendarData = GeneralArrayResponse<CalendarReponseDTO>
 typealias RecentMissionData = GeneralArrayResponse<RecentMissionResponseDTO>
 typealias UpdateMissionData = GeneralResponse<UpdateMissionResponseDTO>
 typealias AddMissionData = GeneralResponse<AddMissionResponseDTO>
@@ -21,10 +20,10 @@ typealias UpdateMissionStatus = GeneralResponse<DailyMissionResponseDTO>
 
 protocol MissionAPIType {
     func getDailyMission(date: String, completion: @escaping (DailyMissionData?) -> Void)
-    func getWeeklyMissoin(startDate: String, completion: @escaping (WeekMissionData?) -> Void)
+    func getWeeklyMissoin(startDate: String, completion: @escaping (CalendarData?) -> Void)
     func getDetailMission(id: Int, completion: @escaping (DetailMissionData?) -> Void)
     func particularMissionDates(id: Int, completion: @escaping (GeneralArrayResponse<String>) -> Void)
-    func getAchieveCalendar(month: String, completion: @escaping (AchieveCalendarData?) -> Void)
+    func getAchieveCalendar(month: String, completion: @escaping (CalendarData?) -> Void)
     func getRecentMission(completion: @escaping (RecentMissionData?) -> Void)
     func deleteMission(id: Int, completion: @escaping (GeneralResponse<VoidType>?) -> Void)
     func patchUpdateMissionStatus(id: Int, status: String, completion: @escaping (UpdateMissionStatus?) -> Void)
@@ -58,12 +57,12 @@ final class MissionAPI: MissionAPIType {
         }
     }
     
-    func getWeeklyMissoin(startDate: String, completion: @escaping (WeekMissionData?) -> Void) {
+    func getWeeklyMissoin(startDate: String, completion: @escaping (CalendarData?) -> Void) {
         provider.request(.missionWeekly(startDate: startDate)) { result in
             switch result {
             case .success(let response):
                 do {
-                    let response = try response.map(WeekMissionData?.self)
+                    let response = try response.map(CalendarData?.self)
                     completion(response)
                 } catch let err {
                     print(err.localizedDescription, 500)
@@ -93,12 +92,12 @@ final class MissionAPI: MissionAPIType {
         }
     }
     
-    func getAchieveCalendar(month: String, completion: @escaping (AchieveCalendarData?) -> Void) {
+    func getAchieveCalendar(month: String, completion: @escaping (CalendarData?) -> Void) {
         provider.request(.achieveCalendar(month: month)) { result in
             switch result {
             case .success(let response):
                 do {
-                    let response = try response.map(AchieveCalendarData?.self)
+                    let response = try response.map(CalendarData?.self)
                     completion(response)
                 } catch let err {
                     print(err.localizedDescription, 500)

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Combine
 
 import FSCalendar
 import Then
@@ -101,17 +102,6 @@ extension AchievementViewController {
             $0.bottom.equalTo(scrollView.snp.bottom).inset(20)
         }
     }
-    
-    func requestMonthAPI(month: String) {
-        MissionAPI.shared.getAchieveCalendar(month: month) { [weak self] response in
-            
-            guard let self, let response = response, let data = response.data else { return }
-            
-            let calendarData = data.compactMap { ($0.actionDate, $0.percentage) }
-            self.dataSource = Dictionary(uniqueKeysWithValues: calendarData)
-            self.monthCalendar.reloadCollectionView()
-        }
-    }
 }
 
 extension AchievementViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalendarDelegateAppearance {
@@ -172,6 +162,17 @@ extension AchievementViewController: FSCalendarDelegate, FSCalendarDataSource, F
 // MARK: - Others
 
 extension AchievementViewController {
+    
+    func requestMonthAPI(month: String) {
+        MissionAPI.shared.getAchieveCalendar(month: month) { [weak self] response in
+            
+            guard let self, let response = response, let data = response.data else { return }
+            
+            let calendarData = data.compactMap { ($0.actionDate, $0.percentage) }
+            self.dataSource = Dictionary(uniqueKeysWithValues: calendarData)
+            self.monthCalendar.reloadCollectionView()
+        }
+    }
     
     private func getPercentage(for date: Date) -> Float? {
         
