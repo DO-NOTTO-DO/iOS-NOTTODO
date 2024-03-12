@@ -49,10 +49,8 @@ extension RecommendActionCollectionViewCell {
 
     private func setUI() {
         contentView.backgroundColor = .gray1
-        contentView.layer.masksToBounds = true
-        contentView.layer.cornerRadius = 10
-        contentView.layer.borderWidth = 1
-        contentView.layer.borderColor = UIColor.clear.cgColor
+        contentView.makeCornerRound(radius: 10)
+        contentView.makeBorder(width: 1, color: .clear)
         stackView.axis = .vertical
         
         titleLabel.do {

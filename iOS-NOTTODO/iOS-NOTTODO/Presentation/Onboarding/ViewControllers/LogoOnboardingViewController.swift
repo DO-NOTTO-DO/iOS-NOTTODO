@@ -87,7 +87,7 @@ extension LogoOnboardingViewController {
         nextButton.do {
             $0.isHidden = true
             $0.backgroundColor = .white
-            $0.layer.cornerRadius = 25
+            $0.makeCornerRound(radius: 25)
             $0.titleLabel?.font = .Pretendard(.semiBold, size: 16)
             $0.setTitleColor(.black, for: .normal)
             $0.setTitle(I18N.firstButton, for: .normal)

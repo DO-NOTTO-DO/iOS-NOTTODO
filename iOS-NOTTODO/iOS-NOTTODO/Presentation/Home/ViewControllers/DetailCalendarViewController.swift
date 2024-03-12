@@ -91,7 +91,7 @@ extension DetailCalendarViewController {
         }
         
         monthCalendar.do {
-            $0.layer.cornerRadius = 12
+            $0.makeCornerRound(radius: 12)
             $0.configure(delegate: self, datasource: self)
         }
         

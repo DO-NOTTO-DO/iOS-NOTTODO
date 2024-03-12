@@ -92,9 +92,8 @@ final class DateCollectionViewCell: UICollectionViewCell, AddMissionMenu {
 extension DateCollectionViewCell {
     private func setUI() {
         backgroundColor = .clear
-        layer.borderColor = UIColor.gray3?.cgColor
-        layer.cornerRadius = 12
-        layer.borderWidth = 1
+        makeCornerRound(radius: 12)
+        makeBorder(width: 1, color: .gray3!)
         calendarImage.image = .icCalendar
         dayLabel.font = .Pretendard(.medium, size: 15)
         stackView.axis = .vertical

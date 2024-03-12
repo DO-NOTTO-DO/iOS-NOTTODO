@@ -87,7 +87,7 @@ extension DetailAchievementViewController {
         
         collectionView.do {
             $0.collectionViewLayout = layout()
-            $0.layer.cornerRadius = 15
+            $0.makeCornerRound(radius: 15)
             $0.backgroundColor = .white
             $0.bounces = false
             $0.autoresizingMask = [.flexibleWidth, .flexibleHeight]

@@ -48,7 +48,7 @@ extension DetailAchievementCollectionViewCell {
             $0.layer.backgroundColor = UIColor.bg?.cgColor
             $0.font = .Pretendard(.medium, size: 14)
             $0.textColor = .gray1
-            $0.layer.cornerRadius = 25/2
+            $0.makeCornerRound(radius: 25/2)
         }
         
         titleLabel.do {

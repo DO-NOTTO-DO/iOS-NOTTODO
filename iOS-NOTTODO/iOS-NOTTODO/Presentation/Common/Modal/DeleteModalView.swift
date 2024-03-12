@@ -45,7 +45,7 @@ final class DeleteModalView: UIView {
 extension DeleteModalView {
     private func setUI() {
         backgroundColor = .white
-        layer.cornerRadius = 15
+        makeCornerRound(radius: 15)
         
         trashImage.do {
             $0.image = .icTrashbin

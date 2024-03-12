@@ -55,7 +55,7 @@ final class MyInfoAccountStackView: UIView {
 
 extension MyInfoAccountStackView {
     private func setUI(title: String, isHidden: Bool) {
-        layer.cornerRadius = 10
+        makeCornerRound(radius: 10)
         
         titleLabel.do {
             $0.text = title

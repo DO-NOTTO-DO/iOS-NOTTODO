@@ -57,7 +57,7 @@ extension QuitModalView {
 extension QuitModalView {
     private func setUI() {
         backgroundColor = .white
-        layer.cornerRadius = 15
+        makeCornerRound(radius: 15)
         
         modalImageView.image = .quit1
         

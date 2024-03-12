@@ -89,7 +89,7 @@ private extension RecommendViewController {
             $0.setTitle(I18N.addAction, for: .normal)
             $0.setTitleColor(.ntdBlack, for: .normal)
             $0.titleLabel?.font = .Pretendard(.semiBold, size: 16)
-            $0.layer.cornerRadius = 25
+            $0.makeCornerRound(radius: 25)
             $0.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
         }
     }

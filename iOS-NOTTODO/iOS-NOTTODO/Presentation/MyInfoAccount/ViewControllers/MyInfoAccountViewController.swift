@@ -81,12 +81,12 @@ private extension MyInfoAccountViewController {
             $0.axis = .vertical
             $0.spacing = 0
             $0.distribution = .equalSpacing
-            $0.layer.cornerRadius = 10
+            $0.makeCornerRound(radius: 10)
             $0.backgroundColor = .gray1
         }
         
         logoutView.do {
-            $0.layer.cornerRadius = 10
+            $0.makeCornerRound(radius: 10)
             $0.backgroundColor = .gray1
         }
         

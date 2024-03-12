@@ -39,12 +39,10 @@ final class SubOnboardingCollectionViewCell: UICollectionViewCell {
 extension SubOnboardingCollectionViewCell {
     private func setUI() {
         contentView.backgroundColor = .gray1
-        contentView.layer.cornerRadius = 35
-        contentView.layer.masksToBounds = true
+        contentView.makeCornerRound(radius: 35)
         
         tagLabel.do {
-            $0.layer.cornerRadius = 8
-            $0.layer.masksToBounds = true
+            $0.makeCornerRound(radius: 8)
             $0.backgroundColor = UIColor.gray8
             $0.font = .Pretendard(.regular, size: 10)
             $0.textColor = .gray6

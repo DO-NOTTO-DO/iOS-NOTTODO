@@ -45,16 +45,14 @@ extension RecommendCollectionViewCell {
     private func setUI() {
         contentView.do {
             $0.backgroundColor = .gray1
-            $0.layer.masksToBounds = true
-            $0.layer.cornerRadius = 12
+            $0.makeCornerRound(radius: 12)
         }
         
         tagLabel.do {
             $0.font = .Pretendard(.medium, size: 14)
             $0.textColor = .white
             $0.backgroundColor = .gray2
-            $0.layer.masksToBounds = true
-            $0.layer.cornerRadius = 25 / 2
+            $0.makeCornerRound(radius: 25 / 2)
         }
         
         titleLabel.do {

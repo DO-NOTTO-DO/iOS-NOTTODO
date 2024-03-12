@@ -73,7 +73,7 @@ extension ThirdOnboardingViewController {
         nextButton.do {
             $0.backgroundColor = isTapped ? .white : .gray2
             $0.isUserInteractionEnabled = isTapped
-            $0.layer.cornerRadius = 25
+            $0.makeCornerRound(radius: 25)
             $0.titleLabel?.font = .Pretendard(.semiBold, size: 16)
             $0.setTitleColor(isTapped ? .black :.gray4, for: .normal)
             $0.setTitle(I18N.thirdButton, for: .normal)

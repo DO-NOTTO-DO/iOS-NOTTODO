@@ -23,11 +23,11 @@ protocol MonthCalendarDelegate: AnyObject {
 final class CalendarView: UIView {
     
     // MARK: - Properties
-
+    
     private enum CalendarMoveType {
         case previous
         case next
-
+        
         var monthOffset: Int {
             switch self {
             case .previous:
@@ -37,7 +37,7 @@ final class CalendarView: UIView {
             }
         }
     }
-        
+    
     weak var delegate: WeekCalendarDelegate?
     
     // MARK: - UI Components
@@ -75,7 +75,7 @@ extension CalendarView {
         yearMonthLabel.do {
             $0.font = .Pretendard(.medium, size: 18)
             $0.textColor = .white
-            $0.text = Utils.dateFormatterString(format: I18N.yearMonthTitle, date: Date())
+            $0.text = Date().formattedString(format: I18N.yearMonthTitle)
         }
         
         todayButton.do {
@@ -112,6 +112,7 @@ extension CalendarView {
         }
         
         calendar.do {
+            $0.currentPage = Date()
             $0.collectionView.register(MissionCalendarCell.self,
                                        forCellWithReuseIdentifier: MissionCalendarCell.identifier)
         }
@@ -171,7 +172,7 @@ extension CalendarView {
             $0.bottom.equalToSuperview().inset(25)
         }
     }
-
+    
     private func changeMonth(with type: CalendarMoveType) {
         let calendar = Calendar.current
         let currentPage = self.calendar.currentPage
@@ -233,9 +234,9 @@ extension CalendarView {
             $0.bottom.equalToSuperview().inset(45)
         }
     }
-        
+    
     func today() -> Date? {
-       return calendar.today
+        return calendar.today
     }
     
     func currentPage(date: Date) {

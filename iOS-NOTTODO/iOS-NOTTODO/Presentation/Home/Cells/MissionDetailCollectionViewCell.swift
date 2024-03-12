@@ -49,8 +49,7 @@ extension MissionDetailCollectionViewCell {
         
         missionTagLabel.do {
             $0.backgroundColor = .bg
-            $0.layer.masksToBounds = true
-            $0.layer.cornerRadius = 12.5
+            $0.makeCornerRound(radius: 12.5)
             $0.font = .Pretendard(.medium, size: 14)
             $0.textColor = .gray1
         }
@@ -63,14 +62,12 @@ extension MissionDetailCollectionViewCell {
         
         accumulateView.do {
             $0.backgroundColor = .green2?.withAlphaComponent(0.3)
-            $0.layer.masksToBounds = true
-            $0.layer.cornerRadius = 34
+            $0.makeCornerRound(radius: 34)
         }
         
         accumulateSubView.do {
             $0.backgroundColor = .green2
-            $0.layer.masksToBounds = true
-            $0.layer.cornerRadius = 28
+            $0.makeCornerRound(radius: 28)
         }
         
         accumulateLabel.do {

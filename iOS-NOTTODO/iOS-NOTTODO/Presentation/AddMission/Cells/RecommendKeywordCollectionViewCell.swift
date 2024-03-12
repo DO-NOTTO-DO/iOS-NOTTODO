@@ -43,7 +43,7 @@ final class RecommendKeywordCollectionViewCell: UICollectionViewCell {
 
 private extension RecommendKeywordCollectionViewCell {
     func setUI() {
-        contentView.layer.cornerRadius = contentView.frame.height / 2
+        contentView.makeCornerRound(radius: contentView.frame.height / 2)
         contentView.clipsToBounds = true
         recommendLabel.do {
             $0.backgroundColor = .gray2

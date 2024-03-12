@@ -87,4 +87,11 @@ final class Utils {
     }
 }
 
-
+extension Date {
+    func formattedString(format: String? = nil, locale: Locale = Locale(identifier: "ko_KR")) -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = format ?? "yyyy-MM-dd"
+        formatter.locale = locale
+        return formatter.string(from: self)
+    }
+}
