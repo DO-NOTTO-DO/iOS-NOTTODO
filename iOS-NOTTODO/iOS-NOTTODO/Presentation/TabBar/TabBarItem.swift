@@ -41,6 +41,6 @@ extension TabBarItemType {
             title: nil,
             image: unselectedIcon.withRenderingMode(.alwaysOriginal),
             selectedImage: selectedIcon.withRenderingMode(.alwaysOriginal)
-        )
+            )
     }
 }

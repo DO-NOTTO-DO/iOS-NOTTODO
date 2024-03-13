@@ -13,12 +13,12 @@ final class TabBarController: UITabBarController {
     
     private var tabs: [UIViewController] = []
     private lazy var defaultTabBarHeight = { tabBar.frame.size.height }()
-
+    
     // MARK: - Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setTabBarItems()
+        
         setTabBarUI()
     }
     
@@ -28,25 +28,19 @@ final class TabBarController: UITabBarController {
     }
 }
 
-private extension TabBarController {
-    func setTabBarItems() {
-        tabs = [HomeViewController(),
-                AchievementViewController(),
-                MyInfoViewController()
-        ]
-        
-        TabBarItemType.allCases.forEach {
-            tabs[$0.rawValue].tabBarItem = $0.setTabBarItem()
-            tabs[$0.rawValue].tabBarItem.tag = $0.rawValue
-            tabs[$0.rawValue].tabBarItem.imageInsets = UIEdgeInsets.init(
-                top: convertByHeightRatio(16),
-                left: 0,
-                bottom: convertByHeightRatio(-16),
-                right: 0
-            )
+extension TabBarController {
+    
+    func setTabBarItems() -> [UITabBarItem] {
+        let tabBarItems = TabBarItemType.allCases.map {
+            let tabBarItem = $0.setTabBarItem()
+            tabBarItem.tag = $0.rawValue
+            tabBarItem.imageInsets = UIEdgeInsets(top: convertByHeightRatio(16),
+                                                  left: 0,
+                                                  bottom: convertByHeightRatio(-16),
+                                                  right: 0)
+            return tabBarItem
         }
-        
-        setViewControllers(tabs, animated: false)
+        return tabBarItems
     }
     
     func setTabBarUI() {
@@ -63,7 +57,7 @@ private extension TabBarController {
         var newFrame = tabBar.frame
         newFrame.size.height = newTabBarHeight
         newFrame.origin.y = view.frame.size.height - newTabBarHeight
-
+        
         tabBar.frame = newFrame
     }
 }

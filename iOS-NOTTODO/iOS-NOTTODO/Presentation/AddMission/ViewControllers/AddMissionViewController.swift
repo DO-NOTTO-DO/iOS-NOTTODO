@@ -42,6 +42,8 @@ final class AddMissionViewController: UIViewController {
         }
     }
     
+    private weak var coordinator: HomeCoordinator?
+    
     // MARK: - UI Components
     
     private let navigationView = UIView()
@@ -52,6 +54,17 @@ final class AddMissionViewController: UIViewController {
     
     private lazy var addMissionCollectionView = UICollectionView(frame: .zero,
                                                                  collectionViewLayout: layout())
+    
+    // MARK: - init
+    
+    init(coordinator: HomeCoordinator) {
+        self.coordinator = coordinator
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     // MARK: - Life Cycle
     override func viewWillAppear(_ animated: Bool) {
@@ -137,7 +150,7 @@ extension AddMissionViewController {
         
         dismissButton.do {
             $0.setBackgroundImage(.icDelete, for: .normal)
-            $0.addTarget(self, action: #selector(self.popViewController), for: .touchUpInside)
+            $0.addTarget(self, action: #selector(popVC), for: .touchUpInside)
         }
         
         navigationTitle.do {
@@ -254,6 +267,11 @@ extension AddMissionViewController {
             )
         }
     }
+    
+    @objc
+    private func popVC() {
+        coordinator?.dismiss()
+    }
 }
 
 // MARK: API func
@@ -275,7 +293,7 @@ extension AddMissionViewController {
                         action: actions ?? []
                     )
                 )
-                self.popViewController()
+                self.coordinator?.dismiss()
             default:
                 let toastMessage = self.htmlToString(response.message ?? "")?.string ?? ""
                 self.checkToastMessage(toastMessage)
@@ -299,7 +317,7 @@ extension AddMissionViewController {
                         situation: self.nottodoInfoList[2],
                         action: self.nottodoInfoList[3])
                 )
-                self.popViewController()
+                self.coordinator?.dismiss()
             default:
                 let toastMessage = self.htmlToString(response.message ?? "")?.string ?? ""
                 self.checkToastMessage(toastMessage)

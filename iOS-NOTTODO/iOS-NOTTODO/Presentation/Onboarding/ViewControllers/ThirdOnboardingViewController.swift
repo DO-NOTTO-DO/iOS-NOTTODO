@@ -22,12 +22,23 @@ final class ThirdOnboardingViewController: UIViewController {
     private var dataSource: UICollectionViewDiffableDataSource<Section, ThirdOnboardingModel>! = nil
     private lazy var safeArea = self.view.safeAreaLayoutGuide
     private var selectList: [String] = []
-
+    private weak var coordinator: AuthCoordinator?
+    
     // MARK: - UI Components
     
     private lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout())
     private let nextButton = UIButton()
     private var isTapped: Bool = false
+    
+    // MARK: - init
+    init(coordinator: AuthCoordinator) {
+        self.coordinator = coordinator
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     // MARK: - Life Cycle
     
@@ -61,7 +72,7 @@ extension ThirdOnboardingViewController {
         }
         nextButton.do {
             $0.backgroundColor = isTapped ? .white : .gray2
-            $0.isUserInteractionEnabled = isTapped ? true : false
+            $0.isUserInteractionEnabled = isTapped
             $0.layer.cornerRadius = 25
             $0.titleLabel?.font = .Pretendard(.semiBold, size: 16)
             $0.setTitleColor(isTapped ? .black :.gray4, for: .normal)
@@ -73,14 +84,14 @@ extension ThirdOnboardingViewController {
     private func updateButton(isTapped: Bool) {
         nextButton.do {
             $0.backgroundColor = isTapped ? .white : .gray2
-            $0.isUserInteractionEnabled = isTapped ? true : false
+            $0.isUserInteractionEnabled = isTapped
             $0.setTitleColor(isTapped ? .black :.gray4, for: .normal)
         }
     }
     
     private func setLayout() {
         view.addSubviews(collectionView, nextButton)
-    
+        
         nextButton.snp.makeConstraints {
             $0.top.equalTo(collectionView.snp.bottom)
             $0.bottom.equalTo(safeArea).inset(10)
@@ -135,14 +146,9 @@ extension ThirdOnboardingViewController {
 extension ThirdOnboardingViewController {
     @objc
     private func buttonTapped() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-            UIView.animate(withDuration: 0.01) {
-                AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.OnboardingClick.clickOnboardingNext3(select: self.selectList))
-
-                let nextViewController = FourthOnboardingViewController()
-                self.navigationController?.pushViewController(nextViewController, animated: false)
-            }
-        }
+        
+        AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.OnboardingClick.clickOnboardingNext3(select: self.selectList))
+        self.coordinator?.showFourthOnboardingViewController()
     }
 }
 
@@ -165,7 +171,7 @@ extension ThirdOnboardingViewController: UICollectionViewDelegate {
                 }
                 self.isTapped = false
                 updateButton(isTapped: self.isTapped)
-
+                
             }
         }
     }

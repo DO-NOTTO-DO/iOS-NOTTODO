@@ -30,9 +30,22 @@ final class DetailAchievementViewController: UIViewController {
     
     private lazy var safeArea = self.view.safeAreaLayoutGuide
     
+    private weak var coordinator: AchieveCoordinator?
+    
     // MARK: - UI Components
     
     private var collectionView = UICollectionView(frame: .zero, collectionViewLayout: .init())
+    
+    // MARK: - init
+    
+    init(coordinator: AchieveCoordinator) {
+        self.coordinator = coordinator
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     // MARK: - Life Cycle
     
@@ -61,7 +74,7 @@ final class DetailAchievementViewController: UIViewController {
         
         if !collectionView.frame.contains(location) {
             AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.Achieve.closeDailyMissionModal)
-            self.dismiss(animated: true)
+            coordinator?.dismiss()
         }
     }
 }
@@ -98,8 +111,9 @@ extension DetailAchievementViewController {
             cell.configure(model: item)
         }
         
-        let headerRegistration = HeaderRegistration<DetailAchieveHeaderView>(elementKind: UICollectionView.elementKindSectionHeader) { headerView, _, _ in
-            if let date = self.selectedDate {
+        // header memory leak 해결 [weak self]
+        let headerRegistration = HeaderRegistration<DetailAchieveHeaderView>(elementKind: UICollectionView.elementKindSectionHeader) { [weak self] headerView, _, _ in
+            if let date = self?.selectedDate {
                 headerView.configure(text: Utils.dateFormatterString(format: "YYYY년 MM월 dd일",
                                                                      date: date))
             }
@@ -149,9 +163,9 @@ extension DetailAchievementViewController {
                                                                     leading: 20,
                                                                     bottom: 0,
                                                                     trailing: 20)
-        config.itemSeparatorHandler = { indexPath, config in
+        config.itemSeparatorHandler = { [weak self] indexPath, config in
             var config = config
-            guard let itemCount = self.dataSource?.snapshot().itemIdentifiers(inSection: .main).count else { return config }
+            guard let itemCount = self?.dataSource?.snapshot().itemIdentifiers(inSection: .main).count else { return config }
             let isLastItem = indexPath.item == itemCount - 1
             config.bottomSeparatorVisibility = isLastItem ? .hidden : .visible
             return config

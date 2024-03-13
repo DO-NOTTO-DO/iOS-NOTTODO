@@ -11,6 +11,10 @@ import KakaoSDKUser
 
 final class MyInfoAccountViewController: UIViewController {
     
+    // MARK: - Property
+    
+    private weak var coordinator: MypageCoordinator?
+    
     // MARK: - UI Components
     
     private let navigationView = UIView()
@@ -28,6 +32,19 @@ final class MyInfoAccountViewController: UIViewController {
     private let logoutButton = UIButton()
     private let withdrawButton = UIButton()
     
+    // MARK: - init
+    
+    init(coordinator: MypageCoordinator) {
+        self.coordinator = coordinator
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: - Life Cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.AccountInfo.viewAccountInfo)
@@ -41,8 +58,8 @@ final class MyInfoAccountViewController: UIViewController {
 
 private extension MyInfoAccountViewController {
     func setUI() {
-        self.notificationView.switchClosure = { result in
-            self.notificationView.notificationSwitch.setOn(result, animated: true)
+        self.notificationView.switchClosure = { [weak self] result in
+            self?.notificationView.notificationSwitch.setOn(result, animated: true)
         }
         
         view.backgroundColor = .ntdBlack
@@ -50,7 +67,7 @@ private extension MyInfoAccountViewController {
         
         backButton.do {
             $0.setBackgroundImage(.icBack, for: .normal)
-            $0.addTarget(self, action: #selector(self.popViewController), for: .touchUpInside)
+            $0.addTarget(self, action: #selector(popBackbutton), for: .touchUpInside)
         }
         
         navigationTitle.do {
@@ -145,27 +162,19 @@ private extension MyInfoAccountViewController {
     
     @objc
     private func presentToWithdraw() {
-        let nextView = NottodoModalViewController()
-        nextView.modalPresentationStyle = .overFullScreen
-        nextView.modalTransitionStyle = .crossDissolve
-        nextView.pushToRootAction = { [weak self] in
-            self?.navigationController?.changeRootViewController(AuthViewController())
-        }
-        self.present(nextView, animated: true)
+        coordinator?.showWithdrawViewController()
     }
     @objc
     private func tappedLogout() {
         AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.AccountInfo.appearLogoutModal)
-        
-        let logoutAlert = UIAlertController(title: I18N.logoutAlertTitle, message: I18N.logoutAlertmessage, preferredStyle: UIAlertController.Style.alert)
-        let logoutAction = UIAlertAction(title: I18N.logout, style: UIAlertAction.Style.default, handler: {_ in
-            self.logout()
-        })
-        let cancelAlert = UIAlertAction(title: I18N.cancel, style: UIAlertAction.Style.default, handler: nil)
-        logoutAlert.addAction(cancelAlert)
-        logoutAlert.addAction(logoutAction)
-        present(logoutAlert, animated: true, completion: nil)
-        
+        coordinator?.showLogoutAlertController { [weak self] in
+            self?.logout()
+        }
+    }
+    
+    @objc
+    private func popBackbutton() {
+        coordinator?.popViewController()
     }
 }
 
@@ -173,12 +182,13 @@ extension MyInfoAccountViewController {
     func logout() {
         if !KeychainUtil.getBool(DefaultKeys.isAppleLogin) {
             kakaoLogout()
-        } 
-        AuthAPI.shared.deleteAuth { _ in
-            UserDefaults.standard.removeObject(forKey: DefaultKeys.accessToken)
-            UserDefaults.standard.removeObject(forKey: DefaultKeys.socialToken)
+        }
+        
+        AuthAPI.shared.deleteAuth { [weak self] _ in
+            guard let self else { return }
+            self.coordinator?.connectAuthCoordinator(type: .logout )
+            
             AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.AccountInfo.completeLogout)
-            SceneDelegate.shared?.changeRootViewControllerTo(AuthViewController())
         }
     }
     

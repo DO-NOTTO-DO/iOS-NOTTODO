@@ -13,7 +13,7 @@ import SnapKit
 final class MyInfoViewController: UIViewController {
     
     // MARK: - Properties
-
+    
     typealias CellRegistration = UICollectionView.CellRegistration
     typealias HeaderRegistration = UICollectionView.SupplementaryRegistration
     typealias DataSource = UICollectionViewDiffableDataSource<Sections, InfoModel>
@@ -26,6 +26,19 @@ final class MyInfoViewController: UIViewController {
     private var dataSource: DataSource?
     
     private lazy var safeArea = self.view.safeAreaLayoutGuide
+    
+    private weak var coordinator: MypageCoordinator?
+    
+    // MARK: - init
+    
+    init(coordinator: MypageCoordinator) {
+        self.coordinator = coordinator
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     // MARK: - UI Components
     
@@ -177,10 +190,7 @@ extension MyInfoViewController: UICollectionViewDelegate {
     
     private func profileSectionSelection() {
         sendAnalyticsEvent(.clickMyInfo) {
-            
-            let nextViewController = MyInfoAccountViewController()
-            nextViewController.hidesBottomBarWhenPushed = false
-            navigationController?.pushViewController(nextViewController, animated: true)
+            coordinator?.showMyInfoAccountViewController()
         }
     }
     

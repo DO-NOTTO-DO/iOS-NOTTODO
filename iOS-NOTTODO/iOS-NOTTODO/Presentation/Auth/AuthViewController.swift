@@ -19,6 +19,10 @@ import KakaoSDKUser
 
 final class AuthViewController: UIViewController {
     
+    // MARK: - Property
+    
+    private weak var coordinator: AuthCoordinator?
+    
     // MARK: - UI Components
     
     private var loginMainLabel = UILabel()
@@ -34,8 +38,18 @@ final class AuthViewController: UIViewController {
     private var conditionButton = UIButton()
     private var personalInfoButton = UIButton()
     
+    // MARK: - init
+    init(coordinator: AuthCoordinator) {
+        self.coordinator = coordinator
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     // MARK: - Life Cycle
-   
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.Login.viewSignIn)
@@ -55,7 +69,7 @@ extension AuthViewController {
             
             let paragraphStyle = NSMutableParagraphStyle()
             paragraphStyle.lineSpacing = $0.font.lineHeight * 0.2
-
+            
             let attributedText = NSAttributedString(string: $0.text ?? "", attributes: [NSAttributedString.Key.paragraphStyle: paragraphStyle])
             $0.attributedText = attributedText
         }
@@ -68,7 +82,7 @@ extension AuthViewController {
             
             let paragraphStyle = NSMutableParagraphStyle()
             paragraphStyle.lineSpacing = $0.font.lineHeight * 0.2
-
+            
             let attributedText = NSAttributedString(string: $0.text ?? "", attributes: [NSAttributedString.Key.paragraphStyle: paragraphStyle])
             $0.attributedText = attributedText
         }
@@ -155,7 +169,7 @@ extension AuthViewController {
         }
         
     }
-        
+    
     // MARK: - @objc Methods
     
     @objc func moreButtonTapped() {
@@ -164,7 +178,7 @@ extension AuthViewController {
     
     @objc func kakaoLoginButtonClicked() {
         AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.Login.clickSignIn(provider: "kakao"))
-
+        
         if UserApi.isKakaoTalkLoginAvailable() {
             kakaoLoginWithApp()
         } else {
@@ -175,7 +189,7 @@ extension AuthViewController {
     @objc
     func appleLoginButtonClicked() {
         AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.Login.clickSignIn(provider: "apple"))
-
+        
         let appleIDProvider = ASAuthorizationAppleIDProvider()
         let request = appleIDProvider.createRequest()
         request.requestedScopes = [.fullName, .email]
@@ -250,7 +264,7 @@ extension AuthViewController {
     
     func presentToHomeViewController() {
         DispatchQueue.main.async {
-            SceneDelegate.shared?.changeRootViewControllerTo(TabBarController())
+            self.coordinator?.connectHomeCoordinator()
         }
     }   
     
@@ -267,11 +281,10 @@ extension AuthViewController {
     
     func showNotiDialogView() {
         DispatchQueue.main.async {
-            let notiDialogViewController = NotificationDialogViewController()
-            notiDialogViewController.buttonHandler = {
+            self.coordinator?.showNotificationViewController { [weak self] in
+                guard let self else { return }
                 self.requestNotification()
             }
-            SceneDelegate.shared?.changeRootViewControllerTo(notiDialogViewController)
         }
     }
     

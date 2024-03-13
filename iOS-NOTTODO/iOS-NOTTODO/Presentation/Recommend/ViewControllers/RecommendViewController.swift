@@ -14,7 +14,9 @@ final class RecommendViewController: UIViewController {
     var recommendResponse: RecommendResponseDTO?
     var recommendList: [RecommendResponseDTO] = []
     private var selectDay: String?
-
+    
+    private weak var coordinator: HomeCoordinator?
+    
     // MARK: - UI Components
     
     private let navigationView = UIView()
@@ -26,6 +28,17 @@ final class RecommendViewController: UIViewController {
     private lazy var recommendCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout())
     private let recommendInset: UIEdgeInsets = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 15)
     private let cellHeight: CGFloat = 137
+    
+    // MARK: - init
+    
+    init(coordinator: HomeCoordinator) {
+        self.coordinator = coordinator
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     // MARK: - View Life Cycle
     
@@ -62,7 +75,7 @@ private extension RecommendViewController {
         
         dismissButton.do {
             $0.setBackgroundImage(.delete, for: .normal)
-            $0.addTarget(self, action: #selector(self.popViewController), for: .touchUpInside)
+            $0.addTarget(self, action: #selector(dismissViewController), for: .touchUpInside)
         }
         
         navigationTitle.do {
@@ -111,7 +124,7 @@ private extension RecommendViewController {
             $0.leading.trailing.equalToSuperview().inset(15)
             $0.bottom.equalToSuperview().offset(-45)
         }
-
+        
         recommendCollectionView.snp.makeConstraints {
             $0.top.equalTo(seperateView.snp.bottom).offset(16)
             $0.leading.trailing.equalToSuperview()
@@ -127,7 +140,7 @@ private extension RecommendViewController {
     
     private func register() {
         recommendCollectionView.register(RecommendCollectionViewCell.self,
-                                              forCellWithReuseIdentifier: RecommendCollectionViewCell.identifier)
+                                         forCellWithReuseIdentifier: RecommendCollectionViewCell.identifier)
     }
     
     func setDelegate() {
@@ -137,22 +150,20 @@ private extension RecommendViewController {
     
     func requestRecommendAPI() {
         RecommendAPI.shared.getRecommend { [weak self] response in
-            guard self != nil else { return }
+            guard let self else { return }
             guard let response = response else { return }
             
             guard let data = response.data else { return }
-            self?.recommendList = data
-            self?.recommendCollectionView.reloadData()
+            self.recommendList = data
+            self.recommendCollectionView.reloadData()
         }
     }
     
     @objc
     private func buttonTapped() {
         AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.Recommend.clickSelfCreateMission)
-        
-        let nextViewController = AddMissionViewController()
-        nextViewController.setDate([selectDay ?? ""])
-        navigationController?.pushViewController(nextViewController, animated: true)
+        let data: AddMissionData = AddMissionData(date: [selectDay ?? ""])
+        coordinator?.showAddViewController(data: data, type: .add)
     }
 }
 
@@ -188,15 +199,20 @@ extension RecommendViewController: UICollectionViewDelegate {
         AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.Recommend.clickRecommendMission(situation: recommendList[indexPath.row].situation, title: recommendList[indexPath.row].title))
         
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.1) {
-            let selectedCell = collectionView.cellForItem(at: indexPath) as! RecommendCollectionViewCell
-            let viewController = RecommendActionViewController()
-            
-            viewController.selectedIndex = selectedCell.id
-            viewController.tagLabelText = selectedCell.tagLabel.text
-            viewController.bodyImageUrl = selectedCell.bodyImage.image
-            viewController.setSelectDate(self.selectDay ?? "")
-            
-            self.navigationController?.pushViewController(viewController, animated: true)
+            let indexPath = self.recommendList[indexPath.item]
+            let data = RecommendActionData(tag: indexPath.situation,
+                                           image: indexPath.image,
+                                           index: indexPath.id,
+                                           selectedDate: self.selectDay)
+            self.coordinator?.showRecommendDetailViewController(actionData: data)
         }
+    }
+}
+
+extension RecommendViewController {
+    
+    @objc
+    private func dismissViewController() {
+        coordinator?.dismissRecommendViewcontroller()
     }
 }
