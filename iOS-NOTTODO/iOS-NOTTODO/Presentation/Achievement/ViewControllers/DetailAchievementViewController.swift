@@ -105,9 +105,7 @@ extension DetailAchievementViewController {
     }
     
     private func setDataSource() {
-        
-        let cellRegistration = CellRegistration<DetailAchievementCollectionViewCell, Item> {cell, index, item in
-            print("index: \(index.item)")
+        let cellRegistration = CellRegistration<DetailAchievementCollectionViewCell, Item> {cell, _, item in
             cell.configure(model: item)
         }
         
@@ -153,7 +151,6 @@ extension DetailAchievementViewController {
     }
     
     private func layout() -> UICollectionViewCompositionalLayout {
-        
         var config = UICollectionLayoutListConfiguration(appearance: .plain)
         config.headerMode = .supplementary
         config.backgroundColor = .clear

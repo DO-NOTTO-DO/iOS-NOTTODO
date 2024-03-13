@@ -20,9 +20,9 @@ final class AchievementViewController: UIViewController, AchievementViewModelPre
     private let eventCellSubject = PassthroughSubject<Date, Never>()
     private let monthSubject = PassthroughSubject<Date, Never>()
     private let dataSource = CurrentValueSubject<[String: Float], Never>([:])
-            
-    private let viewModel: any AchievementViewModel
     private var cancelBag = Set<AnyCancellable>()
+    
+    private let viewModel: any AchievementViewModel
     
     // MARK: - UI Components
     
@@ -137,15 +137,21 @@ extension AchievementViewController {
     }
 }
 
-extension AchievementViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalendarDelegateAppearance {
+extension AchievementViewController: FSCalendarDelegate {
     
     func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
         self.monthSubject.send(calendar.currentPage)
         monthCalendar.configureYearMonth(to: calendar.currentPage.formattedString(format: I18N.yearMonthTitle))
     }
     
-    func calendar(_ calendar: FSCalendar, titleFor date: Date) -> String? {
-        date.formattedString(format: "dd")
+    func calendar(_ calendar: FSCalendar, cellFor date: Date, at position: FSCalendarMonthPosition) -> FSCalendarCell {
+        
+        guard let cell = calendar.dequeueReusableCell(withIdentifier: MissionCalendarCell.identifier, for: date, at: position) as? MissionCalendarCell else { return FSCalendarCell() }
+        
+        guard let percentage = self.dataSource.value[date.formattedString()] else { return cell }
+        cell.configure(percent: percentage)
+        
+        return cell
     }
     
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
@@ -154,6 +160,16 @@ extension AchievementViewController: FSCalendarDelegate, FSCalendarDataSource, F
         
         self.eventCellSubject.send(date)
     }
+}
+
+extension AchievementViewController: FSCalendarDataSource {
+    
+    func calendar(_ calendar: FSCalendar, titleFor date: Date) -> String? {
+        date.formattedString(format: "dd")
+    }
+}
+
+extension AchievementViewController: FSCalendarDelegateAppearance {
     
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleSelectionColorFor date: Date) -> UIColor? {
         
@@ -171,15 +187,5 @@ extension AchievementViewController: FSCalendarDelegate, FSCalendarDataSource, F
             return currentMonth != dateMonth ? .gray3 : .white
         }
         return percentage == 1.0 ? .black : .white
-    }
-    
-    func calendar(_ calendar: FSCalendar, cellFor date: Date, at position: FSCalendarMonthPosition) -> FSCalendarCell {
-        
-        guard let cell = calendar.dequeueReusableCell(withIdentifier: MissionCalendarCell.identifier, for: date, at: position) as? MissionCalendarCell else { return FSCalendarCell() }
-        
-        guard let percentage = self.dataSource.value[date.formattedString()] else { return cell }
-        cell.configure(percent: percentage)
-        
-        return cell
     }
 }
