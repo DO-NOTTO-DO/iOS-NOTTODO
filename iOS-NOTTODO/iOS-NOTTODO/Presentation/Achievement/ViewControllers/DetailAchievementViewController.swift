@@ -62,7 +62,7 @@ final class DetailAchievementViewController: UIViewController {
         setUI()
         setLayout()
         setDataSource()
-        setSnapShot(with: [])
+        setSnapShot()
         setBindings()
     }
     
@@ -143,7 +143,7 @@ extension DetailAchievementViewController {
             .store(in: &cancelBag)
     }
     
-    private func setSnapShot(with items: [AchieveDetailData]) {
+    private func setSnapShot(with items: [AchieveDetailData] = []) {
         var snapShot = SnapShot()
         
         snapShot.appendSections([.main])
