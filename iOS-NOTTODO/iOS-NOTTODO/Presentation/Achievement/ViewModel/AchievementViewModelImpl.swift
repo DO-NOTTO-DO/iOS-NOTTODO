@@ -20,7 +20,7 @@ final class AchievementViewModelImpl: AchievementViewModel {
     }
     
     let eventSubject = PassthroughSubject<CalendarEventData, Never>()
-    var dataSource: [String: Float] = [:]
+    let dataSource = CurrentValueSubject<[String: Float], Never>([:])
     
     func transform(input: AchievementViewModelInput) -> AchievementViewModelOutput {
         
@@ -34,16 +34,17 @@ final class AchievementViewModelImpl: AchievementViewModel {
             .store(in: &cancelBag)
         
         input.calendarCellTapped
-            .compactMap { date -> String? in
-                guard let percentage = self.dataSource[date.formattedString()], percentage != 0.0 else {
-                    return nil
+            .filter { [weak self] date -> Bool in
+                guard let percentage = self?.dataSource.value[date.formattedString()] else {
+                    return false
                 }
-                return date.formattedString()
+                return percentage != 0.0
             }
+            .map { $0.formattedString() }
             .sink { [weak self] date in
                 self?.coordinator?.showAchieveDetailViewController(selectedDate: date)
             }
-        .store(in: &cancelBag)
+            .store(in: &cancelBag)
         
         return Output(viewWillAppearSubject: eventSubject.eraseToAnyPublisher())
     }
@@ -54,7 +55,7 @@ final class AchievementViewModelImpl: AchievementViewModel {
                 print("completion: \(event)")
             }, receiveValue: { data in
                 self.eventSubject.send(data)
-                self.dataSource = data.percentages
+                self.dataSource.send(data.percentages)
             })
             .store(in: &cancelBag)
     }

@@ -19,17 +19,14 @@ final class AchievementViewController: UIViewController, AchievementViewModelPre
     private let viewWillAppearSubject = PassthroughSubject<Date, Never>()
     private let eventCellSubject = PassthroughSubject<Date, Never>()
     private let monthSubject = PassthroughSubject<Date, Never>()
-    private var dataSource: [String: Float] = [:]
-    
-    private weak var coordinator: AchieveCoordinator?
-    
-    private lazy var safeArea = self.view.safeAreaLayoutGuide
-    
+    private let dataSource = CurrentValueSubject<[String: Float], Never>([:])
+            
     private let viewModel: any AchievementViewModel
     private var cancelBag = Set<AnyCancellable>()
     
     // MARK: - UI Components
     
+    private lazy var safeArea = self.view.safeAreaLayoutGuide
     private let scrollView = UIScrollView()
     private let achievementLabel = UILabel()
     private let monthCalendar = CalendarView(scope: .month)
@@ -127,12 +124,16 @@ extension AchievementViewController {
         output.viewWillAppearSubject
             .receive(on: RunLoop.main)
             .sink { [weak self] item in
-                self?.dataSource = item.percentages
-                self?.monthCalendar.reloadCollectionView()
-                self?.monthCalendar.currentPage(date: item.month)
-                self?.monthCalendar.configureYearMonth(to: item.month.formattedString(format: I18N.yearMonthTitle))
+                self?.updateCalendar(with: item)
             }
             .store(in: &cancelBag)
+    }
+    
+    func updateCalendar(with data: CalendarEventData) {
+        self.dataSource.send(data.percentages)
+        self.monthCalendar.reloadCollectionView()
+        self.monthCalendar.currentPage(date: data.month)
+        self.monthCalendar.configureYearMonth(to: data.month.formattedString(format: I18N.yearMonthTitle))
     }
 }
 
@@ -156,7 +157,7 @@ extension AchievementViewController: FSCalendarDelegate, FSCalendarDataSource, F
     
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleSelectionColorFor date: Date) -> UIColor? {
         
-        if let percentage = self.dataSource[date.formattedString()], percentage == 1.0 {
+        if let percentage = self.dataSource.value[date.formattedString()], percentage == 1.0 {
             return .black
         }
         return .white
@@ -166,17 +167,17 @@ extension AchievementViewController: FSCalendarDelegate, FSCalendarDataSource, F
         let currentMonth = Calendar.current.component(.month, from: calendar.currentPage)
         let dateMonth = Calendar.current.component(.month, from: date)
         
-        guard let percentage = self.dataSource[date.formattedString()] else {
+        guard let percentage = self.dataSource.value[date.formattedString()] else {
             return currentMonth != dateMonth ? .gray3 : .white
         }
         return percentage == 1.0 ? .black : .white
     }
-
+    
     func calendar(_ calendar: FSCalendar, cellFor date: Date, at position: FSCalendarMonthPosition) -> FSCalendarCell {
         
         guard let cell = calendar.dequeueReusableCell(withIdentifier: MissionCalendarCell.identifier, for: date, at: position) as? MissionCalendarCell else { return FSCalendarCell() }
         
-        guard let percentage = self.dataSource[date.formattedString()] else { return cell }
+        guard let percentage = self.dataSource.value[date.formattedString()] else { return cell }
         cell.configure(percent: percentage)
         
         return cell
