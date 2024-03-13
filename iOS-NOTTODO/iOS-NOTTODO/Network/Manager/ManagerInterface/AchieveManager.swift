@@ -9,6 +9,6 @@ import Foundation
 import Combine
 
 protocol AchieveManager {
-    func getDailyMission(date: String) -> AnyPublisher<AchieveDetailData, Error>
+    func getDailyMission(date: String) -> AnyPublisher<[AchieveDetailData], Error>
     func getAchieveCalendar(month: Date) -> AnyPublisher<CalendarEventData, Error>
 }

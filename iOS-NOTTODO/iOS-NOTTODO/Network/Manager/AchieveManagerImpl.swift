@@ -16,19 +16,17 @@ final class AchieveManagerImpl: AchieveManager {
     init(missionAPI: DefaultMissionAPI) {
         self.missionAPI = missionAPI
     }
-    
-    func getDailyMission(date: String) -> AnyPublisher<AchieveDetailData, Error> {
+
+    func getDailyMission(date: String) -> AnyPublisher<[AchieveDetailData], Error> {
         missionAPI.getDailyMission(date: date)
-            .map { data -> AchieveDetailData in
-                return AchieveDetailData(missionList: data.data ?? [], selectedDate: date)
-            }
+            .map { $0.data?.map { $0.toData(selectedDate: date) } ?? [] }
             .eraseToAnyPublisher()
     }
     
     func getAchieveCalendar(month: Date) -> AnyPublisher<CalendarEventData, Error> {
         return missionAPI.getAchieveCalendar(month: month.formattedString(format: "yyyy-MM"))
+    //        .map { $0.data?.map { $0.toData(month: month) }  ?? [}
             .map { response in
-                
                 self.convertResponseToCalendarEventData(response, month: month)
             }
             .compactMap { $0 }

@@ -9,7 +9,9 @@ import Foundation
 
 struct AchieveDetailData: Hashable {
     
-    let missionList: [DailyMissionResponseDTO]
+    let title: String
+    let situation: String
+    let status: CompletionStatus
     let selectedDate: String
     
     func formatDateString() -> String {

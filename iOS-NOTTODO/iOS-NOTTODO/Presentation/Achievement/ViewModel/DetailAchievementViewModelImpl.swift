@@ -46,7 +46,7 @@ final class DetailAchievementViewModelImpl: DetailAchievementViewModel {
             .sink(receiveCompletion: { event in
                 print("completion: \(event)")
             }, receiveValue: { data in
-                self.missionsSubject.send([data])
+                self.missionsSubject.send(data)
             })
             .store(in: &cancelBag)
         }

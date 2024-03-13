@@ -107,7 +107,8 @@ extension DetailAchievementViewController {
     private func setDataSource() {
         
         let cellRegistration = CellRegistration<DetailAchievementCollectionViewCell, Item> {cell, index, item in
-            cell.configure(model: item.missionList[index.item])
+            print("index: \(index.item)")
+            cell.configure(model: item)
         }
         
         let headerRegistration = HeaderRegistration<DetailAchieveHeaderView>(elementKind: UICollectionView.elementKindSectionHeader) { [weak self] headerView, _, indexPath in
@@ -144,6 +145,7 @@ extension DetailAchievementViewController {
     
     private func setSnapShot(with items: [AchieveDetailData]) {
         var snapShot = SnapShot()
+        
         snapShot.appendSections([.main])
         snapShot.appendItems(items, toSection: .main)
         

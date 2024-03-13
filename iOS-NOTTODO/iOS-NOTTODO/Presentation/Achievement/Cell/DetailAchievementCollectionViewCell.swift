@@ -85,10 +85,10 @@ extension DetailAchievementCollectionViewCell {
         }
     }
     
-    func configure(model: DailyMissionResponseDTO) {
-        tagLabel.text = model.situationName
+    func configure(model: AchieveDetailData) {
+        tagLabel.text = model.situation
         titleLabel.text = model.title
         titleLabel.lineBreakMode = .byTruncatingTail
-        checkImage.isHidden = model.completionStatus == .UNCHECKED
+        checkImage.isHidden = model.status == .UNCHECKED
     }
 }
