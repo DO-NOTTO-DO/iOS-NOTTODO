@@ -1,5 +1,5 @@
 //
-//  MissionService.swift
+//  MissionAPI.swift
 //  iOS-NOTTODO
 //
 //  Created by 강윤서 on 2023/06/07.
@@ -25,7 +25,7 @@ struct UpdateMissionRequest: Codable {
     let goal: String?
 }
 
-enum MissionService {
+enum MissionAPI {
     case addMission(request: AddMissionRequest)
     case updateMission(request: UpdateMissionRequest)
     case recentMission
@@ -39,7 +39,7 @@ enum MissionService {
     case achieveCalendar(month: String)
 }
 
-extension MissionService: BaseService {
+extension MissionAPI: BaseAPI {
     var domain: BaseDomain {
         return .mission
     }

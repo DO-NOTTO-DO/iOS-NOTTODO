@@ -285,7 +285,7 @@ extension RecommendActionViewController: UICollectionViewDelegate {
 extension RecommendActionViewController {
     
     func requestRecommendActionAPI(index: Int) {
-        RecommendAPI.shared.getRecommendAction(index: index) { [weak self] response in
+        RecommendService.shared.getRecommendAction(index: index) { [weak self] response in
             guard let self = self,
                   let response = response,
                   let data = response.data,

@@ -149,7 +149,7 @@ private extension RecommendViewController {
     }
     
     func requestRecommendAPI() {
-        RecommendAPI.shared.getRecommend { [weak self] response in
+        RecommendService.shared.getRecommend { [weak self] response in
             guard let self else { return }
             guard let response = response else { return }
             
