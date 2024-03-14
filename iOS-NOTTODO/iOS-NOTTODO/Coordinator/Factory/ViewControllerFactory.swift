@@ -74,7 +74,8 @@ extension ViewControllerFactoryImpl {
         return viewController
     }
     func makeSecondOnboardingViewController(coordinator: AuthCoordinator) -> SecondOnboardingViewController {
-        let viewController = SecondOnboardingViewController(coordinator: coordinator)
+        let viewModel = SecondOnboardingViewModelImpl(coordinator: coordinator)
+        let viewController = SecondOnboardingViewController(viewModel: viewModel)
         return viewController
     }
     func makeThirdOnboardingViewController(coordinator: AuthCoordinator) -> ThirdOnboardingViewController {

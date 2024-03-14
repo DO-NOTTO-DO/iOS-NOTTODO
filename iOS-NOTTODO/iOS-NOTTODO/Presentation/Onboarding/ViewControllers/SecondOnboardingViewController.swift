@@ -7,6 +7,7 @@
 
 import UIKit
 
+import Combine
 import SnapKit
 import Then
 
@@ -20,7 +21,11 @@ final class SecondOnboardingViewController: UIViewController {
     private let onboardingModel: [SecondOnboardingModel] = SecondOnboardingModel.titles
     private var dataSource: UICollectionViewDiffableDataSource<Section, SecondOnboardingModel>! = nil
     private lazy var safeArea = self.view.safeAreaLayoutGuide
-    private weak var coordinator: AuthCoordinator?
+    
+    private let viewModel: any SecondOnboardingViewModel
+    private var cancelBag = Set<AnyCancellable>()
+    
+    private let onbaordingCellTapped = PassthroughSubject<IndexPath, Never>()
     
     // MARK: - UI Components
     
@@ -28,8 +33,8 @@ final class SecondOnboardingViewController: UIViewController {
     
     // MARK: - init
     
-    init(coordinator: AuthCoordinator) {
-        self.coordinator = coordinator
+    init(viewModel: some SecondOnboardingViewModel) {
+        self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -47,6 +52,7 @@ final class SecondOnboardingViewController: UIViewController {
         setLayout()
         setupDataSource()
         reloadData()
+        setBindings()
     }
 }
 
@@ -113,12 +119,18 @@ extension SecondOnboardingViewController {
         let layout = UICollectionViewCompositionalLayout(section: section)
         return layout
     }
+    
+    private func setBindings() {
+        let input = SecondOnboardingViewModelInput(
+            cellTapped: onbaordingCellTapped)
+        _ = viewModel.transform(input: input)
+    }
 }
 
 extension SecondOnboardingViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.OnboardingClick.clickOnboardingNext2(select: SecondOnboardingModel.titles[indexPath.row].title))
         
-        coordinator?.showThirdOnboardingViewController()
+        self.onbaordingCellTapped.send(indexPath)
     }
 }
