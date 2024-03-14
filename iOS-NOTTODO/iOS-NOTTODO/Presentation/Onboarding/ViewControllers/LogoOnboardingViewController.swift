@@ -7,14 +7,19 @@
 
 import UIKit
 import AVFoundation
+import Combine
 
 final class LogoOnboardingViewController: UIViewController {
     
     // MARK: - Properties
     
     private lazy var safeArea = self.view.safeAreaLayoutGuide
-    private weak var coordinator: AuthCoordinator?
     private var player: AVPlayer?
+    
+    private let viewModel: any LogoOnboardingViewModel
+    private var cancelBag = Set<AnyCancellable>()
+    
+    private let startButtonDidTapped = PassthroughSubject<Void, Never>()
     
     // MARK: - UI Components
     
@@ -23,8 +28,8 @@ final class LogoOnboardingViewController: UIViewController {
     
     // MARK: - init
     
-    init(coordinator: AuthCoordinator) {
-        self.coordinator = coordinator
+    init(viewModel: some LogoOnboardingViewModel) {
+        self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -38,6 +43,7 @@ final class LogoOnboardingViewController: UIViewController {
         super.viewDidLoad()
         setUI()
         setLayout()
+        setBindings()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -109,6 +115,13 @@ extension LogoOnboardingViewController {
         }
     }
     
+    private func setBindings() {
+        let input = LogoOnboardingViewModelInput(
+            startButtonTappedSubject: startButtonDidTapped
+        )
+        _ = viewModel.transform(input: input)
+    }
+    
     @objc
     private func videoDidFinishPlaying(notification: NSNotification) {
         nextButton.isHidden = false
@@ -117,6 +130,6 @@ extension LogoOnboardingViewController {
     @objc
     private func buttonTapped() {
         AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.OnboardingClick.clickOnboardingStart)
-        coordinator?.showSecondOnboardingViewController()
+        startButtonDidTapped.send()
     }
 }

@@ -68,7 +68,8 @@ extension ViewControllerFactoryImpl {
         return viewController
     }
     func makeLogoOnboardingViewController(coordinator: AuthCoordinator) -> LogoOnboardingViewController {
-        let viewController = LogoOnboardingViewController(coordinator: coordinator)
+        let viewModel = LogoOnboardingViewModelImpl(coodinator: coordinator)
+        let viewController = LogoOnboardingViewController(viewModel: viewModel)
         return viewController
     }
     func makeSecondOnboardingViewController(coordinator: AuthCoordinator) -> SecondOnboardingViewController {
