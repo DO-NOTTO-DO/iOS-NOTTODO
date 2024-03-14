@@ -85,7 +85,6 @@ extension FourthOnboardingViewController {
             $0.configuration?.contentInsets = NSDirectionalEdgeInsets.init(top: 0, leading: 0, bottom: 0, trailing: 0)
             $0.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
         }
-        
     }
     
     private func setLayout() {

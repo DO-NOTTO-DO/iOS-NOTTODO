@@ -78,6 +78,7 @@ extension ThirdOnboardingViewController {
             $0.allowsMultipleSelection = true
             $0.delegate = self
         }
+        
         nextButton.do {
             $0.backgroundColor = isTapped ? .white : .gray2
             $0.isUserInteractionEnabled = isTapped
