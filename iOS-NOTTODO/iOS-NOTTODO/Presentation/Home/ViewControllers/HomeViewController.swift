@@ -51,7 +51,7 @@ final class HomeViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        showPopup(isSelected: didCloseButtonTap)
+        // showPopup(isSelected: didCloseButtonTap)
         AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.Home.viewHome)
         
         dailyLoadData()
