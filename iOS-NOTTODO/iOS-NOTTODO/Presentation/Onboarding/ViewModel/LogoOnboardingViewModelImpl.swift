@@ -19,7 +19,8 @@ final class LogoOnboardingViewModelImpl: LogoOnboardingViewModel {
     func transform(input: LogoOnboardingViewModelInput) -> LogoOnboardingViewModelOutput {
         input.startButtonTappedSubject
             .sink { [weak self] _ in
-                self?.coodinator?.showSecondOnboardingViewController()
+                guard let self else { return }
+                self.coodinator?.showSecondOnboardingViewController()
             }
             .store(in: &cancelBag)
         

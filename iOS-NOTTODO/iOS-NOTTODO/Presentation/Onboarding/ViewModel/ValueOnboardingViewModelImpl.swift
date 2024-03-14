@@ -19,7 +19,8 @@ final class ValueOnboardingViewModelImpl: ValueOnboardingViewModel {
     func transform(input: ValueOnboardingViewModelInput) -> ValueOnboardingViewModelOutput {
         input.endAnimationSubject
             .sink { [weak self] _ in
-                self?.coordinator?.showLogoOnboardingViewController()
+                guard let self else { return }
+                self.coordinator?.showLogoOnboardingViewController()
             }
             .store(in: &cancelBag)
         
