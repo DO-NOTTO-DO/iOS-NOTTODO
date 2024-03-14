@@ -5,4 +5,12 @@
 //  Created by 강윤서 on 3/14/24.
 //
 
-import Foundation
+import Combine
+
+protocol ValueOnboardingViewModel: ViewModel where Input == ValueOnboardingViewModelInput, Output == ValueOnboardingViewModelOutput {}
+
+struct ValueOnboardingViewModelInput {
+    let endAnimationSubject: PassthroughSubject<Void, Never>
+}
+
+struct ValueOnboardingViewModelOutput { }

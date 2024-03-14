@@ -64,7 +64,8 @@ extension ViewControllerFactoryImpl {
 // onboarding
 extension ViewControllerFactoryImpl {
     func makeValueOnboardingViewController(coordinator: AuthCoordinator) -> ValueOnboardingViewController {
-        let viewController = ValueOnboardingViewController(coordinator: coordinator)
+        let viewModel = ValueOnboardingViewModelImpl(coordinator: coordinator)
+        let viewController = ValueOnboardingViewController(viewModel: viewModel)
         return viewController
     }
     func makeLogoOnboardingViewController(coordinator: AuthCoordinator) -> LogoOnboardingViewController {
