@@ -7,6 +7,7 @@
 
 import UIKit
 
+import Combine
 import SnapKit
 import Then
 
@@ -20,7 +21,11 @@ final class FourthOnboardingViewController: UIViewController {
     private let onboardingModel: [FourthOnboardingModel] = FourthOnboardingModel.items
     private var dataSource: UICollectionViewDiffableDataSource<Section, FourthOnboardingModel>! = nil
     private lazy var safeArea = self.view.safeAreaLayoutGuide
-    private weak var coordinator: AuthCoordinator?
+    
+    private let viewModel: any FourthOnboardingViewModel
+    private var cancelBag = Set<AnyCancellable>()
+    
+    private let buttonDidTapped = PassthroughSubject<Void, Never>()
     
     // MARK: - UI Components
     
@@ -30,8 +35,8 @@ final class FourthOnboardingViewController: UIViewController {
     
     // MARK: - init
     
-    init(coordinator: AuthCoordinator) {
-        self.coordinator = coordinator
+    init(viewModel: some FourthOnboardingViewModel) {
+        self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -49,6 +54,7 @@ final class FourthOnboardingViewController: UIViewController {
         setLayout()
         setupDataSource()
         reloadData()
+        setBindings()
     }
 }
 
@@ -59,6 +65,7 @@ extension FourthOnboardingViewController {
         collectionView.register(SubOnboardingCollectionViewCell.self, forCellWithReuseIdentifier: SubOnboardingCollectionViewCell.identifier)
         collectionView.register(OnboardingHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: OnboardingHeaderView.identifier)
     }
+    
     private func setUI() {
         view.backgroundColor = .ntdBlack
         
@@ -67,6 +74,7 @@ extension FourthOnboardingViewController {
             $0.bounces = false
             $0.isScrollEnabled = false
         }
+        
         nextButton.do {
             $0.configuration?.image = .splashBack
             $0.configuration?.title = I18N.fourthButton
@@ -137,12 +145,19 @@ extension FourthOnboardingViewController {
         let layout = UICollectionViewCompositionalLayout(section: section)
         return layout
     }
+    
+    private func setBindings() {
+        let input = FourthOnboardingViewModelInput(
+            buttonDidTapped: buttonDidTapped
+        )
+        _ = viewModel.transform(input: input)
+    }
 }
 extension FourthOnboardingViewController {
     @objc
     private func buttonTapped() {
         AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.OnboardingClick.clickOnboardingNext4)
         
-        self.coordinator?.showFifthOnboardingViewController()
+        self.buttonDidTapped.send()
     }
 }
