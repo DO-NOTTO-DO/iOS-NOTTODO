@@ -5,4 +5,12 @@
 //  Created by 강윤서 on 3/14/24.
 //
 
-import Foundation
+import Combine
+
+protocol ThirdOnboardingViewModel: ViewModel where Input == ThirdOnboardingViewModelInput, Output == ThirdOnboardingViewModelOutput {}
+
+struct ThirdOnboardingViewModelInput {
+    let nextButtonDidTapped: PassthroughSubject<Void, Never>
+}
+
+struct ThirdOnboardingViewModelOutput {}
