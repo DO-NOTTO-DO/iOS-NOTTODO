@@ -7,6 +7,7 @@
 
 import UIKit
 
+import Combine
 import SnapKit
 import Then
 
@@ -22,7 +23,11 @@ final class FifthOnboardingViewController: UIViewController {
     var fiveOnboardingModel: [FifthOnboardingModel] = FifthOnboardingModel.titles
     private var dataSource: UICollectionViewDiffableDataSource<Sections, AnyHashable>! = nil
     private lazy var safeArea = self.view.safeAreaLayoutGuide
-    private weak var coordinator: AuthCoordinator?
+    
+    private let viewModel: any FifthOnboardingViewModel
+    private var cancelBag = Set<AnyCancellable>()
+    
+    private let loginButtonDidTapped = PassthroughSubject<Void, Never>()
     
     // MARK: - UI Components
     
@@ -32,8 +37,8 @@ final class FifthOnboardingViewController: UIViewController {
     private let gradientView = GradientView(color: .clear, color1: .ntdBlack!)
     
     // MARK: - init
-    init(coordinator: AuthCoordinator) {
-        self.coordinator = coordinator
+    init(viewModel: some FifthOnboardingViewModel) {
+        self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -51,6 +56,7 @@ final class FifthOnboardingViewController: UIViewController {
         setLayout()
         setupDataSource()
         reloadData()
+        setBindings()
     }
 }
 
@@ -71,6 +77,7 @@ extension FifthOnboardingViewController {
             $0.bounces = false
             $0.isScrollEnabled = false
         }
+        
         nextButton.do {
             var configuration = UIButton.Configuration.plain()
             configuration.image = .kakaoAppleIcon
@@ -83,6 +90,7 @@ extension FifthOnboardingViewController {
             $0.configuration = configuration
             $0.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
         }
+        
         arrowImage.do {
             $0.image = .splashBack
         }
@@ -187,6 +195,13 @@ extension FifthOnboardingViewController {
         section.contentInsets = NSDirectionalEdgeInsets(top: 11, leading: 0, bottom: 0, trailing: 0)
         return section
     }
+    
+    private func setBindings() {
+        let input = FifthOnboardingViewModelInput(
+            loginButtonDidTapped: loginButtonDidTapped
+        )
+        _ = viewModel.transform(input: input)
+    }
 }
 
 extension FifthOnboardingViewController {
@@ -194,6 +209,6 @@ extension FifthOnboardingViewController {
     private func buttonTapped() {
         AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.OnboardingClick.clickOnboardingNext5)
         
-        self.coordinator?.showSignUpViewController()
+        self.loginButtonDidTapped.send()
     }
 }

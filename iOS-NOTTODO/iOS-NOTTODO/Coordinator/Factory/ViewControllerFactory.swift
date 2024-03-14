@@ -89,7 +89,8 @@ extension ViewControllerFactoryImpl {
         return viewController
     }
     func makeFifthOnboardingViewController(coordinator: AuthCoordinator) -> FifthOnboardingViewController {
-        let viewController = FifthOnboardingViewController(coordinator: coordinator)
+        let viewModel = FifthOnboardingViewModelImpl(coordinator: coordinator)
+        let viewController = FifthOnboardingViewController(viewModel: viewModel)
         return viewController
     }
 }
