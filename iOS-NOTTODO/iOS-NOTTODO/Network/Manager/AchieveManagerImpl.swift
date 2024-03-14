@@ -10,10 +10,10 @@ import Combine
 
 final class AchieveManagerImpl: AchieveManager {
     
-    private let missionAPI: MissionAPIProtocol
+    private let missionAPI: MissionServiceProtocol
     private let cancelBag = Set<AnyCancellable>()
     
-    init(missionAPI: MissionAPIProtocol) {
+    init(missionAPI: MissionServiceProtocol) {
         self.missionAPI = missionAPI
     }
     

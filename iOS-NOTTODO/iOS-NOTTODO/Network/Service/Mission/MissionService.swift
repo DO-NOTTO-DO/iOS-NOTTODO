@@ -1,5 +1,5 @@
 //
-//  MissionAPI.swift
+//  MissionService.swift
 //  iOS-NOTTODO
 //
 //  Created by JEONGEUN KIM on 2023/05/20.
@@ -11,21 +11,21 @@ import Combine
 import Moya
 
 // 전체 수정 후 - 네이밍 변경 MissionAPI
-protocol MissionAPIProtocol {
+protocol MissionServiceProtocol {
     func getDailyMission(date: String) -> AnyPublisher<DailyMissionData, Error>
     func getAchieveCalendar(month: String) -> AnyPublisher<CalendarData, Error>
 }
 
-typealias DefaultMissionAPI = BaseAPI<MissionService>
+typealias DefaultMissionService = BaseService<MissionAPI>
 
-extension DefaultMissionAPI: MissionAPIProtocol {
+extension DefaultMissionService: MissionServiceProtocol {
             
     func getDailyMission(date: String) -> AnyPublisher<DailyMissionData, Error> {
-        return requestWithCombine(MissionService.dailyMission(date: date))
+        return requestWithCombine(MissionAPI.dailyMission(date: date))
     }
     
     func getAchieveCalendar(month: String) -> AnyPublisher<CalendarData, Error> {
-        return requestWithCombine(MissionService.achieveCalendar(month: month))
+        return requestWithCombine(MissionAPI.achieveCalendar(month: month))
     }
 }
 
@@ -38,7 +38,7 @@ typealias AddMissionsData = GeneralResponse<AddMissionResponseDTO>
 typealias AddAnotherDay = GeneralResponse<AddAnotherDayResponseDTO>
 typealias UpdateMissionStatus = GeneralResponse<DailyMissionResponseDTO>
 
-protocol MissionAPIType {
+protocol MissionServiceType {
     func getDailyMission(date: String, completion: @escaping (DailyMissionData?) -> Void)
     func getWeeklyMissoin(startDate: String, completion: @escaping (CalendarData?) -> Void)
     func getDetailMission(id: Int, completion: @escaping (DetailMissionData?) -> Void)
@@ -52,11 +52,11 @@ protocol MissionAPIType {
     func putUpdateMission(request: UpdateMissionRequest, completion: @escaping(UpdateMissionData?) -> Void)
 }
 
-final class MissionAPI: MissionAPIType {
+final class MissionService: MissionServiceType {
     
-    static let shared: MissionAPI = MissionAPI()
+    static let shared: MissionService = MissionService()
     
-    var provider = MoyaProvider<MissionService>(session: Session(interceptor: AuthInterceptor.shared), plugins: [MoyaLoggingPlugin()])
+    var provider = MoyaProvider<MissionAPI>(session: Session(interceptor: AuthInterceptor.shared), plugins: [MoyaLoggingPlugin()])
     
     private init() {}
     

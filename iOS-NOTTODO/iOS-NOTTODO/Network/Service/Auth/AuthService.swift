@@ -1,5 +1,5 @@
 //
-//  AuthService.swift
+//  AuthAPI.swift
 //  iOS-NOTTODO
 //
 //  Created by 김민서 on 2023/05/21.
@@ -9,70 +9,73 @@ import Foundation
 
 import Moya
 
-struct AuthRequest: Codable {
-    let socialToken: String
-    let fcmToken: String
-    var name: String?
+typealias AuthData = GeneralResponse<AuthResponseDTO>
+typealias EmptyData = GeneralResponse<VoidType>
+
+protocol AuthServiceType {
+    func postKakaoAuth(social: LoginType, request: AuthRequest, completion: @escaping (AuthData?) -> Void)
+    func postAppleAuth(social: LoginType, request: AuthRequest, completion: @escaping (AuthData?) -> Void)
+    func deleteAuth(completion: @escaping (EmptyData?) -> Void)
+    func withdrawalAuth(completion: @escaping (EmptyData?) -> Void)
 }
 
-enum AuthService {
-    case kakaoAuth(social: LoginType, request: AuthRequest)
-    case appleAuth(social: LoginType, request: AuthRequest)
-    case logout
-    case withdrawal
-}
-
-extension AuthService: BaseService {
-    var domain: BaseDomain {
-        return .auth
-    }
+final class AuthService: AuthServiceType {
     
-    var urlPath: String {
-        switch self {
-        case .kakaoAuth(let social, _), .appleAuth(let social, _):
-            return URLConstant.auth + "/\(social.rawValue)"
-        case .logout:
-            return URLConstant.authLogout
-        case .withdrawal:
-            return URLConstant.authWithdrawal
+    static let shared: AuthService = AuthService()
+    
+    private let authProvider = MoyaProvider<AuthAPI>(session: Session(interceptor: AuthInterceptor.shared), plugins: [MoyaLoggingPlugin()])
+    
+    private init() { }
+    
+    // MARK: - POST
+    
+    func postKakaoAuth(social: LoginType, request: AuthRequest, completion: @escaping (AuthData?) -> Void) {
+        authProvider.request(.kakaoAuth(social: social, request: request)) { result in
+            switch result {
+            case .success(let response):
+                do {
+                    let response = try response.map(AuthData?.self)
+                    completion(response)
+                } catch let err {
+                    print(err.localizedDescription, 500)
+                }
+            case .failure(let err):
+                print(err.localizedDescription)
+                completion(nil)
+            }
         }
     }
     
-    var headerType: HeaderType {
-        
-        switch self {
-        case .kakaoAuth, .appleAuth:
-            return .json
-        case .logout, .withdrawal:
-            return .jsonWithToken
+    func postAppleAuth(social: LoginType, request: AuthRequest, completion: @escaping (AuthData?) -> Void) {
+        authProvider.request(.appleAuth(social: social, request: request)) { result in
+            switch result {
+            case .success(let response):
+                do {
+                    let response = try response.map(AuthData?.self)
+                    completion(response)
+                } catch let err {
+                    print(err.localizedDescription, 500)
+                }
+            case .failure(let err):
+                print(err.localizedDescription)
+                completion(nil)
+            }
         }
     }
     
-    var method: Moya.Method {
-        switch self {
-        case .kakaoAuth, .appleAuth:
-            return .post
-        case .logout, .withdrawal:
-            return .delete
+    // MARK: - Delete
+    
+    func deleteAuth(completion: @escaping (EmptyData?) -> Void) {
+        authProvider.request(.logout) { _ in
+            completion(nil)
         }
     }
     
-    var task: Moya.Task {
-        switch self {
-        case .kakaoAuth(_, let data):
-            return .requestJSONEncodable(data)
-        case .appleAuth(_, let data):
-            return .requestJSONEncodable(data)
-        case .logout, .withdrawal:
-            return .requestPlain
+    // MARK: - Withdrawal
+    
+    func withdrawalAuth(completion: @escaping (EmptyData?) -> Void) {
+        authProvider.request(.withdrawal) { _ in
+            completion(nil)
         }
-    }
-}
-
-extension Encodable {
-    var toDictionary: [String: Any] {
-        guard let object = try? JSONEncoder().encode(self) else { fatalError() }
-        guard let dictionary = try? JSONSerialization.jsonObject(with: object, options: []) as? [String: Any] else { fatalError() }
-        return dictionary
     }
 }

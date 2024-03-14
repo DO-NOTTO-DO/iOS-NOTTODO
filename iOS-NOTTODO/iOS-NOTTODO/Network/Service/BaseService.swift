@@ -1,69 +1,95 @@
 //
-//  BaseService.swift
+//  BaseAPI.swift
 //  iOS-NOTTODO
 //
-//  Created by JEONGEUN KIM on 3/12/24.
+//  Created by JEONGEUN KIM on 3/10/24.
 //
 
 import Foundation
+import Combine
 
+import Alamofire
 import Moya
 
-enum BaseDomain {
-    case auth
-    case mission
-    case recommend
-}
-
-extension BaseDomain {
+final class BaseService<Target: TargetType> {
     
-    var url: String {
-        switch self {
-        case .auth:
-            return "/auth"
-        case .mission:
-            return "/mission"
-        case .recommend:
-            return "/recommend"
-        }
-    }
+    typealias API = Target
+    
+    // MARK: - Properties
+    
+    var cancelBag = Set<AnyCancellable>()
+    
+    lazy var provider = self.defaultProvider
+    
+    private lazy var defaultProvider: MoyaProvider<API> = {
+        let configuration = URLSessionConfiguration.default
+        configuration.timeoutIntervalForRequest = 10
+        configuration.timeoutIntervalForResource = 10
+        configuration.requestCachePolicy = .reloadIgnoringLocalCacheData
+        let interceptor = AuthInterceptor.shared
+        let session = Session(configuration: configuration, interceptor: interceptor)
+        let provider = MoyaProvider<API>(
+            session: session,
+            plugins: [MoyaLoggingPlugin()]
+        )
+        return provider
+    }()
+    
+    // MARK: - Initializers
+    
+    public init() {}
 }
 
-protocol BaseService: TargetType {
-    var domain: BaseDomain { get }
-    var urlPath: String { get }
-    var headerType: HeaderType { get }
-}
+// MARK: - Providers
 
 extension BaseService {
-    var baseURL: URL {
-        return URL(string: Bundle.main.baseURL)!
-    }
-    
-    var path: String {
-        return domain.url + urlPath
-    }
-    
-    var validationType: ValidationType {
-        return .successCodes
-    }
-    
-    var headers: [String: String]? {
-        return headerType.value
+    var `default`: BaseService {
+        self.provider = self.defaultProvider
+        return self
     }
 }
 
-public enum HeaderType {
-    case json
-    case jsonWithToken
+// MARK: - MakeRequests
+
+extension BaseService {
     
-    public var value: [String: String] {
-        switch self {
-        case .json:
-            return ["Content-Type": "application/json"]
-        case .jsonWithToken:
-            return ["Content-Type": "application/json",
-                    "Authorization": "\(KeychainUtil.getAccessToken())"]
-        }
+    func requestWithCombine<T: Decodable>(_ target: API) -> AnyPublisher<T, Error> {
+        return Future { promise in
+            self.provider.request(target) { response in
+                switch response {
+                case .success(let value):
+                    do {
+                        let decoder = JSONDecoder()
+                        let body = try decoder.decode(T.self, from: value.data)
+                        promise(.success(body))
+                    } catch let error {
+                        promise(.failure(error))
+                    }
+                case .failure(let error):
+                    if case MoyaError.underlying(let error, _) = error,
+                       case AFError.requestRetryFailed(let retryError, _) = error,
+                       let retryError = retryError as? APIError,
+                       retryError == APIError.tokenReissuanceFailed {
+                        promise(.failure(retryError))
+                    } else {
+                        promise(.failure(error))
+                    }
+                }
+            }
+        }.eraseToAnyPublisher()
+    }
+    
+    // status codea만 사용하는 경우
+    func requestWithCombineNoResult(_ target: API) -> AnyPublisher<Int, Error> {
+        return Future { promise in
+            self.provider.request(target) { response in
+                switch response {
+                case .success(let value):
+                    promise(.success(value.statusCode))
+                case .failure(let error):
+                    promise(.failure(error))
+                }
+            }
+        }.eraseToAnyPublisher()
     }
 }

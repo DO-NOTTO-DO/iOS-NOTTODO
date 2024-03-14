@@ -2,94 +2,68 @@
 //  BaseAPI.swift
 //  iOS-NOTTODO
 //
-//  Created by JEONGEUN KIM on 3/10/24.
+//  Created by JEONGEUN KIM on 3/14/24.
 //
 
 import Foundation
-import Combine
 
-import Alamofire
 import Moya
 
-final class BaseAPI<Target: TargetType> {
-    
-    typealias API = Target
-    
-    // MARK: - Properties
-    
-    var cancelBag = Set<AnyCancellable>()
-    
-    lazy var provider = self.defaultProvider
-    
-    private lazy var defaultProvider: MoyaProvider<API> = {
-        let configuration = URLSessionConfiguration.default
-        configuration.timeoutIntervalForRequest = 10
-        configuration.timeoutIntervalForResource = 10
-        configuration.requestCachePolicy = .reloadIgnoringLocalCacheData
-        let interceptor = AuthInterceptor.shared
-        let session = Session(configuration: configuration, interceptor: interceptor)
-        let provider = MoyaProvider<API>(
-            session: session,
-            plugins: [MoyaLoggingPlugin()]
-        )
-        return provider
-    }()
-    
-    // MARK: - Initializers
-    
-    public init() {}
+enum BaseDomain {
+    case auth
+    case mission
+    case recommend
 }
 
-// MARK: - Providers
-
-extension BaseAPI {
-    var `default`: BaseAPI {
-        self.provider = self.defaultProvider
-        return self
+extension BaseDomain {
+    
+    var url: String {
+        switch self {
+        case .auth:
+            return "/auth"
+        case .mission:
+            return "/mission"
+        case .recommend:
+            return "/recommend"
+        }
     }
 }
 
-// MARK: - MakeRequests
+protocol BaseAPI: TargetType {
+    var domain: BaseDomain { get }
+    var urlPath: String { get }
+    var headerType: HeaderType { get }
+}
 
 extension BaseAPI {
-    
-    func requestWithCombine<T: Decodable>(_ target: API) -> AnyPublisher<T, Error> {
-        return Future { promise in
-            self.provider.request(target) { response in
-                switch response {
-                case .success(let value):
-                    do {
-                        let decoder = JSONDecoder()
-                        let body = try decoder.decode(T.self, from: value.data)
-                        promise(.success(body))
-                    } catch let error {
-                        promise(.failure(error))
-                    }
-                case .failure(let error):
-                    if case MoyaError.underlying(let error, _) = error,
-                       case AFError.requestRetryFailed(let retryError, _) = error,
-                       let retryError = retryError as? APIError,
-                       retryError == APIError.tokenReissuanceFailed {
-                        promise(.failure(retryError))
-                    } else {
-                        promise(.failure(error))
-                    }
-                }
-            }
-        }.eraseToAnyPublisher()
+    var baseURL: URL {
+        return URL(string: Bundle.main.baseURL)!
     }
     
-    // status codea만 사용하는 경우
-    func requestWithCombineNoResult(_ target: API) -> AnyPublisher<Int, Error> {
-        return Future { promise in
-            self.provider.request(target) { response in
-                switch response {
-                case .success(let value):
-                    promise(.success(value.statusCode))
-                case .failure(let error):
-                    promise(.failure(error))
-                }
-            }
-        }.eraseToAnyPublisher()
+    var path: String {
+        return domain.url + urlPath
+    }
+    
+    var validationType: ValidationType {
+        return .successCodes
+    }
+    
+    var headers: [String: String]? {
+        return headerType.value
+    }
+}
+
+public enum HeaderType {
+    case json
+    case jsonWithToken
+    
+    public var value: [String: String] {
+        switch self {
+        case .json:
+            return ["Content-Type": "application/json"]
+        case .jsonWithToken:
+            return ["Content-Type": "application/json",
+                    "Authorization": "\(KeychainUtil.getAccessToken())"]
+        }
     }
 }

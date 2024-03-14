@@ -184,7 +184,7 @@ extension MyInfoAccountViewController {
             kakaoLogout()
         }
         
-        AuthAPI.shared.deleteAuth { [weak self] _ in
+        AuthService.shared.deleteAuth { [weak self] _ in
             guard let self else { return }
             self.coordinator?.connectAuthCoordinator(type: .logout )
             
