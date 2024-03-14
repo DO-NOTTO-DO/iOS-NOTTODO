@@ -10,13 +10,13 @@ import Combine
 
 import Moya
 
-typealias DefaultMissionAPI = BaseAPI<MissionService>
-
 // 전체 수정 후 - 네이밍 변경 MissionAPI
 protocol MissionAPIProtocol {
     func getDailyMission(date: String) -> AnyPublisher<DailyMissionData, Error>
     func getAchieveCalendar(month: String) -> AnyPublisher<CalendarData, Error>
 }
+
+typealias DefaultMissionAPI = BaseAPI<MissionService>
 
 extension DefaultMissionAPI: MissionAPIProtocol {
             
