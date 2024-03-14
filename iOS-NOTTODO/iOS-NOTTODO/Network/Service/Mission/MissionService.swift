@@ -1,5 +1,5 @@
 //
-//  MissionAPI.swift
+//  MissionService.swift
 //  iOS-NOTTODO
 //
 //  Created by JEONGEUN KIM on 2023/05/20.
@@ -19,7 +19,7 @@ typealias AddMissionsData = GeneralResponse<AddMissionResponseDTO>
 typealias AddAnotherDay = GeneralResponse<AddAnotherDayResponseDTO>
 typealias UpdateMissionStatus = GeneralResponse<DailyMissionResponseDTO>
 
-protocol MissionAPIType {
+protocol MissionServiceType {
     func getDailyMission(date: String, completion: @escaping (DailyMissionData?) -> Void)
     func getWeeklyMissoin(startDate: String, completion: @escaping (WeekMissionData?) -> Void)
     func getDetailMission(id: Int, completion: @escaping (DetailMissionData?) -> Void)
@@ -33,11 +33,11 @@ protocol MissionAPIType {
     func putUpdateMission(request: UpdateMissionRequest, completion: @escaping(UpdateMissionData?) -> Void)
 }
 
-final class MissionAPI: MissionAPIType {
+final class MissionService: MissionServiceType {
     
-    static let shared: MissionAPI = MissionAPI()
+    static let shared: MissionService = MissionService()
     
-    var provider = MoyaProvider<MissionService>(session: Session(interceptor: AuthInterceptor.shared), plugins: [MoyaLoggingPlugin()])
+    var provider = MoyaProvider<MissionAPI>(session: Session(interceptor: AuthInterceptor.shared), plugins: [MoyaLoggingPlugin()])
     
     private init() {}
     

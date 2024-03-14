@@ -9,75 +9,41 @@ import Foundation
 
 import Moya
 
-typealias RecommendData = GeneralArrayResponse<RecommendResponseDTO>
-typealias ActionData = GeneralResponse<RecommendActionResponseDTO>
-typealias SituationData = GeneralArrayResponse<RecommendSituationResponseDTO>
-
-protocol RecommendAPIType {
-    func getRecommend(completion: @escaping (RecommendData?) -> Void)
-    func getRecommendAction(index: Int, completion: @escaping (ActionData?) -> Void)
-    func getRecommendSituation(completion: @escaping (SituationData?) -> Void)
+enum RecommendAPI {
+    case recommend
+    case action(id: Int)
+    case situdation
 }
 
-final class RecommendAPI: RecommendAPIType {
+extension RecommendAPI: BaseAPI {
+    var domain: BaseDomain {
+        return .recommend
+    }
     
-    static let shared: RecommendAPI = RecommendAPI()
-    
-    private let provider = MoyaProvider<RecommendService>(session: Session(interceptor: AuthInterceptor.shared), plugins: [MoyaLoggingPlugin()])
-    
-    private init() {}
-        
-    // MARK: - GET
-    
-    func getRecommend(completion: @escaping (RecommendData?) -> Void) {
-        provider.request(.recommend) { result in
-            switch result {
-            case .success(let response):
-                do {
-                    let response = try response.map(RecommendData?.self)
-                    completion(response)
-                } catch let err {
-                    print(err.localizedDescription, 500)
-                }
-            case .failure(let err):
-                print(err.localizedDescription)
-                completion(nil)
-            }
+    var urlPath: String {
+        switch self {
+        case .recommend:
+            return URLConstant.recommend
+        case .action(id: let id):
+            return URLConstant.recommendAction + "/\(id)" + "/action"
+        case .situdation:
+            return URLConstant.recommendSituation
         }
     }
     
-    func getRecommendAction(index: Int, completion: @escaping (GeneralResponse<RecommendActionResponseDTO>?) -> Void) {
-        provider.request(.action(id: index)) { result in
-            switch result {
-            case .success(let response):
-                do {
-                    let reponse = try response.map(ActionData?.self)
-                    completion(reponse)
-                } catch let err {
-                    print(err.localizedDescription, 500)
-                }
-            case .failure(let err):
-                print(err.localizedDescription)
-                completion(nil)
-            }
-        }
+    var headerType: HeaderType {
+        return .jsonWithToken
     }
     
-    func getRecommendSituation(completion: @escaping (SituationData?) -> Void) {
-        provider.request(.situdation) { result in
-            switch result {
-            case .success(let response):
-                do {
-                    let response = try
-                    response.map(SituationData?.self)
-                    completion(response)
-                } catch let err {
-                    print(err.localizedDescription, 500)
-                }
-            case .failure(let err):
-                print(err.localizedDescription)
-                completion(nil)
-            }
-        }
+    var method: Moya.Method {
+        return .get
+    }
+    
+    var validationType: ValidationType {
+        return .successCodes
+    }
+    
+    var task: Moya.Task {
+        .requestPlain
     }
 }

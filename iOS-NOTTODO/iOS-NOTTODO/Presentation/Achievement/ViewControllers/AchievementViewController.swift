@@ -176,7 +176,7 @@ extension AchievementViewController: FSCalendarDelegate, FSCalendarDataSource, F
 extension AchievementViewController {
     
     func requestMonthAPI(month: String) {
-        MissionAPI.shared.getAchieveCalendar(month: month) { [weak self] response in
+        MissionService.shared.getAchieveCalendar(month: month) { [weak self] response in
             
             guard let self, let response = response, let data = response.data else { return }
             
