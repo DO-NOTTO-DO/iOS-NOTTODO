@@ -1,8 +1,8 @@
 //
-//  InfoCollectionViewCell.swift
+//  InfoCollecitonViewCell.swift
 //  iOS-NOTTODO
 //
-//  Created by JEONGEUN KIM on 2023/03/08.
+//  Created by JEONGEUN KIM on 3/15/24.
 //
 
 import UIKit
@@ -81,7 +81,7 @@ extension InfoCollectionViewCell {
         }
     }
     
-    func configureWithIcon(with model: InfoModel) {
+    func configureWithIcon(with model: MyPageRowData) {
         
         iconImage.image = model.image
         titleLabel.text = model.title
@@ -91,7 +91,7 @@ extension InfoCollectionViewCell {
         }
     }
     
-    func configure(with model: InfoModel, isHidden: Bool) {
+    func configure(with model: MyPageRowData, isHidden: Bool) {
         horizontalStackView.removeArrangedSubview(iconImage)
         iconImage.removeFromSuperview()
         titleLabel.text = model.title

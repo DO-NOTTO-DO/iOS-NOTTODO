@@ -1,8 +1,8 @@
 //
-//  MyInfoHeaderCollectionReusableView.swift
+//  MyPageHeaderView.swift
 //  iOS-NOTTODO
 //
-//  Created by JEONGEUN KIM on 2023/03/08.
+//  Created by JEONGEUN KIM on 3/15/24.
 //
 
 import UIKit
@@ -10,7 +10,7 @@ import UIKit
 import Then
 import SnapKit
 
-final class MyInfoHeaderView: UICollectionReusableView {
+final class MyPageHeaderView: UICollectionReusableView {
     
     // MARK: - Properties
     
@@ -36,7 +36,7 @@ final class MyInfoHeaderView: UICollectionReusableView {
 
 // MARK: - Methods
 
-extension MyInfoHeaderView {
+extension MyPageHeaderView {
     
     private func setUI() {
         myInfoLabel.do {
