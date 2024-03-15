@@ -1,66 +1,55 @@
 //
-//  MyInfoAccountStackView.swift
+//  MyInfoAccountCollectionViewCell.swift
 //  iOS-NOTTODO
 //
-//  Created by 김민서 on 2023/03/18.
+//  Created by JEONGEUN KIM on 3/15/24.
 //
 
 import UIKit
 
 import SnapKit
 import Then
-import UserNotifications
 
-final class MyInfoAccountStackView: UIView {
+final class MyInfoAccountCollectionViewCell: UICollectionViewCell {
     
-    // MARK: - UI Components
+    // MARK: - Properties
     
-    private let stackView = UIView()
-    let titleLabel = UILabel()
-    let contentLabel = UILabel()
-    let notificationSwitch = UISwitch()
-    private let lineView = UIView()
-    var switchClosure: ((_ isTapped: Bool) -> Void)?
+    static let identifier = "MyInfoAccountCollectionViewCell"
+    
     private var isNotificationAllowed: Bool {
         return KeychainUtil.getBool(DefaultKeys.isNotificationAccepted)
     }
     
-    // MARK: - View Life Cycle
+    // MARK: - UI Components
     
-    init(title: String, isHidden: Bool) {
+    private let titleLabel = UILabel()
+    private let contentLabel = UILabel()
+    private let notificationSwitch = UISwitch()
+    
+    // MARK: - init
+    
+    override init(frame: CGRect) {
         super.init(frame: .zero)
-        setUI(title: title, isHidden: isHidden)
-        setLayout(isHidden: isHidden)
         
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(appWillEnterForeground),
-            name: UIApplication.willEnterForegroundNotification,
-            object: nil)
+        setUI()
+        setLayout()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    deinit {
-        NotificationCenter.default.removeObserver(
-            self,
-            name: UIApplication.willEnterForegroundNotification,
-            object: nil)
-    }
 }
 
 // MARK: - Methods
 
-extension MyInfoAccountStackView {
-    private func setUI(title: String, isHidden: Bool) {
-        makeCornerRound(radius: 10)
+extension MyInfoAccountCollectionViewCell {
+    
+    private func setUI() {
+        backgroundColor = .gray1
         
         titleLabel.do {
-            $0.text = title
             $0.font = .Pretendard(.medium, size: 14)
-            $0.textColor = .white
             $0.numberOfLines = 0
             $0.textAlignment = .left
         }
@@ -77,50 +66,46 @@ extension MyInfoAccountStackView {
             $0.onTintColor = .green2
             $0.addTarget(self, action: #selector(switchTapped), for: .valueChanged)
         }
-        
-        lineView.do {
-            $0.backgroundColor = .gray2
-            $0.isHidden = isHidden ? true : false
-        }
     }
     
-    private func setLayout(isHidden: Bool) {
-        addSubviews(lineView, stackView)
-        stackView.addSubviews(titleLabel, isHidden ? notificationSwitch : contentLabel)
-        
-        stackView.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(10)
-            $0.directionalHorizontalEdges.equalToSuperview().inset(20)
-            $0.bottom.equalToSuperview().inset(10)
-            $0.height.equalTo(30)
-        }
+    private func setLayout() {
+        contentView.addSubviews(titleLabel, contentLabel, notificationSwitch)
         
         titleLabel.snp.makeConstraints {
+            $0.leading.equalToSuperview().inset(20)
             $0.centerY.equalToSuperview()
         }
         
-        if !isHidden {
-            contentLabel.snp.makeConstraints {
-                $0.centerY.equalToSuperview()
-                $0.trailing.equalToSuperview()
-            }
-        } else {
-            notificationSwitch.snp.makeConstraints {
-                $0.centerY.equalToSuperview()
-                $0.trailing.equalToSuperview()
-                $0.height.equalTo(30)
-                $0.width.equalTo(50)
-            }
+        contentLabel.snp.makeConstraints {
+            $0.trailing.equalToSuperview().inset(18)
+            $0.centerY.equalToSuperview()
         }
         
-        lineView.snp.makeConstraints {
-            $0.directionalHorizontalEdges.equalToSuperview()
-            $0.bottom.equalToSuperview()
-            $0.height.equalTo(0.5)
+        notificationSwitch.snp.makeConstraints {
+            $0.trailing.equalToSuperview().inset(18)
+            $0.centerY.equalToSuperview()
+            $0.height.equalTo(30)
+            $0.width.equalTo(50)
         }
     }
     
-    @objc func switchTapped(_ sender: Any) {
+    func configure(data: AccountRowData) {
+        titleLabel.textColor = data.titleColor
+        titleLabel.text = data.title
+        
+        if data.isSwitch {
+            contentLabel.removeFromSuperview()
+        } else {
+            notificationSwitch.removeFromSuperview()
+            contentLabel.text = data.content
+        }
+    }
+}
+
+extension MyInfoAccountCollectionViewCell {
+    
+    @objc
+    func switchTapped(_ sender: Any) {
         
         DispatchQueue.main.async {
             do {
@@ -160,7 +145,8 @@ extension MyInfoAccountStackView {
             DispatchQueue.main.async {
                 KeychainUtil.setBool(settings.authorizationStatus == .authorized, forKey: DefaultKeys.isNotificationAccepted)
                 if let isNotificationAllowed = self?.isNotificationAllowed {
-                    self?.switchClosure?(isNotificationAllowed)
+                    
+                    //  self?.delegate?.switchTapped(isNotificationAllowed)
                 }
                 
                 if KeychainUtil.getBool(DefaultKeys.isNotificationAccepted) {
