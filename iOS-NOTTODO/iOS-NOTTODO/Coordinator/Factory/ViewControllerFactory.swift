@@ -38,7 +38,7 @@ protocol HomeFlowControllerFactory {
 }
 
 protocol MyPageFlowControllerFactory {
-    func makeMyInfoViewController(coordinator: MypageCoordinator) -> MyInfoViewController
+    func makeMyInfoViewController(coordinator: MypageCoordinator) -> MyPageViewController
     func makeMyInfoAccountViewController(coordinator: MypageCoordinator) -> MyInfoAccountViewController
     func makeWithdrawViewController(coordinator: MypageCoordinator) -> NottodoModalViewController
 }
@@ -186,13 +186,17 @@ extension ViewControllerFactoryImpl {
 }
 // mypage
 extension ViewControllerFactoryImpl {
-    func makeMyInfoViewController(coordinator: MypageCoordinator) -> MyInfoViewController {
-        let viewController = MyInfoViewController(coordinator: coordinator)
+    func makeMyInfoViewController(coordinator: MypageCoordinator) -> MyPageViewController {
+        let viewModel = MyPageViewModelImpl(coordinator: coordinator)
+        let viewController = MyPageViewController(viewModel: viewModel)
         return viewController
     }
     
     func makeMyInfoAccountViewController(coordinator: MypageCoordinator) -> MyInfoAccountViewController {
-        let viewController = MyInfoAccountViewController(coordinator: coordinator)
+        let authAPI = DefaultAuthService()
+        let manager = MyPageManagerImpl(authAPI: authAPI)
+        let viewModel = MyPageAccountViewModelImpl(coordinator: coordinator, manager: manager)
+        let viewController = MyInfoAccountViewController(viewModel: viewModel)
         return viewController
     }
     

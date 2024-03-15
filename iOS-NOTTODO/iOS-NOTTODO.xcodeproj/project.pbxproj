@@ -30,6 +30,21 @@
 		0960C0D42A38BC6500A3D8DB /* KeychainUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0960C0D32A38BC6500A3D8DB /* KeychainUtil.swift */; };
 		0960C0D62A38BC8100A3D8DB /* DefaultKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0960C0D52A38BC8100A3D8DB /* DefaultKeys.swift */; };
 		0964BA4A2B0F6BFB00A8984B /* AuthInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0964BA492B0F6BFB00A8984B /* AuthInterceptor.swift */; };
+		096980712BA40FCB00D101B9 /* MyPageAccountModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096980702BA40FCB00D101B9 /* MyPageAccountModel.swift */; };
+		0969809C2BA4198500D101B9 /* MyInfoAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C16015B29C56DBA005AE3F5 /* MyInfoAccountViewController.swift */; };
+		096980A32BA41A6000D101B9 /* MyPageAccountViewModelImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096C88F12BA3F7A800FE01D4 /* MyPageAccountViewModelImpl.swift */; };
+		096980AA2BA41AB000D101B9 /* MyPageViewModelImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096980A92BA41AB000D101B9 /* MyPageViewModelImpl.swift */; };
+		096980AC2BA41AC100D101B9 /* MyPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096980AB2BA41AC100D101B9 /* MyPageViewModel.swift */; };
+		096980AE2BA41ACC00D101B9 /* MyPageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096980AD2BA41ACC00D101B9 /* MyPageModel.swift */; };
+		096980B22BA41AF600D101B9 /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096980B12BA41AF600D101B9 /* MyPageViewController.swift */; };
+		096980B42BA41B1200D101B9 /* InfoCollecitonViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096980B32BA41B1200D101B9 /* InfoCollecitonViewCell.swift */; };
+		096980B62BA41B2000D101B9 /* MyPageHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096980B52BA41B2000D101B9 /* MyPageHeaderView.swift */; };
+		096980B82BA41B2D00D101B9 /* MyProfileCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096980B72BA41B2D00D101B9 /* MyProfileCollectionViewCell.swift */; };
+		096C88EB2BA3E5E500FE01D4 /* MyInfoAccountCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096C88EA2BA3E5E500FE01D4 /* MyInfoAccountCollectionViewCell.swift */; };
+		096C88ED2BA3E6B700FE01D4 /* MyInfoAccountSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096C88EC2BA3E6B700FE01D4 /* MyInfoAccountSection.swift */; };
+		096C88EF2BA3F71E00FE01D4 /* MyInfoAccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096C88EE2BA3F71E00FE01D4 /* MyInfoAccountViewModel.swift */; };
+		096C88F42BA3F89D00FE01D4 /* MyPageManger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096C88F32BA3F89D00FE01D4 /* MyPageManger.swift */; };
+		096C88F62BA3F8A600FE01D4 /* MyPageManagerImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096C88F52BA3F8A600FE01D4 /* MyPageManagerImpl.swift */; };
 		097568362A2FEF630001EC46 /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097568352A2FEF3F0001EC46 /* String+.swift */; };
 		097C003629AB8270008CAEF3 /* MissionListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097C003529AB8270008CAEF3 /* MissionListCollectionViewCell.swift */; };
 		0982DE5429ADCCE000D933D2 /* HomeEmptyCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0982DE5329ADCCE000D933D2 /* HomeEmptyCollectionViewCell.swift */; };
@@ -54,10 +69,6 @@
 		098904542B81CA47004AAD3C /* UpdateCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098904532B81CA47004AAD3C /* UpdateCoordinator.swift */; };
 		098A23A22B833C6700265955 /* AuthCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098A23A12B833C6700265955 /* AuthCoordinator.swift */; };
 		098A23A42B833F0300265955 /* AuthCoordinatorImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098A23A32B833F0300265955 /* AuthCoordinatorImpl.swift */; };
-		098BFD5929B7999E008E80F9 /* MyProfileCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098BFD5829B7999E008E80F9 /* MyProfileCollectionViewCell.swift */; };
-		098BFD5B29B79B6A008E80F9 /* MyInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098BFD5A29B79B6A008E80F9 /* MyInfoModel.swift */; };
-		098BFD5D29B79CE3008E80F9 /* InfoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098BFD5C29B79CE3008E80F9 /* InfoCollectionViewCell.swift */; };
-		098BFD5F29B7AECF008E80F9 /* MyInfoHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098BFD5E29B7AECF008E80F9 /* MyInfoHeaderView.swift */; };
 		099FC98129B3094F005B37E6 /* WeekMonthFSCalendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 099FC98029B3094F005B37E6 /* WeekMonthFSCalendar.swift */; };
 		099FC98329B30A2E005B37E6 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 099FC98229B30A2E005B37E6 /* Utils.swift */; };
 		099FC98929B3233D005B37E6 /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 099FC98829B3233D005B37E6 /* CalendarView.swift */; };
@@ -105,7 +116,6 @@
 		3B027A9E299C34DA00BEB65C /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B027A9D299C34DA00BEB65C /* HomeViewController.swift */; };
 		3B027AA0299C353700BEB65C /* AddMissionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B027A9F299C353700BEB65C /* AddMissionViewController.swift */; };
 		3B027AA2299C355800BEB65C /* AchievementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B027AA1299C355800BEB65C /* AchievementViewController.swift */; };
-		3B027AA4299C357000BEB65C /* MyInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B027AA3299C357000BEB65C /* MyInfoViewController.swift */; };
 		3B027AAC299C35E500BEB65C /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3B027AAB299C35E500BEB65C /* Colors.xcassets */; };
 		3B03D0D62B0F15AA00302872 /* NotificationDialogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B03D0D52B0F15AA00302872 /* NotificationDialogViewController.swift */; };
 		3B03D0D82B0F5EF300302872 /* CGSize+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B03D0D72B0F5EF300302872 /* CGSize+.swift */; };
@@ -157,9 +167,7 @@
 		3BEEBE972A4B048A0081C936 /* NottodoToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BEEBE962A4B048A0081C936 /* NottodoToastView.swift */; };
 		6C049A312A595C670085E40B /* logo.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 6C049A302A595C670085E40B /* logo.mp4 */; };
 		6C16015829C40112005AE3F5 /* AuthButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C16015729C40112005AE3F5 /* AuthButtonView.swift */; };
-		6C16015C29C56DBA005AE3F5 /* MyInfoAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C16015B29C56DBA005AE3F5 /* MyInfoAccountViewController.swift */; };
 		6C16016229C59EFD005AE3F5 /* MyInfoAccountModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C16016129C59EFD005AE3F5 /* MyInfoAccountModel.swift */; };
-		6C16016429C5E37D005AE3F5 /* MyInfoAccountStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C16016329C5E37D005AE3F5 /* MyInfoAccountStackView.swift */; };
 		6C44127129A35A1000313C3F /* KakaoSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 6C44127029A35A1000313C3F /* KakaoSDK */; };
 		6C44127329A35A1000313C3F /* KakaoSDKAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 6C44127229A35A1000313C3F /* KakaoSDKAuth */; };
 		6C44127529A35A1000313C3F /* KakaoSDKCommon in Frameworks */ = {isa = PBXBuildFile; productRef = 6C44127429A35A1000313C3F /* KakaoSDKCommon */; };
@@ -219,6 +227,21 @@
 		0960C0D32A38BC6500A3D8DB /* KeychainUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainUtil.swift; sourceTree = "<group>"; };
 		0960C0D52A38BC8100A3D8DB /* DefaultKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultKeys.swift; sourceTree = "<group>"; };
 		0964BA492B0F6BFB00A8984B /* AuthInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthInterceptor.swift; sourceTree = "<group>"; };
+		096980702BA40FCB00D101B9 /* MyPageAccountModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageAccountModel.swift; sourceTree = "<group>"; };
+		096980A92BA41AB000D101B9 /* MyPageViewModelImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewModelImpl.swift; sourceTree = "<group>"; };
+		096980AB2BA41AC100D101B9 /* MyPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewModel.swift; sourceTree = "<group>"; };
+		096980AD2BA41ACC00D101B9 /* MyPageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageModel.swift; sourceTree = "<group>"; };
+		096980AF2BA41ADF00D101B9 /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
+		096980B12BA41AF600D101B9 /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
+		096980B32BA41B1200D101B9 /* InfoCollecitonViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoCollecitonViewCell.swift; sourceTree = "<group>"; };
+		096980B52BA41B2000D101B9 /* MyPageHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageHeaderView.swift; sourceTree = "<group>"; };
+		096980B72BA41B2D00D101B9 /* MyProfileCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileCollectionViewCell.swift; sourceTree = "<group>"; };
+		096C88EA2BA3E5E500FE01D4 /* MyInfoAccountCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInfoAccountCollectionViewCell.swift; sourceTree = "<group>"; };
+		096C88EC2BA3E6B700FE01D4 /* MyInfoAccountSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInfoAccountSection.swift; sourceTree = "<group>"; };
+		096C88EE2BA3F71E00FE01D4 /* MyInfoAccountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInfoAccountViewModel.swift; sourceTree = "<group>"; };
+		096C88F12BA3F7A800FE01D4 /* MyPageAccountViewModelImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageAccountViewModelImpl.swift; sourceTree = "<group>"; };
+		096C88F32BA3F89D00FE01D4 /* MyPageManger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageManger.swift; sourceTree = "<group>"; };
+		096C88F52BA3F8A600FE01D4 /* MyPageManagerImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageManagerImpl.swift; sourceTree = "<group>"; };
 		097568352A2FEF3F0001EC46 /* String+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+.swift"; sourceTree = "<group>"; };
 		097C003529AB8270008CAEF3 /* MissionListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionListCollectionViewCell.swift; sourceTree = "<group>"; };
 		0982DE5329ADCCE000D933D2 /* HomeEmptyCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeEmptyCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -243,10 +266,6 @@
 		098904532B81CA47004AAD3C /* UpdateCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateCoordinator.swift; sourceTree = "<group>"; };
 		098A23A12B833C6700265955 /* AuthCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthCoordinator.swift; sourceTree = "<group>"; };
 		098A23A32B833F0300265955 /* AuthCoordinatorImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthCoordinatorImpl.swift; sourceTree = "<group>"; };
-		098BFD5829B7999E008E80F9 /* MyProfileCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileCollectionViewCell.swift; sourceTree = "<group>"; };
-		098BFD5A29B79B6A008E80F9 /* MyInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInfoModel.swift; sourceTree = "<group>"; };
-		098BFD5C29B79CE3008E80F9 /* InfoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoCollectionViewCell.swift; sourceTree = "<group>"; };
-		098BFD5E29B7AECF008E80F9 /* MyInfoHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInfoHeaderView.swift; sourceTree = "<group>"; };
 		099FC98029B3094F005B37E6 /* WeekMonthFSCalendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekMonthFSCalendar.swift; sourceTree = "<group>"; };
 		099FC98229B30A2E005B37E6 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		099FC98829B3233D005B37E6 /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
@@ -294,7 +313,6 @@
 		3B027A9D299C34DA00BEB65C /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		3B027A9F299C353700BEB65C /* AddMissionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMissionViewController.swift; sourceTree = "<group>"; };
 		3B027AA1299C355800BEB65C /* AchievementViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementViewController.swift; sourceTree = "<group>"; };
-		3B027AA3299C357000BEB65C /* MyInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInfoViewController.swift; sourceTree = "<group>"; };
 		3B027AAB299C35E500BEB65C /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		3B03D0D52B0F15AA00302872 /* NotificationDialogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationDialogViewController.swift; sourceTree = "<group>"; };
 		3B03D0D72B0F5EF300302872 /* CGSize+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGSize+.swift"; sourceTree = "<group>"; };
@@ -345,7 +363,6 @@
 		6C16015729C40112005AE3F5 /* AuthButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthButtonView.swift; sourceTree = "<group>"; };
 		6C16015B29C56DBA005AE3F5 /* MyInfoAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInfoAccountViewController.swift; sourceTree = "<group>"; };
 		6C16016129C59EFD005AE3F5 /* MyInfoAccountModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInfoAccountModel.swift; sourceTree = "<group>"; };
-		6C16016329C5E37D005AE3F5 /* MyInfoAccountStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInfoAccountStackView.swift; sourceTree = "<group>"; };
 		6C9628A82A22209E003ADE25 /* LogoOnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoOnboardingViewController.swift; sourceTree = "<group>"; };
 		6CA208222A18FE78001C4247 /* RecommendService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendService.swift; sourceTree = "<group>"; };
 		6CA208242A18FEEA001C4247 /* RecommendAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendAPI.swift; sourceTree = "<group>"; };
@@ -503,6 +520,69 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		0969806F2BA40FBF00D101B9 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				096980702BA40FCB00D101B9 /* MyPageAccountModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		096980A42BA41A8A00D101B9 /* MyPage */ = {
+			isa = PBXGroup;
+			children = (
+				096980A82BA41AA100D101B9 /* Cells */,
+				096980A72BA41A9B00D101B9 /* ViewControllers */,
+				096980A62BA41A9700D101B9 /* ViewModel */,
+				096980A52BA41A9000D101B9 /* Model */,
+			);
+			path = MyPage;
+			sourceTree = "<group>";
+		};
+		096980A52BA41A9000D101B9 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				096980AD2BA41ACC00D101B9 /* MyPageModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		096980A62BA41A9700D101B9 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				096980A92BA41AB000D101B9 /* MyPageViewModelImpl.swift */,
+				096980AB2BA41AC100D101B9 /* MyPageViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		096980A72BA41A9B00D101B9 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				096980B12BA41AF600D101B9 /* MyPageViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		096980A82BA41AA100D101B9 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				096980B32BA41B1200D101B9 /* InfoCollecitonViewCell.swift */,
+				096980B72BA41B2D00D101B9 /* MyProfileCollectionViewCell.swift */,
+				096980B52BA41B2000D101B9 /* MyPageHeaderView.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		096C88F02BA3F79A00FE01D4 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				096C88EE2BA3F71E00FE01D4 /* MyInfoAccountViewModel.swift */,
+				096C88F12BA3F7A800FE01D4 /* MyPageAccountViewModelImpl.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		0987C83E2B9DD234007EE8DE /* Mission */ = {
 			isa = PBXGroup;
 			children = (
@@ -575,32 +655,6 @@
 			path = Factory;
 			sourceTree = "<group>";
 		};
-		098BFD6029B80137008E80F9 /* Cell */ = {
-			isa = PBXGroup;
-			children = (
-				098BFD5E29B7AECF008E80F9 /* MyInfoHeaderView.swift */,
-				098BFD5829B7999E008E80F9 /* MyProfileCollectionViewCell.swift */,
-				098BFD5C29B79CE3008E80F9 /* InfoCollectionViewCell.swift */,
-			);
-			path = Cell;
-			sourceTree = "<group>";
-		};
-		098BFD6129B80149008E80F9 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				098BFD5A29B79B6A008E80F9 /* MyInfoModel.swift */,
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
-		098BFD6229B8015B008E80F9 /* Viewcontrollers */ = {
-			isa = PBXGroup;
-			children = (
-				3B027AA3299C357000BEB65C /* MyInfoViewController.swift */,
-			);
-			path = Viewcontrollers;
-			sourceTree = "<group>";
-		};
 		099CFA1729AB8C260003E5D5 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -609,6 +663,7 @@
 				092C09B42A484DD900E9B06B /* HomeDeleteViewController.swift */,
 				0930DE6129B80550007958DE /* MissionDetailViewController.swift */,
 				09582B4E29BEBAFA00EF3207 /* DetailCalendarViewController.swift */,
+				096980AF2BA41ADF00D101B9 /* MyPageViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -656,6 +711,7 @@
 			children = (
 				09DCB85C2BA0316A00B6BB74 /* ManagerInterface */,
 				09DCB8612BA031F600B6BB74 /* AchieveManagerImpl.swift */,
+				096C88F52BA3F8A600FE01D4 /* MyPageManagerImpl.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -664,6 +720,7 @@
 			isa = PBXGroup;
 			children = (
 				09DCB85F2BA031E000B6BB74 /* AchieveManager.swift */,
+				096C88F32BA3F89D00FE01D4 /* MyPageManger.swift */,
 			);
 			path = ManagerInterface;
 			sourceTree = "<group>";
@@ -880,8 +937,8 @@
 				3B027A98299C347400BEB65C /* Auth */,
 				6CF4707729A7AAD1008D145C /* Common */,
 				3B027A99299C347A00BEB65C /* Home */,
-				3B027A9A299C348200BEB65C /* MyInfo */,
-				6C16015929C56CE8005AE3F5 /* MyInfoAccount */,
+				096980A42BA41A8A00D101B9 /* MyPage */,
+				6C16015929C56CE8005AE3F5 /* MyPageAccount */,
 				6CF4706B29A737E8008D145C /* Recommend */,
 				6CD4F8B529AA48D900CCC740 /* RecommendAction */,
 				3B027AA5299C358300BEB65C /* TabBar */,
@@ -905,16 +962,6 @@
 				099CFA1829AB8C2F0003E5D5 /* Cells */,
 			);
 			path = Home;
-			sourceTree = "<group>";
-		};
-		3B027A9A299C348200BEB65C /* MyInfo */ = {
-			isa = PBXGroup;
-			children = (
-				098BFD6229B8015B008E80F9 /* Viewcontrollers */,
-				098BFD6029B80137008E80F9 /* Cell */,
-				098BFD6129B80149008E80F9 /* Model */,
-			);
-			path = MyInfo;
 			sourceTree = "<group>";
 		};
 		3B027A9B299C348800BEB65C /* Achievement */ = {
@@ -1169,20 +1216,22 @@
 			path = Toast;
 			sourceTree = "<group>";
 		};
-		6C16015929C56CE8005AE3F5 /* MyInfoAccount */ = {
+		6C16015929C56CE8005AE3F5 /* MyPageAccount */ = {
 			isa = PBXGroup;
 			children = (
+				0969806F2BA40FBF00D101B9 /* Model */,
+				096C88F02BA3F79A00FE01D4 /* ViewModel */,
 				6C16016029C59EE0005AE3F5 /* Models */,
 				6C16015A29C56D90005AE3F5 /* ViewControllers */,
 			);
-			path = MyInfoAccount;
+			path = MyPageAccount;
 			sourceTree = "<group>";
 		};
 		6C16015A29C56D90005AE3F5 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
 				6C16015B29C56DBA005AE3F5 /* MyInfoAccountViewController.swift */,
-				6C16016329C5E37D005AE3F5 /* MyInfoAccountStackView.swift */,
+				096C88EA2BA3E5E500FE01D4 /* MyInfoAccountCollectionViewCell.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -1191,6 +1240,7 @@
 			isa = PBXGroup;
 			children = (
 				6C16016129C59EFD005AE3F5 /* MyInfoAccountModel.swift */,
+				096C88EC2BA3E6B700FE01D4 /* MyInfoAccountSection.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1436,6 +1486,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0969809C2BA4198500D101B9 /* MyInfoAccountViewController.swift in Sources */,
 				3B03D0D62B0F15AA00302872 /* NotificationDialogViewController.swift in Sources */,
 				09F6719729CC81B500708725 /* DetailAchievementCollectionViewCell.swift in Sources */,
 				0960C0D62A38BC8100A3D8DB /* DefaultKeys.swift in Sources */,
@@ -1447,7 +1498,6 @@
 				6C16016229C59EFD005AE3F5 /* MyInfoAccountModel.swift in Sources */,
 				3B027A92299C33FE00BEB65C /* UIColor+.swift in Sources */,
 				092C09B52A484DD900E9B06B /* HomeDeleteViewController.swift in Sources */,
-				3B027AA4299C357000BEB65C /* MyInfoViewController.swift in Sources */,
 				0989043B2B81BCFA004AAD3C /* AppCoordinatorImpl.swift in Sources */,
 				097568362A2FEF630001EC46 /* String+.swift in Sources */,
 				6CA2B7BB2A222D2300A9E549 /* ValueOnboardingViewController.swift in Sources */,
@@ -1460,15 +1510,14 @@
 				095FEE122B9ED15600FF44C0 /* DetailAchieveHeaderView.swift in Sources */,
 				3B482FA3299EA9CB00BCF424 /* TabBarItem.swift in Sources */,
 				3B027AA0299C353700BEB65C /* AddMissionViewController.swift in Sources */,
-				098BFD5929B7999E008E80F9 /* MyProfileCollectionViewCell.swift in Sources */,
 				09DCB84D2BA0146800B6BB74 /* DetailAchievementViewModel.swift in Sources */,
 				3B5F8F7A29BF8E8D0063A7F8 /* AddMissionProtocol.swift in Sources */,
 				09DCB8512BA0156400B6BB74 /* DetailAchievementViewModelImpl.swift in Sources */,
 				09F6718C29CB4AB700708725 /* SubOnboardingCollectionViewCell.swift in Sources */,
 				0921611D2A57D0920019CC8C /* AmplitudeAnalyticsService.swift in Sources */,
+				096980712BA40FCB00D101B9 /* MyPageAccountModel.swift in Sources */,
 				3B027A96299C340C00BEB65C /* UIImage+.swift in Sources */,
 				0921611F2A57D7BF0019CC8C /* AnalyticsEvent.swift in Sources */,
-				098BFD5B29B79B6A008E80F9 /* MyInfoModel.swift in Sources */,
 				09DCCD1F2A18ED76003DCF8A /* DailyMissionResponseDTO.swift in Sources */,
 				6CF4707A29A7AAFF008D145C /* PaddingLabel.swift in Sources */,
 				6CA208272A18FFCF001C4247 /* RecommendResponseDTO.swift in Sources */,
@@ -1477,6 +1526,7 @@
 				3B50CB212A40E75400F2E761 /* AddMissionResponseDTO.swift in Sources */,
 				3B37AE2929C8821600AB7587 /* GoalCollectionViewCell.swift in Sources */,
 				098904322B81BB43004AAD3C /* CoordinatorDelegate.swift in Sources */,
+				096980A32BA41A6000D101B9 /* MyPageAccountViewModelImpl.swift in Sources */,
 				3B14A14329A6FEE400F92897 /* UITextField+.swift in Sources */,
 				098904482B81C197004AAD3C /* AchieveCoordinator.swift in Sources */,
 				09022D4629C44BC300DE6E49 /* MissionCalendarCell.swift in Sources */,
@@ -1500,10 +1550,10 @@
 				3B892ABB2A2FBD4C00A316BC /* RecommendSituationResponseDTO.swift in Sources */,
 				3B14A13B29A694C000F92897 /* UITextView+.swift in Sources */,
 				093DB0372A146BF900ECA5F6 /* MyInfoURL.swift in Sources */,
-				098BFD5F29B7AECF008E80F9 /* MyInfoHeaderView.swift in Sources */,
 				09A8E48E2B9DBEC700C0F48F /* BaseService.swift in Sources */,
 				3B482FA7299EB8FD00BCF424 /* UIViewController+.swift in Sources */,
 				0960C0D42A38BC6500A3D8DB /* KeychainUtil.swift in Sources */,
+				096980B42BA41B1200D101B9 /* InfoCollecitonViewCell.swift in Sources */,
 				3B03D0D82B0F5EF300302872 /* CGSize+.swift in Sources */,
 				098904502B81C21D004AAD3C /* AchieveCoordinatorImpl.swift in Sources */,
 				6CA208302A1925EE001C4247 /* RecommendActionResponseDTO.swift in Sources */,
@@ -1512,6 +1562,8 @@
 				3B11740D2A4B574B0033DDF3 /* CALayer+.swift in Sources */,
 				155E456D2B62B1A1008628E7 /* UpdateCheckViewController.swift in Sources */,
 				098904302B81BB3A004AAD3C /* Coordinator.swift in Sources */,
+				096980B22BA41AF600D101B9 /* MyPageViewController.swift in Sources */,
+				096980B82BA41B2D00D101B9 /* MyProfileCollectionViewCell.swift in Sources */,
 				3B14A13D29A6FBD300F92897 /* UIView+.swift in Sources */,
 				09F6719529CBFCD200708725 /* GradientView.swift in Sources */,
 				09DCB8622BA031F600B6BB74 /* AchieveManagerImpl.swift in Sources */,
@@ -1524,6 +1576,8 @@
 				09582B4829BDA7F600EF3207 /* DetailStackView.swift in Sources */,
 				09F6718429CADB1100708725 /* OnboardingModel.swift in Sources */,
 				095FEE132B9ED15600FF44C0 /* StatisticsView.swift in Sources */,
+				096C88F42BA3F89D00FE01D4 /* MyPageManger.swift in Sources */,
+				096980AC2BA41AC100D101B9 /* MyPageViewModel.swift in Sources */,
 				3B027A7A299C31B500BEB65C /* SceneDelegate.swift in Sources */,
 				0989043E2B81BD50004AAD3C /* CoordinatorFactory.swift in Sources */,
 				0964BA4A2B0F6BFB00A8984B /* AuthInterceptor.swift in Sources */,
@@ -1535,12 +1589,14 @@
 				3BC19A9329CA1CA800C02803 /* UICollectionViewCell+.swift in Sources */,
 				093DB03D2A15FC7800ECA5F6 /* CalendarReponseDTO.swift in Sources */,
 				098904462B81C191004AAD3C /* MypageCoordinator.swift in Sources */,
+				096C88F62BA3F8A600FE01D4 /* MyPageManagerImpl.swift in Sources */,
 				093DB03D2A15FC7800ECA5F6 /* CalendarReponseDTO.swift in Sources */,
 				3B0CBA242A461B1C0004F2DB /* RecentMissionResponseDTO.swift in Sources */,
 				3B5F8F7F29BF900A0063A7F8 /* DateCollectionViewCell.swift in Sources */,
 				3BC1A27229C9AF310088376B /* MissionHistoryModels.swift in Sources */,
 				6CD4F8BA29AA493600CCC740 /* RecommendActionHeaderView.swift in Sources */,
 				0930DE6229B80550007958DE /* MissionDetailViewController.swift in Sources */,
+				096C88ED2BA3E6B700FE01D4 /* MyInfoAccountSection.swift in Sources */,
 				0989044C2B81C210004AAD3C /* HomecoordinatorImpl.swift in Sources */,
 				3B14A13F29A6FCB300F92897 /* UIStackView+.swift in Sources */,
 				6CD4F8BC29AA494300CCC740 /* RecommendActionFooterView.swift in Sources */,
@@ -1551,14 +1607,13 @@
 				6CF4706A29A71D71008D145C /* Strings.swift in Sources */,
 				6CF4705F29A69025008D145C /* GeneralResponse.swift in Sources */,
 				097C003629AB8270008CAEF3 /* MissionListCollectionViewCell.swift in Sources */,
-				6C16015C29C56DBA005AE3F5 /* MyInfoAccountViewController.swift in Sources */,
 				09F6718E29CB612B00708725 /* FifthOnboardingViewController.swift in Sources */,
 				0987C8402B9DD4DC007EE8DE /* MissionAPI.swift in Sources */,
 				6CD4F8C229AA5AF200CCC740 /* UIButton+.swift in Sources */,
 				6CA208362A1957CA001C4247 /* AuthService.swift in Sources */,
 				6CA208362A1957CA001C4247 /* AuthService.swift in Sources */,
 				099FC98129B3094F005B37E6 /* WeekMonthFSCalendar.swift in Sources */,
-				6C16016429C5E37D005AE3F5 /* MyInfoAccountStackView.swift in Sources */,
+				096980AE2BA41ACC00D101B9 /* MyPageModel.swift in Sources */,
 				3B80B5D52B7F304D00697250 /* adjust+.swift in Sources */,
 				09F6718229CAD86100708725 /* OnboardingCollectionViewCell.swift in Sources */,
 				6CF4707029A73A15008D145C /* RecommendActionViewController.swift in Sources */,
@@ -1566,6 +1621,7 @@
 				0982DE5429ADCCE000D933D2 /* HomeEmptyCollectionViewCell.swift in Sources */,
 				09DCB86B2BA0600600B6BB74 /* AchievementViewModelImpl.swift in Sources */,
 				3BEEBE972A4B048A0081C936 /* NottodoToastView.swift in Sources */,
+				096C88EF2BA3F71E00FE01D4 /* MyInfoAccountViewModel.swift in Sources */,
 				3B027AA2299C355800BEB65C /* AchievementViewController.swift in Sources */,
 				3B5F8F8929BF9EFE0063A7F8 /* AddMissionLabel.swift in Sources */,
 				09582B4F29BEBAFA00EF3207 /* DetailCalendarViewController.swift in Sources */,
@@ -1577,17 +1633,19 @@
 				6C9628A92A22209E003ADE25 /* LogoOnboardingViewController.swift in Sources */,
 				09F6718029CAD76C00708725 /* SecondOnboardingViewController.swift in Sources */,
 				098A23A42B833F0300265955 /* AuthCoordinatorImpl.swift in Sources */,
-				098BFD5D29B79CE3008E80F9 /* InfoCollectionViewCell.swift in Sources */,
 				3B0CBA222A45FC170004F2DB /* UpdateMissionResponseDTO.swift in Sources */,
 				092C09B72A48596500E9B06B /* DeleteModalView.swift in Sources */,
 				155E45692B5FF2EE008628E7 /* FirebaseUtil.swift in Sources */,
+				096980B62BA41B2000D101B9 /* MyPageHeaderView.swift in Sources */,
 				09DCB8562BA0308D00B6BB74 /* APIError.swift in Sources */,
 				098904402B81BFAF004AAD3C /* ViewControllerFactory.swift in Sources */,
 				3B9532F42A284CC1006510F8 /* ModalProtocol.swift in Sources */,
 				3B5F8F8329BF90290063A7F8 /* SituationCollectionViewCell.swift in Sources */,
+				096980AA2BA41AB000D101B9 /* MyPageViewModelImpl.swift in Sources */,
 				3B4E12F62A27C0BE001D1EC1 /* QuitModalView.swift in Sources */,
 				6CA208232A18FE78001C4247 /* RecommendService.swift in Sources */,
 				6CA208342A1956ED001C4247 /* AuthAPI.swift in Sources */,
+				096C88EB2BA3E5E500FE01D4 /* MyInfoAccountCollectionViewCell.swift in Sources */,
 				0921611B2A5727EF0019CC8C /* AnalyticsEventProtocol.swift in Sources */,
 				09DCB8692BA05F9E00B6BB74 /* AchievementModel.swift in Sources */,
 				098904542B81CA47004AAD3C /* UpdateCoordinator.swift in Sources */,

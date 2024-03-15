@@ -59,7 +59,7 @@ final class MypageCoordinatorImpl: MypageCoordinator {
         logoutAlert.addAction(logoutAction)
         navigationController.present(logoutAlert, animated: true)
     }
-    
+
     func connectAuthCoordinator(type: ViewType) {
         navigationController.dismiss(animated: true) { [weak self] in
             self?.finish()
