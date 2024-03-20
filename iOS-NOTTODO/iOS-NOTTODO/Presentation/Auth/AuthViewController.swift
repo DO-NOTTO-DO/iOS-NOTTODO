@@ -33,8 +33,6 @@ final class AuthViewController: UIViewController {
     private var appleLoginButton = AuthButton(frame: .zero, title: I18N.appleLogin, icon: .appleLogo, color: .white)
     
     private var moreButton = UIButton()
-    private var conditionButton = UIButton()
-    private var personalInfoButton = UIButton()
     
     // MARK: - init
     init(coordinator: AuthCoordinator) {
@@ -64,12 +62,7 @@ extension AuthViewController {
             $0.textColor = .white
             $0.text = I18N.loginMain
             $0.numberOfLines = 2
-            
-            let paragraphStyle = NSMutableParagraphStyle()
-            paragraphStyle.lineSpacing = $0.font.lineHeight * 0.2
-            
-            let attributedText = NSAttributedString(string: $0.text ?? "", attributes: [NSAttributedString.Key.paragraphStyle: paragraphStyle])
-            $0.attributedText = attributedText
+            $0.setLineSpacing(lineSpacing: $0.font.lineHeight * 0.2)
         }
         
         loginSubLabel.do {
@@ -77,12 +70,7 @@ extension AuthViewController {
             $0.textColor = .gray4
             $0.text = I18N.loginSub
             $0.numberOfLines = 3
-            
-            let paragraphStyle = NSMutableParagraphStyle()
-            paragraphStyle.lineSpacing = $0.font.lineHeight * 0.2
-            
-            let attributedText = NSAttributedString(string: $0.text ?? "", attributes: [NSAttributedString.Key.paragraphStyle: paragraphStyle])
-            $0.attributedText = attributedText
+            $0.setLineSpacing(lineSpacing: $0.font.lineHeight * 0.2)
         }
         
         kakaoLoginImageView.image = .kakaoLoginLabel
@@ -94,21 +82,7 @@ extension AuthViewController {
             $0.setTitle(I18N.moreAuth, for: .normal)
             $0.setTitleColor(.gray4, for: .normal)
             $0.titleLabel?.font = .Pretendard(.regular, size: 12)
-        }
-        
-        conditionButton.do {
-            $0.setTitle(I18N.condition, for: .normal)
-            $0.setTitleColor(.gray4, for: .normal)
-            $0.titleLabel?.font = .Pretendard(.regular, size: 12)
-            $0.setUnderline()
-            $0.addTarget(self, action: #selector(moreButtonTapped), for: .touchUpInside)
-        }
-        
-        personalInfoButton.do {
-            $0.setTitle(I18N.personalInfo, for: .normal)
-            $0.setTitleColor(.gray4, for: .normal)
-            $0.titleLabel?.font = .Pretendard(.regular, size: 12)
-            $0.setUnderline()
+            $0.setUnderlines(target: [I18N.condition, I18N.personalInfo])
             $0.addTarget(self, action: #selector(moreButtonTapped), for: .touchUpInside)
         }
     }
@@ -116,7 +90,6 @@ extension AuthViewController {
     private func setLayout() {
         
         view.addSubviews(loginMainLabel, loginSubLabel, kakaoLoginImageView, kakaoLoginButton, appleLoginButton, moreButton)
-        moreButton.addSubviews(conditionButton, personalInfoButton)
         
         loginMainLabel.snp.makeConstraints {
             $0.top.equalToSuperview().offset(155.adjusted)
@@ -151,15 +124,6 @@ extension AuthViewController {
             $0.width.equalTo(189.adjusted)
             $0.height.equalTo(37.adjusted)
         }
-        
-        conditionButton.snp.makeConstraints {
-            $0.centerY.leading.equalToSuperview()
-        }
-        
-        personalInfoButton.snp.makeConstraints {
-            $0.centerY.trailing.equalToSuperview()
-        }
-        
     }
     
     // MARK: - @objc Methods

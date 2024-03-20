@@ -17,4 +17,17 @@ extension UIButton {
         )
         setAttributedTitle(attributedString, for: .normal)
     }
+    
+    func setUnderlines(target: [String]) {
+        guard let title = titleLabel?.text else { return }
+        let attributedString = NSMutableAttributedString(string: title)
+        target.forEach {
+            let range = (title as NSString).range(of: $0)
+            attributedString.addAttribute(
+                .underlineStyle,
+                value: NSUnderlineStyle.single.rawValue,
+                range: range)
+        }
+        setAttributedTitle(attributedString, for: .normal)
+    }
 }
