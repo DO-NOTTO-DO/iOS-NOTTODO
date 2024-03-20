@@ -26,8 +26,7 @@ final class ThirdOnboardingViewModelImpl: ThirdOnboardingViewModel {
             .store(in: &cancelBag)
         
         input.viewDidLoadSubject
-            .sink { [weak self] _ in
-                guard let self else { return }
+            .sink {
                 AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.Onboarding.viewOnboarding3)
             }
             .store(in: &cancelBag)

@@ -26,8 +26,7 @@ final class FourthOnboardingViewModelImpl: FourthOnboardingViewModel {
             .store(in: &cancelBag)
         
         input.viewDidLoadSubject
-            .sink { [weak self] _ in
-                guard let self else { return }
+            .sink {
                 AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.Onboarding.viewOnboarding4)
             }
             .store(in: &cancelBag)
