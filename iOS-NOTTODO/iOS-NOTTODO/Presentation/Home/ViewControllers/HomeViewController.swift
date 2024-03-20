@@ -51,7 +51,7 @@ final class HomeViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        showPopup(isSelected: didCloseButtonTap)
+        // showPopup(isSelected: didCloseButtonTap)
         AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.Home.viewHome)
         
         dailyLoadData()
@@ -240,7 +240,7 @@ extension HomeViewController {
     
     func requestDailyMissionAPI(date: String) {
         
-        MissionAPI.shared.getDailyMission(date: date) { [weak self] response in
+        MissionService.shared.getDailyMission(date: date) { [weak self] response in
             guard let self, let response = response, let data = response.data else { return }
             
             self.missionList = data
@@ -250,7 +250,7 @@ extension HomeViewController {
     
     private func requestWeeklyMissoinAPI(startDate: String) {
         
-        MissionAPI.shared.getWeeklyMissoin(startDate: startDate) { [weak self] response in
+        MissionService.shared.getWeeklyMissoin(startDate: startDate) { [weak self] response in
             guard let self, let response = response, let data = response.data else { return }
             
             let calendarData = data.compactMap { ($0.actionDate, $0.percentage) }
@@ -262,7 +262,7 @@ extension HomeViewController {
     
     private func requestPatchUpdateMissionAPI(id: Int, status: CompletionStatus) {
         
-        MissionAPI.shared.patchUpdateMissionStatus(id: id, status: status.rawValue) { [weak self] response in
+        MissionService.shared.patchUpdateMissionStatus(id: id, status: status.rawValue) { [weak self] response in
             guard let self, let response = response, let data = response.data else { return }
             
             if let index = self.missionList.firstIndex(where: { $0.id == id }) {
@@ -274,7 +274,7 @@ extension HomeViewController {
     }
     
     private func requestDeleteMission(index: Int, id: Int) {
-        MissionAPI.shared.deleteMission(id: id) { [weak self] _ in
+        MissionService.shared.deleteMission(id: id) { [weak self] _ in
             guard let self else { return }
             
             self.dailyLoadData()

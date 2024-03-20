@@ -123,7 +123,7 @@ extension NottodoModalViewController {
         if !KeychainUtil.getBool(DefaultKeys.isAppleLogin) {
             kakaoWithdrawal()
         }
-        AuthAPI.shared.withdrawalAuth { _ in
+        AuthService.shared.withdrawalAuth { _ in
             AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.AccountInfo.completeWithdrawal)
         }
     }

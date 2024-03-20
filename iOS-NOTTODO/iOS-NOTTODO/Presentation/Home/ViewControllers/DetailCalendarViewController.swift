@@ -211,7 +211,7 @@ extension DetailCalendarViewController: FSCalendarDelegate, FSCalendarDataSource
 extension DetailCalendarViewController {
     
     private func requestAddAnotherDay(id: Int, dates: [String]) {
-        MissionAPI.shared.postAnotherDay(id: id, dates: dates) { response in
+        MissionService.shared.postAnotherDay(id: id, dates: dates) { response in
             guard response != nil else { return }
             guard let statusCode = response?.status else { return }
             switch statusCode {
@@ -233,7 +233,7 @@ extension DetailCalendarViewController {
     }
     
     func requestParticualrDatesAPI(id: Int) {
-        MissionAPI.shared.particularMissionDates(id: id) { [weak self] response in
+        MissionService.shared.particularMissionDates(id: id) { [weak self] response in
             guard let dates = response.data else { return }
             self?.invalidDate = dates
             self?.monthCalendar.reloadCollectionView()

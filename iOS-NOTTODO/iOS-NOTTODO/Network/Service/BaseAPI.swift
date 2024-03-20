@@ -29,13 +29,13 @@ extension BaseDomain {
     }
 }
 
-protocol BaseService: TargetType {
+protocol BaseAPI: TargetType {
     var domain: BaseDomain { get }
     var urlPath: String { get }
     var headerType: HeaderType { get }
 }
 
-extension BaseService {
+extension BaseAPI {
     var baseURL: URL {
         return URL(string: Bundle.main.baseURL)!
     }
