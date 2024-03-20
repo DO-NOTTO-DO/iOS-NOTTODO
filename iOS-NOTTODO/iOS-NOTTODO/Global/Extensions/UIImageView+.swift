@@ -22,7 +22,7 @@ extension UIImageView {
                 } else {
                     guard let url = URL(string: urlString) else { return }
                     let resource = KF.ImageResource(downloadURL: url, cacheKey: urlString) // URL로부터 이미지를 다운받고 String 타입의 URL을 캐시키로 지정하고
-                    self.kf.setImage(with: resource) // 이미지를 셋한다.
+                    self?.kf.setImage(with: resource) // 이미지를 셋한다.
                 }
             case .failure(let error):
                 print(error)
