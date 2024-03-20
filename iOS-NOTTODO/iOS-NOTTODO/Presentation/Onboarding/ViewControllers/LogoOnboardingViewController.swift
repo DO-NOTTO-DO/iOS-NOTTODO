@@ -97,7 +97,6 @@ extension LogoOnboardingViewController {
             $0.titleLabel?.font = .Pretendard(.semiBold, size: 16)
             $0.setTitleColor(.black, for: .normal)
             $0.setTitle(I18N.firstButton, for: .normal)
-            $0.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
         }
     }
     
@@ -120,16 +119,17 @@ extension LogoOnboardingViewController {
             startButtonTappedSubject: startButtonDidTapped
         )
         _ = viewModel.transform(input: input)
+        
+        nextButton.tapPublisher
+            .sink { [weak self] in
+                guard let self else { return }
+                self.startButtonDidTapped.send()
+            }
+            .store(in: &cancelBag)
     }
     
     @objc
     private func videoDidFinishPlaying(notification: NSNotification) {
         nextButton.isHidden = false
-    }
-    
-    @objc
-    private func buttonTapped() {
-        AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.OnboardingClick.clickOnboardingStart)
-        startButtonDidTapped.send()
     }
 }

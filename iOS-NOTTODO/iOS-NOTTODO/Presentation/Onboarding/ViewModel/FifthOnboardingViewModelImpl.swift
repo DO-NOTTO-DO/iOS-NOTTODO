@@ -20,9 +20,18 @@ final class FifthOnboardingViewModelImpl: FifthOnboardingViewModel {
         input.loginButtonDidTapped
             .sink { [weak self] _ in
                 guard let self else { return }
+                AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.OnboardingClick.clickOnboardingNext5)
                 self.coordinator?.showSignUpViewController()
             }
             .store(in: &cancelBag)
+        
+        input.viewDidLoadSubject
+            .sink { [weak self] _ in
+                guard let self else { return }
+                AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.Onboarding.viewOnboarding5)
+            }
+            .store(in: &cancelBag)
+        
         return FifthOnboardingViewModelOutput()
     }
 }

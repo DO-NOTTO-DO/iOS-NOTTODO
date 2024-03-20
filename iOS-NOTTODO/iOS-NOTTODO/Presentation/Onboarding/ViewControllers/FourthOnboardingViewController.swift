@@ -25,6 +25,7 @@ final class FourthOnboardingViewController: UIViewController {
     private let viewModel: any FourthOnboardingViewModel
     private var cancelBag = Set<AnyCancellable>()
     
+    private let viewDidLoadSubject = PassthroughSubject<Void, Never>()
     private let buttonDidTapped = PassthroughSubject<Void, Never>()
     
     // MARK: - UI Components
@@ -48,7 +49,7 @@ final class FourthOnboardingViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.Onboarding.viewOnboarding4)
+        viewDidLoadSubject.send()
         setUI()
         register()
         setLayout()
@@ -83,7 +84,6 @@ extension FourthOnboardingViewController {
             $0.configuration?.attributedTitle?.font = .Pretendard(.medium, size: 16)
             $0.configuration?.baseForegroundColor = .white
             $0.configuration?.contentInsets = NSDirectionalEdgeInsets.init(top: 0, leading: 0, bottom: 0, trailing: 0)
-            $0.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
         }
     }
     
@@ -147,16 +147,16 @@ extension FourthOnboardingViewController {
     
     private func setBindings() {
         let input = FourthOnboardingViewModelInput(
+            viewDidLoadSubject: viewDidLoadSubject,
             buttonDidTapped: buttonDidTapped
         )
         _ = viewModel.transform(input: input)
-    }
-}
-extension FourthOnboardingViewController {
-    @objc
-    private func buttonTapped() {
-        AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.OnboardingClick.clickOnboardingNext4)
         
-        self.buttonDidTapped.send()
+        nextButton.tapPublisher
+            .sink { [weak self] _ in
+                guard let self else { return }
+                self.buttonDidTapped.send()
+            }
+            .store(in: &cancelBag)
     }
 }

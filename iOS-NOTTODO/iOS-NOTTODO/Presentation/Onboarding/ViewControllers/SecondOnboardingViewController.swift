@@ -25,6 +25,7 @@ final class SecondOnboardingViewController: UIViewController {
     private let viewModel: any SecondOnboardingViewModel
     private var cancelBag = Set<AnyCancellable>()
     
+    private let viewDidLoadSubject = PassthroughSubject<Void, Never>()
     private let onbaordingCellTapped = PassthroughSubject<IndexPath, Never>()
     
     // MARK: - UI Components
@@ -46,7 +47,7 @@ final class SecondOnboardingViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.Onboarding.viewOnboarding2)
+        viewDidLoadSubject.send()
         setUI()
         register()
         setLayout()
@@ -63,6 +64,7 @@ extension SecondOnboardingViewController {
         collectionView.register(OnboardingCollectionViewCell.self, forCellWithReuseIdentifier: OnboardingCollectionViewCell.identifier)
         collectionView.register(OnboardingHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: OnboardingHeaderView.identifier)
     }
+    
     private func setUI() {
         view.backgroundColor = .ntdBlack
         
@@ -122,6 +124,7 @@ extension SecondOnboardingViewController {
     
     private func setBindings() {
         let input = SecondOnboardingViewModelInput(
+            viewDidLoadSubject: viewDidLoadSubject,
             cellTapped: onbaordingCellTapped)
         _ = viewModel.transform(input: input)
     }
@@ -129,8 +132,6 @@ extension SecondOnboardingViewController {
 
 extension SecondOnboardingViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.OnboardingClick.clickOnboardingNext2(select: SecondOnboardingModel.titles[indexPath.row].title))
-        
         self.onbaordingCellTapped.send(indexPath)
     }
 }

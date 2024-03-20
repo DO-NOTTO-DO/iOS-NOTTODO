@@ -10,7 +10,8 @@ import Combine
 protocol ThirdOnboardingViewModel: ViewModel where Input == ThirdOnboardingViewModelInput, Output == ThirdOnboardingViewModelOutput {}
 
 struct ThirdOnboardingViewModelInput {
-    let nextButtonDidTapped: PassthroughSubject<Void, Never>
+    let viewDidLoadSubject: PassthroughSubject<Void, Never>
+    let nextButtonDidTapped: PassthroughSubject<[String], Never>
 }
 
 struct ThirdOnboardingViewModelOutput {}

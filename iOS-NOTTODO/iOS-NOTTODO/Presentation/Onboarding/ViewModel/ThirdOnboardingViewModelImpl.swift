@@ -18,9 +18,17 @@ final class ThirdOnboardingViewModelImpl: ThirdOnboardingViewModel {
     
     func transform(input: ThirdOnboardingViewModelInput) -> ThirdOnboardingViewModelOutput {
         input.nextButtonDidTapped
+            .sink { [weak self] selectList in
+                guard let self else { return }
+                AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.OnboardingClick.clickOnboardingNext3(select: selectList))
+                self.coordinator?.showFourthOnboardingViewController()
+            }
+            .store(in: &cancelBag)
+        
+        input.viewDidLoadSubject
             .sink { [weak self] _ in
                 guard let self else { return }
-                self.coordinator?.showFourthOnboardingViewController()
+                AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.Onboarding.viewOnboarding3)
             }
             .store(in: &cancelBag)
         

@@ -11,6 +11,7 @@ import Foundation
 protocol SecondOnboardingViewModel: ViewModel where Input == SecondOnboardingViewModelInput, Output == SecondOnboardingViewModelOutput { }
 
 struct SecondOnboardingViewModelInput {
+    let viewDidLoadSubject: PassthroughSubject<Void, Never>
     let cellTapped: PassthroughSubject<IndexPath, Never>
 }
 

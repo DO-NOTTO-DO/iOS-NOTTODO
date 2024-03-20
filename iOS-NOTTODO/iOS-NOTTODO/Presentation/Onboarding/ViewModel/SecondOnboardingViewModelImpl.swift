@@ -18,11 +18,20 @@ final class SecondOnboardingViewModelImpl: SecondOnboardingViewModel {
     
     func transform(input: SecondOnboardingViewModelInput) -> SecondOnboardingViewModelOutput {
         input.cellTapped
-            .sink { [weak self] _ in
+            .sink { [weak self] indexPath in
                 guard let self else { return }
+                AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.OnboardingClick.clickOnboardingNext2(select: SecondOnboardingModel.titles[indexPath.row].title))
                 self.coordinator?.showThirdOnboardingViewController()
             }
             .store(in: &cancelBag)
+        
+        input.viewDidLoadSubject
+            .sink { [weak self] _ in
+                guard let self else { return }
+                AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.Onboarding.viewOnboarding2)
+            }
+            .store(in: &cancelBag)
+        
         return SecondOnboardingViewModelOutput()
     }
 }

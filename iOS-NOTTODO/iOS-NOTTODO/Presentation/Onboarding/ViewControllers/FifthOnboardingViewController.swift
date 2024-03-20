@@ -27,6 +27,7 @@ final class FifthOnboardingViewController: UIViewController {
     private let viewModel: any FifthOnboardingViewModel
     private var cancelBag = Set<AnyCancellable>()
     
+    private let viewDidLoadSubject = PassthroughSubject<Void, Never>()
     private let loginButtonDidTapped = PassthroughSubject<Void, Never>()
     
     // MARK: - UI Components
@@ -50,7 +51,7 @@ final class FifthOnboardingViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.Onboarding.viewOnboarding5)
+        viewDidLoadSubject.send()
         setUI()
         register()
         setLayout()
@@ -88,7 +89,6 @@ extension FifthOnboardingViewController {
             configuration.baseForegroundColor = .white
             configuration.contentInsets = NSDirectionalEdgeInsets.init(top: 0, leading: 0, bottom: 0, trailing: 10)
             $0.configuration = configuration
-            $0.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
         }
         
         arrowImage.do {
@@ -198,17 +198,16 @@ extension FifthOnboardingViewController {
     
     private func setBindings() {
         let input = FifthOnboardingViewModelInput(
+            viewDidLoadSubject: viewDidLoadSubject,
             loginButtonDidTapped: loginButtonDidTapped
         )
         _ = viewModel.transform(input: input)
-    }
-}
-
-extension FifthOnboardingViewController {
-    @objc
-    private func buttonTapped() {
-        AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.OnboardingClick.clickOnboardingNext5)
         
-        self.loginButtonDidTapped.send()
+        nextButton.tapPublisher
+            .sink { [weak self] _ in
+                guard let self else { return }
+                self.loginButtonDidTapped.send()
+            }
+            .store(in: &cancelBag)
     }
 }

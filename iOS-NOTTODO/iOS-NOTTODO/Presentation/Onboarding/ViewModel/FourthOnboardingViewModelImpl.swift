@@ -20,9 +20,18 @@ final class FourthOnboardingViewModelImpl: FourthOnboardingViewModel {
         input.buttonDidTapped
             .sink { [weak self] _ in
                 guard let self else { return }
+                AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.OnboardingClick.clickOnboardingNext4)
                 self.coordinator?.showFifthOnboardingViewController()
             }
             .store(in: &cancelBag)
+        
+        input.viewDidLoadSubject
+            .sink { [weak self] _ in
+                guard let self else { return }
+                AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.Onboarding.viewOnboarding4)
+            }
+            .store(in: &cancelBag)
+        
         return FourthOnboardingViewModelOutput()
     }
 }

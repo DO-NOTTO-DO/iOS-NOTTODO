@@ -10,6 +10,7 @@ import Combine
 protocol FourthOnboardingViewModel: ViewModel where Input == FourthOnboardingViewModelInput, Output == FourthOnboardingViewModelOutput {}
 
 struct FourthOnboardingViewModelInput {
+    let viewDidLoadSubject: PassthroughSubject<Void, Never>
     let buttonDidTapped: PassthroughSubject<Void, Never>
 }
 

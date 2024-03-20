@@ -20,6 +20,7 @@ final class LogoOnboardingViewModelImpl: LogoOnboardingViewModel {
         input.startButtonTappedSubject
             .sink { [weak self] _ in
                 guard let self else { return }
+                AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.OnboardingClick.clickOnboardingStart)
                 self.coodinator?.showSecondOnboardingViewController()
             }
             .store(in: &cancelBag)

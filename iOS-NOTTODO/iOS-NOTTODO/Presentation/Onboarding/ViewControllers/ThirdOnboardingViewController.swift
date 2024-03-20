@@ -27,7 +27,8 @@ final class ThirdOnboardingViewController: UIViewController {
     private let viewModel: any ThirdOnboardingViewModel
     private var cancelBag = Set<AnyCancellable>()
     
-    private let nextButtonDidTapped = PassthroughSubject<Void, Never>()
+    private let viewDidLoadSubject = PassthroughSubject<Void, Never>()
+    private let nextButtonDidTapped = PassthroughSubject<[String], Never>()
     
     // MARK: - UI Components
     
@@ -50,7 +51,7 @@ final class ThirdOnboardingViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.Onboarding.viewOnboarding3)
+        viewDidLoadSubject.send()
         setUI()
         register()
         setLayout()
@@ -86,7 +87,6 @@ extension ThirdOnboardingViewController {
             $0.titleLabel?.font = .Pretendard(.semiBold, size: 16)
             $0.setTitleColor(isTapped ? .black :.gray4, for: .normal)
             $0.setTitle(I18N.thirdButton, for: .normal)
-            $0.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
         }
     }
     
@@ -153,16 +153,16 @@ extension ThirdOnboardingViewController {
     
     private func setBindings() {
         let input = ThirdOnboardingViewModelInput(
+            viewDidLoadSubject: viewDidLoadSubject,
             nextButtonDidTapped: nextButtonDidTapped)
         _ = viewModel.transform(input: input)
-    }
-}
-
-extension ThirdOnboardingViewController {
-    @objc
-    private func buttonTapped() {
-        AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.OnboardingClick.clickOnboardingNext3(select: self.selectList))
-        self.nextButtonDidTapped.send()
+        
+        nextButton.tapPublisher
+            .sink { [weak self] in
+                guard let self else { return }
+                self.nextButtonDidTapped.send(selectList)
+            }
+            .store(in: &cancelBag)
     }
 }
 
