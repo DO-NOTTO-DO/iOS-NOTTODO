@@ -64,27 +64,33 @@ extension ViewControllerFactoryImpl {
 // onboarding
 extension ViewControllerFactoryImpl {
     func makeValueOnboardingViewController(coordinator: AuthCoordinator) -> ValueOnboardingViewController {
-        let viewController = ValueOnboardingViewController(coordinator: coordinator)
+        let viewModel = ValueOnboardingViewModelImpl(coordinator: coordinator)
+        let viewController = ValueOnboardingViewController(viewModel: viewModel)
         return viewController
     }
     func makeLogoOnboardingViewController(coordinator: AuthCoordinator) -> LogoOnboardingViewController {
-        let viewController = LogoOnboardingViewController(coordinator: coordinator)
+        let viewModel = LogoOnboardingViewModelImpl(coodinator: coordinator)
+        let viewController = LogoOnboardingViewController(viewModel: viewModel)
         return viewController
     }
     func makeSecondOnboardingViewController(coordinator: AuthCoordinator) -> SecondOnboardingViewController {
-        let viewController = SecondOnboardingViewController(coordinator: coordinator)
+        let viewModel = SecondOnboardingViewModelImpl(coordinator: coordinator)
+        let viewController = SecondOnboardingViewController(viewModel: viewModel)
         return viewController
     }
     func makeThirdOnboardingViewController(coordinator: AuthCoordinator) -> ThirdOnboardingViewController {
-        let viewController = ThirdOnboardingViewController(coordinator: coordinator)
+        let viewModel = ThirdOnboardingViewModelImpl(coordinator: coordinator)
+        let viewController = ThirdOnboardingViewController(viewModel: viewModel)
         return viewController
     }
     func makeFourthOnboardingViewController(coordinator: AuthCoordinator) -> FourthOnboardingViewController {
-        let viewController = FourthOnboardingViewController(coordinator: coordinator)
+        let viewModel = FourthOnboardingViewModelImpl(coordinator: coordinator)
+        let viewController = FourthOnboardingViewController(viewModel: viewModel)
         return viewController
     }
     func makeFifthOnboardingViewController(coordinator: AuthCoordinator) -> FifthOnboardingViewController {
-        let viewController = FifthOnboardingViewController(coordinator: coordinator)
+        let viewModel = FifthOnboardingViewModelImpl(coordinator: coordinator)
+        let viewController = FifthOnboardingViewController(viewModel: viewModel)
         return viewController
     }
 }

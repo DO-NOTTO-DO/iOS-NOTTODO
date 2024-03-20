@@ -7,6 +7,7 @@
 
 import UIKit
 
+import Combine
 import SnapKit
 import Then
 
@@ -22,7 +23,12 @@ final class FifthOnboardingViewController: UIViewController {
     var fiveOnboardingModel: [FifthOnboardingModel] = FifthOnboardingModel.titles
     private var dataSource: UICollectionViewDiffableDataSource<Sections, AnyHashable>! = nil
     private lazy var safeArea = self.view.safeAreaLayoutGuide
-    private weak var coordinator: AuthCoordinator?
+    
+    private let viewModel: any FifthOnboardingViewModel
+    private var cancelBag = Set<AnyCancellable>()
+    
+    private let viewDidLoadSubject = PassthroughSubject<Void, Never>()
+    private let loginButtonDidTapped = PassthroughSubject<Void, Never>()
     
     // MARK: - UI Components
     
@@ -32,8 +38,8 @@ final class FifthOnboardingViewController: UIViewController {
     private let gradientView = GradientView(color: .clear, color1: .ntdBlack!)
     
     // MARK: - init
-    init(coordinator: AuthCoordinator) {
-        self.coordinator = coordinator
+    init(viewModel: some FifthOnboardingViewModel) {
+        self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -45,12 +51,13 @@ final class FifthOnboardingViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.Onboarding.viewOnboarding5)
+        viewDidLoadSubject.send()
         setUI()
         register()
         setLayout()
         setupDataSource()
         reloadData()
+        setBindings()
     }
 }
 
@@ -71,6 +78,7 @@ extension FifthOnboardingViewController {
             $0.bounces = false
             $0.isScrollEnabled = false
         }
+        
         nextButton.do {
             var configuration = UIButton.Configuration.plain()
             configuration.image = .kakaoAppleIcon
@@ -81,8 +89,8 @@ extension FifthOnboardingViewController {
             configuration.baseForegroundColor = .white
             configuration.contentInsets = NSDirectionalEdgeInsets.init(top: 0, leading: 0, bottom: 0, trailing: 10)
             $0.configuration = configuration
-            $0.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
         }
+        
         arrowImage.do {
             $0.image = .splashBack
         }
@@ -93,22 +101,22 @@ extension FifthOnboardingViewController {
         nextButton.addSubview(arrowImage)
         
         nextButton.snp.makeConstraints {
-            $0.trailing.equalTo(safeArea).inset(34)
-            $0.size.equalTo(CGSize(width: 205, height: 24))
-            $0.bottom.equalTo(safeArea).inset(12)
+            $0.trailing.equalTo(safeArea).inset(34.adjusted)
+            $0.size.equalTo(CGSize(width: 205.adjusted, height: 24.adjusted))
+            $0.bottom.equalTo(safeArea).inset(12.adjusted)
         }
         arrowImage.snp.makeConstraints {
-            $0.size.equalTo(CGSize(width: 8, height: 16))
+            $0.size.equalTo(CGSize(width: 8.adjusted, height: 16.adjusted))
             $0.trailing.equalToSuperview()
             $0.centerY.equalToSuperview()
         }
         collectionView.snp.makeConstraints {
             $0.top.equalTo(safeArea)
-            $0.directionalHorizontalEdges.equalTo(safeArea).inset(27)
+            $0.directionalHorizontalEdges.equalTo(safeArea).inset(27.adjusted)
             $0.bottom.equalTo(nextButton.snp.top)
         }
         gradientView.snp.makeConstraints {
-            $0.bottom.equalTo(nextButton.snp.top).offset(-90)
+            $0.bottom.equalTo(nextButton.snp.top).offset(-90.adjusted)
             $0.top.equalTo(safeArea).offset(Numbers.height*0.5)
             $0.directionalHorizontalEdges.equalTo(safeArea)
         }
@@ -187,13 +195,19 @@ extension FifthOnboardingViewController {
         section.contentInsets = NSDirectionalEdgeInsets(top: 11, leading: 0, bottom: 0, trailing: 0)
         return section
     }
-}
-
-extension FifthOnboardingViewController {
-    @objc
-    private func buttonTapped() {
-        AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.OnboardingClick.clickOnboardingNext5)
+    
+    private func setBindings() {
+        let input = FifthOnboardingViewModelInput(
+            viewDidLoadSubject: viewDidLoadSubject,
+            loginButtonDidTapped: loginButtonDidTapped
+        )
+        _ = viewModel.transform(input: input)
         
-        self.coordinator?.showSignUpViewController()
+        nextButton.tapPublisher
+            .sink { [weak self] _ in
+                guard let self else { return }
+                self.loginButtonDidTapped.send()
+            }
+            .store(in: &cancelBag)
     }
 }

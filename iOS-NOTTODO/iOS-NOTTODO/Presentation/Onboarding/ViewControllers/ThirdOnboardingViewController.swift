@@ -7,6 +7,7 @@
 
 import UIKit
 
+import Combine
 import SnapKit
 import Then
 
@@ -22,7 +23,12 @@ final class ThirdOnboardingViewController: UIViewController {
     private var dataSource: UICollectionViewDiffableDataSource<Section, ThirdOnboardingModel>! = nil
     private lazy var safeArea = self.view.safeAreaLayoutGuide
     private var selectList: [String] = []
-    private weak var coordinator: AuthCoordinator?
+    
+    private let viewModel: any ThirdOnboardingViewModel
+    private var cancelBag = Set<AnyCancellable>()
+    
+    private let viewDidLoadSubject = PassthroughSubject<Void, Never>()
+    private let nextButtonDidTapped = PassthroughSubject<[String], Never>()
     
     // MARK: - UI Components
     
@@ -31,8 +37,9 @@ final class ThirdOnboardingViewController: UIViewController {
     private var isTapped: Bool = false
     
     // MARK: - init
-    init(coordinator: AuthCoordinator) {
-        self.coordinator = coordinator
+    
+    init(viewModel: some ThirdOnboardingViewModel) {
+        self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -44,12 +51,13 @@ final class ThirdOnboardingViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.Onboarding.viewOnboarding3)
+        viewDidLoadSubject.send()
         setUI()
         register()
         setLayout()
         setupDataSource()
         reloadData()
+        setBindings()
     }
 }
 
@@ -60,6 +68,7 @@ extension ThirdOnboardingViewController {
         collectionView.register(OnboardingCollectionViewCell.self, forCellWithReuseIdentifier: OnboardingCollectionViewCell.identifier)
         collectionView.register(OnboardingHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: OnboardingHeaderView.identifier)
     }
+    
     private func setUI() {
         view.backgroundColor = .ntdBlack
         
@@ -70,6 +79,7 @@ extension ThirdOnboardingViewController {
             $0.allowsMultipleSelection = true
             $0.delegate = self
         }
+        
         nextButton.do {
             $0.backgroundColor = isTapped ? .white : .gray2
             $0.isUserInteractionEnabled = isTapped
@@ -77,7 +87,6 @@ extension ThirdOnboardingViewController {
             $0.titleLabel?.font = .Pretendard(.semiBold, size: 16)
             $0.setTitleColor(isTapped ? .black :.gray4, for: .normal)
             $0.setTitle(I18N.thirdButton, for: .normal)
-            $0.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
         }
     }
     
@@ -94,13 +103,13 @@ extension ThirdOnboardingViewController {
         
         nextButton.snp.makeConstraints {
             $0.top.equalTo(collectionView.snp.bottom)
-            $0.bottom.equalTo(safeArea).inset(10)
-            $0.directionalHorizontalEdges.equalTo(safeArea).inset(15)
-            $0.height.equalTo(50)
+            $0.bottom.equalTo(safeArea).inset(10.adjusted)
+            $0.directionalHorizontalEdges.equalTo(safeArea).inset(15.adjusted)
+            $0.height.equalTo(50.adjusted)
         }
         collectionView.snp.makeConstraints {
             $0.top.equalTo(safeArea)
-            $0.directionalHorizontalEdges.equalTo(safeArea).inset(27)
+            $0.directionalHorizontalEdges.equalTo(safeArea).inset(27.adjusted)
             $0.bottom.equalTo(nextButton.snp.top)
         }
     }
@@ -141,14 +150,19 @@ extension ThirdOnboardingViewController {
         section.boundarySupplementaryItems = [header]
         return UICollectionViewCompositionalLayout(section: section)
     }
-}
-
-extension ThirdOnboardingViewController {
-    @objc
-    private func buttonTapped() {
+    
+    private func setBindings() {
+        let input = ThirdOnboardingViewModelInput(
+            viewDidLoadSubject: viewDidLoadSubject,
+            nextButtonDidTapped: nextButtonDidTapped)
+        _ = viewModel.transform(input: input)
         
-        AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.OnboardingClick.clickOnboardingNext3(select: self.selectList))
-        self.coordinator?.showFourthOnboardingViewController()
+        nextButton.tapPublisher
+            .sink { [weak self] in
+                guard let self else { return }
+                self.nextButtonDidTapped.send(selectList)
+            }
+            .store(in: &cancelBag)
     }
 }
 
@@ -171,7 +185,6 @@ extension ThirdOnboardingViewController: UICollectionViewDelegate {
                 }
                 self.isTapped = false
                 updateButton(isTapped: self.isTapped)
-                
             }
         }
     }

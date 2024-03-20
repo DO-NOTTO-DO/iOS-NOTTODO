@@ -86,31 +86,31 @@ extension OnboardingHeaderView {
         addSubviews(pageControl, pageControlLabel, verticalStackView)
         
         pageControl.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(21)
-            $0.size.equalTo(CGSize(width: 27, height: 6))
+            $0.top.equalToSuperview().offset(21.adjusted)
+            $0.size.equalTo(CGSize(width: 27.adjusted, height: 6.adjusted))
             $0.centerX.equalToSuperview()
         }
         pageControlLabel.snp.makeConstraints {
-            $0.top.equalTo(pageControl.snp.bottom).offset(10)
+            $0.top.equalTo(pageControl.snp.bottom).offset(10.adjusted)
             $0.centerX.equalToSuperview()
-            $0.height.equalTo(18)
+            $0.height.equalTo(18.adjusted)
         }
         verticalStackView.snp.makeConstraints {
-            $0.top.equalTo(pageControlLabel.snp.bottom).offset(43)
+            $0.top.equalTo(pageControlLabel.snp.bottom).offset(43.adjusted)
             $0.directionalHorizontalEdges.equalToSuperview()
             $0.bottom.equalToSuperview()
         }
         
         if isControl {
             titleLabel.snp.makeConstraints {
-                $0.bottom.equalToSuperview().inset(40)
+                $0.bottom.equalToSuperview().inset(40.adjusted)
             }
             horizontalStackView.snp.makeConstraints {
-                $0.bottom.equalTo(titleLabel.snp.top).inset(20)
+                $0.bottom.equalTo(titleLabel.snp.top).inset(20.adjusted)
             }
             
             flagImage.snp.makeConstraints {
-                $0.size.equalTo(20)
+                $0.size.equalTo(20.adjusted)
             }
         } else {
             horizontalStackView.snp.remakeConstraints {
@@ -119,7 +119,7 @@ extension OnboardingHeaderView {
             }
             titleLabel.snp.remakeConstraints {
                 $0.top.equalToSuperview()
-                $0.height.equalTo(50)
+                $0.height.equalTo(50.adjusted)
             }
         }
     }

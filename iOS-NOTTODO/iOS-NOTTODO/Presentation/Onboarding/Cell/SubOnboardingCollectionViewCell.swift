@@ -60,17 +60,17 @@ extension SubOnboardingCollectionViewCell {
         
         iconImage.snp.makeConstraints {
             $0.centerY.equalToSuperview()
-            $0.leading.equalToSuperview().offset(21)
-            $0.size.equalTo(36)
+            $0.leading.equalToSuperview().offset(21.adjusted)
+            $0.size.equalTo(36.adjusted)
         }
         tagLabel.snp.makeConstraints {
-            $0.leading.equalTo(iconImage.snp.trailing).offset(13)
-            $0.top.equalToSuperview().offset(15)
+            $0.leading.equalTo(iconImage.snp.trailing).offset(13.adjusted)
+            $0.top.equalToSuperview().offset(15.adjusted)
         }
         titleLabel.snp.makeConstraints {
             $0.leading.equalTo(tagLabel.snp.leading)
-            $0.top.equalTo(tagLabel.snp.bottom).offset(6)
-            $0.bottom.equalToSuperview().inset(15)
+            $0.top.equalTo(tagLabel.snp.bottom).offset(6.adjusted)
+            $0.bottom.equalToSuperview().inset(15.adjusted)
         }
     }
     

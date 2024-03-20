@@ -51,9 +51,9 @@ extension OnboardingFooterView {
         addSubviews(iconImage, actionLabel)
         
         iconImage.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(21)
+            $0.top.equalToSuperview().offset(21.adjusted)
             $0.centerX.equalToSuperview()
-            $0.height.equalTo(17)
+            $0.height.equalTo(17.adjusted)
         }
         
         actionLabel.snp.makeConstraints {

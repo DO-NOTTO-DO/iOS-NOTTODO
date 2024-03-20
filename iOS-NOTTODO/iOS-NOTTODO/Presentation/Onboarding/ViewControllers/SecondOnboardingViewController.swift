@@ -7,6 +7,7 @@
 
 import UIKit
 
+import Combine
 import SnapKit
 import Then
 
@@ -20,7 +21,12 @@ final class SecondOnboardingViewController: UIViewController {
     private let onboardingModel: [SecondOnboardingModel] = SecondOnboardingModel.titles
     private var dataSource: UICollectionViewDiffableDataSource<Section, SecondOnboardingModel>! = nil
     private lazy var safeArea = self.view.safeAreaLayoutGuide
-    private weak var coordinator: AuthCoordinator?
+    
+    private let viewModel: any SecondOnboardingViewModel
+    private var cancelBag = Set<AnyCancellable>()
+    
+    private let viewDidLoadSubject = PassthroughSubject<Void, Never>()
+    private let onbaordingCellTapped = PassthroughSubject<IndexPath, Never>()
     
     // MARK: - UI Components
     
@@ -28,8 +34,8 @@ final class SecondOnboardingViewController: UIViewController {
     
     // MARK: - init
     
-    init(coordinator: AuthCoordinator) {
-        self.coordinator = coordinator
+    init(viewModel: some SecondOnboardingViewModel) {
+        self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -41,12 +47,13 @@ final class SecondOnboardingViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.Onboarding.viewOnboarding2)
+        viewDidLoadSubject.send()
         setUI()
         register()
         setLayout()
         setupDataSource()
         reloadData()
+        setBindings()
     }
 }
 
@@ -57,6 +64,7 @@ extension SecondOnboardingViewController {
         collectionView.register(OnboardingCollectionViewCell.self, forCellWithReuseIdentifier: OnboardingCollectionViewCell.identifier)
         collectionView.register(OnboardingHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: OnboardingHeaderView.identifier)
     }
+    
     private func setUI() {
         view.backgroundColor = .ntdBlack
         
@@ -73,7 +81,7 @@ extension SecondOnboardingViewController {
         
         collectionView.snp.makeConstraints {
             $0.top.equalTo(safeArea)
-            $0.directionalHorizontalEdges.equalTo(safeArea).inset(27)
+            $0.directionalHorizontalEdges.equalTo(safeArea).inset(27.adjusted)
             $0.bottom.equalTo(safeArea)
         }
     }
@@ -113,12 +121,17 @@ extension SecondOnboardingViewController {
         let layout = UICollectionViewCompositionalLayout(section: section)
         return layout
     }
+    
+    private func setBindings() {
+        let input = SecondOnboardingViewModelInput(
+            viewDidLoadSubject: viewDidLoadSubject,
+            cellTapped: onbaordingCellTapped)
+        _ = viewModel.transform(input: input)
+    }
 }
 
 extension SecondOnboardingViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.OnboardingClick.clickOnboardingNext2(select: SecondOnboardingModel.titles[indexPath.row].title))
-        
-        coordinator?.showThirdOnboardingViewController()
+        self.onbaordingCellTapped.send(indexPath)
     }
 }

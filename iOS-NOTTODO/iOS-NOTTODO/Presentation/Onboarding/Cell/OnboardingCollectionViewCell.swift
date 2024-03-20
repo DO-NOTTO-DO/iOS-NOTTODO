@@ -78,7 +78,7 @@ extension OnboardingCollectionViewCell {
         titleLabel.text = model.title
         titleLabel.snp.remakeConstraints {
             $0.centerY.equalToSuperview()
-            $0.leading.equalToSuperview().offset(20)
+            $0.leading.equalToSuperview().offset(20.adjusted)
         }
     }
 }

@@ -7,13 +7,17 @@
 
 import UIKit
 
+import Combine
 import Lottie
 
 final class ValueOnboardingViewController: UIViewController {
     
     // MARK: - Properties
     
-    private weak var coordinator: AuthCoordinator?
+    private let viewModel: any ValueOnboardingViewModel
+    private var cancelBag = Set<AnyCancellable>()
+    
+    private let endAnimationSubject = PassthroughSubject<Void, Never>()
     
     // MARK: - UI Properties
     
@@ -21,8 +25,8 @@ final class ValueOnboardingViewController: UIViewController {
     
     // MARK: - init
     
-    init(coordinator: AuthCoordinator) {
-        self.coordinator = coordinator
+    init(viewModel: some ValueOnboardingViewModel) {
+        self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -35,8 +39,9 @@ final class ValueOnboardingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         playAnimation(named: "value") { [weak self] in
-            self?.pushToNextViewController()
+            self?.endAnimationSubject.send()
         }
+        setBindings()
     }
     
     deinit {
@@ -49,7 +54,7 @@ final class ValueOnboardingViewController: UIViewController {
 
 extension ValueOnboardingViewController {
     
-    func playAnimation(named name: String, completion: @escaping () -> Void) {
+    private func playAnimation(named name: String, completion: @escaping () -> Void) {
         let animation = LottieAnimation.named(name)
         
         animationView.animation = animation
@@ -65,7 +70,9 @@ extension ValueOnboardingViewController {
         }
     }
     
-    func pushToNextViewController() {
-        coordinator?.showLogoOnboardingViewController()
+    private func setBindings() {
+        let input = ValueOnboardingViewModelInput(
+            endAnimationSubject: endAnimationSubject)
+        _ = viewModel.transform(input: input)
     }
 }

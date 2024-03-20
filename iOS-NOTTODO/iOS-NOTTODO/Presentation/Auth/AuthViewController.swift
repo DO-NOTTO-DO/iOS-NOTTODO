@@ -29,14 +29,10 @@ final class AuthViewController: UIViewController {
     private var loginSubLabel = UILabel()
     
     private var kakaoLoginImageView = UIImageView()
-    private var kakaoLoginButtonView = AuthButtonView(frame: .zero, title: I18N.kakaoLogin, icon: .kakaoLogo, color: .kakaoYellow)
-    private var appleLoginButtonView = AuthButtonView(frame: .zero, title: I18N.appleLogin, icon: .appleLogo, color: .white)
-    private var kakaoLoginButton = UIButton()
-    private var appleLoginButton = UIButton()
+    private var kakaoLoginButton = AuthButton(frame: .zero, title: I18N.kakaoLogin, icon: .kakaoLogo, color: .kakaoYellow)
+    private var appleLoginButton = AuthButton(frame: .zero, title: I18N.appleLogin, icon: .appleLogo, color: .white)
     
     private var moreButton = UIButton()
-    private var conditionButton = UIButton()
-    private var personalInfoButton = UIButton()
     
     // MARK: - init
     init(coordinator: AuthCoordinator) {
@@ -66,12 +62,7 @@ extension AuthViewController {
             $0.textColor = .white
             $0.text = I18N.loginMain
             $0.numberOfLines = 2
-            
-            let paragraphStyle = NSMutableParagraphStyle()
-            paragraphStyle.lineSpacing = $0.font.lineHeight * 0.2
-            
-            let attributedText = NSAttributedString(string: $0.text ?? "", attributes: [NSAttributedString.Key.paragraphStyle: paragraphStyle])
-            $0.attributedText = attributedText
+            $0.setLineSpacing(lineSpacing: $0.font.lineHeight * 0.2)
         }
         
         loginSubLabel.do {
@@ -79,12 +70,7 @@ extension AuthViewController {
             $0.textColor = .gray4
             $0.text = I18N.loginSub
             $0.numberOfLines = 3
-            
-            let paragraphStyle = NSMutableParagraphStyle()
-            paragraphStyle.lineSpacing = $0.font.lineHeight * 0.2
-            
-            let attributedText = NSAttributedString(string: $0.text ?? "", attributes: [NSAttributedString.Key.paragraphStyle: paragraphStyle])
-            $0.attributedText = attributedText
+            $0.setLineSpacing(lineSpacing: $0.font.lineHeight * 0.2)
         }
         
         kakaoLoginImageView.image = .kakaoLoginLabel
@@ -96,78 +82,48 @@ extension AuthViewController {
             $0.setTitle(I18N.moreAuth, for: .normal)
             $0.setTitleColor(.gray4, for: .normal)
             $0.titleLabel?.font = .Pretendard(.regular, size: 12)
-        }
-        
-        conditionButton.do {
-            $0.setTitle(I18N.condition, for: .normal)
-            $0.setTitleColor(.gray4, for: .normal)
-            $0.titleLabel?.font = .Pretendard(.regular, size: 12)
-            $0.setUnderline()
-            $0.addTarget(self, action: #selector(moreButtonTapped), for: .touchUpInside)
-        }
-        
-        personalInfoButton.do {
-            $0.setTitle(I18N.personalInfo, for: .normal)
-            $0.setTitleColor(.gray4, for: .normal)
-            $0.titleLabel?.font = .Pretendard(.regular, size: 12)
-            $0.setUnderline()
+            $0.setUnderlines(target: [I18N.condition, I18N.personalInfo])
             $0.addTarget(self, action: #selector(moreButtonTapped), for: .touchUpInside)
         }
     }
     
     private func setLayout() {
         
-        view.addSubviews(loginMainLabel, loginSubLabel, kakaoLoginImageView, kakaoLoginButtonView, appleLoginButtonView, kakaoLoginButton, appleLoginButton, moreButton)
-        moreButton.addSubviews(conditionButton, personalInfoButton)
+        view.addSubviews(loginMainLabel, loginSubLabel, kakaoLoginImageView, kakaoLoginButton, appleLoginButton, moreButton)
         
         loginMainLabel.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(155)
-            $0.leading.equalToSuperview().offset(29)
+            $0.top.equalToSuperview().offset(155.adjusted)
+            $0.leading.equalToSuperview().offset(29.adjusted)
         }
         
         loginSubLabel.snp.makeConstraints {
-            $0.top.equalTo(loginMainLabel.snp.bottom).offset(17)
+            $0.top.equalTo(loginMainLabel.snp.bottom).offset(17.adjusted)
             $0.leading.equalTo(loginMainLabel.snp.leading)
         }
         
         moreButton.snp.makeConstraints {
-            $0.bottom.equalToSuperview().offset(-65)
+            $0.bottom.equalToSuperview().offset(-65.adjusted)
             $0.centerX.equalToSuperview()
         }
         
-        appleLoginButtonView.snp.makeConstraints {
-            $0.leading.trailing.equalToSuperview()
-            $0.bottom.equalTo(moreButton.snp.top).offset(-14)
-        }
-        
-        kakaoLoginButtonView.snp.makeConstraints {
-            $0.leading.trailing.equalToSuperview()
-            $0.bottom.equalTo(appleLoginButtonView.snp.top).offset(-11)
-        }
-        
-        kakaoLoginImageView.snp.makeConstraints {
-            $0.bottom.equalTo(kakaoLoginButtonView.snp.top).offset(-9)
-            $0.leading.equalToSuperview().offset(22)
-            $0.width.equalTo(189)
-            $0.height.equalTo(37)
+        appleLoginButton.snp.makeConstraints {
+            $0.leading.trailing.equalToSuperview().inset(17.adjusted)
+            $0.bottom.equalTo(moreButton.snp.top).offset(-14.adjusted)
+            $0.height.equalTo(53.adjusted)
         }
         
         kakaoLoginButton.snp.makeConstraints {
-            $0.top.bottom.leading.trailing.equalTo(kakaoLoginButtonView)
+            $0.leading.trailing.equalToSuperview().inset(17.adjusted)
+            $0.bottom.equalTo(appleLoginButton.snp.top).offset(-11.adjusted)
+            $0.height.equalTo(53.adjusted)
         }
         
-        appleLoginButton.snp.makeConstraints {
-            $0.top.bottom.leading.trailing.equalTo(appleLoginButtonView)
+        kakaoLoginImageView.snp.makeConstraints {
+            $0.bottom.equalTo(kakaoLoginButton.snp.top).offset(-9.adjusted)
+            $0.leading.equalToSuperview().offset(22.adjusted)
+            $0.width.equalTo(189.adjusted)
+            $0.height.equalTo(37.adjusted)
         }
-        
-        conditionButton.snp.makeConstraints {
-            $0.centerY.leading.equalToSuperview()
-        }
-        
-        personalInfoButton.snp.makeConstraints {
-            $0.centerY.trailing.equalToSuperview()
-        }
-        
     }
     
     // MARK: - @objc Methods
