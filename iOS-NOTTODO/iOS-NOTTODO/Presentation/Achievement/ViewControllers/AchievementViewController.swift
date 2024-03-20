@@ -49,7 +49,6 @@ final class AchievementViewController: UIViewController, AchievementViewModelPre
         super.viewWillAppear(animated)
         
         viewWillAppearSubject.send(Date())
-        AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.Achieve.viewAccomplish)
     }
     
     override func viewDidLoad() {
