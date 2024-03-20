@@ -79,7 +79,7 @@ extension SecondOnboardingViewController {
         
         collectionView.snp.makeConstraints {
             $0.top.equalTo(safeArea)
-            $0.directionalHorizontalEdges.equalTo(safeArea).inset(27)
+            $0.directionalHorizontalEdges.equalTo(safeArea).inset(27.adjusted)
             $0.bottom.equalTo(safeArea)
         }
     }

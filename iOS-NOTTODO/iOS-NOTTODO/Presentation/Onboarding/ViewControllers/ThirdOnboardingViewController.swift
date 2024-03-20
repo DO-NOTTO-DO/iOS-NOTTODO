@@ -103,13 +103,13 @@ extension ThirdOnboardingViewController {
         
         nextButton.snp.makeConstraints {
             $0.top.equalTo(collectionView.snp.bottom)
-            $0.bottom.equalTo(safeArea).inset(10)
-            $0.directionalHorizontalEdges.equalTo(safeArea).inset(15)
-            $0.height.equalTo(50)
+            $0.bottom.equalTo(safeArea).inset(10.adjusted)
+            $0.directionalHorizontalEdges.equalTo(safeArea).inset(15.adjusted)
+            $0.height.equalTo(50.adjusted)
         }
         collectionView.snp.makeConstraints {
             $0.top.equalTo(safeArea)
-            $0.directionalHorizontalEdges.equalTo(safeArea).inset(27)
+            $0.directionalHorizontalEdges.equalTo(safeArea).inset(27.adjusted)
             $0.bottom.equalTo(nextButton.snp.top)
         }
     }

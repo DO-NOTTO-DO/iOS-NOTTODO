@@ -91,13 +91,13 @@ extension FourthOnboardingViewController {
         view.addSubviews(collectionView, gradientView, nextButton)
         
         nextButton.snp.makeConstraints {
-            $0.trailing.equalTo(safeArea).inset(34)
-            $0.size.equalTo(CGSize(width: 95, height: 24))
-            $0.bottom.equalTo(safeArea).inset(12)
+            $0.trailing.equalTo(safeArea).inset(34.adjusted)
+            $0.size.equalTo(CGSize(width: 95.adjusted, height: 24.adjusted))
+            $0.bottom.equalTo(safeArea).inset(12.adjusted)
         }
         collectionView.snp.makeConstraints {
             $0.top.equalTo(safeArea)
-            $0.directionalHorizontalEdges.equalTo(safeArea).inset(27)
+            $0.directionalHorizontalEdges.equalTo(safeArea).inset(27.adjusted)
             $0.bottom.equalTo(nextButton.snp.top)
         }
         gradientView.snp.makeConstraints {

@@ -629,11 +629,11 @@
 		09F6717E29CAD68100708725 /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
-				3B877D602BA195A80002DFCB /* ViewModel */,
-				6C9628AA2A2220E2003ADE25 /* Lottie */,
-				09F6719229CB6E6200708725 /* ViewControllers */,
-				09F6719129CB6E4D00708725 /* Model */,
 				09F6719329CB6E7800708725 /* Cell */,
+				6C9628AA2A2220E2003ADE25 /* Lottie */,
+				09F6719129CB6E4D00708725 /* Model */,
+				09F6719229CB6E6200708725 /* ViewControllers */,
+				3B877D602BA195A80002DFCB /* ViewModel */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
