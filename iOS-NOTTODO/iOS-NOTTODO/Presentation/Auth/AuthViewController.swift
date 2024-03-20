@@ -29,10 +29,8 @@ final class AuthViewController: UIViewController {
     private var loginSubLabel = UILabel()
     
     private var kakaoLoginImageView = UIImageView()
-    private var kakaoLoginButtonView = AuthButtonView(frame: .zero, title: I18N.kakaoLogin, icon: .kakaoLogo, color: .kakaoYellow)
-    private var appleLoginButtonView = AuthButtonView(frame: .zero, title: I18N.appleLogin, icon: .appleLogo, color: .white)
-    private var kakaoLoginButton = UIButton()
-    private var appleLoginButton = UIButton()
+    private var kakaoLoginButton = AuthButton(frame: .zero, title: I18N.kakaoLogin, icon: .kakaoLogo, color: .kakaoYellow)
+    private var appleLoginButton = AuthButton(frame: .zero, title: I18N.appleLogin, icon: .appleLogo, color: .white)
     
     private var moreButton = UIButton()
     private var conditionButton = UIButton()
@@ -117,47 +115,41 @@ extension AuthViewController {
     
     private func setLayout() {
         
-        view.addSubviews(loginMainLabel, loginSubLabel, kakaoLoginImageView, kakaoLoginButtonView, appleLoginButtonView, kakaoLoginButton, appleLoginButton, moreButton)
+        view.addSubviews(loginMainLabel, loginSubLabel, kakaoLoginImageView, kakaoLoginButton, appleLoginButton, moreButton)
         moreButton.addSubviews(conditionButton, personalInfoButton)
         
         loginMainLabel.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(155)
-            $0.leading.equalToSuperview().offset(29)
+            $0.top.equalToSuperview().offset(155.adjusted)
+            $0.leading.equalToSuperview().offset(29.adjusted)
         }
         
         loginSubLabel.snp.makeConstraints {
-            $0.top.equalTo(loginMainLabel.snp.bottom).offset(17)
+            $0.top.equalTo(loginMainLabel.snp.bottom).offset(17.adjusted)
             $0.leading.equalTo(loginMainLabel.snp.leading)
         }
         
         moreButton.snp.makeConstraints {
-            $0.bottom.equalToSuperview().offset(-65)
+            $0.bottom.equalToSuperview().offset(-65.adjusted)
             $0.centerX.equalToSuperview()
         }
         
-        appleLoginButtonView.snp.makeConstraints {
-            $0.leading.trailing.equalToSuperview()
-            $0.bottom.equalTo(moreButton.snp.top).offset(-14)
-        }
-        
-        kakaoLoginButtonView.snp.makeConstraints {
-            $0.leading.trailing.equalToSuperview()
-            $0.bottom.equalTo(appleLoginButtonView.snp.top).offset(-11)
-        }
-        
-        kakaoLoginImageView.snp.makeConstraints {
-            $0.bottom.equalTo(kakaoLoginButtonView.snp.top).offset(-9)
-            $0.leading.equalToSuperview().offset(22)
-            $0.width.equalTo(189)
-            $0.height.equalTo(37)
+        appleLoginButton.snp.makeConstraints {
+            $0.leading.trailing.equalToSuperview().inset(17.adjusted)
+            $0.bottom.equalTo(moreButton.snp.top).offset(-14.adjusted)
+            $0.height.equalTo(53.adjusted)
         }
         
         kakaoLoginButton.snp.makeConstraints {
-            $0.top.bottom.leading.trailing.equalTo(kakaoLoginButtonView)
+            $0.leading.trailing.equalToSuperview().inset(17.adjusted)
+            $0.bottom.equalTo(appleLoginButton.snp.top).offset(-11.adjusted)
+            $0.height.equalTo(53.adjusted)
         }
         
-        appleLoginButton.snp.makeConstraints {
-            $0.top.bottom.leading.trailing.equalTo(appleLoginButtonView)
+        kakaoLoginImageView.snp.makeConstraints {
+            $0.bottom.equalTo(kakaoLoginButton.snp.top).offset(-9.adjusted)
+            $0.leading.equalToSuperview().offset(22.adjusted)
+            $0.width.equalTo(189.adjusted)
+            $0.height.equalTo(37.adjusted)
         }
         
         conditionButton.snp.makeConstraints {

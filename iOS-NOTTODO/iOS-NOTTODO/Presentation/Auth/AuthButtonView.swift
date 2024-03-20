@@ -10,13 +10,11 @@ import UIKit
 import SnapKit
 import Then
 
-final class AuthButtonView: UIView {
+final class AuthButton: UIButton {
     
-    // MARK: - UI Components
+    // MARK: - UI Properties
     
-    private var buttonView = UIView()
-    private var buttonIcon = UIImageView()
-    private var buttonLabel = UILabel()
+    private let image = UIImageView()
     
     // MARK: - View Life Cycles
     
@@ -34,43 +32,32 @@ final class AuthButtonView: UIView {
 
 // MARK: - Methods
 
-extension AuthButtonView {
+extension AuthButton {
     private func setUI(title: String?, icon: UIImage?, color: UIColor?) {
         
-        buttonView.do {
-            $0.backgroundColor = color
-            $0.layer.cornerRadius = 5
-        }
+        image.image = icon
         
-        buttonIcon.image = icon
+        self.backgroundColor = color
+        self.layer.cornerRadius = 5
         
-        buttonLabel.do {
-            $0.text = title
-            $0.textColor = .systemBlack
-            $0.font = .Pretendard(.medium, size: 16)
-        }
+        var configuration = UIButton.Configuration.plain()
+        
+        configuration.title = title
+        configuration.titleAlignment = .center
+        configuration.attributedTitle?.font = .Pretendard(.medium, size: 16)
+        configuration.baseBackgroundColor = color
+        configuration.baseForegroundColor = .systemBlack
+        configuration.contentInsets = NSDirectionalEdgeInsets.init(top: 0, leading: 0, bottom: 0, trailing: 0)
+        
+        self.configuration = configuration
     }
     
     private func setLayout() {
-        addSubviews(buttonView)
-        buttonView.addSubviews(buttonIcon, buttonLabel)
+        addSubviews(image)
         
-        self.snp.makeConstraints {
-            $0.height.equalTo(53)
-        }
-        
-        buttonView.snp.makeConstraints {
-            $0.leading.trailing.equalToSuperview().inset(17)
-            $0.height.equalToSuperview()
-        }
-        
-        buttonIcon.snp.makeConstraints {
-            $0.centerX.equalTo(buttonView.snp.leading).offset(27)
+        image.snp.makeConstraints {
+            $0.leading.equalToSuperview().inset(14)
             $0.centerY.equalToSuperview()
-        }
-        
-        buttonLabel.snp.makeConstraints {
-            $0.centerX.centerY.equalToSuperview()
         }
     }
 }
