@@ -64,20 +64,24 @@ extension InfoCollectionViewCell {
     private func setLayout() {
         contentView.addSubviews(horizontalStackView, arrowImage)
         
+        titleLabel.snp.makeConstraints {
+            $0.verticalEdges.equalTo(contentView).inset(15)
+        }
+        
         iconImage.snp.makeConstraints {
-            $0.size.equalTo(CGSize(width: 30, height: 30))
+            $0.size.equalTo(30)
+            $0.centerY.equalToSuperview()
         }
         
         arrowImage.snp.makeConstraints {
-            $0.size.equalTo(CGSize(width: 24, height: 24))
+            $0.size.equalTo(24)
             $0.centerY.equalToSuperview()
             $0.trailing.equalToSuperview().inset(13)
         }
+        
         horizontalStackView.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(17)
-            $0.bottom.equalToSuperview().inset(17)
+            $0.top.bottom.equalToSuperview().inset(10)
             $0.leading.equalToSuperview().offset(20)
-            $0.centerY.equalToSuperview()
         }
     }
     
@@ -91,10 +95,10 @@ extension InfoCollectionViewCell {
         }
     }
     
-    func configure(with model: MyPageRowData, isHidden: Bool) {
+    func configure(with model: MyPageRowData) {
         horizontalStackView.removeArrangedSubview(iconImage)
         iconImage.removeFromSuperview()
         titleLabel.text = model.title
-        arrowImage.isHidden = isHidden
+        arrowImage.isHidden = false
     }
 }
