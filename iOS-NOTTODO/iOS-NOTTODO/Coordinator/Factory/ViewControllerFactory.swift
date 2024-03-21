@@ -39,7 +39,7 @@ protocol HomeFlowControllerFactory {
 
 protocol MyPageFlowControllerFactory {
     func makeMyInfoViewController(coordinator: MypageCoordinator) -> MyPageViewController
-    func makeMyInfoAccountViewController(coordinator: MypageCoordinator) -> MyInfoAccountViewController
+    func makeMyInfoAccountViewController(coordinator: MypageCoordinator) -> MyPageAccountViewController
     func makeWithdrawViewController(coordinator: MypageCoordinator) -> NottodoModalViewController
 }
 
@@ -192,16 +192,19 @@ extension ViewControllerFactoryImpl {
         return viewController
     }
     
-    func makeMyInfoAccountViewController(coordinator: MypageCoordinator) -> MyInfoAccountViewController {
+    func makeMyInfoAccountViewController(coordinator: MypageCoordinator) -> MyPageAccountViewController {
         let authAPI = DefaultAuthService()
         let manager = MyPageManagerImpl(authAPI: authAPI)
         let viewModel = MyPageAccountViewModelImpl(coordinator: coordinator, manager: manager)
-        let viewController = MyInfoAccountViewController(viewModel: viewModel)
+        let viewController = MyPageAccountViewController(viewModel: viewModel)
         return viewController
     }
     
     func makeWithdrawViewController(coordinator: MypageCoordinator) -> NottodoModalViewController {
-        let viewController = NottodoModalViewController(coordinator: coordinator)
+        let authAPI = DefaultAuthService()
+        let manager = MyPageManagerImpl(authAPI: authAPI)
+        let viewModel = ModalViewModelImpl(coordinator: coordinator, manager: manager)
+        let viewController = NottodoModalViewController(viewModel: viewModel)
         return viewController
     }
 }

@@ -9,6 +9,8 @@ import Foundation
 import Combine
 
 protocol MyPageManger {
-    func logout() -> AnyPublisher<Int, Error>
-    func withdrawl() -> AnyPublisher<Int, Error>
+    func logout() -> AnyPublisher<Void, Error>
+    func withdrawl() -> AnyPublisher<Void, Error>
+    func kakaoLogout()
+    func kakaoWithdrawal()
 }
