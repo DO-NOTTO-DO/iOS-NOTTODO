@@ -15,17 +15,14 @@ final class MyPageViewController: UIViewController {
     
     // MARK: - Properties
     
+    typealias Sections = MyPageModel.Section
     typealias CellRegistration = UICollectionView.CellRegistration
     typealias HeaderRegistration = UICollectionView.SupplementaryRegistration
-    typealias DataSource = UICollectionViewDiffableDataSource<MyPageModel.Section, MyPageRowData>
-    typealias Snapshot = NSDiffableDataSourceSnapshot<MyPageModel.Section, MyPageRowData>
-    
-    enum Sections: Int, CaseIterable {
-        case profile, support, info, version
-    }
+    typealias DataSource = UICollectionViewDiffableDataSource<Sections, MyPageRowData>
+    typealias Snapshot = NSDiffableDataSourceSnapshot<Sections, MyPageRowData>
     
     private let viewWillAppearSubject = PassthroughSubject<Void, Never>()
-    private let profilCellTapped = PassthroughSubject<Void, Never>()
+    private let myPageCellTapped = PassthroughSubject<IndexPath, Never>()
     private var cancelBag = Set<AnyCancellable>()
     
     private var dataSource: DataSource?
@@ -58,7 +55,6 @@ final class MyPageViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.MyInfo.viewMyInfo)
         setUI()
         setLayout()
         setupDataSource()
@@ -106,16 +102,15 @@ extension MyPageViewController {
             case .support:
                 cell.configureWithIcon(with: item)
             case .info:
-                cell.configure(with: item, isHidden: false)
+                cell.configure(with: item)
             default:
-                cell.configure(with: item, isHidden: true)
+                cell.configure(with: item)
             }
         }
         
         let headerRegistration = HeaderRegistration<MyPageHeaderView>(elementKind: UICollectionView.elementKindSectionHeader) { _, _, _  in }
         
         dataSource = DataSource(collectionView: collectionView, cellProvider: { collectionView, indexPath, item in
-            
             guard let section = Sections(rawValue: indexPath.section) else { return UICollectionViewCell() }
             
             switch section {
@@ -169,12 +164,21 @@ extension MyPageViewController {
     
     func setBindings() {
         
-        let input = MyPageViewModelInput(viewWillAppearSubject: viewWillAppearSubject, profileCellTapped: profilCellTapped)
+        let input = MyPageViewModelInput(viewWillAppearSubject: viewWillAppearSubject, myPageCellTapped: myPageCellTapped)
+        
         let output = viewModel.transform(input: input)
         output.viewWillAppearSubject
             .receive(on: RunLoop.main)
             .sink { [weak self] in
-                self?.applySnapshot(data: $0)
+                guard let self else { return }
+                self.applySnapshot(data: $0)
+            }
+            .store(in: &cancelBag)
+        
+        output.openSafariController
+            .sink { [weak self] url in
+                guard let self else { return }
+                Utils.myInfoUrl(vc: self, url: url)
             }
             .store(in: &cancelBag)
     }
@@ -185,41 +189,6 @@ extension MyPageViewController {
 extension MyPageViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        switch indexPath.section {
-        case 0:
-            self.profileSectionSelection()
-        case 1:
-            self.infoSectionSelection(for: indexPath,
-                                       events: [.clickGuide, .clickFaq],
-                                       urls: [.guid, .faq])
-        case 2:
-            self.infoSectionSelection(for: indexPath,
-                                       events: [.clickNotice, .clickSuggestion, .clickQuestion, .clickTerms],
-                                       urls: [.notice, .suggestoin, .question, .service])
-        default:
-            return
-        }
-    }
-    
-    private func profileSectionSelection() {
-        sendAnalyticsEvent(.clickMyInfo) {
-            profilCellTapped.send(())
-        }
-    }
-    
-    private func infoSectionSelection(for indexPath: IndexPath,
-                                      events: [AnalyticsEvent.MyInfo],
-                                      urls: [MyInfoURL]) {
-        guard let item = urls.indices.contains(indexPath.item) ? urls[indexPath.item] : nil,
-              let event = events.indices.contains(indexPath.item) ? events[indexPath.item] : nil else { return }
-        
-        sendAnalyticsEvent(event) {
-            Utils.myInfoUrl(vc: self, url: item.url)
-        }
-    }
-    
-    private func sendAnalyticsEvent(_ event: AnalyticsEvent.MyInfo, action: () -> Void) {
-        AmplitudeAnalyticsService.shared.send(event: event)
-        action()
+        self.myPageCellTapped.send(indexPath)
     }
 }
