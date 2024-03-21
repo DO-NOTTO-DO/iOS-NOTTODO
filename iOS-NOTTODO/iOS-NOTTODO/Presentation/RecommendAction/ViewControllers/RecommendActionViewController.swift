@@ -43,9 +43,7 @@ final class RecommendActionViewController: UIViewController {
     
     // MARK: - UI Components
     
-    private let navigationView = UIView()
-    private let backButton = UIButton()
-    private let navigationTitle = UILabel()
+    private let navigationView = NottodoNavigationView()
     private let nextButton = UIButton()
     private var isTapped: Bool = false {
         didSet {
@@ -111,15 +109,9 @@ private extension RecommendActionViewController {
             //            $0.allowsMultipleSelection = true  생성뷰 이슈 해결 후 주석 해제
         }
         
-        backButton.do {
-            $0.setBackgroundImage(.back, for: .normal)
-            $0.addTarget(self, action: #selector(backButtonDidTapped), for: .touchUpInside)
-        }
-        
-        navigationTitle.do {
-            $0.font = .Pretendard(.semiBold, size: 18)
-            $0.textColor = .white
-            $0.text = I18N.recommendNavTitle
+        navigationView.do {
+            $0.delegate = self
+            $0.setTitle(I18N.recommendNavTitle)
         }
         
         nextButton.do {
@@ -135,23 +127,12 @@ private extension RecommendActionViewController {
     
     func setLayout() {
         view.addSubviews(navigationView, recommendActionCollectionView, nextButton)
-        navigationView.addSubviews(backButton, navigationTitle)
         
         navigationView.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide)
             $0.directionalHorizontalEdges.equalToSuperview()
-            $0.height.equalTo(58)
         }
-        
-        backButton.snp.makeConstraints {
-            $0.centerY.equalToSuperview()
-            $0.leading.equalToSuperview().offset(15)
-        }
-        
-        navigationTitle.snp.makeConstraints {
-            $0.center.equalToSuperview()
-        }
-        
+
         recommendActionCollectionView.snp.makeConstraints {
             $0.top.equalTo(navigationView.snp.bottom)
             $0.leading.trailing.equalToSuperview()
@@ -185,11 +166,6 @@ private extension RecommendActionViewController {
     func setDelegate() {
         recommendActionCollectionView.delegate = self
         recommendActionCollectionView.dataSource = self
-    }
-    
-    @objc
-    func backButtonDidTapped() {
-        coordinator?.popViewController()
     }
 }
 
@@ -297,5 +273,11 @@ extension RecommendActionViewController {
             self.addActionData = AddMissionData(nottodo: data.title, situation: situation, date: [selectedDate])
             self.recommendActionCollectionView.reloadData()
         }
+    }
+}
+
+extension RecommendActionViewController: NavigationDelegate {
+    func popViewController() {
+        coordinator?.popViewController()
     }
 }
