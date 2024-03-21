@@ -8,23 +8,20 @@
 import UIKit
 import Combine
 
-final class MyInfoAccountViewController: UIViewController {
+final class MyPageAccountViewController: UIViewController {
     
     // MARK: - Property
     
     typealias CellRegistration = UICollectionView.CellRegistration
     typealias HeaderRegistration = UICollectionView.SupplementaryRegistration
-    typealias DataSource = UICollectionViewDiffableDataSource<Sections, AccountRowData>
-    typealias SnapShot = NSDiffableDataSourceSnapshot<Sections, AccountRowData>
-    
-    enum Sections: Int, CaseIterable {
-        case account, logout
-    }
+    typealias DataSource = UICollectionViewDiffableDataSource<MyInfoAccountSections, AccountRowData>
+    typealias SnapShot = NSDiffableDataSourceSnapshot<MyInfoAccountSections, AccountRowData>
     
     private let viewWillAppearSubject = PassthroughSubject<Void, Never>()
     private let withdrawalTapped = PassthroughSubject<Void, Never>()
     private let logoutTapped = PassthroughSubject<Void, Never>()
     private let backButtonTapped = PassthroughSubject<Void, Never>()
+    private let switchButtonTapped = PassthroughSubject<Bool, Never>()
     private var cancelBag = Set<AnyCancellable>()
     
     private var dataSource: DataSource?
@@ -33,11 +30,7 @@ final class MyInfoAccountViewController: UIViewController {
     // MARK: - UI Components
     
     private lazy var safeArea = self.view.safeAreaLayoutGuide
-    
-    private let navigationView = UIView()
-    private let backButton = UIButton()
-    private let navigationTitle = UILabel()
-    private let seperateView = UIView()
+    private let navigationView = NottodoNavigationView()
     private let withdrawButton = UIButton()
     private let collectionView = UICollectionView(frame: .zero, collectionViewLayout: .init())
     
@@ -62,32 +55,29 @@ final class MyInfoAccountViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.AccountInfo.viewAccountInfo)
         
         setUI()
         setLayout()
         setupDataSource()
         setBindings()
     }
+ 
+     deinit {
+         cancelBag.forEach { $0.cancel() }
+        print("🤍 🤍 🤍🤍 🤍 deinit")
+    }
 }
 
 // MARK: - Methods
 
-private extension MyInfoAccountViewController {
+private extension MyPageAccountViewController {
     
     func setUI() {
         view.backgroundColor = .ntdBlack
-        seperateView.backgroundColor = .gray2
         
-        backButton.do {
-            $0.setBackgroundImage(.icBack, for: .normal)
-            $0.addTarget(self, action: #selector(popBackbutton), for: .touchUpInside)
-        }
-        
-        navigationTitle.do {
-            $0.font = .Pretendard(.semiBold, size: 18)
-            $0.textColor = .white
-            $0.text = I18N.myInfoAccount
+        navigationView.do {
+            $0.setTitle(I18N.myInfoAccount)
+            $0.delegate = self
         }
         
         collectionView.do {
@@ -109,28 +99,10 @@ private extension MyInfoAccountViewController {
     }
     
     func setLayout() {
-        view.addSubviews(navigationView, seperateView, collectionView, withdrawButton)
-        navigationView.addSubviews(backButton, navigationTitle)
+        view.addSubviews(navigationView, collectionView, withdrawButton)
         
         navigationView.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide)
-            $0.directionalHorizontalEdges.equalToSuperview()
-            $0.height.equalTo(58)
-        }
-        
-        backButton.snp.makeConstraints {
-            $0.centerY.equalToSuperview()
-            $0.leading.equalToSuperview().offset(15)
-        }
-        
-        navigationTitle.snp.makeConstraints {
-            $0.center.equalToSuperview()
-        }
-        
-        seperateView.snp.makeConstraints {
-            $0.top.equalTo(navigationView.snp.bottom)
-            $0.directionalHorizontalEdges.equalToSuperview()
-            $0.height.equalTo(0.7)
+            $0.top.horizontalEdges.equalTo(safeArea)
         }
         
         collectionView.snp.makeConstraints {
@@ -146,8 +118,14 @@ private extension MyInfoAccountViewController {
     }
     
     private func setupDataSource() {
-        let cellRegistration = CellRegistration<MyInfoAccountCollectionViewCell, AccountRowData> {cell, _, item in
+        let cellRegistration = CellRegistration<MyPageAccountCollectionViewCell, AccountRowData> {cell, _, item in
             cell.configure(data: item)
+            cell.switchTapped
+                .receive(on: RunLoop.main)
+                .sink { [weak self] isOn in
+                    self?.switchButtonTapped.send(isOn)
+                }
+                .store(in: &cell.cancelBag)
         }
         
         dataSource = DataSource(collectionView: collectionView, cellProvider: { collectionView, indexPath, item in
@@ -158,7 +136,11 @@ private extension MyInfoAccountViewController {
     }
     
     private func setBindings() {
-        let input = MyPageAccountViewModelInput(viewWillAppearSubject: viewWillAppearSubject, withdrawalTapped: withdrawalTapped, logoutTapped: logoutTapped, backButtonTapped: backButtonTapped)
+        let input = MyPageAccountViewModelInput(viewWillAppearSubject: viewWillAppearSubject,
+                                                withdrawalTapped: withdrawalTapped,
+                                                logoutTapped: logoutTapped,
+                                                backButtonTapped: backButtonTapped,
+                                                switchButtonTapped: switchButtonTapped)
         
         let output = viewModel.transform(input: input)
         
@@ -168,16 +150,23 @@ private extension MyInfoAccountViewController {
                 self?.setSnapShot(userInfo: $0.profileData, logout: $0.logout)
             }
             .store(in: &cancelBag)
+        
+        output.openNotificationSettings
+            .receive(on: RunLoop.main)
+            .sink {
+                UIApplication.shared.openAppNotificationSettings()
+            }
+            .store(in: &cancelBag)
     }
     
     private func setSnapShot(userInfo: [AccountRowData], logout: [AccountRowData]) {
         var snapShot = SnapShot()
         
-        snapShot.appendSections(Sections.allCases)
+        snapShot.appendSections(MyInfoAccountSections.allCases)
         snapShot.appendItems(userInfo, toSection: .account)
         snapShot.appendItems(logout, toSection: .logout)
         
-        dataSource?.apply(snapShot, animatingDifferences: false)
+        dataSource?.applySnapshotUsingReloadData(snapShot)
     }
     
     private func layout() -> UICollectionViewLayout {
@@ -185,27 +174,23 @@ private extension MyInfoAccountViewController {
             return CompositionalLayout.setUpSection(layoutEnvironment: env, topContentInset: 18)
         }
     }
+}
+
+extension MyPageAccountViewController: UICollectionViewDelegate {
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if indexPath.section == MyInfoAccountSections.logout.rawValue { logoutTapped.send(()) }
+    }
+}
+
+extension MyPageAccountViewController: NavigationDelegate {
     
     @objc
     private func presentToWithdraw() {
         withdrawalTapped.send(())
     }
     
-    @objc
-    private func popBackbutton() {
+    func popViewController() {
         backButtonTapped.send(())
-    }
-}
-
-extension MyInfoAccountViewController: UICollectionViewDelegate {
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let section = Sections(rawValue: indexPath.section)
-        switch section {
-        case .logout:
-            AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.AccountInfo.appearLogoutModal)
-            logoutTapped.send(())
-        default: break
-        }
     }
 }

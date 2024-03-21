@@ -17,8 +17,10 @@ struct MyPageAccountViewModelInput {
     let withdrawalTapped: PassthroughSubject<Void, Never>
     let logoutTapped: PassthroughSubject<Void, Never>
     let backButtonTapped: PassthroughSubject<Void, Never>
+    let switchButtonTapped: PassthroughSubject<Bool, Never>
 }
 
 struct MyPageAccountViewModelOutput {
     let viewWillAppearSubject: AnyPublisher<MyPageAccountModel, Never>
+    let openNotificationSettings: AnyPublisher<Void, Never>
 }

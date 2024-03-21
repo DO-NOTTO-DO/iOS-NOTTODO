@@ -6,8 +6,7 @@
 //
 
 import Foundation
-//
-//
-//enum MyInfoSections {
-//    
-//}
+
+enum MyInfoAccountSections: Int, CaseIterable {
+    case account, logout
+}

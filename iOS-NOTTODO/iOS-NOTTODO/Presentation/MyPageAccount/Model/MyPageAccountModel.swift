@@ -17,6 +17,7 @@ struct AccountRowData: Hashable {
     var content: String?
     var titleColor: UIColor = .white
     var isSwitch: Bool = false
+    var isOn: Bool = false
     
     static func userInfo() -> [AccountRowData] {
         return [AccountRowData(title: I18N.nickname, 
@@ -25,8 +26,7 @@ struct AccountRowData: Hashable {
                                content: KeychainUtil.getBool(DefaultKeys.isAppleLogin) ? KeychainUtil.getAppleEmail() : KeychainUtil.getKakaoEmail()),
                 AccountRowData(title: I18N.account, 
                                content: KeychainUtil.getBool(DefaultKeys.isAppleLogin) ? "apple" : "kakao"),
-                AccountRowData(title: I18N.notification, 
-                               isSwitch: true)]
+                AccountRowData(title: I18N.notification, isSwitch: true)]
     }
     
     static func logout() -> [AccountRowData] {
