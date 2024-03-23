@@ -36,7 +36,6 @@
 		0982DE5829AE40FB00D933D2 /* UITabBar+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0982DE5729AE40FB00D933D2 /* UITabBar+.swift */; };
 		0982DE5A29AE5E6000D933D2 /* CompositionalLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0982DE5929AE5E6000D933D2 /* CompositionalLayout.swift */; };
 		0987C8402B9DD4DC007EE8DE /* MissionAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0987C83F2B9DD242007EE8DE /* MissionAPI.swift */; };
-		098904292B81AF3E004AAD3C /* API_KEY.plist in Resources */ = {isa = PBXBuildFile; fileRef = 098904282B81AF3E004AAD3C /* API_KEY.plist */; };
 		098904302B81BB3A004AAD3C /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0989042F2B81BB3A004AAD3C /* Coordinator.swift */; };
 		098904322B81BB43004AAD3C /* CoordinatorDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098904312B81BB43004AAD3C /* CoordinatorDelegate.swift */; };
 		098904352B81BB85004AAD3C /* CoordinatorType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098904342B81BB85004AAD3C /* CoordinatorType.swift */; };
@@ -138,6 +137,7 @@
 		3B4E12F82A27C12F001D1EC1 /* WithdrawModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B4E12F72A27C12F001D1EC1 /* WithdrawModalView.swift */; };
 		3B4E12FA2A27C4DD001D1EC1 /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3B4E12F92A27C4DD001D1EC1 /* Pretendard-Bold.otf */; };
 		3B50CB212A40E75400F2E761 /* AddMissionResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B50CB202A40E75400F2E761 /* AddMissionResponseDTO.swift */; };
+		3B570B342BA30E6100418250 /* API_KEY.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3B570B332BA30E6100418250 /* API_KEY.plist */; };
 		3B5F8F7A29BF8E8D0063A7F8 /* AddMissionProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5F8F7929BF8E8D0063A7F8 /* AddMissionProtocol.swift */; };
 		3B5F8F7F29BF900A0063A7F8 /* DateCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5F8F7E29BF900A0063A7F8 /* DateCollectionViewCell.swift */; };
 		3B5F8F8129BF90190063A7F8 /* NottodoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5F8F8029BF90190063A7F8 /* NottodoCollectionViewCell.swift */; };
@@ -165,7 +165,6 @@
 		6C44127529A35A1000313C3F /* KakaoSDKCommon in Frameworks */ = {isa = PBXBuildFile; productRef = 6C44127429A35A1000313C3F /* KakaoSDKCommon */; };
 		6C44127729A35A1000313C3F /* KakaoSDKNavi in Frameworks */ = {isa = PBXBuildFile; productRef = 6C44127629A35A1000313C3F /* KakaoSDKNavi */; };
 		6C44127929A35A1000313C3F /* KakaoSDKShare in Frameworks */ = {isa = PBXBuildFile; productRef = 6C44127829A35A1000313C3F /* KakaoSDKShare */; };
-		6C44127B29A35A1000313C3F /* KakaoSDKStory in Frameworks */ = {isa = PBXBuildFile; productRef = 6C44127A29A35A1000313C3F /* KakaoSDKStory */; };
 		6C44127D29A35A1000313C3F /* KakaoSDKTalk in Frameworks */ = {isa = PBXBuildFile; productRef = 6C44127C29A35A1000313C3F /* KakaoSDKTalk */; };
 		6C44127F29A35A1000313C3F /* KakaoSDKTemplate in Frameworks */ = {isa = PBXBuildFile; productRef = 6C44127E29A35A1000313C3F /* KakaoSDKTemplate */; };
 		6C44128129A35A1000313C3F /* KakaoSDKUser in Frameworks */ = {isa = PBXBuildFile; productRef = 6C44128029A35A1000313C3F /* KakaoSDKUser */; };
@@ -196,6 +195,19 @@
 		6CF4707A29A7AAFF008D145C /* PaddingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CF4707929A7AAFF008D145C /* PaddingLabel.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		3B1E84A92BAC897E002F9808 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		09022D4529C44BC300DE6E49 /* MissionCalendarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionCalendarCell.swift; sourceTree = "<group>"; };
 		0921611A2A5727EF0019CC8C /* AnalyticsEventProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsEventProtocol.swift; sourceTree = "<group>"; };
@@ -225,7 +237,6 @@
 		0982DE5729AE40FB00D933D2 /* UITabBar+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITabBar+.swift"; sourceTree = "<group>"; };
 		0982DE5929AE5E6000D933D2 /* CompositionalLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositionalLayout.swift; sourceTree = "<group>"; };
 		0987C83F2B9DD242007EE8DE /* MissionAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionAPI.swift; sourceTree = "<group>"; };
-		098904282B81AF3E004AAD3C /* API_KEY.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = API_KEY.plist; path = ../../../../Desktop/API_KEY.plist; sourceTree = "<group>"; };
 		0989042F2B81BB3A004AAD3C /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		098904312B81BB43004AAD3C /* CoordinatorDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatorDelegate.swift; sourceTree = "<group>"; };
 		098904342B81BB85004AAD3C /* CoordinatorType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatorType.swift; sourceTree = "<group>"; };
@@ -311,6 +322,8 @@
 		3B14A13E29A6FCB300F92897 /* UIStackView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+.swift"; sourceTree = "<group>"; };
 		3B14A14029A6FDA900F92897 /* UILabel+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+.swift"; sourceTree = "<group>"; };
 		3B14A14229A6FEE400F92897 /* UITextField+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+.swift"; sourceTree = "<group>"; };
+		3B1E84932BAC897C002F9808 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		3B1E84952BAC897C002F9808 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		3B37AE2829C8821600AB7587 /* GoalCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalCollectionViewCell.swift; sourceTree = "<group>"; };
 		3B37AE2A29C8904800AB7587 /* RecommendKeywordCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendKeywordCollectionViewCell.swift; sourceTree = "<group>"; };
 		3B3EF2F72AF35C90001F79BC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -323,6 +336,7 @@
 		3B4E12F72A27C12F001D1EC1 /* WithdrawModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithdrawModalView.swift; sourceTree = "<group>"; };
 		3B4E12F92A27C4DD001D1EC1 /* Pretendard-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Bold.otf"; sourceTree = "<group>"; };
 		3B50CB202A40E75400F2E761 /* AddMissionResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMissionResponseDTO.swift; sourceTree = "<group>"; };
+		3B570B332BA30E6100418250 /* API_KEY.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = API_KEY.plist; sourceTree = "<group>"; };
 		3B5F8F7929BF8E8D0063A7F8 /* AddMissionProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMissionProtocol.swift; sourceTree = "<group>"; };
 		3B5F8F7E29BF900A0063A7F8 /* DateCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateCollectionViewCell.swift; sourceTree = "<group>"; };
 		3B5F8F8029BF90190063A7F8 /* NottodoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NottodoCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -380,7 +394,6 @@
 				3B146DA1299D0A7A00B17B62 /* SnapKit in Frameworks */,
 				6CA2082C2A19122A001C4247 /* Kingfisher in Frameworks */,
 				6C44127929A35A1000313C3F /* KakaoSDKShare in Frameworks */,
-				6C44127B29A35A1000313C3F /* KakaoSDKStory in Frameworks */,
 				6C9628A72A22208F003ADE25 /* Lottie in Frameworks */,
 				6C44127F29A35A1000313C3F /* KakaoSDKTemplate in Frameworks */,
 				6C44127129A35A1000313C3F /* KakaoSDK in Frameworks */,
@@ -741,6 +754,8 @@
 		155E45642B5FF089008628E7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3B1E84932BAC897C002F9808 /* WidgetKit.framework */,
+				3B1E84952BAC897C002F9808 /* SwiftUI.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -953,7 +968,7 @@
 		3B027AA6299C359900BEB65C /* Resource */ = {
 			isa = PBXGroup;
 			children = (
-				098904282B81AF3E004AAD3C /* API_KEY.plist */,
+				3B570B332BA30E6100418250 /* API_KEY.plist */,
 				3B3EF2F72AF35C90001F79BC /* GoogleService-Info.plist */,
 				3B027A85299C31B600BEB65C /* Info.plist */,
 				3B027AAA299C35D000BEB65C /* Assets */,
@@ -1312,6 +1327,7 @@
 				3B027A70299C31B500BEB65C /* Sources */,
 				3B027A71299C31B500BEB65C /* Frameworks */,
 				3B027A72299C31B500BEB65C /* Resources */,
+				3B1E84A92BAC897E002F9808 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
@@ -1327,7 +1343,6 @@
 				6C44127429A35A1000313C3F /* KakaoSDKCommon */,
 				6C44127629A35A1000313C3F /* KakaoSDKNavi */,
 				6C44127829A35A1000313C3F /* KakaoSDKShare */,
-				6C44127A29A35A1000313C3F /* KakaoSDKStory */,
 				6C44127C29A35A1000313C3F /* KakaoSDKTalk */,
 				6C44127E29A35A1000313C3F /* KakaoSDKTemplate */,
 				6C44128029A35A1000313C3F /* KakaoSDKUser */,
@@ -1349,7 +1364,7 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1420;
+				LastSwiftUpdateCheck = 1530;
 				LastUpgradeCheck = 1420;
 				TargetAttributes = {
 					3B027A73299C31B500BEB65C = {
@@ -1398,7 +1413,7 @@
 				3B710A5C2A62D4AB00E95620 /* Settings.bundle in Resources */,
 				3B027A84299C31B600BEB65C /* LaunchScreen.storyboard in Resources */,
 				6CC54C1A2A28C3AE00AAD76D /* value.json in Resources */,
-				098904292B81AF3E004AAD3C /* API_KEY.plist in Resources */,
+				3B570B342BA30E6100418250 /* API_KEY.plist in Resources */,
 				3B3EF2F82AF35C90001F79BC /* GoogleService-Info.plist in Resources */,
 				6C049A312A595C670085E40B /* logo.mp4 in Resources */,
 				3B027A81299C31B600BEB65C /* Assets.xcassets in Resources */,
@@ -1959,11 +1974,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 6C44126F29A35A1000313C3F /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
 			productName = KakaoSDKShare;
-		};
-		6C44127A29A35A1000313C3F /* KakaoSDKStory */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 6C44126F29A35A1000313C3F /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
-			productName = KakaoSDKStory;
 		};
 		6C44127C29A35A1000313C3F /* KakaoSDKTalk */ = {
 			isa = XCSwiftPackageProductDependency;
