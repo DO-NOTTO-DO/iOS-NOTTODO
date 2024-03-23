@@ -30,12 +30,16 @@ final class MyPageAccountViewModelImpl: MyPageAccountViewModel {
         let viewWillAppearAndForeground = Publishers.Merge(input.viewWillAppearSubject, NotificationCenter.default.willEnterForeground.map { _ in })
         
         viewWillAppearAndForeground
-            .flatMap { _ in
-                self.getAuthorizationStatus()
+            .flatMap { [weak self] _ in
+                guard let self = self else {
+                    return Empty<MyPageAccountModel, Never>().eraseToAnyPublisher()
+                }
+                return self.getAuthorizationStatus()
                     .map { isAuthorized -> MyPageAccountModel in
                         var profileData = AccountRowData.userInfo()
                         let logoutData = AccountRowData.logout()
                         profileData[3].isOn = isAuthorized
+                        KeychainUtil.setBool(isAuthorized, forKey: DefaultKeys.isNotificationAccepted)
                         return MyPageAccountModel(profileData: profileData, logout: logoutData)
                     }
                     .eraseToAnyPublisher()
@@ -45,7 +49,7 @@ final class MyPageAccountViewModelImpl: MyPageAccountViewModel {
                 self.mypageAccountModel.send(model)
             })
             .store(in: &cancelBag)
-        
+
         input.switchButtonTapped
             .sink { [weak self] _ in
                 guard let self = self else { return }
@@ -103,6 +107,6 @@ final class MyPageAccountViewModelImpl: MyPageAccountViewModel {
     }
     
     deinit {
-           cancelBag.forEach { $0.cancel() }
-       }
+        cancelBag.forEach { $0.cancel() }
+    }
 }

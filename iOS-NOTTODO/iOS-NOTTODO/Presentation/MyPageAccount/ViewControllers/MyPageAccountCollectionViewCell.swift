@@ -94,13 +94,15 @@ extension MyPageAccountCollectionViewCell {
         titleLabel.text = data.title
         contentLabel.text = data.content
         notificationSwitch.setOn(data.isOn, animated: true)
-
+        
         notificationSwitch.isHidden = !data.isSwitch
         contentLabel.isHidden = data.isSwitch
     }
     
     func setBindings() {
-        notificationSwitch.tapPublisher
+        
+        notificationSwitch.statePublisher
+            .receive(on: RunLoop.main)
             .sink { [weak self] isOn in
                 guard let self else { return }
                 self.switchTapped.send(isOn)
@@ -162,12 +164,10 @@ extension UIControl {
 }
 
 extension UISwitch {
-    var tapPublisher: AnyPublisher<Bool, Never> {
+    var statePublisher: AnyPublisher<Bool, Never> {
         controlPublisher(for: .valueChanged)
-            .map { control in
-                guard let uiSwitch = control as? UISwitch else { return false }
-                return uiSwitch.isOn
-            }
+            .map { $0 as! UISwitch }
+            .map { $0.isOn }
             .eraseToAnyPublisher()
     }
 }

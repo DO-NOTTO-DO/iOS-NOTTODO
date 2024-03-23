@@ -61,11 +61,6 @@ final class MyPageAccountViewController: UIViewController {
         setupDataSource()
         setBindings()
     }
- 
-     deinit {
-         cancelBag.forEach { $0.cancel() }
-        print("🤍 🤍 🤍🤍 🤍 deinit")
-    }
 }
 
 // MARK: - Methods
@@ -77,7 +72,11 @@ private extension MyPageAccountViewController {
         
         navigationView.do {
             $0.setTitle(I18N.myInfoAccount)
-            $0.delegate = self
+            $0.buttonTapped.sink { [weak self] _ in
+                guard let self else { return }
+                self.backButtonTapped.send(())
+            }
+            .store(in: &navigationView.cancelBag)
         }
         
         collectionView.do {
@@ -118,17 +117,20 @@ private extension MyPageAccountViewController {
     }
     
     private func setupDataSource() {
-        let cellRegistration = CellRegistration<MyPageAccountCollectionViewCell, AccountRowData> {cell, _, item in
+        
+        let cellRegistration = CellRegistration<MyPageAccountCollectionViewCell, AccountRowData> { [weak self] cell, _, item in
             cell.configure(data: item)
             cell.switchTapped
                 .receive(on: RunLoop.main)
                 .sink { [weak self] isOn in
-                    self?.switchButtonTapped.send(isOn)
+                    guard let self else { return }
+                    self.switchButtonTapped.send(isOn)
                 }
                 .store(in: &cell.cancelBag)
         }
         
         dataSource = DataSource(collectionView: collectionView, cellProvider: { collectionView, indexPath, item in
+            
             return collectionView.dequeueConfiguredReusableCell(using: cellRegistration,
                                                                 for: indexPath,
                                                                 item: item)
@@ -136,6 +138,7 @@ private extension MyPageAccountViewController {
     }
     
     private func setBindings() {
+        
         let input = MyPageAccountViewModelInput(viewWillAppearSubject: viewWillAppearSubject,
                                                 withdrawalTapped: withdrawalTapped,
                                                 logoutTapped: logoutTapped,
@@ -147,7 +150,8 @@ private extension MyPageAccountViewController {
         output.viewWillAppearSubject
             .receive(on: RunLoop.main)
             .sink { [weak self] in
-                self?.setSnapShot(userInfo: $0.profileData, logout: $0.logout)
+                guard let self else { return }
+                self.setSnapShot(userInfo: $0.profileData, logout: $0.logout)
             }
             .store(in: &cancelBag)
         
@@ -166,7 +170,7 @@ private extension MyPageAccountViewController {
         snapShot.appendItems(userInfo, toSection: .account)
         snapShot.appendItems(logout, toSection: .logout)
         
-        dataSource?.applySnapshotUsingReloadData(snapShot)
+        dataSource?.apply(snapShot, animatingDifferences: true)
     }
     
     private func layout() -> UICollectionViewLayout {
@@ -183,14 +187,10 @@ extension MyPageAccountViewController: UICollectionViewDelegate {
     }
 }
 
-extension MyPageAccountViewController: NavigationDelegate {
+extension MyPageAccountViewController {
     
     @objc
     private func presentToWithdraw() {
         withdrawalTapped.send(())
-    }
-    
-    func popViewController() {
-        backButtonTapped.send(())
     }
 }
