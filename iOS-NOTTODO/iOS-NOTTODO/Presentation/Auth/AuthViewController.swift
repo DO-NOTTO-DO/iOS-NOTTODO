@@ -280,9 +280,9 @@ extension AuthViewController {
     }
     
     func showNotiDialogView() {
-        DispatchQueue.main.async {
-            self.coordinator?.showNotificationViewController { [weak self] in
-                guard let self else { return }
+        DispatchQueue.main.async { [weak self] in
+            guard let self else { return }
+            self.coordinator?.showNotificationViewController {
                 self.requestNotification()
             }
         }
