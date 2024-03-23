@@ -9,6 +9,7 @@ import UIKit
 
 import SnapKit
 import Then
+import Combine
 
 protocol NavigationDelegate: AnyObject {
     func popViewController()
@@ -19,6 +20,8 @@ final class NottodoNavigationView: UIView {
     // MARK: - Property
     
     weak var delegate: NavigationDelegate?
+    var cancelBag = Set<AnyCancellable>()
+    var buttonTapped = PassthroughSubject<Void, Never>()
     
     // MARK: - UI Components
     
@@ -31,6 +34,7 @@ final class NottodoNavigationView: UIView {
         
         setUI()
         setLayout()
+        setBindings()
     }
     
     required init?(coder: NSCoder) {
@@ -78,6 +82,14 @@ extension NottodoNavigationView {
         }
     }
     
+    private func setBindings() {
+        backButton.tapPublisher
+            .sink { [weak self] _ in
+                self?.buttonTapped.send(())
+            }
+            .store(in: &cancelBag)
+    }
+    
     func setTitle(_ text: String) {
         navigationTitle.text = text
     }
@@ -85,5 +97,12 @@ extension NottodoNavigationView {
     @objc
     private func backButtonTapped() {
         delegate?.popViewController()
+    }
+}
+extension UIButton {
+    var tapPublisher: AnyPublisher<Void, Never> {
+        controlPublisher(for: .touchUpInside)
+            .map { _ in }
+            .eraseToAnyPublisher()
     }
 }
