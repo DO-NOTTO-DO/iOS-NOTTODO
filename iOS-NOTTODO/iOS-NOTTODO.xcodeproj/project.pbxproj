@@ -82,6 +82,19 @@
 		09C8602D2AB14B4800C4F4B1 /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = 09C8602C2AB14B4800C4F4B1 /* FSCalendar */; };
 		09CF56042B09F23800526C8C /* HomeDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09CF56032B09F23800526C8C /* HomeDataSource.swift */; };
 		09DB33E02BA2C0DF00B5F961 /* BaseAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09DB33DF2BA2C0DF00B5F961 /* BaseAPI.swift */; };
+		09DC0EEE2BAEC1790075AAC9 /* API_KEY.plist in Resources */ = {isa = PBXBuildFile; fileRef = 09DC0EED2BAEC1790075AAC9 /* API_KEY.plist */; };
+		09DC0EF12BAEC1D70075AAC9 /* AuthFlowControllerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09DC0EF02BAEC1D70075AAC9 /* AuthFlowControllerFactory.swift */; };
+		09DC0EF32BAEC1F10075AAC9 /* UpdateFlowcontrollerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09DC0EF22BAEC1F10075AAC9 /* UpdateFlowcontrollerFactory.swift */; };
+		09DC0EF52BAEC2030075AAC9 /* HomeFlowControllerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09DC0EF42BAEC2030075AAC9 /* HomeFlowControllerFactory.swift */; };
+		09DC0EF72BAEC2140075AAC9 /* MyPageFlowControllerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09DC0EF62BAEC2140075AAC9 /* MyPageFlowControllerFactory.swift */; };
+		09DC0EF92BAEC2230075AAC9 /* AchieveFlowControllerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09DC0EF82BAEC2230075AAC9 /* AchieveFlowControllerFactory.swift */; };
+		09DC0EFB2BAEC2340075AAC9 /* TabBarFlowControllerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09DC0EFA2BAEC2340075AAC9 /* TabBarFlowControllerFactory.swift */; };
+		09DC0EFD2BAEC2710075AAC9 /* UpdateViewControllerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09DC0EFC2BAEC2710075AAC9 /* UpdateViewControllerFactory.swift */; };
+		09DC0EFF2BAEC2750075AAC9 /* HomeViewControllerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09DC0EFE2BAEC2750075AAC9 /* HomeViewControllerFactory.swift */; };
+		09DC0F012BAEC27A0075AAC9 /* AuthViewControllerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09DC0F002BAEC27A0075AAC9 /* AuthViewControllerFactory.swift */; };
+		09DC0F032BAEC2800075AAC9 /* MyPageViewControllerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09DC0F022BAEC2800075AAC9 /* MyPageViewControllerFactory.swift */; };
+		09DC0F052BAEC2850075AAC9 /* AchieveViewControllerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09DC0F042BAEC2850075AAC9 /* AchieveViewControllerFactory.swift */; };
+		09DC0F072BAEC2890075AAC9 /* TabBarViewControllerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09DC0F062BAEC2890075AAC9 /* TabBarViewControllerFactory.swift */; };
 		09DCB84D2BA0146800B6BB74 /* DetailAchievementViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09DCB84C2BA0146800B6BB74 /* DetailAchievementViewModel.swift */; };
 		09DCB84F2BA0147500B6BB74 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09DCB84E2BA0147500B6BB74 /* ViewModel.swift */; };
 		09DCB8512BA0156400B6BB74 /* DetailAchievementViewModelImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09DCB8502BA0156400B6BB74 /* DetailAchievementViewModelImpl.swift */; };
@@ -293,6 +306,19 @@
 		09A8E48D2B9DBEC700C0F48F /* BaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseService.swift; sourceTree = "<group>"; };
 		09CF56032B09F23800526C8C /* HomeDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDataSource.swift; sourceTree = "<group>"; };
 		09DB33DF2BA2C0DF00B5F961 /* BaseAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseAPI.swift; sourceTree = "<group>"; };
+		09DC0EED2BAEC1790075AAC9 /* API_KEY.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = API_KEY.plist; path = ../../../../Desktop/API_KEY.plist; sourceTree = "<group>"; };
+		09DC0EF02BAEC1D70075AAC9 /* AuthFlowControllerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthFlowControllerFactory.swift; sourceTree = "<group>"; };
+		09DC0EF22BAEC1F10075AAC9 /* UpdateFlowcontrollerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateFlowcontrollerFactory.swift; sourceTree = "<group>"; };
+		09DC0EF42BAEC2030075AAC9 /* HomeFlowControllerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFlowControllerFactory.swift; sourceTree = "<group>"; };
+		09DC0EF62BAEC2140075AAC9 /* MyPageFlowControllerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageFlowControllerFactory.swift; sourceTree = "<group>"; };
+		09DC0EF82BAEC2230075AAC9 /* AchieveFlowControllerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchieveFlowControllerFactory.swift; sourceTree = "<group>"; };
+		09DC0EFA2BAEC2340075AAC9 /* TabBarFlowControllerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarFlowControllerFactory.swift; sourceTree = "<group>"; };
+		09DC0EFC2BAEC2710075AAC9 /* UpdateViewControllerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateViewControllerFactory.swift; sourceTree = "<group>"; };
+		09DC0EFE2BAEC2750075AAC9 /* HomeViewControllerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewControllerFactory.swift; sourceTree = "<group>"; };
+		09DC0F002BAEC27A0075AAC9 /* AuthViewControllerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewControllerFactory.swift; sourceTree = "<group>"; };
+		09DC0F022BAEC2800075AAC9 /* MyPageViewControllerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewControllerFactory.swift; sourceTree = "<group>"; };
+		09DC0F042BAEC2850075AAC9 /* AchieveViewControllerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchieveViewControllerFactory.swift; sourceTree = "<group>"; };
+		09DC0F062BAEC2890075AAC9 /* TabBarViewControllerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewControllerFactory.swift; sourceTree = "<group>"; };
 		09DCB84C2BA0146800B6BB74 /* DetailAchievementViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailAchievementViewModel.swift; sourceTree = "<group>"; };
 		09DCB84E2BA0147500B6BB74 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		09DCB8502BA0156400B6BB74 /* DetailAchievementViewModelImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailAchievementViewModelImpl.swift; sourceTree = "<group>"; };
@@ -700,6 +726,13 @@
 			children = (
 				0989043D2B81BD50004AAD3C /* CoordinatorFactory.swift */,
 				0989043F2B81BFAF004AAD3C /* ViewControllerFactory.swift */,
+				09DC0EEF2BAEC1B80075AAC9 /* Protocol */,
+				09DC0EFC2BAEC2710075AAC9 /* UpdateViewControllerFactory.swift */,
+				09DC0EFE2BAEC2750075AAC9 /* HomeViewControllerFactory.swift */,
+				09DC0F002BAEC27A0075AAC9 /* AuthViewControllerFactory.swift */,
+				09DC0F022BAEC2800075AAC9 /* MyPageViewControllerFactory.swift */,
+				09DC0F042BAEC2850075AAC9 /* AchieveViewControllerFactory.swift */,
+				09DC0F062BAEC2890075AAC9 /* TabBarViewControllerFactory.swift */,
 			);
 			path = Factory;
 			sourceTree = "<group>";
@@ -752,6 +785,19 @@
 				09DCCD222A18EFB0003DCF8A /* MissionService.swift */,
 			);
 			path = Mission;
+			sourceTree = "<group>";
+		};
+		09DC0EEF2BAEC1B80075AAC9 /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				09DC0EF02BAEC1D70075AAC9 /* AuthFlowControllerFactory.swift */,
+				09DC0EF22BAEC1F10075AAC9 /* UpdateFlowcontrollerFactory.swift */,
+				09DC0EF42BAEC2030075AAC9 /* HomeFlowControllerFactory.swift */,
+				09DC0EF62BAEC2140075AAC9 /* MyPageFlowControllerFactory.swift */,
+				09DC0EF82BAEC2230075AAC9 /* AchieveFlowControllerFactory.swift */,
+				09DC0EFA2BAEC2340075AAC9 /* TabBarFlowControllerFactory.swift */,
+			);
+			path = Protocol;
 			sourceTree = "<group>";
 		};
 		09DCB85B2BA0316500B6BB74 /* Manager */ = {
@@ -1533,6 +1579,7 @@
 				0960C0D62A38BC8100A3D8DB /* DefaultKeys.swift in Sources */,
 				3B14A14129A6FDA900F92897 /* UILabel+.swift in Sources */,
 				09DCB8672BA05F5400B6BB74 /* AchievementViewModel.swift in Sources */,
+				09DC0EF92BAEC2230075AAC9 /* AchieveFlowControllerFactory.swift in Sources */,
 				09A146652A1964B500DDC308 /* AddAnotherDayResponseDTO.swift in Sources */,
 				3B027A7C299C31B500BEB65C /* AuthViewController.swift in Sources */,
 				098904382B81BC16004AAD3C /* AppCoordinator.swift in Sources */,
@@ -1546,6 +1593,7 @@
 				3B027A94299C340600BEB65C /* UIFont+.swift in Sources */,
 				6CA208292A191185001C4247 /* UIImageView+.swift in Sources */,
 				0982DE5A29AE5E6000D933D2 /* CompositionalLayout.swift in Sources */,
+				09DC0EF12BAEC1D70075AAC9 /* AuthFlowControllerFactory.swift in Sources */,
 				098904522B81CA33004AAD3C /* UpdateCoordinatorImpl.swift in Sources */,
 				098904442B81C18A004AAD3C /* HomeCoordinator.swift in Sources */,
 				095FEE122B9ED15600FF44C0 /* DetailAchieveHeaderView.swift in Sources */,
@@ -1554,6 +1602,7 @@
 				3B027AA0299C353700BEB65C /* AddMissionViewController.swift in Sources */,
 				09DCB84D2BA0146800B6BB74 /* DetailAchievementViewModel.swift in Sources */,
 				3B5F8F7A29BF8E8D0063A7F8 /* AddMissionProtocol.swift in Sources */,
+				09DC0F012BAEC27A0075AAC9 /* AuthViewControllerFactory.swift in Sources */,
 				09DCB8512BA0156400B6BB74 /* DetailAchievementViewModelImpl.swift in Sources */,
 				09F6718C29CB4AB700708725 /* SubOnboardingCollectionViewCell.swift in Sources */,
 				0921611D2A57D0920019CC8C /* AmplitudeAnalyticsService.swift in Sources */,
@@ -1563,6 +1612,7 @@
 				0921611F2A57D7BF0019CC8C /* AnalyticsEvent.swift in Sources */,
 				09DCCD1F2A18ED76003DCF8A /* DailyMissionResponseDTO.swift in Sources */,
 				6CF4707A29A7AAFF008D145C /* PaddingLabel.swift in Sources */,
+				09DC0EFD2BAEC2710075AAC9 /* UpdateViewControllerFactory.swift in Sources */,
 				6CA208272A18FFCF001C4247 /* RecommendResponseDTO.swift in Sources */,
 				0982E2722BAC01220002B060 /* NotificationCenter.swift in Sources */,
 				3B4E12F22A27B621001D1EC1 /* NottodoModalViewController.swift in Sources */,
@@ -1611,6 +1661,7 @@
 				096980B82BA41B2D00D101B9 /* MyProfileCollectionViewCell.swift in Sources */,
 				3B14A13D29A6FBD300F92897 /* UIView+.swift in Sources */,
 				09F6719529CBFCD200708725 /* GradientView.swift in Sources */,
+				09DC0F052BAEC2850075AAC9 /* AchieveViewControllerFactory.swift in Sources */,
 				09DCB8622BA031F600B6BB74 /* AchieveManagerImpl.swift in Sources */,
 				3B4E12F82A27C12F001D1EC1 /* WithdrawModalView.swift in Sources */,
 				6CA208252A18FEEA001C4247 /* RecommendAPI.swift in Sources */,
@@ -1623,11 +1674,13 @@
 				095FEE132B9ED15600FF44C0 /* StatisticsView.swift in Sources */,
 				096C88F42BA3F89D00FE01D4 /* MyPageManger.swift in Sources */,
 				096980AC2BA41AC100D101B9 /* MyPageViewModel.swift in Sources */,
+				09DC0EF32BAEC1F10075AAC9 /* UpdateFlowcontrollerFactory.swift in Sources */,
 				3B027A7A299C31B500BEB65C /* SceneDelegate.swift in Sources */,
 				0989043E2B81BD50004AAD3C /* CoordinatorFactory.swift in Sources */,
 				0964BA4A2B0F6BFB00A8984B /* AuthInterceptor.swift in Sources */,
 				09582B5129C0BC3600EF3207 /* DetailAchievementViewController.swift in Sources */,
 				09DCB8582BA0309F00B6BB74 /* ErrorReponse.swift in Sources */,
+				09DC0F032BAEC2800075AAC9 /* MyPageViewControllerFactory.swift in Sources */,
 				0982DE5829AE40FB00D933D2 /* UITabBar+.swift in Sources */,
 				3BC1A27929C9BE6C0088376B /* AddMissionFooterCollectionReusableView.swift in Sources */,
 				6C16015829C40112005AE3F5 /* AuthButtonView.swift in Sources */,
@@ -1656,6 +1709,8 @@
 				0987C8402B9DD4DC007EE8DE /* MissionAPI.swift in Sources */,
 				6CD4F8C229AA5AF200CCC740 /* UIButton+.swift in Sources */,
 				6CA208362A1957CA001C4247 /* AuthService.swift in Sources */,
+				09DC0EFF2BAEC2750075AAC9 /* HomeViewControllerFactory.swift in Sources */,
+				09DC0EF52BAEC2030075AAC9 /* HomeFlowControllerFactory.swift in Sources */,
 				6CA208362A1957CA001C4247 /* AuthService.swift in Sources */,
 				099FC98129B3094F005B37E6 /* WeekMonthFSCalendar.swift in Sources */,
 				096980AE2BA41ACC00D101B9 /* MyPageModel.swift in Sources */,
@@ -1677,6 +1732,7 @@
 				09ED941B2B2ABAB7001864EF /* CommonNotificationViewController.swift in Sources */,
 				6C9628A92A22209E003ADE25 /* LogoOnboardingViewController.swift in Sources */,
 				09F6718029CAD76C00708725 /* SecondOnboardingViewController.swift in Sources */,
+				09DC0EFB2BAEC2340075AAC9 /* TabBarFlowControllerFactory.swift in Sources */,
 				098A23A42B833F0300265955 /* AuthCoordinatorImpl.swift in Sources */,
 				3B0CBA222A45FC170004F2DB /* UpdateMissionResponseDTO.swift in Sources */,
 				092C09B72A48596500E9B06B /* DeleteModalView.swift in Sources */,
@@ -1685,6 +1741,7 @@
 				09DCB8562BA0308D00B6BB74 /* APIError.swift in Sources */,
 				098904402B81BFAF004AAD3C /* ViewControllerFactory.swift in Sources */,
 				3B9532F42A284CC1006510F8 /* ModalProtocol.swift in Sources */,
+				09DC0EF72BAEC2140075AAC9 /* MyPageFlowControllerFactory.swift in Sources */,
 				3B5F8F8329BF90290063A7F8 /* SituationCollectionViewCell.swift in Sources */,
 				096980AA2BA41AB000D101B9 /* MyPageViewModelImpl.swift in Sources */,
 				3B4E12F62A27C0BE001D1EC1 /* QuitModalView.swift in Sources */,
@@ -1695,6 +1752,7 @@
 				09DCB8692BA05F9E00B6BB74 /* AchievementModel.swift in Sources */,
 				098904542B81CA47004AAD3C /* UpdateCoordinator.swift in Sources */,
 				0989044E2B81C216004AAD3C /* MypageCoordinatorImpl.swift in Sources */,
+				09DC0F072BAEC2890075AAC9 /* TabBarViewControllerFactory.swift in Sources */,
 				09DCB8652BA056C800B6BB74 /* DetailAchievementModel.swift in Sources */,
 				09DCB8602BA031E000B6BB74 /* AchieveManager.swift in Sources */,
 			);
