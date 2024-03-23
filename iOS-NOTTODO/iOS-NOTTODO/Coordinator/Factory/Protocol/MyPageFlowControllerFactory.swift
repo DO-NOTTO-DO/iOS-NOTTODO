@@ -8,7 +8,7 @@
 import Foundation
 
 protocol MyPageFlowControllerFactory {
-    func makeMyInfoViewController(coordinator: MypageCoordinator) -> MyInfoViewController
-    func makeMyInfoAccountViewController(coordinator: MypageCoordinator) -> MyInfoAccountViewController
+    func makeMyPageViewController(coordinator: MypageCoordinator) -> MyPageViewController
+    func makeMyPageAccountViewController(coordinator: MypageCoordinator) -> MyPageAccountViewController
     func makeWithdrawViewController(coordinator: MypageCoordinator) -> NottodoModalViewController
 }

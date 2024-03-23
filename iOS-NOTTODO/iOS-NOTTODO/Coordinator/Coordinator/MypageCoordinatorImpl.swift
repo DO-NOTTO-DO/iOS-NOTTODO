@@ -32,7 +32,7 @@ final class MypageCoordinatorImpl: MypageCoordinator {
     }
     
     func showMyInfoViewController() {
-        let viewController = viewControllerFactory.makeMyInfoViewController(coordinator: self)
+        let viewController = viewControllerFactory.makeMyPageViewController(coordinator: self)
         navigationController.setViewControllers([viewController], animated: true)
     }
     
