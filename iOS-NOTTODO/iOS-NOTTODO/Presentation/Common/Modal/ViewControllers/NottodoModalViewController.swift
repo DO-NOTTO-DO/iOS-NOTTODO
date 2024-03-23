@@ -51,7 +51,7 @@ final class NottodoModalViewController: UIViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     // MARK: - Life Cycle
     
     override func viewWillAppear(_ animated: Bool) {

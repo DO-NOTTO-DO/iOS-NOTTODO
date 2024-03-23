@@ -12,7 +12,7 @@ import FSCalendar
 import Then
 import SnapKit
 
-final class AchievementViewController: UIViewController, AchievementViewModelPresentable {
+final class AchievementViewController: UIViewController {
     
     // MARK: - Properties
     
@@ -42,7 +42,7 @@ final class AchievementViewController: UIViewController, AchievementViewModelPre
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     // MARK: - Life Cycle
     
     override func viewWillAppear(_ animated: Bool) {
