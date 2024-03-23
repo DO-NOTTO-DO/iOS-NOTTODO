@@ -49,4 +49,3 @@ extension ViewControllerFactoryImpl {
         return viewController
     }
 }
-
