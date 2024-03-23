@@ -39,7 +39,7 @@ struct AccountRowData: Hashable {
         hasher.combine(uuid)
     }
     
-    static func ==(lhs: AccountRowData, rhs: AccountRowData) -> Bool {
+    static func == (lhs: AccountRowData, rhs: AccountRowData) -> Bool {
         return lhs.uuid == rhs.uuid
     }
 }
