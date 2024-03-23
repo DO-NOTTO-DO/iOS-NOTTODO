@@ -11,35 +11,52 @@ import FSCalendar
 import Then
 import SnapKit
 
-protocol CalendarViewDelegate: AnyObject {
+protocol WeekCalendarDelegate: AnyObject {
     
     func todayBtnTapped()
 }
 
+protocol MonthCalendarDelegate: AnyObject {
+    
+    func changeMonth(with month: String)
+}
 final class CalendarView: UIView {
     
     // MARK: - Properties
     
-    let today = Date()
-    var monthCalendarClosure: ((_ month: String) -> Void)?
-    weak var delegate: CalendarViewDelegate?
+    private enum CalendarMoveType {
+        case previous
+        case next
+        
+        var monthOffset: Int {
+            switch self {
+            case .previous:
+                return -1
+            case .next:
+                return 1
+            }
+        }
+    }
+    
+    weak var delegate: WeekCalendarDelegate?
     
     // MARK: - UI Components
     
     private let yearMonthLabel = UILabel()
-    let todayButton = UIButton(configuration: .filled())
+    private let todayButton = UIButton(configuration: .filled())
     private let horizonStackView = UIStackView()
     private let leftButton = UIButton()
     private let rightButton = UIButton()
-    var calendar = WeekMonthFSCalendar()
+    let calendar: WeekMonthFSCalendar
     
     // MARK: - Life Cycle
     
-    init(calendarScope: FSCalendarScope, scrollDirection: FSCalendarScrollDirection) {
+    init(scope: FSCalendarScope) {
+        self.calendar = WeekMonthFSCalendar(calendarScope: scope)
         super.init(frame: .zero)
-        setCalendar(scope: calendarScope, scrollDirection: scrollDirection)
+        
         setUI()
-        setLayout(scope: calendarScope)
+        setLayout(scope: scope)
     }
     
     required init?(coder: NSCoder) {
@@ -51,11 +68,6 @@ final class CalendarView: UIView {
 
 extension CalendarView {
     
-    private func setCalendar(scope: FSCalendarScope, scrollDirection: FSCalendarScrollDirection) {
-        
-        calendar = WeekMonthFSCalendar(calendarScope: scope, scrollDirection: scrollDirection)
-    }
-    
     private func setUI() {
         
         backgroundColor = .ntdBlack
@@ -63,7 +75,7 @@ extension CalendarView {
         yearMonthLabel.do {
             $0.font = .Pretendard(.medium, size: 18)
             $0.textColor = .white
-            $0.text = Utils.dateFormatterString(format: I18N.yearMonthTitle, date: Date())
+            $0.text = Date().formattedString(format: I18N.yearMonthTitle)
         }
         
         todayButton.do {
@@ -100,68 +112,76 @@ extension CalendarView {
         }
         
         calendar.do {
+            $0.currentPage = Date()
             $0.collectionView.register(MissionCalendarCell.self,
                                        forCellWithReuseIdentifier: MissionCalendarCell.identifier)
         }
     }
     
     private func setLayout(scope: FSCalendarScope) {
-        
         switch scope {
         case .week:
-            addSubviews(calendar, yearMonthLabel, todayButton)
-            
-            yearMonthLabel.snp.makeConstraints {
-                $0.top.equalToSuperview().offset(23)
-                $0.leading.equalToSuperview().offset(20)
-            }
-            
-            todayButton.snp.makeConstraints {
-                $0.top.equalTo(yearMonthLabel.snp.top)
-                $0.trailing.equalToSuperview().inset(18)
-                $0.size.equalTo(CGSize(width: 60, height: 30))
-            }
-            
-            calendar.snp.makeConstraints {
-                $0.top.equalTo(yearMonthLabel.snp.bottom).offset(8)
-                $0.directionalHorizontalEdges.equalToSuperview().inset(11)
-                $0.bottom.equalToSuperview().inset(20)
-            }
-            
+            setWeekLayout()
         case .month:
-            addSubviews(horizonStackView, calendar)
-            horizonStackView.addArrangedSubviews(leftButton, yearMonthLabel, rightButton)
-            
-            [leftButton, rightButton].forEach {
-                $0.snp.makeConstraints {
-                    $0.size.equalTo(CGSize(width: 25, height: 25))
-                }
-            }
-            
-            horizonStackView.snp.makeConstraints {
-                $0.top.equalToSuperview().offset(25)
-                $0.centerX.equalToSuperview()
-                $0.height.equalTo(25)
-            }
-            
-            calendar.snp.makeConstraints {
-                $0.top.equalTo(horizonStackView.snp.bottom).offset(20)
-                $0.directionalHorizontalEdges.equalToSuperview().inset(15)
-                $0.bottom.equalToSuperview().inset(25)
-            }
+            setMonthLayout()
         @unknown default:
             return
         }
     }
     
-    func scrollCurrentPage(calendar: WeekMonthFSCalendar, isPrev: Bool) {
+    private func setWeekLayout() {
+        addSubviews(calendar, yearMonthLabel, todayButton)
         
-        let gregorian = Calendar(identifier: .gregorian)
-        calendar.setCurrentPage( gregorian.date(byAdding: calendar.scope == .week ? .weekOfMonth : .month, value: isPrev ? -1 : 1, to: calendar.currentPage)!, animated: true)
-        let monthDateFormatter = DateFormatter()
-        monthDateFormatter.dateFormat = "yyyy-MM"
-        let stringDate = monthDateFormatter.string(from: calendar.currentPage)
-        monthCalendarClosure?(stringDate)
+        yearMonthLabel.snp.makeConstraints {
+            $0.top.equalToSuperview().offset(23)
+            $0.leading.equalToSuperview().offset(20)
+        }
+        
+        todayButton.snp.makeConstraints {
+            $0.top.equalTo(yearMonthLabel.snp.top)
+            $0.trailing.equalToSuperview().inset(18)
+            $0.size.equalTo(CGSize(width: 60, height: 30))
+        }
+        
+        calendar.snp.makeConstraints {
+            $0.top.equalTo(yearMonthLabel.snp.bottom).offset(8)
+            $0.directionalHorizontalEdges.equalToSuperview().inset(11)
+            $0.bottom.equalToSuperview().inset(20)
+        }
+    }
+    
+    private func setMonthLayout() {
+        addSubviews(horizonStackView, calendar)
+        horizonStackView.addArrangedSubviews(leftButton, yearMonthLabel, rightButton)
+        
+        [leftButton, rightButton].forEach {
+            $0.snp.makeConstraints {
+                $0.size.equalTo(CGSize(width: 25, height: 25))
+            }
+        }
+        
+        horizonStackView.snp.makeConstraints {
+            $0.top.equalToSuperview().offset(25)
+            $0.centerX.equalToSuperview()
+            $0.height.equalTo(25)
+        }
+        
+        calendar.snp.makeConstraints {
+            $0.top.equalTo(horizonStackView.snp.bottom).offset(20)
+            $0.directionalHorizontalEdges.equalToSuperview().inset(15)
+            $0.bottom.equalToSuperview().inset(25)
+        }
+    }
+    
+    private func changeMonth(with type: CalendarMoveType) {
+        let calendar = Calendar.current
+        let currentPage = self.calendar.currentPage
+        var dateComponents = DateComponents()
+        dateComponents.month = type.monthOffset
+        
+        guard let changedCurrentPage = calendar.date(byAdding: dateComponents, to: currentPage) else { return }
+        
+        self.calendar.setCurrentPage(changedCurrentPage, animated: true)
     }
 }
 
@@ -171,22 +191,18 @@ extension CalendarView {
     
     @objc
     func prevBtnTapped(_sender: UIButton) {
-        scrollCurrentPage(calendar: calendar, isPrev: true)
+        changeMonth(with: .previous)
     }
     
     @objc
     func nextBtnTapped(_sender: UIButton) {
-        scrollCurrentPage(calendar: calendar, isPrev: false)
+        changeMonth(with: .next)
     }
-}
-
-extension CalendarView {
     
     @objc
     func todayBtnTapped(_sender: UIButton) {
         delegate?.todayBtnTapped()
     }
-    
 }
 
 extension CalendarView {
@@ -197,7 +213,7 @@ extension CalendarView {
         }
     }
     
-    func configure(delegate: FSCalendarDelegate, datasource: FSCalendarDataSource) {
+    func configure(delegate: FSCalendarDelegate?, datasource: FSCalendarDataSource?) {
         calendar.delegate = delegate
         calendar.dataSource = datasource
     }
@@ -217,5 +233,17 @@ extension CalendarView {
         calendar.snp.updateConstraints {
             $0.bottom.equalToSuperview().inset(45)
         }
+    }
+    
+    func today() -> Date? {
+        return calendar.today
+    }
+    
+    func currentPage(date: Date) {
+        calendar.currentPage = date
+    }
+    
+    func select(date: Date?) {
+        calendar.select(date)
     }
 }

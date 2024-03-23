@@ -36,7 +36,7 @@ final class NottodoToastView: UIView {
 extension NottodoToastView {
     private func setUI() {
         backgroundColor = .white
-        layer.cornerRadius = 12
+        makeCornerRound(radius: 12)
         layer.makeShadow(color: .black, alpha: 0.25, x: 0, y: 4, blur: 30, spread: 0)
         isUserInteractionEnabled = false
         

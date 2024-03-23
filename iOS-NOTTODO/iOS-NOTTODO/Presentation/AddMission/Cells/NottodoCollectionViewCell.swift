@@ -76,9 +76,8 @@ final class NottodoCollectionViewCell: UICollectionViewCell, AddMissionMenu {
 extension NottodoCollectionViewCell {
     private func setUI() {
         backgroundColor = .clear
-        layer.borderColor = UIColor.gray3?.cgColor
-        layer.cornerRadius = 12
-        layer.borderWidth = 1
+        makeCornerRound(radius: 12)
+        makeBorder(width: 1, color: .gray3!)
         historyCollectionView.backgroundColor = .clear
         historyCollectionView.indicatorStyle = .white
         checkImage.image = .icChecked

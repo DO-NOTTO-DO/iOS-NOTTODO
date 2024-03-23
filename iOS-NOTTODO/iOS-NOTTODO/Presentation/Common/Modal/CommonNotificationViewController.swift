@@ -61,7 +61,7 @@ extension CommonNotificationViewController {
         
         backgroundView.do {
             $0.backgroundColor = .white
-            $0.layer.cornerRadius = 15
+            $0.makeCornerRound(radius: 15)
         }
         
         titleLabel.do {
@@ -96,7 +96,7 @@ extension CommonNotificationViewController {
         bottomView.do {
             $0.backgroundColor = .gray5
             $0.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
-            $0.layer.cornerRadius = 15
+            $0.makeCornerRound(radius: 15)
         }
         
         blackButton.do {
@@ -104,7 +104,7 @@ extension CommonNotificationViewController {
             $0.setTitle(I18N.commonModalTitle, for: .normal)
             $0.setTitleColor(.white, for: .normal)
             $0.titleLabel?.font = .Pretendard(.medium, size: 13)
-            $0.layer.cornerRadius = 20
+            $0.makeCornerRound(radius: 20)
             $0.addTarget(self, action: #selector(didFormButtonTap), for: .touchUpInside)
         }
         
@@ -113,7 +113,7 @@ extension CommonNotificationViewController {
             $0.setTitle(I18N.commonModalTitle, for: .normal)
             $0.setTitleColor(.ntdBlack, for: .normal)
             $0.titleLabel?.font = .Pretendard(.semiBold, size: 20)
-            $0.layer.cornerRadius = 8
+            $0.makeCornerRound(radius: 8)
             $0.addTarget(self, action: #selector(didFormButtonTap), for: .touchUpInside)
         }
         

@@ -35,7 +35,7 @@ final class MissionListCollectionViewCell: UICollectionViewCell {
 
     override func layoutSublayers(of layer: CALayer) {
         super.layoutSublayers(of: layer)
-        contentView.layer.cornerRadius = 10
+        contentView.makeCornerRound(radius: 10)
     }
     
     override init(frame: CGRect) {
@@ -63,7 +63,7 @@ extension MissionListCollectionViewCell {
         backgroundColor = .clear
         contentView.backgroundColor = .white
         contentView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMinXMaxYCorner]
-        contentView.layer.cornerRadius = 10
+        contentView.makeCornerRound(radius: 10)
 
         checkButton.do {
             $0.backgroundColor = .clear
@@ -75,7 +75,7 @@ extension MissionListCollectionViewCell {
         tagLabel.do {
             $0.backgroundColor = .bg
             $0.clipsToBounds = true
-            $0.layer.cornerRadius = 12
+            $0.makeCornerRound(radius: 12)
             $0.textColor = isTapped ? .gray7 : .gray1
             $0.font = .Pretendard(.medium, size: 14)
         }

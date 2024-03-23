@@ -39,7 +39,7 @@ extension AuthButtonView {
         
         buttonView.do {
             $0.backgroundColor = color
-            $0.layer.cornerRadius = 5
+            $0.makeCornerRound(radius: 5)
         }
         
         buttonIcon.image = icon

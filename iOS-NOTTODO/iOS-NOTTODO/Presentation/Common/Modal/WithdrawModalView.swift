@@ -47,7 +47,7 @@ extension WithdrawModalView {
 extension WithdrawModalView {
     private func setUI() {
         backgroundColor = .white
-        layer.cornerRadius = 15
+        makeCornerRound(radius: 15)
         modalImageView.image = .quit2
         
         modalTitleLabel.do {
@@ -69,7 +69,7 @@ extension WithdrawModalView {
         surveyButton.do {
             $0.setTitle(I18N.surveyButton, for: .normal)
             $0.backgroundColor = .black
-            $0.layer.cornerRadius = 7
+            $0.makeCornerRound(radius: 7)
             $0.titleLabel?.font = .Pretendard(.medium, size: 14)
             $0.setTitleColor(.white, for: .normal)
             $0.addTarget(self, action: #selector(buttonDidTapped), for: .touchUpInside)

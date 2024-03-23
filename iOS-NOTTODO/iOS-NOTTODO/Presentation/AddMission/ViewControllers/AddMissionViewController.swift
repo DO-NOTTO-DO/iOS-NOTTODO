@@ -159,7 +159,7 @@ extension AddMissionViewController {
         }
         
         addButton.do {
-            $0.layer.cornerRadius = 26 / 2
+            $0.makeCornerRound(radius: 26 / 2)
             $0.titleLabel?.font = .Pretendard(.medium, size: 15)
             $0.setTitleColor(.gray3, for: .disabled)
             $0.setTitleColor(.gray1, for: .normal)

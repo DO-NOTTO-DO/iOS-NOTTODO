@@ -18,8 +18,8 @@ final class DetailAchievementCollectionViewCell: UICollectionViewCell {
     
     // MARK: - UI Components
     
-    let tagLabel = PaddingLabel(padding: UIEdgeInsets(top: 4, left: 12, bottom: 4, right: 12))
-    let titleLabel = UILabel()
+    private let tagLabel = PaddingLabel(padding: UIEdgeInsets(top: 4, left: 12, bottom: 4, right: 12))
+    private let titleLabel = UILabel()
     private let checkImage = UIImageView()
     
     // MARK: - Life Cycle
@@ -48,9 +48,9 @@ extension DetailAchievementCollectionViewCell {
             $0.layer.backgroundColor = UIColor.bg?.cgColor
             $0.font = .Pretendard(.medium, size: 14)
             $0.textColor = .gray1
-            $0.layer.cornerRadius = 25/2
+            $0.makeCornerRound(radius: 25/2)
         }
-
+        
         titleLabel.do {
             $0.font = .Pretendard(.semiBold, size: 16)
             $0.textColor = .gray2
@@ -65,12 +65,12 @@ extension DetailAchievementCollectionViewCell {
     
     private func setLayout() {
         contentView.addSubviews(tagLabel, titleLabel, checkImage)
- 
+        
         tagLabel.snp.makeConstraints {
             $0.top.equalToSuperview().offset(22)
             $0.leading.equalToSuperview().inset(28)
         }
-
+        
         titleLabel.snp.makeConstraints {
             $0.top.equalTo(tagLabel.snp.bottom).offset(7)
             $0.leading.equalToSuperview().inset(28)
@@ -85,14 +85,10 @@ extension DetailAchievementCollectionViewCell {
         }
     }
     
-    func configure(model: DailyMissionResponseDTO) {
-        tagLabel.text = model.situationName
+    func configure(model: AchieveDetailData) {
+        tagLabel.text = model.situation
         titleLabel.text = model.title
         titleLabel.lineBreakMode = .byTruncatingTail
-        
-        switch model.completionStatus {
-        case .CHECKED: checkImage.isHidden = false
-        case .UNCHECKED: checkImage.isHidden = true
-        }
+        checkImage.isHidden = model.status == .UNCHECKED
     }
 }

@@ -33,7 +33,7 @@ final class DetailCalendarViewController: UIViewController {
     
     // MARK: - UI Components
     
-    private let monthCalendar = CalendarView(calendarScope: .month, scrollDirection: .horizontal)
+    private let monthCalendar = CalendarView(scope: .month)
     private let completeButton = UIButton()
     private let subLabel = UILabel()
     
@@ -91,7 +91,7 @@ extension DetailCalendarViewController {
         }
         
         monthCalendar.do {
-            $0.layer.cornerRadius = 12
+            $0.makeCornerRound(radius: 12)
             $0.configure(delegate: self, datasource: self)
         }
         

@@ -28,7 +28,7 @@ final class DateCollectionViewCell: UICollectionViewCell, AddMissionMenu {
     
     private let titleLabel = TitleLabel(title: I18N.date)
     private let subTitleLabel = SubTitleLabel(subTitle: I18N.subDateTitle, colorText: nil)
-    let calendarView = CalendarView(calendarScope: .month, scrollDirection: .horizontal)
+    let calendarView = CalendarView(scope: .month)
     private let warningLabel = UILabel()
     
     private let stackView = UIStackView()
@@ -92,9 +92,8 @@ final class DateCollectionViewCell: UICollectionViewCell, AddMissionMenu {
 extension DateCollectionViewCell {
     private func setUI() {
         backgroundColor = .clear
-        layer.borderColor = UIColor.gray3?.cgColor
-        layer.cornerRadius = 12
-        layer.borderWidth = 1
+        makeCornerRound(radius: 12)
+        makeBorder(width: 1, color: .gray3!)
         calendarImage.image = .icCalendar
         dayLabel.font = .Pretendard(.medium, size: 15)
         stackView.axis = .vertical
@@ -121,9 +120,8 @@ extension DateCollectionViewCell {
         }
         
         calendarView.do {
-            $0.calendar.backgroundColor = .clear
             $0.backgroundColor = .clear
-            $0.calendar.delegate = self
+            $0.configure(delegate: self, datasource: nil)
         }
     }
     

@@ -81,9 +81,8 @@ final class GoalCollectionViewCell: UICollectionViewCell, AddMissionMenu {
 private extension GoalCollectionViewCell {
     func setUI() {
         backgroundColor = .clear
-        layer.borderColor = UIColor.gray3?.cgColor
-        layer.cornerRadius = 12
-        layer.borderWidth = 1
+        makeCornerRound(radius: 12)
+        makeBorder(width: 1, color: .gray3!)
         checkImage.image = .icChecked
         stackView.axis = .vertical
         [nottodoStackView, goalStackView].forEach {
@@ -109,7 +108,7 @@ private extension GoalCollectionViewCell {
         
         [nottodoTag, goalTag].forEach {
             $0.backgroundColor = .gray2
-            $0.layer.cornerRadius = 20 / 2
+            $0.makeCornerRound(radius: 20 / 2)
             $0.clipsToBounds = true
             $0.textColor = .gray4
             $0.font = .Pretendard(.medium, size: 12)

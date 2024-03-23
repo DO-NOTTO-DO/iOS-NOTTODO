@@ -86,7 +86,7 @@ extension MissionDetailViewController {
         headerView.do {
             $0.backgroundColor = .white
             $0.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
-            $0.layer.cornerRadius = 10
+            $0.makeCornerRound(radius: 10)
         }
         
         collectionView.do {

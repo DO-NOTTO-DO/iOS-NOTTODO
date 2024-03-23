@@ -75,7 +75,7 @@ extension NotificationDialogViewController {
         }
         
         buttonStackView.do {
-            $0.layer.cornerRadius = 17
+            $0.makeCornerRound(radius: 17)
             $0.backgroundColor = .none
         }
         
@@ -93,7 +93,7 @@ extension NotificationDialogViewController {
         
         bottomButton.do {
             $0.backgroundColor = .white
-            $0.layer.cornerRadius = 25
+            $0.makeCornerRound(radius: 25)
             $0.titleLabel?.font = .Pretendard(.semiBold, size: 16)
             $0.setTitleColor(.black, for: .normal)
             $0.setTitle(I18N.notiDialogButton, for: .normal)
@@ -102,7 +102,7 @@ extension NotificationDialogViewController {
         
         alertView.do {
             $0.backgroundColor = .none
-            $0.layer.cornerRadius = 17
+            $0.makeCornerRound(radius: 17)
         }
         
         verticalView.backgroundColor = .notiGreen

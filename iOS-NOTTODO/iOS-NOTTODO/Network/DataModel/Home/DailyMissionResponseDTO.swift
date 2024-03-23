@@ -29,3 +29,13 @@ struct DailyMissionResponseDTO: Codable, Hashable {
         lhs.uuid == rhs.uuid
     }
 }
+
+extension DailyMissionResponseDTO {
+    
+    func toData(selectedDate: String) -> AchieveDetailData {
+        return AchieveDetailData(title: self.title,
+                                 situation: self.situationName,
+                                 status: self.completionStatus,
+                                 selectedDate: selectedDate)
+    }
+}
