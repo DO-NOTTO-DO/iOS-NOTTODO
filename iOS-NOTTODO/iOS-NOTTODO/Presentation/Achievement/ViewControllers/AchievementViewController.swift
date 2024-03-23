@@ -12,7 +12,7 @@ import FSCalendar
 import Then
 import SnapKit
 
-final class AchievementViewController: UIViewController, AchievementViewModelPresentable {
+final class AchievementViewController: UIViewController {
     
     // MARK: - Properties
     
