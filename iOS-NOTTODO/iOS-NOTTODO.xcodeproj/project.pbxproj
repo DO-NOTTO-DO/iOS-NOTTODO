@@ -235,7 +235,6 @@
 		096980A92BA41AB000D101B9 /* MyPageViewModelImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewModelImpl.swift; sourceTree = "<group>"; };
 		096980AB2BA41AC100D101B9 /* MyPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewModel.swift; sourceTree = "<group>"; };
 		096980AD2BA41ACC00D101B9 /* MyPageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageModel.swift; sourceTree = "<group>"; };
-		096980AF2BA41ADF00D101B9 /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
 		096980B12BA41AF600D101B9 /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
 		096980B32BA41B1200D101B9 /* InfoCollecitonViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoCollecitonViewCell.swift; sourceTree = "<group>"; };
 		096980B52BA41B2000D101B9 /* MyPageHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageHeaderView.swift; sourceTree = "<group>"; };
@@ -700,7 +699,6 @@
 				092C09B42A484DD900E9B06B /* HomeDeleteViewController.swift */,
 				0930DE6129B80550007958DE /* MissionDetailViewController.swift */,
 				09582B4E29BEBAFA00EF3207 /* DetailCalendarViewController.swift */,
-				096980AF2BA41ADF00D101B9 /* MyPageViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
