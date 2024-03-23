@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol ViewControllerFactory: UpdateFlowcontrollerFactory, AuthFlowControllerFactory, HomeFlowControllerFactory, MyPageFlowControllerFactory, AchieveFlowControllerFactory, TabBarControllerFactory, AuthFlowControllerFactory {}
+protocol ViewControllerFactory: UpdateFlowcontrollerFactory, AuthFlowControllerFactory, HomeFlowControllerFactory, AchieveFlowControllerFactory, TabBarControllerFactory, AuthFlowControllerFactory, MyPageFlowControllerFactory {}
 
 protocol UpdateFlowcontrollerFactory {
     func makeUpdateCheckViewController(coordinator: UpdateCoordinator) -> UpdateCheckViewController
@@ -39,7 +39,7 @@ protocol HomeFlowControllerFactory {
 
 protocol MyPageFlowControllerFactory {
     func makeMyInfoViewController(coordinator: MypageCoordinator) -> MyPageViewController
-    func makeMyInfoAccountViewController(coordinator: MypageCoordinator) -> MyPageAccountViewController
+    func makeMyPageAccountViewController(coordinator: MypageCoordinator) -> MyPageAccountViewController
     func makeWithdrawViewController(coordinator: MypageCoordinator) -> NottodoModalViewController
 }
 
@@ -186,17 +186,23 @@ extension ViewControllerFactoryImpl {
 }
 // mypage
 extension ViewControllerFactoryImpl {
-    func makeMyInfoViewController(coordinator: MypageCoordinator) -> MyPageViewController {
-        let viewModel = MyPageViewModelImpl(coordinator: coordinator)
-        let viewController = MyPageViewController(viewModel: viewModel)
-        return viewController
-    }
     
-    func makeMyInfoAccountViewController(coordinator: MypageCoordinator) -> MyPageAccountViewController {
+    func makeMyPageAccountViewModel(coordinator: MypageCoordinator) -> any MyPageAccountViewModel {
         let authAPI = DefaultAuthService()
         let manager = MyPageManagerImpl(authAPI: authAPI)
         let viewModel = MyPageAccountViewModelImpl(coordinator: coordinator, manager: manager)
+        return viewModel
+    }
+    
+    func makeMyPageAccountViewController(coordinator: MypageCoordinator) -> MyPageAccountViewController {
+        let viewModel = self.makeMyPageAccountViewModel(coordinator: coordinator)
         let viewController = MyPageAccountViewController(viewModel: viewModel)
+        return viewController
+    }
+    
+    func makeMyInfoViewController(coordinator: MypageCoordinator) -> MyPageViewController {
+        let viewModel = MyPageViewModelImpl(coordinator: coordinator)
+        let viewController = MyPageViewController(viewModel: viewModel)
         return viewController
     }
     
@@ -232,7 +238,6 @@ extension ViewControllerFactoryImpl {
     func makeTabBarController(_: UINavigationController) -> (UITabBarController, [UINavigationController]) {
         let tabBarController = TabBarController()
         let navigationControllers = tabBarController.setTabBarItems().map(makeNavigationController)
-        
         return (tabBarController, navigationControllers)
     }
     

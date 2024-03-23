@@ -37,7 +37,7 @@ final class MypageCoordinatorImpl: MypageCoordinator {
     }
     
     func showMyInfoAccountViewController() {
-        let viewController = viewControllerFactory.makeMyInfoAccountViewController(coordinator: self)
+        let viewController = viewControllerFactory.makeMyPageAccountViewController(coordinator: self)
         viewController.hidesBottomBarWhenPushed = true
         navigationController.pushViewController(viewController, animated: true)
     }
@@ -62,7 +62,8 @@ final class MypageCoordinatorImpl: MypageCoordinator {
 
     func connectAuthCoordinator(type: ViewType) {
         navigationController.dismiss(animated: true) { [weak self] in
-            self?.finish()
+            guard let self else { return }
+            self.finish()
             switch type {
             case .quitSurvey:
                 KeychainUtil.removeUserInfo()
