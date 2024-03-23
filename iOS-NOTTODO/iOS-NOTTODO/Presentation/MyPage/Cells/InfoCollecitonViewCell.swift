@@ -96,9 +96,8 @@ extension InfoCollectionViewCell {
     }
     
     func configure(with model: MyPageRowData) {
-        horizontalStackView.removeArrangedSubview(iconImage)
-        iconImage.removeFromSuperview()
+        iconImage.isHidden = true
         titleLabel.text = model.title
-        arrowImage.isHidden = false
+        arrowImage.isHidden = model.isArrowHidden
     }
 }

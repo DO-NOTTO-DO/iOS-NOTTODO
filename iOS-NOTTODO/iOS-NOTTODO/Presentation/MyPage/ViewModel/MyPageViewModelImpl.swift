@@ -22,7 +22,6 @@ final class MyPageViewModelImpl: MyPageViewModel {
     func transform(input: MyPageViewModelInput) -> MyPageViewModelOutput {
         
         let viewWillAppearSubject =  input.viewWillAppearSubject
-        
             .map { _ -> MyPageModel in
                 AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.MyInfo.viewMyInfo)
                 
@@ -37,15 +36,15 @@ final class MyPageViewModelImpl: MyPageViewModel {
         
         input.myPageCellTapped
             .sink { [weak self] indexPath in
-                guard let self else { return }
+                guard let self = self else { return }
                 guard let section = MyPageModel.Section(rawValue: indexPath.section),
                       indexPath.item < section.events.count else { return }
-                
+                guard let coordinator = self.coordinator else { return }
                 self.sendAnalyticsEvent(section.events[indexPath.item])
                 
                 switch section {
                 case .profile:
-                    self.coordinator?.showMyInfoAccountViewController()
+                    coordinator.showMyInfoAccountViewController()
                 case .support, .info:
                     let url = section.urls[indexPath.item]
                     self.openSafariController.send(url.url)
@@ -60,5 +59,9 @@ final class MyPageViewModelImpl: MyPageViewModel {
     
     private func sendAnalyticsEvent(_ event: AnalyticsEvent.MyInfo) {
         AmplitudeAnalyticsService.shared.send(event: event)
+    }
+    
+    deinit {
+        cancelBag.forEach { $0.cancel() }
     }
 }

@@ -101,8 +101,6 @@ extension MyPageViewController {
             switch section {
             case .support:
                 cell.configureWithIcon(with: item)
-            case .info:
-                cell.configure(with: item)
             default:
                 cell.configure(with: item)
             }
@@ -118,7 +116,7 @@ extension MyPageViewController {
                 return collectionView.dequeueConfiguredReusableCell(using: profileCellRegistration,
                                                                     for: indexPath,
                                                                     item: item)
-            case  .support, .info, .version:
+            case .support, .info, .version:
                 return collectionView.dequeueConfiguredReusableCell(using: infoCellRegistration,
                                                                     for: indexPath,
                                                                     item: item)

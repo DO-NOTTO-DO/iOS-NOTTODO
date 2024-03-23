@@ -58,6 +58,7 @@ struct MyPageRowData: Hashable {
     var user: String?
     var email: String?
     var title: String?
+    var isArrowHidden: Bool = false
     
     static var profile: [MyPageRowData] {
         let user = UserDefaults.standard.bool(forKey: DefaultKeys.isAppleLogin) ? KeychainUtil.getAppleUsername() : KeychainUtil.getKakaoNickname()
@@ -78,6 +79,6 @@ struct MyPageRowData: Hashable {
     ]
     
     static func version() -> [MyPageRowData] {
-        return [MyPageRowData(title: I18N.version + " " + (Utils.version ?? "1.0.0"))]
+        return [MyPageRowData(title: I18N.version + " " + (Utils.version ?? "1.0.0"), isArrowHidden: true)]
     }
 }
