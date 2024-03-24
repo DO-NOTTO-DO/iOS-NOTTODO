@@ -122,9 +122,8 @@ private extension MyPageAccountViewController {
             cell.configure(data: item)
             cell.switchTapped
                 .receive(on: RunLoop.main)
-                .sink { [weak self] isOn in
-                    guard let self else { return }
-                    self.switchButtonTapped.send(isOn)
+                .sink { isOn in
+                    self?.switchButtonTapped.send(isOn)
                 }
                 .store(in: &cell.cancelBag)
         }
