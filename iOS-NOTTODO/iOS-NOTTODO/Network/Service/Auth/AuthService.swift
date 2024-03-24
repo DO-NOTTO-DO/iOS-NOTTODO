@@ -6,8 +6,26 @@
 //
 
 import Foundation
+import Combine
 
 import Moya
+
+protocol AuthServiceProtocol {
+    func logout() -> AnyPublisher<Int, Error>
+    func withdrawal() -> AnyPublisher<Int, Error>
+}
+
+typealias DefaultAuthService = BaseService<AuthAPI>
+
+extension DefaultAuthService: AuthServiceProtocol {
+    func logout() -> AnyPublisher<Int, Error> {
+        return requestWithCombineNoResult(AuthAPI.logout)
+    }
+    
+    func withdrawal() -> AnyPublisher<Int, Error> {
+        return requestWithCombineNoResult(AuthAPI.withdrawal)
+    }
+}
 
 typealias AuthData = GeneralResponse<AuthResponseDTO>
 typealias EmptyData = GeneralResponse<VoidType>

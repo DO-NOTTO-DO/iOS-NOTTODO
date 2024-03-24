@@ -1,38 +1,42 @@
 //
-//  MyInfoViewController.swift
+//  MyPageViewController.swift
 //  iOS-NOTTODO
 //
-//  Created by 강윤서 on 2023/02/15.
+//  Created by JEONGEUN KIM on 3/15/24.
 //
 
 import UIKit
+import Combine
 
 import Then
 import SnapKit
 
-final class MyInfoViewController: UIViewController {
+final class MyPageViewController: UIViewController {
     
     // MARK: - Properties
     
+    typealias Sections = MyPageModel.Section
     typealias CellRegistration = UICollectionView.CellRegistration
     typealias HeaderRegistration = UICollectionView.SupplementaryRegistration
-    typealias DataSource = UICollectionViewDiffableDataSource<Sections, InfoModel>
-    typealias SnapShot = NSDiffableDataSourceSnapshot<Sections, InfoModel>
+    typealias DataSource = UICollectionViewDiffableDataSource<Sections, MyPageRowData>
+    typealias Snapshot = NSDiffableDataSourceSnapshot<Sections, MyPageRowData>
     
-    enum Sections: Int, CaseIterable {
-        case profile, support, info, version
-    }
+    private let viewWillAppearSubject = PassthroughSubject<Void, Never>()
+    private let myPageCellTapped = PassthroughSubject<IndexPath, Never>()
+    private var cancelBag = Set<AnyCancellable>()
     
     private var dataSource: DataSource?
+    private let viewModel: any MyPageViewModel
+    
+    // MARK: - UI Components
     
     private lazy var safeArea = self.view.safeAreaLayoutGuide
-    
-    private weak var coordinator: MypageCoordinator?
+    private let collectionView = UICollectionView(frame: .zero, collectionViewLayout: .init())
     
     // MARK: - init
     
-    init(coordinator: MypageCoordinator) {
-        self.coordinator = coordinator
+    init(viewModel: some MyPageViewModel) {
+        self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -40,31 +44,32 @@ final class MyInfoViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: - UI Components
-    
-    private let myInfoCollectionView = UICollectionView(frame: .zero, collectionViewLayout: .init())
-    
     // MARK: - Life Cycle
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        viewWillAppearSubject.send(())
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.MyInfo.viewMyInfo)
         setUI()
         setLayout()
         setupDataSource()
-        setSnapShot()
+        setBindings()
     }
 }
 
 // MARK: - Methods
 
-extension MyInfoViewController {
+extension MyPageViewController {
     
     private func setUI() {
         view.backgroundColor = .ntdBlack
         
-        myInfoCollectionView.do {
+        collectionView.do {
             $0.collectionViewLayout = layout()
             $0.backgroundColor = .clear
             $0.bounces = false
@@ -75,9 +80,9 @@ extension MyInfoViewController {
     }
     
     private func setLayout() {
-        view.addSubview(myInfoCollectionView)
+        view.addSubview(collectionView)
         
-        myInfoCollectionView.snp.makeConstraints {
+        collectionView.snp.makeConstraints {
             $0.directionalHorizontalEdges.equalTo(safeArea).inset(22)
             $0.directionalVerticalEdges.equalTo(safeArea)
         }
@@ -85,28 +90,25 @@ extension MyInfoViewController {
     
     private func setupDataSource() {
         
-        let profileCellRegistration = CellRegistration<MyProfileCollectionViewCell, InfoModel> {cell, _, item in
+        let profileCellRegistration = CellRegistration<MyProfileCollectionViewCell, MyPageRowData> {cell, _, item in
             cell.configure(model: item)
         }
         
-        let infoCellRegistration = CellRegistration<InfoCollectionViewCell, InfoModel> {cell, indexPath, item in
+        let infoCellRegistration = CellRegistration<InfoCollectionViewCell, MyPageRowData> {cell, indexPath, item in
             
             guard let section = Sections(rawValue: indexPath.section) else { return }
             
             switch section {
             case .support:
                 cell.configureWithIcon(with: item)
-            case .info:
-                cell.configure(with: item, isHidden: false)
             default:
-                cell.configure(with: item, isHidden: true)
+                cell.configure(with: item)
             }
         }
         
-        let headerRegistration = HeaderRegistration<MyInfoHeaderView>(elementKind: UICollectionView.elementKindSectionHeader) { _, _, _  in }
+        let headerRegistration = HeaderRegistration<MyPageHeaderView>(elementKind: UICollectionView.elementKindSectionHeader) { _, _, _  in }
         
-        dataSource = DataSource(collectionView: myInfoCollectionView, cellProvider: { collectionView, indexPath, item in
-            
+        dataSource = DataSource(collectionView: collectionView, cellProvider: { collectionView, indexPath, item in
             guard let section = Sections(rawValue: indexPath.section) else { return UICollectionViewCell() }
             
             switch section {
@@ -114,7 +116,7 @@ extension MyInfoViewController {
                 return collectionView.dequeueConfiguredReusableCell(using: profileCellRegistration,
                                                                     for: indexPath,
                                                                     item: item)
-            case  .support, .info, .version:
+            case .support, .info, .version:
                 return collectionView.dequeueConfiguredReusableCell(using: infoCellRegistration,
                                                                     for: indexPath,
                                                                     item: item)
@@ -126,24 +128,18 @@ extension MyInfoViewController {
         }
     }
     
-    private func setSnapShot() {
+    private func applySnapshot(data: MyPageModel) {
+        var snapshot = Snapshot()
         
-        var snapShot = SnapShot()
-        
-        defer {
-            dataSource?.apply(snapShot, animatingDifferences: false)
+        data.sections.forEach { section in
+            snapshot.appendSections([section])
+            snapshot.appendItems(section.rows, toSection: section)
         }
         
-        snapShot.appendSections(Sections.allCases)
-        snapShot.appendItems(InfoModel.profile, toSection: .profile)
-        snapShot.appendItems(InfoModel.support, toSection: .support)
-        snapShot.appendItems(InfoModel.info, toSection: .info)
-        snapShot.appendItems(InfoModel.version(), toSection: .version)
-        
+        dataSource?.apply(snapshot, animatingDifferences: false)
     }
     
     private func layout() -> UICollectionViewLayout {
-        
         let layout = UICollectionViewCompositionalLayout { sectionIndex, env  in
             
             guard let section = Sections(rawValue: sectionIndex) else { return nil }
@@ -159,54 +155,38 @@ extension MyInfoViewController {
                 return CompositionalLayout.setUpSection(layoutEnvironment: env,
                                                         topContentInset: 18,
                                                         bottomContentInset: 60)
-                
             }
-            
         }
         return layout
+    }
+    
+    func setBindings() {
+        
+        let input = MyPageViewModelInput(viewWillAppearSubject: viewWillAppearSubject, myPageCellTapped: myPageCellTapped)
+        
+        let output = viewModel.transform(input: input)
+        output.viewWillAppearSubject
+            .receive(on: RunLoop.main)
+            .sink { [weak self] in
+                guard let self else { return }
+                self.applySnapshot(data: $0)
+            }
+            .store(in: &cancelBag)
+        
+        output.openSafariController
+            .sink { [weak self] url in
+                guard let self else { return }
+                Utils.myInfoUrl(vc: self, url: url)
+            }
+            .store(in: &cancelBag)
     }
 }
 
 // MARK: - CollectionViewDelegate
 
-extension MyInfoViewController: UICollectionViewDelegate {
+extension MyPageViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        switch indexPath.section {
-        case 0:
-            profileSectionSelection()
-        case 1:
-            infoSectionSelection(for: indexPath,
-                                 events: [.clickGuide, .clickFaq],
-                                 urls: [.guid, .faq])
-        case 2:
-            infoSectionSelection(for: indexPath,
-                                 events: [.clickNotice, .clickSuggestion, .clickQuestion, .clickTerms],
-                                 urls: [.notice, .suggestoin, .question, .service])
-        default:
-            return
-        }
-    }
-    
-    private func profileSectionSelection() {
-        sendAnalyticsEvent(.clickMyInfo) {
-            coordinator?.showMyInfoAccountViewController()
-        }
-    }
-    
-    private func infoSectionSelection(for indexPath: IndexPath,
-                                      events: [AnalyticsEvent.MyInfo],
-                                      urls: [MyInfoURL]) {
-        guard let item = urls.indices.contains(indexPath.item) ? urls[indexPath.item] : nil,
-              let event = events.indices.contains(indexPath.item) ? events[indexPath.item] : nil else { return }
-        
-        sendAnalyticsEvent(event) {
-            Utils.myInfoUrl(vc: self, url: item.url)
-        }
-    }
-    
-    private func sendAnalyticsEvent(_ event: AnalyticsEvent.MyInfo, action: () -> Void) {
-        AmplitudeAnalyticsService.shared.send(event: event)
-        action()
+        self.myPageCellTapped.send(indexPath)
     }
 }

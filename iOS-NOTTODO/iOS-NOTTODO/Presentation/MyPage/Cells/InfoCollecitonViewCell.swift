@@ -1,8 +1,8 @@
 //
-//  InfoCollectionViewCell.swift
+//  InfoCollecitonViewCell.swift
 //  iOS-NOTTODO
 //
-//  Created by JEONGEUN KIM on 2023/03/08.
+//  Created by JEONGEUN KIM on 3/15/24.
 //
 
 import UIKit
@@ -64,24 +64,28 @@ extension InfoCollectionViewCell {
     private func setLayout() {
         contentView.addSubviews(horizontalStackView, arrowImage)
         
+        titleLabel.snp.makeConstraints {
+            $0.verticalEdges.equalTo(contentView).inset(15)
+        }
+        
         iconImage.snp.makeConstraints {
-            $0.size.equalTo(CGSize(width: 30, height: 30))
+            $0.size.equalTo(30)
+            $0.centerY.equalToSuperview()
         }
         
         arrowImage.snp.makeConstraints {
-            $0.size.equalTo(CGSize(width: 24, height: 24))
+            $0.size.equalTo(24)
             $0.centerY.equalToSuperview()
             $0.trailing.equalToSuperview().inset(13)
         }
+        
         horizontalStackView.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(17)
-            $0.bottom.equalToSuperview().inset(17)
+            $0.top.bottom.equalToSuperview().inset(10)
             $0.leading.equalToSuperview().offset(20)
-            $0.centerY.equalToSuperview()
         }
     }
     
-    func configureWithIcon(with model: InfoModel) {
+    func configureWithIcon(with model: MyPageRowData) {
         
         iconImage.image = model.image
         titleLabel.text = model.title
@@ -91,10 +95,9 @@ extension InfoCollectionViewCell {
         }
     }
     
-    func configure(with model: InfoModel, isHidden: Bool) {
-        horizontalStackView.removeArrangedSubview(iconImage)
-        iconImage.removeFromSuperview()
+    func configure(with model: MyPageRowData) {
+        iconImage.isHidden = true
         titleLabel.text = model.title
-        arrowImage.isHidden = isHidden
+        arrowImage.isHidden = model.isArrowHidden
     }
 }

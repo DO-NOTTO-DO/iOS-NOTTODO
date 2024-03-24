@@ -32,12 +32,12 @@ final class MypageCoordinatorImpl: MypageCoordinator {
     }
     
     func showMyInfoViewController() {
-        let viewController = viewControllerFactory.makeMyInfoViewController(coordinator: self)
+        let viewController = viewControllerFactory.makeMyPageViewController(coordinator: self)
         navigationController.setViewControllers([viewController], animated: true)
     }
     
     func showMyInfoAccountViewController() {
-        let viewController = viewControllerFactory.makeMyInfoAccountViewController(coordinator: self)
+        let viewController = viewControllerFactory.makeMyPageAccountViewController(coordinator: self)
         viewController.hidesBottomBarWhenPushed = true
         navigationController.pushViewController(viewController, animated: true)
     }
@@ -59,10 +59,11 @@ final class MypageCoordinatorImpl: MypageCoordinator {
         logoutAlert.addAction(logoutAction)
         navigationController.present(logoutAlert, animated: true)
     }
-    
+
     func connectAuthCoordinator(type: ViewType) {
         navigationController.dismiss(animated: true) { [weak self] in
-            self?.finish()
+            guard let self else { return }
+            self.finish()
             switch type {
             case .quitSurvey:
                 KeychainUtil.removeUserInfo()

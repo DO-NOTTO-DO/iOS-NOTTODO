@@ -33,6 +33,12 @@ final class AchievementViewModelImpl: AchievementViewModel {
             }
             .store(in: &cancelBag)
         
+        input.viewWillAppearSubject
+            .sink { _ in
+                AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.Achieve.viewAccomplish)
+            }
+            .store(in: &cancelBag)
+        
         input.calendarCellTapped
             .filter { [weak self] date -> Bool in
                 guard let percentage = self?.dataSource.value[date.formattedString()] else {

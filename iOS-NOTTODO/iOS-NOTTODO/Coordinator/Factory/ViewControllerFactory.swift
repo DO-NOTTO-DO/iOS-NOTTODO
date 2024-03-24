@@ -7,6 +7,6 @@
 
 import UIKit
 
-protocol ViewControllerFactory: UpdateFlowcontrollerFactory, AuthFlowControllerFactory, HomeFlowControllerFactory, MyPageFlowControllerFactory, AchieveFlowControllerFactory, TabBarControllerFactory, AuthFlowControllerFactory {}
+protocol ViewControllerFactory: UpdateFlowcontrollerFactory, AuthFlowControllerFactory, HomeFlowControllerFactory, AchieveFlowControllerFactory, TabBarControllerFactory, AuthFlowControllerFactory, MyPageFlowControllerFactory {}
 
 final class ViewControllerFactoryImpl: ViewControllerFactory {}

@@ -79,7 +79,7 @@ extension BaseService {
         }.eraseToAnyPublisher()
     }
     
-    // status codea만 사용하는 경우
+    // status code만 사용하는 경우
     func requestWithCombineNoResult(_ target: API) -> AnyPublisher<Int, Error> {
         return Future { promise in
             self.provider.request(target) { response in

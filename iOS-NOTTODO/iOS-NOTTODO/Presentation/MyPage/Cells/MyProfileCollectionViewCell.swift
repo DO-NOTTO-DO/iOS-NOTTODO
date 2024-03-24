@@ -1,8 +1,8 @@
 //
-//  MyInfoCollectionViewCell.swift
+//  MyProfileCollectionViewCell.swift
 //  iOS-NOTTODO
 //
-//  Created by JEONGEUN KIM on 2023/03/08.
+//  Created by JEONGEUN KIM on 3/15/24.
 //
 
 import UIKit
@@ -82,7 +82,7 @@ extension MyProfileCollectionViewCell {
         }
     }
     
-    func configure(model: InfoModel) {
+    func configure(model: MyPageRowData) {
         logoImage.image = model.image
         userLabel.text = model.user
         emailLabel.text = model.email
