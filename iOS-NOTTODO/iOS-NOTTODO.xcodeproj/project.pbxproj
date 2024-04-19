@@ -79,7 +79,6 @@
 		09F6719029CB6AB400708725 /* OnboardingFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F6718F29CB6AB400708725 /* OnboardingFooterView.swift */; };
 		09F6719529CBFCD200708725 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F6719429CBFCD200708725 /* GradientView.swift */; };
 		09F6719729CC81B500708725 /* DetailAchievementCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F6719629CC81B500708725 /* DetailAchievementCollectionViewCell.swift */; };
-		155E45662B5FF089008628E7 /* FirebaseRemoteConfig in Frameworks */ = {isa = PBXBuildFile; productRef = 155E45652B5FF089008628E7 /* FirebaseRemoteConfig */; };
 		155E45692B5FF2EE008628E7 /* FirebaseUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155E45682B5FF2EE008628E7 /* FirebaseUtil.swift */; };
 		155E456D2B62B1A1008628E7 /* UpdateCheckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155E456C2B62B1A1008628E7 /* UpdateCheckViewController.swift */; };
 		3B027A78299C31B500BEB65C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B027A77299C31B500BEB65C /* AppDelegate.swift */; };
@@ -113,7 +112,17 @@
 		3B14A13F29A6FCB300F92897 /* UIStackView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B14A13E29A6FCB300F92897 /* UIStackView+.swift */; };
 		3B14A14129A6FDA900F92897 /* UILabel+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B14A14029A6FDA900F92897 /* UILabel+.swift */; };
 		3B14A14329A6FEE400F92897 /* UITextField+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B14A14229A6FEE400F92897 /* UITextField+.swift */; };
-		3B2B59442AEB814B00B4619A /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 3B2B59432AEB814B00B4619A /* FirebaseMessaging */; };
+		3B3105D22BCBF70600964025 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B1E84932BAC897C002F9808 /* WidgetKit.framework */; };
+		3B3105D32BCBF70600964025 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B1E84952BAC897C002F9808 /* SwiftUI.framework */; };
+		3B3105D62BCBF70600964025 /* Widget_NOTTODOBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3105D52BCBF70600964025 /* Widget_NOTTODOBundle.swift */; };
+		3B3105D82BCBF70600964025 /* Widget_NOTTODO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3105D72BCBF70600964025 /* Widget_NOTTODO.swift */; };
+		3B3105DA2BCBF70600964025 /* AppIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3105D92BCBF70600964025 /* AppIntent.swift */; };
+		3B3105DC2BCBF70700964025 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3B3105DB2BCBF70700964025 /* Assets.xcassets */; };
+		3B3105E02BCBF70700964025 /* Widget-NOTTODOExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 3B3105D12BCBF70600964025 /* Widget-NOTTODOExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		3B3105E82BCBFF4000964025 /* MissionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3105E42BCBFC2B00964025 /* MissionModel.swift */; };
+		3B3105E92BCC00D800964025 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3B027AAB299C35E500BEB65C /* Colors.xcassets */; };
+		3B3105EB2BCC022500964025 /* UIFont+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B027A93299C340600BEB65C /* UIFont+.swift */; };
+		3B3105F12BCC175600964025 /* CheckboxToggleStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3105F02BCC175600964025 /* CheckboxToggleStyle.swift */; };
 		3B37AE2929C8821600AB7587 /* GoalCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B37AE2829C8821600AB7587 /* GoalCollectionViewCell.swift */; };
 		3B37AE2B29C8904800AB7587 /* RecommendKeywordCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B37AE2A29C8904800AB7587 /* RecommendKeywordCollectionViewCell.swift */; };
 		3B3EF2F82AF35C90001F79BC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3B3EF2F72AF35C90001F79BC /* GoogleService-Info.plist */; };
@@ -137,6 +146,17 @@
 		3B80B5D72B7F30E200697250 /* Numbers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B80B5D62B7F30E200697250 /* Numbers.swift */; };
 		3B892ABB2A2FBD4C00A316BC /* RecommendSituationResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B892ABA2A2FBD4C00A316BC /* RecommendSituationResponseDTO.swift */; };
 		3B9532F42A284CC1006510F8 /* ModalProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9532F32A284CC1006510F8 /* ModalProtocol.swift */; };
+		3B999D0C2BAEC24100E562EE /* FirebaseRemoteConfig in Frameworks */ = {isa = PBXBuildFile; productRef = 3B999D0B2BAEC24100E562EE /* FirebaseRemoteConfig */; };
+		3B999D0E2BAEC24800E562EE /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 3B999D0D2BAEC24800E562EE /* FirebaseMessaging */; };
+		3BAFA50F2BCFBF1F007569DD /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3B4E12F92A27C4DD001D1EC1 /* Pretendard-Bold.otf */; };
+		3BAFA5102BCFBF22007569DD /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3B146D9D299D081400B17B62 /* Pretendard-SemiBold.otf */; };
+		3BAFA5112BCFBF24007569DD /* Pretendard-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3B146D9B299D07D500B17B62 /* Pretendard-Regular.otf */; };
+		3BAFA5122BCFBF26007569DD /* Pretendard-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3B146D99299D079D00B17B62 /* Pretendard-Light.otf */; };
+		3BAFA5132BCFBF29007569DD /* Pretendard-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3B146D97299D077800B17B62 /* Pretendard-Medium.otf */; };
+		3BAFA51A2BD01C2C007569DD /* CircularProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAFA5182BD01994007569DD /* CircularProgressBar.swift */; };
+		3BB5CFE52BD19639006326B5 /* SmallFamily.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BB5CFE32BD19609006326B5 /* SmallFamily.swift */; };
+		3BB5CFE82BD1978E006326B5 /* MediumFamily.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BB5CFE62BD1978C006326B5 /* MediumFamily.swift */; };
+		3BB5CFEC2BD1A04D006326B5 /* HorizontalDivider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BB5CFEB2BD1A04D006326B5 /* HorizontalDivider.swift */; };
 		3BBB6C8F2A1E7BEA00B8745A /* CollectionViewLeftAlignLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BBB6C8E2A1E7BEA00B8745A /* CollectionViewLeftAlignLayout.swift */; };
 		3BC19A9329CA1CA800C02803 /* UICollectionViewCell+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC19A9229CA1CA800C02803 /* UICollectionViewCell+.swift */; };
 		3BC1A27229C9AF310088376B /* MissionHistoryModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC1A27129C9AF310088376B /* MissionHistoryModels.swift */; };
@@ -187,6 +207,16 @@
 		6CF4707A29A7AAFF008D145C /* PaddingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CF4707929A7AAFF008D145C /* PaddingLabel.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		3B3105DE2BCBF70700964025 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3B027A6C299C31B500BEB65C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3B3105D02BCBF70600964025;
+			remoteInfo = "Widget-NOTTODOExtension";
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXCopyFilesBuildPhase section */
 		3B1E84A92BAC897E002F9808 /* Embed Foundation Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -194,6 +224,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
+				3B3105E02BCBF70700964025 /* Widget-NOTTODOExtension.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -305,6 +336,14 @@
 		3B14A14229A6FEE400F92897 /* UITextField+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+.swift"; sourceTree = "<group>"; };
 		3B1E84932BAC897C002F9808 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		3B1E84952BAC897C002F9808 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		3B3105D12BCBF70600964025 /* Widget-NOTTODOExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Widget-NOTTODOExtension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3B3105D52BCBF70600964025 /* Widget_NOTTODOBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Widget_NOTTODOBundle.swift; sourceTree = "<group>"; };
+		3B3105D72BCBF70600964025 /* Widget_NOTTODO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Widget_NOTTODO.swift; sourceTree = "<group>"; };
+		3B3105D92BCBF70600964025 /* AppIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIntent.swift; sourceTree = "<group>"; };
+		3B3105DB2BCBF70700964025 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		3B3105DD2BCBF70700964025 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3B3105E42BCBFC2B00964025 /* MissionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionModel.swift; sourceTree = "<group>"; };
+		3B3105F02BCC175600964025 /* CheckboxToggleStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckboxToggleStyle.swift; sourceTree = "<group>"; };
 		3B37AE2829C8821600AB7587 /* GoalCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalCollectionViewCell.swift; sourceTree = "<group>"; };
 		3B37AE2A29C8904800AB7587 /* RecommendKeywordCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendKeywordCollectionViewCell.swift; sourceTree = "<group>"; };
 		3B3EF2F72AF35C90001F79BC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -328,6 +367,10 @@
 		3B80B5D62B7F30E200697250 /* Numbers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Numbers.swift; sourceTree = "<group>"; };
 		3B892ABA2A2FBD4C00A316BC /* RecommendSituationResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendSituationResponseDTO.swift; sourceTree = "<group>"; };
 		3B9532F32A284CC1006510F8 /* ModalProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalProtocol.swift; sourceTree = "<group>"; };
+		3BAFA5182BD01994007569DD /* CircularProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProgressBar.swift; sourceTree = "<group>"; };
+		3BB5CFE32BD19609006326B5 /* SmallFamily.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmallFamily.swift; sourceTree = "<group>"; };
+		3BB5CFE62BD1978C006326B5 /* MediumFamily.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediumFamily.swift; sourceTree = "<group>"; };
+		3BB5CFEB2BD1A04D006326B5 /* HorizontalDivider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalDivider.swift; sourceTree = "<group>"; };
 		3BBB6C8E2A1E7BEA00B8745A /* CollectionViewLeftAlignLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewLeftAlignLayout.swift; sourceTree = "<group>"; };
 		3BC19A9229CA1CA800C02803 /* UICollectionViewCell+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionViewCell+.swift"; sourceTree = "<group>"; };
 		3BC1A27129C9AF310088376B /* MissionHistoryModels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MissionHistoryModels.swift; sourceTree = "<group>"; };
@@ -382,9 +425,9 @@
 				6C44127F29A35A1000313C3F /* KakaoSDKTemplate in Frameworks */,
 				6C44127129A35A1000313C3F /* KakaoSDK in Frameworks */,
 				3B146DA4299D0A8600B17B62 /* Then in Frameworks */,
+				3B999D0C2BAEC24100E562EE /* FirebaseRemoteConfig in Frameworks */,
 				3B146DA7299D0AA300B17B62 /* Moya in Frameworks */,
-				155E45662B5FF089008628E7 /* FirebaseRemoteConfig in Frameworks */,
-				3B2B59442AEB814B00B4619A /* FirebaseMessaging in Frameworks */,
+				3B999D0E2BAEC24800E562EE /* FirebaseMessaging in Frameworks */,
 				6C44127729A35A1000313C3F /* KakaoSDKNavi in Frameworks */,
 				6C44128129A35A1000313C3F /* KakaoSDKUser in Frameworks */,
 				6C44127D29A35A1000313C3F /* KakaoSDKTalk in Frameworks */,
@@ -392,6 +435,15 @@
 				09C8602D2AB14B4800C4F4B1 /* FSCalendar in Frameworks */,
 				0943A9F52A531D0000614761 /* Amplitude in Frameworks */,
 				6C44127329A35A1000313C3F /* KakaoSDKAuth in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3B3105CE2BCBF70600964025 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3B3105D32BCBF70600964025 /* SwiftUI.framework in Frameworks */,
+				3B3105D22BCBF70600964025 /* WidgetKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -728,6 +780,7 @@
 				3B710A5B2A62D4AB00E95620 /* Settings.bundle */,
 				3BDE6157299EDD02001CCEA9 /* .swiftlint.yml */,
 				3B027A76299C31B500BEB65C /* iOS-NOTTODO */,
+				3B3105D42BCBF70600964025 /* Widget-NOTTODO */,
 				3B027A75299C31B500BEB65C /* Products */,
 				155E45642B5FF089008628E7 /* Frameworks */,
 			);
@@ -737,6 +790,7 @@
 			isa = PBXGroup;
 			children = (
 				3B027A74299C31B500BEB65C /* iOS-NOTTODO.app */,
+				3B3105D12BCBF70600964025 /* Widget-NOTTODOExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -965,6 +1019,38 @@
 			path = ViewControllers;
 			sourceTree = "<group>";
 		};
+		3B3105D42BCBF70600964025 /* Widget-NOTTODO */ = {
+			isa = PBXGroup;
+			children = (
+				3BB5CFE22BD195FA006326B5 /* View */,
+				3BAFA5142BCFC5F4007569DD /* Resource */,
+				3B3105EE2BCC16FA00964025 /* Common */,
+				3B3105D52BCBF70600964025 /* Widget_NOTTODOBundle.swift */,
+				3B3105D72BCBF70600964025 /* Widget_NOTTODO.swift */,
+				3B3105D92BCBF70600964025 /* AppIntent.swift */,
+				3B3105E42BCBFC2B00964025 /* MissionModel.swift */,
+			);
+			path = "Widget-NOTTODO";
+			sourceTree = "<group>";
+		};
+		3B3105EE2BCC16FA00964025 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				3B3105EF2BCC173200964025 /* Components */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		3B3105EF2BCC173200964025 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				3B3105F02BCC175600964025 /* CheckboxToggleStyle.swift */,
+				3BAFA5182BD01994007569DD /* CircularProgressBar.swift */,
+				3BB5CFEB2BD1A04D006326B5 /* HorizontalDivider.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
 		3B3C89DB29C0EF6A00B1D56D /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -1100,6 +1186,24 @@
 				3B9532F32A284CC1006510F8 /* ModalProtocol.swift */,
 			);
 			path = Protocol;
+			sourceTree = "<group>";
+		};
+		3BAFA5142BCFC5F4007569DD /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				3B3105DB2BCBF70700964025 /* Assets.xcassets */,
+				3B3105DD2BCBF70700964025 /* Info.plist */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
+		3BB5CFE22BD195FA006326B5 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				3BB5CFE32BD19609006326B5 /* SmallFamily.swift */,
+				3BB5CFE62BD1978C006326B5 /* MediumFamily.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		3BD3B5C629B8F80C00D3575B /* AddMissionTextFieldView */ = {
@@ -1267,6 +1371,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				3B3105DF2BCBF70700964025 /* PBXTargetDependency */,
 			);
 			name = "iOS-NOTTODO";
 			packageProductDependencies = (
@@ -1285,12 +1390,29 @@
 				6C9628A62A22208F003ADE25 /* Lottie */,
 				0943A9F42A531D0000614761 /* Amplitude */,
 				09C8602C2AB14B4800C4F4B1 /* FSCalendar */,
-				3B2B59432AEB814B00B4619A /* FirebaseMessaging */,
-				155E45652B5FF089008628E7 /* FirebaseRemoteConfig */,
+				3B999D0B2BAEC24100E562EE /* FirebaseRemoteConfig */,
+				3B999D0D2BAEC24800E562EE /* FirebaseMessaging */,
 			);
 			productName = "iOS-NOTTODO";
 			productReference = 3B027A74299C31B500BEB65C /* iOS-NOTTODO.app */;
 			productType = "com.apple.product-type.application";
+		};
+		3B3105D02BCBF70600964025 /* Widget-NOTTODOExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3B3105E32BCBF70700964025 /* Build configuration list for PBXNativeTarget "Widget-NOTTODOExtension" */;
+			buildPhases = (
+				3B3105CD2BCBF70600964025 /* Sources */,
+				3B3105CE2BCBF70600964025 /* Frameworks */,
+				3B3105CF2BCBF70600964025 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Widget-NOTTODOExtension";
+			productName = "Widget-NOTTODOExtension";
+			productReference = 3B3105D12BCBF70600964025 /* Widget-NOTTODOExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -1299,11 +1421,14 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1530;
+				LastSwiftUpdateCheck = 1520;
 				LastUpgradeCheck = 1420;
 				TargetAttributes = {
 					3B027A73299C31B500BEB65C = {
 						CreatedOnToolsVersion = 14.2;
+					};
+					3B3105D02BCBF70600964025 = {
+						CreatedOnToolsVersion = 15.2;
 					};
 				};
 			};
@@ -1325,13 +1450,14 @@
 				6C9628A52A22208F003ADE25 /* XCRemoteSwiftPackageReference "lottie-ios" */,
 				0943A9F32A531D0000614761 /* XCRemoteSwiftPackageReference "Amplitude-iOS" */,
 				09C8602B2AB14B4700C4F4B1 /* XCRemoteSwiftPackageReference "FSCalendar" */,
-				3B2B59422AEB814B00B4619A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				3B999D0A2BAEC1F100E562EE /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = 3B027A75299C31B500BEB65C /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
 				3B027A73299C31B500BEB65C /* iOS-NOTTODO */,
+				3B3105D02BCBF70600964025 /* Widget-NOTTODOExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -1354,6 +1480,20 @@
 				3B027A81299C31B600BEB65C /* Assets.xcassets in Resources */,
 				3B146D9A299D079D00B17B62 /* Pretendard-Light.otf in Resources */,
 				3B146D98299D077800B17B62 /* Pretendard-Medium.otf in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3B3105CF2BCBF70600964025 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3B3105DC2BCBF70700964025 /* Assets.xcassets in Resources */,
+				3BAFA5112BCFBF24007569DD /* Pretendard-Regular.otf in Resources */,
+				3BAFA50F2BCFBF1F007569DD /* Pretendard-Bold.otf in Resources */,
+				3BAFA5132BCFBF29007569DD /* Pretendard-Medium.otf in Resources */,
+				3BAFA5102BCFBF22007569DD /* Pretendard-SemiBold.otf in Resources */,
+				3BAFA5122BCFBF26007569DD /* Pretendard-Light.otf in Resources */,
+				3B3105E92BCC00D800964025 /* Colors.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1537,7 +1677,32 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		3B3105CD2BCBF70600964025 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3BB5CFE82BD1978E006326B5 /* MediumFamily.swift in Sources */,
+				3B3105E82BCBFF4000964025 /* MissionModel.swift in Sources */,
+				3B3105D62BCBF70600964025 /* Widget_NOTTODOBundle.swift in Sources */,
+				3B3105EB2BCC022500964025 /* UIFont+.swift in Sources */,
+				3B3105D82BCBF70600964025 /* Widget_NOTTODO.swift in Sources */,
+				3BB5CFEC2BD1A04D006326B5 /* HorizontalDivider.swift in Sources */,
+				3BAFA51A2BD01C2C007569DD /* CircularProgressBar.swift in Sources */,
+				3B3105F12BCC175600964025 /* CheckboxToggleStyle.swift in Sources */,
+				3B3105DA2BCBF70600964025 /* AppIntent.swift in Sources */,
+				3BB5CFE52BD19639006326B5 /* SmallFamily.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		3B3105DF2BCBF70700964025 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 3B3105D02BCBF70600964025 /* Widget-NOTTODOExtension */;
+			targetProxy = 3B3105DE2BCBF70700964025 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		3B027A82299C31B600BEB65C /* LaunchScreen.storyboard */ = {
@@ -1668,13 +1833,14 @@
 		3B027A89299C31B600BEB65C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "iOS-NOTTODO/iOS-NOTTODO.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = CQJ9UKUU35;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1689,7 +1855,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.4;
+				MARKETING_VERSION = 1.0.5;
 				PRODUCT_BUNDLE_IDENTIFIER = "nottodo.iOS-NOTTODO";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1706,13 +1872,14 @@
 		3B027A8A299C31B600BEB65C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "iOS-NOTTODO/iOS-NOTTODO.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = CQJ9UKUU35;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1727,7 +1894,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.4;
+				MARKETING_VERSION = 1.0.5;
 				PRODUCT_BUNDLE_IDENTIFIER = "nottodo.iOS-NOTTODO";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1738,6 +1905,75 @@
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+		3B3105E12BCBF70700964025 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = CQJ9UKUU35;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Widget-NOTTODO/Resource/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Widget-NOTTODO";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "nottodo.iOS-NOTTODO.Widget-NOTTODO";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		3B3105E22BCBF70700964025 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = CQJ9UKUU35;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Widget-NOTTODO/Resource/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Widget-NOTTODO";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "nottodo.iOS-NOTTODO.Widget-NOTTODO";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -1758,6 +1994,15 @@
 			buildConfigurations = (
 				3B027A89299C31B600BEB65C /* Debug */,
 				3B027A8A299C31B600BEB65C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3B3105E32BCBF70700964025 /* Build configuration list for PBXNativeTarget "Widget-NOTTODOExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3B3105E12BCBF70700964025 /* Debug */,
+				3B3105E22BCBF70700964025 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1805,20 +2050,21 @@
 				kind = branch;
 			};
 		};
-		3B2B59422AEB814B00B4619A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+		3B999D0A2BAEC1F100E562EE /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 10.0.0;
+				minimumVersion = 10.23.0;
 			};
 		};
 		6C44126F29A35A1000313C3F /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/kakao/kakao-ios-sdk";
 			requirement = {
-				branch = master;
-				kind = branch;
+				kind = versionRange;
+				maximumVersion = 2.21.1;
+				minimumVersion = 2.21.1;
 			};
 		};
 		6C9628A52A22208F003ADE25 /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
@@ -1850,11 +2096,6 @@
 			package = 09C8602B2AB14B4700C4F4B1 /* XCRemoteSwiftPackageReference "FSCalendar" */;
 			productName = FSCalendar;
 		};
-		155E45652B5FF089008628E7 /* FirebaseRemoteConfig */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 3B2B59422AEB814B00B4619A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseRemoteConfig;
-		};
 		3B146DA0299D0A7A00B17B62 /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 3B146D9F299D0A7A00B17B62 /* XCRemoteSwiftPackageReference "SnapKit" */;
@@ -1870,9 +2111,14 @@
 			package = 3B146DA5299D0AA300B17B62 /* XCRemoteSwiftPackageReference "Moya" */;
 			productName = Moya;
 		};
-		3B2B59432AEB814B00B4619A /* FirebaseMessaging */ = {
+		3B999D0B2BAEC24100E562EE /* FirebaseRemoteConfig */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 3B2B59422AEB814B00B4619A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			package = 3B999D0A2BAEC1F100E562EE /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseRemoteConfig;
+		};
+		3B999D0D2BAEC24800E562EE /* FirebaseMessaging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3B999D0A2BAEC1F100E562EE /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseMessaging;
 		};
 		6C44127029A35A1000313C3F /* KakaoSDK */ = {
