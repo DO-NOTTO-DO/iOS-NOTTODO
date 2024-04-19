@@ -7,12 +7,21 @@
 
 import SwiftUI
 
-struct CheckboxToggleStyle: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+struct CheckboxToggleStyle: ToggleStyle {
+    @Environment(\.isEnabled) var isEnabled
+    
+    func makeBody(configuration: Configuration) -> some View {
+        Button(action: {
+            configuration.isOn.toggle()
+        }, label: {
+            HStack {
+                Image(configuration.isOn ? .btnSmallBoxFill : .btnSmallBox)
+                    .imageScale(.large)
+                configuration.label
+            }
+        })
+        .buttonStyle(.plain)
+        .frame(width: 16, height: 16)
+        .disabled(!isEnabled)
     }
-}
-
-#Preview {
-    CheckboxToggleStyle()
 }
