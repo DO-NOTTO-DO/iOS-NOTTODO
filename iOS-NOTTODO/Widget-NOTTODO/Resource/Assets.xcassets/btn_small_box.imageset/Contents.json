@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "btn_small_box.svg",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

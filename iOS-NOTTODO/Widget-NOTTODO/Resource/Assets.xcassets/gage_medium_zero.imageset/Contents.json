@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "gage_medium_zero.svg",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
