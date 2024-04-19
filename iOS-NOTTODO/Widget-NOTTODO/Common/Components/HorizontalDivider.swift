@@ -8,11 +8,17 @@
 import SwiftUI
 
 struct HorizontalDivider: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+    
+    let color: Color
+    let height: CGFloat
+    
+    init(color: Color, height: CGFloat = 1) {
+        self.color = color
+        self.height = height
     }
-}
-
-#Preview {
-    HorizontalDivider()
+    
+    var body: some View {
+        color
+            .frame(height: height)
+    }
 }
