@@ -41,7 +41,7 @@ struct Widget_NOTTODOEntryView: View {
         case .systemSmall:
             SmallFamily(entry: SimpleEntry(lastThreeTask: MissionDataModel.shared.model))
         default:
-            MediumFamily(entry: SimpleEntry(lastThreeTask: []))
+            MediumFamily(entry: SimpleEntry(lastThreeTask: MissionDataModel.shared.model))
         }
     }
     
@@ -59,13 +59,6 @@ struct Widget_NOTTODO: Widget {
         .description("낫투두 위젯입니다.")
         .contentMarginsDisabled()
         .supportedFamilies([.systemSmall, .systemMedium])
-    }
-}
-
-extension ConfigurationAppIntent {
-    fileprivate static var smiley: ConfigurationAppIntent {
-        let intent = ConfigurationAppIntent()
-        return intent
     }
 }
 

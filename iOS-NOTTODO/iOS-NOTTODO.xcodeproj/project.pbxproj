@@ -122,7 +122,6 @@
 		3B3105E82BCBFF4000964025 /* MissionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3105E42BCBFC2B00964025 /* MissionModel.swift */; };
 		3B3105E92BCC00D800964025 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3B027AAB299C35E500BEB65C /* Colors.xcassets */; };
 		3B3105EB2BCC022500964025 /* UIFont+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B027A93299C340600BEB65C /* UIFont+.swift */; };
-		3B3105F12BCC175600964025 /* CheckboxToggleStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3105F02BCC175600964025 /* CheckboxToggleStyle.swift */; };
 		3B37AE2929C8821600AB7587 /* GoalCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B37AE2829C8821600AB7587 /* GoalCollectionViewCell.swift */; };
 		3B37AE2B29C8904800AB7587 /* RecommendKeywordCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B37AE2A29C8904800AB7587 /* RecommendKeywordCollectionViewCell.swift */; };
 		3B3EF2F82AF35C90001F79BC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3B3EF2F72AF35C90001F79BC /* GoogleService-Info.plist */; };
@@ -343,7 +342,6 @@
 		3B3105DB2BCBF70700964025 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3B3105DD2BCBF70700964025 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3B3105E42BCBFC2B00964025 /* MissionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionModel.swift; sourceTree = "<group>"; };
-		3B3105F02BCC175600964025 /* CheckboxToggleStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckboxToggleStyle.swift; sourceTree = "<group>"; };
 		3B37AE2829C8821600AB7587 /* GoalCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalCollectionViewCell.swift; sourceTree = "<group>"; };
 		3B37AE2A29C8904800AB7587 /* RecommendKeywordCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendKeywordCollectionViewCell.swift; sourceTree = "<group>"; };
 		3B3EF2F72AF35C90001F79BC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -368,6 +366,7 @@
 		3B892ABA2A2FBD4C00A316BC /* RecommendSituationResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendSituationResponseDTO.swift; sourceTree = "<group>"; };
 		3B9532F32A284CC1006510F8 /* ModalProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalProtocol.swift; sourceTree = "<group>"; };
 		3BAFA5182BD01994007569DD /* CircularProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProgressBar.swift; sourceTree = "<group>"; };
+		3BB4A51D2BD246A600900C86 /* Widget-NOTTODOExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Widget-NOTTODOExtension.entitlements"; sourceTree = "<group>"; };
 		3BB5CFE32BD19609006326B5 /* SmallFamily.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmallFamily.swift; sourceTree = "<group>"; };
 		3BB5CFE62BD1978C006326B5 /* MediumFamily.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediumFamily.swift; sourceTree = "<group>"; };
 		3BB5CFEB2BD1A04D006326B5 /* HorizontalDivider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalDivider.swift; sourceTree = "<group>"; };
@@ -777,6 +776,7 @@
 		3B027A6B299C31B500BEB65C = {
 			isa = PBXGroup;
 			children = (
+				3BB4A51D2BD246A600900C86 /* Widget-NOTTODOExtension.entitlements */,
 				3B710A5B2A62D4AB00E95620 /* Settings.bundle */,
 				3BDE6157299EDD02001CCEA9 /* .swiftlint.yml */,
 				3B027A76299C31B500BEB65C /* iOS-NOTTODO */,
@@ -1044,7 +1044,6 @@
 		3B3105EF2BCC173200964025 /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				3B3105F02BCC175600964025 /* CheckboxToggleStyle.swift */,
 				3BAFA5182BD01994007569DD /* CircularProgressBar.swift */,
 				3BB5CFEB2BD1A04D006326B5 /* HorizontalDivider.swift */,
 			);
@@ -1688,7 +1687,6 @@
 				3B3105D82BCBF70600964025 /* Widget_NOTTODO.swift in Sources */,
 				3BB5CFEC2BD1A04D006326B5 /* HorizontalDivider.swift in Sources */,
 				3BAFA51A2BD01C2C007569DD /* CircularProgressBar.swift in Sources */,
-				3B3105F12BCC175600964025 /* CheckboxToggleStyle.swift in Sources */,
 				3B3105DA2BCBF70600964025 /* AppIntent.swift in Sources */,
 				3BB5CFE52BD19639006326B5 /* SmallFamily.swift in Sources */,
 			);
@@ -1914,10 +1912,13 @@
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = "Widget-NOTTODOExtension.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = CQJ9UKUU35;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = CQJ9UKUU35;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1935,6 +1936,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "nottodo.iOS-NOTTODO.Widget-NOTTODO";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = nottodoWidgetDebug;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -1949,11 +1951,13 @@
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = "Widget-NOTTODOExtension.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = CQJ9UKUU35;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = CQJ9UKUU35;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1970,6 +1974,8 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "nottodo.iOS-NOTTODO.Widget-NOTTODO";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = nottodoWidgetRelease;
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
