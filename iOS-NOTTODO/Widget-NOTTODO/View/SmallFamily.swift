@@ -49,8 +49,11 @@ struct SmallFamily: View {
                 } else {
                     ForEach(entry.lastThreeTask.prefix(3)) { task in
                         HStack {
-                            Toggle("", isOn: task.$isCompleted)
-                                .toggleStyle(CheckboxToggleStyle())
+                            Button(intent: ToggleButtonIntent(id: task.id)) {
+                                Image(task.isCompleted ? .btnSmallBoxFill : .btnSmallBox)
+                            }
+                            .buttonStyle(.plain)
+                            .frame(width: 16, height: 16)
                             
                             Text(task.missionTitle)
                                 .foregroundStyle(.black)

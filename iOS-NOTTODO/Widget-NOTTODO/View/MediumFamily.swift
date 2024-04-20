@@ -24,7 +24,6 @@ struct MediumFamily: View {
             }
             .padding(.top, 14)
             .padding(.leading, 17)
-//            .background(.teal)
             
             VStack {
                 Text("성공한상위십퍼센트는하하글자수가과연어디까지일까요하하하먼저하지말아야할어쩌구저쩌구")
@@ -34,7 +33,6 @@ struct MediumFamily: View {
                     .lineLimit(2)
                     .padding(.horizontal, 12)
                     .padding(.top, 18)
-//                    .background(.orange)
                 
                 HorizontalDivider(color: .gray5)
                     .padding(.top, 6)
@@ -52,8 +50,11 @@ struct MediumFamily: View {
                     } else {
                         ForEach(entry.lastThreeTask.prefix(3)) { task in
                             HStack {
-                                Toggle("", isOn: task.$isCompleted)
-                                    .toggleStyle(CheckboxToggleStyle())
+                                Button(intent: ToggleButtonIntent(id: task.id)) {
+                                    Image(task.isCompleted ? .btnMediumFill : .btnMedium)
+                                }
+                                .buttonStyle(.plain)
+                                .frame(width: 19, height: 19)
                                 
                                 Text(task.missionTitle)
                                     .foregroundStyle(.gray1)
@@ -66,11 +67,9 @@ struct MediumFamily: View {
                         }
                     }
                 }
-//                .background(.blue)
                 
                 Spacer()
             }
-//            .background(.green)
             .padding(.trailing, 22)
         }
         .background(.white)

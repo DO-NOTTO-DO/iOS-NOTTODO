@@ -10,9 +10,24 @@ import AppIntents
 
 struct ConfigurationAppIntent: WidgetConfigurationIntent {
     static var title: LocalizedStringResource = "Configuration"
-    static var description = IntentDescription("This is an example widget.")
+}
 
-    // An example configurable parameter.
-    @Parameter(title: "Favorite Emoji", default: "😃")
-    var favoriteEmoji: String
+struct ToggleButtonIntent: AppIntent {
+    static var title: LocalizedStringResource = .init(stringLiteral: "Mission's State")
+    
+    @Parameter(title: "Mission ID")
+    var id: String
+    
+    init() { }
+    init(id: String) {
+        self.id = id
+    }
+    
+    func perform() async throws -> some IntentResult {
+        if let index = MissionDataModel.shared.model.firstIndex(where: {$0.id == id}) {
+            MissionDataModel.shared.model[index].isCompleted.toggle()
+        }
+        return .result()
+    }
+    
 }
