@@ -10,7 +10,7 @@ import SwiftUI
 struct MissionModel: Identifiable {
     var id = UUID().uuidString
     var missionTitle: String
-    @State var isCompleted: Bool = false
+    var isCompleted: Bool = false
 }
 
 class MissionDataModel {
