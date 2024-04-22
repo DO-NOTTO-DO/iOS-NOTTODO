@@ -249,6 +249,7 @@ extension HomeViewController {
             
             if Utils.dateFormatterString(format: nil, date: today) == date {
                 UserDefaults.shared?.setSharedCustomArray(data, forKey: "dailyMission")
+                UserDefaults.shared?.set(getDayOfWeek(date: today), forKey: "dayOfWeek")
             }
         }
     }
@@ -320,6 +321,13 @@ extension HomeViewController {
         comps.weekday = 1
         let sundayInWeek = cal.date(from: comps)!
         return sundayInWeek
+    }
+    
+    private func getDayOfWeek(date: Date) -> String {
+        let calendar = Calendar.current
+        let weekday = calendar.component(.weekday, from: date)
+        
+        return I18N.weekDay[weekday-1]
     }
     
     private func getPercentage(for date: Date) -> Float? {

@@ -10,14 +10,15 @@ import WidgetKit
 
 struct MediumFamily: View {
     var entry: Provider.Entry
+    @AppStorage("dayOfWeek", store: UserDefaults.shared) var dayOfWeek: String = ""
     
     var body: some View {
         let progressPercent = Double(entry.lastThreeTask.filter { $0.completionStatus == .CHECKED }.count) / Double(entry.lastThreeTask.count)
         HStack {
             VStack {
                 ZStack {
-                    Text("월")
-                        .foregroundStyle(Color.black)
+                    Text(dayOfWeek)
+                        .foregroundStyle(dayOfWeek == "일" ? .wdgRed : .ntdBlack)
                         .font(.custom("Pretendard", size: 18))
                         .fontWeight(.semibold)
                     CircularProgressBarView(percent: progressPercent, size: 42, lineWidth: 4.34)}
@@ -58,7 +59,7 @@ struct MediumFamily: View {
                                 .frame(width: 19, height: 19)
                                 
                                 Text(task.title)
-                                    .foregroundStyle(.gray1)
+                                    .foregroundStyle(task.completionStatus == .CHECKED ? .gray4 : .ntdBlack)
                                     .font(.custom("Pretendard-Regular", size: 11))
                                     .fontWeight(.regular)
                                 Spacer()
