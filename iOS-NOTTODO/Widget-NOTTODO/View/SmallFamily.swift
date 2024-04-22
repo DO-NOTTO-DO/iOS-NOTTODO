@@ -60,6 +60,7 @@ struct SmallFamily: View {
                             
                             Text(task.title)
                                 .foregroundStyle(task.completionStatus == .CHECKED ? .gray4 : .ntdBlack)
+                                .strikethrough(task.completionStatus == .CHECKED, color: .gray4)
                                 .font(.custom("Pretendard-Regular", size: 8))
                                 .fontWeight(.regular)
                                 .lineLimit(2)
