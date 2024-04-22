@@ -56,4 +56,17 @@ extension Bundle {
         }
         return value
     }
+    
+    var appGroups: String {
+        guard let filePath = Bundle.main.path(forResource: "API_KEY", ofType: "plist") else {
+            fatalError("Could't find file 'API_KEY.plist'.")
+        }
+        
+        let plist = NSDictionary(contentsOfFile: filePath)
+        
+        guard let value = plist?.object(forKey: "APP_GROUPS") as? String else {
+            fatalError("Couldn't find key 'APP_GROUPS' in 'API_KEY.plist'.")
+        }
+        return value
+    }
 }
