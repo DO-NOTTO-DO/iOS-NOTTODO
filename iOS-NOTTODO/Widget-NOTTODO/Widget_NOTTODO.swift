@@ -9,26 +9,32 @@ import WidgetKit
 import SwiftUI
 
 struct Provider: AppIntentTimelineProvider {
+    @AppStorage("dailyMission", store: UserDefaults.shared) var sharedData: Data = Data()
     func placeholder(in context: Context) -> SimpleEntry {
-        SimpleEntry(lastThreeTask: Array(MissionDataModel.shared.model.prefix(3)))
+        SimpleEntry(lastThreeTask: [])
     }
-
+ 
     func snapshot(for configuration: ConfigurationAppIntent, in context: Context) async -> SimpleEntry {
-        SimpleEntry(lastThreeTask: Array(MissionDataModel.shared.model.prefix(3)))
+        if let decodedData = try? JSONDecoder().decode([DailyMissionResponseDTO].self, from: sharedData) {
+            return SimpleEntry(lastThreeTask: decodedData)
+        }
+        return SimpleEntry(lastThreeTask: [])
     }
     
     func timeline(for configuration: ConfigurationAppIntent, in context: Context) async -> Timeline<SimpleEntry> {
-        let lastestTask = Array(MissionDataModel.shared.model.prefix(3))
-        let entries: [SimpleEntry] = [SimpleEntry(lastThreeTask: lastestTask)]
-        // Generate a timeline consisting of five entries an hour apart, starting from the current date.
+        if let decodedData = try? JSONDecoder().decode([DailyMissionResponseDTO].self, from: sharedData) {
+            let entries: [SimpleEntry] = [SimpleEntry(lastThreeTask: decodedData)]
 
-        return Timeline(entries: entries, policy: .atEnd)
+            return Timeline(entries: entries, policy: .never)
+        }
+        
+        return Timeline(entries: [], policy: .never)
     }
 }
 
 struct SimpleEntry: TimelineEntry {
     let date: Date = .now
-    var lastThreeTask: [MissionModel]
+    var lastThreeTask: [DailyMissionResponseDTO]
 }
 
 struct Widget_NOTTODOEntryView: View {
@@ -37,14 +43,18 @@ struct Widget_NOTTODOEntryView: View {
     
     @ViewBuilder
     var body: some View {
-        switch self.family {
-        case .systemSmall:
-            SmallFamily(entry: SimpleEntry(lastThreeTask: MissionDataModel.shared.model))
-        default:
-            MediumFamily(entry: SimpleEntry(lastThreeTask: MissionDataModel.shared.model))
+        @AppStorage("dailyMission", store: UserDefaults.shared) var sharedData: Data = Data()
+
+        if let decodedData = try? JSONDecoder().decode([DailyMissionResponseDTO].self, from: sharedData) {
+            
+            switch self.family {
+            case .systemSmall:
+                SmallFamily(entry: SimpleEntry(lastThreeTask: decodedData))
+            default:
+                MediumFamily(entry: SimpleEntry(lastThreeTask: decodedData))
+            }
         }
     }
-    
 }
 
 struct Widget_NOTTODO: Widget {
@@ -65,5 +75,5 @@ struct Widget_NOTTODO: Widget {
 #Preview(as: .systemMedium) {
     Widget_NOTTODO()
 } timeline: {
-    SimpleEntry(lastThreeTask: MissionDataModel.shared.model)
+    SimpleEntry(lastThreeTask: [])
 }

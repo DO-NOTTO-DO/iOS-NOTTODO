@@ -10,19 +10,22 @@ import WidgetKit
 
 struct SmallFamily: View {
     var entry: Provider.Entry
+    @AppStorage("dayOfWeek", store: UserDefaults.shared) var dayOfWeek: String = ""
 
     var body: some View {
+        let progressPercent = Double(entry.lastThreeTask.filter { $0.completionStatus == .CHECKED }.count) / Double(entry.lastThreeTask.count)
+        
         VStack {
             HStack {
                 Spacer()
                 
                 ZStack {
-                    Text("월")
-                        .foregroundStyle(.white)
+                    Text(dayOfWeek)
+                        .foregroundStyle(dayOfWeek == "일" ? .wdgRed : .white)
                         .font(.custom("Pretendard", size: 13))
                         .fontWeight(.semibold)
                     
-                    CircularProgressBarView(percent: 0.5, size: 27, lineWidth: 3)
+                    CircularProgressBarView(percent: progressPercent, size: 27, lineWidth: 3)
                 }
                 
                 Text("성공하지않는거엊이ㅏ러미아러어쩌구요명어니아러나어ㅏ아아아")
@@ -34,7 +37,7 @@ struct SmallFamily: View {
                 Spacer()
             }
             .frame(maxWidth: .infinity, maxHeight: 48)
-            .background(Color(.black))
+            .background(.ntdBlack)
             
             VStack(spacing: 12) {
                 if entry.lastThreeTask.isEmpty {
@@ -47,22 +50,23 @@ struct SmallFamily: View {
                     .buttonStyle(.plain)
                     .position(x: 17, y: 12)
                 } else {
-                    ForEach(entry.lastThreeTask.prefix(3)) { task in
+                    ForEach(entry.lastThreeTask) { task in
                         HStack {
                             Button(intent: ToggleButtonIntent(id: task.id)) {
-                                Image(task.isCompleted ? .btnSmallBoxFill : .btnSmallBox)
+                                Image(task.completionStatus == .CHECKED ? .btnSmallBoxFill : .btnSmallBox)
                             }
                             .buttonStyle(.plain)
                             .frame(width: 16, height: 16)
                             
-                            Text(task.missionTitle)
-                                .foregroundStyle(.black)
+                            Text(task.title)
+                                .foregroundStyle(task.completionStatus == .CHECKED ? .gray4 : .ntdBlack)
                                 .font(.custom("Pretendard-Regular", size: 8))
                                 .fontWeight(.regular)
+                                .lineLimit(2)
                             Spacer()
                         }
                         .padding(.leading, 16)
-                        .frame(height: 20)
+                        .frame(height: 22)
                     }
                 }
             }

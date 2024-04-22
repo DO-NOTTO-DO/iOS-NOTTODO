@@ -12,6 +12,7 @@ struct MediumFamily: View {
     var entry: Provider.Entry
     
     var body: some View {
+        let progressPercent = Double(entry.lastThreeTask.filter { $0.completionStatus == .CHECKED }.count) / Double(entry.lastThreeTask.count)
         HStack {
             VStack {
                 ZStack {
@@ -19,7 +20,7 @@ struct MediumFamily: View {
                         .foregroundStyle(Color.black)
                         .font(.custom("Pretendard", size: 18))
                         .fontWeight(.semibold)
-                    CircularProgressBarView(percent: 0.5, size: 42, lineWidth: 4.34)}
+                    CircularProgressBarView(percent: progressPercent, size: 42, lineWidth: 4.34)}
                 Spacer()
             }
             .padding(.top, 14)
@@ -48,15 +49,15 @@ struct MediumFamily: View {
                         .buttonStyle(.plain)
                         .position(x: 10, y: 9)
                     } else {
-                        ForEach(entry.lastThreeTask.prefix(3)) { task in
+                        ForEach(entry.lastThreeTask) { task in
                             HStack {
                                 Button(intent: ToggleButtonIntent(id: task.id)) {
-                                    Image(task.isCompleted ? .btnMediumFill : .btnMedium)
+                                    Image(task.completionStatus == .CHECKED ? .btnMediumFill : .btnMedium)
                                 }
                                 .buttonStyle(.plain)
                                 .frame(width: 19, height: 19)
                                 
-                                Text(task.missionTitle)
+                                Text(task.title)
                                     .foregroundStyle(.gray1)
                                     .font(.custom("Pretendard-Regular", size: 11))
                                     .fontWeight(.regular)
@@ -79,5 +80,5 @@ struct MediumFamily: View {
 #Preview(as: .systemMedium) {
     Widget_NOTTODO()
 } timeline: {
-    SimpleEntry(lastThreeTask: MissionDataModel.shared.model)
+    SimpleEntry(lastThreeTask: [])
 }
