@@ -9,9 +9,9 @@ import UIKit
 
 extension UIColor {
     static let bg = UIColor(named: "bg")
-    static let ntdBlack = UIColor(named: "black")
-    static let ntdBlue = UIColor(named: "blue")
-    static let ntdRed = UIColor(named: "red")
+    static let ntdBlack = UIColor(named: "ntdBlack")
+    static let ntdBlue = UIColor(named: "ntdBlue")
+    static let ntdRed = UIColor(named: "ntdRed")
     static let gray1 = UIColor(named: "gray1")
     static let gray2 = UIColor(named: "gray2")
     static let gray3 = UIColor(named: "gray3")
@@ -23,7 +23,7 @@ extension UIColor {
     static let green1 = UIColor(named: "green1")
     static let green2 = UIColor(named: "green2")
     static let systemBlack = UIColor(named: "systemBlack")
-    static let kakaoYellow = UIColor(named: "yellow")
+    static let kakaoYellow = UIColor(named: "ntdYellow")
     static let notiBlack = UIColor(named: "notiBlack")
     static let notiGreen = UIColor(named: "notiGreen")
     static let notiBlue = UIColor(named: "notiBlue")
