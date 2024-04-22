@@ -13,7 +13,7 @@ enum CompletionStatus: String, Codable, Hashable {
 
 // MARK: - DailyMissionResponseDTO
 
-struct DailyMissionResponseDTO: Codable, Hashable {
+struct DailyMissionResponseDTO: Codable, Hashable, Identifiable {
     
     var uuid =  UUID()
     let id: Int
