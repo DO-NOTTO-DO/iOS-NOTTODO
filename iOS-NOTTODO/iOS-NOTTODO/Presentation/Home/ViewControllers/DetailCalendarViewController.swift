@@ -211,27 +211,25 @@ extension DetailCalendarViewController: FSCalendarDelegate, FSCalendarDataSource
 extension DetailCalendarViewController {
     
     private func requestAddAnotherDay(id: Int, dates: [String]) {
-        MissionService.shared.postAnotherDay(id: id, dates: dates) { response in
-            guard response != nil else { return }
-            guard let statusCode = response?.status else { return }
-            switch statusCode {
-            case 200..<204:
-                self.setUI()
-                self.coordinator?.dismiss()
-                AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.SelectDate.closeAnotherDayModal)
-                let dateFormatter = DateFormatter()
-                dateFormatter.dateFormat = "yyyy.MM.dd"
-                if let earliestDate = dateFormatter.date(from: self.anotherDate.min() ?? "") {
-                    let earliestDateString = dateFormatter.string(from: earliestDate)
-                    self.movedateClosure?(earliestDateString)
-                }
-            default:
-                self.showToast(message: self.htmlToString(response?.message ?? "")?.string ?? "", controller: self)
+        MissionService.shared.postAnotherDay(id: id, dates: dates) { err in
+            if let err = err {
+                self.showToast(message: self.htmlToString(err.message)?.string ?? "", controller: self)
                 AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.SelectDate.appearMaxedIssueMessage)
+                return
+            }
+            
+            self.setUI()
+            self.coordinator?.dismiss()
+            AmplitudeAnalyticsService.shared.send(event: AnalyticsEvent.SelectDate.closeAnotherDayModal)
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy.MM.dd"
+            if let earliestDate = dateFormatter.date(from: self.anotherDate.min() ?? "") {
+                let earliestDateString = dateFormatter.string(from: earliestDate)
+                self.movedateClosure?(earliestDateString)
             }
         }
     }
-    
+        
     func requestParticualrDatesAPI(id: Int) {
         MissionService.shared.particularMissionDates(id: id) { [weak self] response in
             guard let dates = response.data else { return }

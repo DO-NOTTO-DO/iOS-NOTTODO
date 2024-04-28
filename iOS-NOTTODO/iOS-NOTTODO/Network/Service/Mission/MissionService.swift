@@ -19,7 +19,7 @@ protocol MissionServiceProtocol {
 typealias DefaultMissionService = BaseService<MissionAPI>
 
 extension DefaultMissionService: MissionServiceProtocol {
-            
+    
     func getDailyMission(date: String) -> AnyPublisher<DailyMissionData, Error> {
         return requestWithCombine(MissionAPI.dailyMission(date: date))
     }
@@ -47,9 +47,9 @@ protocol MissionServiceType {
     func getRecentMission(completion: @escaping (RecentMissionData?) -> Void)
     func deleteMission(id: Int, completion: @escaping (GeneralResponse<VoidType>?) -> Void)
     func patchUpdateMissionStatus(id: Int, status: String, completion: @escaping (UpdateMissionStatus?) -> Void)
-    func postAnotherDay(id: Int, dates: [String], completion: @escaping (AddAnotherDay?) -> Void)
-    func postAddMission(request: AddMissionRequest, completion: @escaping(AddMissionsData?) -> Void)
-    func putUpdateMission(request: UpdateMissionRequest, completion: @escaping(UpdateMissionData?) -> Void)
+    func postAnotherDay(id: Int, dates: [String], completion: @escaping (ErrorResponse?) -> Void)
+    func postAddMission(request: AddMissionRequest, completion: @escaping(ErrorResponse?) -> Void)
+    func putUpdateMission(request: UpdateMissionRequest, completion: @escaping(ErrorResponse?) -> Void)
 }
 
 final class MissionService: MissionServiceType {
@@ -202,56 +202,92 @@ final class MissionService: MissionServiceType {
     
     // MARK: - Post
     
-    func postAnotherDay(id: Int, dates: [String], completion: @escaping (AddAnotherDay?) -> Void) {
+    func postAnotherDay(id: Int, dates: [String], completion: @escaping (ErrorResponse?) -> Void) {
         provider.request(.addAnotherDay(id: id, dates: dates)) { result in
             switch result {
             case .success(let response):
                 do {
                     let response = try response.map(AddAnotherDay?.self)
-                    completion(response)
+                    completion(nil)
                 } catch let err {
                     print(err.localizedDescription, 500)
+                    completion(nil)
                 }
             case .failure(let err):
-                print(err.localizedDescription)
-                completion(nil)
+                if let response = err.response {
+                    do {
+                        let errorResponse = try response.map(ErrorResponse.self)
+                        print("💎 Server Error 💎: \(errorResponse.message)")
+                        completion(errorResponse)
+                    } catch {
+                        print("💎 Mapping Error 💎: \(error.localizedDescription)")
+                        completion(nil)
+                    }
+                } else {
+                    print("💎 Network Error 💎: \(err.localizedDescription)")
+                    completion(nil)
+                }
             }
         }
     }
     
     func postAddMission(request: AddMissionRequest,
-                        completion: @escaping(AddMissionsData?) -> Void) {
+                        completion: @escaping(ErrorResponse?) -> Void) {
         provider.request(.addMission(request: request)) { result in
             switch result {
             case .success(let response):
                 do {
                     let response = try response.map(AddMissionsData?.self)
-                    completion(response)
+                    completion(nil)
                 } catch let err {
                     print(err.localizedDescription, 500)
+                    completion(nil)
                 }
             case .failure(let err):
                 print(err.localizedDescription)
-                completion(nil)
+                if let response = err.response {
+                    do {
+                        let errorResponse = try response.map(ErrorResponse.self)
+                        print("💎 Server Error 💎: \(errorResponse.message)")
+                        completion(errorResponse)
+                    } catch {
+                        print("💎 Mapping Error 💎: \(error.localizedDescription)")
+                        completion(nil)
+                    }
+                } else {
+                    print("💎 Network Error 💎: \(err.localizedDescription)")
+                    completion(nil)
+                }
             }
         }
     }
     
     // MARK: PUT
     
-    func putUpdateMission(request: UpdateMissionRequest, completion: @escaping(UpdateMissionData?) -> Void) {
+    func putUpdateMission(request: UpdateMissionRequest, completion: @escaping(ErrorResponse?) -> Void) {
         provider.request(.updateMission(request: request)) { result in
             switch result {
             case .success(let response):
                 do {
                     let response = try response.map(UpdateMissionData?.self)
-                    completion(response)
+                    completion(nil)
                 } catch let err {
                     print(err.localizedDescription, 500)
                 }
             case .failure(let err):
-                print(err.localizedDescription)
-                completion(nil)
+                if let response = err.response {
+                    do {
+                        let errorResponse = try response.map(ErrorResponse.self)
+                        print("💎 Server Error 💎: \(errorResponse.message)")
+                        completion(errorResponse)
+                    } catch {
+                        print("💎 Mapping Error 💎: \(error.localizedDescription)")
+                        completion(nil)
+                    }
+                } else {
+                    print("💎 Network Error 💎: \(err.localizedDescription)")
+                    completion(nil)
+                }
             }
         }
     }
