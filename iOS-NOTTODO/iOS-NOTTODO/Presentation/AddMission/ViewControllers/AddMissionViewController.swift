@@ -280,49 +280,47 @@ extension AddMissionViewController {
     private func requestPostAddMission(title: String, situation: String,
                                        actions: [String]?, goal: String?, dates: [String]?) {
         let request = AddMissionRequest(title: title, situation: situation, actions: actions, goal: goal, dates: dates ?? [""])
-        MissionService.shared.postAddMission(request: request) { response in
-            guard let response = response else { return }
-            switch response.status {
-            case 200..<300:
-                AmplitudeAnalyticsService.shared.send(
-                    event: AnalyticsEvent.CreateMission.completeCreateMission(
-                        date: dates ?? [],
-                        goal: goal ?? "",
-                        title: title,
-                        situation: situation,
-                        action: actions ?? []
-                    )
-                )
-                self.coordinator?.dismiss()
-            default:
-                let toastMessage = self.htmlToString(response.message ?? "")?.string ?? ""
+        MissionService.shared.postAddMission(request: request) { err in
+            if let err = err {
+                let toastMessage = self.htmlToString(err.message)?.string ?? ""
                 self.checkToastMessage(toastMessage)
                 self.showToast(message: toastMessage, controller: self)
+                return
             }
+            
+            AmplitudeAnalyticsService.shared.send(
+                event: AnalyticsEvent.CreateMission.completeCreateMission(
+                    date: dates ?? [],
+                    goal: goal ?? "",
+                    title: title,
+                    situation: situation,
+                    action: actions ?? []
+                )
+            )
+            self.coordinator?.dismiss()
+            
         }
     }
     
     private func requestPutUpdateMission(id: Int, title: String, situation: String, actions: [String]?, goal: String?) {
         let request = UpdateMissionRequest(id: id, title: title, situation: situation, actions: actions, goal: goal)
-        MissionService.shared.putUpdateMission(request: request) { response in
-            guard let response = response else { return }
-            print(response.status)
-            switch response.status {
-            case 200..<300:
-                AmplitudeAnalyticsService.shared.send(
-                    event: AnalyticsEvent.UpdateMission.completeUpdateMission(
-                        date: self.dateList,
-                        goal: self.nottodoInfoList[4],
-                        title: self.nottodoInfoList[1],
-                        situation: self.nottodoInfoList[2],
-                        action: self.nottodoInfoList[3])
-                )
-                self.coordinator?.dismiss()
-            default:
-                let toastMessage = self.htmlToString(response.message ?? "")?.string ?? ""
+        MissionService.shared.putUpdateMission(request: request) { err in
+            if let err = err {
+                let toastMessage = self.htmlToString(err.message)?.string ?? ""
                 self.checkToastMessage(toastMessage)
                 self.showToast(message: toastMessage, controller: self)
+                return
             }
+            
+            AmplitudeAnalyticsService.shared.send(
+                event: AnalyticsEvent.UpdateMission.completeUpdateMission(
+                    date: self.dateList,
+                    goal: self.nottodoInfoList[4],
+                    title: self.nottodoInfoList[1],
+                    situation: self.nottodoInfoList[2],
+                    action: self.nottodoInfoList[3])
+            )
+            self.coordinator?.dismiss()
         }
     }
     
