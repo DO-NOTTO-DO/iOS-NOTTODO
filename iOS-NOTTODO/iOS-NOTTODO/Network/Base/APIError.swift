@@ -7,7 +7,7 @@
 
 import Foundation
 
-public enum APIError: Error, Equatable {
+enum APIError: Error, Equatable {
     case network(statusCode: Int, response: ErrorResponse)
     case unknown
     case tokenReissuanceFailed
