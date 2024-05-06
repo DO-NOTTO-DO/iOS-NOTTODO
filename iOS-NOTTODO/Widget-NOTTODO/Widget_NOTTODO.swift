@@ -65,8 +65,8 @@ struct Widget_NOTTODO: Widget {
             Widget_NOTTODOEntryView(entry: entry)
                 .containerBackground(.fill.tertiary, for: .widget)
         }
-        .configurationDisplayName("낫투두 위젯")
-        .description("낫투두 위젯입니다.")
+        .configurationDisplayName("오늘의 낫투두")
+        .description("오늘 실천할 낫투두를 확인하고 명언을 통해 동기부여를 얻을 수 있어요")
         .contentMarginsDisabled()
         .supportedFamilies([.systemSmall, .systemMedium])
     }
