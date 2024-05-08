@@ -130,6 +130,12 @@ final class HomeDataSource {
         
         currentSection = newSections
         dataSource?.apply(snapshot)
+
+        if let firstMissionDate = missionList.first?.date, !missionList.isEmpty {
+            if firstMissionDate == Utils.dateFormatterString(format: nil, date: Date()) {
+                UserDefaults.shared?.setSharedCustomArray(missionList, forKey: "dailyMission")
+            }
+        }
     }
     
     private func createLayout() -> UICollectionViewLayout {

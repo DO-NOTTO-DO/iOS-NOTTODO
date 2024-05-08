@@ -120,7 +120,6 @@
 		3B3105DA2BCBF70600964025 /* AppIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3105D92BCBF70600964025 /* AppIntent.swift */; };
 		3B3105DC2BCBF70700964025 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3B3105DB2BCBF70700964025 /* Assets.xcassets */; };
 		3B3105E02BCBF70700964025 /* Widget-NOTTODOExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 3B3105D12BCBF70600964025 /* Widget-NOTTODOExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		3B3105E82BCBFF4000964025 /* MissionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3105E42BCBFC2B00964025 /* MissionModel.swift */; };
 		3B3105E92BCC00D800964025 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3B027AAB299C35E500BEB65C /* Colors.xcassets */; };
 		3B3105EB2BCC022500964025 /* UIFont+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B027A93299C340600BEB65C /* UIFont+.swift */; };
 		3B37AE2929C8821600AB7587 /* GoalCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B37AE2829C8821600AB7587 /* GoalCollectionViewCell.swift */; };
@@ -347,7 +346,6 @@
 		3B3105D92BCBF70600964025 /* AppIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIntent.swift; sourceTree = "<group>"; };
 		3B3105DB2BCBF70700964025 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3B3105DD2BCBF70700964025 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		3B3105E42BCBFC2B00964025 /* MissionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionModel.swift; sourceTree = "<group>"; };
 		3B37AE2829C8821600AB7587 /* GoalCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalCollectionViewCell.swift; sourceTree = "<group>"; };
 		3B37AE2A29C8904800AB7587 /* RecommendKeywordCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendKeywordCollectionViewCell.swift; sourceTree = "<group>"; };
 		3B3EF2F72AF35C90001F79BC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -1040,7 +1038,6 @@
 				3B3105D52BCBF70600964025 /* Widget_NOTTODOBundle.swift */,
 				3B3105D72BCBF70600964025 /* Widget_NOTTODO.swift */,
 				3B3105D92BCBF70600964025 /* AppIntent.swift */,
-				3B3105E42BCBFC2B00964025 /* MissionModel.swift */,
 			);
 			path = "Widget-NOTTODO";
 			sourceTree = "<group>";
@@ -1695,7 +1692,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				3BB5CFE82BD1978E006326B5 /* MediumFamily.swift in Sources */,
-				3B3105E82BCBFF4000964025 /* MissionModel.swift in Sources */,
 				3B3105D62BCBF70600964025 /* Widget_NOTTODOBundle.swift in Sources */,
 				3BB591302BD3B343003FB77C /* DailyMissionResponseDTO.swift in Sources */,
 				3B706A6D2BD5771100CD6C74 /* UserDefaults+.swift in Sources */,

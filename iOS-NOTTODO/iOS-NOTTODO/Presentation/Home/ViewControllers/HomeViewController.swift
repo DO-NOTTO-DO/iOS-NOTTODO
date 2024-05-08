@@ -10,7 +10,6 @@ import UIKit
 import FSCalendar
 import SnapKit
 import Then
-import WidgetKit
 
 final class HomeViewController: UIViewController {
     
@@ -247,9 +246,8 @@ extension HomeViewController {
             self.missionList = data
             self.missionDataSource.updateSnapShot(missionList: data)
             
-            if Utils.dateFormatterString(format: nil, date: today) == date {
-                UserDefaults.shared?.setSharedCustomArray(data, forKey: "dailyMission")
-                UserDefaults.shared?.set(getDayOfWeek(date: today), forKey: "dayOfWeek")
+            if Utils.dateFormatterString(format: nil, date: today) == date && missionList.isEmpty {
+                UserDefaults.shared?.setSharedCustomArray(missionList, forKey: "dailyMission")
             }
         }
     }
