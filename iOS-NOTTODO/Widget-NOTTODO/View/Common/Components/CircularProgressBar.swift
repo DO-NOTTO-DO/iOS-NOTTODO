@@ -22,7 +22,7 @@ struct CircularProgressBarView: View {
                 .foregroundColor(.gray3)
             
             Circle()
-                .trim(from: 0, to: percent)
+                .trim(from: 0, to: 0 < percent && percent < 1 ? 0.5 : percent)
                 .stroke(style: StrokeStyle(lineWidth: lineWidth, lineCap: .butt))
                 .frame(width: size, height: size)
                 .foregroundColor(.green2)
