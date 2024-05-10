@@ -167,7 +167,15 @@
 		3BC1A27429C9AF500088376B /* MissionHistoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC1A27329C9AF500088376B /* MissionHistoryCollectionViewCell.swift */; };
 		3BC1A27929C9BE6C0088376B /* AddMissionFooterCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC1A27829C9BE6C0088376B /* AddMissionFooterCollectionReusableView.swift */; };
 		3BD3B5C829B8F82C00D3575B /* AddMissionTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD3B5C729B8F82C00D3575B /* AddMissionTextFieldView.swift */; };
+		3BEC83AA2BEDF65000632FA0 /* GeneralResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CF4705E29A69025008D145C /* GeneralResponse.swift */; };
+		3BEC83AE2BEE06B900632FA0 /* QuoteResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BEC83AC2BEDF73A00632FA0 /* QuoteResponseDTO.swift */; };
+		3BEC83AF2BEE06BD00632FA0 /* WidgetService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BEC83A52BEDF3DE00632FA0 /* WidgetService.swift */; };
 		3BEEBE972A4B048A0081C936 /* NottodoToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BEEBE962A4B048A0081C936 /* NottodoToastView.swift */; };
+		3BF8C68F2BEE6FCE0003D8FE /* NetworkResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CF4706229A690CD008D145C /* NetworkResult.swift */; };
+		3BF8C6912BEE70CF0003D8FE /* NetworkBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CF4706429A690E5008D145C /* NetworkBase.swift */; };
+		3BF8C6952BEE74A40003D8FE /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BF8C6932BEE746D0003D8FE /* NetworkError.swift */; };
+		3BF8C6992BEE79830003D8FE /* TimeEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BF8C6972BEE795E0003D8FE /* TimeEntity.swift */; };
+		3BF8C69C2BEE7ACF0003D8FE /* MissionProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BF8C69A2BEE7ABB0003D8FE /* MissionProvider.swift */; };
 		6C049A312A595C670085E40B /* logo.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 6C049A302A595C670085E40B /* logo.mp4 */; };
 		6C16015829C40112005AE3F5 /* AuthButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C16015729C40112005AE3F5 /* AuthButtonView.swift */; };
 		6C16015C29C56DBA005AE3F5 /* MyInfoAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C16015B29C56DBA005AE3F5 /* MyInfoAccountViewController.swift */; };
@@ -384,7 +392,12 @@
 		3BC1A27829C9BE6C0088376B /* AddMissionFooterCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMissionFooterCollectionReusableView.swift; sourceTree = "<group>"; };
 		3BD3B5C729B8F82C00D3575B /* AddMissionTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMissionTextFieldView.swift; sourceTree = "<group>"; };
 		3BDE6157299EDD02001CCEA9 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
+		3BEC83A52BEDF3DE00632FA0 /* WidgetService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetService.swift; sourceTree = "<group>"; };
+		3BEC83AC2BEDF73A00632FA0 /* QuoteResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteResponseDTO.swift; sourceTree = "<group>"; };
 		3BEEBE962A4B048A0081C936 /* NottodoToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NottodoToastView.swift; sourceTree = "<group>"; };
+		3BF8C6932BEE746D0003D8FE /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
+		3BF8C6972BEE795E0003D8FE /* TimeEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeEntity.swift; sourceTree = "<group>"; };
+		3BF8C69A2BEE7ABB0003D8FE /* MissionProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionProvider.swift; sourceTree = "<group>"; };
 		6C049A302A595C670085E40B /* logo.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = logo.mp4; sourceTree = "<group>"; };
 		6C16015729C40112005AE3F5 /* AuthButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthButtonView.swift; sourceTree = "<group>"; };
 		6C16015B29C56DBA005AE3F5 /* MyInfoAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInfoAccountViewController.swift; sourceTree = "<group>"; };
@@ -1030,11 +1043,12 @@
 		3B3105D42BCBF70600964025 /* Widget-NOTTODO */ = {
 			isa = PBXGroup;
 			children = (
+				3BF8C6962BEE79510003D8FE /* Provider */,
+				3BEC83A32BEDF3BF00632FA0 /* Network */,
 				3BB4A51D2BD246A600900C86 /* Widget-NOTTODOExtension.entitlements */,
 				3B857AD32BD589B700CEB1D5 /* Widget-NOTTODOExtensionRelease.entitlements */,
 				3BB5CFE22BD195FA006326B5 /* View */,
 				3BAFA5142BCFC5F4007569DD /* Resource */,
-				3B3105EE2BCC16FA00964025 /* Common */,
 				3B3105D52BCBF70600964025 /* Widget_NOTTODOBundle.swift */,
 				3B3105D72BCBF70600964025 /* Widget_NOTTODO.swift */,
 				3B3105D92BCBF70600964025 /* AppIntent.swift */,
@@ -1208,6 +1222,7 @@
 		3BB5CFE22BD195FA006326B5 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				3B3105EE2BCC16FA00964025 /* Common */,
 				3BB5CFE32BD19609006326B5 /* SmallFamily.swift */,
 				3BB5CFE62BD1978C006326B5 /* MediumFamily.swift */,
 			);
@@ -1222,12 +1237,55 @@
 			path = AddMissionTextFieldView;
 			sourceTree = "<group>";
 		};
+		3BEC83A32BEDF3BF00632FA0 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				3BF8C6922BEE744D0003D8FE /* Base */,
+				3BEC83AB2BEDF71A00632FA0 /* DataModel */,
+				3BEC83A42BEDF3D100632FA0 /* Service */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		3BEC83A42BEDF3D100632FA0 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				3BEC83A52BEDF3DE00632FA0 /* WidgetService.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		3BEC83AB2BEDF71A00632FA0 /* DataModel */ = {
+			isa = PBXGroup;
+			children = (
+				3BEC83AC2BEDF73A00632FA0 /* QuoteResponseDTO.swift */,
+			);
+			path = DataModel;
+			sourceTree = "<group>";
+		};
 		3BEEBE952A4AF6840081C936 /* Toast */ = {
 			isa = PBXGroup;
 			children = (
 				3BEEBE962A4B048A0081C936 /* NottodoToastView.swift */,
 			);
 			path = Toast;
+			sourceTree = "<group>";
+		};
+		3BF8C6922BEE744D0003D8FE /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				3BF8C6932BEE746D0003D8FE /* NetworkError.swift */,
+			);
+			path = Base;
+			sourceTree = "<group>";
+		};
+		3BF8C6962BEE79510003D8FE /* Provider */ = {
+			isa = PBXGroup;
+			children = (
+				3BF8C6972BEE795E0003D8FE /* TimeEntity.swift */,
+				3BF8C69A2BEE7ABB0003D8FE /* MissionProvider.swift */,
+			);
+			path = Provider;
 			sourceTree = "<group>";
 		};
 		6C16015929C56CE8005AE3F5 /* MyInfoAccount */ = {
@@ -1698,11 +1756,19 @@
 				3B2AA7E52BD62D1200725457 /* URLConstant.swift in Sources */,
 				3B3105EB2BCC022500964025 /* UIFont+.swift in Sources */,
 				3B3105D82BCBF70600964025 /* Widget_NOTTODO.swift in Sources */,
+				3BF8C68F2BEE6FCE0003D8FE /* NetworkResult.swift in Sources */,
+				3BF8C6912BEE70CF0003D8FE /* NetworkBase.swift in Sources */,
 				3BB5CFEC2BD1A04D006326B5 /* HorizontalDivider.swift in Sources */,
 				3BB5912E2BD3B212003FB77C /* Bundle+.swift in Sources */,
 				3BAFA51A2BD01C2C007569DD /* CircularProgressBar.swift in Sources */,
+				3BEC83AA2BEDF65000632FA0 /* GeneralResponse.swift in Sources */,
 				3B3105DA2BCBF70600964025 /* AppIntent.swift in Sources */,
+				3BF8C6992BEE79830003D8FE /* TimeEntity.swift in Sources */,
+				3BEC83AF2BEE06BD00632FA0 /* WidgetService.swift in Sources */,
+				3BF8C6952BEE74A40003D8FE /* NetworkError.swift in Sources */,
+				3BF8C69C2BEE7ACF0003D8FE /* MissionProvider.swift in Sources */,
 				3BB5CFE52BD19639006326B5 /* SmallFamily.swift in Sources */,
+				3BEC83AE2BEE06B900632FA0 /* QuoteResponseDTO.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

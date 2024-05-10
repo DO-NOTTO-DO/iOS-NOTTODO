@@ -35,5 +35,5 @@ struct CircularProgressBarView: View {
 #Preview(as: .systemSmall) {
     Widget_NOTTODO()
 } timeline: {
-    SimpleEntry(lastThreeTask: [])
+    SimpleEntry(todayMission: [], quote: "")
 }

@@ -34,4 +34,8 @@ struct URLConstant {
     // MARK: - AddMission
     
     static let recentMission = "/recent"
+    
+    // MARK: - Widget
+    
+    static let quote = "/quote/random"
 }
