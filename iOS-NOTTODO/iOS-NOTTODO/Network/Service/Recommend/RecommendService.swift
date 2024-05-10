@@ -46,7 +46,7 @@ final class RecommendService: RecommendServiceType {
         }
     }
     
-    func getRecommendAction(index: Int, completion: @escaping (GeneralResponse<RecommendActionResponseDTO>?) -> Void) {
+    func getRecommendAction(index: Int, completion: @escaping (ActionData?) -> Void) {
         provider.request(.action(id: index)) { result in
             switch result {
             case .success(let response):
