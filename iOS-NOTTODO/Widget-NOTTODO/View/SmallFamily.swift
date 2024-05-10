@@ -13,7 +13,7 @@ struct SmallFamily: View {
     @AppStorage("dayOfWeek", store: UserDefaults.shared) var dayOfWeek: String = ""
 
     var body: some View {
-        let progressPercent = Double(entry.lastThreeTask.filter { $0.completionStatus == .CHECKED }.count) / Double(entry.lastThreeTask.count)
+        let progressPercent = Double(entry.todayMission.filter { $0.completionStatus == .CHECKED }.count) / Double(entry.todayMission.count)
         
         VStack {
             HStack {
@@ -28,11 +28,12 @@ struct SmallFamily: View {
                     CircularProgressBarView(percent: progressPercent, size: 27, lineWidth: 3)
                 }
                 
-                Text("성공하지않는거엊이ㅏ러미아러어쩌구요명어니아러나어ㅏ아아아")
+                Text(entry.quote)
                     .foregroundStyle(.white)
                     .font(.custom("Pretendard", size: 7))
                     .fontWeight(.regular)
                     .lineLimit(2)
+                    .frame(maxWidth: .infinity, alignment: .leading)
                 
                 Spacer()
             }
@@ -40,7 +41,7 @@ struct SmallFamily: View {
             .background(.ntdBlack)
             
             VStack(spacing: 12) {
-                if entry.lastThreeTask.isEmpty {
+                if entry.todayMission.isEmpty {
                     Button(action: {
                         print("앱으로 이동")
                     }, label: {
@@ -50,7 +51,7 @@ struct SmallFamily: View {
                     .buttonStyle(.plain)
                     .position(x: 17, y: 12)
                 } else {
-                    ForEach(entry.lastThreeTask) { task in
+                    ForEach(entry.todayMission) { task in
                         HStack {
                             Button(intent: ToggleButtonIntent(id: task.id)) {
                                 Image(task.completionStatus == .CHECKED ? .btnSmallBoxFill : .btnSmallBox)

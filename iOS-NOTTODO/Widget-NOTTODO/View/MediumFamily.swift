@@ -13,7 +13,7 @@ struct MediumFamily: View {
     @AppStorage("dayOfWeek", store: UserDefaults.shared) var dayOfWeek: String = ""
     
     var body: some View {
-        let progressPercent = Double(entry.lastThreeTask.filter { $0.completionStatus == .CHECKED }.count) / Double(entry.lastThreeTask.count)
+        let progressPercent = Double(entry.todayMission.filter { $0.completionStatus == .CHECKED }.count) / Double(entry.todayMission.count)
         HStack {
             VStack {
                 ZStack {
@@ -28,19 +28,20 @@ struct MediumFamily: View {
             .padding(.leading, 17)
             
             VStack {
-                Text("성공한상위십퍼센트는하하글자수가과연어디까지일까요하하하먼저하지말아야할어쩌구저쩌구")
+                Text(entry.quote)
                     .foregroundStyle(.gray3)
                     .font(.custom("Pretendard", size: 10))
                     .fontWeight(.regular)
                     .lineLimit(2)
                     .padding(.horizontal, 12)
                     .padding(.top, 18)
+                    .frame(maxWidth: .infinity, maxHeight: 51, alignment: .leading)
                 
                 HorizontalDivider(color: .gray5)
                     .padding(.top, 6)
                 
                 VStack(spacing: 9) {
-                    if entry.lastThreeTask.isEmpty {
+                    if entry.todayMission.isEmpty {
                         Button(action: {
                             print("앱으로 이동")
                         }, label: {
@@ -50,7 +51,7 @@ struct MediumFamily: View {
                         .buttonStyle(.plain)
                         .position(x: 10, y: 9)
                     } else {
-                        ForEach(entry.lastThreeTask) { task in
+                        ForEach(entry.todayMission) { task in
                             HStack {
                                 Button(intent: ToggleButtonIntent(id: task.id)) {
                                     Image(task.completionStatus == .CHECKED ? .btnMediumFill : .btnMedium)
@@ -82,5 +83,5 @@ struct MediumFamily: View {
 #Preview(as: .systemMedium) {
     Widget_NOTTODO()
 } timeline: {
-    SimpleEntry(lastThreeTask: [])
+    SimpleEntry(todayMission: [], quote: "")
 }
