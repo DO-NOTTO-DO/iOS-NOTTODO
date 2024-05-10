@@ -10,7 +10,6 @@ import WidgetKit
 
 struct SmallFamily: View {
     var entry: Provider.Entry
-    @AppStorage("dayOfWeek", store: UserDefaults.shared) var dayOfWeek: String = ""
 
     var body: some View {
         let progressPercent = Double(entry.todayMission.filter { $0.completionStatus == .CHECKED }.count) / Double(entry.todayMission.count)
@@ -20,8 +19,8 @@ struct SmallFamily: View {
                 Spacer()
                 
                 ZStack {
-                    Text(dayOfWeek)
-                        .foregroundStyle(dayOfWeek == "일" ? .wdgRed : .white)
+                    Text(entry.dayOfWeek)
+                        .foregroundStyle(entry.dayOfWeek == "일" ? .wdgRed : .white)
                         .font(.custom("Pretendard", size: 13))
                         .fontWeight(.semibold)
                     

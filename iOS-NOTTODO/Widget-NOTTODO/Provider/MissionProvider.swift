@@ -10,37 +10,46 @@ import WidgetKit
 
 struct Provider: AppIntentTimelineProvider {
     @AppStorage("dailyMission", store: UserDefaults.shared) var sharedData: Data = Data()
+    @AppStorage("quote", store: UserDefaults.shared) var quote: String = ""
     
     func placeholder(in context: Context) -> SimpleEntry {
         SimpleEntry(todayMission: [], quote: "")
     }
- 
+    
     func snapshot(for configuration: ConfigurationAppIntent, in context: Context) async -> SimpleEntry {
         do {
-            let entry = try await getTimelineEntry()
-            return entry
+            try await getQuote()
         } catch {
             return SimpleEntry(todayMission: [], quote: "")
         }
+        return SimpleEntry(todayMission: [], quote: quote)
     }
     
     func timeline(for configuration: ConfigurationAppIntent, in context: Context) async -> Timeline<SimpleEntry> {
         do {
-            let entry = try await getTimelineEntry()
-            return Timeline(entries: [entry], policy: .never)
+            let now = Date()
+            let tomorrow = Calendar.current.date(byAdding: .day, value: 1, to: now) ?? now
+            let midnightTomorrow = Calendar.current.startOfDay(for: tomorrow)
+            let midnightToday = Calendar.current.startOfDay(for: now)
+            
+            if now == midnightToday {
+                try await getQuote()
+            }
+            
+            guard let decodedData = try? JSONDecoder().decode([DailyMissionResponseDTO].self, from: sharedData) else {
+                return Timeline(entries: [], policy: .never)
+            }
+            
+            let entry = SimpleEntry(todayMission: decodedData, quote: quote)
+            return Timeline(entries: [entry], policy: .after(midnightTomorrow))
         } catch {
             return Timeline(entries: [], policy: .never)
         }
         
     }
     
-    private func getTimelineEntry() async throws -> SimpleEntry {
-        guard let decodedData = try? JSONDecoder().decode([DailyMissionResponseDTO].self, from: sharedData) else { 
-            return SimpleEntry(todayMission: [], quote: "")
-        }
-        
+    private func getQuote() async throws {
         let quoteResponse = try await WidgetService.shared.fetchWiseSaying()
-        let quote = quoteResponse.description + " - " + quoteResponse.author
-        return SimpleEntry(todayMission: decodedData, quote: quote)
+        quote = quoteResponse.description + " - " + quoteResponse.author
     }
 }
