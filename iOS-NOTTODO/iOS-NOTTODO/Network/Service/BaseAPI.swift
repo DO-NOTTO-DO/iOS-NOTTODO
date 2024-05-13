@@ -60,10 +60,9 @@ public enum HeaderType {
     public var value: [String: String] {
         switch self {
         case .json:
-            return ["Content-Type": "application/json"]
+            return NetworkConstant.noTokenHeader
         case .jsonWithToken:
-            return ["Content-Type": "application/json",
-                    "Authorization": "\(KeychainUtil.getAccessToken())"]
+            return NetworkConstant.hasTokenHeader
         }
     }
 }
