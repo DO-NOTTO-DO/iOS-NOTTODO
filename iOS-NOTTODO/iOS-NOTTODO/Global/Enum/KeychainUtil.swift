@@ -14,6 +14,7 @@ public final class KeychainUtil {
     }
     static func setAccessToken(_ token: String) {
         UserDefaults.standard.setValue(token, forKey: DefaultKeys.accessToken)
+        UserDefaults.shared?.setValue(token, forKey: DefaultKeys.accessToken)
     }
     static func setFcmToken(_ token: String) {
         UserDefaults.standard.setValue(token, forKey: DefaultKeys.fcmToken)
