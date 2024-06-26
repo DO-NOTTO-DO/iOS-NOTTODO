@@ -122,6 +122,9 @@
 		3B3105E02BCBF70700964025 /* Widget-NOTTODOExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 3B3105D12BCBF70600964025 /* Widget-NOTTODOExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		3B3105E92BCC00D800964025 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3B027AAB299C35E500BEB65C /* Colors.xcassets */; };
 		3B3105EB2BCC022500964025 /* UIFont+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B027A93299C340600BEB65C /* UIFont+.swift */; };
+		3B35F57C2BF091A60050D450 /* NetworkConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CF4706029A69096008D145C /* NetworkConstant.swift */; };
+		3B35F57D2BF093120050D450 /* KeychainUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0960C0D32A38BC6500A3D8DB /* KeychainUtil.swift */; };
+		3B35F5822BF0A4770050D450 /* Formatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B35F5802BF0A36F0050D450 /* Formatter.swift */; };
 		3B37AE2929C8821600AB7587 /* GoalCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B37AE2829C8821600AB7587 /* GoalCollectionViewCell.swift */; };
 		3B37AE2B29C8904800AB7587 /* RecommendKeywordCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B37AE2A29C8904800AB7587 /* RecommendKeywordCollectionViewCell.swift */; };
 		3B3EF2F82AF35C90001F79BC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3B3EF2F72AF35C90001F79BC /* GoogleService-Info.plist */; };
@@ -147,6 +150,7 @@
 		3B80B5D72B7F30E200697250 /* Numbers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B80B5D62B7F30E200697250 /* Numbers.swift */; };
 		3B892ABB2A2FBD4C00A316BC /* RecommendSituationResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B892ABA2A2FBD4C00A316BC /* RecommendSituationResponseDTO.swift */; };
 		3B9532F42A284CC1006510F8 /* ModalProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9532F32A284CC1006510F8 /* ModalProtocol.swift */; };
+		3B99131C2BF08B5B00FA9328 /* DefaultKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0960C0D52A38BC8100A3D8DB /* DefaultKeys.swift */; };
 		3B999D0C2BAEC24100E562EE /* FirebaseRemoteConfig in Frameworks */ = {isa = PBXBuildFile; productRef = 3B999D0B2BAEC24100E562EE /* FirebaseRemoteConfig */; };
 		3B999D0E2BAEC24800E562EE /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 3B999D0D2BAEC24800E562EE /* FirebaseMessaging */; };
 		3BAFA50F2BCFBF1F007569DD /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3B4E12F92A27C4DD001D1EC1 /* Pretendard-Bold.otf */; };
@@ -354,6 +358,7 @@
 		3B3105D92BCBF70600964025 /* AppIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIntent.swift; sourceTree = "<group>"; };
 		3B3105DB2BCBF70700964025 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3B3105DD2BCBF70700964025 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3B35F5802BF0A36F0050D450 /* Formatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Formatter.swift; sourceTree = "<group>"; };
 		3B37AE2829C8821600AB7587 /* GoalCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalCollectionViewCell.swift; sourceTree = "<group>"; };
 		3B37AE2A29C8904800AB7587 /* RecommendKeywordCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendKeywordCollectionViewCell.swift; sourceTree = "<group>"; };
 		3B3EF2F72AF35C90001F79BC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -1043,6 +1048,7 @@
 		3B3105D42BCBF70600964025 /* Widget-NOTTODO */ = {
 			isa = PBXGroup;
 			children = (
+				3B35F57E2BF0A34D0050D450 /* Global */,
 				3BF8C6962BEE79510003D8FE /* Provider */,
 				3BEC83A32BEDF3BF00632FA0 /* Network */,
 				3BB4A51D2BD246A600900C86 /* Widget-NOTTODOExtension.entitlements */,
@@ -1071,6 +1077,22 @@
 				3BB5CFEB2BD1A04D006326B5 /* HorizontalDivider.swift */,
 			);
 			path = Components;
+			sourceTree = "<group>";
+		};
+		3B35F57E2BF0A34D0050D450 /* Global */ = {
+			isa = PBXGroup;
+			children = (
+				3B35F57F2BF0A3610050D450 /* Extensions */,
+			);
+			path = Global;
+			sourceTree = "<group>";
+		};
+		3B35F57F2BF0A3610050D450 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				3B35F5802BF0A36F0050D450 /* Formatter.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		3B3C89DB29C0EF6A00B1D56D /* Models */ = {
@@ -1755,8 +1777,10 @@
 				3B706A6D2BD5771100CD6C74 /* UserDefaults+.swift in Sources */,
 				3B2AA7E52BD62D1200725457 /* URLConstant.swift in Sources */,
 				3B3105EB2BCC022500964025 /* UIFont+.swift in Sources */,
+				3B35F5822BF0A4770050D450 /* Formatter.swift in Sources */,
 				3B3105D82BCBF70600964025 /* Widget_NOTTODO.swift in Sources */,
 				3BF8C68F2BEE6FCE0003D8FE /* NetworkResult.swift in Sources */,
+				3B99131C2BF08B5B00FA9328 /* DefaultKeys.swift in Sources */,
 				3BF8C6912BEE70CF0003D8FE /* NetworkBase.swift in Sources */,
 				3BB5CFEC2BD1A04D006326B5 /* HorizontalDivider.swift in Sources */,
 				3BB5912E2BD3B212003FB77C /* Bundle+.swift in Sources */,
@@ -1766,6 +1790,8 @@
 				3BF8C6992BEE79830003D8FE /* TimeEntity.swift in Sources */,
 				3BEC83AF2BEE06BD00632FA0 /* WidgetService.swift in Sources */,
 				3BF8C6952BEE74A40003D8FE /* NetworkError.swift in Sources */,
+				3B35F57C2BF091A60050D450 /* NetworkConstant.swift in Sources */,
+				3B35F57D2BF093120050D450 /* KeychainUtil.swift in Sources */,
 				3BF8C69C2BEE7ACF0003D8FE /* MissionProvider.swift in Sources */,
 				3BB5CFE52BD19639006326B5 /* SmallFamily.swift in Sources */,
 				3BEC83AE2BEE06B900632FA0 /* QuoteResponseDTO.swift in Sources */,
