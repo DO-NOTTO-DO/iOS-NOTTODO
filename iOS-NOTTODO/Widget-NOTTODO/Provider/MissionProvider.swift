@@ -13,7 +13,7 @@ struct Provider: AppIntentTimelineProvider {
     @AppStorage("quote", store: UserDefaults.shared) var quote: String = ""
     
     func placeholder(in context: Context) -> SimpleEntry {
-        SimpleEntry(todayMission: [], quote: "")
+        SimpleEntry(todayMission: [], quote: quote)
     }
     
     func snapshot(for configuration: ConfigurationAppIntent, in context: Context) async -> SimpleEntry {
@@ -34,6 +34,7 @@ struct Provider: AppIntentTimelineProvider {
             
             if now == midnightToday {
                 try await getQuote()
+                try await getDailyMission(date: Formatter.dateFormatterString(format: nil, date: now))
             }
             
             guard let decodedData = try? JSONDecoder().decode([DailyMissionResponseDTO].self, from: sharedData) else {
@@ -51,5 +52,10 @@ struct Provider: AppIntentTimelineProvider {
     private func getQuote() async throws {
         let quoteResponse = try await WidgetService.shared.fetchWiseSaying()
         quote = quoteResponse.description + " - " + quoteResponse.author
+    }
+    
+    private func getDailyMission(date: String) async throws {
+        let dailyMission = try await WidgetService.shared.fetchDailyMissoin(date: date)
+        UserDefaults.shared?.setSharedCustomArray(dailyMission, forKey: "dailyMission")
     }
 }
