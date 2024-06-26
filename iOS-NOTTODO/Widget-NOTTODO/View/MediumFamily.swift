@@ -52,7 +52,7 @@ struct MediumFamily: View {
                     } else {
                         ForEach(entry.todayMission) { task in
                             HStack {
-                                Button(intent: ToggleButtonIntent(id: task.id)) {
+                                Button(intent: ToggleButtonIntent(id: task.id, status: task.completionStatus.rawValue)) {
                                     Image(task.completionStatus == .CHECKED ? .btnMediumFill : .btnMedium)
                                 }
                                 .buttonStyle(.plain)

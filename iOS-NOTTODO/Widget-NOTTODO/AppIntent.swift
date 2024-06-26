@@ -16,18 +16,19 @@ struct ToggleButtonIntent: AppIntent {
     static var title: LocalizedStringResource = .init(stringLiteral: "Mission's State")
     
     @Parameter(title: "Mission ID")
-    var id: String
+    var id: Int
+    
+    @Parameter(title: "Mission status")
+    var status: String
     
     init() { }
-    init(id: String) {
+    init(id: Int, status: String) {
         self.id = id
+        self.status = status == CompletionStatus.UNCHECKED.rawValue ? CompletionStatus.CHECKED.rawValue : CompletionStatus.UNCHECKED.rawValue
     }
     
     func perform() async throws -> some IntentResult {
-        if let index = MissionDataModel.shared.model.firstIndex(where: {$0.id == id}) {
-            MissionDataModel.shared.model[index].isCompleted.toggle()
-        }
+        _ = try await WidgetService.shared.updateMission(id: id, status: status)
         return .result()
     }
-    
 }
