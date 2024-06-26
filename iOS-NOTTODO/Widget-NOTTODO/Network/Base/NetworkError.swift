@@ -11,4 +11,7 @@ enum NetworkError: Error {
     case invalidResponse
     case networkError
     case dataParsingError
+    case invalidRequestParameters
+    case encodingFailed
+    case internalError(message: String)
 }
